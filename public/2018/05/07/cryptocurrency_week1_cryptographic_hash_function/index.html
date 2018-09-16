@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head><head>
+    <meta name="google-site-verification" content="9vIieCe-Qpd78QOmBl63rGtIVbhY6sYyuxX3j8XWBA4" />
+    <meta name="baidu-site-verification" content="LRrmH41lz7" />
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <meta name="description" content="Hash function can produce a fixed lenght digest of any size of data, and the original data can not be found out if it&#39;s properly used.">
+    
+    <meta name="keyword"  content="赵化冰, zhaohuabing, Zhaohuabing, , 赵化冰的网络日志, 赵化冰的博客, Zhaohuabing Blog, 博客, 个人网站, 互联网, Web, 云原生, PaaS, Istio, Kubernetes, 微服务, Microservice">
+    <link rel="shortcut icon" href="img/favicon.ico">
+
+    <title>Cryptographic Hash Function-赵化冰的博客 | Zhaohuabing Blog</title>
+
+    <link rel="canonical" href="/2018/05/07/cryptocurrency_week1_cryptographic_hash_function">
+
+    <link rel="stylesheet" href="css/iDisqus.min.css"/>
+	
+    
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+
+    
+    <link rel="stylesheet" href="css/hux-blog.min.css">
+
+    
+    <link rel="stylesheet" href="css/syntax.css">
+
+    
+    <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    
+    
+    <script src="js/jquery.min.js"></script>
+    
+    
+    <script src="js/bootstrap.min.js"></script>
+    
+    
+    <script src="js/hux-blog.min.js"></script>
+</head>
+</head>
+
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Huabing Blog</a>
+        </div>
+
+        
+        
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+                    
+                    <li>
+                        <a href="categories/life">Life</a>
+                    </li>
+                    
+                    <li>
+                        <a href="categories/note">Note</a>
+                    </li>
+                    
+                    <li>
+                        <a href="categories/tech">Tech</a>
+                    </li>
+                    
+                    <li>
+                        <a href="categories/tips">Tips</a>
+                    </li>
+                    
+
+                    
+                </ul>
+            </div>
+        </div>
+        
+    </div>
+    
+</nav>
+<script>
+    
+    
+    
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        
+            $navbar.className = " ";
+            
+            setTimeout(function(){
+                
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+
+
+<style type="text/css">
+    header.intro-header{
+        background-image: url('https://img.zhaohuabing.com/in-post/2018-05-06-cryptocurrency_week1/bitcoin_3.jpg')
+    }
+</style>
+<header class="intro-header" >
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                       
+                       <a class="tag" href="/tags/cryptocurrency" title="Cryptocurrency">
+                           Cryptocurrency
+                        </a>
+                        
+                       <a class="tag" href="/tags/blockchain" title="Blockchain">
+                           Blockchain
+                        </a>
+                        
+                       <a class="tag" href="/tags/bitcoin" title="Bitcoin">
+                           Bitcoin
+                        </a>
+                        
+                    </div>
+                    <h1>Cryptographic Hash Function</h1>
+                    <h2 class="subheading">Bitcoin and Cryptocurrency Technologies-Week 1</h2>
+                    <span  class="meta">Posted by 赵化冰 on Wednesday, May 9, 2018
+                        
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+
+
+<article>
+    <div class="container">
+        <div class="row">
+
+            
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+		
+                <header>
+                <h2>TOC</h2>
+                </header>
+                <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#hash-function">Hash Function</a></li>
+<li><a href="#cryptographic-properties">Cryptographic Properties</a>
+<ul>
+<li><a href="#collision-free">Collision Free</a></li>
+<li><a href="#hiding">Hiding</a>
+<ul>
+<li><a href="#two-uses-of-hiding-property">Two Uses of Hiding Property</a>
+<ul>
+<li><a href="#1-commitment">1. Commitment</a></li>
+<li><a href="#2-secure-password">2. Secure Password</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#puzzle-friendly">Puzzle-Friendly</a></li>
+</ul></li>
+<li><a href="#sha-256">SHA-256</a></li>
+</ul></li>
+</ul>
+</nav>
+		
+		<blockquote>
+<p>This series of articles are my notes of &ldquo;Bitcoin and Cryptocurrency Technologies&rdquo; online course.</p>
+</blockquote>
+
+<h2 id="hash-function">Hash Function</h2>
+
+<p>Hash function is a mathematical function:<em>H(X)=Y</em>
+* H:  A hash function which takes an input value and calculates an output value
+* X: Input of the hash function, it could be any data of any length
+* Y: Output of the hash function: a fix-size bit(, it can be 256, 384, 516 &hellip;, Bitcoin uses 256)
+</p>
+
+<h2 id="cryptographic-properties">Cryptographic Properties</h2>
+
+<p>A hash function which is used for cryptographic purposes should have these properties:</p>
+
+<h3 id="collision-free">Collision Free</h3>
+
+<p><strong>Definition:</strong></p>
+
+<p>A hash function H is said to be collision free if:<br />
+It&rsquo;s infeasible to find two values X1 and X2, such that <em>X1!=X2</em>, yet <em>H(X1)=H(X2)</em><br />
+Or in other words,<br />
+It&rsquo;s infeasible to find two inputs which can produce the same outputs.</p>
+
+<p><strong>Explaination:</strong></p>
+
+<p>The collision does exist because the inputs can be any data and the outputs are only 2 to 256 possibilities.</p>
+
+<p>But for a good hash function, it&rsquo;s just impossible to find them in an acceptable time frame even use all the computers to solve this together on the earth.</p>
+
+<p>We can use this property of hash functions to create a digest for a given data.  By comparing the hash digests, we can tell if a big file is modified or corrupted during a transmission, which is often used in downloading a software.</p>
+
+<h3 id="hiding">Hiding</h3>
+
+<p><strong>Definition:</strong></p>
+
+<p>A hash function H is hiding if:<br />
+when a secret value R is chosen from a highly spread-out distribution that, then given the hash result of <em>H( R/|X)</em>, it is infeasible to find X.  /| means concatenation of two strings.</p>
+
+<p><strong>The Problem We Want to Solve:</strong></p>
+
+<p>We want a hash function that it&rsquo;s infeasible to find out the input by the output of a hash function.</p>
+
+<p>The problem is that if there are only a few values of inputs, it will be very easy to figure out what the input is by the output by simply trying all the possible values of inputs and see if they match the output.</p>
+
+<p><strong>Solution:</strong></p>
+
+<p>Concatenating input with a random R which is randomly chosen from a highly spread-out distribution like this: <em>H( R/|X)</em></p>
+
+<p><strong>Explanation:</strong></p>
+
+<p>With R appended to the input, now it&rsquo;s infeasible to figure out what input is by just traversing all the values because there&rsquo;re too many possibilities.</p>
+
+<p>R is used to hide the input, by using R, the Hash function can hide the input while exposing the output.</p>
+
+<h4 id="two-uses-of-hiding-property">Two Uses of Hiding Property</h4>
+
+<h5 id="1-commitment">1. Commitment</h5>
+
+<p>This use of hiding property is explained in the lecture.</p>
+
+<p><strong>Scenario:</strong></p>
+
+<p>We want to make a commitment, keep it as a secret, and reveal it later to others.</p>
+
+<p><strong>Requirements:</strong></p>
+
+<ul>
+<li>The commitment can&rsquo;t be seen until it&rsquo;s revealed</li>
+<li>The commitment can&rsquo;t be changed.</li>
+<li>Other people can verify the commitment once it&rsquo;s revealed</li>
+</ul>
+
+<p><strong>Implementation:</strong></p>
+
+<p><em>hash(message/|key)=commitment</em></p>
+
+<ul>
+<li>Message: the commitment we want to make, which may only have a few values.</li>
+<li>Key is a generated value from a spread-out distribution used to hide the message</li>
+<li>commitment: the hash of message concatenated with the key</li>
+</ul>
+
+<p><strong>Explanation:</strong></p>
+
+<ol>
+<li>You want to make a commitment, the message, to others. It could be any message.</li>
+<li>You choose a generated key which is used to hide the message.</li>
+<li>You get the hash of the key message combination.</li>
+<li>You publish the hash result, which is the commitment, to others and keep the key and message only to yourself. So other people know you have made a commitment, but they don&rsquo;t know what exactly it is.</li>
+<li>After a while, you decide to reveal the commitment, so you publish the key and message.</li>
+<li>Other people can use the hash function <em>hash(message/|key)</em> to calculate the hash result, compare it with the hash(commitment) you previously published. If it&rsquo;s the same, they can verify that you didn&rsquo;t change the commitment you have made.</li>
+</ol>
+
+<blockquote>
+<ul>
+<li>Because a key is used to hide the message, other people can&rsquo;t figure out what&rsquo;s the message before you reveal it.</li>
+<li>Because of collision-free property, you can&rsquo;t find a message&rsquo; such that <em>hash(message&rsquo;/|key)=hash(message/|key)</em>, so it&rsquo;s impossible to change the committed message after publishing it.</li>
+</ul>
+</blockquote>
+
+<h5 id="2-secure-password">2. Secure Password</h5>
+
+<p>Another common use of hiding property of hash is to secure passwords.</p>
+
+<p><strong>Scenario:</strong></p>
+
+<p>A website needs to verify the user password when user login. Instead of storing the password in the system, a more secure approach is just storing the hash of the password and compare the hash to verify the user.  By this way, the user password won&rsquo;t be at risk even the system is broken by attackers because the attackers can&rsquo;t get the password by the hash.</p>
+
+<p>But there&rsquo;s still a problem, many people tend to use simple words as their passwords. Attackers can make a long list of common passwords used by people, calculate the hash of these passwords in advance, and use these hashes to attack the system to figure out what&rsquo;s the password. It&rsquo;s called a rainbow attack.</p>
+
+<p><strong>Solution:</strong></p>
+
+<p>Use a randomly generated &lsquo;salt&rsquo; to safeguard the password.</p>
+
+<p><em>hash(password/|salt)=output</em></p>
+
+<p><strong>Explanation:</strong></p>
+
+<p>To solve this problem, we can append a generated random value to the password, this value is often called &lsquo;salt&rsquo;. Salt is saved along with the hashed password in the system. So the system can get the hash out of the combination of user password and salt, compare it with the stored hash to verify user identity.</p>
+
+<p>By appending a salt to the password, attackers can no longer use a pre-calculated password-hash map to attack the system. Even two users happened to choose the same string as their passwords, the hashes stored in the system are different because their salts are different, which is randomly generated.</p>
+
+<p><strong>Example:</strong></p>
+
+<blockquote>
+<p>This example is excerpted from <a href="https://en.wikipedia.org/wiki/Salt_(cryptography)">wikipedia</a></p>
+</blockquote>
+
+<table>
+<thead>
+<tr>
+<th>Username</th>
+<th>Password</th>
+<th>Salt value</th>
+<th>String to be hashed</th>
+<th>Hashed value = SHA256 (Password + Salt value)</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>user1</td>
+<td>password123</td>
+<td>E1F53135E559C253</td>
+<td>password123+E1F53135E559C253</td>
+<td>72AE25495A7981C40622D49F9A52E4F1565C90F048F59027BD9C8C8900D5C3D8</td>
+</tr>
+
+<tr>
+<td>user2</td>
+<td>password123</td>
+<td>84B03D034B409D4E</td>
+<td>password123+84B03D034B409D4E</td>
+<td>B4B6603ABC670967E99C7E7F1389E40CD16E78AD38EB1468EC2AA1E62B8BED3A</td>
+</tr>
+</tbody>
+</table>
+
+<p>As the table above illustrates, different salt values will create completely different hashed values, even when the plaintext passwords are exactly the same. Additionally, dictionary attacks are mitigated to a degree as an attacker cannot practically precompute the hashes. However, a salt cannot protect against common or easily guessed passwords because the attacker can still combine the salt with all the possible password in the dictionary and try to match the hash of the combinations with the hashed value stored in the attached target. The salt just makes the attack more difficult because attackers need two additional steps: 1. find out the salt of the attacked target 2. Calculate the hash every time</p>
+
+<h3 id="puzzle-friendly">Puzzle-Friendly</h3>
+
+<p><strong>Definition:</strong></p>
+
+<p>A hash function H is said to be puzzle-friendly if:<br />
+Given an R which is chosen from a highly spread-out distribution and a target set Y.<br />
+Try to find a solution X such that <em>H(R/|X) $$/in$$ Y</em>.<br />
+There is no solving strategy to find X much better than just trying every possible value of X.</p>
+
+<p><strong>Usage:</strong></p>
+
+<p>Puzzle-friendly property is used for Bitcoin mining. The miner needs to find out a specific number R, which is concatenated with the data of the block, and the hash of the combination should fall into a certain range. The first one who solves this puzzle can add the outstanding transaction into the blockchain and get Bitcoin as the reward.</p>
+
+<p>Bitcoin Minding Puzzle: find R such that <em>H(R/|BlockData) $$/in$$ ValidRange</em></p>
+
+<h2 id="sha-256">SHA-256</h2>
+
+<p>SHA-256 is the hash function used in Bitcoin which has all the three needed properties.
+<img src="http://img.zhaohuabing.com/in-post/2018-05-09-cryptocurrency-week1-cryptographic-hash-function/sha-256.PNG" alt="SHA-256" /></p>
+
+                <hr>
+
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/post/2018-05-12-cryptocurrency_week1_hash_pointer_and_data_structures/" data-toggle="tooltip" data-placement="top" title="Hash Pointers and Data Structures">&larr; Previous Post</a>
+                    </li>
+                    
+                    
+                    <li class="next">
+                        <a href="/2018/05/06/cryptocurrency_week1" data-toggle="tooltip" data-placement="top" title="Introduction to crypto and cryptocurrencies">Next Post &rarr;</a>
+                    </li>
+                    
+                </ul>
+
+            
+<div id="disqus-comment"></div>
+
+
+
+            </div>
+            
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                
+                <section>
+                    <hr class="hidden-sm hidden-xs">
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                     
+                    
+                        
+                    
+                        
+                            <a href="/tags/bitcoin" title="Bitcoin">
+                                Bitcoin
+                            </a>
+                        
+                    
+                        
+                            <a href="/tags/blockchain" title="Blockchain">
+                                Blockchain
+                            </a>
+                        
+                    
+                        
+                            <a href="/tags/cryptocurrency" title="Cryptocurrency">
+                                Cryptocurrency
+                            </a>
+                        
+                    
+                        
+                            <a href="/tags/digital-signature" title="Digital Signature">
+                                Digital Signature
+                            </a>
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                            <a href="/tags/istio" title="Istio">
+                                Istio
+                            </a>
+                        
+                    
+                        
+                            <a href="/tags/kubernetes" title="Kubernetes">
+                                Kubernetes
+                            </a>
+                        
+                    
+                        
+                            <a href="/tags/microservice" title="Microservice">
+                                Microservice
+                            </a>
+                        
+                    
+                        
+                            <a href="/tags/security" title="Security">
+                                Security
+                            </a>
+                        
+                    
+                        
+                    
+                        
+                            <a href="/tags/tips" title="Tips">
+                                Tips
+                            </a>
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                    </div>
+                </section>
+
+                
+                <hr>
+                <h5>FRIENDS</h5>
+                <ul class="list-inline">
+                    
+                        <li><a target="_blank" href="https://zhaozhihan.com">Linda的博客</a></li>
+                    
+                </ul>
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                   
+                   <li>
+                       <a href="" rel="alternate" type="application/rss+xml" title="Huabing Blog" >
+                           <span class="fa-stack fa-lg">
+                               <i class="fa fa-circle fa-stack-2x"></i>
+                               <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+                           </span>
+                       </a>
+                   </li>
+                   
+                    
+                    <li>
+                        <a href="mailto:youemail@gmail.com">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+		    
+                    
+                    
+                    
+                    
+
+                    
+
+		    
+                    
+                    <li>
+                        <a target="_blank" href="link%20of%20wechat%20QR%20code%20image">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-wechat fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+		    
+                    
+                    <li>
+                        <a target="_blank" href="full%20profile%20url%20in%20github">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+		    
+                    
+                    <li>
+                        <a target="_blank" href="full%20profile%20url%20in%20linkedin">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+		    
+                </ul>
+		<p class="copyright text-muted">
+                    Copyright &copy; Huabing Blog , 2018
+                    <br>
+                    <a href="https://themes.gohugo.io/hugo-theme-cleanwhite">CleanWhite Hugo Theme</a> by <a href="https://zhaohuabing.com">Huabing</a> |
+                    <iframe
+                        style="margin-left: 2px; margin-bottom:-5px;"
+                        frameborder="0" scrolling="0" width="100px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=zhaohuabing&repo=hugo-theme-cleanwhite&type=star&count=true" >
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+
+
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+
+
+
+
+
+<script>
+    
+    if($('#tag_cloud').length !== 0){
+        async("/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+
+<script>
+    async("https://cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<script>
+    (function(){
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https'){
+       bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+      }
+      else{
+      bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+      }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+
+
+
+
+
+
+</body>
+</html>

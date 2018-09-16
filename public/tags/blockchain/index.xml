@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Blockchain on Huabing Blog</title>
+    <link>/tags/blockchain/</link>
+    <description>Recent content in Blockchain on Huabing Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 03 Jun 2018 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="/tags/blockchain/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Bitcoin Script</title>
+      <link>/2018/06/03/cryptocurrency_week3_bitcoin_script/</link>
+      <pubDate>Sun, 03 Jun 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/2018/06/03/cryptocurrency_week3_bitcoin_script/</guid>
+      <description>This series of articles are my notes of &amp;ldquo;Bitcoin and Cryptocurrency Technologies&amp;rdquo; online course.
+ Bitcoin Script is using to transfer coins instead of just signature and public key address, which allows more flexibilities for Bitcoin transactions.
+A Standard Transaction Let&amp;rsquo;s say Alice wants to spend some coins she received from a previous transaction, this is how the procedure looks like. * Alice receives some coins from a previous transaction.</description>
+    </item>
+    
+    <item>
+      <title>Distributed Consensus</title>
+      <link>/2018/05/26/cryptocurrency_week2_distributed_consenus/</link>
+      <pubDate>Sun, 27 May 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/2018/05/26/cryptocurrency_week2_distributed_consenus/</guid>
+      <description>&lt;blockquote&gt;
+&lt;p&gt;This series of articles are my notes of &amp;ldquo;Bitcoin and Cryptocurrency Technologies&amp;rdquo; online course.
+&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Incentives and Proof of Work</title>
+      <link>/2018/05/26/cryptocurrency_week2_incentives_and_proof_of_work/</link>
+      <pubDate>Sat, 26 May 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/2018/05/26/cryptocurrency_week2_incentives_and_proof_of_work/</guid>
+      <description>This series of articles are my notes of &amp;ldquo;Bitcoin and Cryptocurrency Technologies&amp;rdquo; online course.
+ Incentive The mechanism to motivate nodes join the Bitcoin network and create blocks.
+Incentive 1: Block Reward Creator of block gets to * include special coin-creation transaction in the block * choose reciptient address of this transaction (Of course, it is the miner&amp;rsquo;s address)
+Explanation: Because the coin-creation transaction is just like other transaction in that block, it will only be valid if the created block ends up in the consensus chain, it&amp;rsquo;s the incentive which encourages the nodes to be honest, otherwise they can&amp;rsquo;t get their rewards.</description>
+    </item>
+    
+    <item>
+      <title>Digital Signature and Public Key as Identities</title>
+      <link>/2018/05/12/cryptocurrency_week1_digital_signature/</link>
+      <pubDate>Tue, 15 May 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/2018/05/12/cryptocurrency_week1_digital_signature/</guid>
+      <description>&lt;blockquote&gt;
+&lt;p&gt;This series of articles are my notes of &amp;ldquo;Bitcoin and Cryptocurrency Technologies&amp;rdquo; online course.
+&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Hash Pointers and Data Structures</title>
+      <link>/post/2018-05-12-cryptocurrency_week1_hash_pointer_and_data_structures/</link>
+      <pubDate>Sat, 12 May 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/post/2018-05-12-cryptocurrency_week1_hash_pointer_and_data_structures/</guid>
+      <description>&lt;blockquote&gt;
+&lt;p&gt;This series of articles are my notes of &amp;ldquo;Bitcoin and Cryptocurrency Technologies&amp;rdquo; online course.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h2 id=&#34;hash-pointer&#34;&gt;Hash Pointer&lt;/h2&gt;
+
+&lt;p&gt;Hash Pointer is comprised of two parts:
+* Pointer to where some information is stored
+* Cryptographic hash of that information&lt;br /&gt;
+The pointer can be used to get the information, the hash can be used to verify that information hasn&amp;rsquo;t been changed&lt;br /&gt;
+&lt;img src=&#34;http://img.zhaohuabing.com/in-post/2018-05-12-cryptocurrency_week1_hash_pointer_and_data_structures/hashpointet.png&#34; alt=&#34;hashpointer&#34; /&gt;
+&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Cryptographic Hash Function</title>
+      <link>/2018/05/07/cryptocurrency_week1_cryptographic_hash_function/</link>
+      <pubDate>Wed, 09 May 2018 22:00:00 +0000</pubDate>
+      
+      <guid>/2018/05/07/cryptocurrency_week1_cryptographic_hash_function/</guid>
+      <description>&lt;blockquote&gt;
+&lt;p&gt;This series of articles are my notes of &amp;ldquo;Bitcoin and Cryptocurrency Technologies&amp;rdquo; online course.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h2 id=&#34;hash-function&#34;&gt;Hash Function&lt;/h2&gt;
+
+&lt;p&gt;Hash function is a mathematical function:&lt;em&gt;H(X)=Y&lt;/em&gt;
+* H:  A hash function which takes an input value and calculates an output value
+* X: Input of the hash function, it could be any data of any length
+* Y: Output of the hash function: a fix-size bit(, it can be 256, 384, 516 &amp;hellip;, Bitcoin uses 256)
+&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Introduction to crypto and cryptocurrencies</title>
+      <link>/2018/05/06/cryptocurrency_week1/</link>
+      <pubDate>Sun, 06 May 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/2018/05/06/cryptocurrency_week1/</guid>
+      <description>&lt;blockquote&gt;
+&lt;p&gt;This series of articles are my notes of &amp;ldquo;Bitcoin and Cryptocurrency Technologies&amp;rdquo; online course.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h2 id=&#34;how-did-i-get-into-this&#34;&gt;How did I get into this?&lt;/h2&gt;
+
+&lt;p&gt;I have noticed the buzzwords “Bitcoin” and “Blockchain” for a while. There are lots of articles, news, and talks around them. It seems that many people believe that cryptocurrency is the future of online payment, some even claim that blockchain would become the fundamental technology of the next generation of the Internet.
+&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>
