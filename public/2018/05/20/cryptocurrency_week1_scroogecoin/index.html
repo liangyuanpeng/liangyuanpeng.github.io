@@ -222,128 +222,128 @@ import java.util.List;
 import java.util.Set;
 
 public class TxHandler {
-    private UTXOPool utxoPool;
+	private UTXOPool utxoPool;
 
-    /**
-     * Creates a public ledger whose current UTXOPool (collection of unspent
-     * transaction outputs) is {@code utxoPool}. This should make a copy of utxoPool
-     * by using the UTXOPool(UTXOPool uPool) constructor.
-     */
-    public TxHandler(UTXOPool utxoPool) {
-        this.utxoPool = new UTXOPool(utxoPool);
-    }
+	/**
+	 * Creates a public ledger whose current UTXOPool (collection of unspent
+	 * transaction outputs) is {@code utxoPool}. This should make a copy of utxoPool
+	 * by using the UTXOPool(UTXOPool uPool) constructor.
+	 */
+	public TxHandler(UTXOPool utxoPool) {
+		this.utxoPool = new UTXOPool(utxoPool);
+	}
 
-    /**
-     * @return true if: (1) all outputs claimed by {@code tx} are in the current
-     *         UTXO pool, (2) the signatures on each input of {@code tx} are valid,
-     *         (3) no UTXO is claimed multiple times by {@code tx}, (4) all of
-     *         {@code tx}s output values are non-negative, and (5) the sum of
-     *         {@code tx}s input values is greater than or equal to the sum of its
-     *         output values; and false otherwise.
-     */
-    public boolean isValidTx(Transaction tx) {
-        Set&lt;UTXO&gt; claimedUTXO = new HashSet&lt;UTXO&gt;();
-        double inputSum = 0;
-        double outputSum = 0;
+	/**
+	 * @return true if: (1) all outputs claimed by {@code tx} are in the current
+	 *         UTXO pool, (2) the signatures on each input of {@code tx} are valid,
+	 *         (3) no UTXO is claimed multiple times by {@code tx}, (4) all of
+	 *         {@code tx}s output values are non-negative, and (5) the sum of
+	 *         {@code tx}s input values is greater than or equal to the sum of its
+	 *         output values; and false otherwise.
+	 */
+	public boolean isValidTx(Transaction tx) {
+		Set&lt;UTXO&gt; claimedUTXO = new HashSet&lt;UTXO&gt;();
+		double inputSum = 0;
+		double outputSum = 0;
 
-        List&lt;Transaction.Input&gt; inputs = tx.getInputs();
-        for (int i = 0; i &lt; inputs.size(); i++) {
-            Transaction.Input input = inputs.get(i);
+		List&lt;Transaction.Input&gt; inputs = tx.getInputs();
+		for (int i = 0; i &lt; inputs.size(); i++) {
+			Transaction.Input input = inputs.get(i);
 
-            if (!isConsumedCoinAvailable(input)) {
-                return false;
-            }
+			if (!isConsumedCoinAvailable(input)) {
+				return false;
+			}
 
-            if (!verifySignatureOfConsumeCoin(tx, i, input)) {
-                return false;
-            }
+			if (!verifySignatureOfConsumeCoin(tx, i, input)) {
+				return false;
+			}
 
-            if (isCoinConsumedMultipleTimes(claimedUTXO, input)) {
-                return false;
-            }
+			if (isCoinConsumedMultipleTimes(claimedUTXO, input)) {
+				return false;
+			}
 
-            UTXO utxo = new UTXO(input.prevTxHash, input.outputIndex);
-            Transaction.Output correspondingOutput = utxoPool.getTxOutput(utxo);
-            inputSum += correspondingOutput.value;
+			UTXO utxo = new UTXO(input.prevTxHash, input.outputIndex);
+			Transaction.Output correspondingOutput = utxoPool.getTxOutput(utxo);
+			inputSum += correspondingOutput.value;
 
-        }
+		}
 
-        List&lt;Transaction.Output&gt; outputs = tx.getOutputs();
-        for (int i = 0; i &lt; outputs.size(); i++) {
-            Transaction.Output output = outputs.get(i);
-            if (output.value &lt;= 0) {
-                return false;
-            }
+		List&lt;Transaction.Output&gt; outputs = tx.getOutputs();
+		for (int i = 0; i &lt; outputs.size(); i++) {
+			Transaction.Output output = outputs.get(i);
+			if (output.value &lt;= 0) {
+				return false;
+			}
 
-            outputSum += output.value;
-        }
+			outputSum += output.value;
+		}
 
-        // Should the input value and output value be equal? Otherwise the ledger will
-        // become unbalanced.
-        // The difference between inputSum and outputSum is the transaction fee
-        if (outputSum &gt; inputSum) {
-            return false;
-        }
+		// Should the input value and output value be equal? Otherwise the ledger will
+		// become unbalanced.
+		// The difference between inputSum and outputSum is the transaction fee
+		if (outputSum &gt; inputSum) {
+			return false;
+		}
 
-        return true;
-    }
+		return true;
+	}
 
-    private boolean isCoinConsumedMultipleTimes(Set&lt;UTXO&gt; claimedUTXO, Transaction.Input input) {
-        UTXO utxo = new UTXO(input.prevTxHash, input.outputIndex);
-        return !claimedUTXO.add(utxo);
-    }
+	private boolean isCoinConsumedMultipleTimes(Set&lt;UTXO&gt; claimedUTXO, Transaction.Input input) {
+		UTXO utxo = new UTXO(input.prevTxHash, input.outputIndex);
+		return !claimedUTXO.add(utxo);
+	}
 
-    private boolean verifySignatureOfConsumeCoin(Transaction tx, int index, Transaction.Input input) {
-        UTXO utxo = new UTXO(input.prevTxHash, input.outputIndex);
-        Transaction.Output correspondingOutput = utxoPool.getTxOutput(utxo);
-        PublicKey pk = correspondingOutput.address;
-        return Crypto.verifySignature(pk, tx.getRawDataToSign(index), input.signature);
-    }
+	private boolean verifySignatureOfConsumeCoin(Transaction tx, int index, Transaction.Input input) {
+		UTXO utxo = new UTXO(input.prevTxHash, input.outputIndex);
+		Transaction.Output correspondingOutput = utxoPool.getTxOutput(utxo);
+		PublicKey pk = correspondingOutput.address;
+		return Crypto.verifySignature(pk, tx.getRawDataToSign(index), input.signature);
+	}
 
-    private boolean isConsumedCoinAvailable(Transaction.Input input) {
-        UTXO utxo = new UTXO(input.prevTxHash, input.outputIndex);
-        return utxoPool.contains(utxo);
-    }
+	private boolean isConsumedCoinAvailable(Transaction.Input input) {
+		UTXO utxo = new UTXO(input.prevTxHash, input.outputIndex);
+		return utxoPool.contains(utxo);
+	}
 
-    /**
-     * Handles each epoch by receiving an unordered array of proposed transactions,
-     * checking each transaction for correctness, returning a mutually valid array
-     * of accepted transactions, and updating the current UTXO pool as appropriate.
-     */
-    public Transaction[] handleTxs(Transaction[] possibleTxs) {
-        List&lt;Transaction&gt; acceptedTx = new ArrayList&lt;Transaction&gt;();
-        for (int i = 0; i &lt; possibleTxs.length; i++) {
-            Transaction tx = possibleTxs[i];
-            if (isValidTx(tx)) {
-                acceptedTx.add(tx);
+	/**
+	 * Handles each epoch by receiving an unordered array of proposed transactions,
+	 * checking each transaction for correctness, returning a mutually valid array
+	 * of accepted transactions, and updating the current UTXO pool as appropriate.
+	 */
+	public Transaction[] handleTxs(Transaction[] possibleTxs) {
+		List&lt;Transaction&gt; acceptedTx = new ArrayList&lt;Transaction&gt;();
+		for (int i = 0; i &lt; possibleTxs.length; i++) {
+			Transaction tx = possibleTxs[i];
+			if (isValidTx(tx)) {
+				acceptedTx.add(tx);
 
-                removeConsumedCoinsFromPool(tx);
-                addCreatedCoinsToPool(tx);
-            }
-        }
+				removeConsumedCoinsFromPool(tx);
+				addCreatedCoinsToPool(tx);
+			}
+		}
 
-        Transaction[] result = new Transaction[acceptedTx.size()];
-        acceptedTx.toArray(result);
-        return result;
-    }
+		Transaction[] result = new Transaction[acceptedTx.size()];
+		acceptedTx.toArray(result);
+		return result;
+	}
 
-    private void addCreatedCoinsToPool(Transaction tx) {
-        List&lt;Transaction.Output&gt; outputs = tx.getOutputs();
-        for (int j = 0; j &lt; outputs.size(); j++) {
-            Transaction.Output output = outputs.get(j);
-            UTXO utxo = new UTXO(tx.getHash(), j);
-            utxoPool.addUTXO(utxo, output);
-        }
-    }
+	private void addCreatedCoinsToPool(Transaction tx) {
+		List&lt;Transaction.Output&gt; outputs = tx.getOutputs();
+		for (int j = 0; j &lt; outputs.size(); j++) {
+			Transaction.Output output = outputs.get(j);
+			UTXO utxo = new UTXO(tx.getHash(), j);
+			utxoPool.addUTXO(utxo, output);
+		}
+	}
 
-    private void removeConsumedCoinsFromPool(Transaction tx) {
-        List&lt;Transaction.Input&gt; inputs = tx.getInputs();
-        for (int j = 0; j &lt; inputs.size(); j++) {
-            Transaction.Input input = inputs.get(j);
-            UTXO utxo = new UTXO(input.prevTxHash, input.outputIndex);
-            utxoPool.removeUTXO(utxo);
-        }
-    }
+	private void removeConsumedCoinsFromPool(Transaction tx) {
+		List&lt;Transaction.Input&gt; inputs = tx.getInputs();
+		for (int j = 0; j &lt; inputs.size(); j++) {
+			Transaction.Input input = inputs.get(j);
+			UTXO utxo = new UTXO(input.prevTxHash, input.outputIndex);
+			utxoPool.removeUTXO(utxo);
+		}
+	}
 
 }
 </code></pre>
