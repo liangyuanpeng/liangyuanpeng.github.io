@@ -15,7 +15,7 @@ install:
 
 script:
     - hugo
-    - echo 'axdlog.com' > public/CNAME
+    - echo 'lyp.com' > public/CNAME
 
 deploy:
   provider: pages
@@ -28,4 +28,4 @@ deploy:
   local-dir: public
   target_branch: master  # branch contains blog content
   on:
-    branch: code  # branch contains Hugo generator code
+    branch: source  # branch contains Hugo generator code
