@@ -15,7 +15,7 @@ install:
 
 script:
     - hugo
-    - echo '' > public/CNAME
+      #- echo '' > public/CNAME
 
 deploy:
   provider: pages
