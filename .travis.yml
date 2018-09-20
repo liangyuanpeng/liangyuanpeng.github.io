@@ -17,7 +17,7 @@ install:
 script:
     - hugo
       #- echo '' > public/CNAME
-    - mv public/201*/* public/post/
+      #- mv public/201*/* public/post/
 
 deploy:
   provider: pages
