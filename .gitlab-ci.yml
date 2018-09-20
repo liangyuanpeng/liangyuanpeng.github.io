@@ -14,6 +14,9 @@ pages:
   script:
   - hugo
   - git checkout master
+  - git add public/
+  - git commit -m "deploy"
+  - git push origin master
   artifacts:
     paths:
     - public
