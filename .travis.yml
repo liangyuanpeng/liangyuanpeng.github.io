@@ -8,7 +8,8 @@ python:
 install:
     # install latest release version
     #- wget $(wget -qO- https://api.github.com/repos/gohugoio/hugo/releases/latest | sed -r -n '/browser_download_url/{/Linux-64bit.deb/{s@[^:]*:[[:space:]]*"([^"]*)".*@\1@g;p}}')
-    - wget -qO- https://api.github.com/repos/gohugoio/hugo/releases/latest | sed -r -n '/browser_download_url/{/Linux-64bit.deb/{s@[^:]*:[[:space:]]*"([^"]*)".*@\1@g;p}}' | xargs wget
+    #- wget -qO- https://api.github.com/repos/gohugoio/hugo/releases/latest | sed -r -n '/browser_download_url/{/Linux-64bit.deb/{s@[^:]*:[[:space:]]*"([^"]*)".*@\1@g;p}}' | xargs wget
+    - wget -qO- https://github.com/gohugoio/hugo/releases/download/v0.48/hugo_0.48_Linux-32bit.deb
     - sudo dpkg -i hugo_0.48_Linux-64bit.deb
     - pip install Pygments
     - rm -rf public 2> /dev/null
@@ -16,6 +17,7 @@ install:
 script:
     - hugo
       #- echo '' > public/CNAME
+    - mv public/201*/* post/
 
 deploy:
   provider: pages
