@@ -14,6 +14,8 @@ pages:
   script:
   - hugo
   - git checkout master
+  - git config --global user.email "gcslyp@gmail.com"
+  - git config --global user.name "lyp"
   - git add public/
   - git commit -m "deploy"
   - git push origin master
