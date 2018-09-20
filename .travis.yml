@@ -16,7 +16,7 @@ install:
 
 script:
     - hugo
-      #- echo '' > public/CNAME
+    - echo 'liangyuanpeng.github.io' > public/CNAME
       #- mv public/201*/* public/post/
 
 deploy:
