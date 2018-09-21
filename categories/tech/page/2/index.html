@@ -65,10 +65,6 @@
                     </li>
                     
                     <li>
-                        <a href="categories/life">Life</a>
-                    </li>
-                    
-                    <li>
                         <a href="categories/note">Note</a>
                     </li>
                     
@@ -151,90 +147,6 @@
             
 
 <div class="post-preview">
-    <a href="/2018/05/23/istio-auto-injection-with-webhook/">
-        <h2 class="post-title">
-            Istio Sidecar自动注入原理
-        </h2>
-	
-        <h3 class="post-subtitle">
-            Kubernetes webhook扩展机制解析
-        </h3>
-	
-        <div class="post-content-preview">
-	
-            Kubernets 1.9版本引入了Admission Webhook(web 回调)扩展机制，通过Webhook,开发者可以非常灵活地对Kubernets API Server的功能进行扩展，在API Server创建资源时对资源进行验证或者修改。 Istio 0.7版本就利用了Kubernets webhook实现了sidecar的自动注入。
-        
-        </div>
-    </a>
-    <p class="post-meta">
-    Posted by     &#34;赵化冰&#34; Wednesday, May 23, 2018
-    </p>
-</div>
-<hr>
-
-<div class="post-preview">
-    <a href="/2018/04/16/using-helm-to-deploy-to-kubernetes/">
-        <h2 class="post-title">
-            Helm介绍
-        </h2>
-	
-        <h3 class="post-subtitle">
-            强大的Kubernetes包管理工具
-        </h3>
-	
-        <div class="post-content-preview">
-	
-            Helm是Kubernetes生态系统中的一个软件包管理工具。本文将介绍为何要使用Helm进行Kubernetes软件包管理，澄清Helm中使用到的相关概念，并通过一个具体的示例学习如何使用Helm打包，分发，安装，升级及回退Kubernetes应用。
-        
-        </div>
-    </a>
-    <p class="post-meta">
-    Posted by 赵化冰 Monday, April 16, 2018
-    </p>
-</div>
-<hr>
-
-<div class="post-preview">
-    <a href="/2018/04/11/service-mesh-vs-api-gateway/">
-        <h2 class="post-title">
-            Service Mesh 和 API Gateway的关系探讨（译文）
-        </h2>
-	
-        <div class="post-content-preview">
-	
-            API Gateway和Service Mesh的关系是我最近一直在思考的问题，也和同事及社区的朋友之间进行了一些讨论。这篇短文很清晰地总结了两者之间的相似之处以及这两者在微服务架构中的不同用途。
-        
-        </div>
-    </a>
-    <p class="post-meta">
-    Posted by 赵化冰 Wednesday, April 11, 2018
-    </p>
-</div>
-<hr>
-
-<div class="post-preview">
-    <a href="/2018/03/29/what-is-service-mesh-and-istio/">
-        <h2 class="post-title">
-            谈谈微服务架构中的基础设施：Service Mesh与Istio
-        </h2>
-	
-        <h3 class="post-subtitle">
-            Service Mesh模式及Istio开源项目介绍
-        </h3>
-	
-        <div class="post-content-preview">
-	
-            作为一种架构模式，微服务将复杂系统切分为数十乃至上百个小服务，每个服务负责实现一个独立的业务逻辑。这些小服务易于被小型的软件工程师团队所理解和修改，并带来了语言和框架选择灵活性，缩短应用开发上线时间，可根据不同的工作负载和资源要求对服务进行独立缩扩容等优势。另一方面，当应用被拆分为多个微服务进程后，进程内的方法调用变成了了进程间的远程调用。引入了对大量服务的连接、管理和监控的复杂性,本文介绍了Service Mesh模式如何应对微服务架构的这些挑战，以及Service Mesh的明星开源项目Istio。
-        
-        </div>
-    </a>
-    <p class="post-meta">
-    Posted by 赵化冰 Thursday, March 29, 2018
-    </p>
-</div>
-<hr>
-
-<div class="post-preview">
     <a href="/2018/05/22/user_authentication_authorization/">
         <h2 class="post-title">
             如何构建安全的微服务应用？
@@ -252,6 +164,86 @@
     </a>
     <p class="post-meta">
     Posted by 赵化冰 Saturday, February 3, 2018
+    </p>
+</div>
+<hr>
+
+<div class="post-preview">
+    <a href="/2018/01/02/nginmesh-install/">
+        <h2 class="post-title">
+            Nginx开源Service Mesh组件Nginmesh安装指南
+        </h2>
+	
+        <div class="post-content-preview">
+	
+            Nginmesh是NGINX的Service Mesh开源项目，用于Istio服务网格平台中的数据面代理。它旨在提供七层负载均衡和服务路由功能，与Istio集成作为sidecar部署，并将以“标准，可靠和安全的方式”使得服务间通信更容易。Nginmesh在今年底已经连续发布了0.2和0.3版本，提供了服务发现，请求转发，路由规则，性能指标收集等功能。本文介绍如何采用kubeadmin安装kubernetes集群并部署Nginmesh sidecar。
+        
+        </div>
+    </a>
+    <p class="post-meta">
+    Posted by 赵化冰 Tuesday, January 2, 2018
+    </p>
+</div>
+<hr>
+
+<div class="post-preview">
+    <a href="/2017/11/28/access-application-from-outside/">
+        <h2 class="post-title">
+            如何从外部访问Kubernetes集群中的应用？
+        </h2>
+	
+        <div class="post-content-preview">
+	
+            我们知道，kubernetes的Cluster Network属于私有网络，只能在cluster Network内部才能访问部署的应用，那如何才能将Kubernetes集群中的应用暴露到外部网络，为外部用户提供服务呢？本文探讨了从外部网络访问kubernetes cluster中应用的几种实现方式。
+        
+        </div>
+    </a>
+    <p class="post-meta">
+    Posted by 赵化冰 Tuesday, November 28, 2017
+    </p>
+</div>
+<hr>
+
+<div class="post-preview">
+    <a href="/2017/11/08/istio-canary-release/">
+        <h2 class="post-title">
+            采用Istio实现灰度发布(金丝雀发布)
+        </h2>
+	
+        <h3 class="post-subtitle">
+            用户无感知的平滑业务升级
+        </h3>
+	
+        <div class="post-content-preview">
+	
+            当应用上线以后，运维面临的一大挑战是如何能在不影响已上线业务的情况下进行升级。本文将介绍如何使用Istio实现应用的灰度发布（金丝雀发布）
+        
+        </div>
+    </a>
+    <p class="post-meta">
+    Posted by 赵化冰 Wednesday, November 8, 2017
+    </p>
+</div>
+<hr>
+
+<div class="post-preview">
+    <a href="/2017/11/07/istio-traffic-shifting/">
+        <h2 class="post-title">
+            使用Istio实现应用流量转移
+        </h2>
+	
+        <h3 class="post-subtitle">
+              &#34;本文翻译自istio官方文档&#34;
+        </h3>
+	
+        <div class="post-content-preview">
+	
+            本任务将演示如何将应用流量逐渐从旧版本的服务迁移到新版本。通过Istio，可以使用一系列不同权重的规则（10%，20%，··· 100%）将流量平缓地从旧版本服务迁移到新版本服务。
+        
+        </div>
+    </a>
+    <p class="post-meta">
+    Posted by     &#34;赵化冰&#34; Tuesday, November 7, 2017
     </p>
 </div>
 <hr>
@@ -295,27 +287,11 @@
                 
             
                 
-                    <a href="/tags/bitcoin" title="Bitcoin">
-                        Bitcoin
-                    </a>
+            
                 
             
                 
-                    <a href="/tags/blockchain" title="Blockchain">
-                        Blockchain
-                    </a>
-                
             
-                
-                    <a href="/tags/cryptocurrency" title="Cryptocurrency">
-                        Cryptocurrency
-                    </a>
-                
-            
-                
-                    <a href="/tags/digital-signature" title="Digital Signature">
-                        Digital Signature
-                    </a>
                 
             
                 
@@ -329,10 +305,6 @@
                 
             
                 
-                    <a href="/tags/kubernetes" title="Kubernetes">
-                        Kubernetes
-                    </a>
-                
             
                 
                     <a href="/tags/microservice" title="Microservice">
@@ -341,10 +313,6 @@
                 
             
                 
-                    <a href="/tags/security" title="Security">
-                        Security
-                    </a>
-                
             
                 
             
@@ -352,10 +320,6 @@
                     <a href="/tags/tips" title="Tips">
                         Tips
                     </a>
-                
-            
-                
-            
                 
             
                 
