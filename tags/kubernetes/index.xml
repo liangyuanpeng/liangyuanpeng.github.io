@@ -20,14 +20,5 @@
       <description>前言 Helm是Kubernetes生态系统中的一个软件包管理工具。本文将介绍为何要使用Helm进行Kubernetes软件包管理，澄清Hel</description>
     </item>
     
-    <item>
-      <title>如何从外部访问Kubernetes集群中的应用？</title>
-      <link>/2017/11/28/access-application-from-outside/</link>
-      <pubDate>Tue, 28 Nov 2017 12:00:00 +0000</pubDate>
-      
-      <guid>/2017/11/28/access-application-from-outside/</guid>
-      <description>&lt;h2 id=&#34;前言&#34;&gt;前言&lt;/h2&gt;</description>
-    </item>
-    
   </channel>
 </rss>

@@ -55,14 +55,5 @@ Add the connected user &amp;ldquo;$USER&amp;rdquo; to the docker group. Change t
 Either do a newgrp docker or log out/in to activate the changes to groups. </description>
     </item>
     
-    <item>
-      <title>使用脚本和定时任务自动设置windows HTTP 代理服务器</title>
-      <link>/2017/11/23/windows-proxy-scripts/</link>
-      <pubDate>Thu, 23 Nov 2017 00:00:00 +0000</pubDate>
-      
-      <guid>/2017/11/23/windows-proxy-scripts/</guid>
-      <description>&lt;h2 id=&#34;问题&#34;&gt;问题&lt;/h2&gt;</description>
-    </item>
-    
   </channel>
 </rss>
