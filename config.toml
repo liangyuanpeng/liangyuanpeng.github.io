@@ -1,5 +1,5 @@
 baseurl = ""
-title = "Huabing Blog"
+title = "Lyp Blog"
 #title = ""
 theme = "hugo-theme-cleanwhite"
 languageCode = "en-us"
@@ -20,8 +20,8 @@ home = ["HTML", "RSS", "Algolia"]
  SEOTitle = "lyp的博客 | lyp Blog"
   description = "lyp，工程师, 开源爱好者 | 这里是 lyp 的博客，与你一起发现更大的世界。"
   keyword = "liangyuanpeng , lyp , lyp的网络日志, lyp的博客, lyp Blog, 博客, 个人网站, 互联网, Web,  Istio, 微服务"
-  slogan = "路在脚下，心向远方"
- #slogan = ""
+  #slogan = "路在脚下，心向远方"
+ slogan = ""
 
   image_404 = "img/404-bg.jpg"
   title_404 = "你来到了没有知识的荒原 :("
