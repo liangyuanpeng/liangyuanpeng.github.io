@@ -147,41 +147,19 @@
             
 
 <div class="post-preview">
-    <a href="/2018/04/11/service-mesh-vs-api-gateway/">
+    <a href="/2018/01/02/nginmesh-install/">
         <h2 class="post-title">
-            Service Mesh 和 API Gateway的关系探讨（译文）
+            Nginx开源Service Mesh组件Nginmesh安装指南
         </h2>
 	
         <div class="post-content-preview">
 	
-            API Gateway和Service Mesh的关系是我最近一直在思考的问题，也和同事及社区的朋友之间进行了一些讨论。这篇短文很清晰地总结了两者之间的相似之处以及这两者在微服务架构中的不同用途。
+            Nginmesh是NGINX的Service Mesh开源项目，用于Istio服务网格平台中的数据面代理。它旨在提供七层负载均衡和服务路由功能，与Istio集成作为sidecar部署，并将以“标准，可靠和安全的方式”使得服务间通信更容易。Nginmesh在今年底已经连续发布了0.2和0.3版本，提供了服务发现，请求转发，路由规则，性能指标收集等功能。本文介绍如何采用kubeadmin安装kubernetes集群并部署Nginmesh sidecar。
         
         </div>
     </a>
     <p class="post-meta">
-    Posted by 赵化冰 Wednesday, April 11, 2018
-    </p>
-</div>
-<hr>
-
-<div class="post-preview">
-    <a href="/2018/03/29/what-is-service-mesh-and-istio/">
-        <h2 class="post-title">
-            谈谈微服务架构中的基础设施：Service Mesh与Istio
-        </h2>
-	
-        <h3 class="post-subtitle">
-            Service Mesh模式及Istio开源项目介绍
-        </h3>
-	
-        <div class="post-content-preview">
-	
-            作为一种架构模式，微服务将复杂系统切分为数十乃至上百个小服务，每个服务负责实现一个独立的业务逻辑。这些小服务易于被小型的软件工程师团队所理解和修改，并带来了语言和框架选择灵活性，缩短应用开发上线时间，可根据不同的工作负载和资源要求对服务进行独立缩扩容等优势。另一方面，当应用被拆分为多个微服务进程后，进程内的方法调用变成了了进程间的远程调用。引入了对大量服务的连接、管理和监控的复杂性,本文介绍了Service Mesh模式如何应对微服务架构的这些挑战，以及Service Mesh的明星开源项目Istio。
-        
-        </div>
-    </a>
-    <p class="post-meta">
-    Posted by 赵化冰 Thursday, March 29, 2018
+    Posted by 赵化冰 Tuesday, January 2, 2018
     </p>
 </div>
 <hr>
@@ -262,7 +240,7 @@
         <hr><h5><a href="">ABOUT ME</a></h5>
         <div class="short-about">
             
-            <img src="img/avatar-zhaohuabing.jpg" />
+            <img src="https://res.cloudinary.com/lyp/image/upload/v1537624737/hugo/avatar/%E5%93%88%E5%B8%8C%E5%A4%B4%E5%83%8F.jpg" />
             
             
                 <p>Software Developer, Open Source Enthusiast and Life Adventurer</p>
