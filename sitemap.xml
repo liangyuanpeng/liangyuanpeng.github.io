@@ -193,13 +193,13 @@
   
   <url>
     <loc>/tags/service-mesh/</loc>
-    <lastmod>2018-01-02T12:00:00+00:00</lastmod>
+    <lastmod>2018-04-11T09:32:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>/tags/service-mesh/</loc>
-    <lastmod>2018-04-11T09:32:00+00:00</lastmod>
+    <lastmod>2018-01-02T12:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -216,13 +216,13 @@
   </url>
   
   <url>
-    <loc>/categories/tips/</loc>
+    <loc>/tags/tips/</loc>
     <lastmod>2018-03-13T18:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>/tags/tips/</loc>
+    <loc>/categories/tips/</loc>
     <lastmod>2018-03-13T18:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
