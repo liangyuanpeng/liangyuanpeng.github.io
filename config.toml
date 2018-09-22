@@ -48,7 +48,7 @@ home = ["HTML", "RSS", "Algolia"]
   disqus_site = ""
 
   [params.social]
-  #rss            = true 
+  rss            = true 
   email          = "gcslyp@gmail.com"
   #facebook      = "full profile url in facebook"
   #googleplus    = "full profile url in googleplus"
