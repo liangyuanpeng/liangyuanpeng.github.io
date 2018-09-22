@@ -1,3 +1,3 @@
 # liangyuanpeng.github.io
-https://www.travcis-ci.org/liangyuanpeng/liangyuanpeng.github.io.svg?branch=master
+[![Build Status](https://travis-ci.com/liangyuanpeng/liangyuanpeng.github.io.svg?branch=source)](https://travis-ci.com/liangyuanpeng/liangyuanpeng.github.io)
 yp blog
