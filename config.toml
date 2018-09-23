@@ -65,8 +65,8 @@ home = ["HTML", "RSS", "Algolia"]
   #pinterest     = "full profile url in pinterest"
   
   [[params.friend_link]]
-  title = "Linda的博客"
-  href =  "https://zhaozhihan.com"
+ # title = "Linda的博客"
+ # href =  "https://zhaozhihan.com"
 
   [[params.bookmark_link]]
   title =  "Martin Fowler"
