@@ -8,14 +8,14 @@
     <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
     
-    <meta name="description" content="lyp，工程师, 开源爱好者 | 这里是 lyp 的博客，与你一起发现更大的世界。">
+    <meta name="description" content="Nginmesh是NGINX的Service Mesh开源项目，用于Istio服务网格平台中的数据面代理。它旨在提供七层负载均衡和服务路由功能，与Istio集成作为sidecar部署，并将以“标准，可靠和安全的方式”使得服务间通信更容易。Nginmesh在今年底已经连续发布了0.2和0.3版本，提供了服务发现，请求转发，路由规则，性能指标收集等功能。本文介绍如何采用kubeadmin安装kubernetes集群并部署Nginmesh sidecar。">
     
     <meta name="keyword"  content="liangyuanpeng , lyp , lyp的网络日志, lyp的博客, lyp Blog, 博客, 个人网站, 互联网, Web,  Istio, 微服务">
     <link rel="shortcut icon" href="img/favicon.ico">
 
-    <title>404 Page not found-lyp的博客 | lyp Blog</title>
+    <title>CI过程中拉取仓库的注意点-lyp的博客 | lyp Blog</title>
 
-    <link rel="canonical" href="">
+    <link rel="canonical" href="/2018/09/22/CI%E8%BF%87%E7%A8%8B%E4%B8%AD%E6%8B%89%E5%8F%96%E4%BB%93%E5%BA%93%E7%9A%84%E6%B3%A8%E6%84%8F%E7%82%B9/">
 
     <link rel="stylesheet" href="https://res.cloudinary.com/lyp/raw/upload/v1537369740/hugo/css/iDisqus.min.css"/>
 	
@@ -108,14 +108,33 @@
 
 
 
-<header class="intro-header" style="background-image: url('https://res.cloudinary.com/lyp/image/upload/v1537619755/hugo/banner/WechatIMG413.jpg')">
+
+<style type="text/css">
+    header.intro-header{
+        background-image: url('img/post-bg-2015.jpg')
+    }
+</style>
+<header class="intro-header" >
     <div class="container">
         <div class="row">
-            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 ">
-                <div class="site-heading">
-                    <h1>Hi,I`m fish </h1>
-                    
-		    <span class="subheading"></span>
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                       
+                       <a class="tag" href="/tags/ci" title="CI">
+                           CI
+                        </a>
+                        
+                       <a class="tag" href="/tags/git" title="git">
+                           git
+                        </a>
+                        
+                    </div>
+                    <h1>CI过程中拉取仓库的注意点</h1>
+                    <h2 class="subheading"></h2>
+                    <span  class="meta">Posted by lyp on Saturday, September 22, 2018
+                        
+                    </span>
                 </div>
             </div>
         </div>
@@ -125,22 +144,117 @@
 
 
 
-<header class="intro-header" style="background-image: url('img/404-bg.jpg')">
-	<div class="container">
-		<div class="row">
-			<div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-				<div class="site-heading" id="tag-heading">
-					<h1>404</h1>
-					<span class="subheading">你来到了没有知识的荒原 :(</span>
-				</div>
-			</div>
-		</div>
-	</div>
-</header>
+<article>
+    <div class="container">
+        <div class="row">
 
-<script>
-	document.body.classList.add('page-fullscreen');
-</script>
+            
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+		
+                <header>
+                <h2>TOC</h2>
+                </header>
+                <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#前言">前言</a></li>
+<li><a href="#ci-hugo博客时子模块注意点">CI Hugo博客时子模块注意点</a></li>
+</ul></li>
+</ul>
+</nav>
+		
+		
+
+<h2 id="前言">前言</h2>
+
+<p>CI过程中拉取仓库的注意点</p>
+
+<blockquote>
+<p>备注：本文安装指南基于Ubuntu 16.04，在Centos上某些安装步骤的命令可能需要稍作改动。</p>
+</blockquote>
+
+<h2 id="ci-hugo博客时子模块注意点">CI Hugo博客时子模块注意点</h2>
+
+<p>在fork了hugo的主题仓库后，hugo使用了自己仓库的hugo主题，但是在CI过程中一直提示没有权限访问仓库。</p>
+
+<pre><code>Running with gitlab-runner 11.3.0-rc1 (861c565e)
+  on docker-auto-scale 4e4528ca
+Using Docker executor with image registry.gitlab.com/pages/hugo:latest ...
+Pulling docker image registry.gitlab.com/pages/hugo:latest ...
+Using docker image sha256:e49e435cc0445a3d9f8b2fe75c25fd226ed240940ed8c8c1c00aa339e4498144 for registry.gitlab.com/pages/hugo:latest ...
+Running on runner-4e4528ca-project-8449745-concurrent-0 via runner-4e4528ca-srm-1537615348-42d15321...
+Cloning repository...
+Cloning into '/builds/liangyuanpeng/liangyuanpeng.gitlab.io'...
+Checking out 643a5fbf as master...
+Updating/initializing submodules recursively...
+Submodule 'themes/hugo-theme-cleanwhite' (git@github.com:liangyuanpeng/hugo-theme-cleanwhite.git) registered for path 'themes/hugo-theme-cleanwhite'
+Cloning into '/builds/liangyuanpeng/liangyuanpeng.gitlab.io/themes/hugo-theme-cleanwhite'...
+fatal: cannot run ssh: No such file or directory
+fatal: unable to fork
+fatal: clone of 'git@github.com:liangyuanpeng/hugo-theme-cleanwhite.git' into submodule path '/builds/liangyuanpeng/liangyuanpeng.gitlab.io/themes/hugo-theme-cleanwhite' failed
+Failed to clone 'themes/hugo-theme-cleanwhite'. Retry scheduled
+Cloning into '/builds/liangyuanpeng/liangyuanpeng.gitlab.io/themes/hugo-theme-cleanwhite'...
+fatal: cannot run ssh: No such file or directory
+fatal: unable to fork
+fatal: clone of 'git@github.com:liangyuanpeng/hugo-theme-cleanwhite.git' into submodule path '/builds/liangyuanpeng/liangyuanpeng.gitlab.io/themes/hugo-theme-cleanwhite' failed
+Failed to clone 'themes/hugo-theme-cleanwhite' a second time, aborting
+ERROR: Job failed: exit code 1
+</code></pre>
+
+<p>最后发现问题出在使用了git协议拉取仓库，导致没有权限访问。将协议改为https协议即可。</p>
+
+
+                <hr>
+
+                <ul class="pager">
+                    
+                    
+                </ul>
+
+            
+<div id="disqus-comment"></div>
+
+
+
+            </div>
+            
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                
+                <section>
+                    <hr class="hidden-sm hidden-xs">
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                     
+                    
+                        
+                    
+                        
+                    
+                    </div>
+                </section>
+
+                
+                <hr>
+                <h5>FRIENDS</h5>
+                <ul class="list-inline">
+                    
+                        <li><a target="_blank" href="https://zhaozhihan.com">Linda的博客</a></li>
+                    
+                </ul>
+            </div>
+        </div>
+    </div>
+</article>
+
 
 
 
@@ -200,7 +314,7 @@
 		    
                 </ul>
 		<p class="copyright text-muted">
-                    Copyright &copy; Hi,I`m fish , 0001
+                    Copyright &copy; Hi,I`m fish , 2018
                     <br>
                     <a href="https://themes.gohugo.io/hugo-theme-cleanwhite">CleanWhite Hugo Theme</a> by <a href="https://zhaohuabing.com">Huabing</a> |
                     <iframe
