@@ -69,17 +69,17 @@ home = ["HTML", "RSS", "Algolia"]
  # href =  "https://zhaozhihan.com"
 
   [[params.bookmark_link]]
-  title =  "Martin Fowler"
-  href =  "https://martinfowler.com"
+ # title =  "Martin Fowler"
+ # href =  "https://martinfowler.com"
   [[params.bookmark_link]]
-  title = "ServiceMesh中文网"
-  href =  "http://www.servicemesh.cn"
+ #title = "ServiceMesh中文网"
+ # href =  "http://www.servicemesh.cn"
   [[params.bookmark_link]]
-  title = "Awesome Service Mesh"
-  href = "https://servicemesh.gitbooks.io/awesome-servicemesh"
+ # title = "Awesome Service Mesh"
+ # href = "https://servicemesh.gitbooks.io/awesome-servicemesh"
   [[params.bookmark_link]]
-  title =  "Image Compression"
-  href = "https://tinypng.com"
+ # title =  "Image Compression"
+ # href = "https://tinypng.com"
   
 [outputFormats.Algolia]
 baseName = "algolia"
