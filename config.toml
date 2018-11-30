@@ -1,6 +1,5 @@
 baseurl = ""
 title = "Hi,I`m fish"
-#title = ""
 theme = "hugo-theme-cleanwhite"
 languageCode = "en-us"
 # Enable comments by entering your Disqus shortname
@@ -15,7 +14,6 @@ home = ["HTML", "RSS", "Algolia"]
 
 [params]
  # header_image = "img/home-bg-jeep.jpg"
- #header_image = "https://res.cloudinary.com/lyp/image/upload/v1537619756/hugo/banner/WechatIMG412.png" 
  header_image = "https://res.cloudinary.com/lyp/image/upload/v1537619755/hugo/banner/WechatIMG413.jpg"
  SEOTitle = "lyp的博客 | lyp Blog"
   description = "lyp，工程师, 开源爱好者 | 这里是 lyp 的博客，与你一起发现更大的世界。"
@@ -50,6 +48,7 @@ home = ["HTML", "RSS", "Algolia"]
   # We need a proxy to access Disqus api in China
   disqus_proxy = ""
   disqus_site = ""
+
 
   [params.social]
   rss            = true 
