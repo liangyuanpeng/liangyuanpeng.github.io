@@ -8,14 +8,14 @@
     <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
     
-    <meta name="description" content="apache RocketMQ 是阿里巴巴在2016年11月捐赠给了apache基金会并于2017年9月顺利毕业成为apache顶级项目">
+    <meta name="description" content="Nginmesh是NGINX的Service Mesh开源项目，用于Istio服务网格平台中的数据面代理。它旨在提供七层负载均衡和服务路由功能，与Istio集成作为sidecar部署，并将以“标准，可靠和安全的方式”使得服务间通信更容易。Nginmesh在今年底已经连续发布了0.2和0.3版本，提供了服务发现，请求转发，路由规则，性能指标收集等功能。本文介绍如何采用kubeadmin安装kubernetes集群并部署Nginmesh sidecar。">
     
     <meta name="keyword"  content="liangyuanpeng , lyp , lyp的网络日志, lyp的博客, lyp Blog, 博客, 个人网站, 互联网, Web,  Istio, 微服务">
     <link rel="shortcut icon" href="img/favicon.ico">
 
-    <title>Apache RocketMQ单机部署-lyp的博客 | lyp Blog</title>
+    <title>CI过程中拉取仓库的注意点-lyp的博客 | lyp Blog</title>
 
-    <link rel="canonical" href="/2018/11/27/apache%20RocketMQ%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/">
+    <link rel="canonical" href="/post/2018-09-22-ci%E8%BF%87%E7%A8%8B%E4%B8%AD%E6%8B%89%E5%8F%96%E4%BB%93%E5%BA%93%E7%9A%84%E6%B3%A8%E6%84%8F%E7%82%B9/">
 
     <link rel="stylesheet" href="https://res.cloudinary.com/lyp/raw/upload/v1537369740/hugo/css/iDisqus.min.css"/>
 
@@ -126,7 +126,7 @@ var _hmt = _hmt || [];
 
 <style type="text/css">
     header.intro-header{
-        background-image: url('https://res.cloudinary.com/lyp/image/upload/v1543506262/hugo/blog.github.io/apache-rocketMQ-introduction/7046d2bf0d97278682129887309cc1a6.jpg')
+        background-image: url('img/post-bg-2015.jpg')
     }
 </style>
 <header class="intro-header" >
@@ -136,34 +136,18 @@ var _hmt = _hmt || [];
                 <div class="post-heading">
                     <div class="tags">
                        
-                       <a class="tag" href="/tags/mq" title="MQ">
-                           MQ
+                       <a class="tag" href="/tags/ci" title="CI">
+                           CI
                         </a>
                         
-                       <a class="tag" href="/tags/apache" title="apache">
-                           apache
-                        </a>
-                        
-                       <a class="tag" href="/tags/rocketmq" title="RocketMQ">
-                           RocketMQ
-                        </a>
-                        
-                       <a class="tag" href="/tags/java" title="java">
-                           java
-                        </a>
-                        
-                       <a class="tag" href="/tags/%E4%B8%AD%E9%97%B4%E4%BB%B6" title="中间件">
-                           中间件
-                        </a>
-                        
-                       <a class="tag" href="/tags/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97" title="消息队列">
-                           消息队列
+                       <a class="tag" href="/tags/git" title="git">
+                           git
                         </a>
                         
                     </div>
-                    <h1>Apache RocketMQ单机部署</h1>
+                    <h1>CI过程中拉取仓库的注意点</h1>
                     <h2 class="subheading"></h2>
-                    <span  class="meta">Posted by lyp on Tuesday, November 27, 2018
+                    <span  class="meta">Posted by lyp on Saturday, September 22, 2018
                         
                     </span>
                 </div>
@@ -194,17 +178,7 @@ var _hmt = _hmt || [];
 <li>
 <ul>
 <li><a href="#前言">前言</a></li>
-<li><a href="#下载程序包">下载程序包</a></li>
-<li><a href="#启动name-server">启动name server</a></li>
-<li><a href="#启动broker">启动Broker</a></li>
-<li><a href="#发送消息和接收消息">发送消息和接收消息</a></li>
-<li><a href="#关闭服务">关闭服务</a></li>
-<li><a href="#faq">FAQ</a>
-<ul>
-<li><a href="#修改name-server和broker的启动内存">修改name server和broker的启动内存</a></li>
-<li><a href="#需要配置外网访问需要怎么配置呢">需要配置外网访问需要怎么配置呢？</a></li>
-</ul></li>
-<li><a href="#配置文件">配置文件</a></li>
+<li><a href="#ci-hugo博客时子模块注意点">CI Hugo博客时子模块注意点</a></li>
 </ul></li>
 </ul>
 </nav>
@@ -213,144 +187,51 @@ var _hmt = _hmt || [];
 
 <h2 id="前言">前言</h2>
 
-<p>这篇文章以4.3.0版本为标准进行讲述在linux下部署RocketMQ单机实例,在此之前需要已配置JAVA环境。</p>
+<p>CI过程中拉取仓库的注意点</p>
 
 <blockquote>
-<p>apache RocketMQ 是阿里巴巴在2016年11月捐赠给了apache基金会并于2017年9月顺利毕业成为apache顶级项目。</p>
+<p>备注：本文安装指南基于Ubuntu 16.04，在Centos上某些安装步骤的命令可能需要稍作改动。</p>
 </blockquote>
 
-<h2 id="下载程序包">下载程序包</h2>
+<h2 id="ci-hugo博客时子模块注意点">CI Hugo博客时子模块注意点</h2>
 
-<p>直接使用一般就<a href="https://www.apache.org/dyn/closer.cgi?path=rocketmq/4.3.2/rocketmq-all-4.3.2-source-release.zip">下载</a>已经编译好的二进制文件就好了,下载好以后</p>
+<p>在fork了hugo的主题仓库后，hugo使用了自己仓库的hugo主题，但是在CI过程中一直提示没有权限访问仓库。</p>
 
-<p><code>&gt; unzip rocketmq-all-4.3.0-bin-release.zip<br />
-&gt; cd rocketmq-all-4.3.0-bin-release/<br />
-</code></p>
-
-<h2 id="启动name-server">启动name server</h2>
-
-<p><code>&gt; nohup sh bin/mqnamesrv &amp;
-</code></p>
-
-<p>tail一下日志看看是否已经启动成功<br />
-<code>&gt; tail -f ~/logs/rocketmqlogs/namesrv.log<br />
-The Name Server boot success&hellip;
-</code></p>
-
-<h2 id="启动broker">启动Broker</h2>
-
-<p><code>&gt; nohup sh bin/mqbroker -n localhost:9876 &amp;
-</code></p>
-
-<p>tail一下日志看看是否已经启动成功<br />
-<code>&gt; tail -f ~/logs/rocketmqlogs/broker.log<br />
-The broker[%s, 172.30.30.233:10911] boot success&hellip;
-</code></p>
-
-<h2 id="发送消息和接收消息">发送消息和接收消息</h2>
-
-<p>为了简单测试下，在发送/接收消息之前我们需要设置<code>NAMESRV_ADDR</code>环境变量<br />
-<code>&gt; export NAMESRV_ADDR=localhost:9876<br />
-</code></p>
-
-<p>发送消息，测试用例中的方式是使用for循环发送了1000条消息<br />
-<code>&gt; sh bin/tools.sh org.apache.rocketmq.example.quickstart.Producer<br />
-SendResult [sendStatus=SEND_OK, msgId= &hellip;
-</code></p>
-
-<p>接收消息<br />
-<code>&gt; sh bin/tools.sh org.apache.rocketmq.example.quickstart.Consumer<br />
-SendResult [sendStatus=SEND_OK, msgId= &hellip;
-</code></p>
-
-<h2 id="关闭服务">关闭服务</h2>
-
-<p><code>&gt; sh bin/mqshutdown broker<br />
-The mqbroker(36695) is running&hellip;<br />
-Send shutdown request to mqbroker(36695) OK
-</code></p>
-
-<p><code>&gt; sh bin/mqshutdown namesrv<br />
-The mqnamesrv(36664) is running&hellip;<br />
-Send shutdown request to mqnamesrv(36664) OK
-</code></p>
-
-<p>到此，我们已经完成了一个简单的部署以及消息的发送和接收,但是这只是在内网下进行的收发消息。</p>
-
-<h2 id="faq">FAQ</h2>
-
-<h3 id="修改name-server和broker的启动内存">修改name server和broker的启动内存</h3>
-
-<p>一开始按照官网的步骤来操作往往会直接启动不起来，提示内存不足，那是因为name server和broker默认的启动JVM内存是4G，而内存在不够的情况下自然就启动失败了。</p>
-
-<p>这时候需要修改name server和broker的启动内存参数,<br />
-broker的启动内存参数在<code>runbroker.sh</code>下修改,windows下则是<code>runbroker.cmd</code><br />
-name server的启动内存参数是在<code>runserver.sh</code>下修改,windows下则是<code>runserver.cmd</code></p>
-
-<h3 id="需要配置外网访问需要怎么配置呢">需要配置外网访问需要怎么配置呢？</h3>
-
-<p>在网上见过很多同学在配置外网访问的时候出现问题，得到的提示大多是
-<code>
-No Topic Route Info
-</code><br />
-这种提示一般都是连接失败了，<br />
-1.broker没有允许自动创建topic，且发送消息对应的topic不存在<br />
-2.broker没有正确的连接到name server<br />
-3.product没有正确的连接到name server</p>
-
-<ul>
-<li>对于情况1，在启动<code>broker</code>的时候添加<code>autoCreateTopicEnable=true</code>参数就好了。<br /></li>
-<li>情况2呢，有可能是name server不存在或者是端口冲突，具体可以看日志的报错原因。<br /></li>
-<li>情况3的话,一般是端口原因，如果在服务器上本地收发消息都正常但是到了用客户端sdk发消息的时候失败了可以首先查看一下端口本地ping服务器的9876端口和10911端口是否正常,如果正常可以关闭vip通道再次尝试,以JAVA客户端的话就是下面这样<br />
-生产者关闭VIP通道:
-<code>
-producer.setVipChannelEnabled(false);
-</code><br />
-消费者关闭VIP通道:
-<code>
-consumer.setVipChannelEnabled(false);
-</code><br />
-关闭VIP通道为什么就可以了呢，是因为VIP通道占用了一个端口,10909端口,而服务器的10909端口没有对外开放，所以导致失败了。</li>
-</ul>
-
-<h2 id="配置文件">配置文件</h2>
-
-<p>这是我的<code>broker.properties</code>配置文件</p>
-
-<pre><code>brokerClusterName = DefaultCluster  
-brokerName = broker-a  
-brokerId = 0  
-deleteWhen = 04  
-fileReservedTime = 48  
-brokerRole = ASYNC_MASTER  
-flushDiskType = ASYNC_FLUSH  
-
-brokerIP1=172.17.59.146  
-brokerIP2=172.17.59.146  
-namesrvAddr=172.17.59.146:5776  
-autoCreateTopicEnable=true  
+<pre><code>Running with gitlab-runner 11.3.0-rc1 (861c565e)
+  on docker-auto-scale 4e4528ca
+Using Docker executor with image registry.gitlab.com/pages/hugo:latest ...
+Pulling docker image registry.gitlab.com/pages/hugo:latest ...
+Using docker image sha256:e49e435cc0445a3d9f8b2fe75c25fd226ed240940ed8c8c1c00aa339e4498144 for registry.gitlab.com/pages/hugo:latest ...
+Running on runner-4e4528ca-project-8449745-concurrent-0 via runner-4e4528ca-srm-1537615348-42d15321...
+Cloning repository...
+Cloning into '/builds/liangyuanpeng/liangyuanpeng.gitlab.io'...
+Checking out 643a5fbf as master...
+Updating/initializing submodules recursively...
+Submodule 'themes/hugo-theme-cleanwhite' (git@github.com:liangyuanpeng/hugo-theme-cleanwhite.git) registered for path 'themes/hugo-theme-cleanwhite'
+Cloning into '/builds/liangyuanpeng/liangyuanpeng.gitlab.io/themes/hugo-theme-cleanwhite'...
+fatal: cannot run ssh: No such file or directory
+fatal: unable to fork
+fatal: clone of 'git@github.com:liangyuanpeng/hugo-theme-cleanwhite.git' into submodule path '/builds/liangyuanpeng/liangyuanpeng.gitlab.io/themes/hugo-theme-cleanwhite' failed
+Failed to clone 'themes/hugo-theme-cleanwhite'. Retry scheduled
+Cloning into '/builds/liangyuanpeng/liangyuanpeng.gitlab.io/themes/hugo-theme-cleanwhite'...
+fatal: cannot run ssh: No such file or directory
+fatal: unable to fork
+fatal: clone of 'git@github.com:liangyuanpeng/hugo-theme-cleanwhite.git' into submodule path '/builds/liangyuanpeng/liangyuanpeng.gitlab.io/themes/hugo-theme-cleanwhite' failed
+Failed to clone 'themes/hugo-theme-cleanwhite' a second time, aborting
+ERROR: Job failed: exit code 1
 </code></pre>
 
-<p>因为我没有使用默认的9876端口,所以也有一个name server的配置文件,<code>namesrv.conf</code></p>
-
-<pre><code>listenPort=5776
-</code></pre>
-
-<p>也可以直接下载我的<a href="https://res.cloudinary.com/lyp/raw/upload/v1543502478/hugo/blog.github.io/apache-rocketMQ-introduction/broker.properties">broker.properties</a>和<a href="https://res.cloudinary.com/lyp/raw/upload/v1543502477/hugo/blog.github.io/apache-rocketMQ-introduction/namesrv.conf">namesrv.conf</a></p>
-
-<p>使用自己的配置文件启动name server和broker的时候都是添加一个指定文件的参数<code>-c 文件路径</code></p>
-
-<p>到目前为止，一个简单的apache RocketMQ单机实例已经部署好了，开始愉快的消息队列旅程吧！</p>
+<p>最后发现问题出在使用了git协议拉取仓库，导致没有权限访问。将协议改为https协议即可。</p>
 
 
                 <hr>
 
                 <ul class="pager">
                     
-                    
-                    <li class="next">
-                        <a href="/2018/09/22/CI%e8%bf%87%e7%a8%8b%e4%b8%ad%e6%8b%89%e5%8f%96%e4%bb%93%e5%ba%93%e7%9a%84%e6%b3%a8%e6%84%8f%e7%82%b9/" data-toggle="tooltip" data-placement="top" title="CI过程中拉取仓库的注意点">Next Post &rarr;</a>
+                    <li class="previous">
+                        <a href="/post/2018-11-27-rocketmq%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" data-toggle="tooltip" data-placement="top" title="Apache RocketMQ单机部署">&larr; Previous Post</a>
                     </li>
+                    
                     
                 </ul>
 
