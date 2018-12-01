@@ -201,8 +201,8 @@ var _hmt = _hmt || [];
 <li><a href="#关闭服务">关闭服务</a></li>
 <li><a href="#faq">FAQ</a>
 <ul>
-<li><a href="#修改name-server和broker的启动内存">修改name server和broker的启动内存</a></li>
-<li><a href="#需要配置外网访问需要怎么配置呢">需要配置外网访问需要怎么配置呢？</a></li>
+<li><a href="#怎么修改name-server和broker的启动内存">怎么修改name server和broker的启动内存?</a></li>
+<li><a href="#需要配置外网访问要怎么配置呢">需要配置外网访问要怎么配置呢？</a></li>
 </ul></li>
 <li><a href="#配置文件">配置文件</a></li>
 </ul></li>
@@ -279,7 +279,7 @@ Send shutdown request to mqnamesrv(36664) OK
 
 <h2 id="faq">FAQ</h2>
 
-<h3 id="修改name-server和broker的启动内存">修改name server和broker的启动内存</h3>
+<h3 id="怎么修改name-server和broker的启动内存">怎么修改name server和broker的启动内存?</h3>
 
 <p>一开始按照官网的步骤来操作往往会直接启动不起来，提示内存不足，那是因为name server和broker默认的启动JVM内存是4G，而内存在不够的情况下自然就启动失败了。</p>
 
@@ -287,7 +287,7 @@ Send shutdown request to mqnamesrv(36664) OK
 broker的启动内存参数在<code>runbroker.sh</code>下修改,windows下则是<code>runbroker.cmd</code><br />
 name server的启动内存参数是在<code>runserver.sh</code>下修改,windows下则是<code>runserver.cmd</code></p>
 
-<h3 id="需要配置外网访问需要怎么配置呢">需要配置外网访问需要怎么配置呢？</h3>
+<h3 id="需要配置外网访问要怎么配置呢">需要配置外网访问要怎么配置呢？</h3>
 
 <p>在网上见过很多同学在配置外网访问的时候出现问题，得到的提示大多是
 <code>
