@@ -2,13 +2,13 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>中间件 on Hi,I`m fish</title>
-    <link>/tags/%E4%B8%AD%E9%97%B4%E4%BB%B6/</link>
+    <link>/categories/%E4%B8%AD%E9%97%B4%E4%BB%B6/</link>
     <description>Recent content in 中间件 on Hi,I`m fish</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Wed, 05 Dec 2018 00:00:00 +0000</lastBuildDate>
     
-	<atom:link href="/tags/%E4%B8%AD%E9%97%B4%E4%BB%B6/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="/categories/%E4%B8%AD%E9%97%B4%E4%BB%B6/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>

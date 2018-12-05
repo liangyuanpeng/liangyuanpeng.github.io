@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>中间件 on Hi,I`m fish</title>
-    <link>/tags/%E4%B8%AD%E9%97%B4%E4%BB%B6/</link>
-    <description>Recent content in 中间件 on Hi,I`m fish</description>
+    <title>Sofastack on Hi,I`m fish</title>
+    <link>/tags/sofastack/</link>
+    <description>Recent content in Sofastack on Hi,I`m fish</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Wed, 05 Dec 2018 00:00:00 +0000</lastBuildDate>
     
-	<atom:link href="/tags/%E4%B8%AD%E9%97%B4%E4%BB%B6/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="/tags/sofastack/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
@@ -18,15 +18,6 @@
       
       <guid>/post/2018-12-05-sofarpc%E6%A1%86%E6%9E%B6%E4%B9%8B%E6%80%BB%E4%BD%93%E8%AE%BE%E8%AE%A1%E4%B8%8E%E6%89%A9%E5%B1%95%E6%9C%BA%E5%88%B6/</guid>
       <description>前言 RPC 框架作为分布式技术的基石，在分布式和微服务环境下，扮演着非常重要的角色。 在蚂蚁金服的分布式技术体系下，我们大量的技术产品（非网关类产品</description>
-    </item>
-    
-    <item>
-      <title>Apache RocketMQ单机部署</title>
-      <link>/post/2018-11-27-rocketmq%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/</link>
-      <pubDate>Tue, 27 Nov 2018 23:11:54 +0000</pubDate>
-      
-      <guid>/post/2018-11-27-rocketmq%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/</guid>
-      <description>前言 这篇文章以4.3.0版本为标准进行讲述在linux下部署RocketMQ单机实例,在此之前需要已配置JAVA环境。 apache RocketMQ 是阿里巴巴在201</description>
     </item>
     
   </channel>
