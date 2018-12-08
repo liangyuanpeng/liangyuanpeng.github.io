@@ -3,6 +3,11 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>/post/2018-12-08-awesome%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/</loc>
+    <lastmod>2018-12-08T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>/post/2018-12-08-sofarpc%E9%93%BE%E8%B7%AF%E8%BF%BD%E8%B8%AA%E5%89%96%E6%9E%90/</loc>
     <lastmod>2018-12-08T00:00:00+00:00</lastmod>
   </url>
@@ -53,6 +58,12 @@
   
   <url>
     <loc>/tags/java/</loc>
+    <lastmod>2018-11-27T23:11:54+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/tags/mq/</loc>
     <lastmod>2018-11-27T23:11:54+00:00</lastmod>
     <priority>0</priority>
   </url>
