@@ -6,10 +6,19 @@
     <description>Recent content in Rpc on Hi,I`m fish</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 05 Dec 2018 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sat, 08 Dec 2018 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/tags/rpc/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>SOFARPC链路追踪剖析</title>
+      <link>/post/2018-12-08-sofarpc%E9%93%BE%E8%B7%AF%E8%BF%BD%E8%B8%AA%E5%89%96%E6%9E%90/</link>
+      <pubDate>Sat, 08 Dec 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/post/2018-12-08-sofarpc%E9%93%BE%E8%B7%AF%E8%BF%BD%E8%B8%AA%E5%89%96%E6%9E%90/</guid>
+      <description>一. 前言 微服务已经被广泛应用在工业界，微服务带来易于团队并行开发、独立部署、模块化管理等诸多优点。然而微服务将原单体拆分多个模块独立部署，各</description>
+    </item>
     
     <item>
       <title>SOFARPC框架之总体设计与扩展机制</title>
