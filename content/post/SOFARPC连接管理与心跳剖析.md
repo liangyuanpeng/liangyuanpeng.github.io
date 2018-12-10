@@ -401,6 +401,6 @@ com.alipay.sofa.rpc.client.AllConnectConnectionHolder#doReconnect
 
 
 ----------------
-文章转自[【剖析 | SOFARPC 框架】之SOFARPC 同步异步实现剖析](http://www.sofastack.tech/post/ktnzp9)
+文章转自[【剖析 | SOFARPC 框架】之SOFARPC 连接管理与心跳剖析](http://www.sofastack.tech/post/hnppce)
 
 
