@@ -21,12 +21,30 @@
     </item>
     
     <item>
+      <title>SOFARPC注解支持剖析</title>
+      <link>/post/sofarpc%E6%B3%A8%E8%A7%A3%E6%94%AF%E6%8C%81%E5%89%96%E6%9E%90/</link>
+      <pubDate>Tue, 11 Dec 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/post/sofarpc%E6%B3%A8%E8%A7%A3%E6%94%AF%E6%8C%81%E5%89%96%E6%9E%90/</guid>
+      <description>1、前言 在SOFABoot 环境下，SOFARPC 提供三种方式给开发人员发布和引用 RPC 服务： XML 方式（配置） Annotation 方式（注解） 编程 API 方式（动态 编程 API 方</description>
+    </item>
+    
+    <item>
       <title>SOFARPC跨语言支持剖析</title>
       <link>/post/sofarpc%E8%B7%A8%E8%AF%AD%E8%A8%80%E6%94%AF%E6%8C%81%E5%89%96%E6%9E%90/</link>
       <pubDate>Tue, 11 Dec 2018 00:00:00 +0000</pubDate>
       
       <guid>/post/sofarpc%E8%B7%A8%E8%AF%AD%E8%A8%80%E6%94%AF%E6%8C%81%E5%89%96%E6%9E%90/</guid>
       <description>前言 随着 TIOBE 10月份的编程语言排行 的发布，C++重回第三的位置，新兴的 Swift 和 Go 表现出强劲的上升趋势。 与此同时，虽然目前 Java 的领头位置尚未出现有力挑</description>
+    </item>
+    
+    <item>
+      <title>SOFARPC路由实现剖析</title>
+      <link>/post/sofarpc%E8%B7%AF%E7%94%B1%E5%AE%9E%E7%8E%B0%E5%89%96%E6%9E%90/</link>
+      <pubDate>Tue, 11 Dec 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/post/sofarpc%E8%B7%AF%E7%94%B1%E5%AE%9E%E7%8E%B0%E5%89%96%E6%9E%90/</guid>
+      <description>前言 RPC 框架需要创造一种调用远程服务如同调用本地般的体验，因此在实现一个基于 RPC 框架的微服务架构的系统时，服务消费者（客户端）往往只需要知道服务</description>
     </item>
     
     <item>
