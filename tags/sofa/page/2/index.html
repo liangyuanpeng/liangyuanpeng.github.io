@@ -13,9 +13,9 @@
     <meta name="keyword"  content="liangyuanpeng , lyp , lyp的网络日志, lyp的博客, lyp Blog, 博客, 个人网站, 互联网, Web,  Istio, 微服务">
     <link rel="shortcut icon" href="img/favicon.ico">
 
-    <title>Sofastack-lyp的博客 | lyp Blog</title>
+    <title>Sofa-lyp的博客 | lyp Blog</title>
 
-    <link rel="canonical" href="/tags/sofastack/">
+    <link rel="canonical" href="/tags/sofa/">
 
     <link rel="stylesheet" href="https://res.cloudinary.com/lyp/raw/upload/v1537369740/hugo/css/iDisqus.min.css"/>
 
@@ -154,91 +154,37 @@ var _hmt = _hmt || [];
             
 
 <div class="post-preview">
-    <a href="/post/sofarpc%E5%BA%8F%E5%88%97%E5%8C%96%E6%AF%94%E8%BE%83/">
+    <a href="/post/2018-12-08-sofarpc%E9%93%BE%E8%B7%AF%E8%BF%BD%E8%B8%AA%E5%89%96%E6%9E%90/">
         <h2 class="post-title">
-            SOFARPC序列化比较
+            SOFARPC链路追踪剖析
         </h2>
 	
         <div class="post-content-preview">
 	
-            在应用服务化架构中，RPC 框架是非常重要的基础组件。而在 RPC 框架当中，序列化（以及反序列化）又是必不可少的一环。因为序列化的性能对整体框架性能有比较大的影响，之前的文章中，我们已经详细剖析了 SOFARPC 各个核心功能模块的实现原理，想必大家已经很清楚 RPC 的调用流程。
+            微服务已经被广泛应用在工业界，微服务带来易于团队并行开发、独立部署、模块化管理等诸多优点。然而微服务将原单体拆分多个模块独立部署，各模块之间链接变得错综复杂，在大规模分布式系统中这种复杂链路给维护带来了诸多困难。如果对整个微服务架构不能了然于胸，便很难理清各模块之间的调用关系。 例如修改一个服务接口，对哪些服务造成影响不能快速定位。
         
         </div>
     </a>
     <p class="post-meta">
-    Posted by lyp Tuesday, December 11, 2018
+    Posted by lyp Saturday, December 8, 2018
     </p>
 </div>
 <hr>
 
 <div class="post-preview">
-    <a href="/post/sofarpc%E8%B7%A8%E8%AF%AD%E8%A8%80%E6%94%AF%E6%8C%81%E5%89%96%E6%9E%90/">
+    <a href="/post/2018-12-05-sofarpc%E6%A1%86%E6%9E%B6%E4%B9%8B%E6%80%BB%E4%BD%93%E8%AE%BE%E8%AE%A1%E4%B8%8E%E6%89%A9%E5%B1%95%E6%9C%BA%E5%88%B6/">
         <h2 class="post-title">
-            SOFARPC跨语言支持剖析
+            SOFARPC框架之总体设计与扩展机制
         </h2>
 	
         <div class="post-content-preview">
 	
-            随着 TIOBE 10月份的编程语言排行的发布，C&#43;&#43;重回第三的位置，新兴的 Swift 和 Go 表现出强劲的上升趋势。与此同时，虽然目前 Java 的领头位置尚未出现有力挑战，我们希望能够在基础设施的建设上预留跨语言的可扩展设计。同时，跨语言的挑战也是工程实际面临的现状，蚂蚁内部如 AI、IoT，算法等缺少 JVM 原生支持的领域，往往不可避免地需要涉及到跨语言调用的问题。
+            RPC框架作为分布式技术的基石，在分布式和微服务环境下，扮演着非常重要的角色。 在蚂蚁金服的分布式技术体系下，我们大量的技术产品（非网关类产品），都需要在内网，进行节点间通信。底层通信框架，已经在蚂蚁自研的 SOFABolt 中的进行了实践，SOFABolt 提供了优秀的通信协议与通信框架，在 SOFABolt 的基础上，我们研发了自己的 RPC 框架，提供了负载均衡，流量转发，链路追踪，链路数据透传，故障剔除等基础能力。
         
         </div>
     </a>
     <p class="post-meta">
-    Posted by lyp Tuesday, December 11, 2018
-    </p>
-</div>
-<hr>
-
-<div class="post-preview">
-    <a href="/post/sofarpc%E8%BF%9E%E6%8E%A5%E7%AE%A1%E7%90%86%E4%B8%8E%E5%BF%83%E8%B7%B3%E5%89%96%E6%9E%90/">
-        <h2 class="post-title">
-            SOFARPC连接管理与心跳剖析
-        </h2>
-	
-        <div class="post-content-preview">
-	
-            在 RPC 调用过程中，我们经常会和多个服务端进行远程调用，如果在每次调用的时候，都进行 TCP连接，会对 RPC的性能有比较大的影响，因此，实际的场景中，我们经常要对连接进行管理和保持。
-        
-        </div>
-    </a>
-    <p class="post-meta">
-    Posted by lyp Monday, December 10, 2018
-    </p>
-</div>
-<hr>
-
-<div class="post-preview">
-    <a href="/post/sofarpc%E5%90%8C%E6%AD%A5%E5%BC%82%E6%AD%A5%E5%AE%9E%E7%8E%B0%E5%89%96%E6%9E%90/">
-        <h2 class="post-title">
-            SOFARPC同步异步实现剖析
-        </h2>
-	
-        <div class="post-content-preview">
-	
-            这一篇，我们为大家带来了开发过程中，最常接触到的同步异步调用解析。本文会介绍下同步异步的使用场景，以及 SOFARPC 中的代码实现机制，为了方便大家理解和阅读代码。不会过多的设计代码实现细节，更多的还是希望大家从中有所收获，并能够独立阅读核心代码。
-        
-        </div>
-    </a>
-    <p class="post-meta">
-    Posted by lyp Sunday, December 9, 2018
-    </p>
-</div>
-<hr>
-
-<div class="post-preview">
-    <a href="/post/sofarpc%E7%BA%BF%E7%A8%8B%E6%A8%A1%E5%9E%8B%E5%89%96%E6%9E%90/">
-        <h2 class="post-title">
-            SOFARPC线程模型剖析
-        </h2>
-	
-        <div class="post-content-preview">
-	
-            这一篇，我们为大家带来了开发过程中，最常接触到的同步异步调用解析。本文会介绍下同步异步的使用场景，以及 SOFARPC 中的代码实现机制，为了方便大家理解和阅读代码。不会过多的设计代码实现细节，更多的还是希望大家从中有所收获，并能够独立阅读核心代码。
-        
-        </div>
-    </a>
-    <p class="post-meta">
-    Posted by lyp Sunday, December 9, 2018
+    Posted by lyp Wednesday, December 5, 2018
     </p>
 </div>
 <hr>
@@ -249,10 +195,10 @@ var _hmt = _hmt || [];
 
 <ul class="pager">
     
-    
-    <li class="next">
-        <a href="/tags/sofastack/page/2/">Older Posts &rarr;</a>
+    <li class="previous">
+        <a href="/tags/sofa/">&larr; Newer Posts</a>
     </li>
+    
     
 </ul>
 
@@ -333,7 +279,7 @@ var _hmt = _hmt || [];
            <ul class="list-inline"> 
                
                <li>
-                   <a href="/tags/sofastack/index.xml" rel="alternate" type="application/rss+xml" title="Hi,I`m fish" >
+                   <a href="/tags/sofa/index.xml" rel="alternate" type="application/rss+xml" title="Hi,I`m fish" >
                        <span class="fa-stack fa-lg">
                            <i class="fa fa-circle fa-stack-2x"></i>
                            <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
@@ -408,7 +354,7 @@ var _hmt = _hmt || [];
                 <ul class="list-inline text-center">
                    
                    <li>
-                       <a href="/tags/sofastack/index.xml" rel="alternate" type="application/rss+xml" title="Hi,I`m fish" >
+                       <a href="/tags/sofa/index.xml" rel="alternate" type="application/rss+xml" title="Hi,I`m fish" >
                            <span class="fa-stack fa-lg">
                                <i class="fa fa-circle fa-stack-2x"></i>
                                <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
