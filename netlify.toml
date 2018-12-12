@@ -1,6 +1,10 @@
 [build]
 publish = "public"
-command = "hugo --gc --minify"
+command = "hugo --gc --minify & make build"
+functions = "functions"
+[build.environment]
+  # Change this path with the path to your repository
+  GO_IMPORT_PATH = "github.com/netlify/aws-lambda-go-example"
 
 [context.production.environment]
 HUGO_VERSION = "0.47"
@@ -28,4 +32,5 @@ HUGO_VERSION = "0.47"
 
 [context.next.environment]
 HUGO_ENABLEGITINFO = "true"
+
 
