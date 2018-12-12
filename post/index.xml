@@ -6,10 +6,28 @@
     <description>Recent content in Posts on Hi,I`m fish</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 11 Dec 2018 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 12 Dec 2018 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>SOFARPC优雅关闭剖析</title>
+      <link>/post/sofarpc%E4%BC%98%E9%9B%85%E5%85%B3%E9%97%AD%E5%89%96%E6%9E%90/</link>
+      <pubDate>Wed, 12 Dec 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/post/sofarpc%E4%BC%98%E9%9B%85%E5%85%B3%E9%97%AD%E5%89%96%E6%9E%90/</guid>
+      <description>前言 众所周知，在微服务架构下面，当应用需要进行新功能升级发布，或者异常关闭重启的时候，我们会对应用的进程进行关闭，而在关闭之前，我们希望做一</description>
+    </item>
+    
+    <item>
+      <title>SOFARPC泛化调用实现剖析</title>
+      <link>/post/sofarpc%E6%B3%9B%E5%8C%96%E8%B0%83%E7%94%A8%E5%AE%9E%E7%8E%B0%E5%89%96%E6%9E%90/</link>
+      <pubDate>Wed, 12 Dec 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/post/sofarpc%E6%B3%9B%E5%8C%96%E8%B0%83%E7%94%A8%E5%AE%9E%E7%8E%B0%E5%89%96%E6%9E%90/</guid>
+      <description>SOFA Scalable Open Financial Architecture 是蚂蚁金服自主研发的金融级分布式中间件，包含了构建金融级云原生架构所需的各个组件，是在金融场景里锤炼出来的最佳实践。 本文为《剖析 |</description>
+    </item>
     
     <item>
       <title>SOFARPC序列化比较</title>
