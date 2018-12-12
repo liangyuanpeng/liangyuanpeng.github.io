@@ -1,6 +1,7 @@
 [build]
 publish = "public"
-command = "hugo --gc --minify & make build"
+command = "make build"
+command = "hugo --gc --minify"
 functions = "functions"
 [build.environment]
   # Change this path with the path to your repository
