@@ -29,7 +29,7 @@ categories:
 首先介绍一下 Linux 的几种 IO 模型，以进程从 Socket 中读取数据为例。实际上，进程最终是通过 recvfrom 系统调用来读取数据。这个时候，系统内核在收到之后，根据 IO 模型的不同，处理是不同的。
 
 注意，图下的红色部分表示阻塞时间。
-## <span data-type="color" style="color:rgb(51, 51, 51)"><span data-type="background" style="background-color:rgb(255, 255, 255)">阻塞 I/O</span></span>  
+## 阻塞 I/O  
 
 
 
@@ -40,7 +40,7 @@ categories:
 
 
 
-## <span data-type="color" style="color:rgb(51, 51, 51)"><span data-type="background" style="background-color:rgb(255, 255, 255)">非阻塞 I/O</span></span>  
+## 非阻塞 I/O   
 
 
 
@@ -50,7 +50,7 @@ categories:
 非阻塞 I/O(nonblocking I/O)的含义：如果 I/O 操作会导致请求进程休眠，则不要把它挂起，也就是不会让出 CPU，而是返回一个错误告诉它（可能是 EWOULDBLOCK 或者 EAGAIN）。
 
 
-## <span data-type="color" style="color:rgb(51, 51, 51)"><span data-type="background" style="background-color:rgb(255, 255, 255)">I/O 复用</span></span>  
+## I/O 复用  
 
 
 
@@ -61,7 +61,7 @@ categories:
 I/O 多路复用(I/O multiplexing)会用到 select 或者 poll 或者 epoll 函数，这几个函数也会使进程阻塞，但是和阻塞 I/O 所不同的的，函数可以同时阻塞多个 I/O 操作。而且可以同时对多个读操作，多个写操作的 I/O 函数进行检测，直到有数据可读或可写时，才真正调用 I/O 操作函数。
 
 
-## <span data-type="color" style="color:rgb(51, 51, 51)"><span data-type="background" style="background-color:rgb(255, 255, 255)">信号驱动式 I/O</span></span>  
+## 信号驱动式 I/O  
 
 
 
@@ -72,7 +72,7 @@ I/O 多路复用(I/O multiplexing)会用到 select 或者 poll 或者 epoll 函�
 
 信号驱动 I/O(signal-driver I/O)使用信号，让内核在描述符就绪时发送 SIGIO 信号通知我们进行处理，这时候我们就可以开始真正的读了。
 
-## <span data-type="color" style="color:rgb(51, 51, 51)"><span data-type="background" style="background-color:rgb(255, 255, 255)"> 异步 I/O</span></span>  
+##  异步 I/O  
 
 
 
