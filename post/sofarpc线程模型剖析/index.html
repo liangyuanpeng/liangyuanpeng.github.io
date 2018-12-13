@@ -8,6 +8,9 @@
     <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
     
+    <meta name="baidu-site-verification" content="HGLXRsUXC4" />
+
+    
     <meta name="description" content="这一篇，我们为大家带来了开发过程中，最常接触到的同步异步调用解析。本文会介绍下同步异步的使用场景，以及 SOFARPC 中的代码实现机制，为了方便大家理解和阅读代码。不会过多的设计代码实现细节，更多的还是希望大家从中有所收获，并能够独立阅读核心代码。">
     
     <meta name="keyword"  content="liangyuanpeng , lyp , lyp的网络日志, lyp的博客, lyp Blog, 博客, 个人网站, 互联网, Web,  Istio, 微服务">
@@ -186,11 +189,11 @@ var _hmt = _hmt || [];
 <li><a href="#前言">前言</a></li>
 <li><a href="#几种常见的-io-模型">几种常见的 IO 模型</a>
 <ul>
-<li><a href="#span-data-type-color-style-color-rgb-51-51-51-span-data-type-background-style-background-color-rgb-255-255-255-阻塞-i-o-span-span"><span data-type="color" style="color:rgb(51, 51, 51)"><span data-type="background" style="background-color:rgb(255, 255, 255)">阻塞 I/O</span></span></a></li>
-<li><a href="#span-data-type-color-style-color-rgb-51-51-51-span-data-type-background-style-background-color-rgb-255-255-255-非阻塞-i-o-span-span"><span data-type="color" style="color:rgb(51, 51, 51)"><span data-type="background" style="background-color:rgb(255, 255, 255)">非阻塞 I/O</span></span></a></li>
-<li><a href="#span-data-type-color-style-color-rgb-51-51-51-span-data-type-background-style-background-color-rgb-255-255-255-i-o-复用-span-span"><span data-type="color" style="color:rgb(51, 51, 51)"><span data-type="background" style="background-color:rgb(255, 255, 255)">I/O 复用</span></span></a></li>
-<li><a href="#span-data-type-color-style-color-rgb-51-51-51-span-data-type-background-style-background-color-rgb-255-255-255-信号驱动式-i-o-span-span"><span data-type="color" style="color:rgb(51, 51, 51)"><span data-type="background" style="background-color:rgb(255, 255, 255)">信号驱动式 I/O</span></span></a></li>
-<li><a href="#span-data-type-color-style-color-rgb-51-51-51-span-data-type-background-style-background-color-rgb-255-255-255-异步-i-o-span-span"><span data-type="color" style="color:rgb(51, 51, 51)"><span data-type="background" style="background-color:rgb(255, 255, 255)"> 异步 I/O</span></span></a></li>
+<li><a href="#阻塞-i-o">阻塞 I/O</a></li>
+<li><a href="#非阻塞-i-o">非阻塞 I/O</a></li>
+<li><a href="#i-o-复用">I/O 复用</a></li>
+<li><a href="#信号驱动式-i-o">信号驱动式 I/O</a></li>
+<li><a href="#异步-i-o">异步 I/O</a></li>
 <li><a href="#汇总">汇总</a></li>
 </ul></li>
 <li><a href="#java-bio-nio">JAVA BIO &amp; NIO</a>
@@ -238,31 +241,31 @@ var _hmt = _hmt || [];
 
 <p>注意，图下的红色部分表示阻塞时间。</p>
 
-<h2 id="span-data-type-color-style-color-rgb-51-51-51-span-data-type-background-style-background-color-rgb-255-255-255-阻塞-i-o-span-span"><span data-type="color" style="color:rgb(51, 51, 51)"><span data-type="background" style="background-color:rgb(255, 255, 255)">阻塞 I/O</span></span></h2>
+<h2 id="阻塞-i-o">阻塞 I/O</h2>
 
 <p><img src="https://res.cloudinary.com/lyp/image/upload/v1544348793/hugo/blog.github.io/sofa-rpc/%E7%BA%BF%E7%A8%8B%E6%A8%A1%E5%9E%8B%E5%89%96%E6%9E%90/1536484777732-d96dfd95-d2f2-4f65-aa3b-b53b5fa1a379.png" alt="阻塞 IO.png | center | 747x326" /></p>
 
 <p>阻塞 I/O(blocking I/O) 模型是最流行，最简单易用的 I/O 模型，默认情况下，所有套接字和文件描述符就是阻塞的。阻塞 I/O 将使请求进程阻塞，直到请求完成或出错。</p>
 
-<h2 id="span-data-type-color-style-color-rgb-51-51-51-span-data-type-background-style-background-color-rgb-255-255-255-非阻塞-i-o-span-span"><span data-type="color" style="color:rgb(51, 51, 51)"><span data-type="background" style="background-color:rgb(255, 255, 255)">非阻塞 I/O</span></span></h2>
+<h2 id="非阻塞-i-o">非阻塞 I/O</h2>
 
 <p><img src="https://res.cloudinary.com/lyp/image/upload/v1544348828/hugo/blog.github.io/sofa-rpc/%E7%BA%BF%E7%A8%8B%E6%A8%A1%E5%9E%8B%E5%89%96%E6%9E%90/1536484784828-a2f5519d-f24e-4c2f-9a1e-9ccd2f3b586f.png" alt="非阻塞 IO.png | center | 747x322" /></p>
 
 <p>非阻塞 I/O(nonblocking I/O)的含义：如果 I/O 操作会导致请求进程休眠，则不要把它挂起，也就是不会让出 CPU，而是返回一个错误告诉它（可能是 EWOULDBLOCK 或者 EAGAIN）。</p>
 
-<h2 id="span-data-type-color-style-color-rgb-51-51-51-span-data-type-background-style-background-color-rgb-255-255-255-i-o-复用-span-span"><span data-type="color" style="color:rgb(51, 51, 51)"><span data-type="background" style="background-color:rgb(255, 255, 255)">I/O 复用</span></span></h2>
+<h2 id="i-o-复用">I/O 复用</h2>
 
 <p><img src="https://res.cloudinary.com/lyp/image/upload/v1544348863/hugo/blog.github.io/sofa-rpc/%E7%BA%BF%E7%A8%8B%E6%A8%A1%E5%9E%8B%E5%89%96%E6%9E%90/1536484789749-69680397-5830-4636-8fe4-fb208e8c9917.png" alt="IO 复用.png | center | 747x319" /></p>
 
 <p>I/O 多路复用(I/O multiplexing)会用到 select 或者 poll 或者 epoll 函数，这几个函数也会使进程阻塞，但是和阻塞 I/O 所不同的的，函数可以同时阻塞多个 I/O 操作。而且可以同时对多个读操作，多个写操作的 I/O 函数进行检测，直到有数据可读或可写时，才真正调用 I/O 操作函数。</p>
 
-<h2 id="span-data-type-color-style-color-rgb-51-51-51-span-data-type-background-style-background-color-rgb-255-255-255-信号驱动式-i-o-span-span"><span data-type="color" style="color:rgb(51, 51, 51)"><span data-type="background" style="background-color:rgb(255, 255, 255)">信号驱动式 I/O</span></span></h2>
+<h2 id="信号驱动式-i-o">信号驱动式 I/O</h2>
 
 <p><img src="https://res.cloudinary.com/lyp/image/upload/v1544348923/hugo/blog.github.io/sofa-rpc/%E7%BA%BF%E7%A8%8B%E6%A8%A1%E5%9E%8B%E5%89%96%E6%9E%90/1536484794971-5f21afc1-d27b-4e7c-8bdd-e6727f681e2d.png" alt="信号驱动.png | center | 747x319" /></p>
 
 <p>信号驱动 I/O(signal-driver I/O)使用信号，让内核在描述符就绪时发送 SIGIO 信号通知我们进行处理，这时候我们就可以开始真正的读了。</p>
 
-<h2 id="span-data-type-color-style-color-rgb-51-51-51-span-data-type-background-style-background-color-rgb-255-255-255-异步-i-o-span-span"><span data-type="color" style="color:rgb(51, 51, 51)"><span data-type="background" style="background-color:rgb(255, 255, 255)"> 异步 I/O</span></span></h2>
+<h2 id="异步-i-o">异步 I/O</h2>
 
 <p><img src="https://res.cloudinary.com/lyp/image/upload/v1544348957/hugo/blog.github.io/sofa-rpc/%E7%BA%BF%E7%A8%8B%E6%A8%A1%E5%9E%8B%E5%89%96%E6%9E%90/1536484800026-c94d6d86-9249-4be3-8335-20c31cf5e5d8.png" alt="异步 IO.png | center | 747x326" /></p>
 
