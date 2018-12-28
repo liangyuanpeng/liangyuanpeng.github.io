@@ -6,10 +6,19 @@
     <description>Recent content in 中间件 on Hi,I`m fish</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 12 Dec 2018 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Fri, 28 Dec 2018 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/tags/%E4%B8%AD%E9%97%B4%E4%BB%B6/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>架构演进|RocketMQ集群搭建</title>
+      <link>/post/2018-12-28-%E6%9E%B6%E6%9E%84%E6%BC%94%E8%BF%9Brocketmq%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/</link>
+      <pubDate>Fri, 28 Dec 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/post/2018-12-28-%E6%9E%B6%E6%9E%84%E6%BC%94%E8%BF%9Brocketmq%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/</guid>
+      <description>前言 这篇文章以4.3.0版本为标准进行讲述在linux下部署RocketMQ集群(双MASTER无SALVE)实例,在此之前假设前提条件为已</description>
+    </item>
     
     <item>
       <title>转|SOFARPC优雅关闭剖析</title>

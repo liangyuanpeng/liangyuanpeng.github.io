@@ -11,14 +11,14 @@
     <meta name="baidu-site-verification" content="HGLXRsUXC4" />
 
     
-    <meta name="description" content="消息队列中间件是分布式系统中重要的组件，主要解决应用解耦，异步消息，流量削锋等问题，实现高性能，高可用，可伸缩和最终一致性架构。">
+    <meta name="description" content="在业务量达到一定规模后，单机实例的RocketMQ也许不太够用了，这个时候就需要扩展RocketMQ的规模">
     
     <meta name="keyword"  content="liangyuanpeng , lyp , lyp的网络日志, lyp的博客, lyp Blog, 博客, 个人网站, 互联网, Web,  Istio, 微服务">
     <link rel="shortcut icon" href="img/favicon.ico">
 
-    <title>AWESOME消息队列-lyp的博客 | lyp Blog</title>
+    <title>架构演进|RocketMQ集群搭建-lyp的博客 | lyp Blog</title>
 
-    <link rel="canonical" href="/post/2018-12-08-awesome%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/">
+    <link rel="canonical" href="/post/2018-12-28-%E6%9E%B6%E6%9E%84%E6%BC%94%E8%BF%9Brocketmq%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/">
 
     <link rel="stylesheet" href="https://res.cloudinary.com/lyp/raw/upload/v1537369740/hugo/css/iDisqus.min.css"/>
 
@@ -129,7 +129,7 @@ var _hmt = _hmt || [];
 
 <style type="text/css">
     header.intro-header{
-        background-image: url('https://res.cloudinary.com/lyp/image/upload/v1544363190/hugo/blog.github.io/19375a83fc004035fb1102a4551f2287.jpg')
+        background-image: url('https://res.cloudinary.com/lyp/image/upload/v1543506262/hugo/blog.github.io/apache-rocketMQ-introduction/7046d2bf0d97278682129887309cc1a6.jpg')
     }
 </style>
 <header class="intro-header" >
@@ -139,18 +139,38 @@ var _hmt = _hmt || [];
                 <div class="post-heading">
                     <div class="tags">
                        
-                       <a class="tag" href="/tags/mq" title="mq">
-                           mq
+                       <a class="tag" href="/tags/mq" title="MQ">
+                           MQ
+                        </a>
+                        
+                       <a class="tag" href="/tags/apache" title="apache">
+                           apache
+                        </a>
+                        
+                       <a class="tag" href="/tags/rocketmq" title="RocketMQ">
+                           RocketMQ
+                        </a>
+                        
+                       <a class="tag" href="/tags/java" title="java">
+                           java
                         </a>
                         
                        <a class="tag" href="/tags/%E4%B8%AD%E9%97%B4%E4%BB%B6" title="中间件">
                            中间件
                         </a>
                         
+                       <a class="tag" href="/tags/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97" title="消息队列">
+                           消息队列
+                        </a>
+                        
+                       <a class="tag" href="/tags/%E6%9E%B6%E6%9E%84%E6%BC%94%E8%BF%9B" title="架构演进">
+                           架构演进
+                        </a>
+                        
                     </div>
-                    <h1>AWESOME消息队列</h1>
+                    <h1>架构演进|RocketMQ集群搭建</h1>
                     <h2 class="subheading"></h2>
-                    <span  class="meta">Posted by lyp on Saturday, December 8, 2018
+                    <span  class="meta">Posted by lyp on Friday, December 28, 2018
                         
                     </span>
                 </div>
@@ -178,64 +198,77 @@ var _hmt = _hmt || [];
                 </header>
                 <nav id="TableOfContents">
 <ul>
+<li>
+<ul>
 <li><a href="#前言">前言</a></li>
-<li><a href="#mq列表">mq列表</a></li>
+<li><a href="#架构演进">架构演进</a></li>
+</ul></li>
 </ul>
 </nav>
 		
 		
 
-<h1 id="前言">前言</h1>
+<h2 id="前言">前言</h2>
 
-<p>消息队列是应用程序解耦通信的一个关键组件,本篇博文主要以列举开源消息队列为目的编写,并不展开具体内容讲解，没有开源的不在列举范围内。</p>
+<p>这篇文章以4.3.0版本为标准进行讲述在linux下部署RocketMQ集群(双MASTER无SALVE)实例,在此之前假设前提条件为已经部署了单机实例,可以查看单机部署实例这篇文章。</p>
 
-<h1 id="mq列表">mq列表</h1>
+<blockquote>
+<p>在业务量达到一定规模后，单机实例的RocketMQ也许不太够用了，这个时候就需要扩展RocketMQ的规模。</p>
+</blockquote>
 
-<p>1.<a href="https://rocketmq.apache.org">Apache RocketMQ</a><br />
-Apache RocketMQ 是阿里巴巴使用JAVA开发并在2016年11月捐赠给了apache基金会并于2017年9月顺利毕业成为apache顶级项目。</p>
+<h2 id="架构演进">架构演进</h2>
 
-<p>2.<a href="http://kafka.apache.org">Apache kafka</a><br />
-Apache Kafka最初由LinkedIn使用Scala开发，并在2011年初开源。现在也是Apache的顶级项目之一。</p>
+<p>在[Apache RocketMQ单机部署]()这篇文章中画出了单机部署下的一个架构图</p>
 
-<p>3.<a href="http://www.rabbitmq.com/getstarted.html">RabbitMQ</a><br />
-RabbitMQ是一个开源的AMQP实现，服务器端由Erlang语言实现，目前被广泛应用</p>
+<p><img src="https://res.cloudinary.com/lyp/image/upload/v1545991449/hugo/blog.github.io/rocketmq/RocketMQ-Single-instance.png" alt="" /></p>
 
-<p>4.<a href="http://activemq.apache.org">Apache ActiveMQ</a><br />
-ActiveMQ是由Apache出品基于JMS实现的一款消息队列。</p>
+<p>可以看到，有四个角色，producer和consumer都是业务方的内容，不在rocketmq的部署范围之内，而nameserver和broker都只有一个，如果任意一个发生故障，都会发生单点故障的问题。</p>
 
-<p>5.<a href="https://github.com/Tencent/phxqueue">PhxQueue</a><br />
-PhxQueue 是微信开源的一款使用C/C++开发，基于 Paxos 协议实现的高可用、高吞吐和高可靠的分布式队列，保证 At-Least-Once Delivery，在微信内部广泛支持微信支付、公众平台等多个重要业务。</p>
+<p>这个时候就需要搭建集群，防止单点故障的问题发生以及支持更大的业务量。而在RocketMQ中，nameserver和broker都可以进行横向扩展，本篇以broker进行讲述搭建<code>双MASTER无SALVE集群架构</code>。</p>
 
-<p>6.<a href="https://github.com/qunarcorp/qmq">qmq</a><br />
-QMQ是去哪儿网内部广泛使用的消息中间件，使用JAVA开发，自2012年诞生以来在去哪儿网所有业务场景中广泛的应用，包括跟交易息息相关的订单场景； 也包括报价搜索等高吞吐量场景。</p>
+<p>横向扩展broker有几种架构模式：</p>
 
-<p>7.<a href="https://github.com/antirez/disque">Disque</a><br />
-disque是redis作者使用c语言开发的一款消息队列</p>
+<ul>
+<li>双MASTER无SLAVE，这是本篇讲述的架构模式，也是生产常用的架构模式<br /></li>
+<li>双MASTER双SALVE<br /></li>
+<li>多MASTER多SAVLE
+<br /></li>
+</ul>
 
-<p>8.<a href="https://www.nats.io">nats</a><br />
-nats是cloud foundry中的一个通信组件,服务器端使用golang语言实现,适合云基础设施的消息通信系统、IoT设备消息通信和微服务架构。</p>
+<p>需要加多一个broker到目前的架构中去，需要怎么做的？需要停机执行吗？<br />
+<code>不需要的，只需要在另一台机器上配置好broker，启动broker，一个新的broker就加入到了当前的架构中去了。</code><br />
+结果架构图如下图所述：</p>
 
-<p>9.<a href="http://nsq.io/">nsq</a><br />
-nsq是一款使用golang语言实现的分布式消息队列。</p>
+<p><img src="https://res.cloudinary.com/lyp/image/upload/v1545993037/hugo/blog.github.io/rocketmq/RocketMQ-2broker-1namesrv.png" alt="" /></p>
 
-<p>10.<a href="http://activemq.apache.org/apollo/">Apache apollo</a><br />
-ActiveMQ Apollo是一个更快、更可靠、更容易维护的消息传递代理，它是在最初ActiveMQ的基础上构建的。</p>
+<p>以下是相关broker-b的配置</p>
 
-<p>11.<a href="http://pulsar.apache.org">Apache Pulsar</a><br />
-Apache Pulsar是一个开源的分布式发布子消息系统，最初是在Yahoo创建的，现在是Apache软件基金会顶级项目之一</p>
+<pre><code>
+brokerClusterName = DefaultCluster  
+brokerName = broker-b  
+brokerId = 0  
+deleteWhen = 04  
+fileReservedTime = 48  
+brokerRole = ASYNC_MASTER  
+flushDiskType = ASYNC_FLUSH  
+
+brokerIP1=172.17.59.147  
+brokerIP2=172.17.59.147  
+namesrvAddr=172.17.59.146:5776  
+autoCreateTopicEnable=true
+
+</code></pre>
+
+<p>与broker-a对比，必须改的就只有<code>brokerName</code>、<code>brokerIP1</code>和<code>brokerIP2</code>属性，其他的都可一致，也可以下载<a href="https://res.cloudinary.com/lyp/raw/upload/v1545992964/hugo/blog.github.io/rocketmq/broker-b.properties">我的broker-b配置文件</a>进行修改</p>
 
 
                 <hr>
 
                 <ul class="pager">
                     
-                    <li class="previous">
-                        <a href="/post/sofarpc%E7%BA%BF%E7%A8%8B%E6%A8%A1%E5%9E%8B%E5%89%96%E6%9E%90/" data-toggle="tooltip" data-placement="top" title="转|SOFARPC线程模型剖析">&larr; Previous Post</a>
-                    </li>
-                    
                     
                     <li class="next">
-                        <a href="/post/2018-12-08-sofarpc%E9%93%BE%E8%B7%AF%E8%BF%BD%E8%B8%AA%E5%89%96%E6%9E%90/" data-toggle="tooltip" data-placement="top" title="转|SOFARPC链路追踪剖析">Next Post &rarr;</a>
+                        <a href="/post/sofarpc%E4%BC%98%E9%9B%85%E5%85%B3%E9%97%AD%E5%89%96%E6%9E%90/" data-toggle="tooltip" data-placement="top" title="转|SOFARPC优雅关闭剖析">Next Post &rarr;</a>
                     </li>
                     
                 </ul>
