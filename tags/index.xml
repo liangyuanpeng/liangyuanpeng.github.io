@@ -6,10 +6,28 @@
     <description>Recent content in Tags on Hi,I`m fish</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 28 Dec 2018 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sun, 06 Jan 2019 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/tags/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Ant Design</title>
+      <link>/tags/ant-design/</link>
+      <pubDate>Sun, 06 Jan 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/ant-design/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Antd</title>
+      <link>/tags/antd/</link>
+      <pubDate>Sun, 06 Jan 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/antd/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>Apache</title>
@@ -48,6 +66,15 @@
     </item>
     
     <item>
+      <title>Linux</title>
+      <link>/tags/linux/</link>
+      <pubDate>Sun, 06 Jan 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/linux/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>MQ</title>
       <link>/tags/mq/</link>
       <pubDate>Fri, 28 Dec 2018 00:00:00 +0000</pubDate>
@@ -62,6 +89,24 @@
       <pubDate>Fri, 28 Dec 2018 00:00:00 +0000</pubDate>
       
       <guid>/tags/mq/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Nginx</title>
+      <link>/tags/nginx/</link>
+      <pubDate>Sun, 06 Jan 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/nginx/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>React</title>
+      <link>/tags/react/</link>
+      <pubDate>Sun, 06 Jan 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/react/</guid>
       <description></description>
     </item>
     
@@ -111,6 +156,15 @@
     </item>
     
     <item>
+      <title>前后端分离</title>
+      <link>/tags/%E5%89%8D%E5%90%8E%E7%AB%AF%E5%88%86%E7%A6%BB/</link>
+      <pubDate>Sun, 06 Jan 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/%E5%89%8D%E5%90%8E%E7%AB%AF%E5%88%86%E7%A6%BB/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>架构演进</title>
       <link>/tags/%E6%9E%B6%E6%9E%84%E6%BC%94%E8%BF%9B/</link>
       <pubDate>Fri, 28 Dec 2018 00:00:00 +0000</pubDate>
@@ -125,6 +179,15 @@
       <pubDate>Fri, 28 Dec 2018 00:00:00 +0000</pubDate>
       
       <guid>/tags/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>部署</title>
+      <link>/tags/%E9%83%A8%E7%BD%B2/</link>
+      <pubDate>Sun, 06 Jan 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/%E9%83%A8%E7%BD%B2/</guid>
       <description></description>
     </item>
     

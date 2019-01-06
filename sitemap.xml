@@ -3,6 +3,11 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>/post/2019-01-06-%E9%83%A8%E7%BD%B2react%E5%BA%94%E7%94%A8/</loc>
+    <lastmod>2019-01-06T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>/post/2018-12-28-%E6%9E%B6%E6%9E%84%E6%BC%94%E8%BF%9Brocketmq%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/</loc>
     <lastmod>2018-12-28T00:00:00+00:00</lastmod>
   </url>
@@ -78,6 +83,18 @@
   </url>
   
   <url>
+    <loc>/tags/ant-design/</loc>
+    <lastmod>2019-01-06T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/tags/antd/</loc>
+    <lastmod>2019-01-06T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>/tags/apache/</loc>
     <lastmod>2018-12-28T00:00:00+00:00</lastmod>
     <priority>0</priority>
@@ -102,7 +119,7 @@
   
   <url>
     <loc>/</loc>
-    <lastmod>2018-12-28T00:00:00+00:00</lastmod>
+    <lastmod>2019-01-06T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -113,6 +130,12 @@
   </url>
   
   <url>
+    <loc>/tags/linux/</loc>
+    <lastmod>2019-01-06T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>/tags/mq/</loc>
     <lastmod>2018-12-28T00:00:00+00:00</lastmod>
     <priority>0</priority>
@@ -121,12 +144,24 @@
   <url>
     <loc>/tags/mq/</loc>
     <lastmod>2018-12-28T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/tags/nginx/</loc>
+    <lastmod>2019-01-06T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>/post/</loc>
-    <lastmod>2018-12-28T00:00:00+00:00</lastmod>
+    <lastmod>2019-01-06T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/tags/react/</loc>
+    <lastmod>2019-01-06T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -156,13 +191,13 @@
   
   <url>
     <loc>/tags/</loc>
-    <lastmod>2018-12-28T00:00:00+00:00</lastmod>
+    <lastmod>2019-01-06T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>/categories/tech/</loc>
-    <lastmod>2018-09-22T00:00:00+00:00</lastmod>
+    <lastmod>2019-01-06T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -179,6 +214,12 @@
   </url>
   
   <url>
+    <loc>/tags/%E5%89%8D%E5%90%8E%E7%AB%AF%E5%88%86%E7%A6%BB/</loc>
+    <lastmod>2019-01-06T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>/tags/%E6%9E%B6%E6%9E%84%E6%BC%94%E8%BF%9B/</loc>
     <lastmod>2018-12-28T00:00:00+00:00</lastmod>
     <priority>0</priority>
@@ -187,6 +228,12 @@
   <url>
     <loc>/tags/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/</loc>
     <lastmod>2018-12-28T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/tags/%E9%83%A8%E7%BD%B2/</loc>
+    <lastmod>2019-01-06T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
