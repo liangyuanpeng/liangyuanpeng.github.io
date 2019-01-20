@@ -48,6 +48,15 @@
     </item>
     
     <item>
+      <title>CI/CD</title>
+      <link>/tags/ci-cd/</link>
+      <pubDate>Sun, 13 Jan 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/ci-cd/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>Git</title>
       <link>/tags/git/</link>
       <pubDate>Sat, 22 Sep 2018 00:00:00 +0000</pubDate>
@@ -66,9 +75,18 @@
     </item>
     
     <item>
+      <title>Jenkins</title>
+      <link>/tags/jenkins/</link>
+      <pubDate>Sun, 13 Jan 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/jenkins/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>Linux</title>
       <link>/tags/linux/</link>
-      <pubDate>Sun, 06 Jan 2019 00:00:00 +0000</pubDate>
+      <pubDate>Sun, 13 Jan 2019 00:00:00 +0000</pubDate>
       
       <guid>/tags/linux/</guid>
       <description></description>
@@ -95,7 +113,7 @@
     <item>
       <title>Nginx</title>
       <link>/tags/nginx/</link>
-      <pubDate>Sun, 06 Jan 2019 00:00:00 +0000</pubDate>
+      <pubDate>Sun, 13 Jan 2019 00:00:00 +0000</pubDate>
       
       <guid>/tags/nginx/</guid>
       <description></description>
@@ -185,7 +203,7 @@
     <item>
       <title>部署</title>
       <link>/tags/%E9%83%A8%E7%BD%B2/</link>
-      <pubDate>Sun, 06 Jan 2019 00:00:00 +0000</pubDate>
+      <pubDate>Sun, 13 Jan 2019 00:00:00 +0000</pubDate>
       
       <guid>/tags/%E9%83%A8%E7%BD%B2/</guid>
       <description></description>
