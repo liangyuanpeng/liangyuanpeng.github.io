@@ -1,5 +1,5 @@
 baseurl = ""
-title = "Hi,I`m fish"
+title = "Hi,I`m lan"
 theme = "hugo-theme-cleanwhite"
 languageCode = "en-us"
 # Enable comments by entering your Disqus shortname
@@ -16,8 +16,8 @@ home = ["HTML", "RSS", "Algolia"]
  # header_image = "img/home-bg-jeep.jpg"
  header_image = "https://res.cloudinary.com/lyp/image/upload/v1537619755/hugo/banner/WechatIMG413.jpg"
  SEOTitle = "lyp的博客 | lyp Blog"
-  description = "lyp，工程师, 开源爱好者 | 这里是 lyp 的博客，与你一起发现更大的世界。"
-  keyword = "liangyuanpeng , lyp , lyp的网络日志, lyp的博客, lyp Blog, 博客, 个人网站, 互联网, Web,  Istio, 微服务"
+  description = "lan，工程师, 开源爱好者 | 这里是 lan 的博客，与你一起发现更大的世界。"
+  keyword = "liangyuanpeng , lan , lyp的网络日志, lan的博客, lan Blog, 博客, 个人网站, 互联网, Web,  Istio, 微服务"
   #slogan = "路在脚下，心向远方"
  slogan = ""
 
@@ -36,7 +36,7 @@ home = ["HTML", "RSS", "Algolia"]
   algolia_apiKey = ""
 
   # Sidebar settings
-  sidebar_about_description = "Software Developer and  Open Source Enthusiast"
+  sidebar_about_description = "DevOps/Java/Go/K8s/Docker/Coding"
   sidebar_avatar = "https://res.cloudinary.com/lyp/image/upload/v1537624737/hugo/avatar/%E5%93%88%E5%B8%8C%E5%A4%B4%E5%83%8F.jpg"      # use absolute URL, seeing it's used in both `/` and `/about/`
 
   featured_tags = true 
@@ -51,31 +51,31 @@ home = ["HTML", "RSS", "Algolia"]
 
 
   [params.social]
-  rss            = true 
+  #rss            = true 
   email          = "gcslyp@gmail.com"
   #facebook      = "full profile url in facebook"
   #googleplus    = "full profile url in googleplus"
-  #twitter       = "full profile url in twitter"
-  linkedin       = "full profile url in linkedin"
+  twitter       = "https://twitter.com/lan31793328"
+  #linkedin       = "full profile url in linkedin"
   #stackoverflow  = "full profile url in stackoverflow"
   #instagram     = "full profile url in instagram"
   github         = "https://github.com/liangyuanpeng"
   #wechat         = "link of wechat QR code image"
   #pinterest     = "full profile url in pinterest"
   
-  [[params.friend_link]]
+ #[[params.friend_link]]
  # title = "Linda的博客"
- # href =  "https://zhaozhihan.com"
+ # href =  "https://liangyuanpeng.com"
 
   [[params.bookmark_link]]
  # title =  "Martin Fowler"
  # href =  "https://martinfowler.com"
   [[params.bookmark_link]]
- #title = "ServiceMesh中文网"
- # href =  "http://www.servicemesh.cn"
+    title = "ServiceMesh中文网"
+    href =  "http://www.servicemesh.cn"
   [[params.bookmark_link]]
- # title = "Awesome Service Mesh"
- # href = "https://servicemesh.gitbooks.io/awesome-servicemesh"
+    title = "Awesome Service Mesh"
+    href = "https://servicemesh.gitbooks.io/awesome-servicemesh"
   [[params.bookmark_link]]
  # title =  "Image Compression"
  # href = "https://tinypng.com"
