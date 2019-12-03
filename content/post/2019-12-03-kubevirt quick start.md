@@ -6,7 +6,7 @@ description: "kubevirt 是 Redhat 开源的以容器方式运行虚拟机的项�
 date:       2019-12-03
 author:     "lyp"
 image: "https://res.cloudinary.com/lyp/image/upload/v1544363191/hugo/blog.github.io/743a4e9227e1f14cb24a1eb6db29e183.jpg"
-published: true
+published: false
 tags:
     - Kubernetes
     - k8s
