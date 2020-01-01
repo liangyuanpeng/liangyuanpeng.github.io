@@ -11,14 +11,14 @@
     <meta name="baidu-site-verification" content="HGLXRsUXC4" />
 
     
-    <meta name="description" content="在业务量达到一定规模后，单机实例的RocketMQ也许不太够用了，这个时候就需要扩展RocketMQ的规模">
+    <meta name="description" content="随着云原生的发展,业务规模的壮大,yml的维护会越来越复杂,这时候提高效能的工具或语言就应运而生了,ballerina便是其一.">
     
     <meta name="keyword"  content="liangyuanpeng , lan , lyp的网络日志, lan的博客, lan Blog, 博客, 个人网站, 互联网, Web,  Istio, 微服务">
     <link rel="shortcut icon" href="img/favicon.ico">
 
-    <title>架构演进|RocketMQ集群搭建-lyp的博客 | lyp Blog</title>
+    <title>云原生编程语言ballerina:hello-world-lyp的博客 | lyp Blog</title>
 
-    <link rel="canonical" href="/post/2018-12-28-%E6%9E%B6%E6%9E%84%E6%BC%94%E8%BF%9Brocketmq%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/">
+    <link rel="canonical" href="/post/%E4%BA%91%E5%8E%9F%E7%94%9F%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80ballerina-hello-world/">
 
     <link rel="stylesheet" href="https://res.cloudinary.com/lyp/raw/upload/v1537369740/hugo/css/iDisqus.min.css"/>
 
@@ -79,6 +79,10 @@ var _hmt = _hmt || [];
                     </li>
                     
                     <li>
+                        <a href="categories/cloudnative">CloudNative</a>
+                    </li>
+                    
+                    <li>
                         <a href="categories/devops">DevOps</a>
                     </li>
                     
@@ -133,7 +137,7 @@ var _hmt = _hmt || [];
 
 <style type="text/css">
     header.intro-header{
-        background-image: url('https://res.cloudinary.com/lyp/image/upload/v1543506262/hugo/blog.github.io/apache-rocketMQ-introduction/7046d2bf0d97278682129887309cc1a6.jpg')
+        background-image: url('https://res.cloudinary.com/lyp/image/upload/v1544363191/hugo/blog.github.io/743a4e9227e1f14cb24a1eb6db29e183.jpg')
     }
 </style>
 <header class="intro-header" >
@@ -143,38 +147,30 @@ var _hmt = _hmt || [];
                 <div class="post-heading">
                     <div class="tags">
                        
-                       <a class="tag" href="/tags/mq" title="MQ">
-                           MQ
+                       <a class="tag" href="/tags/%E4%BA%91%E5%8E%9F%E7%94%9F" title="云原生">
+                           云原生
                         </a>
                         
-                       <a class="tag" href="/tags/apache" title="apache">
-                           apache
+                       <a class="tag" href="/tags/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80" title="编程语言">
+                           编程语言
                         </a>
                         
-                       <a class="tag" href="/tags/rocketmq" title="RocketMQ">
-                           RocketMQ
+                       <a class="tag" href="/tags/ballerina" title="ballerina">
+                           ballerina
                         </a>
                         
-                       <a class="tag" href="/tags/java" title="java">
-                           java
+                       <a class="tag" href="/tags/k8s" title="k8s">
+                           k8s
                         </a>
                         
-                       <a class="tag" href="/tags/%E4%B8%AD%E9%97%B4%E4%BB%B6" title="中间件">
-                           中间件
-                        </a>
-                        
-                       <a class="tag" href="/tags/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97" title="消息队列">
-                           消息队列
-                        </a>
-                        
-                       <a class="tag" href="/tags/%E6%9E%B6%E6%9E%84%E6%BC%94%E8%BF%9B" title="架构演进">
-                           架构演进
+                       <a class="tag" href="/tags/docker" title="docker">
+                           docker
                         </a>
                         
                     </div>
-                    <h1>架构演进|RocketMQ集群搭建</h1>
+                    <h1>云原生编程语言ballerina:hello-world</h1>
                     <h2 class="subheading"></h2>
-                    <span  class="meta">Posted by lyp on Friday, December 28, 2018
+                    <span  class="meta">Posted by lyp on Wednesday, January 1, 2020
                         
                     </span>
                 </div>
@@ -205,7 +201,14 @@ var _hmt = _hmt || [];
 <li>
 <ul>
 <li><a href="#前言">前言</a></li>
-<li><a href="#架构演进">架构演进</a></li>
+<li><a href="#example">Example</a></li>
+</ul></li>
+<li><a href="#下载对应平台的包进行安装">下载对应平台的包进行安装</a>
+<ul>
+<li>
+<ul>
+<li><a href="#hello-world-main">Hello World Main</a></li>
+</ul></li>
 </ul></li>
 </ul>
 </nav>
@@ -214,70 +217,223 @@ var _hmt = _hmt || [];
 
 <h2 id="前言">前言</h2>
 
-<p>这篇文章以4.3.0版本为标准进行讲述在linux下部署RocketMQ集群(双MASTER无SALVE)实例,在此之前假设前提条件为已经部署了单机实例,可以查看单机部署实例这篇文章。</p>
+<p>Ballerina是一款完全开源的编译时强类型语言,愿景是让云原生时代的程序员轻松编写出想要的的软件.<br />
+开源地址:<a href="https://github.com/ballerina-platform/ballerina-lang">https://github.com/ballerina-platform/ballerina-lang</a></p>
 
-<blockquote>
-<p>在业务量达到一定规模后，单机实例的RocketMQ也许不太够用了，这个时候就需要扩展RocketMQ的规模。</p>
-</blockquote>
+<h2 id="example">Example</h2>
 
-<h2 id="架构演进">架构演进</h2>
+<h1 id="下载对应平台的包进行安装">下载对应平台的包进行安装</h1>
 
-<p>在[Apache RocketMQ单机部署]()这篇文章中画出了单机部署下的一个架构图</p>
+<p><a href="https://ballerina.io/downloads/">https://ballerina.io/downloads/</a></p>
 
-<p><img src="https://res.cloudinary.com/lyp/image/upload/v1545991449/hugo/blog.github.io/rocketmq/RocketMQ-Single-instance.png" alt="" /></p>
+<p>这里使用的是在ubuntu环境下安装，下载好deb包后，进行安装</p>
 
-<p>可以看到，有四个角色，producer和consumer都是业务方的内容，不在rocketmq的部署范围之内，而nameserver和broker都只有一个，如果任意一个发生故障，都会发生单点故障的问题。</p>
-
-<p>这个时候就需要搭建集群，防止单点故障的问题发生以及支持更大的业务量。而在RocketMQ中，nameserver和broker都可以进行横向扩展，本篇以broker进行讲述搭建<code>双MASTER无SALVE集群架构</code>。</p>
-
-<p>横向扩展broker有几种架构模式：</p>
-
-<ul>
-<li>单MASTER，也就是单机部署</li>
-<li>多MASTER无SLAVE，这是本篇讲述的架构模式，也是生产常用的架构模式<br /></li>
-<li>多MASTER多SALVE，一个MASTER对应有一个SLAVE<br /></li>
-<li>多MASTER多SAVLE，一个MASTER对应有多个SLAVE
-<br /></li>
-</ul>
-
-<p>需要加多一个broker到目前的架构中去，需要怎么做的？需要停机执行吗？<br />
-<code>不需要的，只需要在另一台机器上配置好broker，启动broker，一个新的broker就加入到了当前的架构中去了。</code><br />
-结果架构图如下图所述：</p>
-
-<p><img src="https://res.cloudinary.com/lyp/image/upload/v1545993037/hugo/blog.github.io/rocketmq/RocketMQ-2broker-1namesrv.png" alt="" /></p>
-
-<p>以下是相关broker-b的配置</p>
-
-<pre><code>
-brokerClusterName = DefaultCluster  
-brokerName = broker-b  
-brokerId = 0  
-deleteWhen = 04  
-fileReservedTime = 48  
-brokerRole = ASYNC_MASTER  
-flushDiskType = ASYNC_FLUSH  
-
-brokerIP1=172.17.59.147  
-brokerIP2=172.17.59.147  
-namesrvAddr=172.17.59.146:5776  
-autoCreateTopicEnable=true
-
+<pre><code>lan@lan-machine:~$ sudo dpkg -i ballerina-linux-installer-x64-1.1.0.deb 
+[sudo] password for lan: 
+Selecting previously unselected package ballerina-1.1.0.
+(Reading database ... 187196 files and directories currently installed.)
+Preparing to unpack ballerina-linux-installer-x64-1.1.0.deb ...
+Unpacking ballerina-1.1.0 (1.1.0) ...
+Setting up ballerina-1.1.0 (1.1.0) ...
+lan@lan-machine:~$ ballerina version
+jBallerina 1.1.0
+Language specification 2019R3
+Ballerina tool 0.8.0
 </code></pre>
 
-<p>与broker-a对比，必须改的就只有<code>brokerName</code>、<code>brokerIP1</code>和<code>brokerIP2</code>属性，其他的都可一致，也可以下载<a href="https://res.cloudinary.com/lyp/raw/upload/v1545992964/hugo/blog.github.io/rocketmq/broker-b.properties">我的broker-b配置文件</a>进行修改</p>
+<p>可以看到安装的ballerina的版本是1.1.0</p>
+
+<h3 id="hello-world-main">Hello World Main</h3>
+
+<ol>
+<li>创建ballerina目录以及进入到ballerina目录下，这一步骤不是必须的，但为了文件整理，建议这样处理
+<code>
+lan@lan-machine:/disk/note$ mkdir ballerina &amp;&amp; cd ballerina
+lan@lan-machine:/disk/note/ballerina$
+</code></li>
+<li>创建hello-world.bal文件并写入hello-world print对应代码<br />
+<code>
+lan@lan-machine:/disk/note/ballerina$ touch hello-world.bal
+</code>
+<code>
+import ballerina/io;
+public function main() {
+io:println(&quot;Hello, World!&quot;);
+}
+</code></li>
+<li>运行hello-world
+<code>
+</code>`
+lan@lan-machine:/disk/note/ballerina$ ballerina run hello-world.bal
+Compiling source
+    hello-world.bal</li>
+</ol>
+
+<p>Generating executables
+Running executables</p>
+
+<p>Hello, World!</p>
+
+<pre><code>可以看到，已经成功输入 Hello World,最简单的一个例子完成了。
+
+### Hello World Service
+
+第二个hello-world的例子是启动一个监听9090端口的http服务器
+1. 创建hello-world-service.bal文件并写入对应的代码
+
+``
+lan@lan-machine:/disk/note/ballerina$ touch hello-world-service.bal
+``
+</code></pre>
+
+<p>import ballerina/http;
+import ballerina/log;
+service hello on new http:Listener(9090) {</p>
+
+<pre><code>resource function sayHello(http:Caller caller, http:Request req) {
+
+    var result = caller-&gt;respond(&quot;Hello, World!&quot;);
+
+    if (result is error) {
+        log:printError(&quot;Error sending response&quot;, result);
+    }
+}
+</code></pre>
+
+<p>}</p>
+
+<pre><code>1. 运行hello-world-service.bal
+</code></pre>
+
+<p>lan@lan-machine:/disk/note/ballerina$ ballerina run hello-world-service.bal
+Compiling source
+        hello-world-service.bal</p>
+
+<p>Generating executables
+Running executables</p>
+
+<p>[ballerina/http] started HTTP/WS listener 0.0.0.0:9090</p>
+
+<p>lan@lan-machine:~$ curl <a href="http://localhost:9090/hello/sayHello">http://localhost:9090/hello/sayHello</a>
+Hello, World!</p>
+
+<pre><code>其中路径的组成是这样的，
+1. http:Listener(9090) 构成监听端口9090,也就是localhost:9090
+2. service hello 构成第一个路径
+3. resource function sayHello 构成第二个路径
+   
+完整的组成之后就是http://localhost:9090/hello/sayHello
+
+### Hello World Paraller
+第三个hello-world的例子是异步任务的执行
+
+1. 创建hello-world-paraller.bal文件并写入对应代码  
+``
+lan@lan-machine:/disk/note/ballerina$ touch hello-world-paraller.bal
+``
+</code></pre>
+
+<p>import ballerina/io;
+public function main() {
+    worker w1 {
+        io:println(&ldquo;Hello, World! #m&rdquo;);
+    }</p>
+
+<pre><code>worker w2 {
+    io:println(&quot;Hello, World! #n&quot;);
+}
+worker w3 {
+    io:println(&quot;Hello, World! #k&quot;);
+}
+</code></pre>
+
+<p>}</p>
+
+<pre><code>1. 运行hello-world-paraller.bal 文件
+</code></pre>
+
+<p>lan@lan-machine:/disk/note/ballerina$ ballerina run hello-world-paraller.bal
+Compiling source
+        hello-world-paraller.bal</p>
+
+<p>Generating executables
+Running executables</p>
+
+<p>Hello, World! #m
+Hello, World! #n
+Hello, World! #k
+lan@lan-machine:/disk/note/ballerina$
+lan@lan-machine:/disk/note/ballerina$
+lan@lan-machine:/disk/note/ballerina$ ballerina run hello-world-paraller.bal
+Compiling source
+        hello-world-paraller.bal</p>
+
+<p>Generating executables
+Running executables</p>
+
+<p>Hello, World! #n
+Hello, World! #m
+Hello, World! #k</p>
+
+<pre><code>可以看到每次打印的顺序并不是一样的
+
+### Hello World Client
+最后一个hello-world的例子是http客户端请求
+
+1. 创建hello-world-client.bar文件并写入对应代码
+``
+lan@lan-machine:/disk/note/ballerina$ touch hello-world-client.bal
+``
+</code></pre>
+
+<p>import ballerina/http;
+import ballerina/io;
+public function main() {
+    http:Client clientEP = new (&ldquo;<a href="http://www.mocky.io&quot;">http://www.mocky.io&quot;</a>);</p>
+
+<pre><code>var resp = clientEP-&gt;get(&quot;/v2/5ae082123200006b00510c3d/&quot;);
+
+if (resp is http:Response) {
+    var payload = resp.getTextPayload();
+    if (payload is string) {
+
+        io:println(payload);
+    } else {
+
+        io:println(payload.detail());
+    }
+} else {
+
+    io:println(resp.detail());
+}
+</code></pre>
+
+<p>}</p>
+
+<pre><code>2. 运行hello-world-client.bal文件
+</code></pre>
+
+<p>lan@lan-machine:/disk/note/ballerina$ ballerina run hello-world-client.bal
+Compiling source
+        hello-world-client.bal</p>
+
+<p>Generating executables
+Running executables
+```
+Hello World</p>
+
+<p>例子中是请求 <code>http://www.mocky.io/v2/5ae082123200006b00510c3d/</code> 并将结果打印出来</p>
+
+<p>更多的example可以在<a href="https://ballerina.io/v1-1/learn/by-example/">官网</a>找到</p>
 
 
                 <hr>
 
                 <ul class="pager">
                     
-                    <li class="previous">
-                        <a href="/post/2019-01-06-%E9%83%A8%E7%BD%B2react%E5%BA%94%E7%94%A8/" data-toggle="tooltip" data-placement="top" title="部署React应用">&larr; Previous Post</a>
-                    </li>
-                    
                     
                     <li class="next">
-                        <a href="/post/sofarpc%E4%BC%98%E9%9B%85%E5%85%B3%E9%97%AD%E5%89%96%E6%9E%90/" data-toggle="tooltip" data-placement="top" title="转|SOFARPC优雅关闭剖析">Next Post &rarr;</a>
+                        <a href="/post/2019-01-13-jenkins%E8%BF%9C%E7%A8%8B%E9%83%A8%E7%BD%B2linux%E6%9C%8D%E5%8A%A1%E5%99%A8/" data-toggle="tooltip" data-placement="top" title="Jenkins远程部署Linux服务器">Next Post &rarr;</a>
                     </li>
                     
                 </ul>
@@ -330,6 +486,12 @@ autoCreateTopicEnable=true
                         
                     
                         
+                    
+                        
+                    
+                        
+                    
+                        
                             <a href="/tags/rpc" title="rpc">
                                 rpc
                             </a>
@@ -351,6 +513,10 @@ autoCreateTopicEnable=true
                             <a href="/tags/%E4%B8%AD%E9%97%B4%E4%BB%B6" title="中间件">
                                 中间件
                             </a>
+                        
+                    
+                        
+                    
                         
                     
                         
@@ -425,7 +591,7 @@ autoCreateTopicEnable=true
                     
                 </ul>
 		<p class="copyright text-muted">
-                    Copyright &copy; Hi,I`m lan , 2018
+                    Copyright &copy; Hi,I`m lan , 2020
                     <br>
                     <a href="https://themes.gohugo.io/hugo-theme-cleanwhite">CleanWhite Hugo Theme</a> by <a href="https://zhaohuabing.com">Huabing</a> |
                     <iframe

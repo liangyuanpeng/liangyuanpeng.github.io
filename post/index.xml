@@ -6,10 +6,19 @@
     <description>Recent content in Posts on Hi,I`m lan</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 13 Jan 2019 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 01 Jan 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>云原生编程语言ballerina:hello-world</title>
+      <link>/post/%E4%BA%91%E5%8E%9F%E7%94%9F%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80ballerina-hello-world/</link>
+      <pubDate>Wed, 01 Jan 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/post/%E4%BA%91%E5%8E%9F%E7%94%9F%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80ballerina-hello-world/</guid>
+      <description>前言 Ballerina是一款完全开源的编译时强类型语言,愿景是让云原生时代的程序员轻松编写出想要的的软件. 开源地址:https://gith</description>
+    </item>
     
     <item>
       <title>Jenkins远程部署Linux服务器</title>
@@ -27,15 +36,6 @@
       
       <guid>/post/2019-01-06-%E9%83%A8%E7%BD%B2react%E5%BA%94%E7%94%A8/</guid>
       <description>前言 前后端分离已经是大趋势，服务器端只需要关注自己的接口逻辑实现，而不需要关注前端的页面跳转，这一部分交由前端处理。常见的就是React应用</description>
-    </item>
-    
-    <item>
-      <title>架构演进|RocketMQ集群搭建</title>
-      <link>/post/2018-12-28-%E6%9E%B6%E6%9E%84%E6%BC%94%E8%BF%9Brocketmq%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/</link>
-      <pubDate>Fri, 28 Dec 2018 00:00:00 +0000</pubDate>
-      
-      <guid>/post/2018-12-28-%E6%9E%B6%E6%9E%84%E6%BC%94%E8%BF%9Brocketmq%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/</guid>
-      <description>前言 这篇文章以4.3.0版本为标准进行讲述在linux下部署RocketMQ集群(双MASTER无SALVE)实例,在此之前假设前提条件为已</description>
     </item>
     
     <item>

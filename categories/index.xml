@@ -11,6 +11,15 @@
     
     
     <item>
+      <title>CloudNative</title>
+      <link>/categories/cloudnative/</link>
+      <pubDate>Wed, 01 Jan 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/categories/cloudnative/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>DevOps</title>
       <link>/categories/devops/</link>
       <pubDate>Sun, 13 Jan 2019 00:00:00 +0000</pubDate>
@@ -31,7 +40,7 @@
     <item>
       <title>中间件</title>
       <link>/categories/%E4%B8%AD%E9%97%B4%E4%BB%B6/</link>
-      <pubDate>Fri, 28 Dec 2018 00:00:00 +0000</pubDate>
+      <pubDate>Wed, 12 Dec 2018 00:00:00 +0000</pubDate>
       
       <guid>/categories/%E4%B8%AD%E9%97%B4%E4%BB%B6/</guid>
       <description></description>
