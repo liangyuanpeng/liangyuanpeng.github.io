@@ -11,14 +11,14 @@
     <meta name="baidu-site-verification" content="HGLXRsUXC4" />
 
     
-    <meta name="description" content="Nginmesh是NGINX的Service Mesh开源项目，用于Istio服务网格平台中的数据面代理。它旨在提供七层负载均衡和服务路由功能，与Istio集成作为sidecar部署，并将以“标准，可靠和安全的方式”使得服务间通信更容易。Nginmesh在今年底已经连续发布了0.2和0.3版本，提供了服务发现，请求转发，路由规则，性能指标收集等功能。本文介绍如何采用kubeadmin安装kubernetes集群并部署Nginmesh sidecar。">
+    <meta name="description" content="MinIO是Apache V2许可下的100％开源的对象存储服务器，兼容S3。具有高可用高性能且云原生">
     
     <meta name="keyword"  content="liangyuanpeng , lan , lyp的网络日志, lan的博客, lan Blog, 博客, 个人网站, 互联网, Web,  Istio, 微服务">
     <link rel="shortcut icon" href="img/favicon.ico">
 
-    <title>CI过程中拉取仓库的注意点-lyp的博客 | lyp Blog</title>
+    <title>docker部署minio-lyp的博客 | lyp Blog</title>
 
-    <link rel="canonical" href="/post/2018-09-22-ci%E8%BF%87%E7%A8%8B%E4%B8%AD%E6%8B%89%E5%8F%96%E4%BB%93%E5%BA%93%E7%9A%84%E6%B3%A8%E6%84%8F%E7%82%B9/">
+    <link rel="canonical" href="/post/docker-deploy-minio/">
 
     <link rel="stylesheet" href="https://res.cloudinary.com/lyp/raw/upload/v1537369740/hugo/css/iDisqus.min.css"/>
 
@@ -137,7 +137,7 @@ var _hmt = _hmt || [];
 
 <style type="text/css">
     header.intro-header{
-        background-image: url('img/post-bg-2015.jpg')
+        background-image: url('https://res.cloudinary.com/lyp/image/upload/v1543506262/hugo/blog.github.io/apache-rocketMQ-introduction/7046d2bf0d97278682129887309cc1a6.jpg')
     }
 </style>
 <header class="intro-header" >
@@ -147,18 +147,22 @@ var _hmt = _hmt || [];
                 <div class="post-heading">
                     <div class="tags">
                        
-                       <a class="tag" href="/tags/ci" title="CI">
-                           CI
+                       <a class="tag" href="/tags/%E5%AD%98%E5%82%A8" title="存储">
+                           存储
                         </a>
                         
-                       <a class="tag" href="/tags/git" title="git">
-                           git
+                       <a class="tag" href="/tags/%E4%B8%AD%E9%97%B4%E4%BB%B6" title="中间件">
+                           中间件
+                        </a>
+                        
+                       <a class="tag" href="/tags/%E4%BA%91%E5%8E%9F%E7%94%9F" title="云原生">
+                           云原生
                         </a>
                         
                     </div>
-                    <h1>CI过程中拉取仓库的注意点</h1>
+                    <h1>docker部署minio</h1>
                     <h2 class="subheading"></h2>
-                    <span  class="meta">Posted by lyp on Saturday, September 22, 2018
+                    <span  class="meta">Posted by lyp on Thursday, January 16, 2020
                         
                     </span>
                 </div>
@@ -186,63 +190,160 @@ var _hmt = _hmt || [];
                 </header>
                 <nav id="TableOfContents">
 <ul>
-<li>
+<li><a href="#前提">前提</a>
 <ul>
-<li><a href="#前言">前言</a></li>
-<li><a href="#ci-hugo博客时子模块注意点">CI Hugo博客时子模块注意点</a></li>
+<li><a href="#docker部署">docker部署</a></li>
+<li><a href="#minio-web简单操作">minio web简单操作</a></li>
+<li><a href="#cli-mc">CLI mc</a>
+<ul>
+<li><a href="#macos">macOS</a>
+<ul>
+<li><a href="#homebrew">Homebrew</a></li>
+</ul></li>
+<li><a href="#gnu-linux">GNU/Linux</a>
+<ul>
+<li><a href="#binary-download">Binary Download</a></li>
+</ul></li>
+<li><a href="#microsoft-windows">Microsoft Windows</a>
+<ul>
+<li><a href="#binary-download-1">Binary Download</a></li>
+</ul></li>
+</ul></li>
 </ul></li>
 </ul>
 </nav>
 		
 		
 
-<h2 id="前言">前言</h2>
+<h1 id="前提">前提</h1>
 
-<p>CI过程中拉取仓库的注意点</p>
+<ol>
+<li><a href="https://www.docker.com/get-started">docker</a></li>
+</ol>
 
-<blockquote>
-<p>备注：本文安装指南基于Ubuntu 16.04，在Centos上某些安装步骤的命令可能需要稍作改动。</p>
-</blockquote>
+<h2 id="docker部署">docker部署</h2>
 
-<h2 id="ci-hugo博客时子模块注意点">CI Hugo博客时子模块注意点</h2>
+<p>docker部署minio非常简单，只需要两条命令即可完成minio服务器的部署。</p>
 
-<p>在fork了hugo的主题仓库后，hugo使用了自己仓库的hugo主题，但是在CI过程中一直提示没有权限访问仓库。</p>
-
-<pre><code>Running with gitlab-runner 11.3.0-rc1 (861c565e)
-  on docker-auto-scale 4e4528ca
-Using Docker executor with image registry.gitlab.com/pages/hugo:latest ...
-Pulling docker image registry.gitlab.com/pages/hugo:latest ...
-Using docker image sha256:e49e435cc0445a3d9f8b2fe75c25fd226ed240940ed8c8c1c00aa339e4498144 for registry.gitlab.com/pages/hugo:latest ...
-Running on runner-4e4528ca-project-8449745-concurrent-0 via runner-4e4528ca-srm-1537615348-42d15321...
-Cloning repository...
-Cloning into '/builds/liangyuanpeng/liangyuanpeng.gitlab.io'...
-Checking out 643a5fbf as master...
-Updating/initializing submodules recursively...
-Submodule 'themes/hugo-theme-cleanwhite' (git@github.com:liangyuanpeng/hugo-theme-cleanwhite.git) registered for path 'themes/hugo-theme-cleanwhite'
-Cloning into '/builds/liangyuanpeng/liangyuanpeng.gitlab.io/themes/hugo-theme-cleanwhite'...
-fatal: cannot run ssh: No such file or directory
-fatal: unable to fork
-fatal: clone of 'git@github.com:liangyuanpeng/hugo-theme-cleanwhite.git' into submodule path '/builds/liangyuanpeng/liangyuanpeng.gitlab.io/themes/hugo-theme-cleanwhite' failed
-Failed to clone 'themes/hugo-theme-cleanwhite'. Retry scheduled
-Cloning into '/builds/liangyuanpeng/liangyuanpeng.gitlab.io/themes/hugo-theme-cleanwhite'...
-fatal: cannot run ssh: No such file or directory
-fatal: unable to fork
-fatal: clone of 'git@github.com:liangyuanpeng/hugo-theme-cleanwhite.git' into submodule path '/builds/liangyuanpeng/liangyuanpeng.gitlab.io/themes/hugo-theme-cleanwhite' failed
-Failed to clone 'themes/hugo-theme-cleanwhite' a second time, aborting
-ERROR: Job failed: exit code 1
+<pre><code>docker pull minio/minio
+docker run -p 9000:9000 minio/minio server /data
 </code></pre>
 
-<p>最后发现问题出在使用了git协议拉取仓库，导致没有权限访问。将协议改为https协议即可。</p>
+<p>下面是两条命令的执行结果</p>
+
+<pre><code>docker run -p 9000:9000 minio/minio server /data/minio
+
+[root@localhost ~]# docker pull minio/minio
+Using default tag: latest
+latest: Pulling from minio/minio
+89d9c30c1d48: Already exists 
+1bc2fea8f5b3: Pull complete 
+c3bfea9d8980: Pull complete 
+Digest: sha256:10daad6aff2e8d5db5700eaa1ee148835aaed8c761c607fcbeb4a62caa1ac640
+Status: Downloaded newer image for minio/minio:latest
+docker.io/minio/minio:latest
+
+[root@localhost minio]# docker run -p 9000:9000 minio/minio server /data/minio
+Endpoint:  http://172.17.0.4:9000  http://127.0.0.1:9000
+
+Browser Access:
+   http://172.17.0.4:9000  http://127.0.0.1:9000
+
+Object API (Amazon S3 compatible):
+   Go:         https://docs.min.io/docs/golang-client-quickstart-guide
+   Java:       https://docs.min.io/docs/java-client-quickstart-guide
+   Python:     https://docs.min.io/docs/python-client-quickstart-guide
+   JavaScript: https://docs.min.io/docs/javascript-client-quickstart-guide
+   .NET:       https://docs.min.io/docs/dotnet-client-quickstart-guide
+Detected default credentials 'minioadmin:minioadmin', please change the credentials immediately using 'MINIO_ACCESS_KEY' and 'MINIO_SECRET_KEY'
+
+</code></pre>
+
+<p>到这里为止minio服务器就已经部署完成了，打开对应IP:9000就可以看到minio的登陆页面。<br />
+默认帐号:minioadmin<br />
+默认密码:minioadmin</p>
+
+<p><img src="https://res.cloudinary.com/lyp/image/upload/v1579187421/hugo/blog.github.io/minio/login-web.png" alt="https://res.cloudinary.com/lyp/image/upload/v1579187421/hugo/blog.github.io/minio/login-web.png" /></p>
+
+<p>这是最新版本的minio情况，旧一点版本的minio的默认帐号密码不是这个，不管怎样都会在启动minio server的时候在控制台显示出来，这个不是问题。</p>
+
+<h2 id="minio-web简单操作">minio web简单操作</h2>
+
+<p>minio dashboard<br />
+<img src="https://res.cloudinary.com/lyp/image/upload/v1579187807/hugo/blog.github.io/minio/dashboard.png" alt="https://res.cloudinary.com/lyp/image/upload/v1579187807/hugo/blog.github.io/minio/dashboard.png" /></p>
+
+<p>minio 可操作的按钮<br />
+<img src="https://res.cloudinary.com/lyp/image/upload/v1579188074/hugo/blog.github.io/minio/button.png" alt="https://res.cloudinary.com/lyp/image/upload/v1579188074/hugo/blog.github.io/minio/button.png" /></p>
+
+<ol>
+<li>第一个按钮是上传文件<br /></li>
+<li>第二个按钮是创建bucket,在服务器上的表现就是创建文件夹<br /></li>
+</ol>
+
+<p>创建的第一个bucket<br />
+<img src="https://res.cloudinary.com/lyp/image/upload/v1579188657/hugo/blog.github.io/minio/firstBucket.png" alt="https://res.cloudinary.com/lyp/image/upload/v1579188657/hugo/blog.github.io/minio/firstBucket.png" /></p>
+
+<p>上传的第一个文件<br />
+<img src="https://res.cloudinary.com/lyp/image/upload/v1579188643/hugo/blog.github.io/minio/firstImg.png" alt="https://res.cloudinary.com/lyp/image/upload/v1579188643/hugo/blog.github.io/minio/firstImg.png" /></p>
+
+<p>分享文件按钮<br />
+<img src="https://res.cloudinary.com/lyp/image/upload/v1579189664/hugo/blog.github.io/minio/shareButton.png" alt="https://res.cloudinary.com/lyp/image/upload/v1579189664/hugo/blog.github.io/minio/shareButton.png" /></p>
+
+<p>分享文件,配置过期时间
+<img src="https://res.cloudinary.com/lyp/image/upload/v1579189665/hugo/blog.github.io/minio/shareObject.png" alt="https://res.cloudinary.com/lyp/image/upload/v1579189665/hugo/blog.github.io/minio/shareObject.png" /></p>
+
+<p>默认的过期时间是5天，时间到后，链接就失效了。</p>
+
+<h2 id="cli-mc">CLI mc</h2>
+
+<p>minio web的简单操作就这么多，还可以通过官方的CLI工具<code>mc</code>来操作</p>
+
+<h3 id="macos">macOS</h3>
+
+<h4 id="homebrew">Homebrew</h4>
+
+<p>Install mc packages using <a href="https://brew.sh/">Homebrew</a></p>
+
+<pre><code>brew install minio/stable/mc
+mc --help
+</code></pre>
+
+<h3 id="gnu-linux">GNU/Linux</h3>
+
+<h4 id="binary-download">Binary Download</h4>
+
+<p>Platform | Architecture |  URL<br />
+-|-|-
+GNU/Linux | 64-bit Intel | <a href="https://dl.min.io/client/mc/release/linux-amd64/mc">https://dl.min.io/client/mc/release/linux-amd64/mc</a>
+&nbsp;  | 64-bit PPC | <a href="https://dl.min.io/client/mc/release/linux-ppc64le/mc">https://dl.min.io/client/mc/release/linux-ppc64le/mc</a></p>
+
+<pre><code>wget https://dl.min.io/client/mc/release/linux-amd64/mc
+chmod +x mc
+./mc --help
+</code></pre>
+
+<h3 id="microsoft-windows">Microsoft Windows</h3>
+
+<h4 id="binary-download-1">Binary Download</h4>
+
+<p>Platform | Architecture | URL
+-|-|-
+Microsoft Windows | 64-bit Intel | <a href="https://dl.min.io/client/mc/release/windows-amd64/mc.exe">https://dl.min.io/client/mc/release/windows-amd64/mc.exe</a></p>
+
+<pre><code>mc.exe --help
+</code></pre>
+
+<p>还有更详情的可以到官网的<a href="https://docs.min.io/docs/minio-client-quickstart-guide.html">客户端指南</a>查看,还包含其他客户端，包括javascript、java、python、golang、.net、Hashkell.</p>
 
 
                 <hr>
 
                 <ul class="pager">
                     
-                    <li class="previous">
-                        <a href="/post/2018-11-27-rocketmq%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" data-toggle="tooltip" data-placement="top" title="Apache RocketMQ单机部署">&larr; Previous Post</a>
-                    </li>
                     
+                    <li class="next">
+                        <a href="/post/%E4%BA%91%E5%8E%9F%E7%94%9F%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80ballerina-hello-world/" data-toggle="tooltip" data-placement="top" title="云原生编程语言ballerina:hello-world">Next Post &rarr;</a>
+                    </li>
                     
                 </ul>
 
@@ -401,7 +502,7 @@ ERROR: Job failed: exit code 1
                     
                 </ul>
 		<p class="copyright text-muted">
-                    Copyright &copy; Hi,I`m lan , 2018
+                    Copyright &copy; Hi,I`m lan , 2020
                     <br>
                     <a href="https://themes.gohugo.io/hugo-theme-cleanwhite">CleanWhite Hugo Theme</a> by <a href="https://zhaohuabing.com">Huabing</a> |
                     <iframe
