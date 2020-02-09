@@ -75,6 +75,24 @@
     </item>
     
     <item>
+      <title>Docker</title>
+      <link>/tags/docker/</link>
+      <pubDate>Sun, 09 Feb 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/docker/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Docker Swarm</title>
+      <link>/tags/docker-swarm/</link>
+      <pubDate>Sun, 09 Feb 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/docker-swarm/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>Git</title>
       <link>/tags/git/</link>
       <pubDate>Sat, 22 Sep 2018 00:00:00 +0000</pubDate>
@@ -143,6 +161,15 @@
       <pubDate>Sun, 13 Jan 2019 00:00:00 +0000</pubDate>
       
       <guid>/tags/nginx/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Note</title>
+      <link>/tags/note/</link>
+      <pubDate>Sun, 09 Feb 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/note/</guid>
       <description></description>
     </item>
     

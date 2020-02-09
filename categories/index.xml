@@ -46,5 +46,23 @@
       <description></description>
     </item>
     
+    <item>
+      <title>容器</title>
+      <link>/categories/%E5%AE%B9%E5%99%A8/</link>
+      <pubDate>Sun, 09 Feb 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/categories/%E5%AE%B9%E5%99%A8/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>容器编排</title>
+      <link>/categories/%E5%AE%B9%E5%99%A8%E7%BC%96%E6%8E%92/</link>
+      <pubDate>Sun, 09 Feb 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/categories/%E5%AE%B9%E5%99%A8%E7%BC%96%E6%8E%92/</guid>
+      <description></description>
+    </item>
+    
   </channel>
 </rss>
