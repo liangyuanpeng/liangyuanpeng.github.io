@@ -28,12 +28,18 @@ categories:
 ## 整体思路  
 思路整体来说是使用Influxdb+Grafana+cadvisor,其中``cadvisor``负责数据的收集，每一台节点都部署一个cadvisor服务,Influxdb负责数据的存储,Grafana负责数据的可视化。  
 
+![https://res.cloudinary.com/lyp/image/upload/v1581387851/hugo/blog.github.io/docker/docker-swarm-monitor-process.png](https://res.cloudinary.com/lyp/image/upload/v1581387851/hugo/blog.github.io/docker/docker-swarm-monitor-process.png)
+
 ## 演示环境  
 主机 | IP
 -|-
 master(manager) | 192.168.1.60 
 node1(worker) | 192.168.1.61 
 node2(worker) | 192.168.1.62 
+
+![https://res.cloudinary.com/lyp/image/upload/v1581387850/hugo/blog.github.io/docker/docker-swarm-monitor-node.png](https://res.cloudinary.com/lyp/image/upload/v1581387850/hugo/blog.github.io/docker/docker-swarm-monitor-node.png)  
+
+我这里是将master节点当作监控数据存储以及可视化服务的节点作为演示,一般是拿一个worker节点做这样的工作。
 
 ## 初始化Docker Swarm  
 
