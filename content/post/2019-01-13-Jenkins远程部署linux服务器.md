@@ -32,7 +32,6 @@ categories:
 
 远程部署过程中在本地操作远程服务器使用的插件是``publish over ssh``  
 在``系统管理``中找到``插件管理``
-![](https://res.cloudinary.com/lyp/image/upload/v1547394171/hugo/blog.github.io/devops/jenkins/Snipaste_2019-01-13_23-41-59.png)
 
 点击``插件管理``  
 
@@ -46,7 +45,7 @@ categories:
 笔者这里没有搜索出来是因为已经安装过了  
 
 安装完成后回到刚才的``系统管理``的页面，往下拉会看到一个``系统设置``,点击进到``系统设置``页面。  
-![](https://res.cloudinary.com/lyp/image/upload/v1547394171/hugo/blog.github.io/devops/jenkins/Snipaste_2019-01-13_23-41-59.png)  
+![](https://res.cloudinary.com/lyp/image/upload/v1547394524/hugo/blog.github.io/devops/jenkins/Snipaste_2019-01-13_23-48-08.png)  
   
 往下拉，会看到``SSH Servers``相关的配置  
 
