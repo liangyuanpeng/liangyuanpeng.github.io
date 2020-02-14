@@ -38,18 +38,18 @@ docker run -d --name kafka -p 9092:9092 -e KAFKA_BROKER_ID=0 -e KAFKA_ZOOKEEPER_
 ### 通过kafka自带工具生产消费消息测试  
 
 1. 首先,进入到kafka的docker容器中  
-``
+```
 docker exec -it kafka sh
-``  
+```  
 2. 运行消费者,进行消息的监听
-``
+```
 kafka-console-consumer.sh --bootstrap-server 192.168.1.60:9094 --topic kafeidou --from-beginning
-``  
+```  
 
 3. 打开一个新的ssh窗口,同样进入kafka的容器中,执行下面这条命令生产消息
-``
+```
 kafka-console-producer.sh --broker-list 192.168.1.60(机器IP):9092 --topic kafeidou
-``  
+```  
 输入完这条命令后会进入到控制台，可以输入任何想发送的消息,这里发送一个``hello``
 ```
 >>
