@@ -6,7 +6,7 @@ description: "Fluentd是一个开源的日志统一处理数据收集器,非常�
 date:       2020-02-15
 author:     "lan"
 image: "https://res.cloudinary.com/lyp/image/upload/v1581649210/hugo/blog.github.io/blur-close-up-code-computer-546819.jpg"
-published: false
+published: true
 tags: 
     - docker
     - cncf
