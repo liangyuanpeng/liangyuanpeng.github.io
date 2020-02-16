@@ -16,6 +16,7 @@ tags:
     - 日志收集
 categories: 
     - 中间件
+    - devops
 ---
 
 
