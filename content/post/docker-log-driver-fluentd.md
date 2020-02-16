@@ -1,6 +1,6 @@
 ---
 layout:     post 
-title:      "是用fluentd作为docker日志驱动收集日志"
+title:      "使用fluentd作为docker日志驱动收集日志"
 subtitle:   ""
 description: "Fluentd是一个开源的日志统一处理数据收集器,非常轻量级,目前是CNCF的毕业项目."  
 date:       2020-02-15
