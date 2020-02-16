@@ -171,7 +171,7 @@ docker会在本机的``/var/lib/docker/containers/containerID/containerID-json.l
 
 由于fluentd配置的是存储在fluentd所在机器的本地目录,所以效果是将其他机器的容器日志收集到fluentd所在机器的本地目录中.  
 
-### fluentd只能讲容器日志收集到本地吗?
+### fluentd只能将容器日志收集到本地吗?
 
 fluentd实际上可以将收集到的日志再次传输出去,例如传输到elasticsearch等存储软件中:  
 
