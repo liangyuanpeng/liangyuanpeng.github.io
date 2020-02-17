@@ -2,7 +2,7 @@
 layout:     post 
 title:      "Elasticsearch+Fluentd+Kafka搭建日志系统"
 subtitle:   ""
-description: "由于logstash内存占用较大,灵活性相对没那么好,ELK正在被EFK逐步替代中."  
+description: "由于logstash内存占用较大,灵活性相对没那么好,ELK正在被EFK逐步替代."  
 date:       2020-02-17
 author:     "lan"
 image: "https://res.cloudinary.com/lyp/image/upload/v1581906292/hugo/blog.github.io/close-up-code-coding-computer-374559.jpg"
@@ -19,7 +19,7 @@ categories:
 
 
 # 前言  
-由于logstash内存占用较大,灵活性相对没那么好,ELK正在被EFK逐步替代中.其中本文所讲的EFK是Elasticsearch+Fluentd+Kfka,实际上K应该是Kibana用于日志的展示,这一块不做演示,本文只讲述数据的采集流程.  
+由于logstash内存占用较大,灵活性相对没那么好,ELK正在被EFK逐步替代.其中本文所讲的EFK是Elasticsearch+Fluentd+Kfka,实际上K应该是Kibana用于日志的展示,这一块不做演示,本文只讲述数据的采集流程.  
 
 # 前提
 
@@ -34,7 +34,9 @@ categories:
 
 数据的产生使用cadvisor采集容器的监控数据并将数据传输到Kafka.  
 
-数据的传输链路是这样: Cadvospr->Kafka->Fluentd->elasticsearch  
+数据的传输链路是这样: Cadvisor->Kafka->Fluentd->elasticsearch  
+
+![https://res.cloudinary.com/lyp/image/upload/v1581931896/hugo/blog.github.io/fluentd/cadvisor-kafka-fluentd-es.jpg](https://res.cloudinary.com/lyp/image/upload/v1581931896/hugo/blog.github.io/fluentd/cadvisor-kafka-fluentd-es.jpg)
 
 
 ## 配置文件  
