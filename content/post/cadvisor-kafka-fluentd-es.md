@@ -1,11 +1,11 @@
 ---
 layout:     post 
-title:      "Elasticsearch+Fluentd+Kafka搭建日志系统"
+title:      "Elasticsearch+Fluentd+Kafka搭建分布式日志系统"
 subtitle:   ""
 description: "由于logstash内存占用较大,灵活性相对没那么好,ELK正在被EFK逐步替代."  
 date:       2020-02-17
 author:     "lan"
-image: "https://res.cloudinary.com/lyp/image/upload/v1581906292/hugo/blog.github.io/close-up-code-coding-computer-374559.jpg"
+image: "https://res.cloudinary.com/lyp/image/upload/v1581932131/hugo/blog.github.io/you-got-this-lighted-signage-2740954.jpg"
 published: true
 tags: 
     - docker
@@ -36,7 +36,9 @@ categories:
 
 数据的传输链路是这样: Cadvisor->Kafka->Fluentd->elasticsearch  
 
-![https://res.cloudinary.com/lyp/image/upload/v1581931896/hugo/blog.github.io/fluentd/cadvisor-kafka-fluentd-es.jpg](https://res.cloudinary.com/lyp/image/upload/v1581931896/hugo/blog.github.io/fluentd/cadvisor-kafka-fluentd-es.jpg)
+![https://res.cloudinary.com/lyp/image/upload/v1581931896/hugo/blog.github.io/fluentd/cadvisor-kafka-fluentd-es.jpg](https://res.cloudinary.com/lyp/image/upload/v1581931896/hugo/blog.github.io/fluentd/cadvisor-kafka-fluentd-es.jpg)  
+
+每一个服务都可以横向扩展,添加服务到日志系统中.
 
 
 ## 配置文件  
