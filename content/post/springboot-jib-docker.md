@@ -129,6 +129,18 @@ mvn compile jib:build \
 
 另外,JVM参数可以通过环境变量配置动态内容,所以不需要计划将所有启动参数写死在``jvmFlags``标签里面.  
 
-例如启动容器时指定使用G1回收器,``docker run -it -e JAVA_TOOL_OPTIONS="-XX:+UseG1GC" -d  registry.cn-beijing.aliyuncs.com/lyp/lanbox:v1.0``.
+例如启动容器时指定使用G1回收器,``docker run -it -e JAVA_TOOL_OPTIONS="-XX:+UseG1GC" -d  registry.cn-beijing.aliyuncs.com/lyp/lanbox:v1.0``.  
+
+所有配置项完成后运行mvn命令``mvn compile jib:build`` 开始构建docker镜像.  
+
+如果看到类似这样的信息说明就成功了:  
+```
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  42.598 s
+[INFO] Finished at: 2020-02-18T23:30:53+08:00
+[INFO] ------------------------------------------------------------------------
+```
 
 完整的一个例子可以在github上查看并下载[https://github.com/FISHStack/hello-spring-cloud](https://github.com/FISHStack/hello-spring-cloud),欢迎多多交流.
