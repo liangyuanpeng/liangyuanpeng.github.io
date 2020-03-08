@@ -77,6 +77,7 @@ management:
 
 1. 启动SpringBoot项目  
 2. 进入到influxdb中,查看datbase:  
+
 ```
 > show databases
 name: databases
@@ -87,6 +88,7 @@ spring
 ```  
 
 这里可以看到已经生成了一个spring的数据库,可以进入到这个数据库查看里面生成了一些什么数据  
+
 ```
 > use spring
 Using database spring
