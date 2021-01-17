@@ -1,6 +1,6 @@
 ---
 layout:     post 
-title:      "deploy ChirpStack from docker-compose"
+title:      "用docker-compose快速部署ChirpStack"
 subtitle:   ""
 description: "docker-compose部署chirpstack"
 date:       2021-01-17
