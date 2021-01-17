@@ -6,7 +6,7 @@ description: "docker-compose部署chirpstack"
 date:       2021-01-17
 author:     "LanLiang"
 image: "https://res.cloudinary.com/lyp/image/upload/v1544363191/hugo/blog.github.io/743a4e9227e1f14cb24a1eb6db29e183.jpg"
-published: false
+published: true
 tags:
     - ChirpStack
     - Docker-compose 

@@ -6,7 +6,7 @@ description: "由于logstash内存占用较大,灵活性相对没那么好,ELK�
 date:       2020-03-31
 author:     "lan"
 image: "https://res.cloudinary.com/lyp/image/upload/v1581932131/hugo/blog.github.io/you-got-this-lighted-signage-2740954.jpg"
-published: true
+published: false
 tags: 
     - docker
     - cadvisor
