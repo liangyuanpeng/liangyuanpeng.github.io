@@ -91,11 +91,11 @@ Creating chirpstack-docker_postgresql_1                    ... done
 
 现在打开`IP:8080`应该就可以看到ChirpStack自带的Application Server的页面了，我这里的IP是`192.168.3.123`, 打开后可以看到登陆页面：   
 
-![](http://www.yunhorn.com:30000/server/index.php?s=/api/attachment/visitFile/sign/86f7fdcb423d070de13a9a1fdbc03e58&showdoc=.jpg)  
+![](https://res.cloudinary.com/lyp/image/upload/v1610944764/hugo/blog.github.io/chirpstack/chirpstack-login.png)  
 
 默认的帐号密码是`admin/admin`,能够登陆就已经说明部署成功了。  
 
-![](http://www.yunhorn.com:30000/server/index.php?s=/api/attachment/visitFile/sign/306de6398a40e8db5f71acf3a81fad86&showdoc=.jpg)  
+![](https://res.cloudinary.com/lyp/image/upload/v1610944738/hugo/blog.github.io/chirpstack/chirpstack-dashboard.png)  
 
 当然这个时候还不能接收传感器数据的(指的是网络服务器的配置问题),默认的用的频段是`EU868`,我们在国内需要使用`CN_470_510`,修改`configuration/chirpstack-network-server/chirpstack-network-server.toml`文件中的`network_server.band`为`CN_470_510`   
 ```
