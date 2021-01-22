@@ -16,11 +16,6 @@ categories:
     - CloudNative
 ---
 
-## 前言
-
-## FAQ
-
-
 # 前提
 
 本文使用`docker-compose`来部署`ChirpStack`，请确保已经含有以下环境：  
