@@ -96,10 +96,15 @@ kubectl port-forward svc/chirpstack-as 8080:8080 --address 0.0.0.0
 
 # 在application-server上设置network-server
 
-你可以设置为 `chirpstack-ns.{namespace}:8000` 或者 `chirpstack-ns.{namespace}.svc.cluster.local:8000`
+你可以设置为 `chirpstack-ns.{namespace}:8000` 或者 `chirpstack-ns.{namespace}.svc.cluster.local:8000`    
+
+这里的{namespace}替换为真实的命名空间
+
+![login](https://res.cloudinary.com/lyp/image/upload/v1612010769/hugo/blog.github.io/chirpstack/create-ns.jpg)
 
 #  如果你用了gateway-bridge这个组件的话，可以用下面的命令把svc暴露出来
 
 ```
 kubectl expose deploy gateway-bridge --port 1700 --target-port=1700 --protocol=UDP --name udpservice --type=NodePort  
-```
+```  
+
