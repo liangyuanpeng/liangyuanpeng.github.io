@@ -51,6 +51,8 @@ $ cd chirpstack-helm-chart/
 $ helm install chirpstack .   
 ```  
 
+`注意：默认使用名叫longorn的storageClass存储.`
+
 ```bash
 $ kubectl get po 
 # 执行命令后可以看到以下pod
