@@ -110,3 +110,5 @@ kubectl port-forward svc/chirpstack-as 8080:8080 --address 0.0.0.0
 kubectl expose deploy gateway-bridge --port 1700 --target-port=1700 --protocol=UDP --name udpservice --type=NodePort  
 ```  
 
+# 总结
+到目前为止ChirpStack已经在K8S上部署起来了,默认服务都是创建了SVC但是没有进一步暴露出来，具体的暴露方式目前是让用户来选择，可以把AS的端口暴露出来后就可以访问AS了.MQTT服务和gateway-bridge服务也是如此,数据需要上传到服务端需要将服务暴露出来。
