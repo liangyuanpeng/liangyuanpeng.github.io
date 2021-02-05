@@ -2,7 +2,7 @@
 layout:     post 
 title:      "LoraWan的第一个网关与设备"
 subtitle:   ""
-description: "oRa联盟规定了MAC层的通讯协议，只有在设备（GW、MOTE）共同遵守的MAC层协议的前提下，不同硬件厂商的设备才能互相接入。"  
+description: "LoRa联盟规定了MAC层的通讯协议，只有在设备（GW、MOTE）共同遵守的MAC层协议的前提下，不同硬件厂商的设备才能互相接入。"  
 date:       2021-02-05
 author:     "lyp"
 image: "https://res.cloudinary.com/lyp/image/upload/v1543506262/hugo/blog.github.io/apache-rocketMQ-introduction/7046d2bf0d97278682129887309cc1a6.jpg"
