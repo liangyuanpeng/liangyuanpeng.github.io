@@ -13,7 +13,7 @@ tags:
 
 # 记录Blog发布计划以及执行进度
 
-1. - [ ] 微服务监控:Micrometer InfluxDb  
+1. - [ x ] 微服务监控:Micrometer InfluxDb  
 ```
 添加->2020-03-07 22:23:08   
 ```
