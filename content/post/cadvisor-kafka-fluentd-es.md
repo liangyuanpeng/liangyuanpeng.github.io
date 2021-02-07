@@ -19,7 +19,7 @@ categories:
 
 
 # 前言  
-由于logstash内存占用较大,灵活性相对没那么好,ELK正在被EFK逐步替代.其中本文所讲的EFK是Elasticsearch+Fluentd+Kfka,实际上K应该是Kibana用于日志的展示,这一块不做演示,本文只讲述数据的采集流程.  
+由于logstash内存占用较大,灵活性相对没那么好,ELK正在被EFK逐步替代.其中本文所讲的EFK是Elasticsearch+Fluentd+Kafka,实际上K应该是Kibana用于日志的展示,这一块不做演示,本文只讲述数据的采集流程.  
 
 # 前提
 
