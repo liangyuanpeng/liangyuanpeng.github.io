@@ -37,5 +37,7 @@ Ant-Design是蚂蚁金服基于React开源的一款企业级UI 设计语言和 R
 当前Ant Design新创建了一个临时的源码仓库，介绍只有简短的一句话：  
 > antd repo disappear, we are contacting to GitHub.  
 
-![https://res.cloudinary.com/lyp/image/upload/v1613404385/hugo/blog.github.io/news/ant3.png](https://res.cloudinary.com/lyp/image/upload/v1613404385/hugo/blog.github.io/news/ant3.png)
+![https://res.cloudinary.com/lyp/image/upload/v1613404385/hugo/blog.github.io/news/ant3.png](https://res.cloudinary.com/lyp/image/upload/v1613404385/hugo/blog.github.io/news/ant3.png)  
+
+stackoverflow地址：[https://stackoverflow.com/questions/66197823/what-has-happened-to-ant-design-deleted-from-github](https://stackoverflow.com/questions/66197823/what-has-happened-to-ant-design-deleted-from-github)
 
