@@ -108,7 +108,7 @@ mc --help
 ### GNU/Linux  
 #### Binary Download  
 Platform | Architecture |  URL  
--|-|-
+-|-|-  
 GNU/Linux | 64-bit Intel | https://dl.min.io/client/mc/release/linux-amd64/mc
 &nbsp;  | 64-bit PPC | https://dl.min.io/client/mc/release/linux-ppc64le/mc  
 
@@ -121,8 +121,8 @@ chmod +x mc
 ### Microsoft Windows  
 #### Binary Download  
 
-Platform | Architecture | URL
--|-|-
+Platform | Architecture | URL  
+- | - | -  
 Microsoft Windows | 64-bit Intel | https://dl.min.io/client/mc/release/windows-amd64/mc.exe  
 
 ```
