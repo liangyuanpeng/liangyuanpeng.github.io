@@ -21,7 +21,7 @@ Ant-Design是蚂蚁金服基于React开源的一款企业级UI 设计语言和 R
 最早出现的信息是在2月15日凌晨一位叫Jeggy的用户在stackoverflow上发文表示无法访问Ant Design​源码库。  
 ![https://res.cloudinary.com/lyp/image/upload/v1613402060/hugo/blog.github.io/news/ant2.png](https://res.cloudinary.com/lyp/image/upload/v1613402060/hugo/blog.github.io/news/ant2.png)
   
-他表示Ant Design源码库打开显示404，官方网站https://ant.design/打不开，但是npm的包依旧可以下载使用。  
+他表示Ant Design源码库打开显示404，官方网站https://ant.design/ 打不开，但是npm的包依旧可以下载使用。  
 
 ![https://res.cloudinary.com/lyp/image/upload/v1613404341/hugo/blog.github.io/news/404github.png](https://res.cloudinary.com/lyp/image/upload/v1613404341/hugo/blog.github.io/news/404github.png)
 
