@@ -16,7 +16,7 @@ home = ["HTML", "RSS", "Algolia"]
  # header_image = "img/home-bg-jeep.jpg"
  header_image = "https://res.cloudinary.com/lyp/image/upload/v1537619755/hugo/banner/WechatIMG413.jpg"
  SEOTitle = "lyp的博客 | lyp Blog"
-  description = "lan，工程师, 开源爱好者 | 这里是 lan 的博客，与你一起发现更大的世界。"
+  description = "lan，工程师, 开源爱好者 | 公众号:四颗咖啡豆"
   keyword = "liangyuanpeng , lan , lyp的网络日志, lan的博客, lan Blog, 博客, 个人网站, 互联网, Web,  Istio, 微服务"
   #slogan = "路在脚下，心向远方"
  slogan = ""
@@ -59,7 +59,7 @@ home = ["HTML", "RSS", "Algolia"]
   #linkedin       = "full profile url in linkedin"
   #stackoverflow  = "full profile url in stackoverflow"
   #instagram     = "full profile url in instagram"
-  github         = "https://github.com/liangyuanpeng"
+  github         = "https://github.com/liangyuanpeng"  
   #wechat         = "link of wechat QR code image"
   #pinterest     = "full profile url in pinterest"
   
