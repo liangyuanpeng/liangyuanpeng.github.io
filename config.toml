@@ -30,10 +30,10 @@ home = ["HTML", "RSS", "Algolia"]
   leancloud_app_key = ""
 
   # algolia site search
-  algolia_search = false 
-  algolia_appId = ""
-  algolia_indexName = ""
-  algolia_apiKey = ""
+  algolia_search = true 
+  algolia_appId = "VLIE75A81B"
+  algolia_indexName = "blog"
+  algolia_apiKey = "2aa49a052dc7b70cf63c1f5ebcae8934"
 
   # Sidebar settings
   sidebar_about_description = "云原生爱好者|公众号:四颗咖啡豆"
