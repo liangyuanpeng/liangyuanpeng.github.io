@@ -1,6 +1,6 @@
 ---
 layout:     post 
-title:      "Ant-Design被删源码库!!404 Get"
+title:      "Ant Design被删源码库!!404 Get"
 subtitle:   ""
 description: "Ant-Design是蚂蚁金服基于React开源的一款企业级UI 设计语言和 React 组件库，深受人们喜爱。还在当前过年的时间点，Ant Design的Github库遭受删库袭击。"
 date:       2021-02-15
