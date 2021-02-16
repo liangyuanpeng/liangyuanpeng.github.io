@@ -72,3 +72,5 @@ tags:
 添加->2021-02-15 23:32:21   
 ```  
 15. - [ ] [文章翻译https://grafana.com/blog/2021/02/03/auto-instrumenting-a-java-spring-boot-application-for-traces-and-logs-using-opentelemetry-and-grafana-tempo/](https://grafana.com/blog/2021/02/03/auto-instrumenting-a-java-spring-boot-application-for-traces-and-logs-using-opentelemetry-and-grafana-tempo/)
+
+16. - [ ] [loft文章翻译](https://loft.sh/blog/kubernetes-multi-tenancy-best-practices-guide/)
