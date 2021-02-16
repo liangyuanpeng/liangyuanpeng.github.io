@@ -36,7 +36,7 @@ home = ["HTML", "RSS", "Algolia"]
   algolia_apiKey = ""
 
   # Sidebar settings
-  sidebar_about_description = "DevOps/Java/Go/K8s/Docker/Coding"
+  sidebar_about_description = "云原生爱好者|公众号:四颗咖啡豆"
   sidebar_avatar = "https://res.cloudinary.com/lyp/image/upload/v1537624737/hugo/avatar/%E5%93%88%E5%B8%8C%E5%A4%B4%E5%83%8F.jpg"      # use absolute URL, seeing it's used in both `/` and `/about/`
 
   featured_tags = true 
