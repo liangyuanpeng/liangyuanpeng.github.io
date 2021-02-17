@@ -95,5 +95,5 @@ params = ["categories", "tags"]
 [params.utteranc]
   enable = true
   repo = "liangyuanpeng/liangyuanpeng.github.io" ##换成自己得
-  issueTerm = "pathname"
+  issueTerm = "title"
   theme = "github-light"
