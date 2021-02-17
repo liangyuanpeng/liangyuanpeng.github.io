@@ -75,4 +75,8 @@ tags:
 
 16. - [ ] [loft文章翻译](https://loft.sh/blog/kubernetes-multi-tenancy-best-practices-guide/)  
 
-17. - [ ] 自动化构建algolia索引
+17. - [ ] 自动化构建algolia索引  
+
+18. - [ ] 部署halo博客,jar部署并且作为系统服务/docker部署
+
+19. - [ ] halo文件存储-minio-阿里-百度-腾讯-华为
