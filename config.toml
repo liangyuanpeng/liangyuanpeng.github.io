@@ -89,3 +89,11 @@ notAlternative = true
 [params.algolia]
 vars = ["title", "summary", "date", "publishdate", "expirydate", "permalink"]
 params = ["categories", "tags"] 
+
+
+## 配置 utteranc评论,教程参考 https://utteranc.es/
+[params.utteranc]
+  enable = true
+  repo = "liangyuanpeng/liangyuanpeng.github.io" ##换成自己得
+  issueTerm = "pathname"
+  theme = "github-light"
