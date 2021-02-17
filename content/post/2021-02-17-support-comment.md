@@ -5,7 +5,7 @@ subtitle:   ""
 description: "静态博客不像动态博客一样想要什么功能就写个代码实现，但是折腾一番还是可以满足日常需求的。"  
 date:       2021-02-17
 author:     "lyp"
-image: "https://res.cloudinary.com/lyp/image/upload/v1543506262/hugo/blog.github.io/apache-rocketMQ-introduction/7046d2bf0d97278682129887309cc1a6.jpg"
+image: "https://res.cloudinary.com/lyp/image/upload/v1613536257/hugo/blog.github.io/pexels-aleksey-kuprikov-3551245.jpg"
 published: true
 tags: 
     - Hugo
