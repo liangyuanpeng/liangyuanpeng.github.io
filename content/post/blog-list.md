@@ -79,4 +79,6 @@ tags:
 
 18. - [ ] 部署halo博客,jar部署并且作为系统服务/docker部署
 
-19. - [ ] halo文件存储-minio-阿里-百度-腾讯-华为
+19. - [ ] halo文件存储-minio-阿里-百度-腾讯-华为  
+
+20. - [ ] springboot添加prometheus支持
