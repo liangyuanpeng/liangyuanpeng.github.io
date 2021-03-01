@@ -31,6 +31,6 @@ jobs:
           publish_dir: ./public
           publish_branch: master
 
-      - name: run atomic-algolia
+      - name: Begin container for atomic-algolia
         uses: actions/checkout@v2
         run: ls
