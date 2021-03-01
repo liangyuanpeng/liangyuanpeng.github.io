@@ -21,7 +21,7 @@ jobs:
           hugo-version: '0.79.1'
           # extended: true
 
-      - name: Build
+      - name: Build Hugo
         run: hugo --minify
 
       - name: Deploy
@@ -38,4 +38,4 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: run atomic-algolia
-      run: echo hello
+      run: ls
