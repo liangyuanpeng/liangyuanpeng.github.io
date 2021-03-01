@@ -31,11 +31,6 @@ jobs:
           publish_dir: ./public
           publish_branch: master
 
-  build:
-
-    runs-on: ubuntu-18.04
-
-    steps:
-    - uses: actions/checkout@v2
-    - name: run atomic-algolia
-      run: ls
+      - name: run atomic-algolia
+        uses: actions/checkout@v2
+        run: ls
