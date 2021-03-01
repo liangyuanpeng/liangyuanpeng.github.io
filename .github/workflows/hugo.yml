@@ -24,13 +24,14 @@ jobs:
       - name: Build Hugo
         run: hugo --minify
 
+
+      - uses: actions/checkout@v2
+      - name: Run container for atomic-algolia
+        run: ls && ls themes/hugo-theme-cleanwhite
+
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./public
           publish_branch: master
-
-      - uses: actions/checkout@v2
-      - name: Run container for atomic-algolia
-        run: ls && ls themes/hugo-theme-cleanwhite
