@@ -1,1 +1,29 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>nginx on Hi,I`m lan</title><link>/tags/nginx/</link><description>Recent content in nginx on Hi,I`m lan</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Sun, 13 Jan 2019 00:00:00 +0000</lastBuildDate><atom:link href="/tags/nginx/index.xml" rel="self" type="application/rss+xml"/><item><title>Jenkins远程部署Linux服务器</title><link>/post/2019-01-13-jenkins%E8%BF%9C%E7%A8%8B%E9%83%A8%E7%BD%B2linux%E6%9C%8D%E5%8A%A1%E5%99%A8/</link><pubDate>Sun, 13 Jan 2019 00:00:00 +0000</pubDate><guid>/post/2019-01-13-jenkins%E8%BF%9C%E7%A8%8B%E9%83%A8%E7%BD%B2linux%E6%9C%8D%E5%8A%A1%E5%99%A8/</guid><description>前言 之前在Jenkins上也有一些使用经验了，但是都是使用团队配置好的Jenkins，自己只需要管自己的项目以及执行构建即可，这一次自己尝试</description></item><item><title>部署React应用</title><link>/post/2019-01-06-%E9%83%A8%E7%BD%B2react%E5%BA%94%E7%94%A8/</link><pubDate>Sun, 06 Jan 2019 00:00:00 +0000</pubDate><guid>/post/2019-01-06-%E9%83%A8%E7%BD%B2react%E5%BA%94%E7%94%A8/</guid><description>前言 前后端分离已经是大趋势，服务器端只需要关注自己的接口逻辑实现，而不需要关注前端的页面跳转，这一部分交由前端处理。常见的就是React应用</description></item></channel></rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>nginx on Hi,I`m lan</title>
+    <link>/tags/nginx/</link>
+    <description>Recent content in nginx on Hi,I`m lan</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 13 Jan 2019 00:00:00 +0000</lastBuildDate><atom:link href="/tags/nginx/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Jenkins远程部署Linux服务器</title>
+      <link>/post/2019-01-13-jenkins%E8%BF%9C%E7%A8%8B%E9%83%A8%E7%BD%B2linux%E6%9C%8D%E5%8A%A1%E5%99%A8/</link>
+      <pubDate>Sun, 13 Jan 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/post/2019-01-13-jenkins%E8%BF%9C%E7%A8%8B%E9%83%A8%E7%BD%B2linux%E6%9C%8D%E5%8A%A1%E5%99%A8/</guid>
+      <description>前言 之前在Jenkins上也有一些使用经验了，但是都是使用团队配置好的Jenkins，自己只需要管自己的项目以及执行构建即可，这一次自己尝试</description>
+    </item>
+    
+    <item>
+      <title>部署React应用</title>
+      <link>/post/2019-01-06-%E9%83%A8%E7%BD%B2react%E5%BA%94%E7%94%A8/</link>
+      <pubDate>Sun, 06 Jan 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/post/2019-01-06-%E9%83%A8%E7%BD%B2react%E5%BA%94%E7%94%A8/</guid>
+      <description>前言 前后端分离已经是大趋势，服务器端只需要关注自己的接口逻辑实现，而不需要关注前端的页面跳转，这一部分交由前端处理。常见的就是React应用</description>
+    </item>
+    
+  </channel>
+</rss>
