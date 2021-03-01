@@ -1,62 +1,821 @@
-<!doctype html><html lang=en-us><head><head><meta name=google-site-verification content="9vIieCe-Qpd78QOmBl63rGtIVbhY6sYyuxX3j8XWBA4"><meta name=baidu-site-verification content="LRrmH41lz7"><meta charset=utf-8><meta http-equiv=x-ua-compatible content="IE=edge"><meta name=google-site-verification content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI"><meta name=viewport content="width=device-width,initial-scale=1"><meta name=baidu-site-verification content="HGLXRsUXC4"><meta name=description content="我们知道，在 RPC 调用中，客户端需要加载服务端提供的接口定义类，但是，很多情况下，这个并不总是可行的，于是，衍生了泛化调用的需求，一个成熟的，功能完善的 RPC 框架一般都会支持泛化调用，那么什么是泛化调用呢？SOFA RPC 又是如何支持泛化调用的？同时又是如何实现的？ 和其他的 RPC 泛化调用又有何不同？有何优势？我们将在本文一一解答这些问题。"><meta name=keyword content="liangyuanpeng , lan , lyp的网络日志, lan的博客, lan Blog, 博客, 个人网站, 互联网, Web,  Istio, 微服务"><link rel="shortcut icon" href=img/favicon.ico><title>转|SOFARPC泛化调用实现剖析-lyp的博客 | lyp Blog</title><link rel=canonical href=/post/sofarpc%E6%B3%9B%E5%8C%96%E8%B0%83%E7%94%A8%E5%AE%9E%E7%8E%B0%E5%89%96%E6%9E%90/><link rel=stylesheet href=https://res.cloudinary.com/lyp/raw/upload/v1537369740/hugo/css/iDisqus.min.css><link rel=stylesheet href=https://res.cloudinary.com/lyp/raw/upload/v1537369744/hugo/css/bootstrap.min.css><link rel=stylesheet href=https://res.cloudinary.com/lyp/raw/upload/v1537369740/hugo/css/hux-blog.min.css><link rel=stylesheet href=https://res.cloudinary.com/lyp/raw/upload/v1537369740/hugo/css/syntax.css><link href=//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css rel=stylesheet type=text/css><script src=https://res.cloudinary.com/lyp/raw/upload/v1537369966/hugo/js/jquery.min.js></script><script src=https://res.cloudinary.com/lyp/raw/upload/v1537369966/hugo/js/bootstrap.min.js></script><script src=https://res.cloudinary.com/lyp/raw/upload/v1537369964/hugo/js/hux-blog.min.js></script><script>var _hmt=_hmt||[];(function(){var hm=document.createElement("script");hm.src="https://hm.baidu.com/hm.js?84b882e5d6d2ad1e92201c8596b56dbd";var s=document.getElementsByTagName("script")[0];s.parentNode.insertBefore(hm,s);})();</script></head></head><nav class="navbar navbar-default navbar-custom navbar-fixed-top"><div class=container-fluid><div class="navbar-header page-scroll"><button type=button class=navbar-toggle>
-<span class=sr-only>Toggle navigation</span>
-<span class=icon-bar></span><span class=icon-bar></span><span class=icon-bar></span></button>
-<a class=navbar-brand href=/>Hi,I`m lan</a></div><div id=huxblog_navbar><div class=navbar-collapse><ul class="nav navbar-nav navbar-right"><li><a href=/>Home</a></li><li><a href=categories/cloudnative>cloudnative</a></li><li><a href=categories/devops>devops</a></li><li><a href=categories/kubernetes>kubernetes</a></li><li><a href=categories/tech>tech</a></li><li><a href=categories/%E4%B8%AD%E9%97%B4%E4%BB%B6>中间件</a></li><li><a href=categories/%E5%AE%B9%E5%99%A8>容器</a></li><li><a href=categories/%E5%AE%B9%E5%99%A8%E7%BC%96%E6%8E%92>容器编排</a></li><li><a href=categories/%E7%89%A9%E8%81%94%E7%BD%91>物联网</a></li><li><a href=search>SEARCH <img src=img/search.png height=15 style=cursor:pointer></a></li></ul></div></div></div></nav><script>var $body=document.body;var $toggle=document.querySelector('.navbar-toggle');var $navbar=document.querySelector('#huxblog_navbar');var $collapse=document.querySelector('.navbar-collapse');$toggle.addEventListener('click',handleMagic)
-function handleMagic(e){if($navbar.className.indexOf('in')>0){$navbar.className=" ";setTimeout(function(){if($navbar.className.indexOf('in')<0){$collapse.style.height="0px"}},400)}else{$collapse.style.height="auto"
-$navbar.className+=" in";}}</script><style type=text/css>header.intro-header{background-image:url(https://res.cloudinary.com/lyp/image/upload/v1543506262/hugo/blog.github.io/apache-rocketMQ-introduction/7046d2bf0d97278682129887309cc1a6.jpg)}</style><header class=intro-header><div class=container><div class=row><div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1"><div class=post-heading><div class=tags><a class=tag href=/tags/rpc title=rpc>rpc</a>
-<a class=tag href=/tags/sofa title=sofa>sofa</a>
-<a class=tag href=/tags/sofastack title=sofastack>sofastack</a>
-<a class=tag href=/tags/%E4%B8%AD%E9%97%B4%E4%BB%B6 title=中间件>中间件</a></div><h1>转|SOFARPC泛化调用实现剖析</h1><h2 class=subheading></h2><span class=meta>Posted by lyp on Wednesday, December 12, 2018
-<span id=busuanzi_container_page_pv>|<span id=busuanzi_value_page_pv></span><span>
-<span id=/post/sofarpc%E6%B3%9B%E5%8C%96%E8%B0%83%E7%94%A8%E5%AE%9E%E7%8E%B0%E5%89%96%E6%9E%90/ class="leancloud_visitors meta_data_item" data-flag-title><span class=post-meta-item-icon><span class="octicon octicon-eye"></span></span><i class="fa fa-eye"></i><span class=old-visitors-count style=display:none></span><span class=leancloud-visitors-count></span></span><script src=https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js></script><script>AV.initialize("","");</script><script type=text/javascript>function showTime(Counter){var query=new AV.Query(Counter);var entries=[];var $visitors=$(".leancloud_visitors");$visitors.each(function(){entries.push($(this).attr("id").trim());});query.containedIn('url',entries);query.find().done(function(results){var COUNT_CONTAINER_REF='.leancloud-visitors-count';var OLD_COUNT_CONTAINER_REF='.old-visitors-count';for(var i=0;i<results.length;i++){var item=results[i];var url=item.get('url');var time=item.get('time');var element=document.getElementById(url);$(element).find(COUNT_CONTAINER_REF).text(time);}
-for(var i=0;i<entries.length;i++){var url=entries[i];var element=document.getElementById(url);var countSpan=$(element).find(COUNT_CONTAINER_REF);if(countSpan.text()==''){var oldCountSpan=$(element).find(OLD_COUNT_CONTAINER_REF).text();if(oldCountSpan!=''){countSpan.text(0+parseInt(oldCountSpan));}else{countSpan.text(0);}}}}).fail(function(object,error){console.log("Error: "+error.code+" "+error.message);});}
-function addCount(Counter){var $visitors=$(".leancloud_visitors");var url=$visitors.attr('id').trim();var title=$visitors.attr('data-flag-title').trim();var query=new AV.Query(Counter);query.equalTo("url",url);query.find({success:function(results){if(results.length>0){var counter=results[0];counter.fetchWhenSave(true);counter.increment("time");counter.save(null,{success:function(counter){var $element=$(document.getElementById(url));$element.find('.leancloud-visitors-count').text(counter.get('time'));},error:function(counter,error){console.log('Failed to save Visitor num, with error message: '+error.message);}});}else{var newcounter=new Counter();var acl=new AV.ACL();acl.setPublicReadAccess(true);acl.setPublicWriteAccess(true);newcounter.setACL(acl);newcounter.set("title",title);newcounter.set("url",url);var OLD_COUNT_CONTAINER_REF='.old-visitors-count';var $element=$(document.getElementById(url));var oldCountSpan=$element.find(OLD_COUNT_CONTAINER_REF).text();if(oldCountSpan!=''){newcounter.set("time",parseInt(oldCountSpan)+1);}else{newcounter.set("time",1);}
-newcounter.save(null,{success:function(newcounter){var $element=$(document.getElementById(url));$element.find('.leancloud-visitors-count').text(newcounter.get('time'));},error:function(newcounter,error){console.log('Failed to create');}});}},error:function(error){console.log('Error:'+error.code+" "+error.message);}});}
-$(function(){var Counter=AV.Object.extend("Counter");if($('.leancloud_visitors').length==1){addCount(Counter);}else{showTime(Counter);}});</script>阅读 </span></span>|<span class=post-date>共3278字</span>，阅读约<span class=more-meta> 7 分钟</span></span></div></div></div></div></header><article><div class=container><div class=row><div class="col-lg-8 col-lg-offset-2
-col-md-10 col-md-offset-1
-post-container"><header><h2>TOC</h2></header><nav id=TableOfContents><ul><li><a href=#接口定义>接口定义</a></li><li><a href=#泛化使用>泛化使用</a></li></ul><ul><li><a href=#框架调用设计>框架调用设计</a></li><li><a href=#hessian泛化实现>Hessian泛化实现</a></li></ul><ul><li><a href=#序列化本身的比较>序列化本身的比较</a></li><li><a href=#dubbo的泛化调用>Dubbo的泛化调用</a></li></ul></nav><blockquote><p><strong>SOFA</strong>
-Scalable Open Financial Architecture
-是蚂蚁金服自主研发的金融级分布式中间件，包含了构建金融级云原生架构所需的各个组件，是在金融场景里锤炼出来的最佳实践。</p><p>本文为《剖析 | SOFARPC 框架》第七篇，作者莫那·鲁道 ，来自 E签宝。
-《剖析 | SOFARPC 框架》系列由 SOFA 团队和源码爱好者们出品，
-项目代号：&lt;SOFA:RPCLab/>，官方目录目前已经全部认领完毕。</p></blockquote><h1 id=前言>前言</h1><p>我们知道，在 RPC 调用中，客户端需要加载服务端提供的接口定义类，但是，很多情况下，这个并不总是可行的，于是，衍生了泛化调用的需求，一个成熟的，功能完善的 RPC 框架一般都会支持泛化调用，那么什么是泛化调用呢？SOFA RPC 又是如何支持泛化调用的？同时又是如何实现的？ 和其他的 RPC 泛化调用又有何不同？有何优势？我们将在本文一一解答这些问题。</p><h1 id=泛化调用介绍>泛化调用介绍</h1><p>当客户端因为某种原因无法得到服务提供方的接口 jar 包时，或者是客户端是一个比较通用的系统，并不想依赖每个服务提供方提供的 facade接口，但是又需要进行调用，那么此时就需要进行泛化调用。</p><p>例如：</p><ol><li>当分布式系统由多个语言开发，假设是 Node Js ，同时 Node Js 需要调用 Java 语言的 RPC 服务，那么，我们就需要在两者之间架设适配层，让适配层处理 Node Js 的请求后再转发给 Java 的 RPC 服务。</li><li>一些中间系统的功能，比如某些内部网关，需要以一个统一的方式实现对其他下游系统的调用（非 SPI的情况），逐个依赖下游的包显然是不可能的。</li><li>一些流量回放类的线上系统，可以将数据采集拦截，之后，通过泛化调用回放，而不需要依赖全站的应用。</li></ol><p>那么这种情况下，肯定不能包含所有接口的 jar 文件，否则就太臃肿了。实际上也是不现实的，总不能每增加一个服务端，就增加一个 jar 包依赖，然后应用进行发布重启。</p><p>这个时候就可以使用泛化调用，将相应的请求包装成泛化调用，就能够实现不依赖接口 jar 包，多语言调用 RPC 服务，避免重复开发。</p><h1 id=sofa-rpc-的泛化调用使用>SOFA RPC 的泛化调用使用</h1><p>SOFA RPC 的官方文档十分详细，在官方 wiki <a href=http://www.sofastack.tech/sofa-rpc/docs/Generic-Invoke>泛化调用</a> 中，已有详细介绍。同时，在源码中的 example 模块中，也有现成的 demo 可以跑起来，读者可以自己 clone 源码阅读，这里我们简要说明一下使用方式，以便大家有一个直观的了解。</p><h2 id=接口定义>接口定义</h2><p>总的来说，泛化调用有 2 个 API，包含 5 个方法，其中， 2 个方法已经废弃，也就是说，有 3 个主要方法。分别是：</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=color:#75715e>/**
-</span><span style=color:#75715e> * 泛化调用
-</span><span style=color:#75715e> * @return 正常类型（不能是GenericObject类型）
-</span><span style=color:#75715e> */</span>
-Object <span style=color:#a6e22e>$invoke</span><span style=color:#f92672>(</span>String methodName<span style=color:#f92672>,</span> String<span style=color:#f92672>[]</span> argTypes<span style=color:#f92672>,</span> Object<span style=color:#f92672>[]</span> args<span style=color:#f92672>);</span>
+<!DOCTYPE html>
+<html lang="en-us">
+<head><head>
+    <meta name="google-site-verification" content="9vIieCe-Qpd78QOmBl63rGtIVbhY6sYyuxX3j8XWBA4" />
+    <meta name="baidu-site-verification" content="LRrmH41lz7" />
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <meta name="baidu-site-verification" content="HGLXRsUXC4" />
 
-<span style=color:#75715e>/**
-</span><span style=color:#75715e> * 支持参数类型无法在类加载器加载情况的泛化调用
-</span><span style=color:#75715e> * @return 除了JDK等内置类型，其它对象是GenericObject类型
-</span><span style=color:#75715e> */</span>
-Object <span style=color:#a6e22e>$genericInvoke</span><span style=color:#f92672>(</span>String methodName<span style=color:#f92672>,</span> String<span style=color:#f92672>[]</span> argTypes<span style=color:#f92672>,</span> Object<span style=color:#f92672>[]</span> args<span style=color:#f92672>);</span>
+    
+    <meta name="description" content="我们知道，在 RPC 调用中，客户端需要加载服务端提供的接口定义类，但是，很多情况下，这个并不总是可行的，于是，衍生了泛化调用的需求，一个成熟的，功能完善的 RPC 框架一般都会支持泛化调用，那么什么是泛化调用呢？SOFA RPC 又是如何支持泛化调用的？同时又是如何实现的？ 和其他的 RPC 泛化调用又有何不同？有何优势？我们将在本文一一解答这些问题。">
+    
+    <meta name="keyword"  content="liangyuanpeng , lan , lyp的网络日志, lan的博客, lan Blog, 博客, 个人网站, 互联网, Web,  Istio, 微服务">
+    <link rel="shortcut icon" href="img/favicon.ico">
 
-<span style=color:#75715e>/**
-</span><span style=color:#75715e> * 支持参数类型无法在类加载器加载情况的泛化调用
-</span><span style=color:#75715e> * @return 返回指定的T类型返回对象
-</span><span style=color:#75715e> */</span>
-<span style=color:#f92672>&lt;</span>T<span style=color:#f92672>&gt;</span> T <span style=color:#a6e22e>$genericInvoke</span><span style=color:#f92672>(</span>String methodName<span style=color:#f92672>,</span> String<span style=color:#f92672>[]</span> argTypes<span style=color:#f92672>,</span> Object<span style=color:#f92672>[]</span> args<span style=color:#f92672>,</span> Class<span style=color:#f92672>&lt;</span>T<span style=color:#f92672>&gt;</span> clazz<span style=color:#f92672>);</span>
-</code></pre></div><ol><li>$invoke 该方法使用场景：用户知道参数类型和返回值类型，那么就可以使用该方法。</li><li>$genericInvoke 该方法是个重载方法，重载一的使用场景是：如果你的应用不知道接口的参数类型和返回值类型，这个时候，你就需要使用 GenericObject 类，来包装返回值和参数。</li><li>$genericInvoke 重载二的使用场景是：如果应用不知道接口参数类型，但是知道接口返回值的类型，那么就不需要使用 GenericObject 作为返回值了。</li></ol><p>基本上，已经覆盖了常用的集中场景，可以说功能相当全面。</p><h2 id=泛化使用>泛化使用</h2><p>由于篇幅有限，这里就不贴使用 demo 了，感兴趣的可以通过链接查看官方的 demo 或者源码，包含 SOFARPC 的 API 使用方式和 SOFABoot 的使用方式：</p><ol><li>demo wiki 地址：<a href=http://www.sofastack.tech/sofa-rpc/docs/Generic-Invoke>用户手册->基本特性->泛化调用</a></li><li>源码地址：<a href=https://github.com/alipay/sofa-rpc/tree/master/example/src/test/java/com/alipay/sofa/rpc/invoke/generic>示例源码</a></li></ol><h1 id=sofarpc-泛化调用的设计与实现>SOFARPC 泛化调用的设计与实现</h1><p>接下来我们重点来介绍 SOFARPC 是如何实现泛化调用的。</p><h2 id=框架调用设计>框架调用设计</h2><p>简单来说，泛化调用的关键就是对象表示和序列化，SOFARPC 提供了 GenericObject 等对象来表示参数对象或者返回值对象，而将 GenericObject 对象序列化成目标对象，或者将返回值反序列化成 GenericObject 对象，是 SOFARPC 实现泛化的关键。</p><p>这里我们先来看一下 SOFARPC 泛化调用的流程图，有助于后面理解泛化实现。</p><p><img src=https://res.cloudinary.com/lyp/image/upload/v1544521986/hugo/blog.github.io/sofa-rpc/%E6%B3%9B%E5%8C%96%E8%B0%83%E7%94%A8%E5%AE%9E%E7%8E%B0%E5%89%96%E6%9E%90/1537837680758-1baf7949-5104-4b82-8b19-5213c559bef8.png alt="image.png | left | 827x306"></p><p>我们来说一下这个图：</p><ol><li>泛化 API 调用时，会加载泛化过滤器，作用是做一些参数转换，同时设置序列化工厂类型。</li><li>SOFARPC 在使用 SOFABolt 进行网络调用前，会创建 context 上下文并传递给 SOFABolt，上下文中包含着序列化工厂类型信息，这个信息将决定使用何种序列化器，同时这个上下文将流转于整个调用期间。</li><li>在 SOFABolt 正式发送数据之前，会将 GenericObject 对象序列化成普通对象的字节流，这样，服务提供方就不必关心是否为泛化调用，从图中可见，提供方不用对泛化调用做任何改变 —— <strong>这是 SOFARPC 泛化区别于其他 RPC 泛化的关键</strong>。</li><li>当提供方成功接收请求后，使用普通序列化器即可反序列化数据，只需要正常调用并返回即可。</li><li>当消费者的 SOFABolt 接收到响应数据后，便根据 context 的序列化类型，对返回值做反序列化，即将普通的字节流反序列化成 GenericObject 对象 —— 因为客户端有可能不知道返回值的 Class 类型。</li><li>最终，泛化 API 即可得到 GenericObject 类型的返回值。</li></ol><p>从上面的流程可以看出，序列化器在泛化调用中，占了极大的篇幅和作用。而 SOFARPC 针对泛化调用，对 hessian3 进行了改造，使其支持泛化调用所需要的序列化功能。<br><a href=https://github.com/alipay/sofa-hessian>SOFA-Hessian</a> 的改动可以参考这里。</p><h2 id=hessian泛化实现>Hessian泛化实现</h2><p>SOFA-Hessian 在 hessian 的包中加入了 com.alipay.hessian.generic 包，此包的作用就是处理泛化调用，重写的关键是实现或继承 SerializerFactory 类和 Serializer、Deserializer 等接口。在这里，设计了一下几个类，来描述
-中对应的类型信息，同时实现这几个类的序列化和反序列化。对应关系如下</p><p><img src=https://res.cloudinary.com/lyp/image/upload/v1544522000/hugo/blog.github.io/sofa-rpc/%E6%B3%9B%E5%8C%96%E8%B0%83%E7%94%A8%E5%AE%9E%E7%8E%B0%E5%89%96%E6%9E%90/1537830528237-8f6c181f-ed46-4815-8e4c-42a38122e10e.png alt="generic_invoke.png | center | 747x540"></p><p>我们以 GenericObjectSerializer 为例，该序列化器重写了 writeObject 方法，该方法的作用就是将 GenericObject 对象序列化成目标对象字节流。即，拿出 GenericObject 的 type 字段和 fields 字段，组装成目标对象的字节流。</p><p>例如：
-有一个类型是的 RPC 对象</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-plain data-lang=plain>public class TestObj {
+    <title>转|SOFARPC泛化调用实现剖析-lyp的博客 | lyp Blog</title>
+
+    <link rel="canonical" href="/post/sofarpc%E6%B3%9B%E5%8C%96%E8%B0%83%E7%94%A8%E5%AE%9E%E7%8E%B0%E5%89%96%E6%9E%90/">
+
+    <link rel="stylesheet" href="https://res.cloudinary.com/lyp/raw/upload/v1537369740/hugo/css/iDisqus.min.css"/>
+
+    
+    <link rel="stylesheet" href="https://res.cloudinary.com/lyp/raw/upload/v1537369744/hugo/css/bootstrap.min.css">
+
+    
+    <link rel="stylesheet" href="https://res.cloudinary.com/lyp/raw/upload/v1537369740/hugo/css/hux-blog.min.css">
+
+    
+    <link rel="stylesheet" href="https://res.cloudinary.com/lyp/raw/upload/v1537369740/hugo/css/syntax.css">
+
+    
+    <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    
+    
+    <script src="https://res.cloudinary.com/lyp/raw/upload/v1537369966/hugo/js/jquery.min.js"></script>
+
+    
+    <script src="https://res.cloudinary.com/lyp/raw/upload/v1537369966/hugo/js/bootstrap.min.js"></script>
+
+    
+    <script src="https://res.cloudinary.com/lyp/raw/upload/v1537369964/hugo/js/hux-blog.min.js"></script>
+
+    <script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?84b882e5d6d2ad1e92201c8596b56dbd";
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+</head>
+</head>
+
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Hi,I`m lan</a>
+        </div>
+
+        
+        
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+                    
+                    <li>
+                        <a href="categories/cloudnative">cloudnative</a>
+                    </li>
+                    
+                    <li>
+                        <a href="categories/devops">devops</a>
+                    </li>
+                    
+                    <li>
+                        <a href="categories/kubernetes">kubernetes</a>
+                    </li>
+                    
+                    <li>
+                        <a href="categories/tech">tech</a>
+                    </li>
+                    
+                    <li>
+                        <a href="categories/%E4%B8%AD%E9%97%B4%E4%BB%B6">中间件</a>
+                    </li>
+                    
+                    <li>
+                        <a href="categories/%E5%AE%B9%E5%99%A8">容器</a>
+                    </li>
+                    
+                    <li>
+                        <a href="categories/%E5%AE%B9%E5%99%A8%E7%BC%96%E6%8E%92">容器编排</a>
+                    </li>
+                    
+                    <li>
+                        <a href="categories/%E7%89%A9%E8%81%94%E7%BD%91">物联网</a>
+                    </li>
+                    
+
+                    
+		            <li>
+                        <a href="search">SEARCH <img src="img/search.png" height="15" style="cursor: pointer;"></a>
+		            </li>
+                    
+                </ul>
+            </div>
+        </div>
+        
+    </div>
+    
+</nav>
+<script>
+    
+    
+    
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        
+            $navbar.className = " ";
+            
+            setTimeout(function(){
+                
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+
+
+<style type="text/css">
+    header.intro-header{
+        background-image: url('https://res.cloudinary.com/lyp/image/upload/v1543506262/hugo/blog.github.io/apache-rocketMQ-introduction/7046d2bf0d97278682129887309cc1a6.jpg')
+    }
+</style>
+<header class="intro-header" >
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                       
+                       <a class="tag" href="/tags/rpc" title="rpc">
+                           rpc
+                        </a>
+                        
+                       <a class="tag" href="/tags/sofa" title="sofa">
+                           sofa
+                        </a>
+                        
+                       <a class="tag" href="/tags/sofastack" title="sofastack">
+                           sofastack
+                        </a>
+                        
+                       <a class="tag" href="/tags/%E4%B8%AD%E9%97%B4%E4%BB%B6" title="中间件">
+                           中间件
+                        </a>
+                        
+                    </div>
+                    <h1>转|SOFARPC泛化调用实现剖析</h1>
+                    <h2 class="subheading"></h2>
+                    <span  class="meta">Posted by lyp on Wednesday, December 12, 2018
+                        
+                        <span id="busuanzi_container_page_pv">|<span id="busuanzi_value_page_pv"></span><span>
+                            <span id="/post/sofarpc%E6%B3%9B%E5%8C%96%E8%B0%83%E7%94%A8%E5%AE%9E%E7%8E%B0%E5%89%96%E6%9E%90/" class="leancloud_visitors meta_data_item" data-flag-title="">
+    <span class="post-meta-item-icon">
+      <span class="octicon octicon-eye"></span> 
+    </span>
+    <i class="fa fa-eye"></i>
+    <span class="old-visitors-count" style="display: none;"></span>
+    <span class="leancloud-visitors-count"></span>
+</span>
+
+
+
+<script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+
+<script>
+	AV.initialize("", "");
+</script>
+
+<script type="text/javascript">
+function showTime(Counter) {
+    var query = new AV.Query(Counter);
+    var entries = [];
+    var $visitors = $(".leancloud_visitors");
+
+    $visitors.each(function() {
+        entries.push($(this).attr("id").trim());
+    });
+
+    query.containedIn('url', entries);
+    query.find()
+        .done(function(results) {
+            var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+            var OLD_COUNT_CONTAINER_REF = '.old-visitors-count';
+
+            
+            
+            
+            
+
+            for (var i = 0; i < results.length; i++) {
+                var item = results[i];
+                var url = item.get('url');
+                var time = item.get('time');
+                var element = document.getElementById(url);
+
+                $(element).find(COUNT_CONTAINER_REF).text(time);
+            }
+            for (var i = 0; i < entries.length; i++) {
+                var url = entries[i];
+                var element = document.getElementById(url);
+                var countSpan = $(element).find(COUNT_CONTAINER_REF);
+                if (countSpan.text() == '') {
+                    var oldCountSpan = $(element).find(OLD_COUNT_CONTAINER_REF).text();
+                    if(oldCountSpan!=''){
+                        countSpan.text(0+parseInt(oldCountSpan));
+                    }else{
+                        countSpan.text(0);          
+                    }
+                }
+            }
+        })
+        .fail(function(object, error) {
+            console.log("Error: " + error.code + " " + error.message);
+        });
+}
+
+function addCount(Counter) {
+    var $visitors = $(".leancloud_visitors");
+    var url = $visitors.attr('id').trim();
+    var title = $visitors.attr('data-flag-title').trim();
+    var query = new AV.Query(Counter);
+
+    query.equalTo("url", url);
+    query.find({
+        success: function(results) {
+            if (results.length > 0) {
+                var counter = results[0];
+                counter.fetchWhenSave(true);
+                counter.increment("time");
+                counter.save(null, {
+                    success: function(counter) {
+                        var $element = $(document.getElementById(url));
+                        $element.find('.leancloud-visitors-count').text(counter.get('time'));
+                    },
+                    error: function(counter, error) {
+                        console.log('Failed to save Visitor num, with error message: ' + error.message);
+                    }
+                });
+            } else {
+                var newcounter = new Counter();
+                 
+                var acl = new AV.ACL();
+                acl.setPublicReadAccess(true);
+                acl.setPublicWriteAccess(true);
+                newcounter.setACL(acl);
+                 
+                newcounter.set("title", title);
+                newcounter.set("url", url);
+                var OLD_COUNT_CONTAINER_REF = '.old-visitors-count';
+                var $element = $(document.getElementById(url));
+                var oldCountSpan = $element.find(OLD_COUNT_CONTAINER_REF).text();
+                if(oldCountSpan!=''){
+                    newcounter.set("time", parseInt(oldCountSpan)+1);
+                }else{
+ 	                    newcounter.set("time",  1);
+                }
+                newcounter.save(null, {
+                    success: function(newcounter) {
+                        var $element = $(document.getElementById(url));
+                        $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+                    },
+                    error: function(newcounter, error) {
+                        console.log('Failed to create');
+                    }
+                });
+            }
+        },
+        error: function(error) {
+            console.log('Error:' + error.code + " " + error.message);
+        }
+    });
+}
+$(function() {
+    var Counter = AV.Object.extend("Counter");
+    
+    
+    if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+    } else {
+        showTime(Counter);
+    }
+});
+</script>
+
+                            阅读 </span></span>|<span class="post-date">共3278字</span>，阅读约<span class="more-meta"> 7 分钟</span>
+                        
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+
+
+<article>
+    <div class="container">
+        <div class="row">
+
+            
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+		
+                <header>
+                <h2>TOC</h2>
+                </header>
+                <nav id="TableOfContents">
+  <ul>
+    <li><a href="#接口定义">接口定义</a></li>
+    <li><a href="#泛化使用">泛化使用</a></li>
+  </ul>
+
+  <ul>
+    <li><a href="#框架调用设计">框架调用设计</a></li>
+    <li><a href="#hessian泛化实现">Hessian泛化实现</a></li>
+  </ul>
+
+  <ul>
+    <li><a href="#序列化本身的比较">序列化本身的比较</a></li>
+    <li><a href="#dubbo的泛化调用">Dubbo的泛化调用</a></li>
+  </ul>
+</nav>
+		
+		<blockquote>
+<p><strong><!-- raw HTML omitted -->SOFA<!-- raw HTML omitted --></strong>
+<!-- raw HTML omitted --><!-- raw HTML omitted -->S<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->calable <!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->O<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->pen <!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->F<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->inancial <!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->A<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->rchitecture<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->是蚂蚁金服自主研发的金融级分布式中间件，包含了构建金融级云原生架构所需的各个组件，是在金融场景里锤炼出来的最佳实践。<!-- raw HTML omitted --></p>
+<p><!-- raw HTML omitted -->本文为《剖析 | SOFARPC 框架》第七篇，作者<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->莫那·鲁道 ，来自 E签宝<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->。
+<!-- raw HTML omitted -->《剖析 | SOFARPC 框架》系列由 SOFA 团队和源码爱好者们出品，<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->项目代号：&lt;SOFA:RPCLab/&gt;<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->，官方目录目前已经全部认领完毕。<!-- raw HTML omitted --><!-- raw HTML omitted --></p>
+</blockquote>
+<h1 id="前言">前言</h1>
+<p>我们知道，在 RPC 调用中，客户端需要加载服务端提供的接口定义类，但是，很多情况下，这个并不总是可行的，于是，衍生了泛化调用的需求，一个成熟的，功能完善的 RPC 框架一般都会支持泛化调用，那么什么是泛化调用呢？SOFA RPC 又是如何支持泛化调用的？同时又是如何实现的？ 和其他的 RPC 泛化调用又有何不同？有何优势？我们将在本文一一解答这些问题。</p>
+<h1 id="泛化调用介绍">泛化调用介绍</h1>
+<p>当客户端因为某种原因无法得到服务提供方的接口 jar 包时，或者是客户端是一个比较通用的系统，并不想依赖每个服务提供方提供的 facade接口，但是又需要进行调用，那么此时就需要进行泛化调用。</p>
+<p>例如：</p>
+<ol>
+<li>当分布式系统由多个语言开发，假设是 Node Js ，同时 Node Js 需要调用 Java 语言的 RPC 服务，那么，我们就需要在两者之间架设适配层，让适配层处理 Node Js 的请求后再转发给 Java 的 RPC 服务。</li>
+<li>一些中间系统的功能，比如某些内部网关，需要以一个统一的方式实现对其他下游系统的调用（非 SPI的情况），逐个依赖下游的包显然是不可能的。</li>
+<li>一些流量回放类的线上系统，可以将数据采集拦截，之后，通过泛化调用回放，而不需要依赖全站的应用。</li>
+</ol>
+<p>那么这种情况下，肯定不能包含所有接口的 jar 文件，否则就太臃肿了。实际上也是不现实的，总不能每增加一个服务端，就增加一个 jar 包依赖，然后应用进行发布重启。</p>
+<p>这个时候就可以使用泛化调用，将相应的请求包装成泛化调用，就能够实现不依赖接口 jar 包，多语言调用 RPC 服务，避免重复开发。</p>
+<h1 id="sofa-rpc-的泛化调用使用">SOFA RPC 的泛化调用使用</h1>
+<p>SOFA RPC 的官方文档十分详细，在官方 wiki <a href="http://www.sofastack.tech/sofa-rpc/docs/Generic-Invoke">泛化调用</a> 中，已有详细介绍。同时，在源码中的 example 模块中，也有现成的 demo 可以跑起来，读者可以自己 clone 源码阅读，这里我们简要说明一下使用方式，以便大家有一个直观的了解。</p>
+<h2 id="接口定义">接口定义</h2>
+<p>总的来说，泛化调用有 2 个 API，包含 5 个方法，其中， 2 个方法已经废弃，也就是说，有 3 个主要方法。分别是：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#75715e">/**
+</span><span style="color:#75715e"> * 泛化调用
+</span><span style="color:#75715e"> * @return 正常类型（不能是GenericObject类型）
+</span><span style="color:#75715e"> */</span>
+Object <span style="color:#a6e22e">$invoke</span><span style="color:#f92672">(</span>String methodName<span style="color:#f92672">,</span> String<span style="color:#f92672">[]</span> argTypes<span style="color:#f92672">,</span> Object<span style="color:#f92672">[]</span> args<span style="color:#f92672">);</span>
+
+<span style="color:#75715e">/**
+</span><span style="color:#75715e"> * 支持参数类型无法在类加载器加载情况的泛化调用
+</span><span style="color:#75715e"> * @return 除了JDK等内置类型，其它对象是GenericObject类型
+</span><span style="color:#75715e"> */</span>
+Object <span style="color:#a6e22e">$genericInvoke</span><span style="color:#f92672">(</span>String methodName<span style="color:#f92672">,</span> String<span style="color:#f92672">[]</span> argTypes<span style="color:#f92672">,</span> Object<span style="color:#f92672">[]</span> args<span style="color:#f92672">);</span>
+
+<span style="color:#75715e">/**
+</span><span style="color:#75715e"> * 支持参数类型无法在类加载器加载情况的泛化调用
+</span><span style="color:#75715e"> * @return 返回指定的T类型返回对象
+</span><span style="color:#75715e"> */</span>
+<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;</span> T <span style="color:#a6e22e">$genericInvoke</span><span style="color:#f92672">(</span>String methodName<span style="color:#f92672">,</span> String<span style="color:#f92672">[]</span> argTypes<span style="color:#f92672">,</span> Object<span style="color:#f92672">[]</span> args<span style="color:#f92672">,</span> Class<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;</span> clazz<span style="color:#f92672">);</span>
+</code></pre></div><ol>
+<li>$invoke 该方法使用场景：用户知道参数类型和返回值类型，那么就可以使用该方法。</li>
+<li>$genericInvoke 该方法是个重载方法，重载一的使用场景是：如果你的应用不知道接口的参数类型和返回值类型，这个时候，你就需要使用 GenericObject 类，来包装返回值和参数。</li>
+<li>$genericInvoke 重载二的使用场景是：如果应用不知道接口参数类型，但是知道接口返回值的类型，那么就不需要使用 GenericObject 作为返回值了。</li>
+</ol>
+<p>基本上，已经覆盖了常用的集中场景，可以说功能相当全面。</p>
+<h2 id="泛化使用">泛化使用</h2>
+<p>由于篇幅有限，这里就不贴使用 demo 了，感兴趣的可以通过链接查看官方的 demo 或者源码，包含 SOFARPC 的 API 使用方式和 SOFABoot 的使用方式：</p>
+<ol>
+<li>demo wiki 地址：<a href="http://www.sofastack.tech/sofa-rpc/docs/Generic-Invoke">用户手册-&gt;基本特性-&gt;泛化调用</a></li>
+<li>源码地址：<a href="https://github.com/alipay/sofa-rpc/tree/master/example/src/test/java/com/alipay/sofa/rpc/invoke/generic">示例源码</a></li>
+</ol>
+<h1 id="sofarpc-泛化调用的设计与实现">SOFARPC 泛化调用的设计与实现</h1>
+<p>接下来我们重点来介绍 SOFARPC 是如何实现泛化调用的。</p>
+<h2 id="框架调用设计">框架调用设计</h2>
+<p>简单来说，泛化调用的关键就是对象表示和序列化，SOFARPC 提供了 GenericObject 等对象来表示参数对象或者返回值对象，而将 GenericObject 对象序列化成目标对象，或者将返回值反序列化成 GenericObject 对象，是 SOFARPC 实现泛化的关键。</p>
+<p>这里我们先来看一下 SOFARPC 泛化调用的流程图，有助于后面理解泛化实现。</p>
+<p><img src="https://res.cloudinary.com/lyp/image/upload/v1544521986/hugo/blog.github.io/sofa-rpc/%E6%B3%9B%E5%8C%96%E8%B0%83%E7%94%A8%E5%AE%9E%E7%8E%B0%E5%89%96%E6%9E%90/1537837680758-1baf7949-5104-4b82-8b19-5213c559bef8.png" alt="image.png | left | 827x306" title=""></p>
+<p>我们来说一下这个图：</p>
+<ol>
+<li>泛化 API 调用时，会加载泛化过滤器，作用是做一些参数转换，同时设置序列化工厂类型。</li>
+<li>SOFARPC 在使用 SOFABolt 进行网络调用前，会创建 context 上下文并传递给  SOFABolt，上下文中包含着序列化工厂类型信息，这个信息将决定使用何种序列化器，同时这个上下文将流转于整个调用期间。</li>
+<li>在 SOFABolt 正式发送数据之前，会将 GenericObject 对象序列化成普通对象的字节流，这样，服务提供方就不必关心是否为泛化调用，从图中可见，提供方不用对泛化调用做任何改变 —— <strong>这是 SOFARPC 泛化区别于其他 RPC 泛化的关键</strong>。</li>
+<li>当提供方成功接收请求后，使用普通序列化器即可反序列化数据，只需要正常调用并返回即可。</li>
+<li>当消费者的 SOFABolt 接收到响应数据后，便根据 context 的序列化类型，对返回值做反序列化，即将普通的字节流反序列化成 GenericObject 对象 —— 因为客户端有可能不知道返回值的  Class 类型。</li>
+<li>最终，泛化 API 即可得到 GenericObject 类型的返回值。</li>
+</ol>
+<p>从上面的流程可以看出，序列化器在泛化调用中，占了极大的篇幅和作用。而 SOFARPC 针对泛化调用，对 hessian3 进行了改造，使其支持泛化调用所需要的序列化功能。<br>
+<a href="https://github.com/alipay/sofa-hessian">SOFA-Hessian</a><!-- raw HTML omitted --><!-- raw HTML omitted --> 的改动可以参考这里。<!-- raw HTML omitted --><!-- raw HTML omitted --></p>
+<h2 id="hessian泛化实现">Hessian泛化实现</h2>
+<p>SOFA-Hessian 在 hessian 的包中加入了 com.alipay.hessian.generic 包，此包的作用就是处理泛化调用，重写的关键是实现或继承 SerializerFactory 类和 Serializer、Deserializer 等接口。在这里，设计了一下几个类，来描述
+中对应的类型信息，同时实现这几个类的序列化和反序列化。对应关系如下</p>
+<p><img src="https://res.cloudinary.com/lyp/image/upload/v1544522000/hugo/blog.github.io/sofa-rpc/%E6%B3%9B%E5%8C%96%E8%B0%83%E7%94%A8%E5%AE%9E%E7%8E%B0%E5%89%96%E6%9E%90/1537830528237-8f6c181f-ed46-4815-8e4c-42a38122e10e.png" alt="generic_invoke.png | center | 747x540" title=""></p>
+<p>我们以 GenericObjectSerializer 为例，该序列化器重写了 writeObject 方法，该方法的作用就是将 GenericObject 对象序列化成目标对象字节流。即，拿出 GenericObject 的 type 字段和 fields 字段，组装成目标对象的字节流。</p>
+<p>例如：
+有一个类型是的 RPC 对象</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-plain" data-lang="plain">public class TestObj {
     private String str;
     private int    num;
 }
-</code></pre></div><p>在泛化调用客户端，可以直接构造一个 GenericObject对象</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-plain data-lang=plain>  GenericObject genericObject = new GenericObject(
+</code></pre></div><p>在泛化调用客户端，可以直接构造一个 GenericObject对象</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-plain" data-lang="plain">  GenericObject genericObject = new GenericObject(
                     &#34;com.alipay.sofa.rpc.invoke.generic.TestObj&#34;);
                 genericObject.putField(&#34;str&#34;, &#34;xxxx&#34;);
                 genericObject.putField(&#34;num&#34;, 222);
-</code></pre></div><p>此时，GenericObjectSerializer 就可以通过这些信息，将 GenericObject 对象转成 TestObj 对象的字节流。<br>服务提供方就可以通过普通的 hessian2 反序列化得到对象。</p><p>相比较其他 RPC 框架两端都需要对泛化进行支持，SOFARPC 显得要友好的多。也就是说，如果应用想要支持泛化，只需要升级客户端（消费者）即可，服务端（提供者）是无感知的。因为在服务端看来，收到的对象是完全一致的。你可能觉得对于复杂类型，写出这样一个构造是很困难的。SOFA-Hessian中已经提供了一个工具类</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-plain data-lang=plain>com.alipay.hessian.generic.util.GenericUtils
-</code></pre></div><p>来辅助使用者来生成，可以直接使用。</p><h1 id=sofarpc-与-dubbo-的泛化调用比较>SOFARPC 与 Dubbo 的泛化调用比较</h1><p>下面我们来介绍下泛化调用和业界一些其他产品的比较，首先介绍一下序列化本身的一些性能和优势比较。</p><h2 id=序列化本身的比较>序列化本身的比较</h2><p>在 github 上，有一个专门针对 <a href=https://github.com/eishay/jvm-serializers/wiki>Java 序列化进行的 benchmark</a>，可以稍微做一下参考。虽然在实际的场景中， 每个序列化的场景不同，带来的结果可能和这里的 benchmark 结果不同，但还是有参考意义，从该项目的基准测试可以看出：Json 无论是压缩比还是序列化时间，相比 hessian 等都有相当大的__劣势__。</p><p>同时，虽然 hessian 相对于 protostuff、kryo 等在性能上有一点差距，但是 hessian 反序列化无需指定类型，这个优势是非常有价值的。</p><h2 id=dubbo的泛化调用>Dubbo的泛化调用</h2><p>在众多的 RPC 框架中，Dubbo 也提供了泛化调用的功能，接下来我们再来说说 Dubbo 的泛化。Dubbo 泛化和 SOFA RPC 泛化最大的不同就是：Dubbo 需要服务端也支持泛化，因此，如果想提供泛化功能，服务端也必须进行升级，这看起来可能没有 SOFA RPC 友好。</p><p>Dubbo 的泛化调用流程如下图：</p><p><img src=https://res.cloudinary.com/lyp/image/upload/v1544522018/hugo/blog.github.io/sofa-rpc/%E6%B3%9B%E5%8C%96%E8%B0%83%E7%94%A8%E5%AE%9E%E7%8E%B0%E5%89%96%E6%9E%90/1536551156594-fe5bfba9-7f86-4c50-92c5-7b2f387078d8.png alt="image.png | left | 827x166"></p><p>可以看到，Dubbo 的服务端也需要泛化过滤器将 Map 解析成 POJO 来解析数据。</p><h1 id=总结>总结</h1><p>本文主要讲解了 SOFARPC 泛化调用的设计与实现，介绍了泛化调用的场景，同时，提及了 SOFA RPC 泛化调用的 API 使用，也详细讲解了 SOFARPC 的泛化设计和实现。最后，对社区中的一些 RPC 框架的泛化调用做了简单的比较。</p><p>这里对SOFARPC 的泛化设计与实现做个小结：</p><ol><li>设计目标是：服务端无需感知是否泛化，一切都是由客户端进行处理。带来的好处是：应用如果想要支持泛化，不需要改动服务端，只需要修改客户端即可。这是和其他 RPC 框架泛化调用最大的区别。</li><li>实现方式：通过SOFA-Hessian 序列化支持泛化序列化，在进行泛化调用时，bolt 会根据上下文的序列化标记来使用对应的序列化器，SOFA-Hessian 特有的泛化序列化器可将 GenericObject 对象序列化成目标对象的字节流，服务端按正常反序列化即可。SOFA-Hessian 特有的泛化反序列化器也可将目标返回值反序列化成 GenericObject 等对象。</li></ol><h1 id=参考>参考</h1><p><a href=https://github.com/eishay/jvm-serializers>https://github.com/eishay/jvm-serializers</a><br><a href=https://github.com/alipay/sofa-hessian>https://github.com/alipay/sofa-hessian</a><br><a href=http://www.sofastack.tech/sofa-rpc/docs/Generic-Invoke>http://www.sofastack.tech/sofa-rpc/docs/Generic-Invoke</a></p><hr><p>文章转自<a href=http://www.sofastack.tech/post/oqi4gw>【剖析 | SOFARPC 框架】之SOFARPC 泛化调用实现剖析</a></p><hr><ul class=pager><li class=previous><a href=/post/sofarpc%E5%BA%8F%E5%88%97%E5%8C%96%E6%AF%94%E8%BE%83/ data-toggle=tooltip data-placement=top title=转|SOFARPC序列化比较>&larr; Previous Post</a></li><li class=next><a href=/post/sofarpc%E4%BC%98%E9%9B%85%E5%85%B3%E9%97%AD%E5%89%96%E6%9E%90/ data-toggle=tooltip data-placement=top title=转|SOFARPC优雅关闭剖析>Next Post &rarr;</a></li></ul><div id=disqus-comment></div></div><div class="col-lg-8 col-lg-offset-2
-col-md-10 col-md-offset-1
-sidebar-container"><section><hr class="hidden-sm hidden-xs"><h5><a href=/tags/>FEATURED TAGS</a></h5><div class=tags><a href=/tags/chirpstack title=chirpstack>chirpstack</a>
-<a href=/tags/docker title=docker>docker</a>
-<a href=/tags/fluentd title=fluentd>fluentd</a>
-<a href=/tags/kubernetes title=kubernetes>kubernetes</a>
-<a href=/tags/mq title=mq>mq</a>
-<a href=/tags/rpc title=rpc>rpc</a>
-<a href=/tags/sofa title=sofa>sofa</a>
-<a href=/tags/sofastack title=sofastack>sofastack</a>
-<a href=/tags/%E4%B8%AD%E9%97%B4%E4%BB%B6 title=中间件>中间件</a>
-<a href=/tags/%E4%BA%91%E5%8E%9F%E7%94%9F title=云原生>云原生</a></div></section><hr><h5>FRIENDS</h5><ul class=list-inline></ul></div></div></div></article><footer><div class=container><div class=row><div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1"><ul class="list-inline text-center"><li><a href=mailto:gcslyp@gmail.com><span class="fa-stack fa-lg"><i class="fa fa-circle fa-stack-2x"></i><i class="fa fa-envelope fa-stack-1x fa-inverse"></i></span></a></li><li><a href=https://twitter.com/lan31793328><span class="fa-stack fa-lg"><i class="fa fa-circle fa-stack-2x"></i><i class="fa fa-twitter fa-stack-1x fa-inverse"></i></span></a></li><li><a target=_blank href=https://github.com/liangyuanpeng><span class="fa-stack fa-lg"><i class="fa fa-circle fa-stack-2x"></i><i class="fa fa-github fa-stack-1x fa-inverse"></i></span></a></li></ul><p class="copyright text-muted">Copyright &copy; Hi,I`m lan , 2018<br><a href=https://themes.gohugo.io/hugo-theme-cleanwhite>CleanWhite Hugo Theme</a> by <a href=https://zhaohuabing.com>Huabing</a> |
-<iframe style=margin-left:2px;margin-bottom:-5px frameborder=0 scrolling=0 width=100px height=20px src="https://ghbtns.com/github-btn.html?user=zhaohuabing&repo=hugo-theme-cleanwhite&type=star&count=true"></iframe></p></div></div></div></footer><script>function async(u,c){var d=document,t='script',o=d.createElement(t),s=d.getElementsByTagName(t)[0];o.src=u;if(c){o.addEventListener('load',function(e){c(null,e);},false);}
-s.parentNode.insertBefore(o,s);}</script><script>if($('#tag_cloud').length!==0){async("/js/jquery.tagcloud.js",function(){$.fn.tagcloud.defaults={color:{start:'#bbbbee',end:'#0085a1'},};$('#tag_cloud a').tagcloud();})}</script><script>async("https://cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.js",function(){var $nav=document.querySelector("nav");if($nav)FastClick.attach($nav);})</script><script>var _hmt=_hmt||[];(function(){var hm=document.createElement("script");hm.src="https://hm.baidu.com/hm.js?23001460802c6c63962c60b9c8c435af";var s=document.getElementsByTagName("script")[0];s.parentNode.insertBefore(hm,s);})();</script></body></html>
+</code></pre></div><p>此时，GenericObjectSerializer 就可以通过这些信息，将 GenericObject 对象转成 TestObj 对象的字节流。<br>
+服务提供方就可以通过普通的 hessian2 反序列化得到对象。</p>
+<p>相比较其他 RPC 框架两端都需要对泛化进行支持，SOFARPC 显得要友好的多。也就是说，如果应用想要支持泛化，只需要升级客户端（消费者）即可，服务端（提供者）是无感知的。因为在服务端看来，收到的对象是完全一致的。你可能觉得对于复杂类型，写出这样一个构造是很困难的。SOFA-Hessian中已经提供了一个工具类</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-plain" data-lang="plain">com.alipay.hessian.generic.util.GenericUtils
+</code></pre></div><p>来辅助使用者来生成，可以直接使用。</p>
+<h1 id="sofarpc-与-dubbo-的泛化调用比较">SOFARPC 与 Dubbo 的泛化调用比较</h1>
+<p>下面我们来介绍下泛化调用和业界一些其他产品的比较，首先介绍一下序列化本身的一些性能和优势比较。</p>
+<h2 id="序列化本身的比较">序列化本身的比较</h2>
+<p>在 github 上，有一个专门针对 <a href="https://github.com/eishay/jvm-serializers/wiki">Java  序列化进行的 benchmark</a>，可以稍微做一下参考。虽然在实际的场景中， 每个序列化的场景不同，带来的结果可能和这里的 benchmark  结果不同，但还是有参考意义，从该项目的基准测试可以看出：Json 无论是压缩比还是序列化时间，相比 hessian 等都有相当大的__劣势__。</p>
+<p>同时，虽然 hessian 相对于 protostuff、kryo 等在性能上有一点差距，但是 hessian 反序列化无需指定类型，这个优势是非常有价值的。</p>
+<h2 id="dubbo的泛化调用">Dubbo的泛化调用</h2>
+<p>在众多的 RPC 框架中，Dubbo 也提供了泛化调用的功能，接下来我们再来说说 Dubbo 的泛化。Dubbo 泛化和 SOFA RPC 泛化最大的不同就是：Dubbo 需要服务端也支持泛化，因此，如果想提供泛化功能，服务端也必须进行升级，这看起来可能没有 SOFA  RPC 友好。</p>
+<p>Dubbo 的泛化调用流程如下图：</p>
+<p><img src="https://res.cloudinary.com/lyp/image/upload/v1544522018/hugo/blog.github.io/sofa-rpc/%E6%B3%9B%E5%8C%96%E8%B0%83%E7%94%A8%E5%AE%9E%E7%8E%B0%E5%89%96%E6%9E%90/1536551156594-fe5bfba9-7f86-4c50-92c5-7b2f387078d8.png" alt="image.png | left | 827x166" title=""></p>
+<p>可以看到，Dubbo 的服务端也需要泛化过滤器将 Map 解析成 POJO 来解析数据。</p>
+<h1 id="总结">总结</h1>
+<p>本文主要讲解了 SOFARPC 泛化调用的设计与实现，介绍了泛化调用的场景，同时，提及了 SOFA RPC 泛化调用的 API 使用，也详细讲解了 SOFARPC 的泛化设计和实现。最后，对社区中的一些 RPC 框架的泛化调用做了简单的比较。</p>
+<p>这里对SOFARPC 的泛化设计与实现做个小结：</p>
+<ol>
+<li>设计目标是：服务端无需感知是否泛化，一切都是由客户端进行处理。带来的好处是：应用如果想要支持泛化，不需要改动服务端，只需要修改客户端即可。这是和其他 RPC 框架泛化调用最大的区别。</li>
+<li>实现方式：通过SOFA-Hessian 序列化支持泛化序列化，在进行泛化调用时，bolt 会根据上下文的序列化标记来使用对应的序列化器，SOFA-Hessian 特有的泛化序列化器可将 GenericObject 对象序列化成目标对象的字节流，服务端按正常反序列化即可。SOFA-Hessian 特有的泛化反序列化器也可将目标返回值反序列化成 GenericObject 等对象。</li>
+</ol>
+<h1 id="参考">参考</h1>
+<p><a href="https://github.com/eishay/jvm-serializers">https://github.com/eishay/jvm-serializers</a><br>
+<a href="https://github.com/alipay/sofa-hessian">https://github.com/alipay/sofa-hessian</a><br>
+<a href="http://www.sofastack.tech/sofa-rpc/docs/Generic-Invoke">http://www.sofastack.tech/sofa-rpc/docs/Generic-Invoke</a></p>
+<hr>
+<p>文章转自<a href="http://www.sofastack.tech/post/oqi4gw">【剖析 | SOFARPC 框架】之SOFARPC 泛化调用实现剖析</a></p>
+
+
+                <hr>
+
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/post/sofarpc%E5%BA%8F%E5%88%97%E5%8C%96%E6%AF%94%E8%BE%83/" data-toggle="tooltip" data-placement="top" title="转|SOFARPC序列化比较">&larr; Previous Post</a>
+                    </li>
+                    
+                    
+                    <li class="next">
+                        <a href="/post/sofarpc%E4%BC%98%E9%9B%85%E5%85%B3%E9%97%AD%E5%89%96%E6%9E%90/" data-toggle="tooltip" data-placement="top" title="转|SOFARPC优雅关闭剖析">Next Post &rarr;</a>
+                    </li>
+                    
+                </ul>
+
+            
+<div id="disqus-comment"></div>
+
+
+
+            </div>
+            
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                
+                <section>
+                    <hr class="hidden-sm hidden-xs">
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                     
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                            <a href="/tags/chirpstack" title="chirpstack">
+                                chirpstack
+                            </a>
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                            <a href="/tags/docker" title="docker">
+                                docker
+                            </a>
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                            <a href="/tags/fluentd" title="fluentd">
+                                fluentd
+                            </a>
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                            <a href="/tags/kubernetes" title="kubernetes">
+                                kubernetes
+                            </a>
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                            <a href="/tags/mq" title="mq">
+                                mq
+                            </a>
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                            <a href="/tags/rpc" title="rpc">
+                                rpc
+                            </a>
+                        
+                    
+                        
+                            <a href="/tags/sofa" title="sofa">
+                                sofa
+                            </a>
+                        
+                    
+                        
+                            <a href="/tags/sofastack" title="sofastack">
+                                sofastack
+                            </a>
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                            <a href="/tags/%E4%B8%AD%E9%97%B4%E4%BB%B6" title="中间件">
+                                中间件
+                            </a>
+                        
+                    
+                        
+                            <a href="/tags/%E4%BA%91%E5%8E%9F%E7%94%9F" title="云原生">
+                                云原生
+                            </a>
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                    </div>
+                </section>
+
+                
+                <hr>
+                <h5>FRIENDS</h5>
+                <ul class="list-inline">
+                    
+                </ul>
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                   
+                    
+                    <li>
+                        <a href="mailto:gcslyp@gmail.com">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+		    
+
+                    
+                    <li>
+                        <a href="https://twitter.com/lan31793328">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    
+
+                    
+
+		    
+                    
+                    
+                    <li>
+                        <a target="_blank" href="https://github.com/liangyuanpeng">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+		    
+                    
+                </ul>
+		<p class="copyright text-muted">
+                    Copyright &copy; Hi,I`m lan , 2018
+                    <br>
+                    <a href="https://themes.gohugo.io/hugo-theme-cleanwhite">CleanWhite Hugo Theme</a> by <a href="https://zhaohuabing.com">Huabing</a> |
+                    <iframe
+                        style="margin-left: 2px; margin-bottom:-5px;"
+                        frameborder="0" scrolling="0" width="100px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=zhaohuabing&repo=hugo-theme-cleanwhite&type=star&count=true" >
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+
+
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+
+
+
+
+
+<script>
+    
+    if($('#tag_cloud').length !== 0){
+        async("/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+
+<script>
+    async("https://cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+<script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?23001460802c6c63962c60b9c8c435af";
+      var s = document.getElementsByTagName("script")[0]; 
+      s.parentNode.insertBefore(hm, s);
+    })();
+    </script>
+
+
+
+
+
+
+
+</body>
+</html>
