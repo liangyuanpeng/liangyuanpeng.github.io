@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>kubernetes on Hi,I`m lan</title>
+    <link>/tags/kubernetes/</link>
+    <description>Recent content in kubernetes on Hi,I`m lan</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 07 Feb 2021 00:00:00 +0000</lastBuildDate><atom:link href="/tags/kubernetes/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>kubeadm配合短域名lank8s.cn部署kubernetes</title>
+      <link>/post/2021-02-07-deploy-k8s-lank8scn/</link>
+      <pubDate>Sun, 07 Feb 2021 00:00:00 +0000</pubDate>
+      
+      <guid>/post/2021-02-07-deploy-k8s-lank8scn/</guid>
+      <description>本文实现目标 本文主要使用kubeadm快速部署一个单机的kubernetes,其中镜像仓库使用lank8s.cn,当然也可以使用其他地址,l</description>
+    </item>
+    
+    <item>
+      <title>用helm chart将chripstack部署到kubernetes之上</title>
+      <link>/post/2021-01-30%E7%94%A8helm-chart%E9%83%A8%E7%BD%B2chirpstack%E5%88%B0kubernetes/</link>
+      <pubDate>Sat, 30 Jan 2021 00:00:00 +0000</pubDate>
+      
+      <guid>/post/2021-01-30%E7%94%A8helm-chart%E9%83%A8%E7%BD%B2chirpstack%E5%88%B0kubernetes/</guid>
+      <description>chirpstack-helm-chart 开源lorawan server 项目chirpstack的helm chart english 如何贡献 如果你想对这个项目进行贡献可以点击fork按钮fork这个项目并且发起P</description>
+    </item>
+    
+    <item>
+      <title>k8s-client-go源码剖析(二)</title>
+      <link>/post/k8s-client-go%E6%BA%90%E7%A0%81%E5%89%96%E6%9E%90/</link>
+      <pubDate>Sat, 23 Jan 2021 00:00:00 +0000</pubDate>
+      
+      <guid>/post/k8s-client-go%E6%BA%90%E7%A0%81%E5%89%96%E6%9E%90/</guid>
+      <description>简介：云原生社区活动&amp;mdash;Kubernetes源码剖析第一期第二周 本周是K8S源码研习社第一期第二周，学习内容是学习Informer</description>
+    </item>
+    
+  </channel>
+</rss>

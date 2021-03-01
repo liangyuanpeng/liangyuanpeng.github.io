@@ -1,0 +1,1115 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head><head>
+    <meta name="google-site-verification" content="9vIieCe-Qpd78QOmBl63rGtIVbhY6sYyuxX3j8XWBA4" />
+    <meta name="baidu-site-verification" content="LRrmH41lz7" />
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <meta name="baidu-site-verification" content="HGLXRsUXC4" />
+
+    
+    <meta name="description" content="k8s-client-go源码剖析(二)">
+    
+    <meta name="keyword"  content="liangyuanpeng , lan , lyp的网络日志, lan的博客, lan Blog, 博客, 个人网站, 互联网, Web,  Istio, 微服务">
+    <link rel="shortcut icon" href="img/favicon.ico">
+
+    <title>k8s-client-go源码剖析(二)-lyp的博客 | lyp Blog</title>
+
+    <link rel="canonical" href="/post/k8s-client-go%E6%BA%90%E7%A0%81%E5%89%96%E6%9E%90/">
+
+    <link rel="stylesheet" href="https://res.cloudinary.com/lyp/raw/upload/v1537369740/hugo/css/iDisqus.min.css"/>
+
+    
+    <link rel="stylesheet" href="https://res.cloudinary.com/lyp/raw/upload/v1537369744/hugo/css/bootstrap.min.css">
+
+    
+    <link rel="stylesheet" href="https://res.cloudinary.com/lyp/raw/upload/v1537369740/hugo/css/hux-blog.min.css">
+
+    
+    <link rel="stylesheet" href="https://res.cloudinary.com/lyp/raw/upload/v1537369740/hugo/css/syntax.css">
+
+    
+    <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    
+    
+    <script src="https://res.cloudinary.com/lyp/raw/upload/v1537369966/hugo/js/jquery.min.js"></script>
+
+    
+    <script src="https://res.cloudinary.com/lyp/raw/upload/v1537369966/hugo/js/bootstrap.min.js"></script>
+
+    
+    <script src="https://res.cloudinary.com/lyp/raw/upload/v1537369964/hugo/js/hux-blog.min.js"></script>
+
+    <script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?84b882e5d6d2ad1e92201c8596b56dbd";
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+</head>
+</head>
+
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Hi,I`m lan</a>
+        </div>
+
+        
+        
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+                    
+                    <li>
+                        <a href="categories/cloudnative">cloudnative</a>
+                    </li>
+                    
+                    <li>
+                        <a href="categories/devops">devops</a>
+                    </li>
+                    
+                    <li>
+                        <a href="categories/kubernetes">kubernetes</a>
+                    </li>
+                    
+                    <li>
+                        <a href="categories/tech">tech</a>
+                    </li>
+                    
+                    <li>
+                        <a href="categories/%E4%B8%AD%E9%97%B4%E4%BB%B6">中间件</a>
+                    </li>
+                    
+                    <li>
+                        <a href="categories/%E5%AE%B9%E5%99%A8">容器</a>
+                    </li>
+                    
+                    <li>
+                        <a href="categories/%E5%AE%B9%E5%99%A8%E7%BC%96%E6%8E%92">容器编排</a>
+                    </li>
+                    
+                    <li>
+                        <a href="categories/%E7%89%A9%E8%81%94%E7%BD%91">物联网</a>
+                    </li>
+                    
+
+                    
+		            <li>
+                        <a href="search">SEARCH <img src="img/search.png" height="15" style="cursor: pointer;"></a>
+		            </li>
+                    
+                </ul>
+            </div>
+        </div>
+        
+    </div>
+    
+</nav>
+<script>
+    
+    
+    
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        
+            $navbar.className = " ";
+            
+            setTimeout(function(){
+                
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+
+
+<style type="text/css">
+    header.intro-header{
+        background-image: url('https://res.cloudinary.com/lyp/image/upload/v1544363191/hugo/blog.github.io/743a4e9227e1f14cb24a1eb6db29e183.jpg')
+    }
+</style>
+<header class="intro-header" >
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                       
+                       <a class="tag" href="/tags/golang" title="GoLang">
+                           GoLang
+                        </a>
+                        
+                       <a class="tag" href="/tags/kubernetes" title="Kubernetes">
+                           Kubernetes
+                        </a>
+                        
+                       <a class="tag" href="/tags/%E6%BA%90%E7%A0%81%E5%89%96%E6%9E%90" title="源码剖析">
+                           源码剖析
+                        </a>
+                        
+                       <a class="tag" href="/tags/%E4%BA%91%E5%8E%9F%E7%94%9F" title="云原生">
+                           云原生
+                        </a>
+                        
+                       <a class="tag" href="/tags/client-go" title="client-go">
+                           client-go
+                        </a>
+                        
+                    </div>
+                    <h1>k8s-client-go源码剖析(二)</h1>
+                    <h2 class="subheading"></h2>
+                    <span  class="meta">Posted by LanLiang on Saturday, January 23, 2021
+                        
+                        <span id="busuanzi_container_page_pv">|<span id="busuanzi_value_page_pv"></span><span>
+                            <span id="/post/k8s-client-go%E6%BA%90%E7%A0%81%E5%89%96%E6%9E%90/" class="leancloud_visitors meta_data_item" data-flag-title="">
+    <span class="post-meta-item-icon">
+      <span class="octicon octicon-eye"></span> 
+    </span>
+    <i class="fa fa-eye"></i>
+    <span class="old-visitors-count" style="display: none;"></span>
+    <span class="leancloud-visitors-count"></span>
+</span>
+
+
+
+<script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+
+<script>
+	AV.initialize("", "");
+</script>
+
+<script type="text/javascript">
+function showTime(Counter) {
+    var query = new AV.Query(Counter);
+    var entries = [];
+    var $visitors = $(".leancloud_visitors");
+
+    $visitors.each(function() {
+        entries.push($(this).attr("id").trim());
+    });
+
+    query.containedIn('url', entries);
+    query.find()
+        .done(function(results) {
+            var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+            var OLD_COUNT_CONTAINER_REF = '.old-visitors-count';
+
+            
+            
+            
+            
+
+            for (var i = 0; i < results.length; i++) {
+                var item = results[i];
+                var url = item.get('url');
+                var time = item.get('time');
+                var element = document.getElementById(url);
+
+                $(element).find(COUNT_CONTAINER_REF).text(time);
+            }
+            for (var i = 0; i < entries.length; i++) {
+                var url = entries[i];
+                var element = document.getElementById(url);
+                var countSpan = $(element).find(COUNT_CONTAINER_REF);
+                if (countSpan.text() == '') {
+                    var oldCountSpan = $(element).find(OLD_COUNT_CONTAINER_REF).text();
+                    if(oldCountSpan!=''){
+                        countSpan.text(0+parseInt(oldCountSpan));
+                    }else{
+                        countSpan.text(0);          
+                    }
+                }
+            }
+        })
+        .fail(function(object, error) {
+            console.log("Error: " + error.code + " " + error.message);
+        });
+}
+
+function addCount(Counter) {
+    var $visitors = $(".leancloud_visitors");
+    var url = $visitors.attr('id').trim();
+    var title = $visitors.attr('data-flag-title').trim();
+    var query = new AV.Query(Counter);
+
+    query.equalTo("url", url);
+    query.find({
+        success: function(results) {
+            if (results.length > 0) {
+                var counter = results[0];
+                counter.fetchWhenSave(true);
+                counter.increment("time");
+                counter.save(null, {
+                    success: function(counter) {
+                        var $element = $(document.getElementById(url));
+                        $element.find('.leancloud-visitors-count').text(counter.get('time'));
+                    },
+                    error: function(counter, error) {
+                        console.log('Failed to save Visitor num, with error message: ' + error.message);
+                    }
+                });
+            } else {
+                var newcounter = new Counter();
+                 
+                var acl = new AV.ACL();
+                acl.setPublicReadAccess(true);
+                acl.setPublicWriteAccess(true);
+                newcounter.setACL(acl);
+                 
+                newcounter.set("title", title);
+                newcounter.set("url", url);
+                var OLD_COUNT_CONTAINER_REF = '.old-visitors-count';
+                var $element = $(document.getElementById(url));
+                var oldCountSpan = $element.find(OLD_COUNT_CONTAINER_REF).text();
+                if(oldCountSpan!=''){
+                    newcounter.set("time", parseInt(oldCountSpan)+1);
+                }else{
+ 	                    newcounter.set("time",  1);
+                }
+                newcounter.save(null, {
+                    success: function(newcounter) {
+                        var $element = $(document.getElementById(url));
+                        $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+                    },
+                    error: function(newcounter, error) {
+                        console.log('Failed to create');
+                    }
+                });
+            }
+        },
+        error: function(error) {
+            console.log('Error:' + error.code + " " + error.message);
+        }
+    });
+}
+$(function() {
+    var Counter = AV.Object.extend("Counter");
+    
+    
+    if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+    } else {
+        showTime(Counter);
+    }
+});
+</script>
+
+                            阅读 </span></span>|<span class="post-date">共3775字</span>，阅读约<span class="more-meta"> 8 分钟</span>
+                        
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+
+
+<article>
+    <div class="container">
+        <div class="row">
+
+            
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+		
+                <header>
+                <h2>TOC</h2>
+                </header>
+                <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#heading"></a></li>
+        <li><a href="#heading-1"></a></li>
+        <li><a href="#heading-2"></a></li>
+        <li><a href="#heading-3"></a></li>
+        <li><a href="#heading-4"></a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+		
+		<blockquote>
+<p>简介：云原生社区活动&mdash;Kubernetes源码剖析第一期第二周</p>
+</blockquote>
+<p>本周是K8S源码研习社第一期第二周，学习内容是学习Informer机制，本文以这个课题进行展开。</p>
+<p>本周研习社社长挺忙的，将本次课程推迟到下一周结束，任何事情都是这样，计划总有可能会被其他事情打破，但最终只要能够回归到对应的主线上，就不是什么问题。就像参与开源一样，最开始的开放源代码只是开始，需要的是能够坚持下去，而这一点往往是很重要的。</p>
+<p>好了，开始正文。</p>
+<p>本文主题：</p>
+<hr>
+<ol>
+<li>
+<p>Informer机制架构设计总览</p>
+</li>
+<li>
+<p>Reflector理解</p>
+</li>
+<li>
+<p>DeltaFIFO理解</p>
+</li>
+<li>
+<p>Indexer理解</p>
+</li>
+</ol>
+<p>如果涉及到资源的内容，本文以Deployment资源进行相关内容讲述。</p>
+<h3 id="heading"></h3>
+<p>Informer机制架构设计总览</p>
+<p>下面是我根据理解画的一个数据流转图,从全局视角看一下数据的整体走向是怎么样的。</p>
+<p>其中虚线的表示的是代码中的方法。</p>
+<p><img src="https://pic2.zhimg.com/v2-4bf49a913751912a8d8fc6f0a5779ec5_b.jpeg" alt=""></p>
+<p>首先讲一个结论：</p>
+<p>通过Informer机制获取数据的情况下，在初始化的时候会从Kubernetes API Server获取对应Resource的全部Object，后续只会通过Watch机制接收API Server推送过来的数据，不会再主动从API Server拉取数据，直接使用本地缓存中的数据以减少API Server的压力。</p>
+<p>Watch机制基于HTTP的Chunk实现，维护一个长连接，这是一个优化点，减少请求的数据量。第二个优化点是SharedInformer,它可以让同一种资源使用的是同一个Informer，例如v1版本的Deployment和v1beta1版本的Deployment同时存在的时候，共享一个Informer。</p>
+<p>上面图中可以看到Informer分为三个部分，可以理解为三大逻辑。</p>
+<p>其中Reflector主要是把从API Server数据获取到的数据放到DeltaFIFO队列中，充当生产者角色。</p>
+<p>SharedInformer主要是从DeltaFIFIO队列中获取数据并分发数据，充当消费者角色。</p>
+<p>最后Indexer是作为本地缓存的存储组件存在。</p>
+<h3 id="heading-1"></h3>
+<p>Reflector理解</p>
+<p>Reflector中主要看Run、ListAndWatch、watchHandler三个地方就足够了。</p>
+<p>源码位置是 tools/cache/reflector.go</p>
+<pre><code>// Ruvn starts a watch and handles watch events. Will restart the watch if it is closed.
+// Run will exit when stopCh is closed.
+//开始时执行Run，上一层调用的地方是 controller.go中的Run方法
+func (r *Reflector) Run(stopCh &lt;-chan struct{}) {
+	
+	klog.V(3).Infof(&quot;Starting reflector %v (%s) from %s&quot;, r.expectedTypeName, r.resyncPeriod, r.name)
+	wait.Until(func() {
+         //启动后执行一次ListAndWatch
+		if err := r.ListAndWatch(stopCh); err != nil {
+			utilruntime.HandleError(err)
+		}
+	}, r.period, stopCh)
+}
+
+...
+
+// and then use the resource version to watch.
+// It returns error if ListAndWatch didn't even try to initialize watch.
+func (r *Reflector) ListAndWatch(stopCh &lt;-chan struct{}) error {
+
+// Attempt to gather list in chunks, if supported by listerWatcher, if not, the first
+			// list request will return the full response.
+			pager := pager.New(pager.SimplePageFunc(func(opts metav1.ListOptions) (runtime.Object, error) {
+
+//这里是调用了各个资源中的ListFunc函数,例如如果v1版本的Deployment
+//则调用的是informers/apps/v1/deployment.go中的ListFunc
+                             return r.listerWatcher.List(opts)
+			}))
+			if r.WatchListPageSize != 0 {
+				pager.Pa1geSize = r.WatchListPageSize
+			}
+			// Pager falls back to full list if paginated list calls fail due to an &quot;Expired&quot; error.
+			list, err = pager.List(context.Background(), options)
+			close(listCh)
+...
+//这一部分主要是从API SERVER请求一次数据 获取资源的全部Object
+if err != nil {
+			return fmt.Errorf(&quot;%s: Failed to list %v: %v&quot;, r.name, r.expectedTypeName, err)
+		}
+		initTrace.Step(&quot;Objects listed&quot;)
+		listMetaInterface, err := meta.ListAccessor(li
+st)
+		if err != nil {
+			return fmt.Errorf(&quot;%s: Unable to understand list result %#v: %v&quot;, r.name, list, err)
+		}
+		resourceVersion = listMetaInterface.GetResourceVersion()
+		initTrace.Step(&quot;Resource version extracted&quot;)
+		items, err := meta.ExtractList(list)
+		if err != nil {
+			return fmt.Errorf(&quot;%s: Unable to understand list result %#v (%v)&quot;, r.name, list, err)
+		}
+		initTrace.Step(&quot;Objects extracted&quot;)
+		if err := r.syncWith(items, resourceVersion); err != nil {
+			return fmt.Errorf(&quot;%s: Unable to sync list result: %v&quot;, r.name, err)
+		}
+		initTrace.Step(&quot;SyncWith done&quot;)
+		r.setLastSyncResourceVersion(resourceVersion)
+		initTrace.Step(&quot;Resource version updated&quot;)
+...
+
+//处理Watch中的数据并且将数据放置到DeltaFIFO当中
+if err := r.watchHandler(start, w, &amp;resourceVersion, resyncerrc, stopCh); err != nil {
+			if err != errorStopRequested {
+				switch {
+				case apierrs.IsResourceExpired(err):
+					klog.V(4).Infof(&quot;%s: watch of %v ended with: %v&quot;, r.name, r.expectedTypeName, err)
+				default:
+					klog.Warningf(&quot;%s: watch of %v ended with: %v&quot;, r.name, r.expectedTypeName, err)
+				}
+			}
+			return nil
+		}
+...
+}
+</code></pre><p>数据的生产就结束了，就两点:</p>
+<ol>
+<li>
+<p>初始化时从API Server请求数据</p>
+</li>
+<li>
+<p>监听后续从Watch推送来的数据</p>
+</li>
+</ol>
+<h3 id="heading-2"></h3>
+<p>DeltaFIFO理解</p>
+<p>先看一下数据结构:</p>
+<pre><code>type DeltaFIFO struct {
+...
+	items map[string]Deltas
+	queue []string
+...
+}
+
+type Delta struct {
+	Type   DeltaType
+	Object interface{}
+}
+
+type Deltas []Delta
+
+
+type DeltaType string
+
+// Change type definition
+const (
+	Added   DeltaType = &quot;Added&quot;
+	Updated DeltaType = &quot;Updated&quot;
+	Deleted DeltaType = &quot;Deleted&quot;
+	Sync DeltaType = &quot;Sync&quot;
+)
+</code></pre><p>其中queue存储的是Object的id,而items存储的是以ObjectID为key的这个Object的事件列表,</p>
+<p>可以想象到是这样的一个数据结构,左边是Key,右边是一个数组对象,其中每个元素都是由type和obj组成.</p>
+<p><img src="https://pic1.zhimg.com/v2-edd3ed11fbac8e9f19aedaf96276e2bc_b.jpeg" alt=""></p>
+<p>DeltaFIFO顾名思义存放Delta数据的先入先出队列，相当于一个数据的中转站，将数据从一个地方转移另一个地方。</p>
+<p>主要看的内容是queueActionLocked、Pop、Resync</p>
+<p>queueActionLocked方法：</p>
+<pre><code>func (f *DeltaFIFO) queueActionLocked(actionType DeltaType, obj interface{}) error {
+...
+	newDeltas := append(f.items[id], Delta{actionType, obj})
+      //去重处理
+	newDeltas = dedupDeltas(newDeltas)
+
+	if len(newDeltas) &gt; 0 {
+		... 
+               //pop消息
+          
+		f.cond.Broadcast()
+	...
+	return nil
+}
+</code></pre><p>Pop方法：</p>
+<pre><code>func (f *DeltaFIFO) Pop(process PopProcessFunc) (interface{}, error) {
+	f.lock.Lock()
+	defer f.lock.Unlock()
+	for {
+		for len(f.queue) == 0 {
+			//阻塞 直到调用了f.cond.Broadcast()
+			f.cond.Wait()
+		}
+//取出第一个元素
+		id := f.queue[0]
+		f.queue = f.queue[1:]
+		...
+		item, ok := f.items[id]
+...
+                delete(f.items, id)
+		//这个process可以在controller.go中的processLoop()找到
+		//初始化是在shared_informer.go的Run
+		//最终执行到shared_informer.go的HandleDeltas方法
+		err := process(item)
+		//如果处理出错了重新放回队列中
+		if e, ok := err.(ErrRequeue); ok {
+			f.addIfNotPresent(id, item)
+			err = e.Err
+		}
+		 ...
+	}
+}
+</code></pre><p>Resync机制：</p>
+<p>小总结：每次从本地缓存Indexer中获取数据重新放到DeltaFIFO中执行任务逻辑。</p>
+<p>启动的Resync地方是reflector.go的resyncChan()方法，在reflector.go的ListAndWatch方法中的调用开始定时执行。</p>
+<pre><code>go func() {
+               //启动定时任务
+		resyncCh, cleanup := r.resyncChan()
+		defer func() {
+			cleanup() // Call the last one written into cleanup
+		}()
+		for {
+			select {
+			case &lt;-resyncCh:
+			case &lt;-stopCh:
+				return
+			case &lt;-cancelCh:
+				return
+			}
+                        //定时执行   调用会执行到delta_fifo.go的Resync()方法
+			if r.ShouldResync == nil || r.ShouldResync() {
+				klog.V(4).Infof(&quot;%s: forcing resync&quot;, r.name)
+				if err := r.store.Resync(); err != nil {
+					resyncerrc &lt;- err
+					return
+				}
+			}
+			cleanup()
+			resyncCh, cleanup = r.resyncChan()
+		}
+	}()
+
+func (f *DeltaFIFO) Resync() error {
+	...
+//从缓存中获取到所有的key
+	keys := f.knownObjects.ListKeys()
+	for _, k := range keys {
+		if err := f.syncKeyLocked(k); err != nil {
+			return err
+		}
+	}
+	return nil
+
+}
+
+
+func (f *DeltaFIFO) syncKeyLocked(key string) error {
+           //获缓存拿到对应的Object
+        obj, exists, err := f.knownObjects.GetByKey(key)
+	...
+         //放入到队列中执行任务逻辑
+	if err := f.queueActionLocked(Sync, obj); err != nil {
+		return fmt.Errorf(&quot;couldn't queue object: %v&quot;, err)
+	}
+	return nil
+}
+</code></pre><h3 id="heading-3"></h3>
+<p>SharedInformer消费消息理解</p>
+<p>主要看HandleDeltas方法就好，消费消息然后分发数据并且存储数据到缓存的地方</p>
+<pre><code>func (s *sharedIndexInformer) HandleDeltas(obj interface{}) error {
+	s.blockDeltas.Lock()
+	defer s.blockDeltas.Unlock()
+
+	// from oldest to newest
+	for _, d := range obj.(Deltas) {
+		
+		switch d.Type {
+		case Sync, Added, Updated:
+			...
+			//查一下是否在Indexer缓存中 如果在缓存中就更新缓存中的对象
+			if old, exists, err := s.indexer.Get(d.Object); err == nil &amp;&amp; exists {
+				if err := s.indexer.Update(d.Object); err != nil {
+					return err
+				}
+				//把数据分发到Listener
+				s.processor.distribute(updateNotification{oldObj: old, newObj: d.Object}, isSync)
+			} else {
+				//没有在Indexer缓存中 把对象插入到缓存中
+				if err := s.indexer.Add(d.Object); err != nil {
+					return err
+				}
+				s.processor.distribute(addNotification{newObj: d.Object}, isSync)
+			}
+		...
+		}
+	}
+	return nil
+}
+</code></pre><h3 id="heading-4"></h3>
+<p>Indexer理解</p>
+<p>这块不会讲述太多内容，因为我认为Informer机制最主要的还是前面数据的流转，当然这并不代表数据存储不重要，而是先理清楚整体的思路，后续再详细更新存储的部分。</p>
+<p>Indexer使用的是threadsafe_store.go中的threadSafeMap存储数据，是一个线程安全并且带有索引功能的map,数据只会存放在内存中，每次涉及操作都会进行加锁。</p>
+<pre><code>// threadSafeMap implements ThreadSafeStore
+type threadSafeMap struct {
+	lock  sync.RWMutex
+	items map[string]interface{}
+	indexers Indexers
+	indices Indices
+}
+</code></pre><p>Indexer还有一个索引相关的内容就暂时不展开讲述。</p>
+<p>Example代码</p>
+<pre><code>-------------
+
+package main
+
+import (
+	&quot;flag&quot;
+	&quot;fmt&quot;
+	&quot;path/filepath&quot;
+	&quot;time&quot;
+
+	v1 &quot;k8s.io/api/apps/v1&quot;
+	&quot;k8s.io/apimachinery/pkg/labels&quot;
+	&quot;k8s.io/client-go/informers&quot;
+	&quot;k8s.io/client-go/kubernetes&quot;
+	&quot;k8s.io/client-go/rest&quot;
+	&quot;k8s.io/client-go/tools/cache&quot;
+	&quot;k8s.io/client-go/tools/clientcmd&quot;
+	&quot;k8s.io/client-go/util/homedir&quot;
+)
+
+func main() {
+	var err error
+	var config *rest.Config
+
+	var kubeconfig *string
+
+	if home := homedir.HomeDir(); home != &quot;&quot; {
+		kubeconfig = flag.String(&quot;kubeconfig&quot;, filepath.Join(home, &quot;.kube&quot;, &quot;config&quot;), &quot;[可选] kubeconfig 绝对路径&quot;)
+	} else {
+		kubeconfig = flag.String(&quot;kubeconfig&quot;, filepath.Join(&quot;/tmp&quot;, &quot;config&quot;), &quot;kubeconfig 绝对路径&quot;)
+	}
+	// 初始化 rest.Config 对象
+	if config, err = rest.InClusterConfig(); err != nil {
+		if config, err = clientcmd.BuildConfigFromFlags(&quot;&quot;, *kubeconfig); err != nil {
+			panic(err.Error())
+		}
+	}
+	// 创建 Clientset 对象
+	clientset, err := kubernetes.NewForConfig(config)
+	if err != nil {
+		panic(err.Error())
+	}
+	// 初始化一个 SharedInformerFactory 设置resync为60秒一次，会触发UpdateFunc
+	informerFactory := informers.NewSharedInformerFactory(clientset, time.Second*60)
+	// 对 Deployment 监听
+	//这里如果获取v1betav1的deployment的资源
+	// informerFactory.Apps().V1beta1().Deployments()
+	deployInformer := informerFactory.Apps().V1().Deployments()
+	// 创建 Informer（相当于注册到工厂中去，这样下面启动的时候就会去 List &amp; Watch 对应的资源）
+	informer := deployInformer.Informer()
+	// 创建 deployment的 Lister
+	deployLister := deployInformer.Lister()
+	// 注册事件处理程序 处理事件数据
+	informer.AddEventHandler(cache.ResourceEventHandlerFuncs{
+		AddFunc:    onAdd,
+		UpdateFunc: onUpdate,
+		DeleteFunc: onDelete,
+	})
+
+	stopper := make(chan struct{})
+	defer close(stopper)
+
+	informerFactory.Start(stopper)
+	informerFactory.WaitForCacheSync(stopper)
+
+	// 从本地缓存中获取 default 命名空间中的所有 deployment 列表
+	deployments, err := deployLister.Deployments(&quot;default&quot;).List(labels.Everything())
+	if err != nil {
+		panic(err)
+	}
+	for idx, deploy := range deployments {
+		fmt.Printf(&quot;%d -&gt; %sn&quot;, idx+1, deploy.Name)
+	}
+
+	&lt;-stopper
+}
+
+func onAdd(obj interface{}) {
+	deploy := obj.(*v1.Deployment)
+	fmt.Println(&quot;add a deployment:&quot;, deploy.Name)
+}
+
+func onUpdate(old, new interface{}) {
+	oldDeploy := old.(*v1.Deployment)
+	newDeploy := new.(*v1.Deployment)
+	fmt.Println(&quot;update deployment:&quot;, oldDeploy.Name, newDeploy.Name)
+}
+
+func onDelete(obj interface{}) {
+	deploy := obj.(*v1.Deployment)
+	fmt.Println(&quot;delete a deployment:&quot;, deploy.Name)
+} 
+</code></pre><p>以上示例代码中程序启动后会拉取一次Deployment数据，并且拉取数据完成后从本地缓存中List一次default命名空间的Deployment资源并打印，然后每60秒Resync一次Deployment资源。</p>
+<p>QA</p>
+<hr>
+<p>为什么需要Resync？</p>
+<p>在本周有同学提出一个，我看到这个问题后也感觉挺奇怪的，因为Resync是从本地缓存的数据缓存到本地缓存(从开始到结束来说是这样),为什么需要把数据拿出来又走一遍流程呢？当时钻牛角尖也是想不明白，后来换个角度想就知道了。</p>
+<p>数据从API Server过来并且经过处理后放到缓存中，但数据并不一定就可以正常处理，也就是说可能报错了，而这个Resync相当于一个重试的机制。</p>
+<p>可以尝试实践一下: 部署有状态服务，存储使用LocalPV(也可以换成自己熟悉的),这时候pod会由于存储目录不存在而启动失败. 然后在pod启动失败后再创建好对应的目录，过一会pod就启动成功了。 这是我理解的一种情况。</p>
+<p>总结：</p>
+<hr>
+<p>Informer机制在K8S中是各个组件通讯的基石，理解透彻是非常有益的，我也还在进一步理解的过程中，欢迎一起交流。</p>
+<p>前置阅读：</p>
+<hr>
+<ul>
+<li><a href="https://zhuanlan.zhihu.com/p/173809214">k8s-client-go源码剖析(一)</a></li>
+</ul>
+<blockquote>
+<p>始发于 <a href="https://liangyuanpeng.com/">四颗咖啡豆</a>,转载请声明出处.
+关注公粽号-&gt;[四颗咖啡豆] 获取最新内容</p>
+</blockquote>
+
+
+                <hr>
+
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/post/docker-compose-deploy-chirpstack/" data-toggle="tooltip" data-placement="top" title="用docker-compose快速部署ChirpStack">&larr; Previous Post</a>
+                    </li>
+                    
+                    
+                    <li class="next">
+                        <a href="/post/2021-01-30%E7%94%A8helm-chart%E9%83%A8%E7%BD%B2chirpstack%E5%88%B0kubernetes/" data-toggle="tooltip" data-placement="top" title="用helm chart将chripstack部署到kubernetes之上">Next Post &rarr;</a>
+                    </li>
+                    
+                </ul>
+
+            
+<div id="disqus-comment"></div>
+
+
+
+            </div>
+            
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                
+                <section>
+                    <hr class="hidden-sm hidden-xs">
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                     
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                            <a href="/tags/chirpstack" title="chirpstack">
+                                chirpstack
+                            </a>
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                            <a href="/tags/docker" title="docker">
+                                docker
+                            </a>
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                            <a href="/tags/fluentd" title="fluentd">
+                                fluentd
+                            </a>
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                            <a href="/tags/kubernetes" title="kubernetes">
+                                kubernetes
+                            </a>
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                            <a href="/tags/mq" title="mq">
+                                mq
+                            </a>
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                            <a href="/tags/rpc" title="rpc">
+                                rpc
+                            </a>
+                        
+                    
+                        
+                            <a href="/tags/sofa" title="sofa">
+                                sofa
+                            </a>
+                        
+                    
+                        
+                            <a href="/tags/sofastack" title="sofastack">
+                                sofastack
+                            </a>
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                            <a href="/tags/%E4%B8%AD%E9%97%B4%E4%BB%B6" title="中间件">
+                                中间件
+                            </a>
+                        
+                    
+                        
+                            <a href="/tags/%E4%BA%91%E5%8E%9F%E7%94%9F" title="云原生">
+                                云原生
+                            </a>
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                    </div>
+                </section>
+
+                
+                <hr>
+                <h5>FRIENDS</h5>
+                <ul class="list-inline">
+                    
+                </ul>
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                   
+                    
+                    <li>
+                        <a href="mailto:gcslyp@gmail.com">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+		    
+
+                    
+                    <li>
+                        <a href="https://twitter.com/lan31793328">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    
+
+                    
+
+		    
+                    
+                    
+                    <li>
+                        <a target="_blank" href="https://github.com/liangyuanpeng">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+		    
+                    
+                </ul>
+		<p class="copyright text-muted">
+                    Copyright &copy; Hi,I`m lan , 2021
+                    <br>
+                    <a href="https://themes.gohugo.io/hugo-theme-cleanwhite">CleanWhite Hugo Theme</a> by <a href="https://zhaohuabing.com">Huabing</a> |
+                    <iframe
+                        style="margin-left: 2px; margin-bottom:-5px;"
+                        frameborder="0" scrolling="0" width="100px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=zhaohuabing&repo=hugo-theme-cleanwhite&type=star&count=true" >
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+
+
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+
+
+
+
+
+<script>
+    
+    if($('#tag_cloud').length !== 0){
+        async("/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+
+<script>
+    async("https://cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+<script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?23001460802c6c63962c60b9c8c435af";
+      var s = document.getElementsByTagName("script")[0]; 
+      s.parentNode.insertBefore(hm, s);
+    })();
+    </script>
+
+
+
+
+
+
+
+</body>
+</html>
