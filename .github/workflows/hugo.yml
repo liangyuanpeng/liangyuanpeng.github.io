@@ -25,7 +25,7 @@ jobs:
         run: hugo --minify
 
 
-      - uses: actions/checkout@v2
+      # - uses: actions/checkout@v2
       - name: Run container for atomic-algolia
         run: ls && ls themes/hugo-theme-cleanwhite
 
