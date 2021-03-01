@@ -1,971 +1,161 @@
-<!DOCTYPE html>
-<html lang="en-us">
-<head><head>
-    <meta name="google-site-verification" content="9vIieCe-Qpd78QOmBl63rGtIVbhY6sYyuxX3j8XWBA4" />
-    <meta name="baidu-site-verification" content="LRrmH41lz7" />
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    
-    <meta name="baidu-site-verification" content="HGLXRsUXC4" />
-
-    
-    <meta name="description" content="在 RPC 调用过程中，我们经常会和多个服务端进行远程调用，如果在每次调用的时候，都进行 TCP连接，会对 RPC的性能有比较大的影响，因此，实际的场景中，我们经常要对连接进行管理和保持。">
-    
-    <meta name="keyword"  content="liangyuanpeng , lan , lyp的网络日志, lan的博客, lan Blog, 博客, 个人网站, 互联网, Web,  Istio, 微服务">
-    <link rel="shortcut icon" href="img/favicon.ico">
-
-    <title>转|SOFARPC连接管理与心跳剖析-lyp的博客 | lyp Blog</title>
-
-    <link rel="canonical" href="/post/sofarpc%E8%BF%9E%E6%8E%A5%E7%AE%A1%E7%90%86%E4%B8%8E%E5%BF%83%E8%B7%B3%E5%89%96%E6%9E%90/">
-
-    <link rel="stylesheet" href="https://res.cloudinary.com/lyp/raw/upload/v1537369740/hugo/css/iDisqus.min.css"/>
-
-    
-    <link rel="stylesheet" href="https://res.cloudinary.com/lyp/raw/upload/v1537369744/hugo/css/bootstrap.min.css">
-
-    
-    <link rel="stylesheet" href="https://res.cloudinary.com/lyp/raw/upload/v1537369740/hugo/css/hux-blog.min.css">
-
-    
-    <link rel="stylesheet" href="https://res.cloudinary.com/lyp/raw/upload/v1537369740/hugo/css/syntax.css">
-
-    
-    <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-    
-    
-    <script src="https://res.cloudinary.com/lyp/raw/upload/v1537369966/hugo/js/jquery.min.js"></script>
-
-    
-    <script src="https://res.cloudinary.com/lyp/raw/upload/v1537369966/hugo/js/bootstrap.min.js"></script>
-
-    
-    <script src="https://res.cloudinary.com/lyp/raw/upload/v1537369964/hugo/js/hux-blog.min.js"></script>
-
-    <script>
-var _hmt = _hmt || [];
-(function() {
-  var hm = document.createElement("script");
-  hm.src = "https://hm.baidu.com/hm.js?84b882e5d6d2ad1e92201c8596b56dbd";
-  var s = document.getElementsByTagName("script")[0];
-  s.parentNode.insertBefore(hm, s);
-})();
-</script>
-
-</head>
-</head>
-
-<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
-    <div class="container-fluid">
-        
-        <div class="navbar-header page-scroll">
-            <button type="button" class="navbar-toggle">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="/">Hi,I`m lan</a>
-        </div>
-
-        
-        
-        <div id="huxblog_navbar">
-            <div class="navbar-collapse">
-                <ul class="nav navbar-nav navbar-right">
-                    <li>
-                        <a href="/">Home</a>
-                    </li>
-                    
-                    <li>
-                        <a href="categories/cloudnative">cloudnative</a>
-                    </li>
-                    
-                    <li>
-                        <a href="categories/devops">devops</a>
-                    </li>
-                    
-                    <li>
-                        <a href="categories/kubernetes">kubernetes</a>
-                    </li>
-                    
-                    <li>
-                        <a href="categories/tech">tech</a>
-                    </li>
-                    
-                    <li>
-                        <a href="categories/%E4%B8%AD%E9%97%B4%E4%BB%B6">中间件</a>
-                    </li>
-                    
-                    <li>
-                        <a href="categories/%E5%AE%B9%E5%99%A8">容器</a>
-                    </li>
-                    
-                    <li>
-                        <a href="categories/%E5%AE%B9%E5%99%A8%E7%BC%96%E6%8E%92">容器编排</a>
-                    </li>
-                    
-                    <li>
-                        <a href="categories/%E7%89%A9%E8%81%94%E7%BD%91">物联网</a>
-                    </li>
-                    
-
-                    
-		            <li>
-                        <a href="search">SEARCH <img src="img/search.png" height="15" style="cursor: pointer;"></a>
-		            </li>
-                    
-                </ul>
-            </div>
-        </div>
-        
-    </div>
-    
-</nav>
-<script>
-    
-    
-    
-    var $body   = document.body;
-    var $toggle = document.querySelector('.navbar-toggle');
-    var $navbar = document.querySelector('#huxblog_navbar');
-    var $collapse = document.querySelector('.navbar-collapse');
-
-    $toggle.addEventListener('click', handleMagic)
-    function handleMagic(e){
-        if ($navbar.className.indexOf('in') > 0) {
-        
-            $navbar.className = " ";
-            
-            setTimeout(function(){
-                
-                if($navbar.className.indexOf('in') < 0) {
-                    $collapse.style.height = "0px"
-                }
-            },400)
-        }else{
-        
-            $collapse.style.height = "auto"
-            $navbar.className += " in";
-        }
-    }
-</script>
-
-
-
-
-<style type="text/css">
-    header.intro-header{
-        background-image: url('https://res.cloudinary.com/lyp/image/upload/v1544363182/hugo/blog.github.io/e64ae3596ed565b8202d395d771665dd.jpg')
-    }
-</style>
-<header class="intro-header" >
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-                <div class="post-heading">
-                    <div class="tags">
-                       
-                       <a class="tag" href="/tags/rpc" title="rpc">
-                           rpc
-                        </a>
-                        
-                       <a class="tag" href="/tags/sofa" title="sofa">
-                           sofa
-                        </a>
-                        
-                       <a class="tag" href="/tags/sofastack" title="sofastack">
-                           sofastack
-                        </a>
-                        
-                       <a class="tag" href="/tags/%E4%B8%AD%E9%97%B4%E4%BB%B6" title="中间件">
-                           中间件
-                        </a>
-                        
-                    </div>
-                    <h1>转|SOFARPC连接管理与心跳剖析</h1>
-                    <h2 class="subheading"></h2>
-                    <span  class="meta">Posted by lyp on Monday, December 10, 2018
-                        
-                        <span id="busuanzi_container_page_pv">|<span id="busuanzi_value_page_pv"></span><span>
-                            <span id="/post/sofarpc%E8%BF%9E%E6%8E%A5%E7%AE%A1%E7%90%86%E4%B8%8E%E5%BF%83%E8%B7%B3%E5%89%96%E6%9E%90/" class="leancloud_visitors meta_data_item" data-flag-title="">
-    <span class="post-meta-item-icon">
-      <span class="octicon octicon-eye"></span> 
-    </span>
-    <i class="fa fa-eye"></i>
-    <span class="old-visitors-count" style="display: none;"></span>
-    <span class="leancloud-visitors-count"></span>
-</span>
-
-
-
-<script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
-
-<script>
-	AV.initialize("", "");
-</script>
-
-<script type="text/javascript">
-function showTime(Counter) {
-    var query = new AV.Query(Counter);
-    var entries = [];
-    var $visitors = $(".leancloud_visitors");
-
-    $visitors.each(function() {
-        entries.push($(this).attr("id").trim());
-    });
-
-    query.containedIn('url', entries);
-    query.find()
-        .done(function(results) {
-            var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
-            var OLD_COUNT_CONTAINER_REF = '.old-visitors-count';
-
-            
-            
-            
-            
-
-            for (var i = 0; i < results.length; i++) {
-                var item = results[i];
-                var url = item.get('url');
-                var time = item.get('time');
-                var element = document.getElementById(url);
-
-                $(element).find(COUNT_CONTAINER_REF).text(time);
-            }
-            for (var i = 0; i < entries.length; i++) {
-                var url = entries[i];
-                var element = document.getElementById(url);
-                var countSpan = $(element).find(COUNT_CONTAINER_REF);
-                if (countSpan.text() == '') {
-                    var oldCountSpan = $(element).find(OLD_COUNT_CONTAINER_REF).text();
-                    if(oldCountSpan!=''){
-                        countSpan.text(0+parseInt(oldCountSpan));
-                    }else{
-                        countSpan.text(0);          
-                    }
-                }
-            }
-        })
-        .fail(function(object, error) {
-            console.log("Error: " + error.code + " " + error.message);
-        });
-}
-
-function addCount(Counter) {
-    var $visitors = $(".leancloud_visitors");
-    var url = $visitors.attr('id').trim();
-    var title = $visitors.attr('data-flag-title').trim();
-    var query = new AV.Query(Counter);
-
-    query.equalTo("url", url);
-    query.find({
-        success: function(results) {
-            if (results.length > 0) {
-                var counter = results[0];
-                counter.fetchWhenSave(true);
-                counter.increment("time");
-                counter.save(null, {
-                    success: function(counter) {
-                        var $element = $(document.getElementById(url));
-                        $element.find('.leancloud-visitors-count').text(counter.get('time'));
-                    },
-                    error: function(counter, error) {
-                        console.log('Failed to save Visitor num, with error message: ' + error.message);
-                    }
-                });
-            } else {
-                var newcounter = new Counter();
-                 
-                var acl = new AV.ACL();
-                acl.setPublicReadAccess(true);
-                acl.setPublicWriteAccess(true);
-                newcounter.setACL(acl);
-                 
-                newcounter.set("title", title);
-                newcounter.set("url", url);
-                var OLD_COUNT_CONTAINER_REF = '.old-visitors-count';
-                var $element = $(document.getElementById(url));
-                var oldCountSpan = $element.find(OLD_COUNT_CONTAINER_REF).text();
-                if(oldCountSpan!=''){
-                    newcounter.set("time", parseInt(oldCountSpan)+1);
-                }else{
- 	                    newcounter.set("time",  1);
-                }
-                newcounter.save(null, {
-                    success: function(newcounter) {
-                        var $element = $(document.getElementById(url));
-                        $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
-                    },
-                    error: function(newcounter, error) {
-                        console.log('Failed to create');
-                    }
-                });
-            }
-        },
-        error: function(error) {
-            console.log('Error:' + error.code + " " + error.message);
-        }
-    });
-}
-$(function() {
-    var Counter = AV.Object.extend("Counter");
-    
-    
-    if ($('.leancloud_visitors').length == 1) {
-        addCount(Counter);
-    } else {
-        showTime(Counter);
-    }
-});
-</script>
-
-                            阅读 </span></span>|<span class="post-date">共4970字</span>，阅读约<span class="more-meta"> 10 分钟</span>
-                        
-                    </span>
-                </div>
-            </div>
-        </div>
-    </div>
-</header>
-
-
-
-
-<article>
-    <div class="container">
-        <div class="row">
-
-            
-            <div class="
-                col-lg-8 col-lg-offset-2
-                col-md-10 col-md-offset-1
-                post-container">
-
-		
-                <header>
-                <h2>TOC</h2>
-                </header>
-                <nav id="TableOfContents">
-  <ul>
-    <li><a href="#长连接和短连接">长连接和短连接</a></li>
-    <li><a href="#tcp层keep-alive">TCP层keep-alive</a>
-      <ul>
-        <li><a href="#tcp的keep-alive是什么">tcp的keep-alive是什么</a></li>
-        <li><a href="#默认值">默认值</a></li>
-        <li><a href="#如何使用">如何使用</a></li>
-        <li><a href="#检查">检查</a></li>
-      </ul>
-    </li>
-    <li><a href="#应用层keep-alive">应用层keep-alive</a>
-      <ul>
-        <li><a href="#心跳是什么">心跳是什么</a></li>
-        <li><a href="#如何使用-1">如何使用</a></li>
-      </ul>
-    </li>
-    <li><a href="#应用层心跳还是keep-alive">应用层心跳还是Keep-Alive</a>
-      <ul>
-        <li><a href="#系统keep-alive优势">系统keep-alive优势:</a></li>
-        <li><a href="#应用keep-alive优势">应用keep-alive优势:</a></li>
-      </ul>
-    </li>
-  </ul>
-
-  <ul>
-    <li><a href="#sofabolt基于系统tcp-keepalive机制实现">SOFABOLT基于系统tcp-keepalive机制实现</a>
-      <ul>
-        <li><a href="#客户端">客户端</a></li>
-        <li><a href="#服务端">服务端</a></li>
-      </ul>
-    </li>
-    <li><a href="#sofabolt基于netty-idlestatehandler心跳实现">SOFABOLT基于Netty IdleStateHandler心跳实现</a>
-      <ul>
-        <li><a href="#客户端-1">客户端</a></li>
-        <li><a href="#服务端-1">服务端</a></li>
-      </ul>
-    </li>
-    <li><a href="#sofarpc连接管理断开重连实现">SOFARPC连接管理断开重连实现</a></li>
-  </ul>
-</nav>
-		
-		<h1 id="前言">前言</h1>
-<p>在 <code>RPC</code> 调用过程中，我们经常会和多个服务端进行远程调用，如果在每次调用的时候，都进行 <code>TCP</code>连接，会对 <code>RPC</code>的性能有比较大的影响，因此，实际的场景中，我们经常要对连接进行管理和保持。</p>
-<p><code>SOFARPC</code>应用心跳包以及断线重连实现,结合系统<code>tcp-keepalive</code>机制，来实现对<code>RPC</code>连接的管理和保持。</p>
-<h1 id="连接管理">连接管理</h1>
-<p>首先我们将会介绍连接管理相关的一些背景知识。</p>
-<h2 id="长连接和短连接">长连接和短连接</h2>
-<p>短连接，一般是指客户端向服务端发起连接请求。连接建立后，发送数据，接收服务端数据返回，然后触发连接断开，下次再重新重复以上过程。</p>
-<p>长连接，则是在建立连接后，发送数据，接收数据，但是不主动断开，并且主动通过心跳等机制来维持这个连接可用，当再次有数据发送请求时，不需要进行建立连接的过程。</p>
-<p>一般的，<!-- raw HTML omitted --><!-- raw HTML omitted -->长连接多用于数据发送频繁，点对点的通讯，因为每个TCP连接都需要进行握手，这是需要时间的，在一些跨城，或者长距离的情况下，如果每个操作都是先连接，再发送数据的话，那么业务处理速度会降低很多，所以每个操作完后都不断开，再次处理时直接发送数据包即可，节省再次建立连接的过程。<!-- raw HTML omitted --><!-- raw HTML omitted --></p>
-<p>但是，客户端不主动断开，并不是说连接就不会断。因为系统设置原因，网络原因，网络设备防火墙，都可能导致连接断开。因此我们需要实现对长连接的管理。</p>
-<h2 id="tcp层keep-alive">TCP层keep-alive</h2>
-<h3 id="tcp的keep-alive是什么">tcp的keep-alive是什么</h3>
-<p><code>tcp-keepalive</code>，顾名思义，它可以尽量让 <code>TCP</code> 连接“活着”，或者让一些对方无响应的 <code>TCP</code> 连接断开，</p>
-<p>使用场景主要是：</p>
-<ol>
-<li>一些特定环境，比如两个机器之间有防火墙，防火墙能维持的连接有限，可能会自动断开长期无活动的 <code>TCP</code> 连接。</li>
-<li>还有就是客户端，断电重启，卡死等等，都会导致<code>tcp</code>连接无法释放。</li>
-</ol>
-<p>这会导致：</p>
-<p>一旦有热数据需要传递，若此时连接已经被中介设备断开，应用程序没有及时感知的话，那么就会导致在一个无效的数据链路层面发送业务数据，结果就是发送失败。</p>
-<p>无论是因为客户端意外断电、死机、崩溃、重启，还是中间路由网络无故断开、NAT超时等，服务器端要做到快速感知失败，减少无效链接操作。</p>
-<p>而 <code>tcp-keepalive</code> 机制可以在连接无活动一段时间后，发送一个空 <code>ack</code>，使 <code>TCP</code> 连接不会被防火墙关闭。</p>
-<h3 id="默认值">默认值</h3>
-<p><code>tcp-keepalive</code>，操作系统内核支持，但是不默认开启,应用需要自行开启，开启之后有三个参数会生效，来决定一个keepalive的行为。</p>
-<pre><code class="language-makedown" data-lang="makedown">net.ipv4.tcp_keepalive_time = 7200
+<!doctype html><html lang=en-us><head><head><meta name=google-site-verification content="9vIieCe-Qpd78QOmBl63rGtIVbhY6sYyuxX3j8XWBA4"><meta name=baidu-site-verification content="LRrmH41lz7"><meta charset=utf-8><meta http-equiv=x-ua-compatible content="IE=edge"><meta name=google-site-verification content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI"><meta name=viewport content="width=device-width,initial-scale=1"><meta name=baidu-site-verification content="HGLXRsUXC4"><meta name=description content="在 RPC 调用过程中，我们经常会和多个服务端进行远程调用，如果在每次调用的时候，都进行 TCP连接，会对 RPC的性能有比较大的影响，因此，实际的场景中，我们经常要对连接进行管理和保持。"><meta name=keyword content="liangyuanpeng , lan , lyp的网络日志, lan的博客, lan Blog, 博客, 个人网站, 互联网, Web,  Istio, 微服务"><link rel="shortcut icon" href=img/favicon.ico><title>转|SOFARPC连接管理与心跳剖析-lyp的博客 | lyp Blog</title><link rel=canonical href=/post/sofarpc%E8%BF%9E%E6%8E%A5%E7%AE%A1%E7%90%86%E4%B8%8E%E5%BF%83%E8%B7%B3%E5%89%96%E6%9E%90/><link rel=stylesheet href=https://res.cloudinary.com/lyp/raw/upload/v1537369740/hugo/css/iDisqus.min.css><link rel=stylesheet href=https://res.cloudinary.com/lyp/raw/upload/v1537369744/hugo/css/bootstrap.min.css><link rel=stylesheet href=https://res.cloudinary.com/lyp/raw/upload/v1537369740/hugo/css/hux-blog.min.css><link rel=stylesheet href=https://res.cloudinary.com/lyp/raw/upload/v1537369740/hugo/css/syntax.css><link href=//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css rel=stylesheet type=text/css><script src=https://res.cloudinary.com/lyp/raw/upload/v1537369966/hugo/js/jquery.min.js></script><script src=https://res.cloudinary.com/lyp/raw/upload/v1537369966/hugo/js/bootstrap.min.js></script><script src=https://res.cloudinary.com/lyp/raw/upload/v1537369964/hugo/js/hux-blog.min.js></script><script>var _hmt=_hmt||[];(function(){var hm=document.createElement("script");hm.src="https://hm.baidu.com/hm.js?84b882e5d6d2ad1e92201c8596b56dbd";var s=document.getElementsByTagName("script")[0];s.parentNode.insertBefore(hm,s);})();</script></head></head><nav class="navbar navbar-default navbar-custom navbar-fixed-top"><div class=container-fluid><div class="navbar-header page-scroll"><button type=button class=navbar-toggle>
+<span class=sr-only>Toggle navigation</span>
+<span class=icon-bar></span><span class=icon-bar></span><span class=icon-bar></span></button>
+<a class=navbar-brand href=/>Hi,I`m lan</a></div><div id=huxblog_navbar><div class=navbar-collapse><ul class="nav navbar-nav navbar-right"><li><a href=/>Home</a></li><li><a href=categories/cloudnative>cloudnative</a></li><li><a href=categories/devops>devops</a></li><li><a href=categories/kubernetes>kubernetes</a></li><li><a href=categories/tech>tech</a></li><li><a href=categories/%E4%B8%AD%E9%97%B4%E4%BB%B6>中间件</a></li><li><a href=categories/%E5%AE%B9%E5%99%A8>容器</a></li><li><a href=categories/%E5%AE%B9%E5%99%A8%E7%BC%96%E6%8E%92>容器编排</a></li><li><a href=categories/%E7%89%A9%E8%81%94%E7%BD%91>物联网</a></li><li><a href=search>SEARCH <img src=img/search.png height=15 style=cursor:pointer></a></li></ul></div></div></div></nav><script>var $body=document.body;var $toggle=document.querySelector('.navbar-toggle');var $navbar=document.querySelector('#huxblog_navbar');var $collapse=document.querySelector('.navbar-collapse');$toggle.addEventListener('click',handleMagic)
+function handleMagic(e){if($navbar.className.indexOf('in')>0){$navbar.className=" ";setTimeout(function(){if($navbar.className.indexOf('in')<0){$collapse.style.height="0px"}},400)}else{$collapse.style.height="auto"
+$navbar.className+=" in";}}</script><style type=text/css>header.intro-header{background-image:url(https://res.cloudinary.com/lyp/image/upload/v1544363182/hugo/blog.github.io/e64ae3596ed565b8202d395d771665dd.jpg)}</style><header class=intro-header><div class=container><div class=row><div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1"><div class=post-heading><div class=tags><a class=tag href=/tags/rpc title=rpc>rpc</a>
+<a class=tag href=/tags/sofa title=sofa>sofa</a>
+<a class=tag href=/tags/sofastack title=sofastack>sofastack</a>
+<a class=tag href=/tags/%E4%B8%AD%E9%97%B4%E4%BB%B6 title=中间件>中间件</a></div><h1>转|SOFARPC连接管理与心跳剖析</h1><h2 class=subheading></h2><span class=meta>Posted by lyp on Monday, December 10, 2018
+<span id=busuanzi_container_page_pv>|<span id=busuanzi_value_page_pv></span><span>
+<span id=/post/sofarpc%E8%BF%9E%E6%8E%A5%E7%AE%A1%E7%90%86%E4%B8%8E%E5%BF%83%E8%B7%B3%E5%89%96%E6%9E%90/ class="leancloud_visitors meta_data_item" data-flag-title><span class=post-meta-item-icon><span class="octicon octicon-eye"></span></span><i class="fa fa-eye"></i><span class=old-visitors-count style=display:none></span><span class=leancloud-visitors-count></span></span><script src=https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js></script><script>AV.initialize("","");</script><script type=text/javascript>function showTime(Counter){var query=new AV.Query(Counter);var entries=[];var $visitors=$(".leancloud_visitors");$visitors.each(function(){entries.push($(this).attr("id").trim());});query.containedIn('url',entries);query.find().done(function(results){var COUNT_CONTAINER_REF='.leancloud-visitors-count';var OLD_COUNT_CONTAINER_REF='.old-visitors-count';for(var i=0;i<results.length;i++){var item=results[i];var url=item.get('url');var time=item.get('time');var element=document.getElementById(url);$(element).find(COUNT_CONTAINER_REF).text(time);}
+for(var i=0;i<entries.length;i++){var url=entries[i];var element=document.getElementById(url);var countSpan=$(element).find(COUNT_CONTAINER_REF);if(countSpan.text()==''){var oldCountSpan=$(element).find(OLD_COUNT_CONTAINER_REF).text();if(oldCountSpan!=''){countSpan.text(0+parseInt(oldCountSpan));}else{countSpan.text(0);}}}}).fail(function(object,error){console.log("Error: "+error.code+" "+error.message);});}
+function addCount(Counter){var $visitors=$(".leancloud_visitors");var url=$visitors.attr('id').trim();var title=$visitors.attr('data-flag-title').trim();var query=new AV.Query(Counter);query.equalTo("url",url);query.find({success:function(results){if(results.length>0){var counter=results[0];counter.fetchWhenSave(true);counter.increment("time");counter.save(null,{success:function(counter){var $element=$(document.getElementById(url));$element.find('.leancloud-visitors-count').text(counter.get('time'));},error:function(counter,error){console.log('Failed to save Visitor num, with error message: '+error.message);}});}else{var newcounter=new Counter();var acl=new AV.ACL();acl.setPublicReadAccess(true);acl.setPublicWriteAccess(true);newcounter.setACL(acl);newcounter.set("title",title);newcounter.set("url",url);var OLD_COUNT_CONTAINER_REF='.old-visitors-count';var $element=$(document.getElementById(url));var oldCountSpan=$element.find(OLD_COUNT_CONTAINER_REF).text();if(oldCountSpan!=''){newcounter.set("time",parseInt(oldCountSpan)+1);}else{newcounter.set("time",1);}
+newcounter.save(null,{success:function(newcounter){var $element=$(document.getElementById(url));$element.find('.leancloud-visitors-count').text(newcounter.get('time'));},error:function(newcounter,error){console.log('Failed to create');}});}},error:function(error){console.log('Error:'+error.code+" "+error.message);}});}
+$(function(){var Counter=AV.Object.extend("Counter");if($('.leancloud_visitors').length==1){addCount(Counter);}else{showTime(Counter);}});</script>阅读 </span></span>|<span class=post-date>共4970字</span>，阅读约<span class=more-meta> 10 分钟</span></span></div></div></div></div></header><article><div class=container><div class=row><div class="col-lg-8 col-lg-offset-2
+col-md-10 col-md-offset-1
+post-container"><header><h2>TOC</h2></header><nav id=TableOfContents><ul><li><a href=#长连接和短连接>长连接和短连接</a></li><li><a href=#tcp层keep-alive>TCP层keep-alive</a><ul><li><a href=#tcp的keep-alive是什么>tcp的keep-alive是什么</a></li><li><a href=#默认值>默认值</a></li><li><a href=#如何使用>如何使用</a></li><li><a href=#检查>检查</a></li></ul></li><li><a href=#应用层keep-alive>应用层keep-alive</a><ul><li><a href=#心跳是什么>心跳是什么</a></li><li><a href=#如何使用-1>如何使用</a></li></ul></li><li><a href=#应用层心跳还是keep-alive>应用层心跳还是Keep-Alive</a><ul><li><a href=#系统keep-alive优势>系统keep-alive优势:</a></li><li><a href=#应用keep-alive优势>应用keep-alive优势:</a></li></ul></li></ul><ul><li><a href=#sofabolt基于系统tcp-keepalive机制实现>SOFABOLT基于系统tcp-keepalive机制实现</a><ul><li><a href=#客户端>客户端</a></li><li><a href=#服务端>服务端</a></li></ul></li><li><a href=#sofabolt基于netty-idlestatehandler心跳实现>SOFABOLT基于Netty IdleStateHandler心跳实现</a><ul><li><a href=#客户端-1>客户端</a></li><li><a href=#服务端-1>服务端</a></li></ul></li><li><a href=#sofarpc连接管理断开重连实现>SOFARPC连接管理断开重连实现</a></li></ul></nav><h1 id=前言>前言</h1><p>在 <code>RPC</code> 调用过程中，我们经常会和多个服务端进行远程调用，如果在每次调用的时候，都进行 <code>TCP</code>连接，会对 <code>RPC</code>的性能有比较大的影响，因此，实际的场景中，我们经常要对连接进行管理和保持。</p><p><code>SOFARPC</code>应用心跳包以及断线重连实现,结合系统<code>tcp-keepalive</code>机制，来实现对<code>RPC</code>连接的管理和保持。</p><h1 id=连接管理>连接管理</h1><p>首先我们将会介绍连接管理相关的一些背景知识。</p><h2 id=长连接和短连接>长连接和短连接</h2><p>短连接，一般是指客户端向服务端发起连接请求。连接建立后，发送数据，接收服务端数据返回，然后触发连接断开，下次再重新重复以上过程。</p><p>长连接，则是在建立连接后，发送数据，接收数据，但是不主动断开，并且主动通过心跳等机制来维持这个连接可用，当再次有数据发送请求时，不需要进行建立连接的过程。</p><p>一般的，长连接多用于数据发送频繁，点对点的通讯，因为每个TCP连接都需要进行握手，这是需要时间的，在一些跨城，或者长距离的情况下，如果每个操作都是先连接，再发送数据的话，那么业务处理速度会降低很多，所以每个操作完后都不断开，再次处理时直接发送数据包即可，节省再次建立连接的过程。</p><p>但是，客户端不主动断开，并不是说连接就不会断。因为系统设置原因，网络原因，网络设备防火墙，都可能导致连接断开。因此我们需要实现对长连接的管理。</p><h2 id=tcp层keep-alive>TCP层keep-alive</h2><h3 id=tcp的keep-alive是什么>tcp的keep-alive是什么</h3><p><code>tcp-keepalive</code>，顾名思义，它可以尽量让 <code>TCP</code> 连接“活着”，或者让一些对方无响应的 <code>TCP</code> 连接断开，</p><p>使用场景主要是：</p><ol><li>一些特定环境，比如两个机器之间有防火墙，防火墙能维持的连接有限，可能会自动断开长期无活动的 <code>TCP</code> 连接。</li><li>还有就是客户端，断电重启，卡死等等，都会导致<code>tcp</code>连接无法释放。</li></ol><p>这会导致：</p><p>一旦有热数据需要传递，若此时连接已经被中介设备断开，应用程序没有及时感知的话，那么就会导致在一个无效的数据链路层面发送业务数据，结果就是发送失败。</p><p>无论是因为客户端意外断电、死机、崩溃、重启，还是中间路由网络无故断开、NAT超时等，服务器端要做到快速感知失败，减少无效链接操作。</p><p>而 <code>tcp-keepalive</code> 机制可以在连接无活动一段时间后，发送一个空 <code>ack</code>，使 <code>TCP</code> 连接不会被防火墙关闭。</p><h3 id=默认值>默认值</h3><p><code>tcp-keepalive</code>，操作系统内核支持，但是不默认开启,应用需要自行开启，开启之后有三个参数会生效，来决定一个keepalive的行为。</p><pre><code class=language-makedown data-lang=makedown>net.ipv4.tcp_keepalive_time = 7200
 net.ipv4.tcp_keepalive_probes = 9
 net.ipv4.tcp_keepalive_intvl = 75
-</code></pre><p>可以通过如下命令查看系统<code>tcp-keepalive</code>参数配置。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">sysctl -a | grep keepalive
+</code></pre><p>可以通过如下命令查看系统<code>tcp-keepalive</code>参数配置。</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>sysctl -a | grep keepalive
 
 cat /proc/sys/net/ipv4/tcp_keepalive_time
 
 sysctl net.ipv4.tcp_keepalive_time
-</code></pre></div><p>系统默认值可以通过这个查看。</p>
-<p>tcp_keepalive_time，在TCP保活打开的情况下，最后一次数据交换到TCP发送第一个保活探测包的间隔，即允许的持续空闲时长，或者说每次正常发送心跳的周期，默认值为7200s（2h）。
+</code></pre></div><p>系统默认值可以通过这个查看。</p><p>tcp_keepalive_time，在TCP保活打开的情况下，最后一次数据交换到TCP发送第一个保活探测包的间隔，即允许的持续空闲时长，或者说每次正常发送心跳的周期，默认值为7200s（2h）。
 tcp_keepalive_probes 在tcp_keepalive_time之后，没有接收到对方确认，继续发送保活探测包次数，默认值为9（次）。
-tcp_keepalive_intvl，在tcp_keepalive_time之后，没有接收到对方确认，继续发送保活探测包的发送频率，默认值为75s。</p>
-<p>这个不够直观，直接看下面这个图的说明</p>
-<!-- raw HTML omitted -->
-<h3 id="如何使用">如何使用</h3>
-<p>应用层，以<code>Java</code>的<code>Netty</code>为例，服务端和客户端设置即可。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">ServerBootstrap b <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> ServerBootstrap<span style="color:#f92672">();</span>
-            b<span style="color:#f92672">.</span><span style="color:#a6e22e">group</span><span style="color:#f92672">(</span>bossGroup<span style="color:#f92672">,</span> workerGroup<span style="color:#f92672">)</span>
-             <span style="color:#f92672">.</span><span style="color:#a6e22e">channel</span><span style="color:#f92672">(</span>NioServerSocketChannel<span style="color:#f92672">.</span><span style="color:#a6e22e">class</span><span style="color:#f92672">)</span>
-             <span style="color:#f92672">.</span><span style="color:#a6e22e">option</span><span style="color:#f92672">(</span>ChannelOption<span style="color:#f92672">.</span><span style="color:#a6e22e">SO_BACKLOG</span><span style="color:#f92672">,</span> 100<span style="color:#f92672">)</span>
-             <span style="color:#f92672">.</span><span style="color:#a6e22e">childOption</span><span style="color:#f92672">(</span>ChannelOption<span style="color:#f92672">.</span><span style="color:#a6e22e">SO_KEEPALIVE</span><span style="color:#f92672">,</span> <span style="color:#66d9ef">true</span><span style="color:#f92672">)</span>
-             <span style="color:#f92672">.</span><span style="color:#a6e22e">handler</span><span style="color:#f92672">(</span><span style="color:#66d9ef">new</span> LoggingHandler<span style="color:#f92672">(</span>LogLevel<span style="color:#f92672">.</span><span style="color:#a6e22e">INFO</span><span style="color:#f92672">))</span>
-             <span style="color:#f92672">.</span><span style="color:#a6e22e">childHandler</span><span style="color:#f92672">(</span><span style="color:#66d9ef">new</span> ChannelInitializer<span style="color:#f92672">&lt;</span>SocketChannel<span style="color:#f92672">&gt;()</span> <span style="color:#f92672">{</span>
-                 <span style="color:#a6e22e">@Override</span>
-                 <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">initChannel</span><span style="color:#f92672">(</span>SocketChannel ch<span style="color:#f92672">)</span> <span style="color:#66d9ef">throws</span> Exception <span style="color:#f92672">{</span>
-                     ch<span style="color:#f92672">.</span><span style="color:#a6e22e">pipeline</span><span style="color:#f92672">().</span><span style="color:#a6e22e">addLast</span><span style="color:#f92672">(</span>
-                             <span style="color:#66d9ef">new</span> EchoServerHandler<span style="color:#f92672">());</span>
-                 <span style="color:#f92672">}</span>
-             <span style="color:#f92672">});</span>
+tcp_keepalive_intvl，在tcp_keepalive_time之后，没有接收到对方确认，继续发送保活探测包的发送频率，默认值为75s。</p><p>这个不够直观，直接看下面这个图的说明</p><h3 id=如何使用>如何使用</h3><p>应用层，以<code>Java</code>的<code>Netty</code>为例，服务端和客户端设置即可。</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java>ServerBootstrap b <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> ServerBootstrap<span style=color:#f92672>();</span>
+            b<span style=color:#f92672>.</span><span style=color:#a6e22e>group</span><span style=color:#f92672>(</span>bossGroup<span style=color:#f92672>,</span> workerGroup<span style=color:#f92672>)</span>
+             <span style=color:#f92672>.</span><span style=color:#a6e22e>channel</span><span style=color:#f92672>(</span>NioServerSocketChannel<span style=color:#f92672>.</span><span style=color:#a6e22e>class</span><span style=color:#f92672>)</span>
+             <span style=color:#f92672>.</span><span style=color:#a6e22e>option</span><span style=color:#f92672>(</span>ChannelOption<span style=color:#f92672>.</span><span style=color:#a6e22e>SO_BACKLOG</span><span style=color:#f92672>,</span> 100<span style=color:#f92672>)</span>
+             <span style=color:#f92672>.</span><span style=color:#a6e22e>childOption</span><span style=color:#f92672>(</span>ChannelOption<span style=color:#f92672>.</span><span style=color:#a6e22e>SO_KEEPALIVE</span><span style=color:#f92672>,</span> <span style=color:#66d9ef>true</span><span style=color:#f92672>)</span>
+             <span style=color:#f92672>.</span><span style=color:#a6e22e>handler</span><span style=color:#f92672>(</span><span style=color:#66d9ef>new</span> LoggingHandler<span style=color:#f92672>(</span>LogLevel<span style=color:#f92672>.</span><span style=color:#a6e22e>INFO</span><span style=color:#f92672>))</span>
+             <span style=color:#f92672>.</span><span style=color:#a6e22e>childHandler</span><span style=color:#f92672>(</span><span style=color:#66d9ef>new</span> ChannelInitializer<span style=color:#f92672>&lt;</span>SocketChannel<span style=color:#f92672>&gt;()</span> <span style=color:#f92672>{</span>
+                 <span style=color:#a6e22e>@Override</span>
+                 <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>initChannel</span><span style=color:#f92672>(</span>SocketChannel ch<span style=color:#f92672>)</span> <span style=color:#66d9ef>throws</span> Exception <span style=color:#f92672>{</span>
+                     ch<span style=color:#f92672>.</span><span style=color:#a6e22e>pipeline</span><span style=color:#f92672>().</span><span style=color:#a6e22e>addLast</span><span style=color:#f92672>(</span>
+                             <span style=color:#66d9ef>new</span> EchoServerHandler<span style=color:#f92672>());</span>
+                 <span style=color:#f92672>}</span>
+             <span style=color:#f92672>});</span>
 
-            <span style="color:#75715e">// Start the server.
-</span><span style="color:#75715e"></span>            ChannelFuture f <span style="color:#f92672">=</span> b<span style="color:#f92672">.</span><span style="color:#a6e22e">bind</span><span style="color:#f92672">(</span>port<span style="color:#f92672">).</span><span style="color:#a6e22e">sync</span><span style="color:#f92672">();</span>
+            <span style=color:#75715e>// Start the server.
+</span><span style=color:#75715e></span>            ChannelFuture f <span style=color:#f92672>=</span> b<span style=color:#f92672>.</span><span style=color:#a6e22e>bind</span><span style=color:#f92672>(</span>port<span style=color:#f92672>).</span><span style=color:#a6e22e>sync</span><span style=color:#f92672>();</span>
 
-            <span style="color:#75715e">// Wait until the server socket is closed.
-</span><span style="color:#75715e"></span>            f<span style="color:#f92672">.</span><span style="color:#a6e22e">channel</span><span style="color:#f92672">().</span><span style="color:#a6e22e">closeFuture</span><span style="color:#f92672">().</span><span style="color:#a6e22e">sync</span><span style="color:#f92672">();</span>
-</code></pre></div><p>就是这里面的<code>ChannelOption.SO_KEEPALIVE, true</code> 对应即可打开.</p>
-<p>目前bolt中也是默认打开的.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"> <span style="color:#f92672">.</span><span style="color:#a6e22e">childOption</span><span style="color:#f92672">(</span>ChannelOption<span style="color:#f92672">.</span><span style="color:#a6e22e">SO_KEEPALIVE</span><span style="color:#f92672">,</span>
-                Boolean<span style="color:#f92672">.</span><span style="color:#a6e22e">parseBoolean</span><span style="color:#f92672">(</span>System<span style="color:#f92672">.</span><span style="color:#a6e22e">getProperty</span><span style="color:#f92672">(</span>Configs<span style="color:#f92672">.</span><span style="color:#a6e22e">TCP_SO_KEEPALIVE</span><span style="color:#f92672">,</span> <span style="color:#e6db74">&#34;true&#34;</span><span style="color:#f92672">)));</span>
-</code></pre></div><p><code>Java</code>程序只能做到设置<!-- raw HTML omitted -->SO_KEEPALIVE<!-- raw HTML omitted -->选项，至于<!-- raw HTML omitted -->TCP_KEEPCNT<!-- raw HTML omitted -->，<!-- raw HTML omitted -->TCP_KEEPIDLE<!-- raw HTML omitted -->，<!-- raw HTML omitted -->TCP_KEEPINTVL<!-- raw HTML omitted -->等参数配置，只能依赖于sysctl配置，系统进行读取。</p>
-<h3 id="检查">检查</h3>
-<p>查看<code>tcp</code>连接<!-- raw HTML omitted -->tcp_keepalive<!-- raw HTML omitted -->状态</p>
-<pre><code>我们可以用 `netstat -no|grep keepalive` 命令来查看当前哪些 tcp 连接开启了 tcp keepalive.
-</code></pre><!-- raw HTML omitted -->
-<h2 id="应用层keep-alive">应用层keep-alive</h2>
-<p>应用层<code>keep-alive</code>方案，一般叫做心跳包，跟<code>tcp-keepalive</code>类似，心跳包就是用来及时监测是否断线的一种
-机制，通过每间隔一定时间发送心跳数据，来检测对方是否连接，是属于应用程序协议的一部分。</p>
-<h3 id="心跳是什么">心跳是什么</h3>
-<p>心跳想要实现的和<code>tcp keep-alive</code>是一样的。</p>
-<p>由于连接丢失时，TCP不会立即通知应用程序。比如说，客户端程序断线了，服务端的TCP连接不会检测到断线，而是一直处于连接状态。这就带来了很大的麻烦，明明客户端已经断了，服务端还维护着客户端的连接，比如游戏的场景下，用户客户端都关机了，但是连接没有正常关闭，服务端无法知晓,还照常执行着该玩家的游戏逻辑。</p>
-<p>听上去和<code>tcp-alive</code>类似，那为什么要有应用层心跳?</p>
-<p>原因主要是默认的tcp <code>keep-alive</code>超时时间太长默认是7200秒，也就是2个小时。并且是系统级别，一旦更改，影响所有服务器上开启keep alive选项的应用行为。<br>
-另外，<code>socks proxy</code>会让<code>tcp keep-alive</code>失效，
-<code>socks</code>协议只管转发TCP层具体的数据包，而不会转发TCP协议内的实现细节的包（也做不到）。</p>
-<p>所以，一个应用如果使用了<code>socks</code>代理，那么<code>tcp keep-alive</code>机制就失效了，所以应用要自己有心跳包。
-<code>socks proxy</code>只是一个例子，真实的网络很复杂，可能会有各种原因让<code>tcp keep-alive</code>失效。</p>
-<h3 id="如何使用-1">如何使用</h3>
-<p>基于<code>netty</code>开发的话，还是很简单的。这里不多做介绍，因为后面说到<code>rpc</code>中的连接管理的时候，会介绍。</p>
-<h2 id="应用层心跳还是keep-alive">应用层心跳还是Keep-Alive</h2>
-<p>默认情况下使用<code>keepalive</code>周期为2个小时，</p>
-<h3 id="系统keep-alive优势">系统keep-alive优势:</h3>
-<p>1.<code>TCP</code>协议层面保活探测机制，系统内核完全替上层应用自动给做好了。<br>
-2.内核层面计时器相比上层应用，更为高效。<br>
-3.上层应用只需要处理数据收发、连接异常通知即可。<br>
-4.数据包将更为紧凑。</p>
-<h3 id="应用keep-alive优势">应用keep-alive优势:</h3>
-<p>关闭<code>TCP</code>的<code>keepalive</code>，完全使用业务层面心跳保活机制。完全应用掌管心跳，灵活和可控，比如每一个连接心跳周期的可根据需要减少或延长。</p>
-<p>1.应用的心跳包,具有更大的灵活性，可以自己控制检测的间隔，检测的方式等等。<br>
-2.心跳包同时适用于<code>TCP</code>和<code>UDP</code>，在切换<code>TCP</code>和<code>UDP</code>时，上层的心跳包功能都适用。<br>
-3.有些情况下，心跳包可以附带一些其他信息，定时在服务端和客户端之间同步。（比如帧数同步）</p>
-<p>所以大多数情况采用业务心跳+<code>TCP keepalive</code>一起使用，互相作为补充。</p>
-<h1 id="sofarpc如何实现">SOFARPC如何实现</h1>
-<h2 id="sofabolt基于系统tcp-keepalive机制实现">SOFABOLT基于系统tcp-keepalive机制实现</h2>
-<p>这个比较简单，直接打开 <code>KeepAlive</code>选项即可。</p>
-<h3 id="客户端">客户端</h3>
-<p><code>RpcConnectionFactory</code>用于创建<code>RPC</code>连接，生成用户触发事件，<code>init()</code>方法初始化<code>Bootstrap</code>通过<code>option()</code>方法给每条连接设置<code>TCP</code>底层相关的属性，<!-- raw HTML omitted -->ChannelOption.SO_KEEPALIVE<!-- raw HTML omitted -->表示是否开启<code>TCP</code>底层心跳机制，默认打开<!-- raw HTML omitted -->SO_KEEPALIVE<!-- raw HTML omitted -->选项。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#75715e">/**
-</span><span style="color:#75715e"> * Rpc connection factory, create rpc connections. And generate user triggered event.
-</span><span style="color:#75715e"> */</span>
-<span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">RpcConnectionFactory</span> <span style="color:#66d9ef">implements</span> ConnectionFactory <span style="color:#f92672">{</span>
-  <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">init</span><span style="color:#f92672">(</span><span style="color:#66d9ef">final</span> ConnectionEventHandler connectionEventHandler<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
-    bootstrap <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Bootstrap<span style="color:#f92672">();</span>
-    bootstrap<span style="color:#f92672">.</span><span style="color:#a6e22e">group</span><span style="color:#f92672">(</span>workerGroup<span style="color:#f92672">).</span><span style="color:#a6e22e">channel</span><span style="color:#f92672">(</span>NioSocketChannel<span style="color:#f92672">.</span><span style="color:#a6e22e">class</span><span style="color:#f92672">)</span>
-        <span style="color:#f92672">...</span>
-        <span style="color:#f92672">.</span><span style="color:#a6e22e">option</span><span style="color:#f92672">(</span>ChannelOption<span style="color:#f92672">.</span><span style="color:#a6e22e">SO_KEEPALIVE</span><span style="color:#f92672">,</span> SystemProperties<span style="color:#f92672">.</span><span style="color:#a6e22e">tcp_so_keepalive</span><span style="color:#f92672">());</span>
-    <span style="color:#f92672">...</span>
-  <span style="color:#f92672">}</span>
-<span style="color:#f92672">}</span>
-</code></pre></div><h3 id="服务端">服务端</h3>
-<p><code>RpcServer</code>服务端启动类<code>ServerBootstrap</code>初始化通过<code>option()</code>方法给每条连接设置<code>TCP</code>底层相关的属性，默认设置<!-- raw HTML omitted -->ChannelOption.SO_KEEPALIVE<!-- raw HTML omitted -->选项为<code>true</code>，即表示RPC连接开启<code>TCP</code>底层心跳机制。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#75715e">/**
-</span><span style="color:#75715e"> * Server for Rpc.
-</span><span style="color:#75715e"> */</span>
-<span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">RpcServer</span> <span style="color:#66d9ef">extends</span> RemotingServer <span style="color:#f92672">{</span>
-  <span style="color:#66d9ef">protected</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">doInit</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
-    <span style="color:#66d9ef">this</span><span style="color:#f92672">.</span><span style="color:#a6e22e">bootstrap</span><span style="color:#f92672">.</span><span style="color:#a6e22e">group</span><span style="color:#f92672">(</span>bossGroup<span style="color:#f92672">,</span> workerGroup<span style="color:#f92672">).</span><span style="color:#a6e22e">channel</span><span style="color:#f92672">(</span>NioServerSocketChannel<span style="color:#f92672">.</span><span style="color:#a6e22e">class</span><span style="color:#f92672">)</span>
-       <span style="color:#f92672">...</span>
-       <span style="color:#f92672">.</span><span style="color:#a6e22e">childOption</span><span style="color:#f92672">(</span>ChannelOption<span style="color:#f92672">.</span><span style="color:#a6e22e">SO_KEEPALIVE</span><span style="color:#f92672">,</span> SystemProperties<span style="color:#f92672">.</span><span style="color:#a6e22e">tcp_so_keepalive</span><span style="color:#f92672">());</span>
-    <span style="color:#f92672">...</span>
-  <span style="color:#f92672">}</span>
-<span style="color:#f92672">}</span>
-</code></pre></div><h2 id="sofabolt基于netty-idlestatehandler心跳实现">SOFABOLT基于Netty IdleStateHandler心跳实现</h2>
-<p><code>SOFABOLT</code>基于 <code>Netty</code>的事件来实现心跳，<code>Netty</code>的 <code>IdleStateHandler</code>当连接的空闲时间(读或者写)太长时，将会触发一个<code>IdleStateEvent</code>事件，然后<code>BOLT</code>通过重写<code>userEventTrigged</code>方法来处理该事件。<br>
-如果连接超过指定时间没有接收或者发送任何的数据即连接的空闲时间太长，<code>IdleStateHandler</code>使用<code>IdleStateEvent</code>事件调用<code>fireUserEventTriggered()</code>方法，当检测到IdleStateEvent事件执行发送心跳消息等业务逻辑。</p>
-<!-- raw HTML omitted -->
-<p>简而言之，向 <code>Netty</code>中注册一个处理 <code>Idle</code>事件的监听器。同时注册的时候，会传入<code>idle</code>产生的事件，比如读<code>IDLE</code>还是写 <code>IDLE</code>，还是都有，多久没有读写则认为是 <code>IDLE</code>等。</p>
-<h3 id="客户端-1">客户端</h3>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">final</span> <span style="color:#66d9ef">boolean</span> idleSwitch <span style="color:#f92672">=</span> SystemProperties<span style="color:#f92672">.</span><span style="color:#a6e22e">tcp_idle_switch</span><span style="color:#f92672">();</span>
-<span style="color:#66d9ef">final</span> <span style="color:#66d9ef">int</span> idleTime <span style="color:#f92672">=</span> SystemProperties<span style="color:#f92672">.</span><span style="color:#a6e22e">tcp_idle</span><span style="color:#f92672">();</span>
-<span style="color:#66d9ef">final</span> RpcHandler rpcHandler <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> RpcHandler<span style="color:#f92672">(</span>userProcessors<span style="color:#f92672">);</span>
-<span style="color:#66d9ef">final</span> HeartbeatHandler heartbeatHandler <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> HeartbeatHandler<span style="color:#f92672">();</span>
-bootstrap<span style="color:#f92672">.</span><span style="color:#a6e22e">handler</span><span style="color:#f92672">(</span><span style="color:#66d9ef">new</span> ChannelInitializer<span style="color:#f92672">&lt;</span>SocketChannel<span style="color:#f92672">&gt;()</span> <span style="color:#f92672">{</span>
+            <span style=color:#75715e>// Wait until the server socket is closed.
+</span><span style=color:#75715e></span>            f<span style=color:#f92672>.</span><span style=color:#a6e22e>channel</span><span style=color:#f92672>().</span><span style=color:#a6e22e>closeFuture</span><span style=color:#f92672>().</span><span style=color:#a6e22e>sync</span><span style=color:#f92672>();</span>
+</code></pre></div><p>就是这里面的<code>ChannelOption.SO_KEEPALIVE, true</code> 对应即可打开.</p><p>目前bolt中也是默认打开的.</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java> <span style=color:#f92672>.</span><span style=color:#a6e22e>childOption</span><span style=color:#f92672>(</span>ChannelOption<span style=color:#f92672>.</span><span style=color:#a6e22e>SO_KEEPALIVE</span><span style=color:#f92672>,</span>
+                Boolean<span style=color:#f92672>.</span><span style=color:#a6e22e>parseBoolean</span><span style=color:#f92672>(</span>System<span style=color:#f92672>.</span><span style=color:#a6e22e>getProperty</span><span style=color:#f92672>(</span>Configs<span style=color:#f92672>.</span><span style=color:#a6e22e>TCP_SO_KEEPALIVE</span><span style=color:#f92672>,</span> <span style=color:#e6db74>&#34;true&#34;</span><span style=color:#f92672>)));</span>
+</code></pre></div><p><code>Java</code>程序只能做到设置SO_KEEPALIVE选项，至于TCP_KEEPCNT，TCP_KEEPIDLE，TCP_KEEPINTVL等参数配置，只能依赖于sysctl配置，系统进行读取。</p><h3 id=检查>检查</h3><p>查看<code>tcp</code>连接tcp_keepalive状态</p><pre><code>我们可以用 `netstat -no|grep keepalive` 命令来查看当前哪些 tcp 连接开启了 tcp keepalive.
+</code></pre><h2 id=应用层keep-alive>应用层keep-alive</h2><p>应用层<code>keep-alive</code>方案，一般叫做心跳包，跟<code>tcp-keepalive</code>类似，心跳包就是用来及时监测是否断线的一种
+机制，通过每间隔一定时间发送心跳数据，来检测对方是否连接，是属于应用程序协议的一部分。</p><h3 id=心跳是什么>心跳是什么</h3><p>心跳想要实现的和<code>tcp keep-alive</code>是一样的。</p><p>由于连接丢失时，TCP不会立即通知应用程序。比如说，客户端程序断线了，服务端的TCP连接不会检测到断线，而是一直处于连接状态。这就带来了很大的麻烦，明明客户端已经断了，服务端还维护着客户端的连接，比如游戏的场景下，用户客户端都关机了，但是连接没有正常关闭，服务端无法知晓,还照常执行着该玩家的游戏逻辑。</p><p>听上去和<code>tcp-alive</code>类似，那为什么要有应用层心跳?</p><p>原因主要是默认的tcp <code>keep-alive</code>超时时间太长默认是7200秒，也就是2个小时。并且是系统级别，一旦更改，影响所有服务器上开启keep alive选项的应用行为。<br>另外，<code>socks proxy</code>会让<code>tcp keep-alive</code>失效，
+<code>socks</code>协议只管转发TCP层具体的数据包，而不会转发TCP协议内的实现细节的包（也做不到）。</p><p>所以，一个应用如果使用了<code>socks</code>代理，那么<code>tcp keep-alive</code>机制就失效了，所以应用要自己有心跳包。
+<code>socks proxy</code>只是一个例子，真实的网络很复杂，可能会有各种原因让<code>tcp keep-alive</code>失效。</p><h3 id=如何使用-1>如何使用</h3><p>基于<code>netty</code>开发的话，还是很简单的。这里不多做介绍，因为后面说到<code>rpc</code>中的连接管理的时候，会介绍。</p><h2 id=应用层心跳还是keep-alive>应用层心跳还是Keep-Alive</h2><p>默认情况下使用<code>keepalive</code>周期为2个小时，</p><h3 id=系统keep-alive优势>系统keep-alive优势:</h3><p>1.<code>TCP</code>协议层面保活探测机制，系统内核完全替上层应用自动给做好了。<br>2.内核层面计时器相比上层应用，更为高效。<br>3.上层应用只需要处理数据收发、连接异常通知即可。<br>4.数据包将更为紧凑。</p><h3 id=应用keep-alive优势>应用keep-alive优势:</h3><p>关闭<code>TCP</code>的<code>keepalive</code>，完全使用业务层面心跳保活机制。完全应用掌管心跳，灵活和可控，比如每一个连接心跳周期的可根据需要减少或延长。</p><p>1.应用的心跳包,具有更大的灵活性，可以自己控制检测的间隔，检测的方式等等。<br>2.心跳包同时适用于<code>TCP</code>和<code>UDP</code>，在切换<code>TCP</code>和<code>UDP</code>时，上层的心跳包功能都适用。<br>3.有些情况下，心跳包可以附带一些其他信息，定时在服务端和客户端之间同步。（比如帧数同步）</p><p>所以大多数情况采用业务心跳+<code>TCP keepalive</code>一起使用，互相作为补充。</p><h1 id=sofarpc如何实现>SOFARPC如何实现</h1><h2 id=sofabolt基于系统tcp-keepalive机制实现>SOFABOLT基于系统tcp-keepalive机制实现</h2><p>这个比较简单，直接打开 <code>KeepAlive</code>选项即可。</p><h3 id=客户端>客户端</h3><p><code>RpcConnectionFactory</code>用于创建<code>RPC</code>连接，生成用户触发事件，<code>init()</code>方法初始化<code>Bootstrap</code>通过<code>option()</code>方法给每条连接设置<code>TCP</code>底层相关的属性，ChannelOption.SO_KEEPALIVE表示是否开启<code>TCP</code>底层心跳机制，默认打开SO_KEEPALIVE选项。</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=color:#75715e>/**
+</span><span style=color:#75715e> * Rpc connection factory, create rpc connections. And generate user triggered event.
+</span><span style=color:#75715e> */</span>
+<span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>RpcConnectionFactory</span> <span style=color:#66d9ef>implements</span> ConnectionFactory <span style=color:#f92672>{</span>
+  <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>init</span><span style=color:#f92672>(</span><span style=color:#66d9ef>final</span> ConnectionEventHandler connectionEventHandler<span style=color:#f92672>)</span> <span style=color:#f92672>{</span>
+    bootstrap <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> Bootstrap<span style=color:#f92672>();</span>
+    bootstrap<span style=color:#f92672>.</span><span style=color:#a6e22e>group</span><span style=color:#f92672>(</span>workerGroup<span style=color:#f92672>).</span><span style=color:#a6e22e>channel</span><span style=color:#f92672>(</span>NioSocketChannel<span style=color:#f92672>.</span><span style=color:#a6e22e>class</span><span style=color:#f92672>)</span>
+        <span style=color:#f92672>...</span>
+        <span style=color:#f92672>.</span><span style=color:#a6e22e>option</span><span style=color:#f92672>(</span>ChannelOption<span style=color:#f92672>.</span><span style=color:#a6e22e>SO_KEEPALIVE</span><span style=color:#f92672>,</span> SystemProperties<span style=color:#f92672>.</span><span style=color:#a6e22e>tcp_so_keepalive</span><span style=color:#f92672>());</span>
+    <span style=color:#f92672>...</span>
+  <span style=color:#f92672>}</span>
+<span style=color:#f92672>}</span>
+</code></pre></div><h3 id=服务端>服务端</h3><p><code>RpcServer</code>服务端启动类<code>ServerBootstrap</code>初始化通过<code>option()</code>方法给每条连接设置<code>TCP</code>底层相关的属性，默认设置ChannelOption.SO_KEEPALIVE选项为<code>true</code>，即表示RPC连接开启<code>TCP</code>底层心跳机制。</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=color:#75715e>/**
+</span><span style=color:#75715e> * Server for Rpc.
+</span><span style=color:#75715e> */</span>
+<span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>RpcServer</span> <span style=color:#66d9ef>extends</span> RemotingServer <span style=color:#f92672>{</span>
+  <span style=color:#66d9ef>protected</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>doInit</span><span style=color:#f92672>()</span> <span style=color:#f92672>{</span>
+    <span style=color:#66d9ef>this</span><span style=color:#f92672>.</span><span style=color:#a6e22e>bootstrap</span><span style=color:#f92672>.</span><span style=color:#a6e22e>group</span><span style=color:#f92672>(</span>bossGroup<span style=color:#f92672>,</span> workerGroup<span style=color:#f92672>).</span><span style=color:#a6e22e>channel</span><span style=color:#f92672>(</span>NioServerSocketChannel<span style=color:#f92672>.</span><span style=color:#a6e22e>class</span><span style=color:#f92672>)</span>
+       <span style=color:#f92672>...</span>
+       <span style=color:#f92672>.</span><span style=color:#a6e22e>childOption</span><span style=color:#f92672>(</span>ChannelOption<span style=color:#f92672>.</span><span style=color:#a6e22e>SO_KEEPALIVE</span><span style=color:#f92672>,</span> SystemProperties<span style=color:#f92672>.</span><span style=color:#a6e22e>tcp_so_keepalive</span><span style=color:#f92672>());</span>
+    <span style=color:#f92672>...</span>
+  <span style=color:#f92672>}</span>
+<span style=color:#f92672>}</span>
+</code></pre></div><h2 id=sofabolt基于netty-idlestatehandler心跳实现>SOFABOLT基于Netty IdleStateHandler心跳实现</h2><p><code>SOFABOLT</code>基于 <code>Netty</code>的事件来实现心跳，<code>Netty</code>的 <code>IdleStateHandler</code>当连接的空闲时间(读或者写)太长时，将会触发一个<code>IdleStateEvent</code>事件，然后<code>BOLT</code>通过重写<code>userEventTrigged</code>方法来处理该事件。<br>如果连接超过指定时间没有接收或者发送任何的数据即连接的空闲时间太长，<code>IdleStateHandler</code>使用<code>IdleStateEvent</code>事件调用<code>fireUserEventTriggered()</code>方法，当检测到IdleStateEvent事件执行发送心跳消息等业务逻辑。</p><p>简而言之，向 <code>Netty</code>中注册一个处理 <code>Idle</code>事件的监听器。同时注册的时候，会传入<code>idle</code>产生的事件，比如读<code>IDLE</code>还是写 <code>IDLE</code>，还是都有，多久没有读写则认为是 <code>IDLE</code>等。</p><h3 id=客户端-1>客户端</h3><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=color:#66d9ef>final</span> <span style=color:#66d9ef>boolean</span> idleSwitch <span style=color:#f92672>=</span> SystemProperties<span style=color:#f92672>.</span><span style=color:#a6e22e>tcp_idle_switch</span><span style=color:#f92672>();</span>
+<span style=color:#66d9ef>final</span> <span style=color:#66d9ef>int</span> idleTime <span style=color:#f92672>=</span> SystemProperties<span style=color:#f92672>.</span><span style=color:#a6e22e>tcp_idle</span><span style=color:#f92672>();</span>
+<span style=color:#66d9ef>final</span> RpcHandler rpcHandler <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> RpcHandler<span style=color:#f92672>(</span>userProcessors<span style=color:#f92672>);</span>
+<span style=color:#66d9ef>final</span> HeartbeatHandler heartbeatHandler <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> HeartbeatHandler<span style=color:#f92672>();</span>
+bootstrap<span style=color:#f92672>.</span><span style=color:#a6e22e>handler</span><span style=color:#f92672>(</span><span style=color:#66d9ef>new</span> ChannelInitializer<span style=color:#f92672>&lt;</span>SocketChannel<span style=color:#f92672>&gt;()</span> <span style=color:#f92672>{</span>
 
-    <span style="color:#66d9ef">protected</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">initChannel</span><span style="color:#f92672">(</span>SocketChannel channel<span style="color:#f92672">)</span> <span style="color:#66d9ef">throws</span> Exception <span style="color:#f92672">{</span>
-        ChannelPipeline pipeline <span style="color:#f92672">=</span> channel<span style="color:#f92672">.</span><span style="color:#a6e22e">pipeline</span><span style="color:#f92672">();</span>
-        <span style="color:#f92672">...</span>
-        <span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>idleSwitch<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
-            pipeline<span style="color:#f92672">.</span><span style="color:#a6e22e">addLast</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;idleStateHandler&#34;</span><span style="color:#f92672">,</span> <span style="color:#66d9ef">new</span> IdleStateHandler<span style="color:#f92672">(</span>idleTime<span style="color:#f92672">,</span> idleTime<span style="color:#f92672">,</span>
-                0<span style="color:#f92672">,</span> TimeUnit<span style="color:#f92672">.</span><span style="color:#a6e22e">MILLISECONDS</span><span style="color:#f92672">));</span>
-            pipeline<span style="color:#f92672">.</span><span style="color:#a6e22e">addLast</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;heartbeatHandler&#34;</span><span style="color:#f92672">,</span> heartbeatHandler<span style="color:#f92672">);</span>
-        <span style="color:#f92672">}</span>
-        <span style="color:#f92672">...</span>
-    <span style="color:#f92672">}</span>
+    <span style=color:#66d9ef>protected</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>initChannel</span><span style=color:#f92672>(</span>SocketChannel channel<span style=color:#f92672>)</span> <span style=color:#66d9ef>throws</span> Exception <span style=color:#f92672>{</span>
+        ChannelPipeline pipeline <span style=color:#f92672>=</span> channel<span style=color:#f92672>.</span><span style=color:#a6e22e>pipeline</span><span style=color:#f92672>();</span>
+        <span style=color:#f92672>...</span>
+        <span style=color:#66d9ef>if</span> <span style=color:#f92672>(</span>idleSwitch<span style=color:#f92672>)</span> <span style=color:#f92672>{</span>
+            pipeline<span style=color:#f92672>.</span><span style=color:#a6e22e>addLast</span><span style=color:#f92672>(</span><span style=color:#e6db74>&#34;idleStateHandler&#34;</span><span style=color:#f92672>,</span> <span style=color:#66d9ef>new</span> IdleStateHandler<span style=color:#f92672>(</span>idleTime<span style=color:#f92672>,</span> idleTime<span style=color:#f92672>,</span>
+                0<span style=color:#f92672>,</span> TimeUnit<span style=color:#f92672>.</span><span style=color:#a6e22e>MILLISECONDS</span><span style=color:#f92672>));</span>
+            pipeline<span style=color:#f92672>.</span><span style=color:#a6e22e>addLast</span><span style=color:#f92672>(</span><span style=color:#e6db74>&#34;heartbeatHandler&#34;</span><span style=color:#f92672>,</span> heartbeatHandler<span style=color:#f92672>);</span>
+        <span style=color:#f92672>}</span>
+        <span style=color:#f92672>...</span>
+    <span style=color:#f92672>}</span>
 
-<span style="color:#f92672">});</span>
-</code></pre></div><p><code>SOFABOLT</code>心跳检测客户端默认基于<code>IdleStateHandler(15000ms, 150000 ms, 0)</code>即15秒没有读或者写操作，注册给了 <code>Netty</code>，之后调用<!-- raw HTML omitted -->HeartbeatHandler的<!-- raw HTML omitted -->userEventTriggered()方法触发RpcHeartbeatTrigger发送心跳消息。<br>
-<code>RpcHeartbeatTrigger</code>心跳检测判断成功标准为是否接收到服务端回复成功响应，如果心跳失败次数超过最大心跳次数(默认为3)则关闭连接。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#75715e">/**
-</span><span style="color:#75715e"> * Heart beat triggerd.
-</span><span style="color:#75715e"> */</span>
-<span style="color:#a6e22e">@Sharable</span>
-<span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">HeartbeatHandler</span> <span style="color:#66d9ef">extends</span> ChannelDuplexHandler <span style="color:#f92672">{</span>
+<span style=color:#f92672>});</span>
+</code></pre></div><p><code>SOFABOLT</code>心跳检测客户端默认基于<code>IdleStateHandler(15000ms, 150000 ms, 0)</code>即15秒没有读或者写操作，注册给了 <code>Netty</code>，之后调用HeartbeatHandler的userEventTriggered()方法触发RpcHeartbeatTrigger发送心跳消息。<br><code>RpcHeartbeatTrigger</code>心跳检测判断成功标准为是否接收到服务端回复成功响应，如果心跳失败次数超过最大心跳次数(默认为3)则关闭连接。</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=color:#75715e>/**
+</span><span style=color:#75715e> * Heart beat triggerd.
+</span><span style=color:#75715e> */</span>
+<span style=color:#a6e22e>@Sharable</span>
+<span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>HeartbeatHandler</span> <span style=color:#66d9ef>extends</span> ChannelDuplexHandler <span style=color:#f92672>{</span>
 
-    <span style="color:#a6e22e">@Override</span>
-    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">userEventTriggered</span><span style="color:#f92672">(</span><span style="color:#66d9ef">final</span> ChannelHandlerContext ctx<span style="color:#f92672">,</span> Object evt<span style="color:#f92672">)</span> <span style="color:#66d9ef">throws</span> Exception <span style="color:#f92672">{</span>
-        <span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>evt <span style="color:#66d9ef">instanceof</span> IdleStateEvent<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
-            ProtocolCode protocolCode <span style="color:#f92672">=</span> ctx<span style="color:#f92672">.</span><span style="color:#a6e22e">channel</span><span style="color:#f92672">().</span><span style="color:#a6e22e">attr</span><span style="color:#f92672">(</span>Connection<span style="color:#f92672">.</span><span style="color:#a6e22e">PROTOCOL</span><span style="color:#f92672">).</span><span style="color:#a6e22e">get</span><span style="color:#f92672">();</span>
-            Protocol protocol <span style="color:#f92672">=</span> ProtocolManager<span style="color:#f92672">.</span><span style="color:#a6e22e">getProtocol</span><span style="color:#f92672">(</span>protocolCode<span style="color:#f92672">);</span>
-            protocol<span style="color:#f92672">.</span><span style="color:#a6e22e">getHeartbeatTrigger</span><span style="color:#f92672">().</span><span style="color:#a6e22e">heartbeatTriggered</span><span style="color:#f92672">(</span>ctx<span style="color:#f92672">);</span>
-        <span style="color:#f92672">}</span> <span style="color:#66d9ef">else</span> <span style="color:#f92672">{</span>
-            <span style="color:#66d9ef">super</span><span style="color:#f92672">.</span><span style="color:#a6e22e">userEventTriggered</span><span style="color:#f92672">(</span>ctx<span style="color:#f92672">,</span> evt<span style="color:#f92672">);</span>
-        <span style="color:#f92672">}</span>
-    <span style="color:#f92672">}</span>
-<span style="color:#f92672">}</span>
-</code></pre></div><h3 id="服务端-1">服务端</h3>
-<p><code>SOFABOLT</code>心跳检测服务端默认基于<code>IdleStateHandler(0,0, 90000 ms)</code>即90秒没有读或者写操作为空闲，调用<!-- raw HTML omitted -->ServerIdleHandler的<!-- raw HTML omitted -->userEventTriggered()方法触发关闭连接。</p>
-<p><code>SOFABOLT</code>心跳检测由客户端在没有对<code>TCP</code>有读或者写操作后触发定时发送心跳消息，服务端接收到提供响应；<br>
-如果客户端持续没有发送心跳无法满足保活目的则服务端在90秒后触发关闭连接操作。<br>
-正常情况由于默认客户端15秒/服务端90秒进行心跳检测，因此一般场景服务端不会运行到90秒仍旧没有任何读写操作的，并且只有当客户端下线或者抛异常的时候等待90秒过后服务端主动关闭与客户端的连接。<br>
-如果是<code>tcp-keepalive</code>需要等到90秒之后，在此期间则为读写异常。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">this</span><span style="color:#f92672">.</span><span style="color:#a6e22e">bootstrap</span><span style="color:#f92672">.</span><span style="color:#a6e22e">childHandler</span><span style="color:#f92672">(</span><span style="color:#66d9ef">new</span> ChannelInitializer<span style="color:#f92672">&lt;</span>SocketChannel<span style="color:#f92672">&gt;()</span> <span style="color:#f92672">{</span>
+    <span style=color:#a6e22e>@Override</span>
+    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>userEventTriggered</span><span style=color:#f92672>(</span><span style=color:#66d9ef>final</span> ChannelHandlerContext ctx<span style=color:#f92672>,</span> Object evt<span style=color:#f92672>)</span> <span style=color:#66d9ef>throws</span> Exception <span style=color:#f92672>{</span>
+        <span style=color:#66d9ef>if</span> <span style=color:#f92672>(</span>evt <span style=color:#66d9ef>instanceof</span> IdleStateEvent<span style=color:#f92672>)</span> <span style=color:#f92672>{</span>
+            ProtocolCode protocolCode <span style=color:#f92672>=</span> ctx<span style=color:#f92672>.</span><span style=color:#a6e22e>channel</span><span style=color:#f92672>().</span><span style=color:#a6e22e>attr</span><span style=color:#f92672>(</span>Connection<span style=color:#f92672>.</span><span style=color:#a6e22e>PROTOCOL</span><span style=color:#f92672>).</span><span style=color:#a6e22e>get</span><span style=color:#f92672>();</span>
+            Protocol protocol <span style=color:#f92672>=</span> ProtocolManager<span style=color:#f92672>.</span><span style=color:#a6e22e>getProtocol</span><span style=color:#f92672>(</span>protocolCode<span style=color:#f92672>);</span>
+            protocol<span style=color:#f92672>.</span><span style=color:#a6e22e>getHeartbeatTrigger</span><span style=color:#f92672>().</span><span style=color:#a6e22e>heartbeatTriggered</span><span style=color:#f92672>(</span>ctx<span style=color:#f92672>);</span>
+        <span style=color:#f92672>}</span> <span style=color:#66d9ef>else</span> <span style=color:#f92672>{</span>
+            <span style=color:#66d9ef>super</span><span style=color:#f92672>.</span><span style=color:#a6e22e>userEventTriggered</span><span style=color:#f92672>(</span>ctx<span style=color:#f92672>,</span> evt<span style=color:#f92672>);</span>
+        <span style=color:#f92672>}</span>
+    <span style=color:#f92672>}</span>
+<span style=color:#f92672>}</span>
+</code></pre></div><h3 id=服务端-1>服务端</h3><p><code>SOFABOLT</code>心跳检测服务端默认基于<code>IdleStateHandler(0,0, 90000 ms)</code>即90秒没有读或者写操作为空闲，调用ServerIdleHandler的userEventTriggered()方法触发关闭连接。</p><p><code>SOFABOLT</code>心跳检测由客户端在没有对<code>TCP</code>有读或者写操作后触发定时发送心跳消息，服务端接收到提供响应；<br>如果客户端持续没有发送心跳无法满足保活目的则服务端在90秒后触发关闭连接操作。<br>正常情况由于默认客户端15秒/服务端90秒进行心跳检测，因此一般场景服务端不会运行到90秒仍旧没有任何读写操作的，并且只有当客户端下线或者抛异常的时候等待90秒过后服务端主动关闭与客户端的连接。<br>如果是<code>tcp-keepalive</code>需要等到90秒之后，在此期间则为读写异常。</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=color:#66d9ef>this</span><span style=color:#f92672>.</span><span style=color:#a6e22e>bootstrap</span><span style=color:#f92672>.</span><span style=color:#a6e22e>childHandler</span><span style=color:#f92672>(</span><span style=color:#66d9ef>new</span> ChannelInitializer<span style=color:#f92672>&lt;</span>SocketChannel<span style=color:#f92672>&gt;()</span> <span style=color:#f92672>{</span>
 
-    <span style="color:#66d9ef">protected</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">initChannel</span><span style="color:#f92672">(</span>SocketChannel channel<span style="color:#f92672">)</span> <span style="color:#66d9ef">throws</span> Exception <span style="color:#f92672">{</span>
-        <span style="color:#f92672">...</span>
-        <span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>idleSwitch<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
-            pipeline<span style="color:#f92672">.</span><span style="color:#a6e22e">addLast</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;idleStateHandler&#34;</span><span style="color:#f92672">,</span> <span style="color:#66d9ef">new</span> IdleStateHandler<span style="color:#f92672">(</span>0<span style="color:#f92672">,</span> 0<span style="color:#f92672">,</span> idleTime<span style="color:#f92672">,</span>
-                TimeUnit<span style="color:#f92672">.</span><span style="color:#a6e22e">MILLISECONDS</span><span style="color:#f92672">));</span>
-            pipeline<span style="color:#f92672">.</span><span style="color:#a6e22e">addLast</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;serverIdleHandler&#34;</span><span style="color:#f92672">,</span> serverIdleHandler<span style="color:#f92672">);</span>
-        <span style="color:#f92672">}</span>
-        <span style="color:#f92672">...</span>
-        createConnection<span style="color:#f92672">(</span>channel<span style="color:#f92672">);</span>
-    <span style="color:#f92672">}</span>
-    <span style="color:#f92672">...</span>
-<span style="color:#f92672">});</span>
-</code></pre></div><p>服务端一旦产生 <code>IDLE</code>，那么说明服务端已经6个15s没有发送或者接收到数据了。这时候认为客户端已经不可用。直接断开连接。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#75715e">/**
-</span><span style="color:#75715e"> * Server Idle handler.
-</span><span style="color:#75715e"> * 
-</span><span style="color:#75715e"> * In the server side, the connection will be closed if it is idle for a certain period of time.
-</span><span style="color:#75715e"> */</span>
-<span style="color:#a6e22e">@Sharable</span>
-<span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">ServerIdleHandler</span> <span style="color:#66d9ef">extends</span> ChannelDuplexHandler <span style="color:#f92672">{</span>
+    <span style=color:#66d9ef>protected</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>initChannel</span><span style=color:#f92672>(</span>SocketChannel channel<span style=color:#f92672>)</span> <span style=color:#66d9ef>throws</span> Exception <span style=color:#f92672>{</span>
+        <span style=color:#f92672>...</span>
+        <span style=color:#66d9ef>if</span> <span style=color:#f92672>(</span>idleSwitch<span style=color:#f92672>)</span> <span style=color:#f92672>{</span>
+            pipeline<span style=color:#f92672>.</span><span style=color:#a6e22e>addLast</span><span style=color:#f92672>(</span><span style=color:#e6db74>&#34;idleStateHandler&#34;</span><span style=color:#f92672>,</span> <span style=color:#66d9ef>new</span> IdleStateHandler<span style=color:#f92672>(</span>0<span style=color:#f92672>,</span> 0<span style=color:#f92672>,</span> idleTime<span style=color:#f92672>,</span>
+                TimeUnit<span style=color:#f92672>.</span><span style=color:#a6e22e>MILLISECONDS</span><span style=color:#f92672>));</span>
+            pipeline<span style=color:#f92672>.</span><span style=color:#a6e22e>addLast</span><span style=color:#f92672>(</span><span style=color:#e6db74>&#34;serverIdleHandler&#34;</span><span style=color:#f92672>,</span> serverIdleHandler<span style=color:#f92672>);</span>
+        <span style=color:#f92672>}</span>
+        <span style=color:#f92672>...</span>
+        createConnection<span style=color:#f92672>(</span>channel<span style=color:#f92672>);</span>
+    <span style=color:#f92672>}</span>
+    <span style=color:#f92672>...</span>
+<span style=color:#f92672>});</span>
+</code></pre></div><p>服务端一旦产生 <code>IDLE</code>，那么说明服务端已经6个15s没有发送或者接收到数据了。这时候认为客户端已经不可用。直接断开连接。</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=color:#75715e>/**
+</span><span style=color:#75715e> * Server Idle handler.
+</span><span style=color:#75715e> * 
+</span><span style=color:#75715e> * In the server side, the connection will be closed if it is idle for a certain period of time.
+</span><span style=color:#75715e> */</span>
+<span style=color:#a6e22e>@Sharable</span>
+<span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>ServerIdleHandler</span> <span style=color:#66d9ef>extends</span> ChannelDuplexHandler <span style=color:#f92672>{</span>
 
-    <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">final</span> Logger logger <span style="color:#f92672">=</span> BoltLoggerFactory<span style="color:#f92672">.</span><span style="color:#a6e22e">getLogger</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;CommonDefault&#34;</span><span style="color:#f92672">);</span>
+    <span style=color:#66d9ef>private</span> <span style=color:#66d9ef>static</span> <span style=color:#66d9ef>final</span> Logger logger <span style=color:#f92672>=</span> BoltLoggerFactory<span style=color:#f92672>.</span><span style=color:#a6e22e>getLogger</span><span style=color:#f92672>(</span><span style=color:#e6db74>&#34;CommonDefault&#34;</span><span style=color:#f92672>);</span>
 
-    <span style="color:#a6e22e">@Override</span>
-    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">userEventTriggered</span><span style="color:#f92672">(</span><span style="color:#66d9ef">final</span> ChannelHandlerContext ctx<span style="color:#f92672">,</span> Object evt<span style="color:#f92672">)</span> <span style="color:#66d9ef">throws</span> Exception <span style="color:#f92672">{</span>
-        <span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>evt <span style="color:#66d9ef">instanceof</span> IdleStateEvent<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
-            <span style="color:#66d9ef">try</span> <span style="color:#f92672">{</span>
-                ctx<span style="color:#f92672">.</span><span style="color:#a6e22e">close</span><span style="color:#f92672">();</span>
-            <span style="color:#f92672">}</span> <span style="color:#66d9ef">catch</span> <span style="color:#f92672">(</span>Exception e<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
-                <span style="color:#f92672">...</span>
-            <span style="color:#f92672">}</span>
-        <span style="color:#f92672">}</span> <span style="color:#66d9ef">else</span> <span style="color:#f92672">{</span>
-            <span style="color:#66d9ef">super</span><span style="color:#f92672">.</span><span style="color:#a6e22e">userEventTriggered</span><span style="color:#f92672">(</span>ctx<span style="color:#f92672">,</span> evt<span style="color:#f92672">);</span>
-        <span style="color:#f92672">}</span>
-    <span style="color:#f92672">}</span>
-<span style="color:#f92672">}</span>
-</code></pre></div><h2 id="sofarpc连接管理断开重连实现">SOFARPC连接管理断开重连实现</h2>
-<p>通常RPC调用过程是不需要断链与重连的。因为每次RPC调用过程都校验是否有可用连接，如果没有则新建连接。但有一些场景是需要断链和保持长连接的：</p>
-<ul>
-<li>自动断连：比如通过<code>LVS VIP</code>或者<code>F5</code>建立多个连接的场景，因为网络设备的负载均衡机制，有可能某一些连接固定映射到了某几台后端的<code>RS</code>上面，此时需要自动断连然后重连，靠建连过程的随机性来实现最终负载均衡。注意开启自动断连的场景通常需要配合重连使用。</li>
-<li>重连：比如客户端发起建连后由服务端通过双工通信发起请求到客户端，此时如果没有重连机制则无法实现。</li>
-</ul>
-<p>连接管理是客户端的逻辑，启动好，连接管理开启异步线程。</p>
-<!-- raw HTML omitted -->
-<p>其中，<code>SOFARPC</code>连接管理<code>ConnectionHolder</code>维护存活的客户端列表<code>aliveConnections</code>和失败待重试的客户端列表<code>retryConnections</code>，<code>RPC</code>启动守护线程以默认10秒的间隔检查存活和失败待重试的客户端列表的可用连接：</p>
-<ol>
-<li>检查存活的客户端列表<code>aliveConnections</code>是否可用，如果存活列表里连接已经不可用则需要放到待重试列表<code>retryConnections</code>里面；</li>
-<li>遍历失败待重试的客户端列表<code>retryConnections</code>，如果连接命中重连周期则进行重连，重连成功放到存活列表<code>aliveConnections</code>里面，如果待重试连接多次重连失败则直接丢弃。</li>
-</ol>
-<p>核心代码在连接管理器的方法中：</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">com<span style="color:#f92672">.</span><span style="color:#a6e22e">alipay</span><span style="color:#f92672">.</span><span style="color:#a6e22e">sofa</span><span style="color:#f92672">.</span><span style="color:#a6e22e">rpc</span><span style="color:#f92672">.</span><span style="color:#a6e22e">client</span><span style="color:#f92672">.</span><span style="color:#a6e22e">AllConnectConnectionHolder</span><span style="color:#960050;background-color:#1e0010">#</span>doReconnect
-</code></pre></div><p>篇幅有限，我们不贴具体代码，欢迎大家通过源码来学习了解。</p>
-<h1 id="最后">最后</h1>
-<p>本文介绍连接管理的策略和<code>SOFARPC</code>中连接管理与心跳机制的实现，希望通过这篇文章，大家对此有一个了解，如果对其中有疑问的，也欢迎留言与我们讨论。</p>
-<h1 id="参考文档">参考文档</h1>
-<p><a href="http://tldp.org/HOWTO/TCP-Keepalive-HOWTO/index.html">TCP-Keepalive-HOWTO</a><br>
-<a href="http://www.blogjava.net/yongboy/archive/2015/04/14/424413.html">随手记之TCP Keepalive笔记</a><br>
-<a href="http://hengyunabc.github.io/why-we-need-heartbeat/">为什么基于TCP的应用需要心跳包</a><br>
-<a href="http://blog.csdn.net/linuu/article/details/51404264">Netty心跳简单Demo</a><br>
-<a href="https://segmentfault.com/a/1190000006931568">浅析 Netty 实现心跳机制与断线重连</a></p>
-<hr>
-<p>文章转自<a href="http://www.sofastack.tech/post/hnppce">【剖析 | SOFARPC 框架】之SOFARPC 连接管理与心跳剖析</a></p>
-
-
-                <hr>
-
-                <ul class="pager">
-                    
-                    <li class="previous">
-                        <a href="/post/%E5%8E%BB%E5%93%AA%E5%84%BF%E7%BD%91%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/" data-toggle="tooltip" data-placement="top" title="去哪儿网消息队列设计与实现">&larr; Previous Post</a>
-                    </li>
-                    
-                    
-                    <li class="next">
-                        <a href="/post/sofarpc%E8%B7%AF%E7%94%B1%E5%AE%9E%E7%8E%B0%E5%89%96%E6%9E%90/" data-toggle="tooltip" data-placement="top" title="转|SOFARPC路由实现剖析">Next Post &rarr;</a>
-                    </li>
-                    
-                </ul>
-
-            
-<div id="disqus-comment"></div>
-
-
-
-            </div>
-            
-            <div class="
-                col-lg-8 col-lg-offset-2
-                col-md-10 col-md-offset-1
-                sidebar-container">
-
-                
-                <section>
-                    <hr class="hidden-sm hidden-xs">
-                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
-                    <div class="tags">
-                     
-                    
-                        
-                    
-                        
-                    
-                        
-                    
-                        
-                    
-                        
-                    
-                        
-                    
-                        
-                            <a href="/tags/chirpstack" title="chirpstack">
-                                chirpstack
-                            </a>
-                        
-                    
-                        
-                    
-                        
-                    
-                        
-                    
-                        
-                    
-                        
-                    
-                        
-                    
-                        
-                            <a href="/tags/docker" title="docker">
-                                docker
-                            </a>
-                        
-                    
-                        
-                    
-                        
-                    
-                        
-                    
-                        
-                            <a href="/tags/fluentd" title="fluentd">
-                                fluentd
-                            </a>
-                        
-                    
-                        
-                    
-                        
-                    
-                        
-                    
-                        
-                    
-                        
-                    
-                        
-                    
-                        
-                    
-                        
-                    
-                        
-                    
-                        
-                    
-                        
-                    
-                        
-                    
-                        
-                    
-                        
-                            <a href="/tags/kubernetes" title="kubernetes">
-                                kubernetes
-                            </a>
-                        
-                    
-                        
-                    
-                        
-                    
-                        
-                    
-                        
-                    
-                        
-                    
-                        
-                    
-                        
-                            <a href="/tags/mq" title="mq">
-                                mq
-                            </a>
-                        
-                    
-                        
-                    
-                        
-                    
-                        
-                    
-                        
-                    
-                        
-                    
-                        
-                            <a href="/tags/rpc" title="rpc">
-                                rpc
-                            </a>
-                        
-                    
-                        
-                            <a href="/tags/sofa" title="sofa">
-                                sofa
-                            </a>
-                        
-                    
-                        
-                            <a href="/tags/sofastack" title="sofastack">
-                                sofastack
-                            </a>
-                        
-                    
-                        
-                    
-                        
-                    
-                        
-                            <a href="/tags/%E4%B8%AD%E9%97%B4%E4%BB%B6" title="中间件">
-                                中间件
-                            </a>
-                        
-                    
-                        
-                            <a href="/tags/%E4%BA%91%E5%8E%9F%E7%94%9F" title="云原生">
-                                云原生
-                            </a>
-                        
-                    
-                        
-                    
-                        
-                    
-                        
-                    
-                        
-                    
-                        
-                    
-                        
-                    
-                        
-                    
-                        
-                    
-                        
-                    
-                        
-                    
-                        
-                    
-                        
-                    
-                        
-                    
-                    </div>
-                </section>
-
-                
-                <hr>
-                <h5>FRIENDS</h5>
-                <ul class="list-inline">
-                    
-                </ul>
-            </div>
-        </div>
-    </div>
-</article>
-
-
-
-
-<footer>
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-                <ul class="list-inline text-center">
-                   
-                    
-                    <li>
-                        <a href="mailto:gcslyp@gmail.com">
-                            <span class="fa-stack fa-lg">
-                                <i class="fa fa-circle fa-stack-2x"></i>
-                                <i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
-                            </span>
-                        </a>
-                    </li>
-		    
-
-                    
-                    <li>
-                        <a href="https://twitter.com/lan31793328">
-                            <span class="fa-stack fa-lg">
-                                <i class="fa fa-circle fa-stack-2x"></i>
-                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
-                            </span>
-                        </a>
-                    </li>
-                    
-                    
-                    
-
-                    
-
-		    
-                    
-                    
-                    <li>
-                        <a target="_blank" href="https://github.com/liangyuanpeng">
-                            <span class="fa-stack fa-lg">
-                                <i class="fa fa-circle fa-stack-2x"></i>
-                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
-                            </span>
-                        </a>
-                    </li>
-		    
-                    
-                </ul>
-		<p class="copyright text-muted">
-                    Copyright &copy; Hi,I`m lan , 2018
-                    <br>
-                    <a href="https://themes.gohugo.io/hugo-theme-cleanwhite">CleanWhite Hugo Theme</a> by <a href="https://zhaohuabing.com">Huabing</a> |
-                    <iframe
-                        style="margin-left: 2px; margin-bottom:-5px;"
-                        frameborder="0" scrolling="0" width="100px" height="20px"
-                        src="https://ghbtns.com/github-btn.html?user=zhaohuabing&repo=hugo-theme-cleanwhite&type=star&count=true" >
-                    </iframe>
-                </p>
-            </div>
-        </div>
-    </div>
-</footer>
-
-
-
-
-<script>
-    function async(u, c) {
-      var d = document, t = 'script',
-          o = d.createElement(t),
-          s = d.getElementsByTagName(t)[0];
-      o.src = u;
-      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
-      s.parentNode.insertBefore(o, s);
-    }
-</script>
-
-
-
-
-
-
-<script>
-    
-    if($('#tag_cloud').length !== 0){
-        async("/js/jquery.tagcloud.js",function(){
-            $.fn.tagcloud.defaults = {
-                
-                color: {start: '#bbbbee', end: '#0085a1'},
-            };
-            $('#tag_cloud a').tagcloud();
-        })
-    }
-</script>
-
-
-<script>
-    async("https://cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.js", function(){
-        var $nav = document.querySelector("nav");
-        if($nav) FastClick.attach($nav);
-    })
-</script>
-
-<script>
-    var _hmt = _hmt || [];
-    (function() {
-      var hm = document.createElement("script");
-      hm.src = "https://hm.baidu.com/hm.js?23001460802c6c63962c60b9c8c435af";
-      var s = document.getElementsByTagName("script")[0]; 
-      s.parentNode.insertBefore(hm, s);
-    })();
-    </script>
-
-
-
-
-
-
-
-</body>
-</html>
+    <span style=color:#a6e22e>@Override</span>
+    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>userEventTriggered</span><span style=color:#f92672>(</span><span style=color:#66d9ef>final</span> ChannelHandlerContext ctx<span style=color:#f92672>,</span> Object evt<span style=color:#f92672>)</span> <span style=color:#66d9ef>throws</span> Exception <span style=color:#f92672>{</span>
+        <span style=color:#66d9ef>if</span> <span style=color:#f92672>(</span>evt <span style=color:#66d9ef>instanceof</span> IdleStateEvent<span style=color:#f92672>)</span> <span style=color:#f92672>{</span>
+            <span style=color:#66d9ef>try</span> <span style=color:#f92672>{</span>
+                ctx<span style=color:#f92672>.</span><span style=color:#a6e22e>close</span><span style=color:#f92672>();</span>
+            <span style=color:#f92672>}</span> <span style=color:#66d9ef>catch</span> <span style=color:#f92672>(</span>Exception e<span style=color:#f92672>)</span> <span style=color:#f92672>{</span>
+                <span style=color:#f92672>...</span>
+            <span style=color:#f92672>}</span>
+        <span style=color:#f92672>}</span> <span style=color:#66d9ef>else</span> <span style=color:#f92672>{</span>
+            <span style=color:#66d9ef>super</span><span style=color:#f92672>.</span><span style=color:#a6e22e>userEventTriggered</span><span style=color:#f92672>(</span>ctx<span style=color:#f92672>,</span> evt<span style=color:#f92672>);</span>
+        <span style=color:#f92672>}</span>
+    <span style=color:#f92672>}</span>
+<span style=color:#f92672>}</span>
+</code></pre></div><h2 id=sofarpc连接管理断开重连实现>SOFARPC连接管理断开重连实现</h2><p>通常RPC调用过程是不需要断链与重连的。因为每次RPC调用过程都校验是否有可用连接，如果没有则新建连接。但有一些场景是需要断链和保持长连接的：</p><ul><li>自动断连：比如通过<code>LVS VIP</code>或者<code>F5</code>建立多个连接的场景，因为网络设备的负载均衡机制，有可能某一些连接固定映射到了某几台后端的<code>RS</code>上面，此时需要自动断连然后重连，靠建连过程的随机性来实现最终负载均衡。注意开启自动断连的场景通常需要配合重连使用。</li><li>重连：比如客户端发起建连后由服务端通过双工通信发起请求到客户端，此时如果没有重连机制则无法实现。</li></ul><p>连接管理是客户端的逻辑，启动好，连接管理开启异步线程。</p><p>其中，<code>SOFARPC</code>连接管理<code>ConnectionHolder</code>维护存活的客户端列表<code>aliveConnections</code>和失败待重试的客户端列表<code>retryConnections</code>，<code>RPC</code>启动守护线程以默认10秒的间隔检查存活和失败待重试的客户端列表的可用连接：</p><ol><li>检查存活的客户端列表<code>aliveConnections</code>是否可用，如果存活列表里连接已经不可用则需要放到待重试列表<code>retryConnections</code>里面；</li><li>遍历失败待重试的客户端列表<code>retryConnections</code>，如果连接命中重连周期则进行重连，重连成功放到存活列表<code>aliveConnections</code>里面，如果待重试连接多次重连失败则直接丢弃。</li></ol><p>核心代码在连接管理器的方法中：</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java>com<span style=color:#f92672>.</span><span style=color:#a6e22e>alipay</span><span style=color:#f92672>.</span><span style=color:#a6e22e>sofa</span><span style=color:#f92672>.</span><span style=color:#a6e22e>rpc</span><span style=color:#f92672>.</span><span style=color:#a6e22e>client</span><span style=color:#f92672>.</span><span style=color:#a6e22e>AllConnectConnectionHolder</span><span style=color:#960050;background-color:#1e0010>#</span>doReconnect
+</code></pre></div><p>篇幅有限，我们不贴具体代码，欢迎大家通过源码来学习了解。</p><h1 id=最后>最后</h1><p>本文介绍连接管理的策略和<code>SOFARPC</code>中连接管理与心跳机制的实现，希望通过这篇文章，大家对此有一个了解，如果对其中有疑问的，也欢迎留言与我们讨论。</p><h1 id=参考文档>参考文档</h1><p><a href=http://tldp.org/HOWTO/TCP-Keepalive-HOWTO/index.html>TCP-Keepalive-HOWTO</a><br><a href=http://www.blogjava.net/yongboy/archive/2015/04/14/424413.html>随手记之TCP Keepalive笔记</a><br><a href=http://hengyunabc.github.io/why-we-need-heartbeat/>为什么基于TCP的应用需要心跳包</a><br><a href=http://blog.csdn.net/linuu/article/details/51404264>Netty心跳简单Demo</a><br><a href=https://segmentfault.com/a/1190000006931568>浅析 Netty 实现心跳机制与断线重连</a></p><hr><p>文章转自<a href=http://www.sofastack.tech/post/hnppce>【剖析 | SOFARPC 框架】之SOFARPC 连接管理与心跳剖析</a></p><hr><ul class=pager><li class=previous><a href=/post/%E5%8E%BB%E5%93%AA%E5%84%BF%E7%BD%91%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/ data-toggle=tooltip data-placement=top title=去哪儿网消息队列设计与实现>&larr; Previous Post</a></li><li class=next><a href=/post/sofarpc%E8%B7%AF%E7%94%B1%E5%AE%9E%E7%8E%B0%E5%89%96%E6%9E%90/ data-toggle=tooltip data-placement=top title=转|SOFARPC路由实现剖析>Next Post &rarr;</a></li></ul><div id=disqus-comment></div></div><div class="col-lg-8 col-lg-offset-2
+col-md-10 col-md-offset-1
+sidebar-container"><section><hr class="hidden-sm hidden-xs"><h5><a href=/tags/>FEATURED TAGS</a></h5><div class=tags><a href=/tags/chirpstack title=chirpstack>chirpstack</a>
+<a href=/tags/docker title=docker>docker</a>
+<a href=/tags/fluentd title=fluentd>fluentd</a>
+<a href=/tags/kubernetes title=kubernetes>kubernetes</a>
+<a href=/tags/mq title=mq>mq</a>
+<a href=/tags/rpc title=rpc>rpc</a>
+<a href=/tags/sofa title=sofa>sofa</a>
+<a href=/tags/sofastack title=sofastack>sofastack</a>
+<a href=/tags/%E4%B8%AD%E9%97%B4%E4%BB%B6 title=中间件>中间件</a>
+<a href=/tags/%E4%BA%91%E5%8E%9F%E7%94%9F title=云原生>云原生</a></div></section><hr><h5>FRIENDS</h5><ul class=list-inline></ul></div></div></div></article><footer><div class=container><div class=row><div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1"><ul class="list-inline text-center"><li><a href=mailto:gcslyp@gmail.com><span class="fa-stack fa-lg"><i class="fa fa-circle fa-stack-2x"></i><i class="fa fa-envelope fa-stack-1x fa-inverse"></i></span></a></li><li><a href=https://twitter.com/lan31793328><span class="fa-stack fa-lg"><i class="fa fa-circle fa-stack-2x"></i><i class="fa fa-twitter fa-stack-1x fa-inverse"></i></span></a></li><li><a target=_blank href=https://github.com/liangyuanpeng><span class="fa-stack fa-lg"><i class="fa fa-circle fa-stack-2x"></i><i class="fa fa-github fa-stack-1x fa-inverse"></i></span></a></li></ul><p class="copyright text-muted">Copyright &copy; Hi,I`m lan , 2018<br><a href=https://themes.gohugo.io/hugo-theme-cleanwhite>CleanWhite Hugo Theme</a> by <a href=https://zhaohuabing.com>Huabing</a> |
+<iframe style=margin-left:2px;margin-bottom:-5px frameborder=0 scrolling=0 width=100px height=20px src="https://ghbtns.com/github-btn.html?user=zhaohuabing&repo=hugo-theme-cleanwhite&type=star&count=true"></iframe></p></div></div></div></footer><script>function async(u,c){var d=document,t='script',o=d.createElement(t),s=d.getElementsByTagName(t)[0];o.src=u;if(c){o.addEventListener('load',function(e){c(null,e);},false);}
+s.parentNode.insertBefore(o,s);}</script><script>if($('#tag_cloud').length!==0){async("/js/jquery.tagcloud.js",function(){$.fn.tagcloud.defaults={color:{start:'#bbbbee',end:'#0085a1'},};$('#tag_cloud a').tagcloud();})}</script><script>async("https://cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.js",function(){var $nav=document.querySelector("nav");if($nav)FastClick.attach($nav);})</script><script>var _hmt=_hmt||[];(function(){var hm=document.createElement("script");hm.src="https://hm.baidu.com/hm.js?23001460802c6c63962c60b9c8c435af";var s=document.getElementsByTagName("script")[0];s.parentNode.insertBefore(hm,s);})();</script></body></html>
