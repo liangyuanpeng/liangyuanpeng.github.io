@@ -79,15 +79,19 @@ var _hmt = _hmt || [];
                     </li>
                     
                     <li>
-                        <a href="categories/cloudnative">CloudNative</a>
+                        <a href="categories/cloudnative">cloudnative</a>
                     </li>
                     
                     <li>
-                        <a href="categories/devops">DevOps</a>
+                        <a href="categories/devops">devops</a>
                     </li>
                     
                     <li>
-                        <a href="categories/tech">Tech</a>
+                        <a href="categories/kubernetes">kubernetes</a>
+                    </li>
+                    
+                    <li>
+                        <a href="categories/tech">tech</a>
                     </li>
                     
                     <li>
@@ -102,7 +106,15 @@ var _hmt = _hmt || [];
                         <a href="categories/%E5%AE%B9%E5%99%A8%E7%BC%96%E6%8E%92">容器编排</a>
                     </li>
                     
+                    <li>
+                        <a href="categories/%E7%89%A9%E8%81%94%E7%BD%91">物联网</a>
+                    </li>
+                    
 
+                    
+		            <li>
+                        <a href="search">SEARCH <img src="img/search.png" height="15" style="cursor: pointer;"></a>
+		            </li>
                     
                 </ul>
             </div>
@@ -188,6 +200,142 @@ var _hmt = _hmt || [];
                     <h2 class="subheading"></h2>
                     <span  class="meta">Posted by lyp on Sunday, January 6, 2019
                         
+                        <span id="busuanzi_container_page_pv">|<span id="busuanzi_value_page_pv"></span><span>
+                            <span id="/post/2019-01-06-%E9%83%A8%E7%BD%B2react%E5%BA%94%E7%94%A8/" class="leancloud_visitors meta_data_item" data-flag-title="">
+    <span class="post-meta-item-icon">
+      <span class="octicon octicon-eye"></span> 
+    </span>
+    <i class="fa fa-eye"></i>
+    <span class="old-visitors-count" style="display: none;"></span>
+    <span class="leancloud-visitors-count"></span>
+</span>
+
+
+
+<script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+
+<script>
+	AV.initialize("", "");
+</script>
+
+<script type="text/javascript">
+function showTime(Counter) {
+    var query = new AV.Query(Counter);
+    var entries = [];
+    var $visitors = $(".leancloud_visitors");
+
+    $visitors.each(function() {
+        entries.push($(this).attr("id").trim());
+    });
+
+    query.containedIn('url', entries);
+    query.find()
+        .done(function(results) {
+            var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+            var OLD_COUNT_CONTAINER_REF = '.old-visitors-count';
+
+            
+            
+            
+            
+
+            for (var i = 0; i < results.length; i++) {
+                var item = results[i];
+                var url = item.get('url');
+                var time = item.get('time');
+                var element = document.getElementById(url);
+
+                $(element).find(COUNT_CONTAINER_REF).text(time);
+            }
+            for (var i = 0; i < entries.length; i++) {
+                var url = entries[i];
+                var element = document.getElementById(url);
+                var countSpan = $(element).find(COUNT_CONTAINER_REF);
+                if (countSpan.text() == '') {
+                    var oldCountSpan = $(element).find(OLD_COUNT_CONTAINER_REF).text();
+                    if(oldCountSpan!=''){
+                        countSpan.text(0+parseInt(oldCountSpan));
+                    }else{
+                        countSpan.text(0);          
+                    }
+                }
+            }
+        })
+        .fail(function(object, error) {
+            console.log("Error: " + error.code + " " + error.message);
+        });
+}
+
+function addCount(Counter) {
+    var $visitors = $(".leancloud_visitors");
+    var url = $visitors.attr('id').trim();
+    var title = $visitors.attr('data-flag-title').trim();
+    var query = new AV.Query(Counter);
+
+    query.equalTo("url", url);
+    query.find({
+        success: function(results) {
+            if (results.length > 0) {
+                var counter = results[0];
+                counter.fetchWhenSave(true);
+                counter.increment("time");
+                counter.save(null, {
+                    success: function(counter) {
+                        var $element = $(document.getElementById(url));
+                        $element.find('.leancloud-visitors-count').text(counter.get('time'));
+                    },
+                    error: function(counter, error) {
+                        console.log('Failed to save Visitor num, with error message: ' + error.message);
+                    }
+                });
+            } else {
+                var newcounter = new Counter();
+                 
+                var acl = new AV.ACL();
+                acl.setPublicReadAccess(true);
+                acl.setPublicWriteAccess(true);
+                newcounter.setACL(acl);
+                 
+                newcounter.set("title", title);
+                newcounter.set("url", url);
+                var OLD_COUNT_CONTAINER_REF = '.old-visitors-count';
+                var $element = $(document.getElementById(url));
+                var oldCountSpan = $element.find(OLD_COUNT_CONTAINER_REF).text();
+                if(oldCountSpan!=''){
+                    newcounter.set("time", parseInt(oldCountSpan)+1);
+                }else{
+ 	                    newcounter.set("time",  1);
+                }
+                newcounter.save(null, {
+                    success: function(newcounter) {
+                        var $element = $(document.getElementById(url));
+                        $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+                    },
+                    error: function(newcounter, error) {
+                        console.log('Failed to create');
+                    }
+                });
+            }
+        },
+        error: function(error) {
+            console.log('Error:' + error.code + " " + error.message);
+        }
+    });
+}
+$(function() {
+    var Counter = AV.Object.extend("Counter");
+    
+    
+    if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+    } else {
+        showTime(Counter);
+    }
+});
+</script>
+
+                            阅读 </span></span>|<span class="post-date">共832字</span>，阅读约<span class="more-meta"> 2 分钟</span>
+                        
                     </span>
                 </div>
             </div>
@@ -213,78 +361,51 @@ var _hmt = _hmt || [];
                 <h2>TOC</h2>
                 </header>
                 <nav id="TableOfContents">
-<ul>
-<li>
-<ul>
-<li><a href="#前言">前言</a></li>
-<li><a href="#部署">部署</a></li>
-</ul></li>
-</ul>
+  <ul>
+    <li><a href="#前言">前言</a></li>
+    <li><a href="#部署">部署</a></li>
+  </ul>
 </nav>
 		
-		
-
-<h2 id="前言">前言</h2>
-
+		<h2 id="前言">前言</h2>
 <p>前后端分离已经是大趋势，服务器端只需要关注自己的接口逻辑实现，而不需要关注前端的页面跳转，这一部分交由前端处理。常见的就是<code>React</code>应用或<code>vue</code>应用。</p>
-
 <blockquote>
 <p>当然了，可以由服务器端下发链接给前端，前端再跳转，但是这种应该是比较少的。</p>
 </blockquote>
-
 <h2 id="部署">部署</h2>
-
-<p>前后端分离的架构下部署与直接使用<code>springboot</code>基于模板引擎开发的前端会有所不同。<br />
+<p>前后端分离的架构下部署与直接使用<code>springboot</code>基于模板引擎开发的前端会有所不同。<br>
 使用<code>springboot</code>基于模板引擎开发的前端静态文件默认直接放置在项目的<code>static</code>文件夹和<code>template</code>文件夹下，前端进行页面跳转的步骤一般是发起一个<code>GET</code>请求到后端，由后端进行跳转到对应的页面，路由掌控在后端。</p>
-
 <p>而在前后端分离的架构前端页面的路由是前端实现，再通过<code>ajax</code>拉取对应的页面数据进行展示。</p>
-
 <p>下面就来分解下在<code>linux</code>上基于<code>nginx</code>部署<code>React</code>应用的步骤：</p>
-
 <ul>
-<li><code>React</code>打包前端应用并将打包后的文件上传到<code>linux</code>上，默认是dist文件夹<br /></li>
-<li><code>nginx</code>配置<code>dist</code>的路径,贴一下关键部分配置,端口监听和域名配置就不贴了<br /></li>
+<li><code>React</code>打包前端应用并将打包后的文件上传到<code>linux</code>上，默认是dist文件夹</li>
+<li><code>nginx</code>配置<code>dist</code>的路径,贴一下关键部分配置,端口监听和域名配置就不贴了</li>
 </ul>
-
-<pre><code> location / {
-	    root /usr/local/dist;
-	    try_files $uri  /index.html;
-	    index  index.html index.htm;
-        }
-</code></pre>
-
-<ul>
-<li>配置后台请求路径<br /></li>
+<pre><code>location / {
+       root /usr/local/dist;
+       try_files $uri  /index.html;
+       index  index.html index.htm;
+       }
+</code></pre><ul>
+<li>配置后台请求路径</li>
 </ul>
-
-<pre><code> location ^~/service/ {
-            proxy_pass http://127.0.0.1:8080;
-        }
-</code></pre>
-
-<p>这里配置的是路径以<code>service</code>开头的请求都转发到本机的<code>8080</code>端口去，而<code>8080</code>端口部署的是后台应用程序。</p>
-
+<pre><code>location ^~/service/ {
+           proxy_pass http://127.0.0.1:8080;
+       }
+</code></pre><p>这里配置的是路径以<code>service</code>开头的请求都转发到本机的<code>8080</code>端口去，而<code>8080</code>端口部署的是后台应用程序。</p>
 <p>需要这么做的原因是比如前端进行了一个<code>/user/login</code>的路由，而在<code>React</code>中所有的路由都需要指向<code>index.html</code>这个文件，没有做区分的话就会发起一个GET请求到服务器应用，而服务器并没有<code>/user/login</code>这个GET请求接口，这时就会发生<code>404</code>。</p>
-
 <p>到目前为止就已经配置好前后端分离的相关<code>nginx</code>配置了。</p>
-
 <p>但是我在实际应用中发现一个很奇怪的问题:</p>
-
 <p>我的登陆页面发起了一个<code>/user/login</code> <code>POST请求</code>，<code>nginx</code>直接返回了<code>403</code>，查看了<code>tomcat</code>，没有任何请求日志。后来在<code>nginx</code>转发的时候把头部信息带上就解决了问题。</p>
-
 <p>至于问题的根本原因没有找出。</p>
-
 <p>添加后的<code>nginx</code>转发配置如下：</p>
-
-<pre><code> location ^~/service/ {
-	    proxy_set_header           Host $host;
-        proxy_set_header           X-Real-IP $remote_addr;
-        proxy_set_header           X-Forwarded-For $proxy_add_x_forwarded_for;
-            proxy_pass http://127.0.0.1:8080;
-        }
-</code></pre>
-
-<p>完整的<code>nginx</code>配置文件可以<a href="https://res.cloudinary.com/lyp/raw/upload/v1546749137/hugo/blog.github.io/tech/nginx.conf">点击下载</a></p>
+<pre><code>location ^~/service/ {
+       proxy_set_header           Host $host;
+       proxy_set_header           X-Real-IP $remote_addr;
+       proxy_set_header           X-Forwarded-For $proxy_add_x_forwarded_for;
+           proxy_pass http://127.0.0.1:8080;
+       }
+</code></pre><p>完整的<code>nginx</code>配置文件可以<a href="https://res.cloudinary.com/lyp/raw/upload/v1546749137/hugo/blog.github.io/tech/nginx.conf">点击下载</a></p>
 
 
                 <hr>
@@ -292,12 +413,12 @@ var _hmt = _hmt || [];
                 <ul class="pager">
                     
                     <li class="previous">
-                        <a href="/post/2019-01-13-jenkins%E8%BF%9C%E7%A8%8B%E9%83%A8%E7%BD%B2linux%E6%9C%8D%E5%8A%A1%E5%99%A8/" data-toggle="tooltip" data-placement="top" title="Jenkins远程部署Linux服务器">&larr; Previous Post</a>
+                        <a href="/post/sofarpc%E4%BC%98%E9%9B%85%E5%85%B3%E9%97%AD%E5%89%96%E6%9E%90/" data-toggle="tooltip" data-placement="top" title="转|SOFARPC优雅关闭剖析">&larr; Previous Post</a>
                     </li>
                     
                     
                     <li class="next">
-                        <a href="/post/sofarpc%E4%BC%98%E9%9B%85%E5%85%B3%E9%97%AD%E5%89%96%E6%9E%90/" data-toggle="tooltip" data-placement="top" title="转|SOFARPC优雅关闭剖析">Next Post &rarr;</a>
+                        <a href="/post/2019-01-13-jenkins%E8%BF%9C%E7%A8%8B%E9%83%A8%E7%BD%B2linux%E6%9C%8D%E5%8A%A1%E5%99%A8/" data-toggle="tooltip" data-placement="top" title="Jenkins远程部署Linux服务器">Next Post &rarr;</a>
                     </li>
                     
                 </ul>
@@ -334,6 +455,52 @@ var _hmt = _hmt || [];
                         
                     
                         
+                            <a href="/tags/chirpstack" title="chirpstack">
+                                chirpstack
+                            </a>
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                            <a href="/tags/docker" title="docker">
+                                docker
+                            </a>
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                            <a href="/tags/fluentd" title="fluentd">
+                                fluentd
+                            </a>
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
                     
                         
                     
@@ -349,6 +516,28 @@ var _hmt = _hmt || [];
                     
                         
                     
+                        
+                            <a href="/tags/kubernetes" title="kubernetes">
+                                kubernetes
+                            </a>
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                            <a href="/tags/mq" title="mq">
+                                mq
+                            </a>
                         
                     
                         
@@ -380,9 +569,31 @@ var _hmt = _hmt || [];
                         
                     
                         
+                    
+                        
+                    
+                        
                             <a href="/tags/%E4%B8%AD%E9%97%B4%E4%BB%B6" title="中间件">
                                 中间件
                             </a>
+                        
+                    
+                        
+                            <a href="/tags/%E4%BA%91%E5%8E%9F%E7%94%9F" title="云原生">
+                                云原生
+                            </a>
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
                         
                     
                         
@@ -517,21 +728,15 @@ var _hmt = _hmt || [];
     })
 </script>
 
-
 <script>
-    (function(){
-        var bp = document.createElement('script');
-        var curProtocol = window.location.protocol.split(':')[0];
-        if (curProtocol === 'https'){
-       bp.src = '/120.79.83.107:5778/blog/push';
-      }
-      else{
-      bp.src = '//120.79.83.107:5778/blog/push';
-      }
-        var s = document.getElementsByTagName("script")[0];
-        s.parentNode.insertBefore(bp, s);
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?23001460802c6c63962c60b9c8c435af";
+      var s = document.getElementsByTagName("script")[0]; 
+      s.parentNode.insertBefore(hm, s);
     })();
-</script>
+    </script>
 
 
 

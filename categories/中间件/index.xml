@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>中间件 on Hi,I`m lan</title>
@@ -6,10 +6,51 @@
     <description>Recent content in 中间件 on Hi,I`m lan</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 16 Jan 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 17 Feb 2020 00:00:00 +0000</lastBuildDate><atom:link href="/categories/%E4%B8%AD%E9%97%B4%E4%BB%B6/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Elasticsearch&#43;Fluentd&#43;Kafka搭建分布式日志系统</title>
+      <link>/post/cadvisor-kafka-fluentd-es/</link>
+      <pubDate>Mon, 17 Feb 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/post/cadvisor-kafka-fluentd-es/</guid>
+      <description>前言 由于logstash内存占用较大,灵活性相对没那么好,ELK正在被EFK逐步替代.其中本文所讲的EFK是Elasticsearch+Fl</description>
+    </item>
     
-	<atom:link href="/categories/%E4%B8%AD%E9%97%B4%E4%BB%B6/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>使用logstash作为docker日志驱动收集日志</title>
+      <link>/post/docker-log-driver-logstash/</link>
+      <pubDate>Sun, 16 Feb 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/post/docker-log-driver-logstash/</guid>
+      <description>前言 logstash是一个开源的日志统一处理数据收集器,属于ELK中的L,在日志收集领域应用广泛. docker默认的日志驱动是json-fi</description>
+    </item>
     
+    <item>
+      <title>使用fluentd作为docker日志驱动收集日志</title>
+      <link>/post/docker-log-driver-fluentd/</link>
+      <pubDate>Sat, 15 Feb 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/post/docker-log-driver-fluentd/</guid>
+      <description>前言 docker默认的日志驱动是json-file,每一个容器都会在本地生成一个/var/lib/docker/containers/con</description>
+    </item>
+    
+    <item>
+      <title>制作带有kafka插件和es插件的fluentd镜像</title>
+      <link>/post/docker-image-fluentd-es-kafka/</link>
+      <pubDate>Sat, 15 Feb 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/post/docker-image-fluentd-es-kafka/</guid>
+      <description>前言 Fluentd是用于统一日志记录层的开源数据收集器,是继Kubernetes、Prometheus、Envoy 、CoreDNS 和cont</description>
+    </item>
+    
+    <item>
+      <title>利用docker和docker-compose部署单机kafka</title>
+      <link>/post/docker-deploy-kafka/</link>
+      <pubDate>Fri, 14 Feb 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/post/docker-deploy-kafka/</guid>
+      <description>前提 docker docker-compose 其中docker-compose不是必须的,单单使用docker也是可以的,这里主要介绍docker和docker-compose两</description>
+    </item>
     
     <item>
       <title>docker部署minio</title>
@@ -35,7 +76,7 @@
       <pubDate>Wed, 12 Dec 2018 00:00:00 +0000</pubDate>
       
       <guid>/post/sofarpc%E6%B3%9B%E5%8C%96%E8%B0%83%E7%94%A8%E5%AE%9E%E7%8E%B0%E5%89%96%E6%9E%90/</guid>
-      <description>SOFA Scalable Open Financial Architecture 是蚂蚁金服自主研发的金融级分布式中间件，包含了构建金融级云原生架构所需的各个组件，是在金融场景里锤炼出来的最佳实践。 本文为《剖析 |</description>
+      <description>SOFA Scalable Open Financial Architecture是蚂蚁金服自主研发的金融级分布式中间件，包含了构建金融级云原生架构所需的各个组件，是在金融场景里锤炼出来的最</description>
     </item>
     
     <item>

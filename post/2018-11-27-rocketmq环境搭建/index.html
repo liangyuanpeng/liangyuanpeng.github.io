@@ -79,15 +79,19 @@ var _hmt = _hmt || [];
                     </li>
                     
                     <li>
-                        <a href="categories/cloudnative">CloudNative</a>
+                        <a href="categories/cloudnative">cloudnative</a>
                     </li>
                     
                     <li>
-                        <a href="categories/devops">DevOps</a>
+                        <a href="categories/devops">devops</a>
                     </li>
                     
                     <li>
-                        <a href="categories/tech">Tech</a>
+                        <a href="categories/kubernetes">kubernetes</a>
+                    </li>
+                    
+                    <li>
+                        <a href="categories/tech">tech</a>
                     </li>
                     
                     <li>
@@ -102,7 +106,15 @@ var _hmt = _hmt || [];
                         <a href="categories/%E5%AE%B9%E5%99%A8%E7%BC%96%E6%8E%92">容器编排</a>
                     </li>
                     
+                    <li>
+                        <a href="categories/%E7%89%A9%E8%81%94%E7%BD%91">物联网</a>
+                    </li>
+                    
 
+                    
+		            <li>
+                        <a href="search">SEARCH <img src="img/search.png" height="15" style="cursor: pointer;"></a>
+		            </li>
                     
                 </ul>
             </div>
@@ -188,6 +200,142 @@ var _hmt = _hmt || [];
                     <h2 class="subheading"></h2>
                     <span  class="meta">Posted by lyp on Tuesday, November 27, 2018
                         
+                        <span id="busuanzi_container_page_pv">|<span id="busuanzi_value_page_pv"></span><span>
+                            <span id="/post/2018-11-27-rocketmq%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" class="leancloud_visitors meta_data_item" data-flag-title="">
+    <span class="post-meta-item-icon">
+      <span class="octicon octicon-eye"></span> 
+    </span>
+    <i class="fa fa-eye"></i>
+    <span class="old-visitors-count" style="display: none;"></span>
+    <span class="leancloud-visitors-count"></span>
+</span>
+
+
+
+<script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+
+<script>
+	AV.initialize("", "");
+</script>
+
+<script type="text/javascript">
+function showTime(Counter) {
+    var query = new AV.Query(Counter);
+    var entries = [];
+    var $visitors = $(".leancloud_visitors");
+
+    $visitors.each(function() {
+        entries.push($(this).attr("id").trim());
+    });
+
+    query.containedIn('url', entries);
+    query.find()
+        .done(function(results) {
+            var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+            var OLD_COUNT_CONTAINER_REF = '.old-visitors-count';
+
+            
+            
+            
+            
+
+            for (var i = 0; i < results.length; i++) {
+                var item = results[i];
+                var url = item.get('url');
+                var time = item.get('time');
+                var element = document.getElementById(url);
+
+                $(element).find(COUNT_CONTAINER_REF).text(time);
+            }
+            for (var i = 0; i < entries.length; i++) {
+                var url = entries[i];
+                var element = document.getElementById(url);
+                var countSpan = $(element).find(COUNT_CONTAINER_REF);
+                if (countSpan.text() == '') {
+                    var oldCountSpan = $(element).find(OLD_COUNT_CONTAINER_REF).text();
+                    if(oldCountSpan!=''){
+                        countSpan.text(0+parseInt(oldCountSpan));
+                    }else{
+                        countSpan.text(0);          
+                    }
+                }
+            }
+        })
+        .fail(function(object, error) {
+            console.log("Error: " + error.code + " " + error.message);
+        });
+}
+
+function addCount(Counter) {
+    var $visitors = $(".leancloud_visitors");
+    var url = $visitors.attr('id').trim();
+    var title = $visitors.attr('data-flag-title').trim();
+    var query = new AV.Query(Counter);
+
+    query.equalTo("url", url);
+    query.find({
+        success: function(results) {
+            if (results.length > 0) {
+                var counter = results[0];
+                counter.fetchWhenSave(true);
+                counter.increment("time");
+                counter.save(null, {
+                    success: function(counter) {
+                        var $element = $(document.getElementById(url));
+                        $element.find('.leancloud-visitors-count').text(counter.get('time'));
+                    },
+                    error: function(counter, error) {
+                        console.log('Failed to save Visitor num, with error message: ' + error.message);
+                    }
+                });
+            } else {
+                var newcounter = new Counter();
+                 
+                var acl = new AV.ACL();
+                acl.setPublicReadAccess(true);
+                acl.setPublicWriteAccess(true);
+                newcounter.setACL(acl);
+                 
+                newcounter.set("title", title);
+                newcounter.set("url", url);
+                var OLD_COUNT_CONTAINER_REF = '.old-visitors-count';
+                var $element = $(document.getElementById(url));
+                var oldCountSpan = $element.find(OLD_COUNT_CONTAINER_REF).text();
+                if(oldCountSpan!=''){
+                    newcounter.set("time", parseInt(oldCountSpan)+1);
+                }else{
+ 	                    newcounter.set("time",  1);
+                }
+                newcounter.save(null, {
+                    success: function(newcounter) {
+                        var $element = $(document.getElementById(url));
+                        $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+                    },
+                    error: function(newcounter, error) {
+                        console.log('Failed to create');
+                    }
+                });
+            }
+        },
+        error: function(error) {
+            console.log('Error:' + error.code + " " + error.message);
+        }
+    });
+}
+$(function() {
+    var Counter = AV.Object.extend("Counter");
+    
+    
+    if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+    } else {
+        showTime(Counter);
+    }
+});
+</script>
+
+                            阅读 </span></span>|<span class="post-date">共1367字</span>，阅读约<span class="more-meta"> 3 分钟</span>
+                        
                     </span>
                 </div>
             </div>
@@ -213,133 +361,94 @@ var _hmt = _hmt || [];
                 <h2>TOC</h2>
                 </header>
                 <nav id="TableOfContents">
-<ul>
-<li>
-<ul>
-<li><a href="#前言">前言</a></li>
-<li><a href="#下载程序包">下载程序包</a></li>
-<li><a href="#启动name-server">启动name server</a></li>
-<li><a href="#启动broker">启动Broker</a></li>
-<li><a href="#发送消息和接收消息">发送消息和接收消息</a></li>
-<li><a href="#关闭服务">关闭服务</a></li>
-<li><a href="#faq">FAQ</a>
-<ul>
-<li><a href="#怎么修改name-server和broker的启动内存">怎么修改name server和broker的启动内存?</a></li>
-<li><a href="#需要配置外网访问要怎么配置呢">需要配置外网访问要怎么配置呢？</a></li>
-</ul></li>
-<li><a href="#配置文件">配置文件</a></li>
-</ul></li>
-</ul>
+  <ul>
+    <li><a href="#前言">前言</a></li>
+    <li><a href="#下载程序包">下载程序包</a></li>
+    <li><a href="#启动name-server">启动name server</a></li>
+    <li><a href="#启动broker">启动Broker</a></li>
+    <li><a href="#发送消息和接收消息">发送消息和接收消息</a></li>
+    <li><a href="#关闭服务">关闭服务</a></li>
+    <li><a href="#faq">FAQ</a>
+      <ul>
+        <li><a href="#怎么修改name-server和broker的启动内存">怎么修改name server和broker的启动内存?</a></li>
+        <li><a href="#需要配置外网访问要怎么配置呢">需要配置外网访问要怎么配置呢？</a></li>
+      </ul>
+    </li>
+    <li><a href="#配置文件">配置文件</a></li>
+  </ul>
 </nav>
 		
-		
-
-<h2 id="前言">前言</h2>
-
+		<h2 id="前言">前言</h2>
 <p>这篇文章以4.3.0版本为标准进行讲述在linux下部署RocketMQ单机实例,在此之前需要已配置JAVA环境。</p>
-
 <blockquote>
 <p>apache RocketMQ 是阿里巴巴在2016年11月捐赠给了apache基金会并于2017年9月顺利毕业成为apache顶级项目。</p>
 </blockquote>
-
 <h2 id="下载程序包">下载程序包</h2>
-
 <p>直接使用一般就<a href="https://www.apache.org/dyn/closer.cgi?path=rocketmq/4.3.2/rocketmq-all-4.3.2-source-release.zip">下载</a>已经编译好的二进制文件就好了,下载好以后</p>
-
-<p><code>&gt; unzip rocketmq-all-4.3.0-bin-release.zip<br />
-&gt; cd rocketmq-all-4.3.0-bin-release/<br />
-</code></p>
-
+<p><!-- raw HTML omitted -->&gt; unzip rocketmq-all-4.3.0-bin-release.zip<br>
+&gt; cd rocketmq-all-4.3.0-bin-release/<br>
+<!-- raw HTML omitted --></p>
 <h2 id="启动name-server">启动name server</h2>
-
-<p><code>&gt; nohup sh bin/mqnamesrv &amp;
-</code></p>
-
-<p>tail一下日志看看是否已经启动成功<br />
-<code>&gt; tail -f ~/logs/rocketmqlogs/namesrv.log<br />
-The Name Server boot success&hellip;
-</code></p>
-
+<p><!-- raw HTML omitted -->&gt; nohup sh bin/mqnamesrv &amp; 
+<!-- raw HTML omitted --></p>
+<p>tail一下日志看看是否已经启动成功<br>
+<!-- raw HTML omitted -->&gt; tail -f ~/logs/rocketmqlogs/namesrv.log<br>
+The Name Server boot success&hellip; 
+<!-- raw HTML omitted --></p>
 <h2 id="启动broker">启动Broker</h2>
-
-<p><code>&gt; nohup sh bin/mqbroker -n localhost:9876 &amp;
-</code></p>
-
-<p>tail一下日志看看是否已经启动成功<br />
-<code>&gt; tail -f ~/logs/rocketmqlogs/broker.log<br />
+<p><!-- raw HTML omitted -->&gt; nohup sh bin/mqbroker -n localhost:9876 &amp; 
+<!-- raw HTML omitted --></p>
+<p>tail一下日志看看是否已经启动成功<br>
+<!-- raw HTML omitted -->&gt; tail -f ~/logs/rocketmqlogs/broker.log<br>
 The broker[%s, 172.30.30.233:10911] boot success&hellip;
-</code></p>
-
+<!-- raw HTML omitted --></p>
 <h2 id="发送消息和接收消息">发送消息和接收消息</h2>
-
-<p>为了简单测试下，在发送/接收消息之前我们需要设置<code>NAMESRV_ADDR</code>环境变量<br />
-<code>&gt; export NAMESRV_ADDR=localhost:9876<br />
-</code></p>
-
-<p>发送消息，测试用例中的方式是使用for循环发送了1000条消息<br />
-<code>&gt; sh bin/tools.sh org.apache.rocketmq.example.quickstart.Producer<br />
+<p>为了简单测试下，在发送/接收消息之前我们需要设置<code>NAMESRV_ADDR</code>环境变量<br>
+<!-- raw HTML omitted -->&gt; export NAMESRV_ADDR=localhost:9876<br>
+<!-- raw HTML omitted --></p>
+<p>发送消息，测试用例中的方式是使用for循环发送了1000条消息<br>
+<!-- raw HTML omitted -->&gt; sh bin/tools.sh org.apache.rocketmq.example.quickstart.Producer<br>
 SendResult [sendStatus=SEND_OK, msgId= &hellip;
-</code></p>
-
-<p>接收消息<br />
-<code>&gt; sh bin/tools.sh org.apache.rocketmq.example.quickstart.Consumer<br />
+<!-- raw HTML omitted --></p>
+<p>接收消息<br>
+<!-- raw HTML omitted -->&gt; sh bin/tools.sh org.apache.rocketmq.example.quickstart.Consumer<br>
 SendResult [sendStatus=SEND_OK, msgId= &hellip;
-</code></p>
-
+<!-- raw HTML omitted --></p>
 <h2 id="关闭服务">关闭服务</h2>
-
-<p><code>&gt; sh bin/mqshutdown broker<br />
-The mqbroker(36695) is running&hellip;<br />
+<p><!-- raw HTML omitted -->&gt; sh bin/mqshutdown broker<br>
+The mqbroker(36695) is running&hellip;<br>
 Send shutdown request to mqbroker(36695) OK
-</code></p>
-
-<p><code>&gt; sh bin/mqshutdown namesrv<br />
-The mqnamesrv(36664) is running&hellip;<br />
+<!-- raw HTML omitted --></p>
+<p><!-- raw HTML omitted -->&gt; sh bin/mqshutdown namesrv<br>
+The mqnamesrv(36664) is running&hellip;<br>
 Send shutdown request to mqnamesrv(36664) OK
-</code></p>
-
+<!-- raw HTML omitted --></p>
 <p>到此，我们已经完成了一个简单的部署以及消息的发送和接收,但是这只是在内网下进行的收发消息。</p>
-
 <h2 id="faq">FAQ</h2>
-
 <h3 id="怎么修改name-server和broker的启动内存">怎么修改name server和broker的启动内存?</h3>
-
 <p>一开始按照官网的步骤来操作往往会直接启动不起来，提示内存不足，那是因为name server和broker默认的启动JVM内存是4G，而内存在不够的情况下自然就启动失败了。</p>
-
-<p>这时候需要修改name server和broker的启动内存参数,<br />
-broker的启动内存参数在<code>runbroker.sh</code>下修改,windows下则是<code>runbroker.cmd</code><br />
+<p>这时候需要修改name server和broker的启动内存参数,<br>
+broker的启动内存参数在<code>runbroker.sh</code>下修改,windows下则是<code>runbroker.cmd</code><br>
 name server的启动内存参数是在<code>runserver.sh</code>下修改,windows下则是<code>runserver.cmd</code></p>
-
 <h3 id="需要配置外网访问要怎么配置呢">需要配置外网访问要怎么配置呢？</h3>
-
 <p>在网上见过很多同学在配置外网访问的时候出现问题，得到的提示大多是
-<code>
-No Topic Route Info
-</code><br />
-这种提示一般都是连接失败了，<br />
-1.broker没有允许自动创建topic，且发送消息对应的topic不存在<br />
-2.broker没有正确的连接到name server<br />
+<code>No Topic Route Info</code><br>
+这种提示一般都是连接失败了，<br>
+1.broker没有允许自动创建topic，且发送消息对应的topic不存在<br>
+2.broker没有正确的连接到name server<br>
 3.product没有正确的连接到name server</p>
-
 <ul>
-<li>对于情况1，在启动<code>broker</code>的时候添加<code>autoCreateTopicEnable=true</code>参数就好了。<br /></li>
-<li>情况2呢，有可能是name server不存在或者是端口冲突，具体可以看日志的报错原因。<br /></li>
-<li>情况3的话,一般是端口原因，如果在服务器上本地收发消息都正常但是到了用客户端sdk发消息的时候失败了可以首先查看一下端口本地ping服务器的9876端口和10911端口是否正常,如果正常可以关闭vip通道再次尝试,以JAVA客户端的话就是下面这样<br />
-生产者关闭VIP通道:
-<code>
-producer.setVipChannelEnabled(false);
-</code><br />
-消费者关闭VIP通道:
-<code>
-consumer.setVipChannelEnabled(false);
-</code><br />
-关闭VIP通道为什么就可以了呢，是因为VIP通道占用了一个端口,10909端口,而服务器的10909端口没有对外开放，所以导致失败了。</li>
+<li>对于情况1，在启动<code>broker</code>的时候添加<code>autoCreateTopicEnable=true</code>参数就好了。</li>
+<li>情况2呢，有可能是name server不存在或者是端口冲突，具体可以看日志的报错原因。</li>
+<li>情况3的话,一般是端口原因，如果在服务器上本地收发消息都正常但是到了用客户端sdk发消息的时候失败了可以首先查看一下端口本地ping服务器的9876端口和10911端口是否正常,如果正常可以关闭vip通道再次尝试,以JAVA客户端的话就是下面这样<br>
+生产者关闭VIP通道:</li>
 </ul>
-
+<pre><code>producer.setVipChannelEnabled(false);
+</code></pre><p>消费者关闭VIP通道:</p>
+<pre><code>consumer.setVipChannelEnabled(false);
+</code></pre><p>关闭VIP通道为什么就可以了呢，是因为VIP通道占用了一个端口,10909端口,而服务器的10909端口没有对外开放，所以导致失败了。</p>
 <h2 id="配置文件">配置文件</h2>
-
 <p>这是我的<code>broker.properties</code>配置文件</p>
-
 <pre><code>brokerClusterName = DefaultCluster  
 brokerName = broker-a  
 brokerId = 0  
@@ -352,17 +461,10 @@ brokerIP1=172.17.59.146
 brokerIP2=172.17.59.146  
 namesrvAddr=172.17.59.146:5776  
 autoCreateTopicEnable=true  
-</code></pre>
-
-<p>因为我没有使用默认的9876端口,所以也有一个name server的配置文件,<code>namesrv.conf</code></p>
-
+</code></pre><p>因为我没有使用默认的9876端口,所以也有一个name server的配置文件,<code>namesrv.conf</code></p>
 <pre><code>listenPort=5776
-</code></pre>
-
-<p>也可以直接下载我的<a href="https://res.cloudinary.com/lyp/raw/upload/v1543502478/hugo/blog.github.io/apache-rocketMQ-introduction/broker.properties">broker.properties</a>和<a href="https://res.cloudinary.com/lyp/raw/upload/v1543502477/hugo/blog.github.io/apache-rocketMQ-introduction/namesrv.conf">namesrv.conf</a></p>
-
+</code></pre><p>也可以直接下载我的<a href="https://res.cloudinary.com/lyp/raw/upload/v1543502478/hugo/blog.github.io/apache-rocketMQ-introduction/broker.properties">broker.properties</a>和<a href="https://res.cloudinary.com/lyp/raw/upload/v1543502477/hugo/blog.github.io/apache-rocketMQ-introduction/namesrv.conf">namesrv.conf</a></p>
 <p>使用自己的配置文件启动name server和broker的时候都是添加一个指定文件的参数<code>-c 文件路径</code></p>
-
 <p>到目前为止，一个简单的apache RocketMQ单机实例已经部署好了，开始愉快的消息队列旅程吧！</p>
 
 
@@ -371,12 +473,12 @@ autoCreateTopicEnable=true
                 <ul class="pager">
                     
                     <li class="previous">
-                        <a href="/post/2018-12-05-sofarpc%E6%A1%86%E6%9E%B6%E4%B9%8B%E6%80%BB%E4%BD%93%E8%AE%BE%E8%AE%A1%E4%B8%8E%E6%89%A9%E5%B1%95%E6%9C%BA%E5%88%B6/" data-toggle="tooltip" data-placement="top" title="转|SOFARPC框架之总体设计与扩展机制">&larr; Previous Post</a>
+                        <a href="/post/2018-09-22-ci%E8%BF%87%E7%A8%8B%E4%B8%AD%E6%8B%89%E5%8F%96%E4%BB%93%E5%BA%93%E7%9A%84%E6%B3%A8%E6%84%8F%E7%82%B9/" data-toggle="tooltip" data-placement="top" title="CI过程中拉取仓库的注意点">&larr; Previous Post</a>
                     </li>
                     
                     
                     <li class="next">
-                        <a href="/post/2018-09-22-ci%E8%BF%87%E7%A8%8B%E4%B8%AD%E6%8B%89%E5%8F%96%E4%BB%93%E5%BA%93%E7%9A%84%E6%B3%A8%E6%84%8F%E7%82%B9/" data-toggle="tooltip" data-placement="top" title="CI过程中拉取仓库的注意点">Next Post &rarr;</a>
+                        <a href="/post/2018-12-05-sofarpc%E6%A1%86%E6%9E%B6%E4%B9%8B%E6%80%BB%E4%BD%93%E8%AE%BE%E8%AE%A1%E4%B8%8E%E6%89%A9%E5%B1%95%E6%9C%BA%E5%88%B6/" data-toggle="tooltip" data-placement="top" title="转|SOFARPC框架之总体设计与扩展机制">Next Post &rarr;</a>
                     </li>
                     
                 </ul>
@@ -413,6 +515,52 @@ autoCreateTopicEnable=true
                         
                     
                         
+                            <a href="/tags/chirpstack" title="chirpstack">
+                                chirpstack
+                            </a>
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                            <a href="/tags/docker" title="docker">
+                                docker
+                            </a>
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                            <a href="/tags/fluentd" title="fluentd">
+                                fluentd
+                            </a>
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
                     
                         
                     
@@ -428,6 +576,28 @@ autoCreateTopicEnable=true
                     
                         
                     
+                        
+                            <a href="/tags/kubernetes" title="kubernetes">
+                                kubernetes
+                            </a>
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                            <a href="/tags/mq" title="mq">
+                                mq
+                            </a>
                         
                     
                         
@@ -459,9 +629,31 @@ autoCreateTopicEnable=true
                         
                     
                         
+                    
+                        
+                    
+                        
                             <a href="/tags/%E4%B8%AD%E9%97%B4%E4%BB%B6" title="中间件">
                                 中间件
                             </a>
+                        
+                    
+                        
+                            <a href="/tags/%E4%BA%91%E5%8E%9F%E7%94%9F" title="云原生">
+                                云原生
+                            </a>
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
                         
                     
                         
@@ -596,21 +788,15 @@ autoCreateTopicEnable=true
     })
 </script>
 
-
 <script>
-    (function(){
-        var bp = document.createElement('script');
-        var curProtocol = window.location.protocol.split(':')[0];
-        if (curProtocol === 'https'){
-       bp.src = '/120.79.83.107:5778/blog/push';
-      }
-      else{
-      bp.src = '//120.79.83.107:5778/blog/push';
-      }
-        var s = document.getElementsByTagName("script")[0];
-        s.parentNode.insertBefore(bp, s);
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?23001460802c6c63962c60b9c8c435af";
+      var s = document.getElementsByTagName("script")[0]; 
+      s.parentNode.insertBefore(hm, s);
     })();
-</script>
+    </script>
 
 
 

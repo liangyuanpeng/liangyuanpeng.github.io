@@ -1,16 +1,12 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Rpc on Hi,I`m lan</title>
+    <title>rpc on Hi,I`m lan</title>
     <link>/tags/rpc/</link>
-    <description>Recent content in Rpc on Hi,I`m lan</description>
+    <description>Recent content in rpc on Hi,I`m lan</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 12 Dec 2018 00:00:00 +0000</lastBuildDate>
-    
-	<atom:link href="/tags/rpc/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Wed, 12 Dec 2018 00:00:00 +0000</lastBuildDate><atom:link href="/tags/rpc/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>转|SOFARPC优雅关闭剖析</title>
       <link>/post/sofarpc%E4%BC%98%E9%9B%85%E5%85%B3%E9%97%AD%E5%89%96%E6%9E%90/</link>
@@ -26,7 +22,7 @@
       <pubDate>Wed, 12 Dec 2018 00:00:00 +0000</pubDate>
       
       <guid>/post/sofarpc%E6%B3%9B%E5%8C%96%E8%B0%83%E7%94%A8%E5%AE%9E%E7%8E%B0%E5%89%96%E6%9E%90/</guid>
-      <description>SOFA Scalable Open Financial Architecture 是蚂蚁金服自主研发的金融级分布式中间件，包含了构建金融级云原生架构所需的各个组件，是在金融场景里锤炼出来的最佳实践。 本文为《剖析 |</description>
+      <description>SOFA Scalable Open Financial Architecture是蚂蚁金服自主研发的金融级分布式中间件，包含了构建金融级云原生架构所需的各个组件，是在金融场景里锤炼出来的最</description>
     </item>
     
     <item>

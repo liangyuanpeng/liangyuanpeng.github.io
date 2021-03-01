@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>云原生 on Hi,I`m lan</title>
@@ -6,10 +6,24 @@
     <description>Recent content in 云原生 on Hi,I`m lan</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 16 Jan 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sun, 07 Feb 2021 00:00:00 +0000</lastBuildDate><atom:link href="/tags/%E4%BA%91%E5%8E%9F%E7%94%9F/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>kubeadm配合短域名lank8s.cn部署kubernetes</title>
+      <link>/post/2021-02-07-deploy-k8s-lank8scn/</link>
+      <pubDate>Sun, 07 Feb 2021 00:00:00 +0000</pubDate>
+      
+      <guid>/post/2021-02-07-deploy-k8s-lank8scn/</guid>
+      <description>本文实现目标 本文主要使用kubeadm快速部署一个单机的kubernetes,其中镜像仓库使用lank8s.cn,当然也可以使用其他地址,l</description>
+    </item>
     
-	<atom:link href="/tags/%E4%BA%91%E5%8E%9F%E7%94%9F/index.xml" rel="self" type="application/rss+xml" />
-    
+    <item>
+      <title>k8s-client-go源码剖析(二)</title>
+      <link>/post/k8s-client-go%E6%BA%90%E7%A0%81%E5%89%96%E6%9E%90/</link>
+      <pubDate>Sat, 23 Jan 2021 00:00:00 +0000</pubDate>
+      
+      <guid>/post/k8s-client-go%E6%BA%90%E7%A0%81%E5%89%96%E6%9E%90/</guid>
+      <description>简介：云原生社区活动&amp;mdash;Kubernetes源码剖析第一期第二周 本周是K8S源码研习社第一期第二周，学习内容是学习Informer</description>
+    </item>
     
     <item>
       <title>docker部署minio</title>

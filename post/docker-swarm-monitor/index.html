@@ -79,15 +79,19 @@ var _hmt = _hmt || [];
                     </li>
                     
                     <li>
-                        <a href="categories/cloudnative">CloudNative</a>
+                        <a href="categories/cloudnative">cloudnative</a>
                     </li>
                     
                     <li>
-                        <a href="categories/devops">DevOps</a>
+                        <a href="categories/devops">devops</a>
                     </li>
                     
                     <li>
-                        <a href="categories/tech">Tech</a>
+                        <a href="categories/kubernetes">kubernetes</a>
+                    </li>
+                    
+                    <li>
+                        <a href="categories/tech">tech</a>
                     </li>
                     
                     <li>
@@ -102,7 +106,15 @@ var _hmt = _hmt || [];
                         <a href="categories/%E5%AE%B9%E5%99%A8%E7%BC%96%E6%8E%92">容器编排</a>
                     </li>
                     
+                    <li>
+                        <a href="categories/%E7%89%A9%E8%81%94%E7%BD%91">物联网</a>
+                    </li>
+                    
 
+                    
+		            <li>
+                        <a href="search">SEARCH <img src="img/search.png" height="15" style="cursor: pointer;"></a>
+		            </li>
                     
                 </ul>
             </div>
@@ -168,6 +180,142 @@ var _hmt = _hmt || [];
                     <h2 class="subheading"></h2>
                     <span  class="meta">Posted by lyp on Sunday, February 9, 2020
                         
+                        <span id="busuanzi_container_page_pv">|<span id="busuanzi_value_page_pv"></span><span>
+                            <span id="/post/docker-swarm-monitor/" class="leancloud_visitors meta_data_item" data-flag-title="">
+    <span class="post-meta-item-icon">
+      <span class="octicon octicon-eye"></span> 
+    </span>
+    <i class="fa fa-eye"></i>
+    <span class="old-visitors-count" style="display: none;"></span>
+    <span class="leancloud-visitors-count"></span>
+</span>
+
+
+
+<script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+
+<script>
+	AV.initialize("", "");
+</script>
+
+<script type="text/javascript">
+function showTime(Counter) {
+    var query = new AV.Query(Counter);
+    var entries = [];
+    var $visitors = $(".leancloud_visitors");
+
+    $visitors.each(function() {
+        entries.push($(this).attr("id").trim());
+    });
+
+    query.containedIn('url', entries);
+    query.find()
+        .done(function(results) {
+            var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+            var OLD_COUNT_CONTAINER_REF = '.old-visitors-count';
+
+            
+            
+            
+            
+
+            for (var i = 0; i < results.length; i++) {
+                var item = results[i];
+                var url = item.get('url');
+                var time = item.get('time');
+                var element = document.getElementById(url);
+
+                $(element).find(COUNT_CONTAINER_REF).text(time);
+            }
+            for (var i = 0; i < entries.length; i++) {
+                var url = entries[i];
+                var element = document.getElementById(url);
+                var countSpan = $(element).find(COUNT_CONTAINER_REF);
+                if (countSpan.text() == '') {
+                    var oldCountSpan = $(element).find(OLD_COUNT_CONTAINER_REF).text();
+                    if(oldCountSpan!=''){
+                        countSpan.text(0+parseInt(oldCountSpan));
+                    }else{
+                        countSpan.text(0);          
+                    }
+                }
+            }
+        })
+        .fail(function(object, error) {
+            console.log("Error: " + error.code + " " + error.message);
+        });
+}
+
+function addCount(Counter) {
+    var $visitors = $(".leancloud_visitors");
+    var url = $visitors.attr('id').trim();
+    var title = $visitors.attr('data-flag-title').trim();
+    var query = new AV.Query(Counter);
+
+    query.equalTo("url", url);
+    query.find({
+        success: function(results) {
+            if (results.length > 0) {
+                var counter = results[0];
+                counter.fetchWhenSave(true);
+                counter.increment("time");
+                counter.save(null, {
+                    success: function(counter) {
+                        var $element = $(document.getElementById(url));
+                        $element.find('.leancloud-visitors-count').text(counter.get('time'));
+                    },
+                    error: function(counter, error) {
+                        console.log('Failed to save Visitor num, with error message: ' + error.message);
+                    }
+                });
+            } else {
+                var newcounter = new Counter();
+                 
+                var acl = new AV.ACL();
+                acl.setPublicReadAccess(true);
+                acl.setPublicWriteAccess(true);
+                newcounter.setACL(acl);
+                 
+                newcounter.set("title", title);
+                newcounter.set("url", url);
+                var OLD_COUNT_CONTAINER_REF = '.old-visitors-count';
+                var $element = $(document.getElementById(url));
+                var oldCountSpan = $element.find(OLD_COUNT_CONTAINER_REF).text();
+                if(oldCountSpan!=''){
+                    newcounter.set("time", parseInt(oldCountSpan)+1);
+                }else{
+ 	                    newcounter.set("time",  1);
+                }
+                newcounter.save(null, {
+                    success: function(newcounter) {
+                        var $element = $(document.getElementById(url));
+                        $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+                    },
+                    error: function(newcounter, error) {
+                        console.log('Failed to create');
+                    }
+                });
+            }
+        },
+        error: function(error) {
+            console.log('Error:' + error.code + " " + error.message);
+        }
+    });
+}
+$(function() {
+    var Counter = AV.Object.extend("Counter");
+    
+    
+    if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+    } else {
+        showTime(Counter);
+    }
+});
+</script>
+
+                            阅读 </span></span>|<span class="post-date">共2210字</span>，阅读约<span class="more-meta"> 5 分钟</span>
+                        
                     </span>
                 </div>
             </div>
@@ -193,60 +341,64 @@ var _hmt = _hmt || [];
                 <h2>TOC</h2>
                 </header>
                 <nav id="TableOfContents">
-<ul>
-<li><a href="#前提">前提</a>
-<ul>
-<li><a href="#前言">前言</a></li>
-<li><a href="#整体思路">整体思路</a></li>
-<li><a href="#演示环境">演示环境</a></li>
-<li><a href="#初始化docker-swarm">初始化Docker Swarm</a></li>
-<li><a href="#在master机器上查看当前的node节点">在master机器上查看当前的node节点</a></li>
-<li><a href="#在docker-swarm部署监控服务">在Docker Swarm部署监控服务</a></li>
-<li><a href="#查看服务的部署情况">查看服务的部署情况</a></li>
-<li><a href="#为cadvisor配置influxdb数据库">为cadvisor配置influxdb数据库</a></li>
-<li><a href="#配置grafana">配置grafana</a>
-<ul>
-<li><a href="#配置数据源">配置数据源</a></li>
-<li><a href="#配置grafana视图模版">配置grafana视图模版</a></li>
-</ul></li>
-<li><a href="#总结">总结</a></li>
-</ul></li>
-</ul>
+  <ul>
+    <li><a href="#前言">前言</a></li>
+    <li><a href="#整体思路">整体思路</a></li>
+    <li><a href="#演示环境">演示环境</a></li>
+    <li><a href="#初始化docker-swarm">初始化Docker Swarm</a></li>
+    <li><a href="#在master机器上查看当前的node节点">在master机器上查看当前的node节点</a></li>
+    <li><a href="#在docker-swarm部署监控服务">在Docker Swarm部署监控服务</a></li>
+    <li><a href="#查看服务的部署情况">查看服务的部署情况</a></li>
+    <li><a href="#为cadvisor配置influxdb数据库">为cadvisor配置influxdb数据库</a></li>
+    <li><a href="#配置grafana">配置grafana</a>
+      <ul>
+        <li><a href="#配置数据源">配置数据源</a></li>
+        <li><a href="#配置grafana视图模版">配置grafana视图模版</a></li>
+      </ul>
+    </li>
+    <li><a href="#总结">总结</a></li>
+  </ul>
 </nav>
 		
-		
-
-<h1 id="前提">前提</h1>
-
+		<h1 id="前提">前提</h1>
 <ol>
-<li>Docker<br /></li>
+<li>Docker</li>
 </ol>
-
 <h2 id="前言">前言</h2>
-
 <p>现在Docker Swarm已经彻底输给了K8S,但是现在K8S依然很复杂，上手难度较Docker Swarm高，如果是小规模团队且需要容器编排的话，使用Docker Swarm还是适合的。</p>
-
 <p>目前Docker Swarm有一个问题一直没有解决，如果业务需要知道用户的请求IP,则Docker Swarm满足不了要求。目前部署在Docker Swarm内的服务,无法获取到用户的请求IP。</p>
-
 <p>具体可以看看这个ISSUE-&gt;<a href="https://github.com/moby/moby/issues/25526">Unable to retrieve user&rsquo;s IP address in docker swarm mode</a></p>
-
 <h2 id="整体思路">整体思路</h2>
-
 <p>思路整体来说是使用Influxdb+Grafana+cadvisor,其中<code>cadvisor</code>负责数据的收集，每一台节点都部署一个cadvisor服务,Influxdb负责数据的存储,Grafana负责数据的可视化。</p>
-
+<p><img src="https://res.cloudinary.com/lyp/image/upload/v1581387851/hugo/blog.github.io/docker/docker-swarm-monitor-process.png" alt="https://res.cloudinary.com/lyp/image/upload/v1581387851/hugo/blog.github.io/docker/docker-swarm-monitor-process.png"></p>
 <h2 id="演示环境">演示环境</h2>
-
-<p>主机 | IP
--|-
-master(manager) | 192.168.1.60
-node1(worker) | 192.168.1.61
-node2(worker) | 192.168.1.62</p>
-
+<table>
+<thead>
+<tr>
+<th>主机</th>
+<th>IP</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>master(manager)</td>
+<td>192.168.1.60</td>
+</tr>
+<tr>
+<td>node1(worker)</td>
+<td>192.168.1.61</td>
+</tr>
+<tr>
+<td>node2(worker)</td>
+<td>192.168.1.62</td>
+</tr>
+</tbody>
+</table>
+<p><img src="https://res.cloudinary.com/lyp/image/upload/v1581387850/hugo/blog.github.io/docker/docker-swarm-monitor-node.png" alt="https://res.cloudinary.com/lyp/image/upload/v1581387850/hugo/blog.github.io/docker/docker-swarm-monitor-node.png"></p>
+<p>我这里是将master节点当作监控数据存储以及可视化服务的节点作为演示,一般是拿一个worker节点做这样的工作。</p>
 <h2 id="初始化docker-swarm">初始化Docker Swarm</h2>
-
-<p>在master机器上初始化集群,运行<br />
+<p>在master机器上初始化集群,运行<br>
 <code>docker swarm init --advertise-addr {MASTER-IP}</code></p>
-
 <pre><code>[root@master ~]# docker swarm init --advertise-addr 192.168.1.60
 
 Swarm initialized: current node (138n5rwjz83y8goyzepp1cdo7) is now a manager.
@@ -257,137 +409,95 @@ To add a worker to this swarm, run the following command:
 
 To add a manager to this swarm, run 'docker swarm join-token manager' and follow the instructions
 
-</code></pre>
-
-<p>在node节点运行提示的命令加入到集群中<br />
-<code>
-docker swarm join --token SWMTKN-1-67je7chylnpyt0s4k1ee63rhxgh0qijiah9gadvcr7i6uab909-535nf6qu6v7b8dscc0plghr9j 192.168.1.60:2377
-</code><br />
+</code></pre><p>在node节点运行提示的命令加入到集群中<br>
+<code>docker swarm join --token SWMTKN-1-67je7chylnpyt0s4k1ee63rhxgh0qijiah9gadvcr7i6uab909-535nf6qu6v7b8dscc0plghr9j 192.168.1.60:2377</code><br>
 manager节点初始化集群后，都会有这样一个提示，这个的命令只是给个示例，实际命令需要根据初始化集群后的真实情况来运行。</p>
-
 <pre><code>[root@node1 ~]#  docker swarm join --token SWMTKN-1-67je7chylnpyt0s4k1ee63rhxgh0qijiah9gadvcr7i6uab909-535nf6qu6v7b8dscc0plghr9j 192.168.1.60:2377
 This node joined a swarm as a worker.
-</code></pre>
-
-<pre><code>[root@node2 ~]#  docker swarm join --token SWMTKN-1-67je7chylnpyt0s4k1ee63rhxgh0qijiah9gadvcr7i6uab909-535nf6qu6v7b8dscc0plghr9j 192.168.1.60:2377
+</code></pre><pre><code>[root@node2 ~]#  docker swarm join --token SWMTKN-1-67je7chylnpyt0s4k1ee63rhxgh0qijiah9gadvcr7i6uab909-535nf6qu6v7b8dscc0plghr9j 192.168.1.60:2377
 This node joined a swarm as a worker.
-</code></pre>
-
-<h2 id="在master机器上查看当前的node节点">在master机器上查看当前的node节点</h2>
-
-<p><code>
-docker node ls
-</code></p>
-
+</code></pre><h2 id="在master机器上查看当前的node节点">在master机器上查看当前的node节点</h2>
+<p><code>docker node ls</code></p>
 <pre><code>[root@master ~]# docker node ls
 ID                            HOSTNAME            STATUS              AVAILABILITY        MANAGER STATUS      ENGINE VERSION
 138n5rwjz83y8goyzepp1cdo7 *   master              Ready               Active              Leader              18.09.8
 q03by75rqur63lx36cmordf11     node1               Ready               Active                                  18.09.8
 6shdf5ej4b5u7x877bg9nyjk3     node2               Ready               Active 
-</code></pre>
-
-<p>到目前为止集群已经搭建完成了，接下来开始部署服务</p>
-
+</code></pre><p>到目前为止集群已经搭建完成了，接下来开始部署服务</p>
 <h2 id="在docker-swarm部署监控服务">在Docker Swarm部署监控服务</h2>
-
-<p><code>
- docker stack deploy -c docker-compose-monitor.yml monitor
-</code></p>
-
+<p><code>docker stack deploy -c docker-compose-monitor.yml monitor</code></p>
 <pre><code>[root@master ~]# docker stack deploy -c docker-compose-monitor.yml monitor
 Creating network monitor_default
 Creating service monitor_influx
 Creating service monitor_grafana
 Creating service monitor_cadvisor
-</code></pre>
+</code></pre><p><code>docker-compose-monitor.yml</code>文件内容</p>
+<pre><code>version: '3'
 
-<p><code>docker-compose-monitor.yml</code>文件内容</p>
-
-<pre><code> version: '3'
- 
 services:
-  influx:
-    image: influxdb
-    volumes:
-      - influx:/var/lib/influxdb
-    deploy:
-      replicas: 1
-      placement:
-        constraints:
-          - node.role == manager
- 
-  grafana:
-    image: grafana/grafana
-    ports:
-      - 0.0.0.0:80:3000
-    volumes:
-      - grafana:/var/lib/grafana
-    depends_on:
-      - influx
-    deploy:
-      replicas: 1
-      placement:
-        constraints:
-          - node.role == manager
- 
-  cadvisor:
-    image: google/cadvisor
-    hostname: '{{.Node.Hostname}}'
-    command: -logtostderr -docker_only -storage_driver=influxdb -storage_driver_db=cadvisor -storage_driver_host=influx:8086
-    volumes:
-      - /:/rootfs:ro
-      - /var/run:/var/run:rw
-      - /sys:/sys:ro
-      - /var/lib/docker/:/var/lib/docker:ro
-    depends_on:
-      - influx
-    deploy:
-      mode: global
- 
+ influx:
+   image: influxdb
+   volumes:
+     - influx:/var/lib/influxdb
+   deploy:
+     replicas: 1
+     placement:
+       constraints:
+         - node.role == manager
+
+ grafana:
+   image: grafana/grafana
+   ports:
+     - 0.0.0.0:80:3000
+   volumes:
+     - grafana:/var/lib/grafana
+   depends_on:
+     - influx
+   deploy:
+     replicas: 1
+     placement:
+       constraints:
+         - node.role == manager
+
+ cadvisor:
+   image: google/cadvisor
+   hostname: '{{.Node.Hostname}}'
+   command: -logtostderr -docker_only -storage_driver=influxdb -storage_driver_db=cadvisor -storage_driver_host=influx:8086
+   volumes:
+     - /:/rootfs:ro
+     - /var/run:/var/run:rw
+     - /sys:/sys:ro
+     - /var/lib/docker/:/var/lib/docker:ro
+   depends_on:
+     - influx
+   deploy:
+     mode: global
+
 volumes:
-  influx:
-    driver: local
-  grafana:
-    driver: local
-</code></pre>
-
-<p><a href="https://res.cloudinary.com/lyp/raw/upload/v1581252602/hugo/blog.github.io/docker/docker-compose-monitor.yml">下载docker-compose-monitor.yml</a></p>
-
+ influx:
+   driver: local
+ grafana:
+   driver: local
+</code></pre><p><a href="https://res.cloudinary.com/lyp/raw/upload/v1581252602/hugo/blog.github.io/docker/docker-compose-monitor.yml">下载docker-compose-monitor.yml</a></p>
 <h2 id="查看服务的部署情况">查看服务的部署情况</h2>
-
-<p><code>
-docker service ls
-</code></p>
-
+<p><code>docker service ls</code></p>
 <pre><code>[root@master ~]# docker service ls
 ID                  NAME                MODE                REPLICAS            IMAGE                    PORTS
 qth4tssf2sm1        monitor_cadvisor    global              3/3                 google/cadvisor:latest   
 p2vbxe7ic175        monitor_grafana     replicated          1/1                 grafana/grafana:latest   *:80-&gt;3000/tcp
 von1rpeqq7vj        monitor_influx      replicated          1/1                 influxdb:latest  
-</code></pre>
-
-<p>到目前为止，服务已经部署完成了，三台机器各自部署一个<code>cadvisor</code>,在master节点部署了<code>grafana</code>和<code>influxdb</code></p>
-
+</code></pre><p>到目前为止，服务已经部署完成了，三台机器各自部署一个<code>cadvisor</code>,在master节点部署了<code>grafana</code>和<code>influxdb</code></p>
 <h2 id="为cadvisor配置influxdb数据库">为cadvisor配置influxdb数据库</h2>
-
-<p>查看一下master机器上的服务<br />
-<code>
-docker ps
-</code></p>
-
+<p>查看一下master机器上的服务<br>
+<code>docker ps</code></p>
 <pre><code>[root@master ~]# docker ps
 CONTAINER ID        IMAGE                    COMMAND                  CREATED             STATUS              PORTS               NAMES
 55965fdf13a3        grafana/grafana:latest   &quot;/run.sh&quot;                3 hours ago         Up 3 hours          3000/tcp            monitor_grafana.1.l9uh0ov7ltk7q2yollmk4x1v9
 0bf544c7d81c        google/cadvisor:latest   &quot;/usr/bin/cadvisor -…&quot;   3 hours ago         Up 3 hours          8080/tcp            monitor_cadvisor.138n5rwjz83y8goyzepp1cdo7.l53vufoivp0oe8tyy14nh0jof
 3ce050f0483e        influxdb:latest          &quot;/entrypoint.sh infl…&quot;   3 hours ago         Up 3 hours          8086/tcp            monitor_influx.1.vraeh8ektium1j1jd27qvq1au
 [root@master ~]# 
-</code></pre>
-
-<p>可以看到是符合预期的，接下来进一步查看<code>cadvisor</code>容器的日志<br />
-<code>
-docker logs -f 0bf544c7d81c
-</code></p>
-
+</code></pre><p>可以看到是符合预期的，接下来进一步查看<code>cadvisor</code>容器的日志<br>
+<code>docker logs -f 0bf544c7d81c</code></p>
 <pre><code>[root@master ~]# docker logs -f 0bf544c7d81c
 W0209 09:32:15.730951       1 manager.go:349] Could not configure a source for OOM detection, disabling OOM events: open /dev/kmsg: no such file or directory
 E0209 09:33:15.783705       1 memory.go:94] failed to write stats to influxDb - {&quot;error&quot;:&quot;database not found: \&quot;cadvisor\&quot;&quot;}
@@ -398,67 +508,48 @@ E0209 09:37:16.107051       1 memory.go:94] failed to write stats to influxDb - 
 E0209 09:38:16.215684       1 memory.go:94] failed to write stats to influxDb - {&quot;error&quot;:&quot;database not found: \&quot;cadvisor\&quot;&quot;}
 E0209 09:39:16.305772       1 memory.go:94] failed to write stats to influxDb - {&quot;error&quot;:&quot;database not found: \&quot;cadvisor\&quot;&quot;}
 
-</code></pre>
-
-<p>可以看到现在一直是在报错的，因为目前的<code>influx</code>容器中没有<code>cadvisor</code>这样的数据库存在，接下来我们进入<code>influx</code>容器并创建对应的<code>cadvisor</code>数据库,在master机器上执行以下命令即可。</p>
-
-<p><code>
-docker exec `docker ps | grep -i influx | awk '{print $1}'` influx -execute 'CREATE DATABASE cadvisor'
-</code></p>
-
-<p>当然，也可以分步骤执行
-1. 找到influxdb的容器
-2. 进入到influxdb容器内并登陆influx
-3. 创建数据库</p>
-
+</code></pre><p>可以看到现在一直是在报错的，因为目前的<code>influx</code>容器中没有<code>cadvisor</code>这样的数据库存在，接下来我们进入<code>influx</code>容器并创建对应的<code>cadvisor</code>数据库,在master机器上执行以下命令即可。</p>
+<p><code>docker exec `docker ps | grep -i influx | awk '{print $1}'` influx -execute 'CREATE DATABASE cadvisor'</code></p>
+<p>当然，也可以分步骤执行</p>
+<ol>
+<li>找到influxdb的容器</li>
+<li>进入到influxdb容器内并登陆influx</li>
+<li>创建数据库</li>
+</ol>
 <p>这里就不演示了。</p>
-
 <h2 id="配置grafana">配置grafana</h2>
-
 <p>到目前为止，数据已经在收集了，并且数据存储在<code>influxdb</code>中。接下来配置grafana将数据进行可视化。</p>
-
-<p>因为docker-compose-monitor.yml文件内给grafna配置的端口是80,这里直接访问master机器的IP就可以访问到grafana,在浏览器打开<code>192.168.1.60</code>.<br />
-grafana<br />
-默认的帐号是<code>admin</code><br />
-默认的密码是<code>admin</code><br />
+<p>因为docker-compose-monitor.yml文件内给grafna配置的端口是80,这里直接访问master机器的IP就可以访问到grafana,在浏览器打开<code>192.168.1.60</code>.<br>
+grafana<br>
+默认的帐号是<code>admin</code><br>
+默认的密码是<code>admin</code><br>
 首次登陆后会提示修改密码，新密码继续设置为<code>admin</code>也没关系。</p>
-
 <p>登陆成功后开始设置数据源</p>
-
 <h3 id="配置数据源">配置数据源</h3>
-
 <ol>
 <li>打开左边菜单栏进入数据源配置页面
-<img src="https://res.cloudinary.com/lyp/image/upload/v1581251657/hugo/blog.github.io/docker/config_source1.png" alt="" /><br /></li>
-<li>添加新的数据源,我这里是添加过了,所以会有一个influxdb的数据源显示。<br />
-<img src="https://res.cloudinary.com/lyp/image/upload/v1581251657/hugo/blog.github.io/docker/config_source2.png" alt="" /><br /></li>
-<li>选择influxdb类型的数据源<br />
-<img src="https://res.cloudinary.com/lyp/image/upload/v1581251656/hugo/blog.github.io/docker/config_source3.png" alt="" /><br /></li>
-<li>填写influxdb对应的信息,Name填写<code>influx</code>,因为待会要用到一个grafana模版,所以这里叫influx名字,URL填<code>http://influx:8086</code>,这个也不是固定的,本次<code>docker-compose-monitor.yml</code>文件内<code>influxdb</code>的容器名叫<code>influx</code>,端口开放出来的为8086(<code>默认</code>),所以这里填<code>influx:8086</code><br />
-<img src="https://res.cloudinary.com/lyp/image/upload/v1581251945/hugo/blog.github.io/docker/config_source4.png" alt="" /><br /></li>
+<img src="https://res.cloudinary.com/lyp/image/upload/v1581251657/hugo/blog.github.io/docker/config_source1.png" alt=""></li>
+<li>添加新的数据源,我这里是添加过了,所以会有一个influxdb的数据源显示。<br>
+<img src="https://res.cloudinary.com/lyp/image/upload/v1581251657/hugo/blog.github.io/docker/config_source2.png" alt=""></li>
+<li>选择influxdb类型的数据源<br>
+<img src="https://res.cloudinary.com/lyp/image/upload/v1581251656/hugo/blog.github.io/docker/config_source3.png" alt=""></li>
+<li>填写influxdb对应的信息,Name填写<code>influx</code>,因为待会要用到一个grafana模版,所以这里叫influx名字,URL填<code>http://influx:8086</code>,这个也不是固定的,本次<code>docker-compose-monitor.yml</code>文件内<code>influxdb</code>的容器名叫<code>influx</code>,端口开放出来的为8086(<code>默认</code>),所以这里填<code>influx:8086</code><br>
+<img src="https://res.cloudinary.com/lyp/image/upload/v1581251945/hugo/blog.github.io/docker/config_source4.png" alt=""></li>
 </ol>
-
 <p>到目前为止，数据源相关的内容已经配置完成了。</p>
-
 <h3 id="配置grafana视图模版">配置grafana视图模版</h3>
-
 <p>这里使用模版只是为了演示效果，如果模版的样式不太满意，可以研究下grafana自行调整。</p>
-
 <ol>
-<li>首先打开grafana的dashboard市场下载模版<a href="https://grafana.com/grafana/dashboards/4637/reviews">https://grafana.com/grafana/dashboards/4637/reviews</a><br />
-<img src="https://res.cloudinary.com/lyp/image/upload/v1581252257/hugo/blog.github.io/docker/download_grafana_temp.png" alt="" /><br /></li>
+<li>首先打开grafana的dashboard市场下载模版<a href="https://grafana.com/grafana/dashboards/4637/reviews">https://grafana.com/grafana/dashboards/4637/reviews</a><br>
+<img src="https://res.cloudinary.com/lyp/image/upload/v1581252257/hugo/blog.github.io/docker/download_grafana_temp.png" alt=""></li>
 <li>选中dashboard菜单,选中import进行导入
-<img src="https://res.cloudinary.com/lyp/image/upload/v1581251657/hugo/blog.github.io/docker/import_dashboard.png" alt="" /><br /></li>
-<li>打开dashboard就已经可以看到dashboard模版的内容了.<br />
-<img src="https://res.cloudinary.com/lyp/image/upload/v1581251656/hugo/blog.github.io/docker/grafana_for_cadvisor.png" alt="" /><br /></li>
+<img src="https://res.cloudinary.com/lyp/image/upload/v1581251657/hugo/blog.github.io/docker/import_dashboard.png" alt=""></li>
+<li>打开dashboard就已经可以看到dashboard模版的内容了.<br>
+<img src="https://res.cloudinary.com/lyp/image/upload/v1581251656/hugo/blog.github.io/docker/grafana_for_cadvisor.png" alt=""></li>
 </ol>
-
 <h2 id="总结">总结</h2>
-
 <p>一个基本的Docker Swarm集群监控就搭建完成了</p>
-
 <p>还有更高级的也许后面会更新一篇blog进行讲述.例如当某个值(CPU)达到某个阀值，发送钉钉或者slack消息进行告警</p>
-
 <p>只要明白思路，实操基本上没有什么问题。</p>
 
 
@@ -467,12 +558,12 @@ grafana<br />
                 <ul class="pager">
                     
                     <li class="previous">
-                        <a href="/post/docker-note/" data-toggle="tooltip" data-placement="top" title="docker常用命令集合">&larr; Previous Post</a>
+                        <a href="/post/docker-deploy-minio/" data-toggle="tooltip" data-placement="top" title="docker部署minio">&larr; Previous Post</a>
                     </li>
                     
                     
                     <li class="next">
-                        <a href="/post/docker-deploy-minio/" data-toggle="tooltip" data-placement="top" title="docker部署minio">Next Post &rarr;</a>
+                        <a href="/post/docker-note/" data-toggle="tooltip" data-placement="top" title="docker常用命令集合">Next Post &rarr;</a>
                     </li>
                     
                 </ul>
@@ -509,6 +600,52 @@ grafana<br />
                         
                     
                         
+                            <a href="/tags/chirpstack" title="chirpstack">
+                                chirpstack
+                            </a>
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                            <a href="/tags/docker" title="docker">
+                                docker
+                            </a>
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                            <a href="/tags/fluentd" title="fluentd">
+                                fluentd
+                            </a>
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
                     
                         
                     
@@ -524,6 +661,28 @@ grafana<br />
                     
                         
                     
+                        
+                            <a href="/tags/kubernetes" title="kubernetes">
+                                kubernetes
+                            </a>
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                            <a href="/tags/mq" title="mq">
+                                mq
+                            </a>
                         
                     
                         
@@ -555,9 +714,31 @@ grafana<br />
                         
                     
                         
+                    
+                        
+                    
+                        
                             <a href="/tags/%E4%B8%AD%E9%97%B4%E4%BB%B6" title="中间件">
                                 中间件
                             </a>
+                        
+                    
+                        
+                            <a href="/tags/%E4%BA%91%E5%8E%9F%E7%94%9F" title="云原生">
+                                云原生
+                            </a>
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
                         
                     
                         
@@ -692,21 +873,15 @@ grafana<br />
     })
 </script>
 
-
 <script>
-    (function(){
-        var bp = document.createElement('script');
-        var curProtocol = window.location.protocol.split(':')[0];
-        if (curProtocol === 'https'){
-       bp.src = '/120.79.83.107:5778/blog/push';
-      }
-      else{
-      bp.src = '//120.79.83.107:5778/blog/push';
-      }
-        var s = document.getElementsByTagName("script")[0];
-        s.parentNode.insertBefore(bp, s);
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?23001460802c6c63962c60b9c8c435af";
+      var s = document.getElementsByTagName("script")[0]; 
+      s.parentNode.insertBefore(hm, s);
     })();
-</script>
+    </script>
 
 
 

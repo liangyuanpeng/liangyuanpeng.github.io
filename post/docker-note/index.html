@@ -79,15 +79,19 @@ var _hmt = _hmt || [];
                     </li>
                     
                     <li>
-                        <a href="categories/cloudnative">CloudNative</a>
+                        <a href="categories/cloudnative">cloudnative</a>
                     </li>
                     
                     <li>
-                        <a href="categories/devops">DevOps</a>
+                        <a href="categories/devops">devops</a>
                     </li>
                     
                     <li>
-                        <a href="categories/tech">Tech</a>
+                        <a href="categories/kubernetes">kubernetes</a>
+                    </li>
+                    
+                    <li>
+                        <a href="categories/tech">tech</a>
                     </li>
                     
                     <li>
@@ -102,7 +106,15 @@ var _hmt = _hmt || [];
                         <a href="categories/%E5%AE%B9%E5%99%A8%E7%BC%96%E6%8E%92">容器编排</a>
                     </li>
                     
+                    <li>
+                        <a href="categories/%E7%89%A9%E8%81%94%E7%BD%91">物联网</a>
+                    </li>
+                    
 
+                    
+		            <li>
+                        <a href="search">SEARCH <img src="img/search.png" height="15" style="cursor: pointer;"></a>
+		            </li>
                     
                 </ul>
             </div>
@@ -168,6 +180,142 @@ var _hmt = _hmt || [];
                     <h2 class="subheading"></h2>
                     <span  class="meta">Posted by lyp on Sunday, February 9, 2020
                         
+                        <span id="busuanzi_container_page_pv">|<span id="busuanzi_value_page_pv"></span><span>
+                            <span id="/post/docker-note/" class="leancloud_visitors meta_data_item" data-flag-title="">
+    <span class="post-meta-item-icon">
+      <span class="octicon octicon-eye"></span> 
+    </span>
+    <i class="fa fa-eye"></i>
+    <span class="old-visitors-count" style="display: none;"></span>
+    <span class="leancloud-visitors-count"></span>
+</span>
+
+
+
+<script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+
+<script>
+	AV.initialize("", "");
+</script>
+
+<script type="text/javascript">
+function showTime(Counter) {
+    var query = new AV.Query(Counter);
+    var entries = [];
+    var $visitors = $(".leancloud_visitors");
+
+    $visitors.each(function() {
+        entries.push($(this).attr("id").trim());
+    });
+
+    query.containedIn('url', entries);
+    query.find()
+        .done(function(results) {
+            var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+            var OLD_COUNT_CONTAINER_REF = '.old-visitors-count';
+
+            
+            
+            
+            
+
+            for (var i = 0; i < results.length; i++) {
+                var item = results[i];
+                var url = item.get('url');
+                var time = item.get('time');
+                var element = document.getElementById(url);
+
+                $(element).find(COUNT_CONTAINER_REF).text(time);
+            }
+            for (var i = 0; i < entries.length; i++) {
+                var url = entries[i];
+                var element = document.getElementById(url);
+                var countSpan = $(element).find(COUNT_CONTAINER_REF);
+                if (countSpan.text() == '') {
+                    var oldCountSpan = $(element).find(OLD_COUNT_CONTAINER_REF).text();
+                    if(oldCountSpan!=''){
+                        countSpan.text(0+parseInt(oldCountSpan));
+                    }else{
+                        countSpan.text(0);          
+                    }
+                }
+            }
+        })
+        .fail(function(object, error) {
+            console.log("Error: " + error.code + " " + error.message);
+        });
+}
+
+function addCount(Counter) {
+    var $visitors = $(".leancloud_visitors");
+    var url = $visitors.attr('id').trim();
+    var title = $visitors.attr('data-flag-title').trim();
+    var query = new AV.Query(Counter);
+
+    query.equalTo("url", url);
+    query.find({
+        success: function(results) {
+            if (results.length > 0) {
+                var counter = results[0];
+                counter.fetchWhenSave(true);
+                counter.increment("time");
+                counter.save(null, {
+                    success: function(counter) {
+                        var $element = $(document.getElementById(url));
+                        $element.find('.leancloud-visitors-count').text(counter.get('time'));
+                    },
+                    error: function(counter, error) {
+                        console.log('Failed to save Visitor num, with error message: ' + error.message);
+                    }
+                });
+            } else {
+                var newcounter = new Counter();
+                 
+                var acl = new AV.ACL();
+                acl.setPublicReadAccess(true);
+                acl.setPublicWriteAccess(true);
+                newcounter.setACL(acl);
+                 
+                newcounter.set("title", title);
+                newcounter.set("url", url);
+                var OLD_COUNT_CONTAINER_REF = '.old-visitors-count';
+                var $element = $(document.getElementById(url));
+                var oldCountSpan = $element.find(OLD_COUNT_CONTAINER_REF).text();
+                if(oldCountSpan!=''){
+                    newcounter.set("time", parseInt(oldCountSpan)+1);
+                }else{
+ 	                    newcounter.set("time",  1);
+                }
+                newcounter.save(null, {
+                    success: function(newcounter) {
+                        var $element = $(document.getElementById(url));
+                        $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+                    },
+                    error: function(newcounter, error) {
+                        console.log('Failed to create');
+                    }
+                });
+            }
+        },
+        error: function(error) {
+            console.log('Error:' + error.code + " " + error.message);
+        }
+    });
+}
+$(function() {
+    var Counter = AV.Object.extend("Counter");
+    
+    
+    if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+    } else {
+        showTime(Counter);
+    }
+});
+</script>
+
+                            阅读 </span></span>|<span class="post-date">共35字</span>，阅读约<span class="more-meta"> 1 分钟</span>
+                        
                     </span>
                 </div>
             </div>
@@ -193,37 +341,29 @@ var _hmt = _hmt || [];
                 <h2>TOC</h2>
                 </header>
                 <nav id="TableOfContents">
-<ul>
-<li>
-<ul>
-<li><a href="#停止一台机器上的所有容器">停止一台机器上的所有容器</a></li>
-<li><a href="#根据特定关键字删除镜像">根据特定关键字删除镜像</a></li>
-</ul></li>
-</ul>
+  <ul>
+    <li><a href="#停止一台机器上的所有容器">停止一台机器上的所有容器</a></li>
+    <li><a href="#根据特定关键字删除镜像">根据特定关键字删除镜像</a></li>
+  </ul>
 </nav>
 		
-		
-
-<h2 id="停止一台机器上的所有容器">停止一台机器上的所有容器</h2>
-
-<p><code>
-docker stop `docker ps -qa`
-</code></p>
-
+		<h2 id="停止一台机器上的所有容器">停止一台机器上的所有容器</h2>
+<p><code>docker stop `docker ps -qa`</code></p>
 <h2 id="根据特定关键字删除镜像">根据特定关键字删除镜像</h2>
-
-<p><code>
-docker rmi `docker images | grep NAME`
-</code></p>
+<p><code>docker rmi `docker images | grep NAME`</code></p>
 
 
                 <hr>
 
                 <ul class="pager">
                     
+                    <li class="previous">
+                        <a href="/post/docker-swarm-monitor/" data-toggle="tooltip" data-placement="top" title="部署docker swarm集群监控">&larr; Previous Post</a>
+                    </li>
+                    
                     
                     <li class="next">
-                        <a href="/post/docker-swarm-monitor/" data-toggle="tooltip" data-placement="top" title="部署docker swarm集群监控">Next Post &rarr;</a>
+                        <a href="/post/docker-deploy-kafka/" data-toggle="tooltip" data-placement="top" title="利用docker和docker-compose部署单机kafka">Next Post &rarr;</a>
                     </li>
                     
                 </ul>
@@ -260,6 +400,52 @@ docker rmi `docker images | grep NAME`
                         
                     
                         
+                            <a href="/tags/chirpstack" title="chirpstack">
+                                chirpstack
+                            </a>
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                            <a href="/tags/docker" title="docker">
+                                docker
+                            </a>
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                            <a href="/tags/fluentd" title="fluentd">
+                                fluentd
+                            </a>
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
                     
                         
                     
@@ -275,6 +461,28 @@ docker rmi `docker images | grep NAME`
                     
                         
                     
+                        
+                            <a href="/tags/kubernetes" title="kubernetes">
+                                kubernetes
+                            </a>
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                            <a href="/tags/mq" title="mq">
+                                mq
+                            </a>
                         
                     
                         
@@ -306,9 +514,31 @@ docker rmi `docker images | grep NAME`
                         
                     
                         
+                    
+                        
+                    
+                        
                             <a href="/tags/%E4%B8%AD%E9%97%B4%E4%BB%B6" title="中间件">
                                 中间件
                             </a>
+                        
+                    
+                        
+                            <a href="/tags/%E4%BA%91%E5%8E%9F%E7%94%9F" title="云原生">
+                                云原生
+                            </a>
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
                         
                     
                         
@@ -443,21 +673,15 @@ docker rmi `docker images | grep NAME`
     })
 </script>
 
-
 <script>
-    (function(){
-        var bp = document.createElement('script');
-        var curProtocol = window.location.protocol.split(':')[0];
-        if (curProtocol === 'https'){
-       bp.src = '/120.79.83.107:5778/blog/push';
-      }
-      else{
-      bp.src = '//120.79.83.107:5778/blog/push';
-      }
-        var s = document.getElementsByTagName("script")[0];
-        s.parentNode.insertBefore(bp, s);
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?23001460802c6c63962c60b9c8c435af";
+      var s = document.getElementsByTagName("script")[0]; 
+      s.parentNode.insertBefore(hm, s);
     })();
-</script>
+    </script>
 
 
 

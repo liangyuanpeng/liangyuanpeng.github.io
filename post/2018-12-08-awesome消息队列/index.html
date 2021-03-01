@@ -79,15 +79,19 @@ var _hmt = _hmt || [];
                     </li>
                     
                     <li>
-                        <a href="categories/cloudnative">CloudNative</a>
+                        <a href="categories/cloudnative">cloudnative</a>
                     </li>
                     
                     <li>
-                        <a href="categories/devops">DevOps</a>
+                        <a href="categories/devops">devops</a>
                     </li>
                     
                     <li>
-                        <a href="categories/tech">Tech</a>
+                        <a href="categories/kubernetes">kubernetes</a>
+                    </li>
+                    
+                    <li>
+                        <a href="categories/tech">tech</a>
                     </li>
                     
                     <li>
@@ -102,7 +106,15 @@ var _hmt = _hmt || [];
                         <a href="categories/%E5%AE%B9%E5%99%A8%E7%BC%96%E6%8E%92">容器编排</a>
                     </li>
                     
+                    <li>
+                        <a href="categories/%E7%89%A9%E8%81%94%E7%BD%91">物联网</a>
+                    </li>
+                    
 
+                    
+		            <li>
+                        <a href="search">SEARCH <img src="img/search.png" height="15" style="cursor: pointer;"></a>
+		            </li>
                     
                 </ul>
             </div>
@@ -168,6 +180,142 @@ var _hmt = _hmt || [];
                     <h2 class="subheading"></h2>
                     <span  class="meta">Posted by lyp on Saturday, December 8, 2018
                         
+                        <span id="busuanzi_container_page_pv">|<span id="busuanzi_value_page_pv"></span><span>
+                            <span id="/post/2018-12-08-awesome%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/" class="leancloud_visitors meta_data_item" data-flag-title="">
+    <span class="post-meta-item-icon">
+      <span class="octicon octicon-eye"></span> 
+    </span>
+    <i class="fa fa-eye"></i>
+    <span class="old-visitors-count" style="display: none;"></span>
+    <span class="leancloud-visitors-count"></span>
+</span>
+
+
+
+<script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+
+<script>
+	AV.initialize("", "");
+</script>
+
+<script type="text/javascript">
+function showTime(Counter) {
+    var query = new AV.Query(Counter);
+    var entries = [];
+    var $visitors = $(".leancloud_visitors");
+
+    $visitors.each(function() {
+        entries.push($(this).attr("id").trim());
+    });
+
+    query.containedIn('url', entries);
+    query.find()
+        .done(function(results) {
+            var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+            var OLD_COUNT_CONTAINER_REF = '.old-visitors-count';
+
+            
+            
+            
+            
+
+            for (var i = 0; i < results.length; i++) {
+                var item = results[i];
+                var url = item.get('url');
+                var time = item.get('time');
+                var element = document.getElementById(url);
+
+                $(element).find(COUNT_CONTAINER_REF).text(time);
+            }
+            for (var i = 0; i < entries.length; i++) {
+                var url = entries[i];
+                var element = document.getElementById(url);
+                var countSpan = $(element).find(COUNT_CONTAINER_REF);
+                if (countSpan.text() == '') {
+                    var oldCountSpan = $(element).find(OLD_COUNT_CONTAINER_REF).text();
+                    if(oldCountSpan!=''){
+                        countSpan.text(0+parseInt(oldCountSpan));
+                    }else{
+                        countSpan.text(0);          
+                    }
+                }
+            }
+        })
+        .fail(function(object, error) {
+            console.log("Error: " + error.code + " " + error.message);
+        });
+}
+
+function addCount(Counter) {
+    var $visitors = $(".leancloud_visitors");
+    var url = $visitors.attr('id').trim();
+    var title = $visitors.attr('data-flag-title').trim();
+    var query = new AV.Query(Counter);
+
+    query.equalTo("url", url);
+    query.find({
+        success: function(results) {
+            if (results.length > 0) {
+                var counter = results[0];
+                counter.fetchWhenSave(true);
+                counter.increment("time");
+                counter.save(null, {
+                    success: function(counter) {
+                        var $element = $(document.getElementById(url));
+                        $element.find('.leancloud-visitors-count').text(counter.get('time'));
+                    },
+                    error: function(counter, error) {
+                        console.log('Failed to save Visitor num, with error message: ' + error.message);
+                    }
+                });
+            } else {
+                var newcounter = new Counter();
+                 
+                var acl = new AV.ACL();
+                acl.setPublicReadAccess(true);
+                acl.setPublicWriteAccess(true);
+                newcounter.setACL(acl);
+                 
+                newcounter.set("title", title);
+                newcounter.set("url", url);
+                var OLD_COUNT_CONTAINER_REF = '.old-visitors-count';
+                var $element = $(document.getElementById(url));
+                var oldCountSpan = $element.find(OLD_COUNT_CONTAINER_REF).text();
+                if(oldCountSpan!=''){
+                    newcounter.set("time", parseInt(oldCountSpan)+1);
+                }else{
+ 	                    newcounter.set("time",  1);
+                }
+                newcounter.save(null, {
+                    success: function(newcounter) {
+                        var $element = $(document.getElementById(url));
+                        $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+                    },
+                    error: function(newcounter, error) {
+                        console.log('Failed to create');
+                    }
+                });
+            }
+        },
+        error: function(error) {
+            console.log('Error:' + error.code + " " + error.message);
+        }
+    });
+}
+$(function() {
+    var Counter = AV.Object.extend("Counter");
+    
+    
+    if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+    } else {
+        showTime(Counter);
+    }
+});
+</script>
+
+                            阅读 </span></span>|<span class="post-date">共756字</span>，阅读约<span class="more-meta"> 2 分钟</span>
+                        
                     </span>
                 </div>
             </div>
@@ -192,55 +340,34 @@ var _hmt = _hmt || [];
                 <header>
                 <h2>TOC</h2>
                 </header>
-                <nav id="TableOfContents">
-<ul>
-<li><a href="#前言">前言</a></li>
-<li><a href="#mq列表">mq列表</a></li>
-</ul>
-</nav>
+                <nav id="TableOfContents"></nav>
 		
-		
-
-<h1 id="前言">前言</h1>
-
+		<h1 id="前言">前言</h1>
 <p>消息队列是应用程序解耦通信的一个关键组件,本篇博文主要以列举开源消息队列为目的编写,并不展开具体内容讲解，没有开源的不在列举范围内。</p>
-
 <h1 id="mq列表">mq列表</h1>
-
-<p>1.<a href="https://rocketmq.apache.org">Apache RocketMQ</a><br />
+<p>1.<a href="https://rocketmq.apache.org">Apache RocketMQ</a><br>
 Apache RocketMQ 是阿里巴巴使用JAVA开发并在2016年11月捐赠给了apache基金会并于2017年9月顺利毕业成为apache顶级项目。</p>
-
-<p>2.<a href="http://kafka.apache.org">Apache Kafka</a><br />
+<p>2.<a href="http://kafka.apache.org">Apache Kafka</a><br>
 Apache Kafka最初由LinkedIn使用Scala开发，并在2011年初开源。现在也是Apache的顶级项目之一。</p>
-
-<p>3.<a href="http://www.rabbitmq.com/getstarted.html">RabbitMQ</a><br />
+<p>3.<a href="http://www.rabbitmq.com/getstarted.html">RabbitMQ</a><br>
 RabbitMQ是一个开源的AMQP实现，服务器端由Erlang语言实现，目前被广泛应用</p>
-
-<p>4.<a href="http://activemq.apache.org">Apache ActiveMQ</a><br />
+<p>4.<a href="http://activemq.apache.org">Apache ActiveMQ</a><br>
 ActiveMQ是由Apache出品基于JMS实现的一款消息队列。</p>
-
-<p>5.<a href="https://github.com/Tencent/phxqueue">PhxQueue</a><br />
+<p>5.<a href="https://github.com/Tencent/phxqueue">PhxQueue</a><br>
 PhxQueue 是微信开源的一款使用C/C++开发，基于 Paxos 协议实现的高可用、高吞吐和高可靠的分布式队列，保证 At-Least-Once Delivery，在微信内部广泛支持微信支付、公众平台等多个重要业务。</p>
-
-<p>6.<a href="https://github.com/qunarcorp/qmq">qmq</a><br />
+<p>6.<a href="https://github.com/qunarcorp/qmq">qmq</a><br>
 QMQ是去哪儿网内部广泛使用的消息中间件，使用JAVA开发，自2012年诞生以来在去哪儿网所有业务场景中广泛的应用，包括跟交易息息相关的订单场景； 也包括报价搜索等高吞吐量场景。</p>
-
-<p>7.<a href="https://github.com/antirez/disque">Disque</a><br />
+<p>7.<a href="https://github.com/antirez/disque">Disque</a><br>
 disque是redis作者使用c语言开发的一款消息队列</p>
-
-<p>8.<a href="https://www.nats.io">nats</a><br />
+<p>8.<a href="https://www.nats.io">nats</a><br>
 nats是cloud foundry中的一个通信组件,服务器端使用golang语言实现,适合云基础设施的消息通信系统、IoT设备消息通信和微服务架构。</p>
-
-<p>9.<a href="http://nsq.io/">nsq</a><br />
+<p>9.<a href="http://nsq.io/">nsq</a><br>
 nsq是一款使用golang语言实现的分布式消息队列。</p>
-
-<p>10.<a href="http://activemq.apache.org/apollo/">Apache apollo</a><br />
+<p>10.<a href="http://activemq.apache.org/apollo/">Apache apollo</a><br>
 ActiveMQ Apollo是一个更快、更可靠、更容易维护的消息传递代理，它是在最初ActiveMQ的基础上构建的。</p>
-
-<p>11.<a href="http://pulsar.apache.org">Apache Pulsar</a><br />
+<p>11.<a href="http://pulsar.apache.org">Apache Pulsar</a><br>
 Apache Pulsar是一个开源的分布式发布子消息系统，最初是在Yahoo创建的，现在是Apache软件基金会顶级项目之一</p>
-
-<p>12.<a href="https://github.com/Tencent/TubeMQ">TubeMQ</a><br />
+<p>12.<a href="https://github.com/Tencent/TubeMQ">TubeMQ</a><br>
 TubeMQ是腾讯大数据在2013年开始研发的分布式消息中间件系统（MQ），专注服务大数据场景下海量数据的高性能存储和传输。</p>
 
 
@@ -249,12 +376,12 @@ TubeMQ是腾讯大数据在2013年开始研发的分布式消息中间件系统�
                 <ul class="pager">
                     
                     <li class="previous">
-                        <a href="/post/sofarpc%E7%BA%BF%E7%A8%8B%E6%A8%A1%E5%9E%8B%E5%89%96%E6%9E%90/" data-toggle="tooltip" data-placement="top" title="转|SOFARPC线程模型剖析">&larr; Previous Post</a>
+                        <a href="/post/2018-12-08-sofarpc%E9%93%BE%E8%B7%AF%E8%BF%BD%E8%B8%AA%E5%89%96%E6%9E%90/" data-toggle="tooltip" data-placement="top" title="转|SOFARPC链路追踪剖析">&larr; Previous Post</a>
                     </li>
                     
                     
                     <li class="next">
-                        <a href="/post/2018-12-08-sofarpc%E9%93%BE%E8%B7%AF%E8%BF%BD%E8%B8%AA%E5%89%96%E6%9E%90/" data-toggle="tooltip" data-placement="top" title="转|SOFARPC链路追踪剖析">Next Post &rarr;</a>
+                        <a href="/post/sofarpc%E7%BA%BF%E7%A8%8B%E6%A8%A1%E5%9E%8B%E5%89%96%E6%9E%90/" data-toggle="tooltip" data-placement="top" title="转|SOFARPC线程模型剖析">Next Post &rarr;</a>
                     </li>
                     
                 </ul>
@@ -291,6 +418,52 @@ TubeMQ是腾讯大数据在2013年开始研发的分布式消息中间件系统�
                         
                     
                         
+                            <a href="/tags/chirpstack" title="chirpstack">
+                                chirpstack
+                            </a>
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                            <a href="/tags/docker" title="docker">
+                                docker
+                            </a>
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                            <a href="/tags/fluentd" title="fluentd">
+                                fluentd
+                            </a>
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
                     
                         
                     
@@ -306,6 +479,28 @@ TubeMQ是腾讯大数据在2013年开始研发的分布式消息中间件系统�
                     
                         
                     
+                        
+                            <a href="/tags/kubernetes" title="kubernetes">
+                                kubernetes
+                            </a>
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                            <a href="/tags/mq" title="mq">
+                                mq
+                            </a>
                         
                     
                         
@@ -337,9 +532,31 @@ TubeMQ是腾讯大数据在2013年开始研发的分布式消息中间件系统�
                         
                     
                         
+                    
+                        
+                    
+                        
                             <a href="/tags/%E4%B8%AD%E9%97%B4%E4%BB%B6" title="中间件">
                                 中间件
                             </a>
+                        
+                    
+                        
+                            <a href="/tags/%E4%BA%91%E5%8E%9F%E7%94%9F" title="云原生">
+                                云原生
+                            </a>
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
                         
                     
                         
@@ -474,21 +691,15 @@ TubeMQ是腾讯大数据在2013年开始研发的分布式消息中间件系统�
     })
 </script>
 
-
 <script>
-    (function(){
-        var bp = document.createElement('script');
-        var curProtocol = window.location.protocol.split(':')[0];
-        if (curProtocol === 'https'){
-       bp.src = '/120.79.83.107:5778/blog/push';
-      }
-      else{
-      bp.src = '//120.79.83.107:5778/blog/push';
-      }
-        var s = document.getElementsByTagName("script")[0];
-        s.parentNode.insertBefore(bp, s);
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?23001460802c6c63962c60b9c8c435af";
+      var s = document.getElementsByTagName("script")[0]; 
+      s.parentNode.insertBefore(hm, s);
     })();
-</script>
+    </script>
 
 
 

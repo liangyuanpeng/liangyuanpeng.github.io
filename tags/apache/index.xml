@@ -1,16 +1,12 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Apache on Hi,I`m lan</title>
+    <title>apache on Hi,I`m lan</title>
     <link>/tags/apache/</link>
-    <description>Recent content in Apache on Hi,I`m lan</description>
+    <description>Recent content in apache on Hi,I`m lan</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 27 Nov 2018 00:00:00 +0000</lastBuildDate>
-    
-	<atom:link href="/tags/apache/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Tue, 27 Nov 2018 00:00:00 +0000</lastBuildDate><atom:link href="/tags/apache/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Apache RocketMQ单机部署</title>
       <link>/post/2018-11-27-rocketmq%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/</link>

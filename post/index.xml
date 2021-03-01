@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Posts on Hi,I`m lan</title>
@@ -6,10 +6,168 @@
     <description>Recent content in Posts on Hi,I`m lan</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 09 Feb 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Fri, 26 Feb 2021 00:00:00 +0000</lastBuildDate><atom:link href="/post/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>部署Halo博客</title>
+      <link>/post/2021-02-26-%E9%83%A8%E7%BD%B2halo%E5%8D%9A%E5%AE%A2/</link>
+      <pubDate>Fri, 26 Feb 2021 00:00:00 +0000</pubDate>
+      
+      <guid>/post/2021-02-26-%E9%83%A8%E7%BD%B2halo%E5%8D%9A%E5%AE%A2/</guid>
+      <description>前言 jar包部署 注意:jar包部署需要jdk11版本 Docker方式部署 docker方式部署很简单，一条命令即可。 docker run -it -d --name halo -p 8090:8090 -v ~/.halo:/root/.halo halohub/halo 其中</description>
+    </item>
     
-	<atom:link href="/post/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>给hugo博客添加评论功能</title>
+      <link>/post/2021-02-17-support-comment/</link>
+      <pubDate>Wed, 17 Feb 2021 00:00:00 +0000</pubDate>
+      
+      <guid>/post/2021-02-17-support-comment/</guid>
+      <description>缘由 静态博客不像动态博客一样想要什么功能就写个代码实现，但是折腾一番还是可以满足日常需求的。本文主要讲述使用utterances给静态博客实</description>
+    </item>
     
+    <item>
+      <title>给hugo博客添加字数统计和阅读需要xx分钟的功能</title>
+      <link>/post/2021-01-16-%E7%BB%99%E5%8D%9A%E5%AE%A2%E6%B7%BB%E5%8A%A0%E9%98%85%E8%AF%BBxx%E5%88%86%E9%92%9F%E5%8A%9F%E8%83%BD/</link>
+      <pubDate>Tue, 16 Feb 2021 00:00:00 +0000</pubDate>
+      
+      <guid>/post/2021-01-16-%E7%BB%99%E5%8D%9A%E5%AE%A2%E6%B7%BB%E5%8A%A0%E9%98%85%E8%AF%BBxx%E5%88%86%E9%92%9F%E5%8A%9F%E8%83%BD/</guid>
+      <description>缘由 在看别人博客时经常在文章标题下面见到有共xx字,阅读约xx分钟的字眼，这个功能在hugo中本身就已经自带了，开启这个功能即可。 修改博客页</description>
+    </item>
+    
+    <item>
+      <title>Ant Design被删源码库!!404√</title>
+      <link>/post/2021-01-15-ant-design-been-deleted/</link>
+      <pubDate>Mon, 15 Feb 2021 00:00:00 +0000</pubDate>
+      
+      <guid>/post/2021-01-15-ant-design-been-deleted/</guid>
+      <description>了解 Ant Design Ant-Design是蚂蚁金服基于React开源的一款企业级UI 设计语言和 React 组件库，深受人们喜爱。 最早消息 还在当前过年的时间点，A</description>
+    </item>
+    
+    <item>
+      <title>VirtualbBox导入旧版本虚拟机系统</title>
+      <link>/post/virtualbox-import-old-system/</link>
+      <pubDate>Mon, 08 Feb 2021 00:00:00 +0000</pubDate>
+      
+      <guid>/post/virtualbox-import-old-system/</guid>
+      <description>动机 由于VirtualBox自动更新了导致打开了VirtualBox后之前的虚拟机都没显示出来了，需要重新找回之前的虚拟机。 更新后的Virt</description>
+    </item>
+    
+    <item>
+      <title>kubeadm配合短域名lank8s.cn部署kubernetes</title>
+      <link>/post/2021-02-07-deploy-k8s-lank8scn/</link>
+      <pubDate>Sun, 07 Feb 2021 00:00:00 +0000</pubDate>
+      
+      <guid>/post/2021-02-07-deploy-k8s-lank8scn/</guid>
+      <description>本文实现目标 本文主要使用kubeadm快速部署一个单机的kubernetes,其中镜像仓库使用lank8s.cn,当然也可以使用其他地址,l</description>
+    </item>
+    
+    <item>
+      <title>LoraWan的第一个网关与设备</title>
+      <link>/post/2021-02-25-lorawan-first-device-gateway/</link>
+      <pubDate>Fri, 05 Feb 2021 00:00:00 +0000</pubDate>
+      
+      <guid>/post/2021-02-25-lorawan-first-device-gateway/</guid>
+      <description>LoraWan数据走向 可以先看一下下面的数据图 从节点到网关是通过无线传输，也就是lora协议。LoraWan网关接收到数据后将其转化为网络数</description>
+    </item>
+    
+    <item>
+      <title>用helm chart将chripstack部署到kubernetes之上</title>
+      <link>/post/2021-01-30%E7%94%A8helm-chart%E9%83%A8%E7%BD%B2chirpstack%E5%88%B0kubernetes/</link>
+      <pubDate>Sat, 30 Jan 2021 00:00:00 +0000</pubDate>
+      
+      <guid>/post/2021-01-30%E7%94%A8helm-chart%E9%83%A8%E7%BD%B2chirpstack%E5%88%B0kubernetes/</guid>
+      <description>chirpstack-helm-chart 开源lorawan server 项目chirpstack的helm chart english 如何贡献 如果你想对这个项目进行贡献可以点击fork按钮fork这个项目并且发起P</description>
+    </item>
+    
+    <item>
+      <title>k8s-client-go源码剖析(二)</title>
+      <link>/post/k8s-client-go%E6%BA%90%E7%A0%81%E5%89%96%E6%9E%90/</link>
+      <pubDate>Sat, 23 Jan 2021 00:00:00 +0000</pubDate>
+      
+      <guid>/post/k8s-client-go%E6%BA%90%E7%A0%81%E5%89%96%E6%9E%90/</guid>
+      <description>简介：云原生社区活动&amp;mdash;Kubernetes源码剖析第一期第二周 本周是K8S源码研习社第一期第二周，学习内容是学习Informer</description>
+    </item>
+    
+    <item>
+      <title>用docker-compose快速部署ChirpStack</title>
+      <link>/post/docker-compose-deploy-chirpstack/</link>
+      <pubDate>Sun, 17 Jan 2021 00:00:00 +0000</pubDate>
+      
+      <guid>/post/docker-compose-deploy-chirpstack/</guid>
+      <description>前提 本文使用docker-compose来部署ChirpStack，请确保已经含有以下环境： Git(非必须，可以先下载源码) Docker Docker-compose 关于Lora</description>
+    </item>
+    
+    <item>
+      <title>微服务监控:SpringBoot-Micrometer-Influx</title>
+      <link>/post/springboot-micrometer-influx/</link>
+      <pubDate>Sun, 08 Mar 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/post/springboot-micrometer-influx/</guid>
+      <description>前言 聊到微服务监控,首先需要考虑的一个技术选型问题就是使用推数据还是使用拉数据的方式进行数据的收集,这个问题这里不进行具体讲解.本文使用mi</description>
+    </item>
+    
+    <item>
+      <title>blog-list记录</title>
+      <link>/post/blog-list/</link>
+      <pubDate>Sat, 07 Mar 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/post/blog-list/</guid>
+      <description>记录Blog发布计划以及执行进度 [ x ] 微服务监控:Micrometer InfluxDb 添加-&amp;gt;2020-03-07 22:23:08 [ ] 微服务监控:Micromet</description>
+    </item>
+    
+    <item>
+      <title>不用安装docker也能构建docker镜像</title>
+      <link>/post/springboot-jib-docker/</link>
+      <pubDate>Tue, 18 Feb 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/post/springboot-jib-docker/</guid>
+      <description>前提 docker 容器镜像仓库 这里举例可以公用的两个 dockerhub 阿里云容器镜像服务 前言 本文主要介绍的是google开源的一个java领域的docker构建工具ji</description>
+    </item>
+    
+    <item>
+      <title>Elasticsearch&#43;Fluentd&#43;Kafka搭建分布式日志系统</title>
+      <link>/post/cadvisor-kafka-fluentd-es/</link>
+      <pubDate>Mon, 17 Feb 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/post/cadvisor-kafka-fluentd-es/</guid>
+      <description>前言 由于logstash内存占用较大,灵活性相对没那么好,ELK正在被EFK逐步替代.其中本文所讲的EFK是Elasticsearch+Fl</description>
+    </item>
+    
+    <item>
+      <title>使用logstash作为docker日志驱动收集日志</title>
+      <link>/post/docker-log-driver-logstash/</link>
+      <pubDate>Sun, 16 Feb 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/post/docker-log-driver-logstash/</guid>
+      <description>前言 logstash是一个开源的日志统一处理数据收集器,属于ELK中的L,在日志收集领域应用广泛. docker默认的日志驱动是json-fi</description>
+    </item>
+    
+    <item>
+      <title>使用fluentd作为docker日志驱动收集日志</title>
+      <link>/post/docker-log-driver-fluentd/</link>
+      <pubDate>Sat, 15 Feb 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/post/docker-log-driver-fluentd/</guid>
+      <description>前言 docker默认的日志驱动是json-file,每一个容器都会在本地生成一个/var/lib/docker/containers/con</description>
+    </item>
+    
+    <item>
+      <title>制作带有kafka插件和es插件的fluentd镜像</title>
+      <link>/post/docker-image-fluentd-es-kafka/</link>
+      <pubDate>Sat, 15 Feb 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/post/docker-image-fluentd-es-kafka/</guid>
+      <description>前言 Fluentd是用于统一日志记录层的开源数据收集器,是继Kubernetes、Prometheus、Envoy 、CoreDNS 和cont</description>
+    </item>
+    
+    <item>
+      <title>利用docker和docker-compose部署单机kafka</title>
+      <link>/post/docker-deploy-kafka/</link>
+      <pubDate>Fri, 14 Feb 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/post/docker-deploy-kafka/</guid>
+      <description>前提 docker docker-compose 其中docker-compose不是必须的,单单使用docker也是可以的,这里主要介绍docker和docker-compose两</description>
+    </item>
     
     <item>
       <title>docker常用命令集合</title>
@@ -80,7 +238,7 @@
       <pubDate>Wed, 12 Dec 2018 00:00:00 +0000</pubDate>
       
       <guid>/post/sofarpc%E6%B3%9B%E5%8C%96%E8%B0%83%E7%94%A8%E5%AE%9E%E7%8E%B0%E5%89%96%E6%9E%90/</guid>
-      <description>SOFA Scalable Open Financial Architecture 是蚂蚁金服自主研发的金融级分布式中间件，包含了构建金融级云原生架构所需的各个组件，是在金融场景里锤炼出来的最佳实践。 本文为《剖析 |</description>
+      <description>SOFA Scalable Open Financial Architecture是蚂蚁金服自主研发的金融级分布式中间件，包含了构建金融级云原生架构所需的各个组件，是在金融场景里锤炼出来的最</description>
     </item>
     
     <item>
