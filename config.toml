@@ -22,7 +22,7 @@ home = ["HTML", "RSS", "Algolia"]
  slogan = ""
 
   image_404 = "img/404-bg.jpg"
-  title_404 = "你来到了没有知识的荒原 :("
+  title_404 = "你来到了云原生沙漠 :("
 
   # leancloud storage for page view counter
   page_view_conter = true
