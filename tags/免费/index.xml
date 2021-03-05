@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>免费 on Hi,I`m lan</title>
+    <link>/tags/%E5%85%8D%E8%B4%B9/</link>
+    <description>Recent content in 免费 on Hi,I`m lan</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Thu, 04 Mar 2021 00:00:00 +0000</lastBuildDate><atom:link href="/tags/%E5%85%8D%E8%B4%B9/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>免费帮部署Halo博客</title>
+      <link>/post/free-deploy-halo/</link>
+      <pubDate>Thu, 04 Mar 2021 00:00:00 +0000</pubDate>
+      
+      <guid>/post/free-deploy-halo/</guid>
+      <description>只要通过这个链接购买服务器 即可免费帮部署Halo博客 联系我 free.liangyuanpeng.com右上角找到我的微信。</description>
+    </item>
+    
+  </channel>
+</rss>
