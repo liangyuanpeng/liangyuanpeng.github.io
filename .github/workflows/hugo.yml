@@ -27,6 +27,20 @@ jobs:
       - name: Run container for atomic-algolia
         run: docker run --rm -e ALGOLIA_ADMIN_KEY=${{ secrets.ALGOLIA_ADMIN_KEY }} -e ALGOLIA_INDEX_FILE=/public/algolia.json -e ALGOLIA_APP_ID=${{ secrets.ALGOLIA_APP_ID }} -e ALGOLIA_INDEX_NAME=${{ secrets.ALGOLIA_INDEX_NAME }} -v $PWD/public:/public registry.cn-shenzhen.aliyuncs.com/lan-k8s/ubuntu:algolia atomic-algolia
 
+      #将主站点liangyuanpeng.com的百度trackId替换成blog。liangyuanpeng.com站点的百度trackId
+      - name: Deploy from site blog on server
+        run: |
+              sed -i 's/fad9c137f8ce239f9b323d36c871f8e6/71126c746d53d10cdb4275496d9cc84b/g' config.toml
+              hugo --minify
+              docker version
+              echo -e "[site] \n${{ secrets.server }} ansible_ssh_user=${{ secrets.username }} ansible_ssh_pass='${{ secrets.password }}'" > ./hostfile
+              docker run -v $PWD/hostfile:/tmp/hostfile -e ANSIBLE_HOST_KEY_CHECKING=false --rm registry.cn-shenzhen.aliyuncs.com/lan-k8s/ubuntu:ansible ansible -i /tmp/hostfile site  -m shell -a "mkdir -p /usr/local/kafeidou/blog/liangyuanpeng.github.io"
+              tar -cvf public.tar public
+              mv public.tar public
+              docker run -v $PWD/hostfile:/tmp/hostfile -v $PWD/public:/tmp/public -e ANSIBLE_HOST_KEY_CHECKING=false --rm registry.cn-shenzhen.aliyuncs.com/lan-k8s/ubuntu:ansible ansible  -i /tmp/hostfile site -m copy -a "src=/tmp/public/public.tar dest=/usr/local/kafeidou/blog/liangyuanpeng.github.io"
+              docker run -v $PWD/hostfile:/tmp/hostfile -e ANSIBLE_HOST_KEY_CHECKING=false --rm registry.cn-shenzhen.aliyuncs.com/lan-k8s/ubuntu:ansible ansible -i /tmp/hostfile site  -m shell -a "cd /usr/local/kafeidou/blog/liangyuanpeng.github.io && tar -xvf public.tar"
+              rm -f hostfile
+
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
         with:
