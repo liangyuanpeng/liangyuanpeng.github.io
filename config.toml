@@ -43,7 +43,7 @@ home = ["HTML", "RSS", "Algolia"]
   featured_condition_size = 2 
 
   # Baidu Analytics
-  ba_track_id = ""
+  ba_track_id = "fad9c137f8ce239f9b323d36c871f8e6"
   
   # We need a proxy to access Disqus api in China
   disqus_proxy = ""
