@@ -1,27 +1,372 @@
-<!doctype html><html lang=en-us><head><head><meta name=google-site-verification content="9vIieCe-Qpd78QOmBl63rGtIVbhY6sYyuxX3j8XWBA4"><meta name=baidu-site-verification content="LRrmH41lz7"><meta charset=utf-8><meta http-equiv=x-ua-compatible content="IE=edge"><meta name=google-site-verification content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI"><meta name=viewport content="width=device-width,initial-scale=1"><meta name=baidu-site-verification content="HGLXRsUXC4"><meta name=description content="静态博客不像动态博客一样想要什么功能就写个代码实现，但是折腾一番还是可以满足日常需求的。"><meta name=keyword content="liangyuanpeng , lan , lyp的网络日志, lan的博客, lan Blog, 博客, 个人网站, 互联网, Web,  Istio, 微服务"><link rel="shortcut icon" href=img/favicon.ico><title>给hugo博客添加评论功能-lyp的博客 | lyp Blog</title><link rel=canonical href=/post/2021-02-17-support-comment/><link rel=stylesheet href=https://res.cloudinary.com/lyp/raw/upload/v1537369740/hugo/css/iDisqus.min.css><link rel=stylesheet href=https://res.cloudinary.com/lyp/raw/upload/v1537369744/hugo/css/bootstrap.min.css><link rel=stylesheet href=https://res.cloudinary.com/lyp/raw/upload/v1537369740/hugo/css/hux-blog.min.css><link rel=stylesheet href=https://res.cloudinary.com/lyp/raw/upload/v1537369740/hugo/css/syntax.css><link href=//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css rel=stylesheet type=text/css><script src=https://res.cloudinary.com/lyp/raw/upload/v1537369966/hugo/js/jquery.min.js></script><script src=https://res.cloudinary.com/lyp/raw/upload/v1537369966/hugo/js/bootstrap.min.js></script><script src=https://res.cloudinary.com/lyp/raw/upload/v1537369964/hugo/js/hux-blog.min.js></script></head></head><nav class="navbar navbar-default navbar-custom navbar-fixed-top"><div class=container-fluid><div class="navbar-header page-scroll"><button type=button class=navbar-toggle>
-<span class=sr-only>Toggle navigation</span>
-<span class=icon-bar></span><span class=icon-bar></span><span class=icon-bar></span></button>
-<a class=navbar-brand href=/>Hi,I`m lan</a></div><div id=huxblog_navbar><div class=navbar-collapse><ul class="nav navbar-nav navbar-right"><li><a href=/>Home</a></li><li><a href=categories/cloudnative>cloudnative</a></li><li><a href=categories/devops>devops</a></li><li><a href=categories/kubernetes>kubernetes</a></li><li><a href=categories/tech>tech</a></li><li><a href=categories/%E4%B8%AD%E9%97%B4%E4%BB%B6>中间件</a></li><li><a href=categories/%E5%AE%B9%E5%99%A8>容器</a></li><li><a href=categories/%E5%AE%B9%E5%99%A8%E7%BC%96%E6%8E%92>容器编排</a></li><li><a href=categories/%E7%89%A9%E8%81%94%E7%BD%91>物联网</a></li><li><a href=search>SEARCH <img src=img/search.png height=15 style=cursor:pointer></a></li></ul></div></div></div></nav><script>var $body=document.body;var $toggle=document.querySelector('.navbar-toggle');var $navbar=document.querySelector('#huxblog_navbar');var $collapse=document.querySelector('.navbar-collapse');$toggle.addEventListener('click',handleMagic)
-function handleMagic(e){if($navbar.className.indexOf('in')>0){$navbar.className=" ";setTimeout(function(){if($navbar.className.indexOf('in')<0){$collapse.style.height="0px"}},400)}else{$collapse.style.height="auto"
-$navbar.className+=" in";}}</script><style type=text/css>header.intro-header{background-image:url(https://res.cloudinary.com/lyp/image/upload/v1613536257/hugo/blog.github.io/pexels-aleksey-kuprikov-3551245.jpg)}</style><header class=intro-header><div class=container><div class=row><div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1"><div class=post-heading><div class=tags><a class=tag href=/tags/hugo title=Hugo>Hugo</a>
-<a class=tag href=/tags/%E5%8D%9A%E5%AE%A2 title=博客>博客</a>
-<a class=tag href=/tags/%E8%AF%84%E8%AE%BA title=评论>评论</a>
-<a class=tag href=/tags/utterances title=utterances>utterances</a></div><h1>给hugo博客添加评论功能</h1><h2 class=subheading></h2><span class=meta>Posted by lyp on Wednesday, February 17, 2021
-<span id=busuanzi_container_page_pv>|<span id=busuanzi_value_page_pv></span><span>
-<span id=/post/2021-02-17-support-comment/ class="leancloud_visitors meta_data_item" data-flag-title><span class=post-meta-item-icon><span class="octicon octicon-eye"></span></span><i class="fa fa-eye"></i><span class=old-visitors-count style=display:none></span><span class=leancloud-visitors-count></span></span><script src=https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js></script><script>AV.initialize("","");</script><script type=text/javascript>function showTime(Counter){var query=new AV.Query(Counter);var entries=[];var $visitors=$(".leancloud_visitors");$visitors.each(function(){entries.push($(this).attr("id").trim());});query.containedIn('url',entries);query.find().done(function(results){var COUNT_CONTAINER_REF='.leancloud-visitors-count';var OLD_COUNT_CONTAINER_REF='.old-visitors-count';for(var i=0;i<results.length;i++){var item=results[i];var url=item.get('url');var time=item.get('time');var element=document.getElementById(url);$(element).find(COUNT_CONTAINER_REF).text(time);}
-for(var i=0;i<entries.length;i++){var url=entries[i];var element=document.getElementById(url);var countSpan=$(element).find(COUNT_CONTAINER_REF);if(countSpan.text()==''){var oldCountSpan=$(element).find(OLD_COUNT_CONTAINER_REF).text();if(oldCountSpan!=''){countSpan.text(0+parseInt(oldCountSpan));}else{countSpan.text(0);}}}}).fail(function(object,error){console.log("Error: "+error.code+" "+error.message);});}
-function addCount(Counter){var $visitors=$(".leancloud_visitors");var url=$visitors.attr('id').trim();var title=$visitors.attr('data-flag-title').trim();var query=new AV.Query(Counter);query.equalTo("url",url);query.find({success:function(results){if(results.length>0){var counter=results[0];counter.fetchWhenSave(true);counter.increment("time");counter.save(null,{success:function(counter){var $element=$(document.getElementById(url));$element.find('.leancloud-visitors-count').text(counter.get('time'));},error:function(counter,error){console.log('Failed to save Visitor num, with error message: '+error.message);}});}else{var newcounter=new Counter();var acl=new AV.ACL();acl.setPublicReadAccess(true);acl.setPublicWriteAccess(true);newcounter.setACL(acl);newcounter.set("title",title);newcounter.set("url",url);var OLD_COUNT_CONTAINER_REF='.old-visitors-count';var $element=$(document.getElementById(url));var oldCountSpan=$element.find(OLD_COUNT_CONTAINER_REF).text();if(oldCountSpan!=''){newcounter.set("time",parseInt(oldCountSpan)+1);}else{newcounter.set("time",1);}
-newcounter.save(null,{success:function(newcounter){var $element=$(document.getElementById(url));$element.find('.leancloud-visitors-count').text(newcounter.get('time'));},error:function(newcounter,error){console.log('Failed to create');}});}},error:function(error){console.log('Error:'+error.code+" "+error.message);}});}
-$(function(){var Counter=AV.Object.extend("Counter");if($('.leancloud_visitors').length==1){addCount(Counter);}else{showTime(Counter);}});</script>阅读 </span></span>|<span class=post-date>共982字</span>，阅读约<span class=more-meta> 2 分钟</span></span></div></div></div></div></header><article><div class=container><div class=row><div class="col-lg-8 col-lg-offset-2
-col-md-10 col-md-offset-1
-post-container"><header><h2>TOC</h2></header><nav id=TableOfContents></nav><h1 id=缘由>缘由</h1><p>静态博客不像动态博客一样想要什么功能就写个代码实现，但是折腾一番还是可以满足日常需求的。本文主要讲述使用<code>utterances</code>给静态博客实现评论功能。</p><h1 id=了解utterances>了解utterances</h1><p><code>utterances</code>是一款基于Github Issue的Github工具,优点主要是无广告、加载快、配置简单，轻量开源!由于我没有使用过其他评论工具的经验，因此只讲述一下<code>utterances</code>自身的优点，具体对比情况无法给出，但是看到有的博主表示之前使用<code>disqus</code>,但是广告多，加载也比较慢，体验了一把<code>utterances</code> 后，马上切换到<code>utterances</code>。相信<code>utterances</code>足够让我使用很久了。</p><h1 id=安装utterances>安装utterances</h1><p>由于<code>utterances</code>是一款Github App，因此<a href=https://github.com/apps/utterances>安装utterances</a>非常简单，只需要授权特定repo权限给<code>utterances</code>就可以了,注意一个点：授权的这个repo必须是public的，可以选择多个repo，但是建议选择一个就可以了，也比较安全。</p><p>给出我授权的repo作为参考，我是选择博客的repo作为<code>utterances</code>评论的存放点(在博客评论的内容都会以issue的形式发布在repo下).</p><p><img src=https://res.cloudinary.com/lyp/image/upload/v1613534108/hugo/blog.github.io/blogfeature/blog11.png alt=https://res.cloudinary.com/lyp/image/upload/v1613534108/hugo/blog.github.io/blogfeature/blog11.png></p><p>到目前为止<code>utterances</code>就已经安装好了，接下来是需要在博客将评论的客户端显示出来。</p><h1 id=配置utterances评论显示>配置utterances评论显示</h1><p>可以配置在你希望显示评论的地方，这里给出一个简单的实现：配置在footer.html的顶部(显示在每篇文章的底部).</p><p><img src=https://res.cloudinary.com/lyp/image/upload/v1613535215/hugo/blog.github.io/blogfeature/blog12.png alt=https://res.cloudinary.com/lyp/image/upload/v1613535215/hugo/blog.github.io/blogfeature/blog12.png></p><p><img src=https://res.cloudinary.com/lyp/image/upload/v1613535402/hugo/blog.github.io/blogfeature/blog13.png alt=https://res.cloudinary.com/lyp/image/upload/v1613535402/hugo/blog.github.io/blogfeature/blog13.png></p><p>把具体的仓库改成自己授权给utterances的仓库即可。</p><pre><code>&lt;script src=&quot;https://utteranc.es/client.js&quot;
+<!DOCTYPE html>
+<html lang="en-us">
+<head><head>
+    <meta name="google-site-verification" content="9vIieCe-Qpd78QOmBl63rGtIVbhY6sYyuxX3j8XWBA4" />
+    <meta name="baidu-site-verification" content="LRrmH41lz7" />
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <meta name="baidu-site-verification" content="HGLXRsUXC4" />
+
+    
+    <meta name="description" content="静态博客不像动态博客一样想要什么功能就写个代码实现，但是折腾一番还是可以满足日常需求的。">
+    
+    <meta name="keyword"  content="liangyuanpeng , lan , lyp的网络日志, lan的博客, lan Blog, 博客, 个人网站, 互联网, Web,  Istio, 微服务">
+    <link rel="shortcut icon" href="img/favicon.ico">
+
+    <title>给hugo博客添加评论功能-lyp的博客 | lyp Blog</title>
+
+    <link rel="canonical" href="/post/2021-02-17-support-comment/">
+
+    <link rel="stylesheet" href="https://res.cloudinary.com/lyp/raw/upload/v1537369740/hugo/css/iDisqus.min.css"/>
+
+    
+    <link rel="stylesheet" href="https://res.cloudinary.com/lyp/raw/upload/v1537369744/hugo/css/bootstrap.min.css">
+
+    
+    <link rel="stylesheet" href="https://res.cloudinary.com/lyp/raw/upload/v1537369740/hugo/css/hux-blog.min.css">
+
+    
+    <link rel="stylesheet" href="https://res.cloudinary.com/lyp/raw/upload/v1537369740/hugo/css/syntax.css">
+
+    
+    <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    
+    
+    <script src="https://res.cloudinary.com/lyp/raw/upload/v1537369966/hugo/js/jquery.min.js"></script>
+
+    
+    <script src="https://res.cloudinary.com/lyp/raw/upload/v1537369966/hugo/js/bootstrap.min.js"></script>
+
+    
+    <script src="https://res.cloudinary.com/lyp/raw/upload/v1537369964/hugo/js/hux-blog.min.js"></script>
+
+    
+    <meta name="baidu-site-verification" content="code-YNQgjspRJJ" />
+</head>
+
+</head>
+
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Hi,I`m lan</a>
+        </div>
+
+        
+        
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+                    
+                    <li>
+                        <a href="categories/cloudnative">cloudnative</a>
+                    </li>
+                    
+                    <li>
+                        <a href="categories/devops">devops</a>
+                    </li>
+                    
+                    <li>
+                        <a href="categories/kubernetes">kubernetes</a>
+                    </li>
+                    
+                    <li>
+                        <a href="categories/tech">tech</a>
+                    </li>
+                    
+                    <li>
+                        <a href="categories/%E4%B8%AD%E9%97%B4%E4%BB%B6">中间件</a>
+                    </li>
+                    
+                    <li>
+                        <a href="categories/%E5%AE%B9%E5%99%A8">容器</a>
+                    </li>
+                    
+                    <li>
+                        <a href="categories/%E5%AE%B9%E5%99%A8%E7%BC%96%E6%8E%92">容器编排</a>
+                    </li>
+                    
+                    <li>
+                        <a href="categories/%E7%89%A9%E8%81%94%E7%BD%91">物联网</a>
+                    </li>
+                    
+
+                    
+		            <li>
+                        <a href="search">SEARCH <img src="img/search.png" height="15" style="cursor: pointer;"></a>
+		            </li>
+                    
+                </ul>
+            </div>
+        </div>
+        
+    </div>
+    
+</nav>
+<script>
+    
+    
+    
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        
+            $navbar.className = " ";
+            
+            setTimeout(function(){
+                
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+
+
+<style type="text/css">
+    header.intro-header{
+        background-image: url('https://res.cloudinary.com/lyp/image/upload/v1613536257/hugo/blog.github.io/pexels-aleksey-kuprikov-3551245.jpg')
+    }
+</style>
+<header class="intro-header" >
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                       
+                       <a class="tag" href="/tags/hugo" title="Hugo">
+                           Hugo
+                        </a>
+                        
+                       <a class="tag" href="/tags/%E5%8D%9A%E5%AE%A2" title="博客">
+                           博客
+                        </a>
+                        
+                       <a class="tag" href="/tags/%E8%AF%84%E8%AE%BA" title="评论">
+                           评论
+                        </a>
+                        
+                       <a class="tag" href="/tags/utterances" title="utterances">
+                           utterances
+                        </a>
+                        
+                    </div>
+                    <h1>给hugo博客添加评论功能</h1>
+                    <h2 class="subheading"></h2>
+                    <span  class="meta">Posted by lyp on Wednesday, February 17, 2021
+                        
+                        <span id="busuanzi_container_page_pv">|<span id="busuanzi_value_page_pv"></span><span>
+                            <span id="/post/2021-02-17-support-comment/" class="leancloud_visitors meta_data_item" data-flag-title="">
+    <span class="post-meta-item-icon">
+      <span class="octicon octicon-eye"></span> 
+    </span>
+    <i class="fa fa-eye"></i>
+    <span class="old-visitors-count" style="display: none;"></span>
+    <span class="leancloud-visitors-count"></span>
+</span>
+
+
+
+<script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+
+<script>
+	AV.initialize("", "");
+</script>
+
+<script type="text/javascript">
+function showTime(Counter) {
+    var query = new AV.Query(Counter);
+    var entries = [];
+    var $visitors = $(".leancloud_visitors");
+
+    $visitors.each(function() {
+        entries.push($(this).attr("id").trim());
+    });
+
+    query.containedIn('url', entries);
+    query.find()
+        .done(function(results) {
+            var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+            var OLD_COUNT_CONTAINER_REF = '.old-visitors-count';
+
+            
+            
+            
+            
+
+            for (var i = 0; i < results.length; i++) {
+                var item = results[i];
+                var url = item.get('url');
+                var time = item.get('time');
+                var element = document.getElementById(url);
+
+                $(element).find(COUNT_CONTAINER_REF).text(time);
+            }
+            for (var i = 0; i < entries.length; i++) {
+                var url = entries[i];
+                var element = document.getElementById(url);
+                var countSpan = $(element).find(COUNT_CONTAINER_REF);
+                if (countSpan.text() == '') {
+                    var oldCountSpan = $(element).find(OLD_COUNT_CONTAINER_REF).text();
+                    if(oldCountSpan!=''){
+                        countSpan.text(0+parseInt(oldCountSpan));
+                    }else{
+                        countSpan.text(0);          
+                    }
+                }
+            }
+        })
+        .fail(function(object, error) {
+            console.log("Error: " + error.code + " " + error.message);
+        });
+}
+
+function addCount(Counter) {
+    var $visitors = $(".leancloud_visitors");
+    var url = $visitors.attr('id').trim();
+    var title = $visitors.attr('data-flag-title').trim();
+    var query = new AV.Query(Counter);
+
+    query.equalTo("url", url);
+    query.find({
+        success: function(results) {
+            if (results.length > 0) {
+                var counter = results[0];
+                counter.fetchWhenSave(true);
+                counter.increment("time");
+                counter.save(null, {
+                    success: function(counter) {
+                        var $element = $(document.getElementById(url));
+                        $element.find('.leancloud-visitors-count').text(counter.get('time'));
+                    },
+                    error: function(counter, error) {
+                        console.log('Failed to save Visitor num, with error message: ' + error.message);
+                    }
+                });
+            } else {
+                var newcounter = new Counter();
+                 
+                var acl = new AV.ACL();
+                acl.setPublicReadAccess(true);
+                acl.setPublicWriteAccess(true);
+                newcounter.setACL(acl);
+                 
+                newcounter.set("title", title);
+                newcounter.set("url", url);
+                var OLD_COUNT_CONTAINER_REF = '.old-visitors-count';
+                var $element = $(document.getElementById(url));
+                var oldCountSpan = $element.find(OLD_COUNT_CONTAINER_REF).text();
+                if(oldCountSpan!=''){
+                    newcounter.set("time", parseInt(oldCountSpan)+1);
+                }else{
+ 	                    newcounter.set("time",  1);
+                }
+                newcounter.save(null, {
+                    success: function(newcounter) {
+                        var $element = $(document.getElementById(url));
+                        $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+                    },
+                    error: function(newcounter, error) {
+                        console.log('Failed to create');
+                    }
+                });
+            }
+        },
+        error: function(error) {
+            console.log('Error:' + error.code + " " + error.message);
+        }
+    });
+}
+$(function() {
+    var Counter = AV.Object.extend("Counter");
+    
+    
+    if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+    } else {
+        showTime(Counter);
+    }
+});
+</script>
+
+                            阅读 </span></span>|<span class="post-date">共982字</span>，阅读约<span class="more-meta"> 2 分钟</span>
+                        
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+
+
+<article>
+    <div class="container">
+        <div class="row">
+
+            
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+		
+                <header>
+                <h2>TOC</h2>
+                </header>
+                <nav id="TableOfContents"></nav>
+		
+		<h1 id="缘由">缘由</h1>
+<p>静态博客不像动态博客一样想要什么功能就写个代码实现，但是折腾一番还是可以满足日常需求的。本文主要讲述使用<code>utterances</code>给静态博客实现评论功能。</p>
+<h1 id="了解utterances">了解utterances</h1>
+<p><code>utterances</code>是一款基于Github Issue的Github工具,优点主要是无广告、加载快、配置简单，轻量开源!由于我没有使用过其他评论工具的经验，因此只讲述一下<code>utterances</code>自身的优点，具体对比情况无法给出，但是看到有的博主表示之前使用<code>disqus</code>,但是广告多，加载也比较慢，体验了一把<code>utterances</code> 后，马上切换到<code>utterances</code>。相信<code>utterances</code>足够让我使用很久了。</p>
+<h1 id="安装utterances">安装utterances</h1>
+<p>由于<code>utterances</code>是一款Github App，因此<a href="https://github.com/apps/utterances">安装utterances</a>非常简单，只需要授权特定repo权限给<code>utterances</code>就可以了,注意一个点：授权的这个repo必须是public的，可以选择多个repo，但是建议选择一个就可以了，也比较安全。</p>
+<p>给出我授权的repo作为参考，我是选择博客的repo作为<code>utterances</code>评论的存放点(在博客评论的内容都会以issue的形式发布在repo下).</p>
+<p><img src="https://res.cloudinary.com/lyp/image/upload/v1613534108/hugo/blog.github.io/blogfeature/blog11.png" alt="https://res.cloudinary.com/lyp/image/upload/v1613534108/hugo/blog.github.io/blogfeature/blog11.png"></p>
+<p>到目前为止<code>utterances</code>就已经安装好了，接下来是需要在博客将评论的客户端显示出来。</p>
+<h1 id="配置utterances评论显示">配置utterances评论显示</h1>
+<p>可以配置在你希望显示评论的地方，这里给出一个简单的实现：配置在footer.html的顶部(显示在每篇文章的底部).</p>
+<p><img src="https://res.cloudinary.com/lyp/image/upload/v1613535215/hugo/blog.github.io/blogfeature/blog12.png" alt="https://res.cloudinary.com/lyp/image/upload/v1613535215/hugo/blog.github.io/blogfeature/blog12.png"></p>
+<p><img src="https://res.cloudinary.com/lyp/image/upload/v1613535402/hugo/blog.github.io/blogfeature/blog13.png" alt="https://res.cloudinary.com/lyp/image/upload/v1613535402/hugo/blog.github.io/blogfeature/blog13.png"></p>
+<p>把具体的仓库改成自己授权给utterances的仓库即可。</p>
+<pre><code>&lt;script src=&quot;https://utteranc.es/client.js&quot;
 repo=&quot;liangyuanpeng/liangyuanpeng.github.io&quot;
 issue-term=&quot;title&quot;
 theme=&quot;github-light&quot;
 crossorigin=&quot;anonymous&quot;
 async&gt;
 &lt;/script&gt;  
-</code></pre><p>这是当前最简单的方式，更优雅的方式是以配置文件的方式实现，例如：</p><p>html中的配置模板</p><pre><code>{{ if .Site.Params.utteranc.enable }}
+</code></pre><p>这是当前最简单的方式，更优雅的方式是以配置文件的方式实现，例如：</p>
+<p>html中的配置模板</p>
+<pre><code>{{ if .Site.Params.utteranc.enable }}
 &lt;script src=&quot;https://utteranc.es/client.js&quot;
 repo=&quot;{{ .Site.Params.utteranc.repo }}&quot;
 issue-term=&quot;{{ .Site.Params.utteranc.issueTerm }}&quot;
@@ -30,24 +375,394 @@ crossorigin=&quot;anonymous&quot;
 async&gt;
 &lt;/script&gt;
 {{ end }}
-</code></pre><p>配置文件中的配置项：</p><pre><code>## 配置 utteranc评论,教程参考 https://utteranc.es/
+</code></pre><p>配置文件中的配置项：</p>
+<pre><code>## 配置 utteranc评论,教程参考 https://utteranc.es/
 [params.utteranc]
   enable = false
   repo = &quot;liangyuanpeng/liangyuanpeng.github.io&quot; ##换成自己得
   issueTerm = &quot;title&quot;
   theme = &quot;github-light&quot;
-</code></pre><p>这样的话需要修改仓库或者主题都可以很方便的修改一下配置文件就可以了，同时也可以选择不开启评论。</p><p>评论显示的主题有多种，具体可以在<a href="https://utteranc.es/?installation_id=14775258&setup_action=install">utterances官方</a>查看，这里给出当前时间点的一个列表：</p><ol><li>github-light</li><li>github-dark</li><li>github-dark-orange</li><li>icy-dark</li><li>dark-blue</li><li>photon-dark</li><li>preferred-color-scheme</li><li>boxy-light</li></ol><p>映射到issue也有几种方式:</p><ol><li>pathname</li><li>url</li><li>title</li><li>og:title</li><li>issue-number</li><li>specific-term</li></ol><p>我选择的是title的方式，对应评论会以文章标题作为issue的标题创建在对应仓库下。</p><p>到目前为止，给hugo静态博客添加评论的功能已经做好了，不需要服务器就可以拥有评论功能，实用!</p><hr><ul class=pager><li class=previous><a href=/post/2021-01-16-%E7%BB%99%E5%8D%9A%E5%AE%A2%E6%B7%BB%E5%8A%A0%E9%98%85%E8%AF%BBxx%E5%88%86%E9%92%9F%E5%8A%9F%E8%83%BD/ data-toggle=tooltip data-placement=top title=给hugo博客添加字数统计和阅读需要xx分钟的功能>&larr; Previous Post</a></li><li class=next><a href=/post/2021-02-26-%E9%83%A8%E7%BD%B2halo%E5%8D%9A%E5%AE%A2/ data-toggle=tooltip data-placement=top title=部署Halo博客>Next Post &rarr;</a></li></ul><div id=disqus-comment></div></div><div class="col-lg-8 col-lg-offset-2
-col-md-10 col-md-offset-1
-sidebar-container"><section><hr class="hidden-sm hidden-xs"><h5><a href=/tags/>FEATURED TAGS</a></h5><div class=tags><a href=/tags/chirpstack title=chirpstack>chirpstack</a>
-<a href=/tags/docker title=docker>docker</a>
-<a href=/tags/fluentd title=fluentd>fluentd</a>
-<a href=/tags/kubernetes title=kubernetes>kubernetes</a>
-<a href=/tags/mq title=mq>mq</a>
-<a href=/tags/rpc title=rpc>rpc</a>
-<a href=/tags/sofa title=sofa>sofa</a>
-<a href=/tags/sofastack title=sofastack>sofastack</a>
-<a href=/tags/%E4%B8%AD%E9%97%B4%E4%BB%B6 title=中间件>中间件</a>
-<a href=/tags/%E4%BA%91%E5%8E%9F%E7%94%9F title=云原生>云原生</a>
-<a href=/tags/%E9%83%A8%E7%BD%B2 title=部署>部署</a></div></section><hr><h5>FRIENDS</h5><ul class=list-inline></ul></div></div></div></article><footer><div class=container><div class=row><div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1"><ul class="list-inline text-center"><li><a href=mailto:gcslyp@gmail.com><span class="fa-stack fa-lg"><i class="fa fa-circle fa-stack-2x"></i><i class="fa fa-envelope fa-stack-1x fa-inverse"></i></span></a></li><li><a href=https://twitter.com/lan31793328><span class="fa-stack fa-lg"><i class="fa fa-circle fa-stack-2x"></i><i class="fa fa-twitter fa-stack-1x fa-inverse"></i></span></a></li><li><a target=_blank href=https://github.com/liangyuanpeng><span class="fa-stack fa-lg"><i class="fa fa-circle fa-stack-2x"></i><i class="fa fa-github fa-stack-1x fa-inverse"></i></span></a></li></ul><p class="copyright text-muted">Copyright &copy; Hi,I`m lan , 2021<br><a href=https://themes.gohugo.io/hugo-theme-cleanwhite>CleanWhite Hugo Theme</a> by <a href=https://zhaohuabing.com>Huabing</a> |
-<iframe style=margin-left:2px;margin-bottom:-5px frameborder=0 scrolling=0 width=100px height=20px src="https://ghbtns.com/github-btn.html?user=zhaohuabing&repo=hugo-theme-cleanwhite&type=star&count=true"></iframe></p></div></div></div></footer><script>function async(u,c){var d=document,t='script',o=d.createElement(t),s=d.getElementsByTagName(t)[0];o.src=u;if(c){o.addEventListener('load',function(e){c(null,e);},false);}
-s.parentNode.insertBefore(o,s);}</script><script>if($('#tag_cloud').length!==0){async("/js/jquery.tagcloud.js",function(){$.fn.tagcloud.defaults={color:{start:'#bbbbee',end:'#0085a1'},};$('#tag_cloud a').tagcloud();})}</script><script>async("https://cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.js",function(){var $nav=document.querySelector("nav");if($nav)FastClick.attach($nav);})</script><script>var _baId='71126c746d53d10cdb4275496d9cc84b';var _hmt=_hmt||[];(function(){var hm=document.createElement("script");hm.src="//hm.baidu.com/hm.js?"+_baId;var s=document.getElementsByTagName("script")[0];s.parentNode.insertBefore(hm,s);})();</script></body></html>
+</code></pre><p>这样的话需要修改仓库或者主题都可以很方便的修改一下配置文件就可以了，同时也可以选择不开启评论。</p>
+<p>评论显示的主题有多种，具体可以在<a href="https://utteranc.es/?installation_id=14775258&amp;setup_action=install">utterances官方</a>查看，这里给出当前时间点的一个列表：</p>
+<ol>
+<li>github-light</li>
+<li>github-dark</li>
+<li>github-dark-orange</li>
+<li>icy-dark</li>
+<li>dark-blue</li>
+<li>photon-dark</li>
+<li>preferred-color-scheme</li>
+<li>boxy-light</li>
+</ol>
+<p>映射到issue也有几种方式:</p>
+<ol>
+<li>pathname</li>
+<li>url</li>
+<li>title</li>
+<li>og:title</li>
+<li>issue-number</li>
+<li>specific-term</li>
+</ol>
+<p>我选择的是title的方式，对应评论会以文章标题作为issue的标题创建在对应仓库下。</p>
+<p>到目前为止，给hugo静态博客添加评论的功能已经做好了，不需要服务器就可以拥有评论功能，实用!</p>
+
+
+        <h2>微信公众号</h2>
+<p>扫描下面的二维码关注我们的微信公众帐号,第一时间查看最新内容。</p>
+<img src="https://res.cloudinary.com/lyp/image/upload/v1581729955/hugo/blog.github.io/qrcode_for_sikekafeidou.jpg" alt="wechat-account-qrcode">
+
+
+                <hr>
+
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/post/2021-01-16-%E7%BB%99%E5%8D%9A%E5%AE%A2%E6%B7%BB%E5%8A%A0%E9%98%85%E8%AF%BBxx%E5%88%86%E9%92%9F%E5%8A%9F%E8%83%BD/" data-toggle="tooltip" data-placement="top" title="给hugo博客添加字数统计和阅读需要xx分钟的功能">&larr; Previous Post</a>
+                    </li>
+                    
+                    
+                    <li class="next">
+                        <a href="/post/2021-02-26-%E9%83%A8%E7%BD%B2halo%E5%8D%9A%E5%AE%A2/" data-toggle="tooltip" data-placement="top" title="部署Halo博客">Next Post &rarr;</a>
+                    </li>
+                    
+                </ul>
+
+            
+<div id="disqus-comment"></div>
+
+
+
+            </div>
+            
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                
+                <section>
+                    <hr class="hidden-sm hidden-xs">
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                     
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                            <a href="/tags/chirpstack" title="chirpstack">
+                                chirpstack
+                            </a>
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                            <a href="/tags/docker" title="docker">
+                                docker
+                            </a>
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                            <a href="/tags/fluentd" title="fluentd">
+                                fluentd
+                            </a>
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                            <a href="/tags/kubernetes" title="kubernetes">
+                                kubernetes
+                            </a>
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                            <a href="/tags/mq" title="mq">
+                                mq
+                            </a>
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                            <a href="/tags/rpc" title="rpc">
+                                rpc
+                            </a>
+                        
+                    
+                        
+                            <a href="/tags/sofa" title="sofa">
+                                sofa
+                            </a>
+                        
+                    
+                        
+                            <a href="/tags/sofastack" title="sofastack">
+                                sofastack
+                            </a>
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                            <a href="/tags/%E4%B8%AD%E9%97%B4%E4%BB%B6" title="中间件">
+                                中间件
+                            </a>
+                        
+                    
+                        
+                            <a href="/tags/%E4%BA%91%E5%8E%9F%E7%94%9F" title="云原生">
+                                云原生
+                            </a>
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                            <a href="/tags/%E9%83%A8%E7%BD%B2" title="部署">
+                                部署
+                            </a>
+                        
+                    
+                    </div>
+                </section>
+
+                
+                <hr>
+                <h5>FRIENDS</h5>
+                <ul class="list-inline">
+                    
+                </ul>
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                   
+                    
+                    <li>
+                        <a href="mailto:gcslyp@gmail.com">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+		    
+
+                    
+                    <li>
+                        <a href="https://twitter.com/lan31793328">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    
+
+                    
+
+		    
+                    
+                    
+                    <li>
+                        <a target="_blank" href="https://github.com/liangyuanpeng">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+		    
+                    
+                </ul>
+		<p class="copyright text-muted">
+                    Copyright &copy; Hi,I`m lan , 2021
+                    <br>
+                    <a href="https://themes.gohugo.io/hugo-theme-cleanwhite">CleanWhite Hugo Theme</a> by <a href="https://zhaohuabing.com">Huabing</a> |
+                    <iframe
+                        style="margin-left: 2px; margin-bottom:-5px;"
+                        frameborder="0" scrolling="0" width="100px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=zhaohuabing&repo=hugo-theme-cleanwhite&type=star&count=true" >
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+
+
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+
+
+
+
+
+<script>
+    
+    if($('#tag_cloud').length !== 0){
+        async("/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+
+<script>
+    async("https://cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+
+
+
+
+
+<script>
+    
+    var _baId = 'fad9c137f8ce239f9b323d36c871f8e6';
+
+    
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?" + _baId;
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+
+
+
+
+
+
+</body>
+</html>
