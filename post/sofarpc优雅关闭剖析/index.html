@@ -1,50 +1,851 @@
-<!doctype html><html lang=en-us><head><head><meta name=google-site-verification content="9vIieCe-Qpd78QOmBl63rGtIVbhY6sYyuxX3j8XWBA4"><meta name=baidu-site-verification content="LRrmH41lz7"><meta charset=utf-8><meta http-equiv=x-ua-compatible content="IE=edge"><meta name=google-site-verification content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI"><meta name=viewport content="width=device-width,initial-scale=1"><meta name=baidu-site-verification content="HGLXRsUXC4"><meta name=description content="众所周知，在微服务架构下面，当应用需要进行新功能升级发布，或者异常关闭重启的时候，我们会对应用的进程进行关闭，而在关闭之前，我们希望做一些诸如关闭数据库连接，等待处理任务完成等操作，这个就涉及到我们本文中的优雅关闭功能。假如应用没有支持优雅停机，则会带来譬如数据丢失，交易中断、文件损坏以及服务未下线等情况。"><meta name=keyword content="liangyuanpeng , lan , lyp的网络日志, lan的博客, lan Blog, 博客, 个人网站, 互联网, Web,  Istio, 微服务"><link rel="shortcut icon" href=img/favicon.ico><title>转|SOFARPC优雅关闭剖析-lyp的博客 | lyp Blog</title><link rel=canonical href=/post/sofarpc%E4%BC%98%E9%9B%85%E5%85%B3%E9%97%AD%E5%89%96%E6%9E%90/><link rel=stylesheet href=https://res.cloudinary.com/lyp/raw/upload/v1537369740/hugo/css/iDisqus.min.css><link rel=stylesheet href=https://res.cloudinary.com/lyp/raw/upload/v1537369744/hugo/css/bootstrap.min.css><link rel=stylesheet href=https://res.cloudinary.com/lyp/raw/upload/v1537369740/hugo/css/hux-blog.min.css><link rel=stylesheet href=https://res.cloudinary.com/lyp/raw/upload/v1537369740/hugo/css/syntax.css><link href=//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css rel=stylesheet type=text/css><script src=https://res.cloudinary.com/lyp/raw/upload/v1537369966/hugo/js/jquery.min.js></script><script src=https://res.cloudinary.com/lyp/raw/upload/v1537369966/hugo/js/bootstrap.min.js></script><script src=https://res.cloudinary.com/lyp/raw/upload/v1537369964/hugo/js/hux-blog.min.js></script><meta name=baidu-site-verification content="code-YNQgjspRJJ"></head></head><nav class="navbar navbar-default navbar-custom navbar-fixed-top"><div class=container-fluid><div class="navbar-header page-scroll"><button type=button class=navbar-toggle>
-<span class=sr-only>Toggle navigation</span>
-<span class=icon-bar></span><span class=icon-bar></span><span class=icon-bar></span></button>
-<a class=navbar-brand href=/>Hi,I`m lan</a></div><div id=huxblog_navbar><div class=navbar-collapse><ul class="nav navbar-nav navbar-right"><li><a href=/>Home</a></li><li><a href=categories/cloudnative>cloudnative</a></li><li><a href=categories/devops>devops</a></li><li><a href=categories/kubernetes>kubernetes</a></li><li><a href=categories/tech>tech</a></li><li><a href=categories/%E4%B8%AD%E9%97%B4%E4%BB%B6>中间件</a></li><li><a href=categories/%E5%AE%B9%E5%99%A8>容器</a></li><li><a href=categories/%E5%AE%B9%E5%99%A8%E7%BC%96%E6%8E%92>容器编排</a></li><li><a href=categories/%E7%89%A9%E8%81%94%E7%BD%91>物联网</a></li><li><a href=search>SEARCH <img src=img/search.png height=15 style=cursor:pointer></a></li></ul></div></div></div></nav><script>var $body=document.body;var $toggle=document.querySelector('.navbar-toggle');var $navbar=document.querySelector('#huxblog_navbar');var $collapse=document.querySelector('.navbar-collapse');$toggle.addEventListener('click',handleMagic)
-function handleMagic(e){if($navbar.className.indexOf('in')>0){$navbar.className=" ";setTimeout(function(){if($navbar.className.indexOf('in')<0){$collapse.style.height="0px"}},400)}else{$collapse.style.height="auto"
-$navbar.className+=" in";}}</script><style type=text/css>header.intro-header{background-image:url(https://res.cloudinary.com/lyp/image/upload/v1543506262/hugo/blog.github.io/apache-rocketMQ-introduction/7046d2bf0d97278682129887309cc1a6.jpg)}</style><header class=intro-header><div class=container><div class=row><div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1"><div class=post-heading><div class=tags><a class=tag href=/tags/rpc title=rpc>rpc</a>
-<a class=tag href=/tags/sofa title=sofa>sofa</a>
-<a class=tag href=/tags/sofastack title=sofastack>sofastack</a>
-<a class=tag href=/tags/%E4%B8%AD%E9%97%B4%E4%BB%B6 title=中间件>中间件</a></div><h1>转|SOFARPC优雅关闭剖析</h1><h2 class=subheading></h2><span class=meta>Posted by lyp on Wednesday, December 12, 2018
-<span id=busuanzi_container_page_pv>|<span id=busuanzi_value_page_pv></span><span>
-<span id=/post/sofarpc%E4%BC%98%E9%9B%85%E5%85%B3%E9%97%AD%E5%89%96%E6%9E%90/ class="leancloud_visitors meta_data_item" data-flag-title><span class=post-meta-item-icon><span class="octicon octicon-eye"></span></span><i class="fa fa-eye"></i><span class=old-visitors-count style=display:none></span><span class=leancloud-visitors-count></span></span><script src=https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js></script><script>AV.initialize("","");</script><script type=text/javascript>function showTime(Counter){var query=new AV.Query(Counter);var entries=[];var $visitors=$(".leancloud_visitors");$visitors.each(function(){entries.push($(this).attr("id").trim());});query.containedIn('url',entries);query.find().done(function(results){var COUNT_CONTAINER_REF='.leancloud-visitors-count';var OLD_COUNT_CONTAINER_REF='.old-visitors-count';for(var i=0;i<results.length;i++){var item=results[i];var url=item.get('url');var time=item.get('time');var element=document.getElementById(url);$(element).find(COUNT_CONTAINER_REF).text(time);}
-for(var i=0;i<entries.length;i++){var url=entries[i];var element=document.getElementById(url);var countSpan=$(element).find(COUNT_CONTAINER_REF);if(countSpan.text()==''){var oldCountSpan=$(element).find(OLD_COUNT_CONTAINER_REF).text();if(oldCountSpan!=''){countSpan.text(0+parseInt(oldCountSpan));}else{countSpan.text(0);}}}}).fail(function(object,error){console.log("Error: "+error.code+" "+error.message);});}
-function addCount(Counter){var $visitors=$(".leancloud_visitors");var url=$visitors.attr('id').trim();var title=$visitors.attr('data-flag-title').trim();var query=new AV.Query(Counter);query.equalTo("url",url);query.find({success:function(results){if(results.length>0){var counter=results[0];counter.fetchWhenSave(true);counter.increment("time");counter.save(null,{success:function(counter){var $element=$(document.getElementById(url));$element.find('.leancloud-visitors-count').text(counter.get('time'));},error:function(counter,error){console.log('Failed to save Visitor num, with error message: '+error.message);}});}else{var newcounter=new Counter();var acl=new AV.ACL();acl.setPublicReadAccess(true);acl.setPublicWriteAccess(true);newcounter.setACL(acl);newcounter.set("title",title);newcounter.set("url",url);var OLD_COUNT_CONTAINER_REF='.old-visitors-count';var $element=$(document.getElementById(url));var oldCountSpan=$element.find(OLD_COUNT_CONTAINER_REF).text();if(oldCountSpan!=''){newcounter.set("time",parseInt(oldCountSpan)+1);}else{newcounter.set("time",1);}
-newcounter.save(null,{success:function(newcounter){var $element=$(document.getElementById(url));$element.find('.leancloud-visitors-count').text(newcounter.get('time'));},error:function(newcounter,error){console.log('Failed to create');}});}},error:function(error){console.log('Error:'+error.code+" "+error.message);}});}
-$(function(){var Counter=AV.Object.extend("Counter");if($('.leancloud_visitors').length==1){addCount(Counter);}else{showTime(Counter);}});</script>阅读 </span></span>|<span class=post-date>共3916字</span>，阅读约<span class=more-meta> 8 分钟</span></span></div></div></div></div></header><article><div class=container><div class=row><div class="col-lg-8 col-lg-offset-2
-col-md-10 col-md-offset-1
-post-container"><header><h2>TOC</h2></header><nav id=TableOfContents><ul><li><ul><li><a href=#kill-结束进程>Kill 结束进程</a></li></ul></li><li><a href=#java-优雅关闭>Java 优雅关闭</a></li></ul><ul><li><a href=#总体设计>总体设计</a></li><li><a href=#作为服务端>作为服务端</a></li><li><a href=#作为客户端>作为客户端</a></li></ul></nav><h1 id=前言>前言</h1><p>众所周知，在微服务架构下面，当应用需要进行新功能升级发布，或者异常关闭重启的时候，我们会对应用的进程进行关闭，而在关闭之前，我们希望做一些诸如关闭数据库连接，等待处理任务完成等操作，这个就涉及到我们本文中的优雅关闭功能。假如应用没有支持优雅停机，则会带来譬如数据丢失，交易中断、文件损坏以及服务未下线等情况。</p><p>微服务的优雅停机需要遵循"注销发布服务 → 通知注销服务 → 更新服务清单 → 开启请求屏蔽 → 调用销毁业务服务 → 检查所有请求是否完成 → 超时强制停机"应用服务停机流程。</p><p>SOFARPC 提供服务端/客户端优雅关闭功能特性，用来解决 kill PID，应用意外自动退出譬如 <code>System.exit()</code> 退出 JVM，使用脚本或命令方式停止应用等使用场景，避免服务版本迭代上线人工干预的工作量，提高微服务架构的服务高可靠性。</p><p>本文将从进程的优雅关闭，SOFARPC 应用服务优雅关闭流程，Netty 的优雅停机等方面出发详细剖析 。</p><h1 id=进程优雅关闭>进程优雅关闭</h1><h3 id=kill-结束进程>Kill 结束进程</h3><p>在 Linux上，kill 命令发送指定的信号到相应进程，不指定信号则默认发送 SIGTERM(15) 终止指定进程。如果无法终止，可以发送 SIGKILL(9) 来强制结束进程。kill 命令信号共有64个信号值，其中常用的是：</p><p>2(SIGINT：中断，Ctrl+C)。<br>15(SIGTERM：终止，默认值)。<br>9(SIGKILL：强制终止)。</p><p>这里我们重点说一下15和9的情况。
-<code>kill PID/kill -15 PID</code> 命令系统发送 SIGTERM 进程信号给响应的应用程序，当应用程序接收到 SIGTERM 信号，可以进行释放相应资源后再停止，此时程序可能仍然继续运行。</p><p>而<code>kill -9 PID</code> 命令没有给进程遗留善后处理的条件。应用程序将会被直接终止。</p><p>对微服务应用而言其效果等同于突然断电，强行终止可能会导致如下几方面问题：</p><ul><li>缓存数据尚未持久化到磁盘，导致数据丢失；</li><li>文件写操作正在进行未更新完成，突然退出进程导致文件损坏；</li><li>线程消息队列尚有接收到的请求消息，未能及时处理，导致请求消息丢失；</li><li>数据库事务提交，服务端提供给客户端请求响应，消息尚在通信线程发送队列，进程强制退出导致客户端无法接收到响应，此时发起超时重试带来重复更新。</li></ul><p>所以支持优雅关闭的前提是关闭的时候，不能被直接 通过发送信号为9的 Kill 来强制结束。当然，其实我们也可以对外统一暴露应用程序管理的 API 来进行控制。本文暂时不做讨论。</p><h2 id=java-优雅关闭>Java 优雅关闭</h2><p>当应用程序收到信号为15的关闭命令时，可以进行相应的响应，Java 程序的优雅停机通常通过注册 JDK 的 ShutdownHook 来实现，当应用系统接收到退出指令，首先 JVM 标记系统当前处于退出状态，不再接收新的消息，然后逐步处理推积的消息，接着调用资源回收接口进行资源销毁，例如内存清理、对象销毁等，最后各线程退出业务逻辑执行。</p><p><img src=https://res.cloudinary.com/lyp/image/upload/v1544522249/hugo/blog.github.io/sofa-rpc/%E4%BC%98%E9%9B%85%E5%85%B3%E9%97%AD%E5%89%96%E6%9E%90/1537981880631-12a5ee45-0121-44f5-9ec3-f42ae25c4311.png alt="image | center"></p><p>优雅停机需要超时控制机制，即到达超时时间仍然尚未完成退出前资源回收等操作，则通过停机脚本调用<code>kill-9 PID</code>命令强制退出进程。</p><p>其中 JVM 优雅关闭的 流程主要的阶段如下图所示：</p><p><img src=https://res.cloudinary.com/lyp/image/upload/v1544522266/hugo/blog.github.io/sofa-rpc/%E4%BC%98%E9%9B%85%E5%85%B3%E9%97%AD%E5%89%96%E6%9E%90/1538069671200-1ef0957e-65e7-4222-9f1f-22f190687c25.png alt="image | left"></p><p>如图所示，Java进程优雅退出流程包括如下五个步骤：</p><ol><li>应用进程启动，初始化 Signal 实例；</li><li>根据操作系统类型，获取指定进程信号；</li><li>实现 SignalHandler 接口，实例化并注册到 Signal，当 Java 进程接收到譬如 kill -12 或者 Ctrl+C 命令信号回调其 handle() 方法；</li><li>SignalHandler 的 handle 回调接口初始化 ShutdownHook 线程，并将其注册到 Runtime 的 ShutdownHook。</li><li>Java 进程接收到终止进程信号，调用 Runtime 的<code>exit()</code> 方法退出 JVM 虚拟机，自动检测用户是否注册ShutdownHook 任务，如果有则触发 ShutdownHook 线程执行自定义资源释放等操作。</li></ol><h1 id=sofarpc-优雅关闭>SOFARPC 优雅关闭</h1><p>在进程可以进行优雅关闭后，SOFARPC 如何实现优雅关闭呢？首先 SOFARPC 对于所有可以被优雅关闭的资源设计com.alipay.sofa.rpc.base.Destroyable接口，通过向 JVM 的 ShutdownHook 注册来对这些可被销毁的资源进行优雅关闭，支持销毁前和销毁后操作。</p><p>这里包括两部分：</p><ol><li>作为服务端注册 JDK 的 ShutdownHook 执行取消服务注册、关闭服务端口等动作实现；</li><li>作为客户端通过实现 DestroyHook 接口逐步处理正在调用的请求关闭服务调用。</li></ol><h2 id=总体设计>总体设计</h2><p>运行时上下文注册 JDK 的 ShutdownHook 执行销毁 SOFARPC 运行相关环境实现类似发布平台/用户执行<code>kill PID</code> 优雅停机。运行时上下文 RpcRuntimeContext 静态初始化块注册 ShutdownHook 函数：</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=color:#66d9ef>static</span> <span style=color:#f92672>{</span>
-    <span style=color:#f92672>...</span>
-    <span style=color:#75715e>// 增加jvm关闭事件
-</span><span style=color:#75715e></span>    <span style=color:#66d9ef>if</span> <span style=color:#f92672>(</span>RpcConfigs<span style=color:#f92672>.</span><span style=color:#a6e22e>getOrDefaultValue</span><span style=color:#f92672>(</span>RpcOptions<span style=color:#f92672>.</span><span style=color:#a6e22e>JVM_SHUTDOWN_HOOK</span><span style=color:#f92672>,</span> <span style=color:#66d9ef>true</span><span style=color:#f92672>))</span> <span style=color:#f92672>{</span>
-        Runtime<span style=color:#f92672>.</span><span style=color:#a6e22e>getRuntime</span><span style=color:#f92672>().</span><span style=color:#a6e22e>addShutdownHook</span><span style=color:#f92672>(</span><span style=color:#66d9ef>new</span> Thread<span style=color:#f92672>(</span><span style=color:#66d9ef>new</span> Runnable<span style=color:#f92672>()</span> <span style=color:#f92672>{</span>
-            <span style=color:#a6e22e>@Override</span> 
-            <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>run</span><span style=color:#f92672>()</span> <span style=color:#f92672>{</span>
-                <span style=color:#66d9ef>if</span> <span style=color:#f92672>(</span>LOGGER<span style=color:#f92672>.</span><span style=color:#a6e22e>isWarnEnabled</span><span style=color:#f92672>())</span> <span style=color:#f92672>{</span>
-                    LOGGER<span style=color:#f92672>.</span><span style=color:#a6e22e>warn</span><span style=color:#f92672>(</span><span style=color:#e6db74>&#34;SOFA RPC Framework catch JVM shutdown event, Run shutdown hook now.&#34;</span><span style=color:#f92672>);</span>
-                <span style=color:#f92672>}</span>
-                destroy<span style=color:#f92672>(</span><span style=color:#66d9ef>false</span><span style=color:#f92672>);</span>
-            <span style=color:#f92672>}</span>
-        <span style=color:#f92672>},</span> <span style=color:#e6db74>&#34;SOFA-RPC-ShutdownHook&#34;</span><span style=color:#f92672>));</span>
-    <span style=color:#f92672>}</span>
-<span style=color:#f92672>}</span>
-</code></pre></div><p>注册本身很简单，重要的是 destroy 方法实际上做的事情非常多。按照先后顺序，大致包含如下几个部分。</p><p><img src=https://res.cloudinary.com/lyp/image/upload/v1544522290/hugo/blog.github.io/sofa-rpc/%E4%BC%98%E9%9B%85%E5%85%B3%E9%97%AD%E5%89%96%E6%9E%90/1538233199212-5d914a83-fc54-4300-a6dc-ff4734631c66.png alt="image | left"></p><p>RpcRuntimeContext 销毁服务优雅关闭完整流程：</p><ol><li>设置 RPC 框架运行状态修改为正在关闭，表示当前线程不再处理 RPC 服务请求；</li><li>遍历运行时上下文关闭资源的销毁钩子，进行注册销毁器清理资源前期准备工作；</li><li>获取发布的服务配置反注册服务提供者，向指定注册中心批量执行取消服务注册；</li><li>检查当前服务端连接和队列任务，先把队列任务处理完毕，再缓慢关闭启动端口；</li><li>关闭发布的服务，到注册中心取消服务发布，取消将处理器注册到服务端，清除服务发布配置缓存状态；</li><li>关闭调用的服务，断开客户端连接取消服务调用，清除服务订阅配置缓存，到注册中心取消服务订阅；</li><li>遍历注册中心配置逐一关闭注册中心，移除指定注册中心配置缓存；</li><li>不可复用长连接管理器销毁连接，关闭客户端的公共连接资源，清理不可复用连接缓存；</li><li>遍历 RPC 框架上下文已加载的模块，逐步卸载模块譬如负载均衡、链路追踪等；</li><li>遍历运行时上下文关闭资源的卸载钩子，进行注册销毁器清理资源后期收尾工作；</li><li>清理全部缓存例如应用类加载器缓存、服务类加载器缓存以及方法对象缓存等；</li><li>调整 RPC 框架运行状态更新为关闭完毕，运行时上下文释放资源关闭服务进程。</li></ol><h2 id=作为服务端>作为服务端</h2><p>总体设计包含非常多的优雅关闭步骤，这里我们再单独介绍一下作为服务端的时候，几个核心步骤的原理和流程，作为服务端，SOFARPC 关闭服务进程不能直接暴力关闭，而是逐步进行关闭。需要进行如下几个步骤：</p><ol><li>反注册服务：注册中心工厂获取全部注册中心实例调用 batchUnRegister 方法批量取消服务注册，通知服务消费者监听器更新其服务提供者列表，避免服务消费者继续引用下线服务造成服务调用异常不可用现象。</li><li>关闭端口：服务端工厂检查线程池 bizThreadPool 队列是否有正在执行的请求或者队列里有请求，线程组调用 shutdownGracefully 方法缓慢关闭远程服务端口，保证业务线程池队列请求先处理完毕再关闭线程池以及端口。</li><li>销毁服务对象：根据发布/订阅服务配置关闭提供/调用的服务，调用 unExport/unRefer 方法进行取消服务发布/订阅，注册中心删除发布/订阅服务配置，清理发布/订阅服务配置缓存，防止产生 RPC 服务发布/订阅服务对象。</li></ol><p><img src=https://res.cloudinary.com/lyp/image/upload/v1544522315/hugo/blog.github.io/sofa-rpc/%E4%BC%98%E9%9B%85%E5%85%B3%E9%97%AD%E5%89%96%E6%9E%90/1538979225121-bba00c97-6499-4d9a-8302-72f5ba8933ff.png alt="image | center"></p><p>RpcRuntimeContext 销毁服务配置资源核心实现入口：</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java>com<span style=color:#f92672>.</span><span style=color:#a6e22e>alipay</span><span style=color:#f92672>.</span><span style=color:#a6e22e>sofa</span><span style=color:#f92672>.</span><span style=color:#a6e22e>rpc</span><span style=color:#f92672>.</span><span style=color:#a6e22e>context</span><span style=color:#f92672>.</span><span style=color:#a6e22e>RpcRuntimeContext</span><span style=color:#960050;background-color:#1e0010>#</span>destroy<span style=color:#f92672>()</span>
-</code></pre></div><h2 id=作为客户端>作为客户端</h2><p>作为客户端，SOFARPC 通过实现 DestroyHook 销毁钩子接口提供优雅关闭的钩子，把 GracefulDestroyHook 关闭钩子注册到长连接管理器销毁客户端连接方法。客户端优雅关闭连接实际上是 Cluster 的关闭，关闭调用的服务实现入口：</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java>com<span style=color:#f92672>.</span><span style=color:#a6e22e>alipay</span><span style=color:#f92672>.</span><span style=color:#a6e22e>sofa</span><span style=color:#f92672>.</span><span style=color:#a6e22e>rpc</span><span style=color:#f92672>.</span><span style=color:#a6e22e>client</span><span style=color:#f92672>.</span><span style=color:#a6e22e>AbstractCluster</span><span style=color:#960050;background-color:#1e0010>#</span>destroy<span style=color:#f92672>()</span>
-</code></pre></div><p>GracefulDestroyHook 钩子优雅关闭连接整体流程：</p><ul><li>销毁前准备断连：获取当前 Client 正在发送的调用数量和服务消费方断连超时时间配置，检查是否有正在调用的服务请求并且当前运行时上下文时间未到达指定超时时间，满足准备条件则当前线程睡眠10秒；</li><li>销毁时释放资源：关闭重连线程 reconThread，关闭客户端长连接，清空当前存活+重试的客户端列表，多线程执行销毁已经建立的客户端长连接，逐步处理正在调用的服务请求并且下线服务调用请求操作。</li></ul><p><img src=https://res.cloudinary.com/lyp/image/upload/v1544522335/hugo/blog.github.io/sofa-rpc/%E4%BC%98%E9%9B%85%E5%85%B3%E9%97%AD%E5%89%96%E6%9E%90/1538211227977-c08a44f7-a880-44bd-9059-18658cfff064.png alt="image | left"></p><p>其中 GracefulDestroyHook 优雅关闭钩子销毁前准备断连操作：</p><p><img src=https://res.cloudinary.com/lyp/image/upload/v1544522355/hugo/blog.github.io/sofa-rpc/%E4%BC%98%E9%9B%85%E5%85%B3%E9%97%AD%E5%89%96%E6%9E%90/1538199225950-5c251e8f-50ad-4936-b71f-2b8ab5cb98f3.png alt="image | left"></p><p>是一个自旋检查的操作。</p><h1 id=netty-优雅关闭>Netty 优雅关闭</h1><p>SOFARPC 在关闭自身 RpcServer 的时候，也会关闭启动的 Netty 服务端。这时候就涉及到 Netty 的优雅关闭。</p><p>Netty 作为高性能的异步 NIO 通信框架，负责各种通信协议的接入，解析和调度，SOFABolt 是基于 Netty 最佳实践的轻量、易用、高性能、易扩展的通信框架。当微服务应用进程优雅停机，作为基础通信框架的 Netty 需要考虑优雅停机控制，主要原因包括以下几方面因素：</p><ol><li>尽快释放 NIO 线程，清理对象句柄资源；</li><li>使用 flush 批量发送消息，需要发送积攒在通信队列等待发送的消息；</li><li>正在进行 read 和 write 的消息需要继续处理；</li><li>NioEventLoop 线程调度器配置的定时任务需要执行或者清理。</li></ol><p>这里是 Netty底层的实现逻辑，我们只要知道在关闭 Server的时候，需要进行相应的方法调用即可。</p><p><img src=https://res.cloudinary.com/lyp/image/upload/v1544522376/hugo/blog.github.io/sofa-rpc/%E4%BC%98%E9%9B%85%E5%85%B3%E9%97%AD%E5%89%96%E6%9E%90/1538140798221-eb8e6c9f-5f0a-4a4f-88d0-8cb989c2b57a.png alt="image | center"></p><p>可以看到</p><ol><li>设置 NioEventLoop 线程状态修改为 ST_SHUTTING_DOWN，表示当前线程不再处理请求消息；</li><li>确认关闭操作：将通信队列等待发送或者正在发送的消息发送完毕，把已经到期或者关闭超时之前到期的定时任务执行结束，把用户自定义注册到 NioEventLoop 线程的 ShutdownHook 关闭钩子执行完成；</li><li>清理资源操作：把注册到多路复用器 Selector 的 Channel 释放，持有多路复用器 Selector 去注册和关闭，通信队列和定时任务清空取消，修改 NioEventLoop 线程状态为 ST_TERMINATED 关闭线程。</li></ol><p>其中，Netty 的优雅停机核心实现入口：</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java>io<span style=color:#f92672>.</span><span style=color:#a6e22e>netty</span><span style=color:#f92672>.</span><span style=color:#a6e22e>channel</span><span style=color:#f92672>.</span><span style=color:#a6e22e>EventLoopGroup</span><span style=color:#960050;background-color:#1e0010>#</span>shutdownGracefully<span style=color:#f92672>()</span>
-</code></pre></div><h1 id=sofaboot-优雅关闭>SOFABoot 优雅关闭</h1><p>一个完整的微服务可能不仅仅包括SOFARPC，还可能会用到各种各样的中间件，也涉及到各种流量调度等行为，所以优雅关闭是需要和发布平台联动的。如果强制 kill， 那么目前的这些优雅关闭的方案都不会生效。</p><p>所以在后续的 SOFABoot 版本中我们会增加接收一套完整的运维API，方便发布管控平台进行调用。SOFABoot 接收通过接收「关闭运维指令」而不是单纯依赖 ShutdownHook 逻辑，然后触发各个中间件的优雅关闭行为，其中就包括SOFAPRC的主动反注册服务发布和服务调用等关闭动作，各个中间件的优雅关闭执行完成后，SOFABoot 进程再退出。</p><h1 id=总结>总结</h1><p>本文从进程的优雅关闭，到 SOFARPC 的优雅关闭支持，并详细介绍 Netty 优雅关闭的原理。在设计优雅关闭的时候，可以考虑按照如下几个约定来进行实现。</p><p>(1)应用能够支持优雅停机<br>(2)优先注销注册中心注册的服务实例<br>(3)待停机的服务应用的接入点标记拒绝服务<br>(4)上游服务支持故障转移因优雅停机而拒绝的服务<br>(5)根据实际业务场景提供适当的停机接口。</p><hr><p>文章转自<a href=http://www.sofastack.tech/post/saaygu>【剖析 | SOFARPC 框架】之SOFARPC 优雅关闭剖析</a></p><h2>微信公众号</h2><p>扫描下面的二维码关注我们的微信公众帐号,第一时间查看最新内容。</p><img src=https://res.cloudinary.com/lyp/image/upload/v1581729955/hugo/blog.github.io/qrcode_for_sikekafeidou.jpg alt=wechat-account-qrcode><hr><ul class=pager><li class=previous><a href=/post/sofarpc%E6%B3%9B%E5%8C%96%E8%B0%83%E7%94%A8%E5%AE%9E%E7%8E%B0%E5%89%96%E6%9E%90/ data-toggle=tooltip data-placement=top title=转|SOFARPC泛化调用实现剖析>&larr; Previous Post</a></li><li class=next><a href=/post/2019-01-06-%E9%83%A8%E7%BD%B2react%E5%BA%94%E7%94%A8/ data-toggle=tooltip data-placement=top title=部署React应用>Next Post &rarr;</a></li></ul><div id=disqus-comment></div></div><div class="col-lg-8 col-lg-offset-2
-col-md-10 col-md-offset-1
-sidebar-container"><section><hr class="hidden-sm hidden-xs"><h5><a href=/tags/>FEATURED TAGS</a></h5><div class=tags><a href=/tags/chirpstack title=chirpstack>chirpstack</a>
-<a href=/tags/docker title=docker>docker</a>
-<a href=/tags/fluentd title=fluentd>fluentd</a>
-<a href=/tags/kubernetes title=kubernetes>kubernetes</a>
-<a href=/tags/mq title=mq>mq</a>
-<a href=/tags/rpc title=rpc>rpc</a>
-<a href=/tags/sofa title=sofa>sofa</a>
-<a href=/tags/sofastack title=sofastack>sofastack</a>
-<a href=/tags/%E4%B8%AD%E9%97%B4%E4%BB%B6 title=中间件>中间件</a>
-<a href=/tags/%E4%BA%91%E5%8E%9F%E7%94%9F title=云原生>云原生</a>
-<a href=/tags/%E9%83%A8%E7%BD%B2 title=部署>部署</a></div></section><hr><h5>FRIENDS</h5><ul class=list-inline></ul></div></div></div></article><footer><div class=container><div class=row><div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1"><ul class="list-inline text-center"><li><a href=mailto:gcslyp@gmail.com><span class="fa-stack fa-lg"><i class="fa fa-circle fa-stack-2x"></i><i class="fa fa-envelope fa-stack-1x fa-inverse"></i></span></a></li><li><a href=https://twitter.com/lan31793328><span class="fa-stack fa-lg"><i class="fa fa-circle fa-stack-2x"></i><i class="fa fa-twitter fa-stack-1x fa-inverse"></i></span></a></li><li><a target=_blank href=https://github.com/liangyuanpeng><span class="fa-stack fa-lg"><i class="fa fa-circle fa-stack-2x"></i><i class="fa fa-github fa-stack-1x fa-inverse"></i></span></a></li></ul><p class="copyright text-muted">Copyright &copy; Hi,I`m lan , 2018<br><a href=https://themes.gohugo.io/hugo-theme-cleanwhite>CleanWhite Hugo Theme</a> by <a href=https://zhaohuabing.com>Huabing</a> |
-<iframe style=margin-left:2px;margin-bottom:-5px frameborder=0 scrolling=0 width=100px height=20px src="https://ghbtns.com/github-btn.html?user=zhaohuabing&repo=hugo-theme-cleanwhite&type=star&count=true"></iframe></p></div></div></div></footer><script>function async(u,c){var d=document,t='script',o=d.createElement(t),s=d.getElementsByTagName(t)[0];o.src=u;if(c){o.addEventListener('load',function(e){c(null,e);},false);}
-s.parentNode.insertBefore(o,s);}</script><script>if($('#tag_cloud').length!==0){async("/js/jquery.tagcloud.js",function(){$.fn.tagcloud.defaults={color:{start:'#bbbbee',end:'#0085a1'},};$('#tag_cloud a').tagcloud();})}</script><script>async("https://cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.js",function(){var $nav=document.querySelector("nav");if($nav)FastClick.attach($nav);})</script><script>var _baId='71126c746d53d10cdb4275496d9cc84b';var _hmt=_hmt||[];(function(){var hm=document.createElement("script");hm.src="//hm.baidu.com/hm.js?"+_baId;var s=document.getElementsByTagName("script")[0];s.parentNode.insertBefore(hm,s);})();</script></body></html>
+<!DOCTYPE html>
+<html lang="en-us">
+<head><head>
+    <meta name="google-site-verification" content="9vIieCe-Qpd78QOmBl63rGtIVbhY6sYyuxX3j8XWBA4" />
+    <meta name="baidu-site-verification" content="LRrmH41lz7" />
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <meta name="baidu-site-verification" content="HGLXRsUXC4" />
+
+    
+    <meta name="description" content="众所周知，在微服务架构下面，当应用需要进行新功能升级发布，或者异常关闭重启的时候，我们会对应用的进程进行关闭，而在关闭之前，我们希望做一些诸如关闭数据库连接，等待处理任务完成等操作，这个就涉及到我们本文中的优雅关闭功能。假如应用没有支持优雅停机，则会带来譬如数据丢失，交易中断、文件损坏以及服务未下线等情况。">
+    
+    <meta name="keyword"  content="liangyuanpeng , lan , lyp的网络日志, lan的博客, lan Blog, 博客, 个人网站, 互联网, Web,  Istio, 微服务">
+    <link rel="shortcut icon" href="img/favicon.ico">
+
+    <title>转|SOFARPC优雅关闭剖析-lyp的博客 | lyp Blog</title>
+
+    <link rel="canonical" href="/post/sofarpc%E4%BC%98%E9%9B%85%E5%85%B3%E9%97%AD%E5%89%96%E6%9E%90/">
+
+    <link rel="stylesheet" href="https://res.cloudinary.com/lyp/raw/upload/v1537369740/hugo/css/iDisqus.min.css"/>
+
+    
+    <link rel="stylesheet" href="https://res.cloudinary.com/lyp/raw/upload/v1537369744/hugo/css/bootstrap.min.css">
+
+    
+    <link rel="stylesheet" href="https://res.cloudinary.com/lyp/raw/upload/v1537369740/hugo/css/hux-blog.min.css">
+
+    
+    <link rel="stylesheet" href="https://res.cloudinary.com/lyp/raw/upload/v1537369740/hugo/css/syntax.css">
+
+    
+    <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    
+    
+    <script src="https://res.cloudinary.com/lyp/raw/upload/v1537369966/hugo/js/jquery.min.js"></script>
+
+    
+    <script src="https://res.cloudinary.com/lyp/raw/upload/v1537369966/hugo/js/bootstrap.min.js"></script>
+
+    
+    <script src="https://res.cloudinary.com/lyp/raw/upload/v1537369964/hugo/js/hux-blog.min.js"></script>
+
+    
+    <meta name="baidu-site-verification" content="code-YNQgjspRJJ" />
+</head>
+
+</head>
+
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Hi,I`m lan</a>
+        </div>
+
+        
+        
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+                    
+                    <li>
+                        <a href="categories/cloudnative">cloudnative</a>
+                    </li>
+                    
+                    <li>
+                        <a href="categories/devops">devops</a>
+                    </li>
+                    
+                    <li>
+                        <a href="categories/kubernetes">kubernetes</a>
+                    </li>
+                    
+                    <li>
+                        <a href="categories/tech">tech</a>
+                    </li>
+                    
+                    <li>
+                        <a href="categories/%E4%B8%AD%E9%97%B4%E4%BB%B6">中间件</a>
+                    </li>
+                    
+                    <li>
+                        <a href="categories/%E5%AE%B9%E5%99%A8">容器</a>
+                    </li>
+                    
+                    <li>
+                        <a href="categories/%E5%AE%B9%E5%99%A8%E7%BC%96%E6%8E%92">容器编排</a>
+                    </li>
+                    
+                    <li>
+                        <a href="categories/%E7%89%A9%E8%81%94%E7%BD%91">物联网</a>
+                    </li>
+                    
+
+                    
+		            <li>
+                        <a href="search">SEARCH <img src="img/search.png" height="15" style="cursor: pointer;"></a>
+		            </li>
+                    
+                </ul>
+            </div>
+        </div>
+        
+    </div>
+    
+</nav>
+<script>
+    
+    
+    
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        
+            $navbar.className = " ";
+            
+            setTimeout(function(){
+                
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+
+
+<style type="text/css">
+    header.intro-header{
+        background-image: url('https://res.cloudinary.com/lyp/image/upload/v1543506262/hugo/blog.github.io/apache-rocketMQ-introduction/7046d2bf0d97278682129887309cc1a6.jpg')
+    }
+</style>
+<header class="intro-header" >
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                       
+                       <a class="tag" href="/tags/rpc" title="rpc">
+                           rpc
+                        </a>
+                        
+                       <a class="tag" href="/tags/sofa" title="sofa">
+                           sofa
+                        </a>
+                        
+                       <a class="tag" href="/tags/sofastack" title="sofastack">
+                           sofastack
+                        </a>
+                        
+                       <a class="tag" href="/tags/%E4%B8%AD%E9%97%B4%E4%BB%B6" title="中间件">
+                           中间件
+                        </a>
+                        
+                    </div>
+                    <h1>转|SOFARPC优雅关闭剖析</h1>
+                    <h2 class="subheading"></h2>
+                    <span  class="meta">Posted by lyp on Wednesday, December 12, 2018
+                        
+                        <span id="busuanzi_container_page_pv">|<span id="busuanzi_value_page_pv"></span><span>
+                            <span id="/post/sofarpc%E4%BC%98%E9%9B%85%E5%85%B3%E9%97%AD%E5%89%96%E6%9E%90/" class="leancloud_visitors meta_data_item" data-flag-title="">
+    <span class="post-meta-item-icon">
+      <span class="octicon octicon-eye"></span> 
+    </span>
+    <i class="fa fa-eye"></i>
+    <span class="old-visitors-count" style="display: none;"></span>
+    <span class="leancloud-visitors-count"></span>
+</span>
+
+
+
+<script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+
+<script>
+	AV.initialize("", "");
+</script>
+
+<script type="text/javascript">
+function showTime(Counter) {
+    var query = new AV.Query(Counter);
+    var entries = [];
+    var $visitors = $(".leancloud_visitors");
+
+    $visitors.each(function() {
+        entries.push($(this).attr("id").trim());
+    });
+
+    query.containedIn('url', entries);
+    query.find()
+        .done(function(results) {
+            var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+            var OLD_COUNT_CONTAINER_REF = '.old-visitors-count';
+
+            
+            
+            
+            
+
+            for (var i = 0; i < results.length; i++) {
+                var item = results[i];
+                var url = item.get('url');
+                var time = item.get('time');
+                var element = document.getElementById(url);
+
+                $(element).find(COUNT_CONTAINER_REF).text(time);
+            }
+            for (var i = 0; i < entries.length; i++) {
+                var url = entries[i];
+                var element = document.getElementById(url);
+                var countSpan = $(element).find(COUNT_CONTAINER_REF);
+                if (countSpan.text() == '') {
+                    var oldCountSpan = $(element).find(OLD_COUNT_CONTAINER_REF).text();
+                    if(oldCountSpan!=''){
+                        countSpan.text(0+parseInt(oldCountSpan));
+                    }else{
+                        countSpan.text(0);          
+                    }
+                }
+            }
+        })
+        .fail(function(object, error) {
+            console.log("Error: " + error.code + " " + error.message);
+        });
+}
+
+function addCount(Counter) {
+    var $visitors = $(".leancloud_visitors");
+    var url = $visitors.attr('id').trim();
+    var title = $visitors.attr('data-flag-title').trim();
+    var query = new AV.Query(Counter);
+
+    query.equalTo("url", url);
+    query.find({
+        success: function(results) {
+            if (results.length > 0) {
+                var counter = results[0];
+                counter.fetchWhenSave(true);
+                counter.increment("time");
+                counter.save(null, {
+                    success: function(counter) {
+                        var $element = $(document.getElementById(url));
+                        $element.find('.leancloud-visitors-count').text(counter.get('time'));
+                    },
+                    error: function(counter, error) {
+                        console.log('Failed to save Visitor num, with error message: ' + error.message);
+                    }
+                });
+            } else {
+                var newcounter = new Counter();
+                 
+                var acl = new AV.ACL();
+                acl.setPublicReadAccess(true);
+                acl.setPublicWriteAccess(true);
+                newcounter.setACL(acl);
+                 
+                newcounter.set("title", title);
+                newcounter.set("url", url);
+                var OLD_COUNT_CONTAINER_REF = '.old-visitors-count';
+                var $element = $(document.getElementById(url));
+                var oldCountSpan = $element.find(OLD_COUNT_CONTAINER_REF).text();
+                if(oldCountSpan!=''){
+                    newcounter.set("time", parseInt(oldCountSpan)+1);
+                }else{
+ 	                    newcounter.set("time",  1);
+                }
+                newcounter.save(null, {
+                    success: function(newcounter) {
+                        var $element = $(document.getElementById(url));
+                        $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+                    },
+                    error: function(newcounter, error) {
+                        console.log('Failed to create');
+                    }
+                });
+            }
+        },
+        error: function(error) {
+            console.log('Error:' + error.code + " " + error.message);
+        }
+    });
+}
+$(function() {
+    var Counter = AV.Object.extend("Counter");
+    
+    
+    if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+    } else {
+        showTime(Counter);
+    }
+});
+</script>
+
+                            阅读 </span></span>|<span class="post-date">共3916字</span>，阅读约<span class="more-meta"> 8 分钟</span>
+                        
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+
+
+<article>
+    <div class="container">
+        <div class="row">
+
+            
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+		
+                <header>
+                <h2>TOC</h2>
+                </header>
+                <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#kill-结束进程">Kill 结束进程</a></li>
+      </ul>
+    </li>
+    <li><a href="#java-优雅关闭">Java 优雅关闭</a></li>
+  </ul>
+
+  <ul>
+    <li><a href="#总体设计">总体设计</a></li>
+    <li><a href="#作为服务端">作为服务端</a></li>
+    <li><a href="#作为客户端">作为客户端</a></li>
+  </ul>
+</nav>
+		
+		<h1 id="前言">前言</h1>
+<p>众所周知，在微服务架构下面，当应用需要进行新功能升级发布，或者异常关闭重启的时候，我们会对应用的进程进行关闭，而在关闭之前，我们希望做一些诸如关闭数据库连接，等待处理任务完成等操作，这个就涉及到我们本文中的优雅关闭功能。假如应用没有支持优雅停机，则会带来譬如数据丢失，交易中断、文件损坏以及服务未下线等情况。</p>
+<p>微服务的优雅停机需要遵循&quot;注销发布服务 → 通知注销服务 → 更新服务清单 → 开启请求屏蔽 → 调用销毁业务服务 → 检查所有请求是否完成 → 超时强制停机&quot;应用服务停机流程。</p>
+<p>SOFARPC 提供服务端/客户端优雅关闭功能特性，用来解决 kill PID，应用意外自动退出譬如 <code>System.exit()</code> <!-- raw HTML omitted --><!-- raw HTML omitted -->退出 JVM<!-- raw HTML omitted --><!-- raw HTML omitted -->，使用脚本或命令方式停止应用等使用场景，避免<!-- raw HTML omitted --><!-- raw HTML omitted -->服务版本迭代上线<!-- raw HTML omitted --><!-- raw HTML omitted -->人工干预的工作量，提高微服务架构的服务高可靠性。</p>
+<p>本文<!-- raw HTML omitted --><!-- raw HTML omitted -->将从进程的优雅关闭，SOFARPC 应用服务优雅关闭流程，Netty 的优雅停机等方面出发详细剖析 。<!-- raw HTML omitted --><!-- raw HTML omitted --></p>
+<h1 id="进程优雅关闭">进程优雅关闭</h1>
+<h3 id="kill-结束进程">Kill 结束进程</h3>
+<p>在 Linux上，kill 命令发送指定的信号到相应进程，不指定信号则默认发送 SIGTERM(15) 终止指定进程。如果无法终止，可以发送 SIGKILL(9) 来强制结束进程。kill 命令信号共有64个信号值，其中常用的是：</p>
+<p>2(SIGINT：中断，<!-- raw HTML omitted --><!-- raw HTML omitted -->Ctrl+C<!-- raw HTML omitted --><!-- raw HTML omitted -->)。<br>
+15(SIGTERM：终止，默认值)。<br>
+9(SIGKILL：强制终止)。</p>
+<p>这里我们重点说一下15和9的情况。
+<code>kill PID/kill -15 PID</code> 命令系统发送 <!-- raw HTML omitted --><!-- raw HTML omitted -->SIGTERM 进程信号给响应的应用程序，当应用程序接收到 SIGTERM 信号，可以进行<!-- raw HTML omitted --><!-- raw HTML omitted -->释放相应资源后再停止，此时程序可能仍然继续运行。</p>
+<p>而<code>kill -9 PID</code> 命令没有给进程遗留善后处理的条件。应用程序将会被直接终止。</p>
+<p>对微服务应用而言其效果等同于突然断电，强行终止可能会导致如下几方面问题：</p>
+<ul>
+<li>缓存数据尚未持久化到磁盘，导致数据丢失；</li>
+<li>文件写操作正在进行未更新完成，突然退出进程导致文件损坏；</li>
+<li>线程消息队列尚有接收到的请求消息，未能及时处理，导致请求消息丢失；</li>
+<li>数据库事务提交，服务端提供给客户端请求响应，消息尚在通信线程发送队列，进程强制退出导致客户端无法接收到响应，此时发起超时重试带来重复更新。</li>
+</ul>
+<p>所以支持优雅关闭的前提是关闭的时候，不能被直接 通过发送信号为9的 Kill 来强制结束。当然，其实我们也可以对外统一暴露应用程序管理的 API 来进行控制。本文暂时不做讨论。</p>
+<h2 id="java-优雅关闭">Java 优雅关闭</h2>
+<p>当应用程序收到信号为15的关闭命令时，可以进行相应的响应，Java 程序的优雅停机通常通过注册 JDK 的 ShutdownHook 来实现，当应用系统接收到退出指令，首先 JVM 标记系统当前处于退出状态，不再接收新的消息，然后逐步处理推积的消息，接着调用资源回收接口进行资源销毁，例如<!-- raw HTML omitted --><!-- raw HTML omitted -->内存清理、对象销毁等<!-- raw HTML omitted --><!-- raw HTML omitted -->，最后各线程退出业务逻辑执行。</p>
+<p><img src="https://res.cloudinary.com/lyp/image/upload/v1544522249/hugo/blog.github.io/sofa-rpc/%E4%BC%98%E9%9B%85%E5%85%B3%E9%97%AD%E5%89%96%E6%9E%90/1537981880631-12a5ee45-0121-44f5-9ec3-f42ae25c4311.png" alt="image | center" title=""></p>
+<p>优雅停机需要超时控制机制，即到达超时时间仍然尚未完成退出前资源回收等操作，则通过停机脚本调用<code>kill-9 PID</code>命令强制退出进程。</p>
+<p>其中 JVM 优雅关闭的 流程主要的阶段如下图所示：</p>
+<p><img src="https://res.cloudinary.com/lyp/image/upload/v1544522266/hugo/blog.github.io/sofa-rpc/%E4%BC%98%E9%9B%85%E5%85%B3%E9%97%AD%E5%89%96%E6%9E%90/1538069671200-1ef0957e-65e7-4222-9f1f-22f190687c25.png" alt="image | left" title=""></p>
+<p>如图所示，<!-- raw HTML omitted --><!-- raw HTML omitted -->Java进程优雅退出流程包括如下五个步骤：<!-- raw HTML omitted --><!-- raw HTML omitted --></p>
+<ol>
+<li><!-- raw HTML omitted --><!-- raw HTML omitted -->应用进程启动，初始化 Signal 实例；<!-- raw HTML omitted --><!-- raw HTML omitted --></li>
+<li><!-- raw HTML omitted --><!-- raw HTML omitted -->根据操作系统类型，获取指定进程信号；<!-- raw HTML omitted --><!-- raw HTML omitted --></li>
+<li>实现 <!-- raw HTML omitted --><!-- raw HTML omitted -->SignalHandler 接口，实例化并注册到 Signal，当 Java 进程接收到譬如 kill -12 或者 Ctrl+C 命令信号回调其 handle() 方法；<!-- raw HTML omitted --><!-- raw HTML omitted --></li>
+<li><!-- raw HTML omitted --><!-- raw HTML omitted -->SignalHandler 的 handle 回调接口初始化 ShutdownHook 线程，并将其注册到 Runtime 的 ShutdownHook。<!-- raw HTML omitted --><!-- raw HTML omitted --></li>
+<li>Java 进程接收到终止进程信号，调用 Runtime 的<code>exit()</code> 方法退出 JVM <!-- raw HTML omitted --><!-- raw HTML omitted -->虚拟机，自动检测用户是否注册ShutdownHook 任务，如果有则触发 ShutdownHook 线程执行自定义资源释放等操作。<!-- raw HTML omitted --><!-- raw HTML omitted --></li>
+</ol>
+<h1 id="sofarpc-优雅关闭">SOFARPC 优雅关闭</h1>
+<p>在进程可以进行优雅关闭后，SOFARPC 如何实现<!-- raw HTML omitted --><!-- raw HTML omitted -->优雅关闭呢？首先 SOFARPC 对于所有可以被优雅关闭的资源设计<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->com.alipay.sofa.rpc.base.Destroyable<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->接口，通过向 JVM 的 ShutdownHook 注册来对这些可被销毁的资源进行优雅关闭，支持销毁前和销毁后操作。</p>
+<p><!-- raw HTML omitted --><!-- raw HTML omitted -->这里包括两部分：<!-- raw HTML omitted --><!-- raw HTML omitted --></p>
+<ol>
+<li><!-- raw HTML omitted --><!-- raw HTML omitted -->作为服务端<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->注册 JDK 的 ShutdownHook <!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->执行取消服务注册、关闭服务端口等动作<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->实现；<!-- raw HTML omitted --><!-- raw HTML omitted --></li>
+<li><!-- raw HTML omitted --><!-- raw HTML omitted -->作为客户端通过实现 DestroyHook 接口逐步处理正在调用的请求关闭服务调用。<!-- raw HTML omitted --><!-- raw HTML omitted --></li>
+</ol>
+<h2 id="总体设计">总体设计</h2>
+<p><!-- raw HTML omitted --><!-- raw HTML omitted -->运行时上下文<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->注册 JDK 的 ShutdownHook 执行销毁 SOFARPC 运行相关环境实现类似<!-- raw HTML omitted --><!-- raw HTML omitted -->发布平台/用户执行<code>kill PID</code> 优雅停机。<!-- raw HTML omitted --><!-- raw HTML omitted -->运行时上下文 RpcRuntimeContext 静态初始化块注册 <!-- raw HTML omitted --><!-- raw HTML omitted -->ShutdownHook 函数：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">static</span> <span style="color:#f92672">{</span>
+    <span style="color:#f92672">...</span>
+    <span style="color:#75715e">// 增加jvm关闭事件
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>RpcConfigs<span style="color:#f92672">.</span><span style="color:#a6e22e">getOrDefaultValue</span><span style="color:#f92672">(</span>RpcOptions<span style="color:#f92672">.</span><span style="color:#a6e22e">JVM_SHUTDOWN_HOOK</span><span style="color:#f92672">,</span> <span style="color:#66d9ef">true</span><span style="color:#f92672">))</span> <span style="color:#f92672">{</span>
+        Runtime<span style="color:#f92672">.</span><span style="color:#a6e22e">getRuntime</span><span style="color:#f92672">().</span><span style="color:#a6e22e">addShutdownHook</span><span style="color:#f92672">(</span><span style="color:#66d9ef">new</span> Thread<span style="color:#f92672">(</span><span style="color:#66d9ef">new</span> Runnable<span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+            <span style="color:#a6e22e">@Override</span> 
+            <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">run</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+                <span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>LOGGER<span style="color:#f92672">.</span><span style="color:#a6e22e">isWarnEnabled</span><span style="color:#f92672">())</span> <span style="color:#f92672">{</span>
+                    LOGGER<span style="color:#f92672">.</span><span style="color:#a6e22e">warn</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;SOFA RPC Framework catch JVM shutdown event, Run shutdown hook now.&#34;</span><span style="color:#f92672">);</span>
+                <span style="color:#f92672">}</span>
+                destroy<span style="color:#f92672">(</span><span style="color:#66d9ef">false</span><span style="color:#f92672">);</span>
+            <span style="color:#f92672">}</span>
+        <span style="color:#f92672">},</span> <span style="color:#e6db74">&#34;SOFA-RPC-ShutdownHook&#34;</span><span style="color:#f92672">));</span>
+    <span style="color:#f92672">}</span>
+<span style="color:#f92672">}</span>
+</code></pre></div><p>注册本身很简单，重要的是 destroy 方法实际上做的事情非常多。按照先后顺序，大致包含如下几个部分。</p>
+<p><img src="https://res.cloudinary.com/lyp/image/upload/v1544522290/hugo/blog.github.io/sofa-rpc/%E4%BC%98%E9%9B%85%E5%85%B3%E9%97%AD%E5%89%96%E6%9E%90/1538233199212-5d914a83-fc54-4300-a6dc-ff4734631c66.png" alt="image | left" title=""></p>
+<p><!-- raw HTML omitted --><!-- raw HTML omitted -->RpcRuntimeContext 销毁服务优雅关闭完整流程：<!-- raw HTML omitted --><!-- raw HTML omitted --></p>
+<ol>
+<li>设置 RPC 框架运行状态修改为正在关闭，表示当前线程不再处理 RPC 服务请求；</li>
+<li>遍历<!-- raw HTML omitted --><!-- raw HTML omitted -->运行时上下文<!-- raw HTML omitted --><!-- raw HTML omitted -->关闭资源的销毁钩子，进行注册销毁器清理资源前期准备工作；</li>
+<li>获取发布的服务配置反注册服务提供者，向指定注册中心批量执行取消服务注册；</li>
+<li>检查<!-- raw HTML omitted --><!-- raw HTML omitted -->当前服务端连接和队列任务，先把队列任务处理完毕，再缓慢<!-- raw HTML omitted --><!-- raw HTML omitted -->关闭启动端口；</li>
+<li>关闭发布的服务，到注册中心取消服务发布，取消将处理器注册到服务端，清除服务发布配置缓存状态；</li>
+<li>关闭调用的服务，断开客户端连接取消服务调用，清除服务订阅配置缓存，到注册中心取消服务订阅；</li>
+<li>遍历注册中心配置逐一关闭注册中心，移除指定注册中心配置缓存；</li>
+<li>不可复用长连接管理器销毁连接，关闭客户端的公共连接资源，清理不可复用连接缓存；</li>
+<li>遍历 RPC 框架上下文已加载的模块，逐步卸载模块譬如负载均衡、链路追踪等；</li>
+<li>遍历<!-- raw HTML omitted --><!-- raw HTML omitted -->运行时上下文<!-- raw HTML omitted --><!-- raw HTML omitted -->关闭资源的卸载钩子，进行注册销毁器清理资源后期收尾工作；</li>
+<li>清理全部缓存例如应用类加载器缓存、服务类加载器缓存以及方法对象缓存等；</li>
+<li>调整 RPC 框架运行状态更新为关闭完毕，<!-- raw HTML omitted --><!-- raw HTML omitted -->运行时上下文释放资源关闭服务进程。<!-- raw HTML omitted --><!-- raw HTML omitted --></li>
+</ol>
+<h2 id="作为服务端">作为服务端</h2>
+<p>总体设计包含非常多的优雅关闭步骤，这里我们再单独介绍一下作为服务端的时候，几个核心步骤的原理和流程，<!-- raw HTML omitted --><!-- raw HTML omitted -->作为服务端，SOFARPC 关闭服务进程不能直接暴力关闭，而是逐步进行关闭。需要进行如下几个步骤：<!-- raw HTML omitted --><!-- raw HTML omitted --></p>
+<ol>
+<li>反注册服务：注册中心工厂获取全部注册中心实例调用 batchUnRegister 方法批量取消服务注册，通知服务消费者监听器更新其服务提供者列表，避免服务消费者继续引用下线服务造成服务调用异常不可用现象。</li>
+<li>关闭端口：服务端工厂检查线程池 bizThreadPool 队列是否有正在执行的请求或者队列里有请求，线程组调用 shutdownGracefully 方法缓慢关闭远程服务端口，保证业务线程池队列请求先处理完毕再关闭线程池以及端口。</li>
+<li>销毁服务对象：根据发布/订阅服务配置关闭提供/调用的服务，调用 unExport/unRefer 方法进行取消服务发布/订阅，注册中心删除发布/订阅服务配置，清理发布/订阅服务配置缓存，防止产生 RPC 服务发布/订阅服务对象。</li>
+</ol>
+<p><img src="https://res.cloudinary.com/lyp/image/upload/v1544522315/hugo/blog.github.io/sofa-rpc/%E4%BC%98%E9%9B%85%E5%85%B3%E9%97%AD%E5%89%96%E6%9E%90/1538979225121-bba00c97-6499-4d9a-8302-72f5ba8933ff.png" alt="image | center" title=""></p>
+<p><!-- raw HTML omitted --><!-- raw HTML omitted -->RpcRuntimeContext 销毁服务配置资源核心实现入口：<!-- raw HTML omitted --><!-- raw HTML omitted --></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">com<span style="color:#f92672">.</span><span style="color:#a6e22e">alipay</span><span style="color:#f92672">.</span><span style="color:#a6e22e">sofa</span><span style="color:#f92672">.</span><span style="color:#a6e22e">rpc</span><span style="color:#f92672">.</span><span style="color:#a6e22e">context</span><span style="color:#f92672">.</span><span style="color:#a6e22e">RpcRuntimeContext</span><span style="color:#960050;background-color:#1e0010">#</span>destroy<span style="color:#f92672">()</span>
+</code></pre></div><h2 id="作为客户端">作为客户端</h2>
+<p>作为客户端，SOFARPC 通过<!-- raw HTML omitted --><!-- raw HTML omitted -->实现 DestroyHook 销毁钩子接口提供优雅关闭的钩子，把 GracefulDestroyHook 关闭钩子注册到长连接管理器销毁客户端连接方法。客户端优雅关闭连接实际上是 <!-- raw HTML omitted --><!-- raw HTML omitted -->Cluster 的关闭，关闭调用的服务实现入口：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">com<span style="color:#f92672">.</span><span style="color:#a6e22e">alipay</span><span style="color:#f92672">.</span><span style="color:#a6e22e">sofa</span><span style="color:#f92672">.</span><span style="color:#a6e22e">rpc</span><span style="color:#f92672">.</span><span style="color:#a6e22e">client</span><span style="color:#f92672">.</span><span style="color:#a6e22e">AbstractCluster</span><span style="color:#960050;background-color:#1e0010">#</span>destroy<span style="color:#f92672">()</span>
+</code></pre></div><p><!-- raw HTML omitted --><!-- raw HTML omitted -->GracefulDestroyHook 钩子优雅关闭连接整体流程：<!-- raw HTML omitted --><!-- raw HTML omitted --></p>
+<ul>
+<li>销毁前准备断连：获取当前 Client 正在发送的调用数量和服务消费方断连超时时间配置，检查是否有正在调用的服务请求并且当前运行时上下文时间未到达指定超时时间，满足准备条件则当前线程<!-- raw HTML omitted --><!-- raw HTML omitted -->睡眠10秒；<!-- raw HTML omitted --><!-- raw HTML omitted --></li>
+<li>销毁时释放资源：关闭重连线程 reconThread，关闭客户端长连接，清空当前存活+重试的客户端列表，多线程执行销毁已经建立的客户端长连接，逐步处理正在调用的服务请求并且下线服务调用请求操作。</li>
+</ul>
+<p><img src="https://res.cloudinary.com/lyp/image/upload/v1544522335/hugo/blog.github.io/sofa-rpc/%E4%BC%98%E9%9B%85%E5%85%B3%E9%97%AD%E5%89%96%E6%9E%90/1538211227977-c08a44f7-a880-44bd-9059-18658cfff064.png" alt="image | left" title=""></p>
+<p>其中 GracefulDestroyHook 优雅关闭钩子销毁前准备断连操作：</p>
+<p><img src="https://res.cloudinary.com/lyp/image/upload/v1544522355/hugo/blog.github.io/sofa-rpc/%E4%BC%98%E9%9B%85%E5%85%B3%E9%97%AD%E5%89%96%E6%9E%90/1538199225950-5c251e8f-50ad-4936-b71f-2b8ab5cb98f3.png" alt="image | left" title=""></p>
+<p>是一个自旋检查的操作。</p>
+<h1 id="netty-优雅关闭">Netty 优雅关闭</h1>
+<p>SOFARPC 在关闭自身 RpcServer 的时候，也会关闭启动的 Netty 服务端。这时候就涉及到 Netty 的优雅关闭。</p>
+<p>N<!-- raw HTML omitted --><!-- raw HTML omitted -->etty 作为高性能的异步 NIO 通信框架，负责各种通信协议的接入，解析和调度，SOFABolt 是<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->基于 Netty 最佳实践的轻量、易用、高性能、易扩展的通信框架。当微服务应用进程优雅停机，<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->作为基础通信框架的 Netty 需要考虑优雅停机控制，主要原因包括以下几方面因素<!-- raw HTML omitted --><!-- raw HTML omitted -->：</p>
+<ol>
+<li>尽快释放 NIO 线程，清理对象句柄资源；</li>
+<li>使用 flush 批量发送消息，需要发送积攒在通信队列等待发送的消息；</li>
+<li>正在进行 read 和 write 的消息需要继续处理；</li>
+<li>NioEventLoop 线程调度器配置的定时任务需要执行或者清理。</li>
+</ol>
+<p>这里是 Netty底层的实现逻辑，我们只要知道在关闭 Server的时候，需要进行相应的方法调用即可。</p>
+<p><img src="https://res.cloudinary.com/lyp/image/upload/v1544522376/hugo/blog.github.io/sofa-rpc/%E4%BC%98%E9%9B%85%E5%85%B3%E9%97%AD%E5%89%96%E6%9E%90/1538140798221-eb8e6c9f-5f0a-4a4f-88d0-8cb989c2b57a.png" alt="image | center" title=""></p>
+<p>可以看到</p>
+<ol>
+<li>设置 <!-- raw HTML omitted --><!-- raw HTML omitted -->NioEventLoop <!-- raw HTML omitted --><!-- raw HTML omitted -->线程状态修改为 ST_SHUTTING_DOWN，表示当前线程不再处理请求消息；</li>
+<li>确认关闭操作：将通信队列等待发送或者正在发送的消息发送完毕，把已经到期或者关闭超时之前到期的定时任务执行结束，把用户自定义注册到 <!-- raw HTML omitted --><!-- raw HTML omitted -->NioEventLoop <!-- raw HTML omitted --><!-- raw HTML omitted -->线程的 ShutdownHook 关闭钩子执行完成；</li>
+<li>清理资源操作：把<!-- raw HTML omitted --><!-- raw HTML omitted -->注册到<!-- raw HTML omitted --><!-- raw HTML omitted -->多路复用器 Selector <!-- raw HTML omitted --><!-- raw HTML omitted -->的 Channel <!-- raw HTML omitted --><!-- raw HTML omitted -->释放，持有多路复用器 Selector 去注册和关闭，通信队列和定时任务清空取消，<!-- raw HTML omitted --><!-- raw HTML omitted -->修改 NioEventLoop 线程状态为 ST_TERMINATED 关闭线程<!-- raw HTML omitted --><!-- raw HTML omitted -->。</li>
+</ol>
+<p>其中，Netty 的优雅停机核心实现入口：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">io<span style="color:#f92672">.</span><span style="color:#a6e22e">netty</span><span style="color:#f92672">.</span><span style="color:#a6e22e">channel</span><span style="color:#f92672">.</span><span style="color:#a6e22e">EventLoopGroup</span><span style="color:#960050;background-color:#1e0010">#</span>shutdownGracefully<span style="color:#f92672">()</span>
+</code></pre></div><h1 id="sofaboot-优雅关闭">SOFABoot 优雅关闭</h1>
+<p>一个完整的微服务可能不仅仅包括SOFARPC，还可能会用到各种各样的中间件，也涉及到各种流量调度等行为，所以<!-- raw HTML omitted --><!-- raw HTML omitted -->优雅关闭是需要和发布平台联动的。如果强制 kill， 那么目前的这些优雅关闭的方案都不会生效。<!-- raw HTML omitted --><!-- raw HTML omitted --></p>
+<p>所以在<!-- raw HTML omitted --><!-- raw HTML omitted -->后续的 <!-- raw HTML omitted --><!-- raw HTML omitted -->SOFABoot 版本中我们会增加接收一套完整的运维API，方便发布管控平台进行调用。SOFABoot 接收通过接收「关闭运维指令」而不是单纯依赖<!-- raw HTML omitted --><!-- raw HTML omitted --> ShutdownHook 逻辑<!-- raw HTML omitted --><!-- raw HTML omitted -->，然后触发各个中间件的优雅关闭行为，其中就包括SOFAPRC的主动反注册服务发布和服务调用等关闭动作<!-- raw HTML omitted --><!-- raw HTML omitted -->，各个中间件的优雅关闭执行完成后，SOFABoot 进程再退出。<!-- raw HTML omitted --><!-- raw HTML omitted --></p>
+<h1 id="总结">总结</h1>
+<p>本文从进程的优雅关闭，到 SOFARPC 的优雅关闭支持，并详细介绍 Netty 优雅关闭的原理。在设计优雅关闭的时候，可以考虑按照如下几个约定来进行实现。</p>
+<p>(1)应用能够支持优雅停机<br>
+(2)优先注销注册中心注册的服务实例<br>
+(3)待停机的服务应用的接入点标记拒绝服务<br>
+(4)上游服务支持故障转移因优雅停机而拒绝的服务<br>
+(5)根据实际业务场景提供适当的停机接口。</p>
+<hr>
+<p>文章转自<a href="http://www.sofastack.tech/post/saaygu">【剖析 | SOFARPC 框架】之SOFARPC 优雅关闭剖析</a></p>
+
+
+        <h2>微信公众号</h2>
+<p>扫描下面的二维码关注我们的微信公众帐号,第一时间查看最新内容。</p>
+<img src="https://res.cloudinary.com/lyp/image/upload/v1581729955/hugo/blog.github.io/qrcode_for_sikekafeidou.jpg" alt="wechat-account-qrcode">
+
+
+                <hr>
+
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/post/sofarpc%E6%B3%9B%E5%8C%96%E8%B0%83%E7%94%A8%E5%AE%9E%E7%8E%B0%E5%89%96%E6%9E%90/" data-toggle="tooltip" data-placement="top" title="转|SOFARPC泛化调用实现剖析">&larr; Previous Post</a>
+                    </li>
+                    
+                    
+                    <li class="next">
+                        <a href="/post/2019-01-06-%E9%83%A8%E7%BD%B2react%E5%BA%94%E7%94%A8/" data-toggle="tooltip" data-placement="top" title="部署React应用">Next Post &rarr;</a>
+                    </li>
+                    
+                </ul>
+
+            
+<div id="disqus-comment"></div>
+
+
+
+            </div>
+            
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                
+                <section>
+                    <hr class="hidden-sm hidden-xs">
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                     
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                            <a href="/tags/chirpstack" title="chirpstack">
+                                chirpstack
+                            </a>
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                            <a href="/tags/docker" title="docker">
+                                docker
+                            </a>
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                            <a href="/tags/fluentd" title="fluentd">
+                                fluentd
+                            </a>
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                            <a href="/tags/kubernetes" title="kubernetes">
+                                kubernetes
+                            </a>
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                            <a href="/tags/mq" title="mq">
+                                mq
+                            </a>
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                            <a href="/tags/rpc" title="rpc">
+                                rpc
+                            </a>
+                        
+                    
+                        
+                            <a href="/tags/sofa" title="sofa">
+                                sofa
+                            </a>
+                        
+                    
+                        
+                            <a href="/tags/sofastack" title="sofastack">
+                                sofastack
+                            </a>
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                            <a href="/tags/%E4%B8%AD%E9%97%B4%E4%BB%B6" title="中间件">
+                                中间件
+                            </a>
+                        
+                    
+                        
+                            <a href="/tags/%E4%BA%91%E5%8E%9F%E7%94%9F" title="云原生">
+                                云原生
+                            </a>
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                            <a href="/tags/%E9%83%A8%E7%BD%B2" title="部署">
+                                部署
+                            </a>
+                        
+                    
+                    </div>
+                </section>
+
+                
+                <hr>
+                <h5>FRIENDS</h5>
+                <ul class="list-inline">
+                    
+                </ul>
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                   
+                    
+                    <li>
+                        <a href="mailto:gcslyp@gmail.com">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+		    
+
+                    
+                    <li>
+                        <a href="https://twitter.com/lan31793328">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    
+
+                    
+
+		    
+                    
+                    
+                    <li>
+                        <a target="_blank" href="https://github.com/liangyuanpeng">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+		    
+                    
+                </ul>
+		<p class="copyright text-muted">
+                    Copyright &copy; Hi,I`m lan , 2018
+                    <br>
+                    <a href="https://themes.gohugo.io/hugo-theme-cleanwhite">CleanWhite Hugo Theme</a> by <a href="https://zhaohuabing.com">Huabing</a> |
+                    <iframe
+                        style="margin-left: 2px; margin-bottom:-5px;"
+                        frameborder="0" scrolling="0" width="100px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=zhaohuabing&repo=hugo-theme-cleanwhite&type=star&count=true" >
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+
+
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+
+
+
+
+
+<script>
+    
+    if($('#tag_cloud').length !== 0){
+        async("/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+
+<script>
+    async("https://cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+
+
+
+
+
+<script>
+    
+    var _baId = 'fad9c137f8ce239f9b323d36c871f8e6';
+
+    
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?" + _baId;
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+
+
+
+
+
+
+</body>
+</html>
