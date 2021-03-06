@@ -1,28 +1,384 @@
-<!doctype html><html lang=en-us><head><head><meta name=google-site-verification content="9vIieCe-Qpd78QOmBl63rGtIVbhY6sYyuxX3j8XWBA4"><meta name=baidu-site-verification content="LRrmH41lz7"><meta charset=utf-8><meta http-equiv=x-ua-compatible content="IE=edge"><meta name=google-site-verification content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI"><meta name=viewport content="width=device-width,initial-scale=1"><meta name=baidu-site-verification content="HGLXRsUXC4"><meta name=description content="Apache Kafka是一个分布式流处理平台，最初由LinkedIn开发并开源贡献给Apache"><meta name=keyword content="liangyuanpeng , lan , lyp的网络日志, lan的博客, lan Blog, 博客, 个人网站, 互联网, Web,  Istio, 微服务"><link rel="shortcut icon" href=img/favicon.ico><title>利用docker和docker-compose部署单机kafka-lyp的博客 | lyp Blog</title><link rel=canonical href=/post/docker-deploy-kafka/><link rel=stylesheet href=https://res.cloudinary.com/lyp/raw/upload/v1537369740/hugo/css/iDisqus.min.css><link rel=stylesheet href=https://res.cloudinary.com/lyp/raw/upload/v1537369744/hugo/css/bootstrap.min.css><link rel=stylesheet href=https://res.cloudinary.com/lyp/raw/upload/v1537369740/hugo/css/hux-blog.min.css><link rel=stylesheet href=https://res.cloudinary.com/lyp/raw/upload/v1537369740/hugo/css/syntax.css><link href=//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css rel=stylesheet type=text/css><script src=https://res.cloudinary.com/lyp/raw/upload/v1537369966/hugo/js/jquery.min.js></script><script src=https://res.cloudinary.com/lyp/raw/upload/v1537369966/hugo/js/bootstrap.min.js></script><script src=https://res.cloudinary.com/lyp/raw/upload/v1537369964/hugo/js/hux-blog.min.js></script></head></head><nav class="navbar navbar-default navbar-custom navbar-fixed-top"><div class=container-fluid><div class="navbar-header page-scroll"><button type=button class=navbar-toggle>
-<span class=sr-only>Toggle navigation</span>
-<span class=icon-bar></span><span class=icon-bar></span><span class=icon-bar></span></button>
-<a class=navbar-brand href=/>Hi,I`m lan</a></div><div id=huxblog_navbar><div class=navbar-collapse><ul class="nav navbar-nav navbar-right"><li><a href=/>Home</a></li><li><a href=categories/cloudnative>cloudnative</a></li><li><a href=categories/devops>devops</a></li><li><a href=categories/iot>iot</a></li><li><a href=categories/kubernetes>kubernetes</a></li><li><a href=categories/middleware>middleware</a></li><li><a href=categories/tech>tech</a></li><li><a href=search>SEARCH <img src=img/search.png height=15 style=cursor:pointer></a></li></ul></div></div></div></nav><script>var $body=document.body;var $toggle=document.querySelector('.navbar-toggle');var $navbar=document.querySelector('#huxblog_navbar');var $collapse=document.querySelector('.navbar-collapse');$toggle.addEventListener('click',handleMagic)
-function handleMagic(e){if($navbar.className.indexOf('in')>0){$navbar.className=" ";setTimeout(function(){if($navbar.className.indexOf('in')<0){$collapse.style.height="0px"}},400)}else{$collapse.style.height="auto"
-$navbar.className+=" in";}}</script><style type=text/css>header.intro-header{background-image:url(https://res.cloudinary.com/lyp/image/upload/v1581649210/hugo/blog.github.io/blur-close-up-code-computer-546819.jpg)}</style><header class=intro-header><div class=container><div class=row><div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1"><div class=post-heading><div class=tags><a class=tag href=/tags/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97 title=消息队列>消息队列</a>
-<a class=tag href=/tags/middleware title=Middleware>Middleware</a></div><h1>利用docker和docker-compose部署单机kafka</h1><h2 class=subheading></h2><span class=meta>Posted by lan on Friday, February 14, 2020
-<span id=busuanzi_container_page_pv>|<span id=busuanzi_value_page_pv></span><span>
-<span id=/post/docker-deploy-kafka/ class="leancloud_visitors meta_data_item" data-flag-title><span class=post-meta-item-icon><span class="octicon octicon-eye"></span></span><i class="fa fa-eye"></i><span class=old-visitors-count style=display:none></span><span class=leancloud-visitors-count></span></span><script src=https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js></script><script>AV.initialize("","");</script><script type=text/javascript>function showTime(Counter){var query=new AV.Query(Counter);var entries=[];var $visitors=$(".leancloud_visitors");$visitors.each(function(){entries.push($(this).attr("id").trim());});query.containedIn('url',entries);query.find().done(function(results){var COUNT_CONTAINER_REF='.leancloud-visitors-count';var OLD_COUNT_CONTAINER_REF='.old-visitors-count';for(var i=0;i<results.length;i++){var item=results[i];var url=item.get('url');var time=item.get('time');var element=document.getElementById(url);$(element).find(COUNT_CONTAINER_REF).text(time);}
-for(var i=0;i<entries.length;i++){var url=entries[i];var element=document.getElementById(url);var countSpan=$(element).find(COUNT_CONTAINER_REF);if(countSpan.text()==''){var oldCountSpan=$(element).find(OLD_COUNT_CONTAINER_REF).text();if(oldCountSpan!=''){countSpan.text(0+parseInt(oldCountSpan));}else{countSpan.text(0);}}}}).fail(function(object,error){console.log("Error: "+error.code+" "+error.message);});}
-function addCount(Counter){var $visitors=$(".leancloud_visitors");var url=$visitors.attr('id').trim();var title=$visitors.attr('data-flag-title').trim();var query=new AV.Query(Counter);query.equalTo("url",url);query.find({success:function(results){if(results.length>0){var counter=results[0];counter.fetchWhenSave(true);counter.increment("time");counter.save(null,{success:function(counter){var $element=$(document.getElementById(url));$element.find('.leancloud-visitors-count').text(counter.get('time'));},error:function(counter,error){console.log('Failed to save Visitor num, with error message: '+error.message);}});}else{var newcounter=new Counter();var acl=new AV.ACL();acl.setPublicReadAccess(true);acl.setPublicWriteAccess(true);newcounter.setACL(acl);newcounter.set("title",title);newcounter.set("url",url);var OLD_COUNT_CONTAINER_REF='.old-visitors-count';var $element=$(document.getElementById(url));var oldCountSpan=$element.find(OLD_COUNT_CONTAINER_REF).text();if(oldCountSpan!=''){newcounter.set("time",parseInt(oldCountSpan)+1);}else{newcounter.set("time",1);}
-newcounter.save(null,{success:function(newcounter){var $element=$(document.getElementById(url));$element.find('.leancloud-visitors-count').text(newcounter.get('time'));},error:function(newcounter,error){console.log('Failed to create');}});}},error:function(error){console.log('Error:'+error.code+" "+error.message);}});}
-$(function(){var Counter=AV.Object.extend("Counter");if($('.leancloud_visitors').length==1){addCount(Counter);}else{showTime(Counter);}});</script>阅读 </span></span>|<span class=post-date>共1631字</span>，阅读约<span class=more-meta> 4 分钟</span></span></div></div></div></div></header><article><div class=container><div class=row><div class="col-lg-8 col-lg-offset-2
-col-md-10 col-md-offset-1
-post-container"><header><h2>TOC</h2></header><nav id=TableOfContents><ul><li><a href=#docker部署>docker部署</a><ul><li><a href=#通过kafka自带工具生产消费消息测试>通过kafka自带工具生产消费消息测试</a></li><li><a href=#通过java代码进行测试>通过java代码进行测试</a></li></ul></li><li><a href=#通过docker-compose部署kafka>通过docker-compose部署kafka</a></li><li><a href=#总结优先推荐docker-compose方式部署>总结:优先推荐docker-compose方式部署</a></li></ul></nav><h1 id=前提>前提</h1><ol><li><a href=https://www.docker.com/get-started>docker</a></li><li><a href=https://github.com/docker/compose>docker-compose</a></li></ol><p>其中docker-compose不是必须的,单单使用docker也是可以的,这里主要介绍docker和docker-compose两种方式</p><h2 id=docker部署>docker部署</h2><p>docker部署kafka非常简单，只需要两条命令即可完成kafka服务器的部署。</p><pre><code>docker run -d --name zookeeper -p 2181:2181  wurstmeister/zookeeper
+<!DOCTYPE html>
+<html lang="en-us">
+<head><head>
+    <meta name="google-site-verification" content="9vIieCe-Qpd78QOmBl63rGtIVbhY6sYyuxX3j8XWBA4" />
+    <meta name="baidu-site-verification" content="LRrmH41lz7" />
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <meta name="baidu-site-verification" content="HGLXRsUXC4" />
+
+    
+    <meta name="description" content="Apache Kafka是一个分布式流处理平台，最初由LinkedIn开发并开源贡献给Apache">
+    
+    <meta name="keyword"  content="liangyuanpeng , lan , lyp的网络日志, lan的博客, lan Blog, 博客, 个人网站, 互联网, Web,  Istio, 微服务">
+    <link rel="shortcut icon" href="img/favicon.ico">
+
+    <title>利用docker和docker-compose部署单机kafka-lyp的博客 | lyp Blog</title>
+
+    <link rel="canonical" href="/post/docker-deploy-kafka/">
+
+    <link rel="stylesheet" href="https://res.cloudinary.com/lyp/raw/upload/v1537369740/hugo/css/iDisqus.min.css"/>
+
+    
+    <link rel="stylesheet" href="https://res.cloudinary.com/lyp/raw/upload/v1537369744/hugo/css/bootstrap.min.css">
+
+    
+    <link rel="stylesheet" href="https://res.cloudinary.com/lyp/raw/upload/v1537369740/hugo/css/hux-blog.min.css">
+
+    
+    <link rel="stylesheet" href="https://res.cloudinary.com/lyp/raw/upload/v1537369740/hugo/css/syntax.css">
+
+    
+    <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    
+    
+    <script src="https://res.cloudinary.com/lyp/raw/upload/v1537369966/hugo/js/jquery.min.js"></script>
+
+    
+    <script src="https://res.cloudinary.com/lyp/raw/upload/v1537369966/hugo/js/bootstrap.min.js"></script>
+
+    
+    <script src="https://res.cloudinary.com/lyp/raw/upload/v1537369964/hugo/js/hux-blog.min.js"></script>
+
+    
+    <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "f73bc0092aeb491d89984c0eb5a87ac2"}'></script>
+</head>
+
+</head>
+
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Hi,I`m lan</a>
+        </div>
+
+        
+        
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+                    
+                    <li>
+                        <a href="categories/cloudnative">cloudnative</a>
+                    </li>
+                    
+                    <li>
+                        <a href="categories/devops">devops</a>
+                    </li>
+                    
+                    <li>
+                        <a href="categories/iot">iot</a>
+                    </li>
+                    
+                    <li>
+                        <a href="categories/kubernetes">kubernetes</a>
+                    </li>
+                    
+                    <li>
+                        <a href="categories/middleware">middleware</a>
+                    </li>
+                    
+                    <li>
+                        <a href="categories/tech">tech</a>
+                    </li>
+                    
+
+                    
+		            <li>
+                        <a href="search">SEARCH <img src="img/search.png" height="15" style="cursor: pointer;"></a>
+		            </li>
+                    
+                </ul>
+            </div>
+        </div>
+        
+    </div>
+    
+</nav>
+<script>
+    
+    
+    
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        
+            $navbar.className = " ";
+            
+            setTimeout(function(){
+                
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+
+
+<style type="text/css">
+    header.intro-header{
+        background-image: url('https://res.cloudinary.com/lyp/image/upload/v1581649210/hugo/blog.github.io/blur-close-up-code-computer-546819.jpg')
+    }
+</style>
+<header class="intro-header" >
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                       
+                       <a class="tag" href="/tags/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97" title="消息队列">
+                           消息队列
+                        </a>
+                        
+                       <a class="tag" href="/tags/middleware" title="Middleware">
+                           Middleware
+                        </a>
+                        
+                    </div>
+                    <h1>利用docker和docker-compose部署单机kafka</h1>
+                    <h2 class="subheading"></h2>
+                    <span  class="meta">Posted by lan on Friday, February 14, 2020
+                        
+                        <span id="busuanzi_container_page_pv">|<span id="busuanzi_value_page_pv"></span><span>
+                            <span id="/post/docker-deploy-kafka/" class="leancloud_visitors meta_data_item" data-flag-title="">
+    <span class="post-meta-item-icon">
+      <span class="octicon octicon-eye"></span> 
+    </span>
+    <i class="fa fa-eye"></i>
+    <span class="old-visitors-count" style="display: none;"></span>
+    <span class="leancloud-visitors-count"></span>
+</span>
+
+
+
+<script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+
+<script>
+	AV.initialize("", "");
+</script>
+
+<script type="text/javascript">
+function showTime(Counter) {
+    var query = new AV.Query(Counter);
+    var entries = [];
+    var $visitors = $(".leancloud_visitors");
+
+    $visitors.each(function() {
+        entries.push($(this).attr("id").trim());
+    });
+
+    query.containedIn('url', entries);
+    query.find()
+        .done(function(results) {
+            var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+            var OLD_COUNT_CONTAINER_REF = '.old-visitors-count';
+
+            
+            
+            
+            
+
+            for (var i = 0; i < results.length; i++) {
+                var item = results[i];
+                var url = item.get('url');
+                var time = item.get('time');
+                var element = document.getElementById(url);
+
+                $(element).find(COUNT_CONTAINER_REF).text(time);
+            }
+            for (var i = 0; i < entries.length; i++) {
+                var url = entries[i];
+                var element = document.getElementById(url);
+                var countSpan = $(element).find(COUNT_CONTAINER_REF);
+                if (countSpan.text() == '') {
+                    var oldCountSpan = $(element).find(OLD_COUNT_CONTAINER_REF).text();
+                    if(oldCountSpan!=''){
+                        countSpan.text(0+parseInt(oldCountSpan));
+                    }else{
+                        countSpan.text(0);          
+                    }
+                }
+            }
+        })
+        .fail(function(object, error) {
+            console.log("Error: " + error.code + " " + error.message);
+        });
+}
+
+function addCount(Counter) {
+    var $visitors = $(".leancloud_visitors");
+    var url = $visitors.attr('id').trim();
+    var title = $visitors.attr('data-flag-title').trim();
+    var query = new AV.Query(Counter);
+
+    query.equalTo("url", url);
+    query.find({
+        success: function(results) {
+            if (results.length > 0) {
+                var counter = results[0];
+                counter.fetchWhenSave(true);
+                counter.increment("time");
+                counter.save(null, {
+                    success: function(counter) {
+                        var $element = $(document.getElementById(url));
+                        $element.find('.leancloud-visitors-count').text(counter.get('time'));
+                    },
+                    error: function(counter, error) {
+                        console.log('Failed to save Visitor num, with error message: ' + error.message);
+                    }
+                });
+            } else {
+                var newcounter = new Counter();
+                 
+                var acl = new AV.ACL();
+                acl.setPublicReadAccess(true);
+                acl.setPublicWriteAccess(true);
+                newcounter.setACL(acl);
+                 
+                newcounter.set("title", title);
+                newcounter.set("url", url);
+                var OLD_COUNT_CONTAINER_REF = '.old-visitors-count';
+                var $element = $(document.getElementById(url));
+                var oldCountSpan = $element.find(OLD_COUNT_CONTAINER_REF).text();
+                if(oldCountSpan!=''){
+                    newcounter.set("time", parseInt(oldCountSpan)+1);
+                }else{
+ 	                    newcounter.set("time",  1);
+                }
+                newcounter.save(null, {
+                    success: function(newcounter) {
+                        var $element = $(document.getElementById(url));
+                        $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+                    },
+                    error: function(newcounter, error) {
+                        console.log('Failed to create');
+                    }
+                });
+            }
+        },
+        error: function(error) {
+            console.log('Error:' + error.code + " " + error.message);
+        }
+    });
+}
+$(function() {
+    var Counter = AV.Object.extend("Counter");
+    
+    
+    if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+    } else {
+        showTime(Counter);
+    }
+});
+</script>
+
+                            阅读 </span></span>|<span class="post-date">共1631字</span>，阅读约<span class="more-meta"> 4 分钟</span>
+                        
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+
+
+<article>
+    <div class="container">
+        <div class="row">
+
+            
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+		
+                <header>
+                <h2>TOC</h2>
+                </header>
+                <nav id="TableOfContents">
+  <ul>
+    <li><a href="#docker部署">docker部署</a>
+      <ul>
+        <li><a href="#通过kafka自带工具生产消费消息测试">通过kafka自带工具生产消费消息测试</a></li>
+        <li><a href="#通过java代码进行测试">通过java代码进行测试</a></li>
+      </ul>
+    </li>
+    <li><a href="#通过docker-compose部署kafka">通过docker-compose部署kafka</a></li>
+    <li><a href="#总结优先推荐docker-compose方式部署">总结:优先推荐docker-compose方式部署</a></li>
+  </ul>
+</nav>
+		
+		<h1 id="前提">前提</h1>
+<ol>
+<li><a href="https://www.docker.com/get-started">docker</a></li>
+<li><a href="https://github.com/docker/compose">docker-compose</a></li>
+</ol>
+<p>其中docker-compose不是必须的,单单使用docker也是可以的,这里主要介绍docker和docker-compose两种方式</p>
+<h2 id="docker部署">docker部署</h2>
+<p>docker部署kafka非常简单，只需要两条命令即可完成kafka服务器的部署。</p>
+<pre><code>docker run -d --name zookeeper -p 2181:2181  wurstmeister/zookeeper
 docker run -d --name kafka -p 9092:9092 -e KAFKA_BROKER_ID=0 -e KAFKA_ZOOKEEPER_CONNECT=zookeeper:2181 --link zookeeper -e KAFKA_ADVERTISED_LISTENERS=PLAINTEXT://192.168.1.60(机器IP):9092 -e KAFKA_LISTENERS=PLAINTEXT://0.0.0.0:9092 -t wurstmeister/kafka
-</code></pre><p>由于kafka是需要和zookeeper共同工作的,所以需要部署一个zookeeper,但有了docker这对部署来说非常轻松.<br>可以通过<code>docker ps</code>查看到两个容器的状态,这里不再展示.</p><p>接下来可以进行生产者和消费者的尝试</p><h3 id=通过kafka自带工具生产消费消息测试>通过kafka自带工具生产消费消息测试</h3><ol><li>首先,进入到kafka的docker容器中</li></ol><pre><code>docker exec -it kafka sh
-</code></pre><ol start=2><li>运行消费者,进行消息的监听</li></ol><pre><code>kafka-console-consumer.sh --bootstrap-server 192.168.1.60:9094 --topic kafeidou --from-beginning
-</code></pre><ol start=3><li>打开一个新的ssh窗口,同样进入kafka的容器中,执行下面这条命令生产消息</li></ol><pre><code>kafka-console-producer.sh --broker-list 192.168.1.60(机器IP):9092 --topic kafeidou
-</code></pre><p>输入完这条命令后会进入到控制台，可以输入任何想发送的消息,这里发送一个<code>hello</code></p><pre><code>&gt;&gt;
+</code></pre><p>由于kafka是需要和zookeeper共同工作的,所以需要部署一个zookeeper,但有了docker这对部署来说非常轻松.<br>
+可以通过<code>docker ps</code>查看到两个容器的状态,这里不再展示.</p>
+<p>接下来可以进行生产者和消费者的尝试</p>
+<h3 id="通过kafka自带工具生产消费消息测试">通过kafka自带工具生产消费消息测试</h3>
+<ol>
+<li>首先,进入到kafka的docker容器中</li>
+</ol>
+<pre><code>docker exec -it kafka sh
+</code></pre><ol start="2">
+<li>运行消费者,进行消息的监听</li>
+</ol>
+<pre><code>kafka-console-consumer.sh --bootstrap-server 192.168.1.60:9094 --topic kafeidou --from-beginning
+</code></pre><ol start="3">
+<li>打开一个新的ssh窗口,同样进入kafka的容器中,执行下面这条命令生产消息</li>
+</ol>
+<pre><code>kafka-console-producer.sh --broker-list 192.168.1.60(机器IP):9092 --topic kafeidou
+</code></pre><p>输入完这条命令后会进入到控制台，可以输入任何想发送的消息,这里发送一个<code>hello</code></p>
+<pre><code>&gt;&gt;
 &gt;hello
 &gt;
 &gt;
 &gt;
-</code></pre><ol start=4><li>可以看到,在生产者的控制台中输入消息后,消费者的控制台立刻看到了消息</li></ol><p>到目前为止,一个kafka完整的hello world就完成了.kafka的部署加上生产者消费者测试.</p><h3 id=通过java代码进行测试>通过java代码进行测试</h3><ol><li>新建一个maven项目并加入以下依赖</li></ol><pre><code>&lt;dependency&gt;
+</code></pre><ol start="4">
+<li>可以看到,在生产者的控制台中输入消息后,消费者的控制台立刻看到了消息</li>
+</ol>
+<p>到目前为止,一个kafka完整的hello world就完成了.kafka的部署加上生产者消费者测试.</p>
+<h3 id="通过java代码进行测试">通过java代码进行测试</h3>
+<ol>
+<li>新建一个maven项目并加入以下依赖</li>
+</ol>
+<pre><code>&lt;dependency&gt;
       &lt;groupId&gt;org.apache.kafka&lt;/groupId&gt;
       &lt;artifactId&gt;kafka-clients&lt;/artifactId&gt;
       &lt;version&gt;2.1.1&lt;/version&gt;
@@ -32,7 +388,11 @@ docker run -d --name kafka -p 9092:9092 -e KAFKA_BROKER_ID=0 -e KAFKA_ZOOKEEPER_
       &lt;artifactId&gt;kafka_2.11&lt;/artifactId&gt;
       &lt;version&gt;0.11.0.2&lt;/version&gt;
     &lt;/dependency&gt;
-</code></pre><ol start=2><li>生产者代码<br>producer.java</li></ol><pre><code>import org.apache.kafka.clients.producer.*;
+</code></pre><ol start="2">
+<li>生产者代码<br>
+producer.java</li>
+</ol>
+<pre><code>import org.apache.kafka.clients.producer.*;
 
 import java.util.Date;
 import java.util.Properties;
@@ -81,7 +441,11 @@ public class HelloWorldProducer {
   }
 }
 
-</code></pre><ol start=3><li>消费者代码<br>consumer.java</li></ol><pre><code>import java.util.Arrays;
+</code></pre><ol start="3">
+<li>消费者代码<br>
+consumer.java</li>
+</ol>
+<pre><code>import java.util.Arrays;
 import java.util.Properties;
 import org.apache.kafka.clients.consumer.Consumer;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
@@ -114,13 +478,21 @@ public class HelloWorldConsumer2 {
     }
   }
 }
-</code></pre><ol start=4><li>分别运行生产者和消费者即可<br>生产者打印消息</li></ol><pre><code>1581651496176,www.example.com,192.168.2.219
+</code></pre><ol start="4">
+<li>分别运行生产者和消费者即可<br>
+生产者打印消息</li>
+</ol>
+<pre><code>1581651496176,www.example.com,192.168.2.219
 1581651497299,www.example.com,192.168.2.112
 1581651497299,www.example.com,192.168.2.20
-</code></pre><p>消费者打印消息</p><pre><code>offset = 0, key = 192.168.2.202, value = 1581645295298,www.example.com,192.168.2.202
+</code></pre><p>消费者打印消息</p>
+<pre><code>offset = 0, key = 192.168.2.202, value = 1581645295298,www.example.com,192.168.2.202
 offset = 1, key = 192.168.2.102, value = 1581645295848,www.example.com,192.168.2.102
 offset = 2, key = 192.168.2.63, value = 1581645295848,www.example.com,192.168.2.63
-</code></pre><p>源码地址:<a href=https://github.com/FISHStack/kafka-demo>FISHStack/kafka-demo</a></p><h2 id=通过docker-compose部署kafka>通过docker-compose部署kafka</h2><p>首先创建一个docker-compose.yml文件</p><pre><code>version: '3.7'
+</code></pre><p>源码地址:<a href="https://github.com/FISHStack/kafka-demo">FISHStack/kafka-demo</a></p>
+<h2 id="通过docker-compose部署kafka">通过docker-compose部署kafka</h2>
+<p>首先创建一个docker-compose.yml文件</p>
+<pre><code>version: '3.7'
 services:
   zookeeper:
     image: wurstmeister/zookeeper
@@ -143,19 +515,372 @@ services:
       - ./kafka-logs:/kafka
     depends_on:
       - zookeeper
-</code></pre><p>部署起来很简单,在<code>docker-compose.yml</code>文件的目录下执行<code>docker-compose up -d</code>就可以了,测试方式和上面的一样。<br>这个docker-compose做的东西比上面docker方式部署的东西要多一些</p><ol><li>数据持久化，在当前目录下挂在了两个目录分别存储zookeeper和kafka的数据,当然在<code>docker run </code>命令中添加 <code>-v 选项</code>也是可以做到这样的效果的</li><li>kafka在启动后会初始化一个有分区的topic,同样的,<code>docker run</code>的时候添加<code>-e KAFKA_CREATE_TOPICS=kafeidou:2:0</code>也是可以做到的。</li></ol><h2 id=总结优先推荐docker-compose方式部署>总结:优先推荐docker-compose方式部署</h2><p>为什么呢?</p><p>因为单纯使用docker方式部署的话，如果有改动(例如:修改对外开放的端口号)的情况下,docker需要把容器停止<code>docker stop 容器ID/容器NAME</code>,然后删除容器<code>docker rm 容器ID/容器NAME</code>,最后启动新效果的容器<code>docker run ...</code></p><p>而如果在docker-compose部署的情况下如果修改内容只需要修改docker-compose.yml文件对应的地方,例如<code>2181:2181改成2182:2182</code>,然后再次在docker-compose.yml文件对应的目录下执行<code>docker-compose up -d</code>就能达到更新后的效果。</p><h2>微信公众号</h2><p>扫描下面的二维码关注我们的微信公众帐号,第一时间查看最新内容。</p><img src=https://res.cloudinary.com/lyp/image/upload/v1581729955/hugo/blog.github.io/qrcode_for_sikekafeidou.jpg alt=wechat-account-qrcode><hr><ul class=pager><li class=previous><a href=/post/docker-note/ data-toggle=tooltip data-placement=top title=docker常用命令集合>&larr; Previous Post</a></li><li class=next><a href=/post/docker-image-fluentd-es-kafka/ data-toggle=tooltip data-placement=top title=制作带有kafka插件和es插件的fluentd镜像>Next Post &rarr;</a></li></ul><div id=disqus-comment></div></div><div class="col-lg-8 col-lg-offset-2
-col-md-10 col-md-offset-1
-sidebar-container"><section><hr class="hidden-sm hidden-xs"><h5><a href=/tags/>FEATURED TAGS</a></h5><div class=tags><a href=/tags/chirpstack title=chirpstack>chirpstack</a>
-<a href=/tags/cloudnative title=cloudnative>cloudnative</a>
-<a href=/tags/docker title=docker>docker</a>
-<a href=/tags/fluentd title=fluentd>fluentd</a>
-<a href=/tags/iot title=iot>iot</a>
-<a href=/tags/kubernetes title=kubernetes>kubernetes</a>
-<a href=/tags/middleware title=middleware>middleware</a>
-<a href=/tags/mq title=mq>mq</a>
-<a href=/tags/ops title=ops>ops</a>
-<a href=/tags/rpc title=rpc>rpc</a>
-<a href=/tags/sofa title=sofa>sofa</a>
-<a href=/tags/sofastack title=sofastack>sofastack</a></div></section><hr><h5>FRIENDS</h5><ul class=list-inline></ul></div></div></div></article><footer><div class=container><div class=row><div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1"><ul class="list-inline text-center"><li><a href=mailto:gcslyp@gmail.com><span class="fa-stack fa-lg"><i class="fa fa-circle fa-stack-2x"></i><i class="fa fa-envelope fa-stack-1x fa-inverse"></i></span></a></li><li><a href=https://twitter.com/lan31793328><span class="fa-stack fa-lg"><i class="fa fa-circle fa-stack-2x"></i><i class="fa fa-twitter fa-stack-1x fa-inverse"></i></span></a></li><li><a target=_blank href=https://github.com/liangyuanpeng><span class="fa-stack fa-lg"><i class="fa fa-circle fa-stack-2x"></i><i class="fa fa-github fa-stack-1x fa-inverse"></i></span></a></li></ul><p class="copyright text-muted">Copyright &copy; Hi,I`m lan , 2020<br><a href=https://themes.gohugo.io/hugo-theme-cleanwhite>CleanWhite Hugo Theme</a> by <a href=https://zhaohuabing.com>Huabing</a> |
-<iframe style=margin-left:2px;margin-bottom:-5px frameborder=0 scrolling=0 width=100px height=20px src="https://ghbtns.com/github-btn.html?user=zhaohuabing&repo=hugo-theme-cleanwhite&type=star&count=true"></iframe></p></div></div></div></footer><script>function async(u,c){var d=document,t='script',o=d.createElement(t),s=d.getElementsByTagName(t)[0];o.src=u;if(c){o.addEventListener('load',function(e){c(null,e);},false);}
-s.parentNode.insertBefore(o,s);}</script><script>if($('#tag_cloud').length!==0){async("/js/jquery.tagcloud.js",function(){$.fn.tagcloud.defaults={color:{start:'#bbbbee',end:'#0085a1'},};$('#tag_cloud a').tagcloud();})}</script><script>async("https://cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.js",function(){var $nav=document.querySelector("nav");if($nav)FastClick.attach($nav);})</script><script>var _baId='71126c746d53d10cdb4275496d9cc84b';var _hmt=_hmt||[];(function(){var hm=document.createElement("script");hm.src="//hm.baidu.com/hm.js?"+_baId;var s=document.getElementsByTagName("script")[0];s.parentNode.insertBefore(hm,s);})();</script></body></html>
+</code></pre><p>部署起来很简单,在<code>docker-compose.yml</code>文件的目录下执行<code>docker-compose up -d</code>就可以了,测试方式和上面的一样。<br>
+这个docker-compose做的东西比上面docker方式部署的东西要多一些</p>
+<ol>
+<li>数据持久化，在当前目录下挂在了两个目录分别存储zookeeper和kafka的数据,当然在<code>docker run </code>命令中添加 <code>-v 选项</code>也是可以做到这样的效果的</li>
+<li>kafka在启动后会初始化一个有分区的topic,同样的,<code>docker run</code>的时候添加<code>-e KAFKA_CREATE_TOPICS=kafeidou:2:0</code>也是可以做到的。</li>
+</ol>
+<h2 id="总结优先推荐docker-compose方式部署">总结:优先推荐docker-compose方式部署</h2>
+<p>为什么呢?</p>
+<p>因为单纯使用docker方式部署的话，如果有改动(例如:修改对外开放的端口号)的情况下,docker需要把容器停止<code>docker stop 容器ID/容器NAME</code>,然后删除容器<code>docker rm 容器ID/容器NAME</code>,最后启动新效果的容器<code>docker run ...</code></p>
+<p>而如果在docker-compose部署的情况下如果修改内容只需要修改docker-compose.yml文件对应的地方,例如<code>2181:2181改成2182:2182</code>,然后再次在docker-compose.yml文件对应的目录下执行<code>docker-compose up -d</code>就能达到更新后的效果。</p>
+
+
+        <h2>微信公众号</h2>
+<p>扫描下面的二维码关注我们的微信公众帐号,第一时间查看最新内容。</p>
+<img src="https://res.cloudinary.com/lyp/image/upload/v1581729955/hugo/blog.github.io/qrcode_for_sikekafeidou.jpg" alt="wechat-account-qrcode">
+
+
+                <hr>
+
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/post/docker-note/" data-toggle="tooltip" data-placement="top" title="docker常用命令集合">&larr; Previous Post</a>
+                    </li>
+                    
+                    
+                    <li class="next">
+                        <a href="/post/docker-image-fluentd-es-kafka/" data-toggle="tooltip" data-placement="top" title="制作带有kafka插件和es插件的fluentd镜像">Next Post &rarr;</a>
+                    </li>
+                    
+                </ul>
+
+            
+<div id="disqus-comment"></div>
+
+
+
+            </div>
+            
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                
+                <section>
+                    <hr class="hidden-sm hidden-xs">
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                     
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                            <a href="/tags/chirpstack" title="chirpstack">
+                                chirpstack
+                            </a>
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                            <a href="/tags/cloudnative" title="cloudnative">
+                                cloudnative
+                            </a>
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                            <a href="/tags/docker" title="docker">
+                                docker
+                            </a>
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                            <a href="/tags/fluentd" title="fluentd">
+                                fluentd
+                            </a>
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                            <a href="/tags/iot" title="iot">
+                                iot
+                            </a>
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                            <a href="/tags/kubernetes" title="kubernetes">
+                                kubernetes
+                            </a>
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                            <a href="/tags/middleware" title="middleware">
+                                middleware
+                            </a>
+                        
+                    
+                        
+                            <a href="/tags/mq" title="mq">
+                                mq
+                            </a>
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                            <a href="/tags/ops" title="ops">
+                                ops
+                            </a>
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                            <a href="/tags/rpc" title="rpc">
+                                rpc
+                            </a>
+                        
+                    
+                        
+                            <a href="/tags/sofa" title="sofa">
+                                sofa
+                            </a>
+                        
+                    
+                        
+                            <a href="/tags/sofastack" title="sofastack">
+                                sofastack
+                            </a>
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                    </div>
+                </section>
+
+                
+                <hr>
+                <h5>FRIENDS</h5>
+                <ul class="list-inline">
+                    
+                </ul>
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                   
+                    
+                    <li>
+                        <a href="mailto:gcslyp@gmail.com">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+		    
+
+                    
+                    <li>
+                        <a href="https://twitter.com/lan31793328">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    
+
+                    
+
+		    
+                    
+                    
+                    <li>
+                        <a target="_blank" href="https://github.com/liangyuanpeng">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+		    
+                    
+                </ul>
+		<p class="copyright text-muted">
+                    Copyright &copy; Hi,I`m lan , 2020
+                    <br>
+                    <a href="https://themes.gohugo.io/hugo-theme-cleanwhite">CleanWhite Hugo Theme</a> by <a href="https://zhaohuabing.com">Huabing</a> |
+                    <iframe
+                        style="margin-left: 2px; margin-bottom:-5px;"
+                        frameborder="0" scrolling="0" width="100px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=zhaohuabing&repo=hugo-theme-cleanwhite&type=star&count=true" >
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+
+
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+
+
+
+
+
+<script>
+    
+    if($('#tag_cloud').length !== 0){
+        async("/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+
+<script>
+    async("https://cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+
+
+
+
+
+<script>
+    
+    var _baId = 'fad9c137f8ce239f9b323d36c871f8e6';
+
+    
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?" + _baId;
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+
+
+
+
+
+
+</body>
+</html>

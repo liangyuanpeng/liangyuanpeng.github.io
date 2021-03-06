@@ -1,43 +1,847 @@
-<!doctype html><html lang=en-us><head><head><meta name=google-site-verification content="9vIieCe-Qpd78QOmBl63rGtIVbhY6sYyuxX3j8XWBA4"><meta name=baidu-site-verification content="LRrmH41lz7"><meta charset=utf-8><meta http-equiv=x-ua-compatible content="IE=edge"><meta name=google-site-verification content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI"><meta name=viewport content="width=device-width,initial-scale=1"><meta name=baidu-site-verification content="HGLXRsUXC4"><meta name=description content="RPC 框架需要创造一种调用远程服务如同调用本地般的体验，因此在实现一个基于 RPC 框架的微服务架构的系统时，服务消费者（客户端）往往只需要知道服务端提供了哪些接口和方法，并不需要知道服务具体由哪些 IP 在提供。RPC 框架本身的服务发现和路由寻址功能解决了如何知道目标地址的问题，该过程对于 RPC 客户端调用方来说应该是完全透明的。"><meta name=keyword content="liangyuanpeng , lan , lyp的网络日志, lan的博客, lan Blog, 博客, 个人网站, 互联网, Web,  Istio, 微服务"><link rel="shortcut icon" href=img/favicon.ico><title>转|SOFARPC路由实现剖析-lyp的博客 | lyp Blog</title><link rel=canonical href=/post/sofarpc%E8%B7%AF%E7%94%B1%E5%AE%9E%E7%8E%B0%E5%89%96%E6%9E%90/><link rel=stylesheet href=https://res.cloudinary.com/lyp/raw/upload/v1537369740/hugo/css/iDisqus.min.css><link rel=stylesheet href=https://res.cloudinary.com/lyp/raw/upload/v1537369744/hugo/css/bootstrap.min.css><link rel=stylesheet href=https://res.cloudinary.com/lyp/raw/upload/v1537369740/hugo/css/hux-blog.min.css><link rel=stylesheet href=https://res.cloudinary.com/lyp/raw/upload/v1537369740/hugo/css/syntax.css><link href=//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css rel=stylesheet type=text/css><script src=https://res.cloudinary.com/lyp/raw/upload/v1537369966/hugo/js/jquery.min.js></script><script src=https://res.cloudinary.com/lyp/raw/upload/v1537369966/hugo/js/bootstrap.min.js></script><script src=https://res.cloudinary.com/lyp/raw/upload/v1537369964/hugo/js/hux-blog.min.js></script></head></head><nav class="navbar navbar-default navbar-custom navbar-fixed-top"><div class=container-fluid><div class="navbar-header page-scroll"><button type=button class=navbar-toggle>
-<span class=sr-only>Toggle navigation</span>
-<span class=icon-bar></span><span class=icon-bar></span><span class=icon-bar></span></button>
-<a class=navbar-brand href=/>Hi,I`m lan</a></div><div id=huxblog_navbar><div class=navbar-collapse><ul class="nav navbar-nav navbar-right"><li><a href=/>Home</a></li><li><a href=categories/cloudnative>cloudnative</a></li><li><a href=categories/devops>devops</a></li><li><a href=categories/iot>iot</a></li><li><a href=categories/kubernetes>kubernetes</a></li><li><a href=categories/middleware>middleware</a></li><li><a href=categories/tech>tech</a></li><li><a href=search>SEARCH <img src=img/search.png height=15 style=cursor:pointer></a></li></ul></div></div></div></nav><script>var $body=document.body;var $toggle=document.querySelector('.navbar-toggle');var $navbar=document.querySelector('#huxblog_navbar');var $collapse=document.querySelector('.navbar-collapse');$toggle.addEventListener('click',handleMagic)
-function handleMagic(e){if($navbar.className.indexOf('in')>0){$navbar.className=" ";setTimeout(function(){if($navbar.className.indexOf('in')<0){$collapse.style.height="0px"}},400)}else{$collapse.style.height="auto"
-$navbar.className+=" in";}}</script><style type=text/css>header.intro-header{background-image:url(https://res.cloudinary.com/lyp/image/upload/v1544363182/hugo/blog.github.io/e64ae3596ed565b8202d395d771665dd.jpg)}</style><header class=intro-header><div class=container><div class=row><div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1"><div class=post-heading><div class=tags><a class=tag href=/tags/rpc title=rpc>rpc</a>
-<a class=tag href=/tags/sofa title=sofa>sofa</a>
-<a class=tag href=/tags/sofastack title=sofastack>sofastack</a>
-<a class=tag href=/tags/middleware title=Middleware>Middleware</a></div><h1>转|SOFARPC路由实现剖析</h1><h2 class=subheading></h2><span class=meta>Posted by lyp on Tuesday, December 11, 2018
-<span id=busuanzi_container_page_pv>|<span id=busuanzi_value_page_pv></span><span>
-<span id=/post/sofarpc%E8%B7%AF%E7%94%B1%E5%AE%9E%E7%8E%B0%E5%89%96%E6%9E%90/ class="leancloud_visitors meta_data_item" data-flag-title><span class=post-meta-item-icon><span class="octicon octicon-eye"></span></span><i class="fa fa-eye"></i><span class=old-visitors-count style=display:none></span><span class=leancloud-visitors-count></span></span><script src=https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js></script><script>AV.initialize("","");</script><script type=text/javascript>function showTime(Counter){var query=new AV.Query(Counter);var entries=[];var $visitors=$(".leancloud_visitors");$visitors.each(function(){entries.push($(this).attr("id").trim());});query.containedIn('url',entries);query.find().done(function(results){var COUNT_CONTAINER_REF='.leancloud-visitors-count';var OLD_COUNT_CONTAINER_REF='.old-visitors-count';for(var i=0;i<results.length;i++){var item=results[i];var url=item.get('url');var time=item.get('time');var element=document.getElementById(url);$(element).find(COUNT_CONTAINER_REF).text(time);}
-for(var i=0;i<entries.length;i++){var url=entries[i];var element=document.getElementById(url);var countSpan=$(element).find(COUNT_CONTAINER_REF);if(countSpan.text()==''){var oldCountSpan=$(element).find(OLD_COUNT_CONTAINER_REF).text();if(oldCountSpan!=''){countSpan.text(0+parseInt(oldCountSpan));}else{countSpan.text(0);}}}}).fail(function(object,error){console.log("Error: "+error.code+" "+error.message);});}
-function addCount(Counter){var $visitors=$(".leancloud_visitors");var url=$visitors.attr('id').trim();var title=$visitors.attr('data-flag-title').trim();var query=new AV.Query(Counter);query.equalTo("url",url);query.find({success:function(results){if(results.length>0){var counter=results[0];counter.fetchWhenSave(true);counter.increment("time");counter.save(null,{success:function(counter){var $element=$(document.getElementById(url));$element.find('.leancloud-visitors-count').text(counter.get('time'));},error:function(counter,error){console.log('Failed to save Visitor num, with error message: '+error.message);}});}else{var newcounter=new Counter();var acl=new AV.ACL();acl.setPublicReadAccess(true);acl.setPublicWriteAccess(true);newcounter.setACL(acl);newcounter.set("title",title);newcounter.set("url",url);var OLD_COUNT_CONTAINER_REF='.old-visitors-count';var $element=$(document.getElementById(url));var oldCountSpan=$element.find(OLD_COUNT_CONTAINER_REF).text();if(oldCountSpan!=''){newcounter.set("time",parseInt(oldCountSpan)+1);}else{newcounter.set("time",1);}
-newcounter.save(null,{success:function(newcounter){var $element=$(document.getElementById(url));$element.find('.leancloud-visitors-count').text(newcounter.get('time'));},error:function(newcounter,error){console.log('Failed to create');}});}},error:function(error){console.log('Error:'+error.code+" "+error.message);}});}
-$(function(){var Counter=AV.Object.extend("Counter");if($('.leancloud_visitors').length==1){addCount(Counter);}else{showTime(Counter);}});</script>阅读 </span></span>|<span class=post-date>共3646字</span>，阅读约<span class=more-meta> 8 分钟</span></span></div></div></div></div></header><article><div class=container><div class=row><div class="col-lg-8 col-lg-offset-2
-col-md-10 col-md-offset-1
-post-container"><header><h2>TOC</h2></header><nav id=TableOfContents><ul><li><a href=#local注册中心local>Local注册中心(Local)</a></li><li><a href=#zookeeper注册中心zookeeper>Zookeeper注册中心(Zookeeper)</a></li><li><a href=#consul注册中心consul>Consul注册中心(Consul)</a></li><li><a href=#其他注册中心>其他注册中心</a></li></ul><ul><li><a href=#路由原理和设计>路由原理和设计</a></li><li><a href=#直连directurlrouter>直连(DirectUrlRouter)</a></li><li><a href=#注册中心registryrouter>注册中心(RegistryRouter)</a></li><li><a href=#自定义customrouter>自定义(CustomRouter)</a></li></ul><ul><li><a href=#权重随机randomloadbalancer>权重随机(RandomLoadBalancer)</a></li><li><a href=#顺序轮询roundrobinloadbalancer>顺序轮询(RoundRobinLoadBalancer)</a></li><li><a href=#本地优先localpreferenceloadbalancer>本地优先(LocalPreferenceLoadBalancer)</a></li><li><a href=#一致性-hashconsistenthashloadbalancer>一致性 Hash(ConsistentHashLoadBalancer)</a></li><li><a href=#权重一致性-hashweightconsistenthashloadbalancer>权重一致性 Hash(WeightConsistentHashLoadBalancer)</a></li><li><a href=#负载均衡比较>负载均衡比较</a></li></ul></nav><h1 id=前言>前言</h1><p>RPC 框架需要创造一种调用远程服务如同调用本地般的体验，因此在实现一个基于 RPC 框架的微服务架构的系统时，服务消费者（客户端）往往只需要知道服务端提供了哪些接口和方法，并不需要知道服务具体由哪些 IP 在提供。RPC 框架本身的服务发现和路由寻址功能解决了如何知道目标地址的问题，该过程对于 RPC 客户端调用方来说应该是完全透明的。</p><p>在这个过程中，RPC 框架需要接入注册中心来完成服务发现和路由寻址的功能。同时，在应用大规模请求时，微服务系统还需要对请求服务集群化，同时通过负载均衡来达到降低访问压力的效果。</p><p>本文我们会先介绍一下注册中心，然后介绍一下 SOFRPC 中的几种路由，最后会介绍一下负载均衡的几种比较。</p><h1 id=注册中心支持>注册中心支持</h1><p>首先我们简要介绍一下注册中心的原理。</p><p><img src=https://res.cloudinary.com/lyp/image/upload/v1544535227/hugo/blog.github.io/sofa-rpc/lysx/1539692412461-668ebd75-a2ab-4964-9d94-5c1bea671f65.png alt="dsr.png | center | 747x435"></p><p>服务端推送地址给注册中心，注册中心将地址进行合并后，推送给客户端。</p><p>其中，注册中心的场景依赖于各类注册中心的实现。在这里，SOFARPC 提供了注册中心的抽象类 <code>Registry</code>，该抽象类提供了注册中心的配置、启动、注册、反注册、订阅等方法。客户端在接入过程中，可以通过配置来激活 Zookeeper、Consul、local 等注册中心注册进启动类中，当请求到来时，可以通过注册中心进行相应的路由。</p><p>注册中心的抽象类如下：</p><p><img src=https://res.cloudinary.com/lyp/image/upload/v1544535255/hugo/blog.github.io/sofa-rpc/lysx/1539692913442-161e0822-79a4-4b98-91fb-997f26f6f9e2.png alt="carbon (3).png | center | 747x1142"></p><p>在这个接口的基础上，目前内置实现了几种注册中心。包括即将合并的。</p><p><img src=https://res.cloudinary.com/lyp/image/upload/v1544535275/hugo/blog.github.io/sofa-rpc/lysx/1539688664778-0d967e6a-9960-4164-985f-d72f348d09cf.png alt="registry.png | center | 747x212"></p><h2 id=local注册中心local>Local注册中心(Local)</h2><p>Local 注册中心是 SOFARPC 自己实现的一个本地注册中心，该注册中心的实现主要由类 <code>LocalRegistry</code>提供，可以调用其 <code>register(ProviderConfig config)</code> 方法实现服务的注册，主要是文件的读写。</p><p>实现原理很简单，通过在本地注册文件来保存服务的发布和订阅信息。</p><h2 id=zookeeper注册中心zookeeper>Zookeeper注册中心(Zookeeper)</h2><p>Zookeeper 接入 SOFARPC 的实现类为 <code>ZookeeperRegistry</code>。目前是 SOFARPC 中默认的注册中心实现。也是大多数情况下，可以方便使用的。</p><p>Zookeeper 是一个分布式协调服务，用于维护配置信息、命名、提供分布式同步功能以及提供组服务等。Zookeeper 提供了服务注册与发现的解决方案，提供了简单的 API，可以让集成者简洁调用。</p><p>当要发布一个 SOFARPC 服务时，首先需要在 zookeeper 中注册服务提供者的相关信息，包括：该服务接口隶属于哪个系统、服务的 IP 以及端口号、服务的请求 URL 和服务的权重等等。zookeeper 在这个过程中，注意负责对 SOFARPC 中的服务信息进行中心存储，同时负责把服务注册信息的更新及时通知到服务消费者。</p><p>作为服务调用者，SOFARPC 调用端在调用时，若走的路由链路中有注册中心，则会从注册中心中获取到服务注册的相关信息，然后在调用时会根据负载均衡策略来发送请求。</p><h2 id=consul注册中心consul>Consul注册中心(Consul)</h2><p>Consul 注册中心与 SOFARPC 之间的对接主要依赖于 <code>ConsulRegistry</code>类。</p><p>该注册中心在功能表现上与 zookeeper 看起来一致。对比起 Zookeeper 来，Consul 支持多数据中心，同时支持 http 和 dns 等接口，有着多语言的能力。</p><h2 id=其他注册中心>其他注册中心</h2><p>目前已经在开发中的有 Nacos，SOFAMesh 等。也可以根据自己的场景，进行方便的扩展。</p><h1 id=路由设计>路由设计</h1><h2 id=路由原理和设计>路由原理和设计</h2><p>在阅读本部分之前，请大家注意：路由是为了选中一组地址。</p><p>SOFARPC 通过对各类注册中心的支持，实现了服务发现、路由寻址的功能。访问客户端时，请求的路由可以由以下一些实现类实现：DirectUrlRouter、RegistryRouter、CustomRouter，上述三个路由实现类分别对应了直接地址路由（不需要经过注册中心直接路由直连到某个地址）、注册中心路由、以及客户自定义路由等。路由从 AddressHolder 获取到地址，同时通过各种负载均衡算法进行负载均衡，请求到相应的系统接口。</p><p>首先我们看一下整个路由寻址过程的阶段。</p><p><img src=https://res.cloudinary.com/lyp/image/upload/v1544535309/hugo/blog.github.io/sofa-rpc/lysx/1539681890237-34f1c5ff-d618-469a-a314-ab8152d1a133.png alt="image.png | left | 747x673"></p><p>这 SOFARPC 中，路由可以分为地址直连路由、注册中心路由以及客户定制化路由。这以上三个路由均扩展了 Router 抽象类。服务路由的抽象类代码如下：</p><p><img src=https://res.cloudinary.com/lyp/image/upload/v1544535331/hugo/blog.github.io/sofa-rpc/lysx/1539692990384-ad3d35e7-ec57-4c7d-9529-8cfc82538057.png alt="carbon (4).png | center | 747x573"></p><p>这里的核心代码是 route 这个方法，将本次请求的信息，和服务列表进行计算。当客户端请求到达 Router 时，会根据请求的参数信息从 Router 和连接管理器中获取请求地址，通过调用 <code>route(SofaRequest request, List&lt;ProviderInfo> providerInfos)</code> 方法达到路由寻址的目的。</p><p>其中，路由并不是一个非此即彼的过程，这些可选的路由是由用户和系统的配置，被构造成一个路由链来执行的。这样。就可以有一些兜底的逻辑，如指定了 IP 地址，那我们就直接路由到这个地址，如果没有，就进行注册中心的路由等等。</p><h2 id=直连directurlrouter>直连(DirectUrlRouter)</h2><p>直接路由是比较简单的，因为有专门的配置，所以地址列表这些都是可以很方便地进行识别，在客户端配置时，可通过如下方式配置：</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java>ConsumerConfig<span style=color:#f92672>&lt;</span>HelloService<span style=color:#f92672>&gt;</span> consumer <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> ConsumerConfig<span style=color:#f92672>&lt;</span>HelloService<span style=color:#f92672>&gt;()</span>        
-            <span style=color:#f92672>.</span><span style=color:#a6e22e>setInterfaceId</span><span style=color:#f92672>(</span>HelloService<span style=color:#f92672>.</span><span style=color:#a6e22e>class</span><span style=color:#f92672>.</span><span style=color:#a6e22e>getName</span><span style=color:#f92672>())</span>        
-            <span style=color:#f92672>.</span><span style=color:#a6e22e>setRegistry</span><span style=color:#f92672>(</span>registryConfig<span style=color:#f92672>)</span>        
-            <span style=color:#f92672>.</span><span style=color:#a6e22e>setDirectUrl</span><span style=color:#f92672>(</span><span style=color:#e6db74>&#34;bolt://127.0.0.1:12201&#34;</span><span style=color:#f92672>);</span>
-</code></pre></div><p>直接地址路由扩展了 Router 抽象类的实现，在重写的 route 方法中，直接获取配置好的直接路由地址。当请求到来时，直接从地址管理列表中，拿到对应的地址，就实现了直接地址路由的功能。</p><h2 id=注册中心registryrouter>注册中心(RegistryRouter)</h2><p>注册中心路由同样扩展了 Router 抽象方法，这个 Router是大多数情况下使用最多的路由，主要是从本应用使用的注册中心中获取对应的地址，并进行路由寻址等。后面我们会介绍目前注册中心的几个内置实现。</p><h2 id=自定义customrouter>自定义(CustomRouter)</h2><p>客户定制化路由可以配置客户自己所定制的路由实现，可以参考直接地址路由或者注册中心路由的实现，扩展 Router 类即可。</p><p>这里的使用场景</p><p>一种是对于某些用户来说，在注册中心的场景下，用户认为所有的地址并不是等价的。会对地址进行人为拆分，使用方保存了自己的的所有服务提供方地址（或者是通过某种方法查询），然后重写路由定制逻辑，通过方法级别进行地址的选择。</p><p>另一种是，用户可以通过这个接口实现一些功能，例如切流、灰度、同机房优先等等。</p><h1 id=负载均衡实现>负载均衡实现</h1><p>经过前面两个部分的介绍，我们知道，通过不同的注册中心和直连指定的方式，经过路由链的选择，我们已经拿到了一组地址，这一组地址如果选出一个地址进行本次的调用。就涉及到负载均衡的选择。下面我们会给大家介绍下每种负载均衡的比较和优势。</p><p>现在，SOFARPC 提供如下一些负载均衡器。下面是各个负载均衡器的类名称以及算法原理，以下各个类名可以直接在代码中进行搜索阅读。</p><p>注意：负载均衡的计算全部是在客户端实现的。</p><p>负载均衡器的抽象类下：</p><p><img src=https://res.cloudinary.com/lyp/image/upload/v1544535388/hugo/blog.github.io/sofa-rpc/lysx/1539693047408-a6941247-ea75-4d41-8db8-0461d2c1ca92.png alt="carbon (5).png | center | 747x470"></p><h2 id=权重随机randomloadbalancer>权重随机(RandomLoadBalancer)</h2><p>这个负载均衡算法是默认的实现，带权重的随机负载均衡算法。是目前默认开启的负载均衡算法。
-在算法在进行负载均衡时，全部列表按照权重进行随机选择。</p><p>权重随机的思路很简单，每个服务地址，在发布的时候，带上了一个 weight 的标签，SOFARPC 在路由的时候，汇总所有的权重值，然后产生一个0到这个总权重值的随机数，看这个数是落在哪个范围内，就知道要选哪个服务端作为本次调用的地址，默认为100，当然，用户也可以指定或者通过某些操作 API 进行修改。在 SOFARPC，预热权重功能会在启动期间，使得某个刚刚启动的服务端地址的权重为一个较小的值。</p><p>对于所有权重一样的情况下。权重随机也就退化成了完全随机。
-而对于权重有差异的情况下，就能实现，权重小的调用少，权重多的调用量大。</p><p><img src=https://res.cloudinary.com/lyp/image/upload/v1544535411/hugo/blog.github.io/sofa-rpc/lysx/1539683741740-9b913c1a-084a-4c75-87ce-b45adff9dcc9.png alt="router.png | center | 747x217"></p><p>这个直观理解就是一个线段掷骰子 的问题，相信大家配合代码一看就明白了。</p><p>配合预热权重功能，这个就将权重随机的功能真正使用了起来。另外，也可以通过配置覆盖，动态得修改某些服务提供方的权重信息。来实现地址摘除等。这个需要依赖于注册中心的实现。</p><h2 id=顺序轮询roundrobinloadbalancer>顺序轮询(RoundRobinLoadBalancer)</h2><p>进行依次轮询来进行负载均衡。主要用来调用量比较少的情况下。
-该负载均衡算法在实现时，不关心权重，按照方法级进行轮询，相互不会影响。这个非常简单。就是一个环状，轮询完了就再次重新开始。</p><p><img src=https://res.cloudinary.com/lyp/image/upload/v1544535441/hugo/blog.github.io/sofa-rpc/lysx/1539686332192-7e9e59be-6923-46a8-a1a4-d3c2eaf5d82f.png alt="Canvas 2.png | center | 599x509"></p><h2 id=本地优先localpreferenceloadbalancer>本地优先(LocalPreferenceLoadBalancer)</h2><p>该负载均衡算法提升了本机的调用性能。在负载均衡时使用保持本机优先。这个相信大家也比较好理解。
-在所有的可选地址中，找到本机发布的地址，然后进行调用。</p><h2 id=一致性-hashconsistenthashloadbalancer>一致性 Hash(ConsistentHashLoadBalancer)</h2><p>一致性 hash 算法，保障了客户端和服务器之间比较稳定的连接关系。
-该算法通过一致性 hash，保证了第一参数同样的请求能够负载均衡到同样的节点上。一致性 Hash 大家都了解比较多了，这里 SOFARPC 是通过方法入参的第一个参数来做负载均衡的 Hash 的。</p><p><img src=https://res.cloudinary.com/lyp/image/upload/v1544535466/hugo/blog.github.io/sofa-rpc/lysx/1539687461330-e4ea81be-1184-4e20-9466-3c64a841fc41.png alt="hash.png | center | 747x554"></p><h2 id=权重一致性-hashweightconsistenthashloadbalancer>权重一致性 Hash(WeightConsistentHashLoadBalancer)</h2><p>带权重的一致性 hash 算法。在一致性 Hash的基础上，设置虚拟节点的时候，权重大的 ProviderInfo 会生成更多的节点。这样被选中的概率就更高。这里不再做详细说明。大家有兴趣可以从代码中进行阅读。</p><h2 id=负载均衡比较>负载均衡比较</h2><table><thead><tr><th>负载均衡算法</th><th>优点</th><th>缺点</th><th>场景</th></tr></thead><tbody><tr><td>权重随机</td><td>快速方便</td><td>调用量小的情况下不完全均衡</td><td>大多数场景</td></tr><tr><td>顺序轮询</td><td>调用完全均衡</td><td>没有权重。</td><td>TPS小的场景</td></tr><tr><td>本地优先</td><td>本地优先</td><td>有场景限制。</td><td>本地有服务发布的场景。</td></tr><tr><td>一致性 Hash</td><td>调用机器相对固定</td><td>性能相对一般</td><td>对调用机器需要相对固定的场景。</td></tr><tr><td>权重一致性 Hash</td><td>调用机器相对固定，有权重</td><td>性能相对一般</td><td>对调用机器需要相对固定的场景。</td></tr></tbody></table><h1 id=总结>总结</h1><p>到这里，路由实现剖析基本就介绍完了。</p><p>在本文中，我们剖析了 SOFARPC 的路由实现，详细解释了 SOFARPC 在对路由的实现方式及相应的扩展方式。
+<!DOCTYPE html>
+<html lang="en-us">
+<head><head>
+    <meta name="google-site-verification" content="9vIieCe-Qpd78QOmBl63rGtIVbhY6sYyuxX3j8XWBA4" />
+    <meta name="baidu-site-verification" content="LRrmH41lz7" />
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <meta name="baidu-site-verification" content="HGLXRsUXC4" />
+
+    
+    <meta name="description" content="RPC 框架需要创造一种调用远程服务如同调用本地般的体验，因此在实现一个基于 RPC 框架的微服务架构的系统时，服务消费者（客户端）往往只需要知道服务端提供了哪些接口和方法，并不需要知道服务具体由哪些 IP 在提供。RPC 框架本身的服务发现和路由寻址功能解决了如何知道目标地址的问题，该过程对于 RPC 客户端调用方来说应该是完全透明的。">
+    
+    <meta name="keyword"  content="liangyuanpeng , lan , lyp的网络日志, lan的博客, lan Blog, 博客, 个人网站, 互联网, Web,  Istio, 微服务">
+    <link rel="shortcut icon" href="img/favicon.ico">
+
+    <title>转|SOFARPC路由实现剖析-lyp的博客 | lyp Blog</title>
+
+    <link rel="canonical" href="/post/sofarpc%E8%B7%AF%E7%94%B1%E5%AE%9E%E7%8E%B0%E5%89%96%E6%9E%90/">
+
+    <link rel="stylesheet" href="https://res.cloudinary.com/lyp/raw/upload/v1537369740/hugo/css/iDisqus.min.css"/>
+
+    
+    <link rel="stylesheet" href="https://res.cloudinary.com/lyp/raw/upload/v1537369744/hugo/css/bootstrap.min.css">
+
+    
+    <link rel="stylesheet" href="https://res.cloudinary.com/lyp/raw/upload/v1537369740/hugo/css/hux-blog.min.css">
+
+    
+    <link rel="stylesheet" href="https://res.cloudinary.com/lyp/raw/upload/v1537369740/hugo/css/syntax.css">
+
+    
+    <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    
+    
+    <script src="https://res.cloudinary.com/lyp/raw/upload/v1537369966/hugo/js/jquery.min.js"></script>
+
+    
+    <script src="https://res.cloudinary.com/lyp/raw/upload/v1537369966/hugo/js/bootstrap.min.js"></script>
+
+    
+    <script src="https://res.cloudinary.com/lyp/raw/upload/v1537369964/hugo/js/hux-blog.min.js"></script>
+
+    
+    <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "f73bc0092aeb491d89984c0eb5a87ac2"}'></script>
+</head>
+
+</head>
+
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Hi,I`m lan</a>
+        </div>
+
+        
+        
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+                    
+                    <li>
+                        <a href="categories/cloudnative">cloudnative</a>
+                    </li>
+                    
+                    <li>
+                        <a href="categories/devops">devops</a>
+                    </li>
+                    
+                    <li>
+                        <a href="categories/iot">iot</a>
+                    </li>
+                    
+                    <li>
+                        <a href="categories/kubernetes">kubernetes</a>
+                    </li>
+                    
+                    <li>
+                        <a href="categories/middleware">middleware</a>
+                    </li>
+                    
+                    <li>
+                        <a href="categories/tech">tech</a>
+                    </li>
+                    
+
+                    
+		            <li>
+                        <a href="search">SEARCH <img src="img/search.png" height="15" style="cursor: pointer;"></a>
+		            </li>
+                    
+                </ul>
+            </div>
+        </div>
+        
+    </div>
+    
+</nav>
+<script>
+    
+    
+    
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        
+            $navbar.className = " ";
+            
+            setTimeout(function(){
+                
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+
+
+<style type="text/css">
+    header.intro-header{
+        background-image: url('https://res.cloudinary.com/lyp/image/upload/v1544363182/hugo/blog.github.io/e64ae3596ed565b8202d395d771665dd.jpg')
+    }
+</style>
+<header class="intro-header" >
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                       
+                       <a class="tag" href="/tags/rpc" title="rpc">
+                           rpc
+                        </a>
+                        
+                       <a class="tag" href="/tags/sofa" title="sofa">
+                           sofa
+                        </a>
+                        
+                       <a class="tag" href="/tags/sofastack" title="sofastack">
+                           sofastack
+                        </a>
+                        
+                       <a class="tag" href="/tags/middleware" title="Middleware">
+                           Middleware
+                        </a>
+                        
+                    </div>
+                    <h1>转|SOFARPC路由实现剖析</h1>
+                    <h2 class="subheading"></h2>
+                    <span  class="meta">Posted by lyp on Tuesday, December 11, 2018
+                        
+                        <span id="busuanzi_container_page_pv">|<span id="busuanzi_value_page_pv"></span><span>
+                            <span id="/post/sofarpc%E8%B7%AF%E7%94%B1%E5%AE%9E%E7%8E%B0%E5%89%96%E6%9E%90/" class="leancloud_visitors meta_data_item" data-flag-title="">
+    <span class="post-meta-item-icon">
+      <span class="octicon octicon-eye"></span> 
+    </span>
+    <i class="fa fa-eye"></i>
+    <span class="old-visitors-count" style="display: none;"></span>
+    <span class="leancloud-visitors-count"></span>
+</span>
+
+
+
+<script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+
+<script>
+	AV.initialize("", "");
+</script>
+
+<script type="text/javascript">
+function showTime(Counter) {
+    var query = new AV.Query(Counter);
+    var entries = [];
+    var $visitors = $(".leancloud_visitors");
+
+    $visitors.each(function() {
+        entries.push($(this).attr("id").trim());
+    });
+
+    query.containedIn('url', entries);
+    query.find()
+        .done(function(results) {
+            var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+            var OLD_COUNT_CONTAINER_REF = '.old-visitors-count';
+
+            
+            
+            
+            
+
+            for (var i = 0; i < results.length; i++) {
+                var item = results[i];
+                var url = item.get('url');
+                var time = item.get('time');
+                var element = document.getElementById(url);
+
+                $(element).find(COUNT_CONTAINER_REF).text(time);
+            }
+            for (var i = 0; i < entries.length; i++) {
+                var url = entries[i];
+                var element = document.getElementById(url);
+                var countSpan = $(element).find(COUNT_CONTAINER_REF);
+                if (countSpan.text() == '') {
+                    var oldCountSpan = $(element).find(OLD_COUNT_CONTAINER_REF).text();
+                    if(oldCountSpan!=''){
+                        countSpan.text(0+parseInt(oldCountSpan));
+                    }else{
+                        countSpan.text(0);          
+                    }
+                }
+            }
+        })
+        .fail(function(object, error) {
+            console.log("Error: " + error.code + " " + error.message);
+        });
+}
+
+function addCount(Counter) {
+    var $visitors = $(".leancloud_visitors");
+    var url = $visitors.attr('id').trim();
+    var title = $visitors.attr('data-flag-title').trim();
+    var query = new AV.Query(Counter);
+
+    query.equalTo("url", url);
+    query.find({
+        success: function(results) {
+            if (results.length > 0) {
+                var counter = results[0];
+                counter.fetchWhenSave(true);
+                counter.increment("time");
+                counter.save(null, {
+                    success: function(counter) {
+                        var $element = $(document.getElementById(url));
+                        $element.find('.leancloud-visitors-count').text(counter.get('time'));
+                    },
+                    error: function(counter, error) {
+                        console.log('Failed to save Visitor num, with error message: ' + error.message);
+                    }
+                });
+            } else {
+                var newcounter = new Counter();
+                 
+                var acl = new AV.ACL();
+                acl.setPublicReadAccess(true);
+                acl.setPublicWriteAccess(true);
+                newcounter.setACL(acl);
+                 
+                newcounter.set("title", title);
+                newcounter.set("url", url);
+                var OLD_COUNT_CONTAINER_REF = '.old-visitors-count';
+                var $element = $(document.getElementById(url));
+                var oldCountSpan = $element.find(OLD_COUNT_CONTAINER_REF).text();
+                if(oldCountSpan!=''){
+                    newcounter.set("time", parseInt(oldCountSpan)+1);
+                }else{
+ 	                    newcounter.set("time",  1);
+                }
+                newcounter.save(null, {
+                    success: function(newcounter) {
+                        var $element = $(document.getElementById(url));
+                        $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+                    },
+                    error: function(newcounter, error) {
+                        console.log('Failed to create');
+                    }
+                });
+            }
+        },
+        error: function(error) {
+            console.log('Error:' + error.code + " " + error.message);
+        }
+    });
+}
+$(function() {
+    var Counter = AV.Object.extend("Counter");
+    
+    
+    if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+    } else {
+        showTime(Counter);
+    }
+});
+</script>
+
+                            阅读 </span></span>|<span class="post-date">共3646字</span>，阅读约<span class="more-meta"> 8 分钟</span>
+                        
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+
+
+<article>
+    <div class="container">
+        <div class="row">
+
+            
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+		
+                <header>
+                <h2>TOC</h2>
+                </header>
+                <nav id="TableOfContents">
+  <ul>
+    <li><a href="#local注册中心local">Local注册中心(Local)</a></li>
+    <li><a href="#zookeeper注册中心zookeeper">Zookeeper注册中心(Zookeeper)</a></li>
+    <li><a href="#consul注册中心consul">Consul注册中心(Consul)</a></li>
+    <li><a href="#其他注册中心">其他注册中心</a></li>
+  </ul>
+
+  <ul>
+    <li><a href="#路由原理和设计">路由原理和设计</a></li>
+    <li><a href="#直连directurlrouter">直连(DirectUrlRouter)</a></li>
+    <li><a href="#注册中心registryrouter">注册中心(RegistryRouter)</a></li>
+    <li><a href="#自定义customrouter">自定义(CustomRouter)</a></li>
+  </ul>
+
+  <ul>
+    <li><a href="#权重随机randomloadbalancer">权重随机(RandomLoadBalancer)</a></li>
+    <li><a href="#顺序轮询roundrobinloadbalancer">顺序轮询(RoundRobinLoadBalancer)</a></li>
+    <li><a href="#本地优先localpreferenceloadbalancer">本地优先(LocalPreferenceLoadBalancer)</a></li>
+    <li><a href="#一致性-hashconsistenthashloadbalancer">一致性 Hash(ConsistentHashLoadBalancer)</a></li>
+    <li><a href="#权重一致性-hashweightconsistenthashloadbalancer">权重一致性 Hash(WeightConsistentHashLoadBalancer)</a></li>
+    <li><a href="#负载均衡比较">负载均衡比较</a></li>
+  </ul>
+</nav>
+		
+		<h1 id="前言">前言</h1>
+<p>RPC 框架需要创造一种调用远程服务如同调用本地般的体验，因此在实现一个基于 RPC 框架的微服务架构的系统时，服务消费者（客户端）往往只需要知道服务端提供了哪些接口和方法，并不需要知道服务具体由哪些 IP 在提供。RPC 框架本身的服务发现和路由寻址功能解决了如何知道目标地址的问题，该过程对于 RPC 客户端调用方来说应该是完全透明的。</p>
+<p>在这个过程中，RPC 框架需要接入注册中心来完成服务发现和路由寻址的功能。同时，在应用大规模请求时，微服务系统还需要对请求服务集群化，同时通过负载均衡来达到降低访问压力的效果。</p>
+<p>本文我们会先介绍一下注册中心，然后介绍一下 SOFRPC 中的几种路由，最后会介绍一下负载均衡的几种比较。</p>
+<h1 id="注册中心支持">注册中心支持</h1>
+<p>首先我们简要介绍一下注册中心的原理。</p>
+<p><img src="https://res.cloudinary.com/lyp/image/upload/v1544535227/hugo/blog.github.io/sofa-rpc/lysx/1539692412461-668ebd75-a2ab-4964-9d94-5c1bea671f65.png" alt="dsr.png | center | 747x435" title=""></p>
+<p>服务端推送地址给注册中心，注册中心将地址进行合并后，推送给客户端。</p>
+<p>其中，注册中心的场景依赖于各类注册中心的实现。在这里，SOFARPC 提供了注册中心的抽象类 <code>Registry</code>，该抽象类提供了注册中心的配置、启动、注册、反注册、订阅等方法。客户端在接入过程中，可以通过配置来激活 Zookeeper、Consul、local 等注册中心注册进启动类中，当请求到来时，可以通过注册中心进行相应的路由。</p>
+<p>注册中心的抽象类如下：</p>
+<p><img src="https://res.cloudinary.com/lyp/image/upload/v1544535255/hugo/blog.github.io/sofa-rpc/lysx/1539692913442-161e0822-79a4-4b98-91fb-997f26f6f9e2.png" alt="carbon (3).png | center | 747x1142" title=""></p>
+<p>在这个接口的基础上，目前内置实现了几种注册中心。包括即将合并的。</p>
+<p><img src="https://res.cloudinary.com/lyp/image/upload/v1544535275/hugo/blog.github.io/sofa-rpc/lysx/1539688664778-0d967e6a-9960-4164-985f-d72f348d09cf.png" alt="registry.png | center | 747x212" title=""></p>
+<h2 id="local注册中心local">Local注册中心(Local)</h2>
+<p>Local 注册中心是 SOFARPC 自己实现的一个本地注册中心，该注册中心的实现主要由类 <code>LocalRegistry</code>提供，可以调用其 <code>register(ProviderConfig config)</code> 方法实现服务的注册，主要是文件的读写。</p>
+<p>实现原理很简单，通过在本地注册文件来保存服务的发布和订阅信息。</p>
+<h2 id="zookeeper注册中心zookeeper">Zookeeper注册中心(Zookeeper)</h2>
+<p>Zookeeper 接入 SOFARPC 的实现类为 <code>ZookeeperRegistry</code>。目前是 SOFARPC 中默认的注册中心实现。也是大多数情况下，可以方便使用的。</p>
+<p>Zookeeper 是一个分布式协调服务，用于维护配置信息、命名、提供分布式同步功能以及提供组服务等。Zookeeper 提供了服务注册与发现的解决方案，提供了简单的 API，可以让集成者简洁调用。</p>
+<p>当要发布一个 SOFARPC 服务时，首先需要在 zookeeper 中注册服务提供者的相关信息，包括：该服务接口隶属于哪个系统、服务的 IP 以及端口号、服务的请求 URL 和服务的权重等等。zookeeper 在这个过程中，注意负责对 SOFARPC 中的服务信息进行中心存储，同时负责把服务注册信息的更新及时通知到服务消费者。</p>
+<p>作为服务调用者，SOFARPC 调用端在调用时，若走的路由链路中有注册中心，则会从注册中心中获取到服务注册的相关信息，然后在调用时会根据负载均衡策略来发送请求。</p>
+<h2 id="consul注册中心consul">Consul注册中心(Consul)</h2>
+<p>Consul 注册中心与 SOFARPC 之间的对接主要依赖于 <code>ConsulRegistry</code>类。</p>
+<p>该注册中心在功能表现上与 zookeeper 看起来一致。对比起 Zookeeper 来，Consul 支持多数据中心，同时支持 http 和 dns 等接口，有着多语言的能力。</p>
+<h2 id="其他注册中心">其他注册中心</h2>
+<p>目前已经在开发中的有 Nacos，SOFAMesh 等。也可以根据自己的场景，进行方便的扩展。</p>
+<h1 id="路由设计">路由设计</h1>
+<h2 id="路由原理和设计">路由原理和设计</h2>
+<p>在阅读本部分之前，请大家注意：路由是为了选中一组地址。</p>
+<p>SOFARPC 通过对各类注册中心的支持，实现了服务发现、路由寻址的功能。访问客户端时，请求的路由可以由以下一些实现类实现：DirectUrlRouter、RegistryRouter、CustomRouter，上述三个路由实现类分别对应了直接地址路由（不需要经过注册中心直接路由直连到某个地址）、注册中心路由、以及客户自定义路由等。路由从 AddressHolder 获取到地址，同时通过各种负载均衡算法进行负载均衡，请求到相应的系统接口。</p>
+<p>首先我们看一下整个路由寻址过程的阶段。</p>
+<p><img src="https://res.cloudinary.com/lyp/image/upload/v1544535309/hugo/blog.github.io/sofa-rpc/lysx/1539681890237-34f1c5ff-d618-469a-a314-ab8152d1a133.png" alt="image.png | left | 747x673" title=""></p>
+<p>这 SOFARPC 中，路由可以分为地址直连路由、注册中心路由以及客户定制化路由。这以上三个路由均扩展了 Router 抽象类。服务路由的抽象类代码如下：</p>
+<p><img src="https://res.cloudinary.com/lyp/image/upload/v1544535331/hugo/blog.github.io/sofa-rpc/lysx/1539692990384-ad3d35e7-ec57-4c7d-9529-8cfc82538057.png" alt="carbon (4).png | center | 747x573" title=""></p>
+<p>这里的核心代码是 route 这个方法，将本次请求的信息，和服务列表进行计算。当客户端请求到达 Router 时，会根据请求的参数信息从 Router 和连接管理器中获取请求地址，通过调用 <code>route(SofaRequest request, List&lt;ProviderInfo&gt; providerInfos)</code> 方法达到路由寻址的目的。</p>
+<p>其中，路由并不是一个非此即彼的过程，这些可选的路由是由用户和系统的配置，被构造成一个路由链来执行的。这样。就可以有一些兜底的逻辑，如指定了 IP 地址，那我们就直接路由到这个地址，如果没有，就进行注册中心的路由等等。</p>
+<h2 id="直连directurlrouter">直连(DirectUrlRouter)</h2>
+<p>直接路由是比较简单的，因为有专门的配置，所以地址列表这些都是可以很方便地进行识别，在客户端配置时，可通过如下方式配置：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">ConsumerConfig<span style="color:#f92672">&lt;</span>HelloService<span style="color:#f92672">&gt;</span> consumer <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> ConsumerConfig<span style="color:#f92672">&lt;</span>HelloService<span style="color:#f92672">&gt;()</span>        
+            <span style="color:#f92672">.</span><span style="color:#a6e22e">setInterfaceId</span><span style="color:#f92672">(</span>HelloService<span style="color:#f92672">.</span><span style="color:#a6e22e">class</span><span style="color:#f92672">.</span><span style="color:#a6e22e">getName</span><span style="color:#f92672">())</span>        
+            <span style="color:#f92672">.</span><span style="color:#a6e22e">setRegistry</span><span style="color:#f92672">(</span>registryConfig<span style="color:#f92672">)</span>        
+            <span style="color:#f92672">.</span><span style="color:#a6e22e">setDirectUrl</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;bolt://127.0.0.1:12201&#34;</span><span style="color:#f92672">);</span>
+</code></pre></div><p>直接地址路由扩展了 Router 抽象类的实现，在重写的 route 方法中，直接获取配置好的直接路由地址。当请求到来时，直接从地址管理列表中，拿到对应的地址，就实现了直接地址路由的功能。</p>
+<h2 id="注册中心registryrouter">注册中心(RegistryRouter)</h2>
+<p>注册中心路由同样扩展了 Router 抽象方法，这个 Router是大多数情况下使用最多的路由，主要是从本应用使用的注册中心中获取对应的地址，并进行路由寻址等。后面我们会介绍目前注册中心的几个内置实现。</p>
+<h2 id="自定义customrouter">自定义(CustomRouter)</h2>
+<p>客户定制化路由可以配置客户自己所定制的路由实现，可以参考直接地址路由或者注册中心路由的实现，扩展 Router 类即可。</p>
+<p>这里的使用场景</p>
+<p>一种是对于某些用户来说，在注册中心的场景下，用户认为所有的地址并不是等价的。会对地址进行人为拆分，使用方保存了自己的的所有服务提供方地址（或者是通过某种方法查询），然后重写路由定制逻辑，通过方法级别进行地址的选择。</p>
+<p>另一种是，用户可以通过这个接口实现一些功能，例如切流、灰度、同机房优先等等。</p>
+<h1 id="负载均衡实现">负载均衡实现</h1>
+<p>经过前面两个部分的介绍，我们知道，通过不同的注册中心和直连指定的方式，经过路由链的选择，我们已经拿到了一组地址，这一组地址如果选出一个地址进行本次的调用。就涉及到负载均衡的选择。下面我们会给大家介绍下每种负载均衡的比较和优势。</p>
+<p>现在，SOFARPC 提供如下一些负载均衡器。下面是各个负载均衡器的类名称以及算法原理，以下各个类名可以直接在代码中进行搜索阅读。</p>
+<p>注意：负载均衡的计算全部是在客户端实现的。</p>
+<p>负载均衡器的抽象类下：</p>
+<p><img src="https://res.cloudinary.com/lyp/image/upload/v1544535388/hugo/blog.github.io/sofa-rpc/lysx/1539693047408-a6941247-ea75-4d41-8db8-0461d2c1ca92.png" alt="carbon (5).png | center | 747x470" title=""></p>
+<h2 id="权重随机randomloadbalancer">权重随机(RandomLoadBalancer)</h2>
+<p>这个负载均衡算法是默认的实现，带权重的随机负载均衡算法。是目前默认开启的负载均衡算法。
+在算法在进行负载均衡时，全部列表按照权重进行随机选择。</p>
+<p>权重随机的思路很简单，每个服务地址，在发布的时候，带上了一个 weight 的标签，SOFARPC 在路由的时候，汇总所有的权重值，然后产生一个0到这个总权重值的随机数，看这个数是落在哪个范围内，就知道要选哪个服务端作为本次调用的地址，默认为100，当然，用户也可以指定或者通过某些操作 API 进行修改。在 SOFARPC，预热权重功能会在启动期间，使得某个刚刚启动的服务端地址的权重为一个较小的值。</p>
+<p>对于所有权重一样的情况下。权重随机也就退化成了完全随机。
+而对于权重有差异的情况下，就能实现，权重小的调用少，权重多的调用量大。</p>
+<p><img src="https://res.cloudinary.com/lyp/image/upload/v1544535411/hugo/blog.github.io/sofa-rpc/lysx/1539683741740-9b913c1a-084a-4c75-87ce-b45adff9dcc9.png" alt="router.png | center | 747x217" title=""></p>
+<p>这个直观理解就是一个线段掷骰子 的问题，相信大家配合代码一看就明白了。</p>
+<p>配合预热权重功能，这个就将权重随机的功能真正使用了起来。另外，也可以通过配置覆盖，动态得修改某些服务提供方的权重信息。来实现地址摘除等。这个需要依赖于注册中心的实现。</p>
+<h2 id="顺序轮询roundrobinloadbalancer">顺序轮询(RoundRobinLoadBalancer)</h2>
+<p>进行依次轮询来进行负载均衡。主要用来调用量比较少的情况下。
+该负载均衡算法在实现时，不关心权重，按照方法级进行轮询，相互不会影响。这个非常简单。就是一个环状，轮询完了就再次重新开始。</p>
+<p><img src="https://res.cloudinary.com/lyp/image/upload/v1544535441/hugo/blog.github.io/sofa-rpc/lysx/1539686332192-7e9e59be-6923-46a8-a1a4-d3c2eaf5d82f.png" alt="Canvas 2.png | center | 599x509" title=""></p>
+<h2 id="本地优先localpreferenceloadbalancer">本地优先(LocalPreferenceLoadBalancer)</h2>
+<p>该负载均衡算法提升了本机的调用性能。在负载均衡时使用保持本机优先。这个相信大家也比较好理解。
+在所有的可选地址中，找到本机发布的地址，然后进行调用。</p>
+<h2 id="一致性-hashconsistenthashloadbalancer">一致性 Hash(ConsistentHashLoadBalancer)</h2>
+<p>一致性 hash 算法，保障了客户端和服务器之间比较稳定的连接关系。
+该算法通过一致性 hash，保证了第一参数同样的请求能够负载均衡到同样的节点上。一致性 Hash 大家都了解比较多了，这里 SOFARPC 是通过方法入参的第一个参数来做负载均衡的 Hash 的。</p>
+<p><img src="https://res.cloudinary.com/lyp/image/upload/v1544535466/hugo/blog.github.io/sofa-rpc/lysx/1539687461330-e4ea81be-1184-4e20-9466-3c64a841fc41.png" alt="hash.png | center | 747x554" title=""></p>
+<h2 id="权重一致性-hashweightconsistenthashloadbalancer">权重一致性 Hash(WeightConsistentHashLoadBalancer)</h2>
+<p>带权重的一致性 hash 算法。在一致性 Hash的基础上，设置虚拟节点的时候，权重大的 ProviderInfo 会生成更多的节点。这样被选中的概率就更高。这里不再做详细说明。大家有兴趣可以从代码中进行阅读。</p>
+<h2 id="负载均衡比较">负载均衡比较</h2>
+<table>
+<thead>
+<tr>
+<th>负载均衡算法</th>
+<th>优点</th>
+<th>缺点</th>
+<th>场景</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>权重随机</td>
+<td>快速方便</td>
+<td>调用量小的情况下不完全均衡</td>
+<td>大多数场景</td>
+</tr>
+<tr>
+<td>顺序轮询</td>
+<td>调用完全均衡</td>
+<td>没有权重。</td>
+<td>TPS小的场景</td>
+</tr>
+<tr>
+<td>本地优先</td>
+<td>本地优先</td>
+<td>有场景限制。</td>
+<td>本地有服务发布的场景。</td>
+</tr>
+<tr>
+<td>一致性 Hash</td>
+<td>调用机器相对固定</td>
+<td>性能相对一般</td>
+<td>对调用机器需要相对固定的场景。</td>
+</tr>
+<tr>
+<td>权重一致性 Hash</td>
+<td>调用机器相对固定，有权重</td>
+<td>性能相对一般</td>
+<td>对调用机器需要相对固定的场景。</td>
+</tr>
+</tbody>
+</table>
+<h1 id="总结">总结</h1>
+<p>到这里，路由实现剖析基本就介绍完了。</p>
+<p>在本文中，我们剖析了 SOFARPC 的路由实现，详细解释了 SOFARPC 在对路由的实现方式及相应的扩展方式。
 除此之外，介绍了不同注册中心的接入方法，及接入的实现。
-最后，本文介绍了一些负载均衡算法，并对这些算法进行了相应的对比。</p><hr><p>文章转自<a href=https://mp.weixin.qq.com/s/kjAYRxLwiSgFAjqJU-z41Q>剖析 | SOFARPC 框架】之SOFARPC 路由实现剖析</a></p><h2>微信公众号</h2><p>扫描下面的二维码关注我们的微信公众帐号,第一时间查看最新内容。</p><img src=https://res.cloudinary.com/lyp/image/upload/v1581729955/hugo/blog.github.io/qrcode_for_sikekafeidou.jpg alt=wechat-account-qrcode><hr><ul class=pager><li class=previous><a href=/post/sofarpc%E8%BF%9E%E6%8E%A5%E7%AE%A1%E7%90%86%E4%B8%8E%E5%BF%83%E8%B7%B3%E5%89%96%E6%9E%90/ data-toggle=tooltip data-placement=top title=转|SOFARPC连接管理与心跳剖析>&larr; Previous Post</a></li><li class=next><a href=/post/sofarpc%E8%B7%A8%E8%AF%AD%E8%A8%80%E6%94%AF%E6%8C%81%E5%89%96%E6%9E%90/ data-toggle=tooltip data-placement=top title=转|SOFARPC跨语言支持剖析>Next Post &rarr;</a></li></ul><div id=disqus-comment></div></div><div class="col-lg-8 col-lg-offset-2
-col-md-10 col-md-offset-1
-sidebar-container"><section><hr class="hidden-sm hidden-xs"><h5><a href=/tags/>FEATURED TAGS</a></h5><div class=tags><a href=/tags/chirpstack title=chirpstack>chirpstack</a>
-<a href=/tags/cloudnative title=cloudnative>cloudnative</a>
-<a href=/tags/docker title=docker>docker</a>
-<a href=/tags/fluentd title=fluentd>fluentd</a>
-<a href=/tags/iot title=iot>iot</a>
-<a href=/tags/kubernetes title=kubernetes>kubernetes</a>
-<a href=/tags/middleware title=middleware>middleware</a>
-<a href=/tags/mq title=mq>mq</a>
-<a href=/tags/ops title=ops>ops</a>
-<a href=/tags/rpc title=rpc>rpc</a>
-<a href=/tags/sofa title=sofa>sofa</a>
-<a href=/tags/sofastack title=sofastack>sofastack</a></div></section><hr><h5>FRIENDS</h5><ul class=list-inline></ul></div></div></div></article><footer><div class=container><div class=row><div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1"><ul class="list-inline text-center"><li><a href=mailto:gcslyp@gmail.com><span class="fa-stack fa-lg"><i class="fa fa-circle fa-stack-2x"></i><i class="fa fa-envelope fa-stack-1x fa-inverse"></i></span></a></li><li><a href=https://twitter.com/lan31793328><span class="fa-stack fa-lg"><i class="fa fa-circle fa-stack-2x"></i><i class="fa fa-twitter fa-stack-1x fa-inverse"></i></span></a></li><li><a target=_blank href=https://github.com/liangyuanpeng><span class="fa-stack fa-lg"><i class="fa fa-circle fa-stack-2x"></i><i class="fa fa-github fa-stack-1x fa-inverse"></i></span></a></li></ul><p class="copyright text-muted">Copyright &copy; Hi,I`m lan , 2018<br><a href=https://themes.gohugo.io/hugo-theme-cleanwhite>CleanWhite Hugo Theme</a> by <a href=https://zhaohuabing.com>Huabing</a> |
-<iframe style=margin-left:2px;margin-bottom:-5px frameborder=0 scrolling=0 width=100px height=20px src="https://ghbtns.com/github-btn.html?user=zhaohuabing&repo=hugo-theme-cleanwhite&type=star&count=true"></iframe></p></div></div></div></footer><script>function async(u,c){var d=document,t='script',o=d.createElement(t),s=d.getElementsByTagName(t)[0];o.src=u;if(c){o.addEventListener('load',function(e){c(null,e);},false);}
-s.parentNode.insertBefore(o,s);}</script><script>if($('#tag_cloud').length!==0){async("/js/jquery.tagcloud.js",function(){$.fn.tagcloud.defaults={color:{start:'#bbbbee',end:'#0085a1'},};$('#tag_cloud a').tagcloud();})}</script><script>async("https://cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.js",function(){var $nav=document.querySelector("nav");if($nav)FastClick.attach($nav);})</script><script>var _baId='71126c746d53d10cdb4275496d9cc84b';var _hmt=_hmt||[];(function(){var hm=document.createElement("script");hm.src="//hm.baidu.com/hm.js?"+_baId;var s=document.getElementsByTagName("script")[0];s.parentNode.insertBefore(hm,s);})();</script></body></html>
+最后，本文介绍了一些负载均衡算法，并对这些算法进行了相应的对比。</p>
+<hr>
+<p>文章转自<a href="https://mp.weixin.qq.com/s/kjAYRxLwiSgFAjqJU-z41Q">剖析 | SOFARPC 框架】之SOFARPC 路由实现剖析</a></p>
+
+
+        <h2>微信公众号</h2>
+<p>扫描下面的二维码关注我们的微信公众帐号,第一时间查看最新内容。</p>
+<img src="https://res.cloudinary.com/lyp/image/upload/v1581729955/hugo/blog.github.io/qrcode_for_sikekafeidou.jpg" alt="wechat-account-qrcode">
+
+
+                <hr>
+
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/post/sofarpc%E8%BF%9E%E6%8E%A5%E7%AE%A1%E7%90%86%E4%B8%8E%E5%BF%83%E8%B7%B3%E5%89%96%E6%9E%90/" data-toggle="tooltip" data-placement="top" title="转|SOFARPC连接管理与心跳剖析">&larr; Previous Post</a>
+                    </li>
+                    
+                    
+                    <li class="next">
+                        <a href="/post/sofarpc%E8%B7%A8%E8%AF%AD%E8%A8%80%E6%94%AF%E6%8C%81%E5%89%96%E6%9E%90/" data-toggle="tooltip" data-placement="top" title="转|SOFARPC跨语言支持剖析">Next Post &rarr;</a>
+                    </li>
+                    
+                </ul>
+
+            
+<div id="disqus-comment"></div>
+
+
+
+            </div>
+            
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                
+                <section>
+                    <hr class="hidden-sm hidden-xs">
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                     
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                            <a href="/tags/chirpstack" title="chirpstack">
+                                chirpstack
+                            </a>
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                            <a href="/tags/cloudnative" title="cloudnative">
+                                cloudnative
+                            </a>
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                            <a href="/tags/docker" title="docker">
+                                docker
+                            </a>
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                            <a href="/tags/fluentd" title="fluentd">
+                                fluentd
+                            </a>
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                            <a href="/tags/iot" title="iot">
+                                iot
+                            </a>
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                            <a href="/tags/kubernetes" title="kubernetes">
+                                kubernetes
+                            </a>
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                            <a href="/tags/middleware" title="middleware">
+                                middleware
+                            </a>
+                        
+                    
+                        
+                            <a href="/tags/mq" title="mq">
+                                mq
+                            </a>
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                            <a href="/tags/ops" title="ops">
+                                ops
+                            </a>
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                            <a href="/tags/rpc" title="rpc">
+                                rpc
+                            </a>
+                        
+                    
+                        
+                            <a href="/tags/sofa" title="sofa">
+                                sofa
+                            </a>
+                        
+                    
+                        
+                            <a href="/tags/sofastack" title="sofastack">
+                                sofastack
+                            </a>
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                    </div>
+                </section>
+
+                
+                <hr>
+                <h5>FRIENDS</h5>
+                <ul class="list-inline">
+                    
+                </ul>
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                   
+                    
+                    <li>
+                        <a href="mailto:gcslyp@gmail.com">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+		    
+
+                    
+                    <li>
+                        <a href="https://twitter.com/lan31793328">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    
+
+                    
+
+		    
+                    
+                    
+                    <li>
+                        <a target="_blank" href="https://github.com/liangyuanpeng">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+		    
+                    
+                </ul>
+		<p class="copyright text-muted">
+                    Copyright &copy; Hi,I`m lan , 2018
+                    <br>
+                    <a href="https://themes.gohugo.io/hugo-theme-cleanwhite">CleanWhite Hugo Theme</a> by <a href="https://zhaohuabing.com">Huabing</a> |
+                    <iframe
+                        style="margin-left: 2px; margin-bottom:-5px;"
+                        frameborder="0" scrolling="0" width="100px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=zhaohuabing&repo=hugo-theme-cleanwhite&type=star&count=true" >
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+
+
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+
+
+
+
+
+<script>
+    
+    if($('#tag_cloud').length !== 0){
+        async("/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+
+<script>
+    async("https://cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+
+
+
+
+
+<script>
+    
+    var _baId = 'fad9c137f8ce239f9b323d36c871f8e6';
+
+    
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?" + _baId;
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+
+
+
+
+
+
+</body>
+</html>

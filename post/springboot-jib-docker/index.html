@@ -1,20 +1,368 @@
-<!doctype html><html lang=en-us><head><head><meta name=google-site-verification content="9vIieCe-Qpd78QOmBl63rGtIVbhY6sYyuxX3j8XWBA4"><meta name=baidu-site-verification content="LRrmH41lz7"><meta charset=utf-8><meta http-equiv=x-ua-compatible content="IE=edge"><meta name=google-site-verification content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI"><meta name=viewport content="width=device-width,initial-scale=1"><meta name=baidu-site-verification content="HGLXRsUXC4"><meta name=description content="构建java的docker镜像,用jib,简单粗暴.."><meta name=keyword content="liangyuanpeng , lan , lyp的网络日志, lan的博客, lan Blog, 博客, 个人网站, 互联网, Web,  Istio, 微服务"><link rel="shortcut icon" href=img/favicon.ico><title>不用安装docker也能构建docker镜像-lyp的博客 | lyp Blog</title><link rel=canonical href=/post/springboot-jib-docker/><link rel=stylesheet href=https://res.cloudinary.com/lyp/raw/upload/v1537369740/hugo/css/iDisqus.min.css><link rel=stylesheet href=https://res.cloudinary.com/lyp/raw/upload/v1537369744/hugo/css/bootstrap.min.css><link rel=stylesheet href=https://res.cloudinary.com/lyp/raw/upload/v1537369740/hugo/css/hux-blog.min.css><link rel=stylesheet href=https://res.cloudinary.com/lyp/raw/upload/v1537369740/hugo/css/syntax.css><link href=//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css rel=stylesheet type=text/css><script src=https://res.cloudinary.com/lyp/raw/upload/v1537369966/hugo/js/jquery.min.js></script><script src=https://res.cloudinary.com/lyp/raw/upload/v1537369966/hugo/js/bootstrap.min.js></script><script src=https://res.cloudinary.com/lyp/raw/upload/v1537369964/hugo/js/hux-blog.min.js></script></head></head><nav class="navbar navbar-default navbar-custom navbar-fixed-top"><div class=container-fluid><div class="navbar-header page-scroll"><button type=button class=navbar-toggle>
-<span class=sr-only>Toggle navigation</span>
-<span class=icon-bar></span><span class=icon-bar></span><span class=icon-bar></span></button>
-<a class=navbar-brand href=/>Hi,I`m lan</a></div><div id=huxblog_navbar><div class=navbar-collapse><ul class="nav navbar-nav navbar-right"><li><a href=/>Home</a></li><li><a href=categories/cloudnative>cloudnative</a></li><li><a href=categories/devops>devops</a></li><li><a href=categories/iot>iot</a></li><li><a href=categories/kubernetes>kubernetes</a></li><li><a href=categories/middleware>middleware</a></li><li><a href=categories/tech>tech</a></li><li><a href=search>SEARCH <img src=img/search.png height=15 style=cursor:pointer></a></li></ul></div></div></div></nav><script>var $body=document.body;var $toggle=document.querySelector('.navbar-toggle');var $navbar=document.querySelector('#huxblog_navbar');var $collapse=document.querySelector('.navbar-collapse');$toggle.addEventListener('click',handleMagic)
-function handleMagic(e){if($navbar.className.indexOf('in')>0){$navbar.className=" ";setTimeout(function(){if($navbar.className.indexOf('in')<0){$collapse.style.height="0px"}},400)}else{$collapse.style.height="auto"
-$navbar.className+=" in";}}</script><style type=text/css>header.intro-header{background-image:url(https://res.cloudinary.com/lyp/image/upload/v1582044225/hugo/blog.github.io/devops/jib/apple-code-coding-computer-574069.jpg)}</style><header class=intro-header><div class=container><div class=row><div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1"><div class=post-heading><div class=tags><a class=tag href=/tags/docker title=docker>docker</a>
-<a class=tag href=/tags/jib title=jib>jib</a>
-<a class=tag href=/tags/java title=java>java</a>
-<a class=tag href=/tags/maven title=maven>maven</a></div><h1>不用安装docker也能构建docker镜像</h1><h2 class=subheading></h2><span class=meta>Posted by lan on Tuesday, February 18, 2020
-<span id=busuanzi_container_page_pv>|<span id=busuanzi_value_page_pv></span><span>
-<span id=/post/springboot-jib-docker/ class="leancloud_visitors meta_data_item" data-flag-title><span class=post-meta-item-icon><span class="octicon octicon-eye"></span></span><i class="fa fa-eye"></i><span class=old-visitors-count style=display:none></span><span class=leancloud-visitors-count></span></span><script src=https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js></script><script>AV.initialize("","");</script><script type=text/javascript>function showTime(Counter){var query=new AV.Query(Counter);var entries=[];var $visitors=$(".leancloud_visitors");$visitors.each(function(){entries.push($(this).attr("id").trim());});query.containedIn('url',entries);query.find().done(function(results){var COUNT_CONTAINER_REF='.leancloud-visitors-count';var OLD_COUNT_CONTAINER_REF='.old-visitors-count';for(var i=0;i<results.length;i++){var item=results[i];var url=item.get('url');var time=item.get('time');var element=document.getElementById(url);$(element).find(COUNT_CONTAINER_REF).text(time);}
-for(var i=0;i<entries.length;i++){var url=entries[i];var element=document.getElementById(url);var countSpan=$(element).find(COUNT_CONTAINER_REF);if(countSpan.text()==''){var oldCountSpan=$(element).find(OLD_COUNT_CONTAINER_REF).text();if(oldCountSpan!=''){countSpan.text(0+parseInt(oldCountSpan));}else{countSpan.text(0);}}}}).fail(function(object,error){console.log("Error: "+error.code+" "+error.message);});}
-function addCount(Counter){var $visitors=$(".leancloud_visitors");var url=$visitors.attr('id').trim();var title=$visitors.attr('data-flag-title').trim();var query=new AV.Query(Counter);query.equalTo("url",url);query.find({success:function(results){if(results.length>0){var counter=results[0];counter.fetchWhenSave(true);counter.increment("time");counter.save(null,{success:function(counter){var $element=$(document.getElementById(url));$element.find('.leancloud-visitors-count').text(counter.get('time'));},error:function(counter,error){console.log('Failed to save Visitor num, with error message: '+error.message);}});}else{var newcounter=new Counter();var acl=new AV.ACL();acl.setPublicReadAccess(true);acl.setPublicWriteAccess(true);newcounter.setACL(acl);newcounter.set("title",title);newcounter.set("url",url);var OLD_COUNT_CONTAINER_REF='.old-visitors-count';var $element=$(document.getElementById(url));var oldCountSpan=$element.find(OLD_COUNT_CONTAINER_REF).text();if(oldCountSpan!=''){newcounter.set("time",parseInt(oldCountSpan)+1);}else{newcounter.set("time",1);}
-newcounter.save(null,{success:function(newcounter){var $element=$(document.getElementById(url));$element.find('.leancloud-visitors-count').text(newcounter.get('time'));},error:function(newcounter,error){console.log('Failed to create');}});}},error:function(error){console.log('Error:'+error.code+" "+error.message);}});}
-$(function(){var Counter=AV.Object.extend("Counter");if($('.leancloud_visitors').length==1){addCount(Counter);}else{showTime(Counter);}});</script>阅读 </span></span>|<span class=post-date>共1309字</span>，阅读约<span class=more-meta> 3 分钟</span></span></div></div></div></div></header><article><div class=container><div class=row><div class="col-lg-8 col-lg-offset-2
-col-md-10 col-md-offset-1
-post-container"><header><h2>TOC</h2></header><nav id=TableOfContents><ul><li><a href=#前言>前言</a></li><li><a href=#配置pomxml>配置pom.xml</a></li></ul></nav><h1 id=前提>前提</h1><ol><li><a href=https://www.docker.com/get-started>docker</a></li><li>容器镜像仓库</li></ol><p>这里举例可以公用的两个<br><a href=https://hub.docker.com/>dockerhub</a><br><a href=https://cr.console.aliyun.com/cn-beijing/instances/repositories>阿里云容器镜像服务</a></p><h2 id=前言>前言</h2><p>本文主要介绍的是google开源的一个java领域的docker构建工具jib.</p><p>目前在<a href=https://github.com/GoogleContainerTools/jib>github</a>上的start有8.5k,fork有784,是一款非常方便的java领域docker构建工具.</p><p>亮点是不需要Docker daemon,意味着即使本地没有安装docker也能通过jib构建docker镜像,并且可以构建符合<a href=https://github.com/opencontainers/image-spec>OCI</a>规范的镜像.</p><p>官方支持三种方式:</p><ol><li><a href=https://github.com/GoogleContainerTools/jib/blob/master/jib-maven-plugin>maven插件</a></li><li><a href=https://github.com/GoogleContainerTools/jib/blob/master/jib-gradle-plugin>grade插件</a></li><li><a href=https://github.com/GoogleContainerTools/jib/tree/master/jib-core>jib代码库</a></li></ol><p>本文使用的是springboot项目通过maven插件的方式进行讲述.</p><p>讲一下第三种,jib代码库,这种方式可以用于自研平台构建java的docker服务.</p><h2 id=配置pomxml>配置pom.xml</h2><p>添加下面这段标准标签到文件中</p><pre><code>&lt;build&gt;
+<!DOCTYPE html>
+<html lang="en-us">
+<head><head>
+    <meta name="google-site-verification" content="9vIieCe-Qpd78QOmBl63rGtIVbhY6sYyuxX3j8XWBA4" />
+    <meta name="baidu-site-verification" content="LRrmH41lz7" />
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <meta name="baidu-site-verification" content="HGLXRsUXC4" />
+
+    
+    <meta name="description" content="构建java的docker镜像,用jib,简单粗暴..">
+    
+    <meta name="keyword"  content="liangyuanpeng , lan , lyp的网络日志, lan的博客, lan Blog, 博客, 个人网站, 互联网, Web,  Istio, 微服务">
+    <link rel="shortcut icon" href="img/favicon.ico">
+
+    <title>不用安装docker也能构建docker镜像-lyp的博客 | lyp Blog</title>
+
+    <link rel="canonical" href="/post/springboot-jib-docker/">
+
+    <link rel="stylesheet" href="https://res.cloudinary.com/lyp/raw/upload/v1537369740/hugo/css/iDisqus.min.css"/>
+
+    
+    <link rel="stylesheet" href="https://res.cloudinary.com/lyp/raw/upload/v1537369744/hugo/css/bootstrap.min.css">
+
+    
+    <link rel="stylesheet" href="https://res.cloudinary.com/lyp/raw/upload/v1537369740/hugo/css/hux-blog.min.css">
+
+    
+    <link rel="stylesheet" href="https://res.cloudinary.com/lyp/raw/upload/v1537369740/hugo/css/syntax.css">
+
+    
+    <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    
+    
+    <script src="https://res.cloudinary.com/lyp/raw/upload/v1537369966/hugo/js/jquery.min.js"></script>
+
+    
+    <script src="https://res.cloudinary.com/lyp/raw/upload/v1537369966/hugo/js/bootstrap.min.js"></script>
+
+    
+    <script src="https://res.cloudinary.com/lyp/raw/upload/v1537369964/hugo/js/hux-blog.min.js"></script>
+
+    
+    <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "f73bc0092aeb491d89984c0eb5a87ac2"}'></script>
+</head>
+
+</head>
+
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Hi,I`m lan</a>
+        </div>
+
+        
+        
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+                    
+                    <li>
+                        <a href="categories/cloudnative">cloudnative</a>
+                    </li>
+                    
+                    <li>
+                        <a href="categories/devops">devops</a>
+                    </li>
+                    
+                    <li>
+                        <a href="categories/iot">iot</a>
+                    </li>
+                    
+                    <li>
+                        <a href="categories/kubernetes">kubernetes</a>
+                    </li>
+                    
+                    <li>
+                        <a href="categories/middleware">middleware</a>
+                    </li>
+                    
+                    <li>
+                        <a href="categories/tech">tech</a>
+                    </li>
+                    
+
+                    
+		            <li>
+                        <a href="search">SEARCH <img src="img/search.png" height="15" style="cursor: pointer;"></a>
+		            </li>
+                    
+                </ul>
+            </div>
+        </div>
+        
+    </div>
+    
+</nav>
+<script>
+    
+    
+    
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        
+            $navbar.className = " ";
+            
+            setTimeout(function(){
+                
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+
+
+<style type="text/css">
+    header.intro-header{
+        background-image: url('https://res.cloudinary.com/lyp/image/upload/v1582044225/hugo/blog.github.io/devops/jib/apple-code-coding-computer-574069.jpg')
+    }
+</style>
+<header class="intro-header" >
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                       
+                       <a class="tag" href="/tags/docker" title="docker">
+                           docker
+                        </a>
+                        
+                       <a class="tag" href="/tags/jib" title="jib">
+                           jib
+                        </a>
+                        
+                       <a class="tag" href="/tags/java" title="java">
+                           java
+                        </a>
+                        
+                       <a class="tag" href="/tags/maven" title="maven">
+                           maven
+                        </a>
+                        
+                    </div>
+                    <h1>不用安装docker也能构建docker镜像</h1>
+                    <h2 class="subheading"></h2>
+                    <span  class="meta">Posted by lan on Tuesday, February 18, 2020
+                        
+                        <span id="busuanzi_container_page_pv">|<span id="busuanzi_value_page_pv"></span><span>
+                            <span id="/post/springboot-jib-docker/" class="leancloud_visitors meta_data_item" data-flag-title="">
+    <span class="post-meta-item-icon">
+      <span class="octicon octicon-eye"></span> 
+    </span>
+    <i class="fa fa-eye"></i>
+    <span class="old-visitors-count" style="display: none;"></span>
+    <span class="leancloud-visitors-count"></span>
+</span>
+
+
+
+<script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+
+<script>
+	AV.initialize("", "");
+</script>
+
+<script type="text/javascript">
+function showTime(Counter) {
+    var query = new AV.Query(Counter);
+    var entries = [];
+    var $visitors = $(".leancloud_visitors");
+
+    $visitors.each(function() {
+        entries.push($(this).attr("id").trim());
+    });
+
+    query.containedIn('url', entries);
+    query.find()
+        .done(function(results) {
+            var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+            var OLD_COUNT_CONTAINER_REF = '.old-visitors-count';
+
+            
+            
+            
+            
+
+            for (var i = 0; i < results.length; i++) {
+                var item = results[i];
+                var url = item.get('url');
+                var time = item.get('time');
+                var element = document.getElementById(url);
+
+                $(element).find(COUNT_CONTAINER_REF).text(time);
+            }
+            for (var i = 0; i < entries.length; i++) {
+                var url = entries[i];
+                var element = document.getElementById(url);
+                var countSpan = $(element).find(COUNT_CONTAINER_REF);
+                if (countSpan.text() == '') {
+                    var oldCountSpan = $(element).find(OLD_COUNT_CONTAINER_REF).text();
+                    if(oldCountSpan!=''){
+                        countSpan.text(0+parseInt(oldCountSpan));
+                    }else{
+                        countSpan.text(0);          
+                    }
+                }
+            }
+        })
+        .fail(function(object, error) {
+            console.log("Error: " + error.code + " " + error.message);
+        });
+}
+
+function addCount(Counter) {
+    var $visitors = $(".leancloud_visitors");
+    var url = $visitors.attr('id').trim();
+    var title = $visitors.attr('data-flag-title').trim();
+    var query = new AV.Query(Counter);
+
+    query.equalTo("url", url);
+    query.find({
+        success: function(results) {
+            if (results.length > 0) {
+                var counter = results[0];
+                counter.fetchWhenSave(true);
+                counter.increment("time");
+                counter.save(null, {
+                    success: function(counter) {
+                        var $element = $(document.getElementById(url));
+                        $element.find('.leancloud-visitors-count').text(counter.get('time'));
+                    },
+                    error: function(counter, error) {
+                        console.log('Failed to save Visitor num, with error message: ' + error.message);
+                    }
+                });
+            } else {
+                var newcounter = new Counter();
+                 
+                var acl = new AV.ACL();
+                acl.setPublicReadAccess(true);
+                acl.setPublicWriteAccess(true);
+                newcounter.setACL(acl);
+                 
+                newcounter.set("title", title);
+                newcounter.set("url", url);
+                var OLD_COUNT_CONTAINER_REF = '.old-visitors-count';
+                var $element = $(document.getElementById(url));
+                var oldCountSpan = $element.find(OLD_COUNT_CONTAINER_REF).text();
+                if(oldCountSpan!=''){
+                    newcounter.set("time", parseInt(oldCountSpan)+1);
+                }else{
+ 	                    newcounter.set("time",  1);
+                }
+                newcounter.save(null, {
+                    success: function(newcounter) {
+                        var $element = $(document.getElementById(url));
+                        $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+                    },
+                    error: function(newcounter, error) {
+                        console.log('Failed to create');
+                    }
+                });
+            }
+        },
+        error: function(error) {
+            console.log('Error:' + error.code + " " + error.message);
+        }
+    });
+}
+$(function() {
+    var Counter = AV.Object.extend("Counter");
+    
+    
+    if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+    } else {
+        showTime(Counter);
+    }
+});
+</script>
+
+                            阅读 </span></span>|<span class="post-date">共1309字</span>，阅读约<span class="more-meta"> 3 分钟</span>
+                        
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+
+
+<article>
+    <div class="container">
+        <div class="row">
+
+            
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+		
+                <header>
+                <h2>TOC</h2>
+                </header>
+                <nav id="TableOfContents">
+  <ul>
+    <li><a href="#前言">前言</a></li>
+    <li><a href="#配置pomxml">配置pom.xml</a></li>
+  </ul>
+</nav>
+		
+		<h1 id="前提">前提</h1>
+<ol>
+<li><a href="https://www.docker.com/get-started">docker</a></li>
+<li>容器镜像仓库</li>
+</ol>
+<p>这里举例可以公用的两个<br>
+<a href="https://hub.docker.com/">dockerhub</a><br>
+<a href="https://cr.console.aliyun.com/cn-beijing/instances/repositories">阿里云容器镜像服务</a></p>
+<h2 id="前言">前言</h2>
+<p>本文主要介绍的是google开源的一个java领域的docker构建工具jib.</p>
+<p>目前在<a href="https://github.com/GoogleContainerTools/jib">github</a>上的start有8.5k,fork有784,是一款非常方便的java领域docker构建工具.</p>
+<p>亮点是不需要Docker daemon,意味着即使本地没有安装docker也能通过jib构建docker镜像,并且可以构建符合<a href="https://github.com/opencontainers/image-spec">OCI</a>规范的镜像.</p>
+<p>官方支持三种方式:</p>
+<ol>
+<li><a href="https://github.com/GoogleContainerTools/jib/blob/master/jib-maven-plugin">maven插件</a></li>
+<li><a href="https://github.com/GoogleContainerTools/jib/blob/master/jib-gradle-plugin">grade插件</a></li>
+<li><a href="https://github.com/GoogleContainerTools/jib/tree/master/jib-core">jib代码库</a></li>
+</ol>
+<p>本文使用的是springboot项目通过maven插件的方式进行讲述.</p>
+<p>讲一下第三种,jib代码库,这种方式可以用于自研平台构建java的docker服务.</p>
+<h2 id="配置pomxml">配置pom.xml</h2>
+<p>添加下面这段标准标签到文件中</p>
+<pre><code>&lt;build&gt;
     &lt;plugins&gt;
       ...
       &lt;plugin&gt;
@@ -33,7 +381,16 @@ post-container"><header><h2>TOC</h2></header><nav id=TableOfContents><ul><li><a 
       ...
     &lt;/plugins&gt;
   &lt;/build&gt;
-</code></pre><p>上述内容配置了一个结果镜像名称<code>imageName</code>,也就是最终构建成的docker镜像地址,包含<code>容器仓库地址/镜像名称:版本号</code>例如<code>registry.cn-beijing.aliyuncs.com/lyp/lanbox:v1.0</code>,如果仓库地址不填则默认为<a href=https://hub.docker.com/>dockerhub</a>.</p><p>另外还配置了一个基础镜像<code>registry.cn-hangzhou.aliyuncs.com/dragonwell/dragonwell8:8.1.1-GA_alpine_x86_64_8u222-b67</code>,可以认为等同于Dockerfile中的From语句.</p><p>如果基础镜像或目标镜像需要账号密码的话,在from标签或to标签添加一个认证信息即可,有三种方式:</p><ol><li>配置在docker的配置文件中</li><li>配置在maven的setting.xml中</li><li>直接在pom.xml文件配置</li></ol><p>本文使用第三种,即在from标签或to标签下添加一个用于认证信息的auth标签,例如:</p><pre><code>&lt;from&gt;
+</code></pre><p>上述内容配置了一个结果镜像名称<code>imageName</code>,也就是最终构建成的docker镜像地址,包含<code>容器仓库地址/镜像名称:版本号</code>例如<code>registry.cn-beijing.aliyuncs.com/lyp/lanbox:v1.0</code>,如果仓库地址不填则默认为<a href="https://hub.docker.com/">dockerhub</a>.</p>
+<p>另外还配置了一个基础镜像<code>registry.cn-hangzhou.aliyuncs.com/dragonwell/dragonwell8:8.1.1-GA_alpine_x86_64_8u222-b67</code>,可以认为等同于Dockerfile中的From语句.</p>
+<p>如果基础镜像或目标镜像需要账号密码的话,在from标签或to标签添加一个认证信息即可,有三种方式:</p>
+<ol>
+<li>配置在docker的配置文件中</li>
+<li>配置在maven的setting.xml中</li>
+<li>直接在pom.xml文件配置</li>
+</ol>
+<p>本文使用第三种,即在from标签或to标签下添加一个用于认证信息的auth标签,例如:</p>
+<pre><code>&lt;from&gt;
   ...
   &lt;auth&gt;
     &lt;username&gt;kafeidou&lt;/username&gt;
@@ -41,7 +398,8 @@ post-container"><header><h2>TOC</h2></header><nav id=TableOfContents><ul><li><a 
   &lt;auth&gt;
   ...
 &lt;/from&gt;  
-</code></pre><p>也可以方便的通过环境变量的方式进行配置:</p><pre><code>&lt;from&gt;
+</code></pre><p>也可以方便的通过环境变量的方式进行配置:</p>
+<pre><code>&lt;from&gt;
   ...
   &lt;auth&gt;
     &lt;username&gt;${env.REGISTRY_FROM_USERNAME}&lt;/username&gt;
@@ -49,29 +407,394 @@ post-container"><header><h2>TOC</h2></header><nav id=TableOfContents><ul><li><a 
   &lt;auth&gt;
   ...
 &lt;/from&gt; 
-</code></pre><p>其中<code>${env.}</code>这一部分是固定的,后面跟着实际环境变量.</p><p>还可以通过系统属性的方式:</p><pre><code>mvn compile jib:build \
+</code></pre><p>其中<code>${env.}</code>这一部分是固定的,后面跟着实际环境变量.</p>
+<p>还可以通过系统属性的方式:</p>
+<pre><code>mvn compile jib:build \
     -Djib.to.image=myregistry/myimage:latest \
     -Djib.to.auth.username=kafeidou \
     -Djib.to.auth.password=kafeidou
-</code></pre><p>在进行构建时通过参数方式传递认证信息,是不是很方便呢?</p><p>继续看<code>configuration</code>下的标签有<code>container</code>配置:<br>这个标签主要配置目标容器相关的内容,比如:</p><ol><li>appRoot -> 放置应用程序的根目录,用于war包项目</li><li>args -> 程序额外的启动参数.</li><li>environment -> 用于容器的环境变量</li><li>format -> 构建OCI规范的镜像</li><li>jvmFlags -> JVM参数</li><li>mainClass -> 程序启动类</li><li>ports -> 容器开放端口<br>&mldr;<br>还有其他内容具体可以参考<a href=https://github.com/GoogleContainerTools/jib/tree/master/jib-maven-plugin#container-object>container</a>.</li></ol><p>有一个注意点是阿里的容器镜像服务不支持OCI镜像,所以如果选择使用阿里的容器镜像服务记得将OCI格式取消,默认是取消的.</p><p>另外,JVM参数可以通过环境变量配置动态内容,所以不需要计划将所有启动参数写死在<code>jvmFlags</code>标签里面.</p><p>例如启动容器时指定使用G1回收器,<code>docker run -it -e JAVA_TOOL_OPTIONS="-XX:+UseG1GC" -d registry.cn-beijing.aliyuncs.com/lyp/lanbox:v1.0</code>.</p><p>所有配置项完成后运行mvn命令<code>mvn compile jib:build</code> 开始构建docker镜像.</p><p>如果看到类似这样的信息说明就成功了:</p><pre><code>[INFO] ------------------------------------------------------------------------
+</code></pre><p>在进行构建时通过参数方式传递认证信息,是不是很方便呢?</p>
+<p>继续看<code>configuration</code>下的标签有<code>container</code>配置:<br>
+这个标签主要配置目标容器相关的内容,比如:</p>
+<ol>
+<li>appRoot -&gt; 放置应用程序的根目录,用于war包项目</li>
+<li>args -&gt; 程序额外的启动参数.</li>
+<li>environment -&gt; 用于容器的环境变量</li>
+<li>format -&gt; 构建OCI规范的镜像</li>
+<li>jvmFlags -&gt; JVM参数</li>
+<li>mainClass -&gt; 程序启动类</li>
+<li>ports -&gt; 容器开放端口<br>
+&hellip;<br>
+还有其他内容具体可以参考<a href="https://github.com/GoogleContainerTools/jib/tree/master/jib-maven-plugin#container-object">container</a>.</li>
+</ol>
+<p>有一个注意点是阿里的容器镜像服务不支持OCI镜像,所以如果选择使用阿里的容器镜像服务记得将OCI格式取消,默认是取消的.</p>
+<p>另外,JVM参数可以通过环境变量配置动态内容,所以不需要计划将所有启动参数写死在<code>jvmFlags</code>标签里面.</p>
+<p>例如启动容器时指定使用G1回收器,<code>docker run -it -e JAVA_TOOL_OPTIONS=&quot;-XX:+UseG1GC&quot; -d  registry.cn-beijing.aliyuncs.com/lyp/lanbox:v1.0</code>.</p>
+<p>所有配置项完成后运行mvn命令<code>mvn compile jib:build</code> 开始构建docker镜像.</p>
+<p>如果看到类似这样的信息说明就成功了:</p>
+<pre><code>[INFO] ------------------------------------------------------------------------
 [INFO] BUILD SUCCESS
 [INFO] ------------------------------------------------------------------------
 [INFO] Total time:  42.598 s
 [INFO] Finished at: 2020-02-18T23:30:53+08:00
 [INFO] ------------------------------------------------------------------------
-</code></pre><p>完整的一个例子可以在github上查看并下载<a href=https://github.com/FISHStack/hello-spring-cloud>https://github.com/FISHStack/hello-spring-cloud</a>,欢迎多多交流.</p><h2>微信公众号</h2><p>扫描下面的二维码关注我们的微信公众帐号,第一时间查看最新内容。</p><img src=https://res.cloudinary.com/lyp/image/upload/v1581729955/hugo/blog.github.io/qrcode_for_sikekafeidou.jpg alt=wechat-account-qrcode><hr><ul class=pager><li class=previous><a href=/post/cadvisor-kafka-fluentd-es/ data-toggle=tooltip data-placement=top title=Elasticsearch+Fluentd+Kafka搭建分布式日志系统>&larr; Previous Post</a></li><li class=next><a href=/post/blog-list/ data-toggle=tooltip data-placement=top title=blog-list记录>Next Post &rarr;</a></li></ul><div id=disqus-comment></div></div><div class="col-lg-8 col-lg-offset-2
-col-md-10 col-md-offset-1
-sidebar-container"><section><hr class="hidden-sm hidden-xs"><h5><a href=/tags/>FEATURED TAGS</a></h5><div class=tags><a href=/tags/chirpstack title=chirpstack>chirpstack</a>
-<a href=/tags/cloudnative title=cloudnative>cloudnative</a>
-<a href=/tags/docker title=docker>docker</a>
-<a href=/tags/fluentd title=fluentd>fluentd</a>
-<a href=/tags/iot title=iot>iot</a>
-<a href=/tags/kubernetes title=kubernetes>kubernetes</a>
-<a href=/tags/middleware title=middleware>middleware</a>
-<a href=/tags/mq title=mq>mq</a>
-<a href=/tags/ops title=ops>ops</a>
-<a href=/tags/rpc title=rpc>rpc</a>
-<a href=/tags/sofa title=sofa>sofa</a>
-<a href=/tags/sofastack title=sofastack>sofastack</a></div></section><hr><h5>FRIENDS</h5><ul class=list-inline></ul></div></div></div></article><footer><div class=container><div class=row><div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1"><ul class="list-inline text-center"><li><a href=mailto:gcslyp@gmail.com><span class="fa-stack fa-lg"><i class="fa fa-circle fa-stack-2x"></i><i class="fa fa-envelope fa-stack-1x fa-inverse"></i></span></a></li><li><a href=https://twitter.com/lan31793328><span class="fa-stack fa-lg"><i class="fa fa-circle fa-stack-2x"></i><i class="fa fa-twitter fa-stack-1x fa-inverse"></i></span></a></li><li><a target=_blank href=https://github.com/liangyuanpeng><span class="fa-stack fa-lg"><i class="fa fa-circle fa-stack-2x"></i><i class="fa fa-github fa-stack-1x fa-inverse"></i></span></a></li></ul><p class="copyright text-muted">Copyright &copy; Hi,I`m lan , 2020<br><a href=https://themes.gohugo.io/hugo-theme-cleanwhite>CleanWhite Hugo Theme</a> by <a href=https://zhaohuabing.com>Huabing</a> |
-<iframe style=margin-left:2px;margin-bottom:-5px frameborder=0 scrolling=0 width=100px height=20px src="https://ghbtns.com/github-btn.html?user=zhaohuabing&repo=hugo-theme-cleanwhite&type=star&count=true"></iframe></p></div></div></div></footer><script>function async(u,c){var d=document,t='script',o=d.createElement(t),s=d.getElementsByTagName(t)[0];o.src=u;if(c){o.addEventListener('load',function(e){c(null,e);},false);}
-s.parentNode.insertBefore(o,s);}</script><script>if($('#tag_cloud').length!==0){async("/js/jquery.tagcloud.js",function(){$.fn.tagcloud.defaults={color:{start:'#bbbbee',end:'#0085a1'},};$('#tag_cloud a').tagcloud();})}</script><script>async("https://cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.js",function(){var $nav=document.querySelector("nav");if($nav)FastClick.attach($nav);})</script><script>var _baId='71126c746d53d10cdb4275496d9cc84b';var _hmt=_hmt||[];(function(){var hm=document.createElement("script");hm.src="//hm.baidu.com/hm.js?"+_baId;var s=document.getElementsByTagName("script")[0];s.parentNode.insertBefore(hm,s);})();</script></body></html>
+</code></pre><p>完整的一个例子可以在github上查看并下载<a href="https://github.com/FISHStack/hello-spring-cloud">https://github.com/FISHStack/hello-spring-cloud</a>,欢迎多多交流.</p>
+
+
+        <h2>微信公众号</h2>
+<p>扫描下面的二维码关注我们的微信公众帐号,第一时间查看最新内容。</p>
+<img src="https://res.cloudinary.com/lyp/image/upload/v1581729955/hugo/blog.github.io/qrcode_for_sikekafeidou.jpg" alt="wechat-account-qrcode">
+
+
+                <hr>
+
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/post/cadvisor-kafka-fluentd-es/" data-toggle="tooltip" data-placement="top" title="Elasticsearch&#43;Fluentd&#43;Kafka搭建分布式日志系统">&larr; Previous Post</a>
+                    </li>
+                    
+                    
+                    <li class="next">
+                        <a href="/post/blog-list/" data-toggle="tooltip" data-placement="top" title="blog-list记录">Next Post &rarr;</a>
+                    </li>
+                    
+                </ul>
+
+            
+<div id="disqus-comment"></div>
+
+
+
+            </div>
+            
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                
+                <section>
+                    <hr class="hidden-sm hidden-xs">
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                     
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                            <a href="/tags/chirpstack" title="chirpstack">
+                                chirpstack
+                            </a>
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                            <a href="/tags/cloudnative" title="cloudnative">
+                                cloudnative
+                            </a>
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                            <a href="/tags/docker" title="docker">
+                                docker
+                            </a>
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                            <a href="/tags/fluentd" title="fluentd">
+                                fluentd
+                            </a>
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                            <a href="/tags/iot" title="iot">
+                                iot
+                            </a>
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                            <a href="/tags/kubernetes" title="kubernetes">
+                                kubernetes
+                            </a>
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                            <a href="/tags/middleware" title="middleware">
+                                middleware
+                            </a>
+                        
+                    
+                        
+                            <a href="/tags/mq" title="mq">
+                                mq
+                            </a>
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                            <a href="/tags/ops" title="ops">
+                                ops
+                            </a>
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                            <a href="/tags/rpc" title="rpc">
+                                rpc
+                            </a>
+                        
+                    
+                        
+                            <a href="/tags/sofa" title="sofa">
+                                sofa
+                            </a>
+                        
+                    
+                        
+                            <a href="/tags/sofastack" title="sofastack">
+                                sofastack
+                            </a>
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                    </div>
+                </section>
+
+                
+                <hr>
+                <h5>FRIENDS</h5>
+                <ul class="list-inline">
+                    
+                </ul>
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                   
+                    
+                    <li>
+                        <a href="mailto:gcslyp@gmail.com">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+		    
+
+                    
+                    <li>
+                        <a href="https://twitter.com/lan31793328">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    
+
+                    
+
+		    
+                    
+                    
+                    <li>
+                        <a target="_blank" href="https://github.com/liangyuanpeng">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+		    
+                    
+                </ul>
+		<p class="copyright text-muted">
+                    Copyright &copy; Hi,I`m lan , 2020
+                    <br>
+                    <a href="https://themes.gohugo.io/hugo-theme-cleanwhite">CleanWhite Hugo Theme</a> by <a href="https://zhaohuabing.com">Huabing</a> |
+                    <iframe
+                        style="margin-left: 2px; margin-bottom:-5px;"
+                        frameborder="0" scrolling="0" width="100px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=zhaohuabing&repo=hugo-theme-cleanwhite&type=star&count=true" >
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+
+
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+
+
+
+
+
+<script>
+    
+    if($('#tag_cloud').length !== 0){
+        async("/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+
+<script>
+    async("https://cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+
+
+
+
+
+<script>
+    
+    var _baId = 'fad9c137f8ce239f9b323d36c871f8e6';
+
+    
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?" + _baId;
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+
+
+
+
+
+
+</body>
+</html>
