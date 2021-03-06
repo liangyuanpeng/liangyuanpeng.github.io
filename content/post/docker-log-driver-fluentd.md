@@ -15,7 +15,7 @@ tags:
     - cloudNative
     - 日志收集
 categories: 
-    - 中间件
+    - Middleware
     - devops
 ---
 

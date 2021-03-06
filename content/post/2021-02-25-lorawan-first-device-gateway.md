@@ -9,10 +9,10 @@ image: "https://res.cloudinary.com/lyp/image/upload/v1543506262/hugo/blog.github
 published: true
 tags: 
     - ChirpStack
-    - 物联网
+    - IOT
     - LoraWan
 categories: 
-    - 物联网
+    - IOT
 ---
 
 # LoraWan数据走向    

@@ -9,7 +9,7 @@ image: "https://res.cloudinary.com/lyp/image/upload/v1612709780/hugo/blog.github
 published: false
 tags:
     - kubernetes
-    - 云原生
+    - CloudNative
     - Service
     - 玩转Kubernetes
 categories: 

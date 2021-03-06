@@ -9,7 +9,7 @@ image: "https://res.cloudinary.com/lyp/image/upload/v1612709640/hugo/blog.github
 published: true
 tags:
     - kubernetes
-    - 云原生
+    - CloudNative
     - lank8s.cn
     - kubeadm
 categories: 

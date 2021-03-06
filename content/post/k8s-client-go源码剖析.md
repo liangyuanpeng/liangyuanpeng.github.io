@@ -11,7 +11,7 @@ tags:
     - GoLang
     - Kubernetes
     - 源码剖析
-    - 云原生
+    - CloudNative
     - client-go
 categories: 
     - CloudNative

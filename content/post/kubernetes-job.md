@@ -9,7 +9,7 @@ image: "https://res.cloudinary.com/lyp/image/upload/v1612709813/hugo/blog.github
 published: false
 tags:
     - kubernetes
-    - 云原生
+    - CloudNative
     - Job
     - CronJob
     - 玩转Kubernetes

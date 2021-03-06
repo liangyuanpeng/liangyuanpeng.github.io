@@ -9,10 +9,10 @@ image: "https://res.cloudinary.com/lyp/image/upload/v1543506262/hugo/blog.github
 published: true
 tags: 
     - 存储
-    - 中间件
-    - 云原生
+    - Middleware
+    - CloudNative
 categories: 
-    - 中间件
+    - Middleware
 ---
 
 
