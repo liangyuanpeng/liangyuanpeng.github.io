@@ -1,26 +1,671 @@
-<!doctype html><html lang=en-us><head><head><meta name=google-site-verification content="9vIieCe-Qpd78QOmBl63rGtIVbhY6sYyuxX3j8XWBA4"><meta name=baidu-site-verification content="LRrmH41lz7"><meta charset=utf-8><meta http-equiv=x-ua-compatible content="IE=edge"><meta name=google-site-verification content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI"><meta name=viewport content="width=device-width,initial-scale=1"><meta name=baidu-site-verification content="HGLXRsUXC4"><meta name=description content="lan，工程师, 开源爱好者 | 公众号:四颗咖啡豆"><meta name=keyword content="liangyuanpeng , lan , lyp的网络日志, lan的博客, lan Blog, 博客, 个人网站, 互联网, Web,  Istio, 微服务"><link rel="shortcut icon" href=img/favicon.ico><title>sofa-lyp的博客 | lyp Blog</title><link rel=canonical href=/tags/sofa/><link rel=stylesheet href=https://res.cloudinary.com/lyp/raw/upload/v1537369740/hugo/css/iDisqus.min.css><link rel=stylesheet href=https://res.cloudinary.com/lyp/raw/upload/v1537369744/hugo/css/bootstrap.min.css><link rel=stylesheet href=https://res.cloudinary.com/lyp/raw/upload/v1537369740/hugo/css/hux-blog.min.css><link rel=stylesheet href=https://res.cloudinary.com/lyp/raw/upload/v1537369740/hugo/css/syntax.css><link href=//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css rel=stylesheet type=text/css><script src=https://res.cloudinary.com/lyp/raw/upload/v1537369966/hugo/js/jquery.min.js></script><script src=https://res.cloudinary.com/lyp/raw/upload/v1537369966/hugo/js/bootstrap.min.js></script><script src=https://res.cloudinary.com/lyp/raw/upload/v1537369964/hugo/js/hux-blog.min.js></script><meta name=baidu-site-verification content="code-YNQgjspRJJ"></head></head><nav class="navbar navbar-default navbar-custom navbar-fixed-top"><div class=container-fluid><div class="navbar-header page-scroll"><button type=button class=navbar-toggle>
-<span class=sr-only>Toggle navigation</span>
-<span class=icon-bar></span><span class=icon-bar></span><span class=icon-bar></span></button>
-<a class=navbar-brand href=/>Hi,I`m lan</a></div><div id=huxblog_navbar><div class=navbar-collapse><ul class="nav navbar-nav navbar-right"><li><a href=/>Home</a></li><li><a href=categories/cloudnative>cloudnative</a></li><li><a href=categories/devops>devops</a></li><li><a href=categories/kubernetes>kubernetes</a></li><li><a href=categories/tech>tech</a></li><li><a href=categories/%E4%B8%AD%E9%97%B4%E4%BB%B6>中间件</a></li><li><a href=categories/%E5%AE%B9%E5%99%A8>容器</a></li><li><a href=categories/%E5%AE%B9%E5%99%A8%E7%BC%96%E6%8E%92>容器编排</a></li><li><a href=categories/%E7%89%A9%E8%81%94%E7%BD%91>物联网</a></li><li><a href=search>SEARCH <img src=img/search.png height=15 style=cursor:pointer></a></li></ul></div></div></div></nav><script>var $body=document.body;var $toggle=document.querySelector('.navbar-toggle');var $navbar=document.querySelector('#huxblog_navbar');var $collapse=document.querySelector('.navbar-collapse');$toggle.addEventListener('click',handleMagic)
-function handleMagic(e){if($navbar.className.indexOf('in')>0){$navbar.className=" ";setTimeout(function(){if($navbar.className.indexOf('in')<0){$collapse.style.height="0px"}},400)}else{$collapse.style.height="auto"
-$navbar.className+=" in";}}</script><header class=intro-header style=background-image:url(https://res.cloudinary.com/lyp/image/upload/v1537619755/hugo/banner/WechatIMG413.jpg)><div class=container><div class=row><div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1"><div class=site-heading><h1>Hi,I`m lan</h1><span class=subheading></span></div></div></div></div></header><div class=container><div class=row><div class="col-lg-8 col-lg-offset-1
-col-md-8 col-md-offset-1
-col-sm-12
-col-xs-12
-post-container"><div class=post-preview><a href=/post/sofarpc%E8%B7%AF%E7%94%B1%E5%AE%9E%E7%8E%B0%E5%89%96%E6%9E%90/><h2 class=post-title>转|SOFARPC路由实现剖析</h2><div class=post-content-preview>RPC 框架需要创造一种调用远程服务如同调用本地般的体验，因此在实现一个基于 RPC 框架的微服务架构的系统时，服务消费者（客户端）往往只需要知道服务端提供了哪些接口和方法，并不需要知道服务具体由哪些 IP 在提供。RPC 框架本身的服务发现和路由寻址功能解决了如何知道目标地址的问题，该过程对于 RPC 客户端调用方来说应该是完全透明的。</div></a><p class=post-meta>Posted by lyp Tuesday, December 11, 2018</p></div><hr><div class=post-preview><a href=/post/sofarpc%E8%BF%9E%E6%8E%A5%E7%AE%A1%E7%90%86%E4%B8%8E%E5%BF%83%E8%B7%B3%E5%89%96%E6%9E%90/><h2 class=post-title>转|SOFARPC连接管理与心跳剖析</h2><div class=post-content-preview>在 RPC 调用过程中，我们经常会和多个服务端进行远程调用，如果在每次调用的时候，都进行 TCP连接，会对 RPC的性能有比较大的影响，因此，实际的场景中，我们经常要对连接进行管理和保持。</div></a><p class=post-meta>Posted by lyp Monday, December 10, 2018</p></div><hr><div class=post-preview><a href=/post/sofarpc%E5%90%8C%E6%AD%A5%E5%BC%82%E6%AD%A5%E5%AE%9E%E7%8E%B0%E5%89%96%E6%9E%90/><h2 class=post-title>转|SOFARPC同步异步实现剖析</h2><div class=post-content-preview>这一篇，我们为大家带来了开发过程中，最常接触到的同步异步调用解析。本文会介绍下同步异步的使用场景，以及 SOFARPC 中的代码实现机制，为了方便大家理解和阅读代码。不会过多的设计代码实现细节，更多的还是希望大家从中有所收获，并能够独立阅读核心代码。</div></a><p class=post-meta>Posted by lyp Sunday, December 9, 2018</p></div><hr><div class=post-preview><a href=/post/sofarpc%E7%BA%BF%E7%A8%8B%E6%A8%A1%E5%9E%8B%E5%89%96%E6%9E%90/><h2 class=post-title>转|SOFARPC线程模型剖析</h2><div class=post-content-preview>这一篇，我们为大家带来了开发过程中，最常接触到的同步异步调用解析。本文会介绍下同步异步的使用场景，以及 SOFARPC 中的代码实现机制，为了方便大家理解和阅读代码。不会过多的设计代码实现细节，更多的还是希望大家从中有所收获，并能够独立阅读核心代码。</div></a><p class=post-meta>Posted by lyp Sunday, December 9, 2018</p></div><hr><div class=post-preview><a href=/post/2018-12-08-sofarpc%E9%93%BE%E8%B7%AF%E8%BF%BD%E8%B8%AA%E5%89%96%E6%9E%90/><h2 class=post-title>转|SOFARPC链路追踪剖析</h2><div class=post-content-preview>微服务已经被广泛应用在工业界，微服务带来易于团队并行开发、独立部署、模块化管理等诸多优点。然而微服务将原单体拆分多个模块独立部署，各模块之间链接变得错综复杂，在大规模分布式系统中这种复杂链路给维护带来了诸多困难。如果对整个微服务架构不能了然于胸，便很难理清各模块之间的调用关系。 例如修改一个服务接口，对哪些服务造成影响不能快速定位。</div></a><p class=post-meta>Posted by lyp Saturday, December 8, 2018</p></div><hr><ul class=pager><li class=previous><a href=/tags/sofa/>&larr; Newer Posts</a></li><li class=next><a href=/tags/sofa/page/3/>Older Posts &rarr;</a></li></ul></div><div class="col-lg-3 col-lg-offset-0
-col-md-3 col-md-offset-0
-col-sm-12
-col-xs-12
-sidebar-container"><section><hr class="hidden-sm hidden-xs"><h5>FEATURED TAGS</h5><div class=tags><a href=/tags/chirpstack title=chirpstack>chirpstack</a>
-<a href=/tags/docker title=docker>docker</a>
-<a href=/tags/fluentd title=fluentd>fluentd</a>
-<a href=/tags/kubernetes title=kubernetes>kubernetes</a>
-<a href=/tags/mq title=mq>mq</a>
-<a href=/tags/rpc title=rpc>rpc</a>
-<a href=/tags/sofa title=sofa>sofa</a>
-<a href=/tags/sofastack title=sofastack>sofastack</a>
-<a href=/tags/%E4%B8%AD%E9%97%B4%E4%BB%B6 title=中间件>中间件</a>
-<a href=/tags/%E4%BA%91%E5%8E%9F%E7%94%9F title=云原生>云原生</a>
-<a href=/tags/%E9%83%A8%E7%BD%B2 title=部署>部署</a></div></section><section class="visible-md visible-lg"><hr><h5><a href>ABOUT ME</a></h5><div class=short-about><img src=https://res.cloudinary.com/lyp/image/upload/v1537624737/hugo/avatar/%E5%93%88%E5%B8%8C%E5%A4%B4%E5%83%8F.jpg><p>云原生爱好者|公众号:四颗咖啡豆</p><ul class=list-inline><li><a href=https://twitter.com/lan31793328><span class="fa-stack fa-lg"><i class="fa fa-circle fa-stack-2x"></i><i class="fa fa-twitter fa-stack-1x fa-inverse"></i></span></a></li><li><a target=_blank href=https://github.com/liangyuanpeng><span class="fa-stack fa-lg"><i class="fa fa-circle fa-stack-2x"></i><i class="fa fa-github fa-stack-1x fa-inverse"></i></span></a></li></ul></div></section><hr><h5>FRIENDS</h5><ul class=list-inline></ul><hr><h5>BOOKMARKS</h5><ul class=list-inline><li><a target=_blank href></a></li><li><a target=_blank href=http://www.servicemesh.cn>ServiceMesh中文网</a></li><li><a target=_blank href=https://servicemesh.gitbooks.io/awesome-servicemesh>Awesome Service Mesh</a></li><li><a target=_blank href></a></li></ul></div></div></div><footer><div class=container><div class=row><div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1"><ul class="list-inline text-center"><li><a href=mailto:gcslyp@gmail.com><span class="fa-stack fa-lg"><i class="fa fa-circle fa-stack-2x"></i><i class="fa fa-envelope fa-stack-1x fa-inverse"></i></span></a></li><li><a href=https://twitter.com/lan31793328><span class="fa-stack fa-lg"><i class="fa fa-circle fa-stack-2x"></i><i class="fa fa-twitter fa-stack-1x fa-inverse"></i></span></a></li><li><a target=_blank href=https://github.com/liangyuanpeng><span class="fa-stack fa-lg"><i class="fa fa-circle fa-stack-2x"></i><i class="fa fa-github fa-stack-1x fa-inverse"></i></span></a></li></ul><p class="copyright text-muted">Copyright &copy; Hi,I`m lan , 2018<br><a href=https://themes.gohugo.io/hugo-theme-cleanwhite>CleanWhite Hugo Theme</a> by <a href=https://zhaohuabing.com>Huabing</a> |
-<iframe style=margin-left:2px;margin-bottom:-5px frameborder=0 scrolling=0 width=100px height=20px src="https://ghbtns.com/github-btn.html?user=zhaohuabing&repo=hugo-theme-cleanwhite&type=star&count=true"></iframe></p></div></div></div></footer><script>function async(u,c){var d=document,t='script',o=d.createElement(t),s=d.getElementsByTagName(t)[0];o.src=u;if(c){o.addEventListener('load',function(e){c(null,e);},false);}
-s.parentNode.insertBefore(o,s);}</script><script>if($('#tag_cloud').length!==0){async("/js/jquery.tagcloud.js",function(){$.fn.tagcloud.defaults={color:{start:'#bbbbee',end:'#0085a1'},};$('#tag_cloud a').tagcloud();})}</script><script>async("https://cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.js",function(){var $nav=document.querySelector("nav");if($nav)FastClick.attach($nav);})</script><script>var _baId='71126c746d53d10cdb4275496d9cc84b';var _hmt=_hmt||[];(function(){var hm=document.createElement("script");hm.src="//hm.baidu.com/hm.js?"+_baId;var s=document.getElementsByTagName("script")[0];s.parentNode.insertBefore(hm,s);})();</script></body></html>
+<!DOCTYPE html>
+<html lang="en-us">
+<head><head>
+    <meta name="google-site-verification" content="9vIieCe-Qpd78QOmBl63rGtIVbhY6sYyuxX3j8XWBA4" />
+    <meta name="baidu-site-verification" content="LRrmH41lz7" />
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <meta name="baidu-site-verification" content="HGLXRsUXC4" />
+
+    
+    <meta name="description" content="lan，工程师, 开源爱好者 | 公众号:四颗咖啡豆">
+    
+    <meta name="keyword"  content="liangyuanpeng , lan , lyp的网络日志, lan的博客, lan Blog, 博客, 个人网站, 互联网, Web,  Istio, 微服务">
+    <link rel="shortcut icon" href="img/favicon.ico">
+
+    <title>sofa-lyp的博客 | lyp Blog</title>
+
+    <link rel="canonical" href="/tags/sofa/">
+
+    <link rel="stylesheet" href="https://res.cloudinary.com/lyp/raw/upload/v1537369740/hugo/css/iDisqus.min.css"/>
+
+    
+    <link rel="stylesheet" href="https://res.cloudinary.com/lyp/raw/upload/v1537369744/hugo/css/bootstrap.min.css">
+
+    
+    <link rel="stylesheet" href="https://res.cloudinary.com/lyp/raw/upload/v1537369740/hugo/css/hux-blog.min.css">
+
+    
+    <link rel="stylesheet" href="https://res.cloudinary.com/lyp/raw/upload/v1537369740/hugo/css/syntax.css">
+
+    
+    <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    
+    
+    <script src="https://res.cloudinary.com/lyp/raw/upload/v1537369966/hugo/js/jquery.min.js"></script>
+
+    
+    <script src="https://res.cloudinary.com/lyp/raw/upload/v1537369966/hugo/js/bootstrap.min.js"></script>
+
+    
+    <script src="https://res.cloudinary.com/lyp/raw/upload/v1537369964/hugo/js/hux-blog.min.js"></script>
+
+</head>
+
+</head>
+
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Hi,I`m lan</a>
+        </div>
+
+        
+        
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+                    
+                    <li>
+                        <a href="categories/cloudnative">cloudnative</a>
+                    </li>
+                    
+                    <li>
+                        <a href="categories/devops">devops</a>
+                    </li>
+                    
+                    <li>
+                        <a href="categories/iot">iot</a>
+                    </li>
+                    
+                    <li>
+                        <a href="categories/kubernetes">kubernetes</a>
+                    </li>
+                    
+                    <li>
+                        <a href="categories/middleware">middleware</a>
+                    </li>
+                    
+                    <li>
+                        <a href="categories/tech">tech</a>
+                    </li>
+                    
+
+                    
+		            <li>
+                        <a href="search">SEARCH <img src="img/search.png" height="15" style="cursor: pointer;"></a>
+		            </li>
+                    
+                </ul>
+            </div>
+        </div>
+        
+    </div>
+    
+</nav>
+<script>
+    
+    
+    
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        
+            $navbar.className = " ";
+            
+            setTimeout(function(){
+                
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+
+<header class="intro-header" style="background-image: url('https://res.cloudinary.com/lyp/image/upload/v1537619755/hugo/banner/WechatIMG413.jpg')">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 ">
+                <div class="site-heading">
+                    <h1>Hi,I`m lan </h1>
+                    
+		    <span class="subheading"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+
+  
+<div class="container">
+    <div class="row">
+        
+        
+   	    <div class="
+            col-lg-8 col-lg-offset-1
+            col-md-8 col-md-offset-1
+            col-sm-12
+            col-xs-12
+            post-container
+        ">
+            
+
+<div class="post-preview">
+    <a href="/post/sofarpc%E8%B7%AF%E7%94%B1%E5%AE%9E%E7%8E%B0%E5%89%96%E6%9E%90/">
+        <h2 class="post-title">
+            转|SOFARPC路由实现剖析
+        </h2>
+	
+        <div class="post-content-preview">
+	
+            RPC 框架需要创造一种调用远程服务如同调用本地般的体验，因此在实现一个基于 RPC 框架的微服务架构的系统时，服务消费者（客户端）往往只需要知道服务端提供了哪些接口和方法，并不需要知道服务具体由哪些 IP 在提供。RPC 框架本身的服务发现和路由寻址功能解决了如何知道目标地址的问题，该过程对于 RPC 客户端调用方来说应该是完全透明的。
+        
+        </div>
+    </a>
+    <p class="post-meta">
+    Posted by lyp Tuesday, December 11, 2018
+    </p>
+</div>
+<hr>
+
+<div class="post-preview">
+    <a href="/post/sofarpc%E8%BF%9E%E6%8E%A5%E7%AE%A1%E7%90%86%E4%B8%8E%E5%BF%83%E8%B7%B3%E5%89%96%E6%9E%90/">
+        <h2 class="post-title">
+            转|SOFARPC连接管理与心跳剖析
+        </h2>
+	
+        <div class="post-content-preview">
+	
+            在 RPC 调用过程中，我们经常会和多个服务端进行远程调用，如果在每次调用的时候，都进行 TCP连接，会对 RPC的性能有比较大的影响，因此，实际的场景中，我们经常要对连接进行管理和保持。
+        
+        </div>
+    </a>
+    <p class="post-meta">
+    Posted by lyp Monday, December 10, 2018
+    </p>
+</div>
+<hr>
+
+<div class="post-preview">
+    <a href="/post/sofarpc%E5%90%8C%E6%AD%A5%E5%BC%82%E6%AD%A5%E5%AE%9E%E7%8E%B0%E5%89%96%E6%9E%90/">
+        <h2 class="post-title">
+            转|SOFARPC同步异步实现剖析
+        </h2>
+	
+        <div class="post-content-preview">
+	
+            这一篇，我们为大家带来了开发过程中，最常接触到的同步异步调用解析。本文会介绍下同步异步的使用场景，以及 SOFARPC 中的代码实现机制，为了方便大家理解和阅读代码。不会过多的设计代码实现细节，更多的还是希望大家从中有所收获，并能够独立阅读核心代码。
+        
+        </div>
+    </a>
+    <p class="post-meta">
+    Posted by lyp Sunday, December 9, 2018
+    </p>
+</div>
+<hr>
+
+<div class="post-preview">
+    <a href="/post/sofarpc%E7%BA%BF%E7%A8%8B%E6%A8%A1%E5%9E%8B%E5%89%96%E6%9E%90/">
+        <h2 class="post-title">
+            转|SOFARPC线程模型剖析
+        </h2>
+	
+        <div class="post-content-preview">
+	
+            这一篇，我们为大家带来了开发过程中，最常接触到的同步异步调用解析。本文会介绍下同步异步的使用场景，以及 SOFARPC 中的代码实现机制，为了方便大家理解和阅读代码。不会过多的设计代码实现细节，更多的还是希望大家从中有所收获，并能够独立阅读核心代码。
+        
+        </div>
+    </a>
+    <p class="post-meta">
+    Posted by lyp Sunday, December 9, 2018
+    </p>
+</div>
+<hr>
+
+<div class="post-preview">
+    <a href="/post/2018-12-08-sofarpc%E9%93%BE%E8%B7%AF%E8%BF%BD%E8%B8%AA%E5%89%96%E6%9E%90/">
+        <h2 class="post-title">
+            转|SOFARPC链路追踪剖析
+        </h2>
+	
+        <div class="post-content-preview">
+	
+            微服务已经被广泛应用在工业界，微服务带来易于团队并行开发、独立部署、模块化管理等诸多优点。然而微服务将原单体拆分多个模块独立部署，各模块之间链接变得错综复杂，在大规模分布式系统中这种复杂链路给维护带来了诸多困难。如果对整个微服务架构不能了然于胸，便很难理清各模块之间的调用关系。 例如修改一个服务接口，对哪些服务造成影响不能快速定位。
+        
+        </div>
+    </a>
+    <p class="post-meta">
+    Posted by lyp Saturday, December 8, 2018
+    </p>
+</div>
+<hr>
+
+
+            
+
+
+<ul class="pager">
+    
+    <li class="previous">
+        <a href="/tags/sofa/">&larr; Newer Posts</a>
+    </li>
+    
+    
+    <li class="next">
+        <a href="/tags/sofa/page/3/">Older Posts &rarr;</a>
+    </li>
+    
+</ul>
+
+
+       	</div>
+        
+
+<div class="
+    col-lg-3 col-lg-offset-0
+    col-md-3 col-md-offset-0
+    col-sm-12
+    col-xs-12
+    sidebar-container
+">
+    
+    
+    <section>
+        <hr class="hidden-sm hidden-xs">
+        <h5>FEATURED TAGS</h5>
+        <div class="tags">
+             
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+                    <a href="/tags/chirpstack" title="chirpstack">
+                        chirpstack
+                    </a>
+                
+            
+                
+            
+                
+            
+                
+            
+                
+                    <a href="/tags/cloudnative" title="cloudnative">
+                        cloudnative
+                    </a>
+                
+            
+                
+            
+                
+            
+                
+                    <a href="/tags/docker" title="docker">
+                        docker
+                    </a>
+                
+            
+                
+            
+                
+            
+                
+            
+                
+                    <a href="/tags/fluentd" title="fluentd">
+                        fluentd
+                    </a>
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+                    <a href="/tags/iot" title="iot">
+                        iot
+                    </a>
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+                    <a href="/tags/kubernetes" title="kubernetes">
+                        kubernetes
+                    </a>
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+                    <a href="/tags/middleware" title="middleware">
+                        middleware
+                    </a>
+                
+            
+                
+                    <a href="/tags/mq" title="mq">
+                        mq
+                    </a>
+                
+            
+                
+            
+                
+            
+                
+            
+                
+                    <a href="/tags/ops" title="ops">
+                        ops
+                    </a>
+                
+            
+                
+            
+                
+            
+                
+                    <a href="/tags/rpc" title="rpc">
+                        rpc
+                    </a>
+                
+            
+                
+                    <a href="/tags/sofa" title="sofa">
+                        sofa
+                    </a>
+                
+            
+                
+                    <a href="/tags/sofastack" title="sofastack">
+                        sofastack
+                    </a>
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+        </div>
+    </section>
+    
+
+    
+    <section class="visible-md visible-lg">
+        <hr><h5><a href="">ABOUT ME</a></h5>
+        <div class="short-about">
+            
+            <img src="https://res.cloudinary.com/lyp/image/upload/v1537624737/hugo/avatar/%E5%93%88%E5%B8%8C%E5%A4%B4%E5%83%8F.jpg" />
+            
+            
+                <p>云原生爱好者|公众号:四颗咖啡豆</p>
+            
+           
+           <ul class="list-inline"> 
+               
+               
+               <li>
+                   <a href="https://twitter.com/lan31793328">
+                       <span class="fa-stack fa-lg">
+                           <i class="fa fa-circle fa-stack-2x"></i>
+                           <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                       </span>
+                   </a>
+               </li>
+               
+               
+               
+               
+               
+               
+               <li>
+                   <a target="_blank" href="https://github.com/liangyuanpeng">
+                       <span class="fa-stack fa-lg">
+                           <i class="fa fa-circle fa-stack-2x"></i>
+                           <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                       </span>
+                   </a>
+               </li>
+               
+               
+                </ul>
+            </div>
+    </section>
+   
+   <hr>
+   <h5>FRIENDS</h5>
+   <ul class="list-inline">
+       
+   </ul>
+   
+    
+   <hr>
+   <h5>BOOKMARKS</h5>
+   <ul class="list-inline">
+   
+           <li><a target="_blank" href=""></a></li>
+       
+           <li><a target="_blank" href="http://www.servicemesh.cn">ServiceMesh中文网</a></li>
+       
+           <li><a target="_blank" href="https://servicemesh.gitbooks.io/awesome-servicemesh">Awesome Service Mesh</a></li>
+       
+           <li><a target="_blank" href=""></a></li>
+       
+   </ul>
+</div>
+
+	</div>
+</div>
+
+
+
+
+
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                   
+                    
+                    <li>
+                        <a href="mailto:gcslyp@gmail.com">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+		    
+
+                    
+                    <li>
+                        <a href="https://twitter.com/lan31793328">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    
+
+                    
+
+		    
+                    
+                    
+                    <li>
+                        <a target="_blank" href="https://github.com/liangyuanpeng">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+		    
+                    
+                </ul>
+		<p class="copyright text-muted">
+                    Copyright &copy; Hi,I`m lan , 2018
+                    <br>
+                    <a href="https://themes.gohugo.io/hugo-theme-cleanwhite">CleanWhite Hugo Theme</a> by <a href="https://zhaohuabing.com">Huabing</a> |
+                    <iframe
+                        style="margin-left: 2px; margin-bottom:-5px;"
+                        frameborder="0" scrolling="0" width="100px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=zhaohuabing&repo=hugo-theme-cleanwhite&type=star&count=true" >
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+
+
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+
+
+
+
+
+<script>
+    
+    if($('#tag_cloud').length !== 0){
+        async("/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+
+<script>
+    async("https://cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+
+
+
+
+
+<script>
+    
+    var _baId = 'fad9c137f8ce239f9b323d36c871f8e6';
+
+    
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?" + _baId;
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+
+
+
+
+
+
+</body>
+</html>
