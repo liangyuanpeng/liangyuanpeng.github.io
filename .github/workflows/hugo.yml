@@ -41,9 +41,10 @@ jobs:
               docker run -v $PWD/hostfile:/tmp/hostfile -e ANSIBLE_HOST_KEY_CHECKING=false --rm registry.cn-shenzhen.aliyuncs.com/lan-k8s/ubuntu:ansible ansible -i /tmp/hostfile site  -m shell -a "cd /usr/local/kafeidou/blog/liangyuanpeng.github.io && tar -xvf public.tar"
               rm -f hostfile
 
-      - name: Deploy
-        uses: peaceiris/actions-gh-pages@v3
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./public
-          publish_branch: master
+# 暂停 暂时不触发部署github page
+#      - name: Deploy
+#        uses: peaceiris/actions-gh-pages@v3
+#        with:
+#          github_token: ${{ secrets.GITHUB_TOKEN }}
+#          publish_dir: ./public
+#          publish_branch: master
