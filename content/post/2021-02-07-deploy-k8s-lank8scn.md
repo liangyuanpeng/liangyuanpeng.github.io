@@ -122,7 +122,7 @@ kube-system   kube-scheduler-installk8s            1/1     Running   0          
 watch kubectl get po -A
 ```  
 
-5.  
+5. 还在创作当中
 
 # kubernetes hell world!  
 
