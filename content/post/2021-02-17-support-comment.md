@@ -11,6 +11,7 @@ tags:
     - Hugo
     - 博客
     - 评论
+    - Blog
     - utterances
 categories: 
     - Tech

@@ -12,7 +12,7 @@ tags:
     - 日志收集
     - logstash
 categories: 
-    - 中间件
+    - Middleware
     - devops
 ---
 

@@ -9,7 +9,7 @@ image: "https://res.cloudinary.com/lyp/image/upload/v1612744351/hugo/blog.github
 published: false
 tags:
     - kubernetes
-    - 云原生
+    - CloudNative
     - OpenKruise
 categories: 
     - kubernetes

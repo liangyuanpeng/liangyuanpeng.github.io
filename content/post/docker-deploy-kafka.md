@@ -9,9 +9,9 @@ image: "https://res.cloudinary.com/lyp/image/upload/v1581649210/hugo/blog.github
 published: true
 tags: 
     - 消息队列
-    - 中间件
+    - Middleware
 categories: 
-    - 中间件
+    - Middleware
 ---
 
 

@@ -14,7 +14,7 @@ tags:
     - fluentd
     - cloudNative
 categories: 
-    - 中间件
+    - Middleware
 ---
 
 

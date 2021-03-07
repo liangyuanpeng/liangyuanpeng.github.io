@@ -14,7 +14,7 @@ tags:
     - fluentd
     - elasticsearch
 categories: 
-    - 中间件
+    - Middleware
 ---
 
 

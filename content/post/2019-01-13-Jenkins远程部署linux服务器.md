@@ -9,7 +9,7 @@ image: "https://res.cloudinary.com/lyp/image/upload/v1544363191/hugo/blog.github
 published: true
 tags:
     - Jenkins
-    - 部署
+    - Ops
     - CI/CD
     - nginx
     - linux

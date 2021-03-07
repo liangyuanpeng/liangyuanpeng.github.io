@@ -1,6 +1,6 @@
 [build]
 publish = "public"
-command = "hugo --gc --minify"
+command = "hugo --gc --minify && ls && mv baidu_verify_code-YNQgjspRJJ.html public"
 #functions = "functions"
 #[build.environment]
   # Change this path with the path to your repository
@@ -24,8 +24,8 @@ command = "hugo  --gc --minify --buildFuture -b $DEPLOY_PRIME_URL"
 [context.deploy-preview.environment]
 HUGO_VERSION = "0.79.1"
 
-[context.branch-deploy]
-command = "hugo  --gc --minify -b $DEPLOY_PRIME_URL"
+#[context.branch-deploy]
+#command = "hugo  --gc --minify -b $DEPLOY_PRIME_URL"
 
 [context.branch-deploy.environment]
 HUGO_VERSION = "0.79.1"

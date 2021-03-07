@@ -11,8 +11,7 @@ tags:
     - Docker
     - Docker Swarm
 categories: 
-    - 容器
-    - 容器编排
+    - CloudNative
 ---
 
 # 前提  
