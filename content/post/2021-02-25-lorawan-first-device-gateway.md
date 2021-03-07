@@ -12,7 +12,7 @@ tags:
     - 物联网
     - LoraWan
 categories: 
-    - 物联网
+    - IOT
 ---
 
 # LoraWan数据走向    
