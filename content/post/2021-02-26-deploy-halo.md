@@ -77,7 +77,3 @@ docker run -it -d --name halo -p 8090:8090 -v ~/.halo:/root/.halo halohub/halo
 
 如果你部署还遇到问题，可以加我微信聊聊。 
 
-# 关于我    
-
-云原生爱好者，热爱开源。同时我正在运营一个公众号，可以关注一下，也可以关注我的Github留意我的Github动态，看看我都在了解什么技术。在页面底部可以找到我的Github。
-

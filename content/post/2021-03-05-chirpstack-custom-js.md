@@ -112,13 +112,7 @@ ChirpStack作为Lorawan Server，可以同时接收不同客户的设备数据(�
 # 验证下行结果
 将字符串`AXE=`解码后得到的结果是`01和71`，将两个字节进行`01*256+71`计算后得到的是`369`,正是下行数据command字段的值。  
 
-# # JS编码函数小结
+# JS编码函数小结
 这样就省去了在发送下行数据时每次都需要自行将数据编码的过程,同理，如果多个客户都需要对各自的传感器进行下行数据的话，就省去了他们各自将下行数据编码的过程(前提是已经设置好对应的JS编码函数了)。  
 
 https://blog.csdn.net/iotisan/article/details/104070445  
-
-# 关于我    
-
-云原生爱好者，热爱开源。同时我正在运营一个公众号，可以关注一下，也可以关注我的Github留意我的Github动态，看看我都在了解什么技术。
-
-![https://res.cloudinary.com/lyp/image/upload/v1581729955/hugo/blog.github.io/qrcode_for_sikekafeidou.jpg](https://res.cloudinary.com/lyp/image/upload/v1581729955/hugo/blog.github.io/qrcode_for_sikekafeidou.jpg)
