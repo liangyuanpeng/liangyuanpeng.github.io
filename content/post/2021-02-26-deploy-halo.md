@@ -36,13 +36,13 @@ docker run -it -d --name halo -p 8090:8090 -v ~/.halo:/root/.halo halohub/halo
 
 # halo初体验
 
-[install](https://res.cloudinary.com/lyp/image/upload/v1614917015/hugo/blog.github.io/tech/halo/install.png)  
+![install](https://res.cloudinary.com/lyp/image/upload/v1614917015/hugo/blog.github.io/tech/halo/install.png)  
 
 可以看到首次会进行一次数据初始化的引导，例如初始化帐号密码,邮箱等等信息.  
 
 到了第三步可以看到可以有一个数据导入的地方,主要用于另一个已有的halo博客数据迁移到一个新的halo博客.  
 
-[install_data](https://res.cloudinary.com/lyp/image/upload/v1614917015/hugo/blog.github.io/tech/halo/install_data.png)
+![install_data](https://res.cloudinary.com/lyp/image/upload/v1614917015/hugo/blog.github.io/tech/halo/install_data.png)
 
 看官方计划是会将这部分和数据初始化的引导区分开,一起期待吧.  
 
@@ -52,24 +52,24 @@ docker run -it -d --name halo -p 8090:8090 -v ~/.halo:/root/.halo halohub/halo
 
 填入刚才填写的帐号密码信息,登陆成功后会进入到dashboard页面.  
 
-[dashboard](https://res.cloudinary.com/lyp/image/upload/v1614917015/hugo/blog.github.io/tech/halo/dashboard.png)  
+![dashboard](https://res.cloudinary.com/lyp/image/upload/v1614917015/hugo/blog.github.io/tech/halo/dashboard.png)  
 
 可以看到默认的dashboard还是挺不错的.  
 
 
-[dashboard-page2](https://res.cloudinary.com/lyp/image/upload/v1614917015/hugo/blog.github.io/tech/halo/dashboard2.png)  
+![dashboard-page2](https://res.cloudinary.com/lyp/image/upload/v1614917015/hugo/blog.github.io/tech/halo/dashboard2.png)  
 
 可以简单的切换dashboard的排版方式,另外如果已经有静态博客的话，可以将md文件导入到halo博客当中.  
 
-[tools-import](https://res.cloudinary.com/lyp/image/upload/v1614931041/hugo/blog.github.io/tech/halo/tools-import.png) 
+![tools-import](https://res.cloudinary.com/lyp/image/upload/v1614931041/hugo/blog.github.io/tech/halo/tools-import.png) 
 
 导入成功后可以在文章列表找到已经导入的文章:  
 
-[imported-post-openkruise](https://res.cloudinary.com/lyp/image/upload/v1614917015/hugo/blog.github.io/tech/halo/imported-openkruise.png)  
+![imported-post-openkruise](https://res.cloudinary.com/lyp/image/upload/v1614917015/hugo/blog.github.io/tech/halo/imported-openkruise.png)  
 
 如果在部署后嫌自己服务器的带宽太小，可以将静态文件用特定的OSS去解决.  
 
-[filestore](https://res.cloudinary.com/lyp/image/upload/v1614917015/hugo/blog.github.io/tech/halo/filestore.png)  
+![filestore](https://res.cloudinary.com/lyp/image/upload/v1614917015/hugo/blog.github.io/tech/halo/filestore.png)  
 
 到目前为止halo博客一个简单的介绍就结束了,已经足够满足写文章的需求了.  
 
