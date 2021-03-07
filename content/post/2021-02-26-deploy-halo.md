@@ -81,5 +81,3 @@ docker run -it -d --name halo -p 8090:8090 -v ~/.halo:/root/.halo halohub/halo
 
 云原生爱好者，热爱开源。同时我正在运营一个公众号，可以关注一下，也可以关注我的Github留意我的Github动态，看看我都在了解什么技术。
 
-
-![https://res.cloudinary.com/lyp/image/upload/v1581729955/hugo/blog.github.io/qrcode_for_sikekafeidou.jpg](https://res.cloudinary.com/lyp/image/upload/v1581729955/hugo/blog.github.io/qrcode_for_sikekafeidou.jpg)
