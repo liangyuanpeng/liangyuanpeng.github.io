@@ -75,5 +75,5 @@ docker run -it -d --name halo -p 8090:8090 -v ~/.halo:/root/.halo halohub/halo
 
 # Halo博客部署求助  
 
-如果你部署还遇到问题，可以加我微信聊聊。 
+如果你部署还遇到问题，可以加我微信聊聊。 在[free.liangyuanpeng.com](free.liangyuanpeng.com)可以找到我。
 
