@@ -62,6 +62,8 @@ home = ["HTML", "RSS", "Algolia"]
   github         = "https://github.com/liangyuanpeng"  
   #wechat         = "link of wechat QR code image"
   #pinterest     = "full profile url in pinterest"
+  zhihu = "https://www.zhihu.com/people/liangyuanpeng"
+  weibo = "https://weibo.com/u/1908782280"
   
  #[[params.friend_link]]
  # title = "Linda的博客"
