@@ -1,5 +1,6 @@
 [build]
 publish = "public"
+# 发布百度SEO校验文件
 command = "hugo --gc --minify && ls && mv baidu_verify_code-YNQgjspRJJ.html public"
 #functions = "functions"
 #[build.environment]
