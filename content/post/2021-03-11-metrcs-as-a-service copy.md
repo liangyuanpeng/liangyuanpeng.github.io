@@ -48,4 +48,6 @@ categories:
 |独立Prometheus实例 | × | √ |
 |独立Grafana实例 | × | √ |
 |存储空间 | 暂定 | 暂定 |
-|部署节点 | 香港 | 香港 |
+|部署节点 | 香港 | 香港 |  
+
+如果使用了[Halo as a service](https://liangyuanpeng.com/post/2021-03-11-halo-as-a-service/)，则可免费享用基础版.
