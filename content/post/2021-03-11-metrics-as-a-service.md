@@ -52,7 +52,9 @@ categories:
 |自定义Grafana DashBoard id | 待定 | 待定 |
 |自定义Metrics抓取间隔 | × | √ |
 |Prometheus自定义远程数据存储 | × | √ |
-|部署节点 | 香港 | 香港 |  
+|部署节点 | 香港 | 香港 |    
+
+除了基础版和高级版还计划会推出一个尊享版,可完全掌控的Prometheus实例、Grafana实例和AlertManager实例,当然数据存储依然是另算了.
 
 
 如果使用了[Halo as a service](https://liangyuanpeng.com/post/2021-03-11-halo-as-a-service/)，则可免费享用基础版.
