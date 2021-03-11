@@ -90,4 +90,6 @@ tags:
 
 23. - [ ] [prometheus-alertmanager监控系统](https://liangyuanpeng.com/post/prometheus-alertmanager-monitoring-quickstart/)  
 
-24. - [ ] 单独使用AlertManager,通过API调用触发告警
+24. - [ ] 单独使用AlertManager,通过API调用触发告警  
+
+25. - [ ] 静态博客集成流量监控-->[Google Analytics](https://analytics.google.com/analytics/web/)
