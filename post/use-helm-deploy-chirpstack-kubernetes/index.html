@@ -11,14 +11,14 @@
     <meta name="baidu-site-verification" content="HGLXRsUXC4" />
 
     
-    <meta name="description" content="给hugo博客添加字数统计和阅读需要xx分钟的功能">
+    <meta name="description" content="用helm chart将chripstack部署到kubernetes之上。">
     
     <meta name="keyword"  content="liangyuanpeng , lan , lyp的网络日志, lan的博客, lan Blog, 博客, 个人网站, 互联网, Web,  Istio, 微服务">
     <link rel="shortcut icon" href="img/favicon.ico">
 
-    <title>给hugo博客添加字数统计和阅读需要xx分钟的功能-lyp的博客 | lyp Blog</title>
+    <title>用helm chart将chripstack部署到kubernetes之上-lyp的博客 | lyp Blog</title>
 
-    <link rel="canonical" href="/post/addons-of-word-count-hugo/">
+    <link rel="canonical" href="/post/use-helm-deploy-chirpstack-kubernetes/">
 
     <link rel="stylesheet" href="https://res.cloudinary.com/lyp/raw/upload/v1537369740/hugo/css/iDisqus.min.css"/>
 
@@ -142,7 +142,7 @@
 
 <style type="text/css">
     header.intro-header{
-        background-image: url('https://res.cloudinary.com/lyp/image/upload/v1544363191/hugo/blog.github.io/743a4e9227e1f14cb24a1eb6db29e183.jpg')
+        background-image: url('https://res.cloudinary.com/lyp/image/upload/v1543506262/hugo/blog.github.io/apache-rocketMQ-introduction/7046d2bf0d97278682129887309cc1a6.jpg')
     }
 </style>
 <header class="intro-header" >
@@ -152,21 +152,33 @@
                 <div class="post-heading">
                     <div class="tags">
                        
-                       <a class="tag" href="/tags/blog" title="Blog">
-                           Blog
+                       <a class="tag" href="/tags/docker" title="Docker">
+                           Docker
                         </a>
                         
-                       <a class="tag" href="/tags/hugo" title="Hugo">
-                           Hugo
+                       <a class="tag" href="/tags/lorawan" title="lorawan">
+                           lorawan
+                        </a>
+                        
+                       <a class="tag" href="/tags/iot" title="iot">
+                           iot
+                        </a>
+                        
+                       <a class="tag" href="/tags/chirpstack" title="chirpstack">
+                           chirpstack
+                        </a>
+                        
+                       <a class="tag" href="/tags/kubernetes" title="kubernetes">
+                           kubernetes
                         </a>
                         
                     </div>
-                    <h1>给hugo博客添加字数统计和阅读需要xx分钟的功能</h1>
+                    <h1>用helm chart将chripstack部署到kubernetes之上</h1>
                     <h2 class="subheading"></h2>
-                    <span  class="meta">Posted by lyp on Tuesday, February 16, 2021
+                    <span  class="meta">Posted by lyp on Saturday, January 30, 2021
                         
                         <span id="busuanzi_container_page_pv">|<span id="busuanzi_value_page_pv"></span><span>
-                            <span id="/post/addons-of-word-count-hugo/" class="leancloud_visitors meta_data_item" data-flag-title="">
+                            <span id="/post/use-helm-deploy-chirpstack-kubernetes/" class="leancloud_visitors meta_data_item" data-flag-title="">
     <span class="post-meta-item-icon">
       <span class="octicon octicon-eye"></span> 
     </span>
@@ -299,7 +311,7 @@ $(function() {
 });
 </script>
 
-                            阅读 </span></span>|<span class="post-date">共535字</span>，阅读约<span class="more-meta"> 2 分钟</span>
+                            阅读 </span></span>|<span class="post-date">共718字</span>，阅读约<span class="more-meta"> 2 分钟</span>
                         
                     </span>
                 </div>
@@ -325,40 +337,75 @@ $(function() {
                 <header>
                 <h2>TOC</h2>
                 </header>
-                <nav id="TableOfContents"></nav>
+                <nav id="TableOfContents">
+  <ul>
+    <li><a href="#fork">Fork</a></li>
+    <li><a href="#贡献流程">贡献流程</a></li>
+  </ul>
+</nav>
 		
-		<h1 id="缘由">缘由</h1>
-<p>在看别人博客时经常在文章标题下面见到有<code>共xx字,阅读约xx分钟</code>的字眼，这个功能在hugo中本身就已经自带了，开启这个功能即可。</p>
-<p><img src="https://res.cloudinary.com/lyp/image/upload/v1613460274/hugo/blog.github.io/blogfeature/blog1.png" alt="https://res.cloudinary.com/lyp/image/upload/v1613460274/hugo/blog.github.io/blogfeature/blog1.png"></p>
-<h1 id="修改博客页面">修改博客页面</h1>
-<p>页面位于对应主题目录下的：<code>layouts/_default/single.html</code>,搜索<code>subtitle</code>可以找到以下类似的代码块:</p>
-<pre><code>&lt;h2 class=&quot;subheading&quot;&gt;{{ .Params.subtitle }}&lt;/h2&gt;
-                    &lt;span  class=&quot;meta&quot;&gt;Posted by {{ if .Params.author }}{{ .Params.author }}{{ else }}{{ .Site.Title }}{{ end }} on {{ .Date.Format &quot;Monday, January 2, 2006&quot; }}
-                        {{ if .Site.Params.page_view_conter }}
-                        {{ partial &quot;page_view_counter.html&quot; . }}
-                        {{ end }}
-                    &lt;/span&gt;
-</code></pre><p>修改后是一下的样子，其实就是引入两个变量:</p>
-<ol>
-<li>WordCount 文章字数</li>
-<li>ReadingTime 阅读时间</li>
-</ol>
-<pre><code>                    &lt;h2 class=&quot;subheading&quot;&gt;{{ .Params.subtitle }}&lt;/h2&gt;
-                    &lt;span  class=&quot;meta&quot;&gt;Posted by {{ if .Params.author }}{{ .Params.author }}{{ else }}{{ .Site.Title }}{{ end }} on {{ .Date.Format &quot;Monday, January 2, 2006&quot; }}
-                        {{ if .Site.Params.page_view_conter }}
-                        &lt;span id=&quot;busuanzi_container_page_pv&quot;&gt;|&lt;span id=&quot;busuanzi_value_page_pv&quot;&gt;&lt;/span&gt;&lt;span&gt;
-                            {{ partial &quot;page_view_counter.html&quot; .  }}
-                            阅读 &lt;/span&gt;&lt;/span&gt;|&lt;span class=&quot;post-date&quot;&gt;共{{ .WordCount  }}字&lt;/span&gt;，阅读约&lt;span class=&quot;more-meta&quot;&gt; {{ .ReadingTime  }} 分钟&lt;/span&gt;
-                        {{ end }}
-                    &lt;/span&gt;
-</code></pre><h1 id="修改配置文件">修改配置文件</h1>
-<p>在修改了上述内容后主题已经支持字数统计和阅读时间的功能，下面需要在博客的配置文件当中启动这个功能。</p>
-<p>找到<code>config.toml</code>文件中的<code>page_view_conter</code>，配置为<code>true</code>即可。</p>
-<p><code>page_view_conter=true</code></p>
-<p>在重新打开任意一篇Blog后发现已经可以看到这个功能的展示了。</p>
-<p><img src="https://res.cloudinary.com/lyp/image/upload/v1613463423/hugo/blog.github.io/blogfeature/blog2.png" alt="https://res.cloudinary.com/lyp/image/upload/v1613463423/hugo/blog.github.io/blogfeature/blog2.png"></p>
-<h1 id="随意聊聊">随意聊聊</h1>
-<p>在我看来一个博客除了字数统计和阅读时间这样一个功能之外呢，阅读次数和文章搜索还是很有必要的，这也是我接下来会给我的博客添加的功能。</p>
+		<h1 id="chirpstack-helm-chart">chirpstack-helm-chart</h1>
+<p>开源lorawan server 项目chirpstack的helm chart <a href="../README.md">english</a></p>
+<h1 id="如何贡献">如何贡献</h1>
+<p>如果你想对这个项目进行贡献可以点击<code>fork</code>按钮<code>fork</code>这个项目并且发起<code>PR</code></p>
+<h2 id="fork">Fork</h2>
+<p>贡献的准备工作:<code>Fork</code>这个项目.</p>
+<h2 id="贡献流程">贡献流程</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ git remote add chirpstack-helm-chart git@github.com:liangyuanpeng/chirpstack-helm-chart.git
+<span style="color:#75715e"># sync with the remote master</span>
+$ git checkout master
+$ git fetch chirpstack-helm-chart
+$ git rebase chirpstack-helm-chart/master
+$ git push origin master
+<span style="color:#75715e"># create a PR branch</span>
+$ git checkout -b your_branch   
+<span style="color:#75715e"># do something</span>
+$ git add <span style="color:#f92672">[</span>your change files<span style="color:#f92672">]</span>
+$ git commit -sm <span style="color:#e6db74">&#34;xxx&#34;</span>
+$ git push origin your_branch  
+</code></pre></div><h1 id="安装helm-chart">安装helm chart</h1>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ git clone https://github.com/liangyuanpeng/chirpstack-helm-chart.git  
+$ cd chirpstack-helm-chart/  
+<span style="color:#75715e"># install helm chart from this repo</span>
+$ helm install chirpstack .   
+</code></pre></div><p><code>注意：默认使用名叫longorn的storageClass存储.</code></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ kubectl get po 
+<span style="color:#75715e"># 执行命令后可以看到以下pod</span>
+NAME                              READY   STATUS    RESTARTS   AGE
+chirpstack-as-84b68cb7fd-zgs5j    1/1     Running   <span style="color:#ae81ff">0</span>          45s
+chirpstack-ns-7d9b9867f-zftn6     1/1     Running   <span style="color:#ae81ff">0</span>          45s
+mosquitto-0                       1/1     Running   <span style="color:#ae81ff">0</span>          45s
+pgsql-0                           1/1     Running   <span style="color:#ae81ff">0</span>          45s
+redis-0                           1/1     Running   <span style="color:#ae81ff">0</span>          45s
+redis-exporter-64f8bf4f46-2rcgl   1/1     Running   <span style="color:#ae81ff">0</span>          45s
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ kubectl get svc
+<span style="color:#75715e"># 执行命令后可以看到以下svc</span>
+NAME             TYPE        CLUSTER-IP       EXTERNAL-IP   PORT<span style="color:#f92672">(</span>S<span style="color:#f92672">)</span>                      AGE
+chirpstack-as    ClusterIP   10.98.227.61     &lt;none&gt;        8080/TCP,8001/TCP,8003/TCP   77s
+chirpstack-ns    ClusterIP   10.108.182.238   &lt;none&gt;        8000/TCP                     77s
+mosquitto        ClusterIP   10.104.149.103   &lt;none&gt;        1883/TCP                     77s
+pgsql            ClusterIP   10.102.33.231    &lt;none&gt;        5432/TCP                     77s
+redis            ClusterIP   10.109.138.95    &lt;none&gt;        6379/TCP                     77s
+redis-exporter   ClusterIP   10.106.66.131    &lt;none&gt;        9121/TCP                     77s
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ kubectl get pvc
+<span style="color:#75715e"># 执行命令后可以看到以下pvc</span>
+NAME                               STATUS   VOLUME                                     CAPACITY   ACCESS MODES   STORAGECLASS   AGE
+pgsql-pvc-pgsql-0                  Bound    pvc-c1c6adf4-32ef-4431-bd6a-3825a6ef408c   96Mi       RWO            longhorn       3d
+redis-pvc-redis-0                  Bound    pvc-e464d0e8-e04a-4958-858e-5efef1aeba9c   48Mi       RWO            longhorn       3d
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ helm list
+<span style="color:#75715e"># 执行命令后可以看到以下chart</span>
+NAME            NAMESPACE       REVISION        UPDATED                                 STATUS          CHART                           APP VERSION
+chirpstack      default         <span style="color:#ae81ff">1</span>               2021-01-29 16:11:48.984574857 +0800 CST deployed        chirpstack-helm-chart-0.1.0     1.16.0
+</code></pre></div><h1 id="暴露application-server的svc访问application-server">暴露application-server的svc，访问application-server</h1>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">kubectl port-forward svc/chirpstack-as 8080:8080 --address 0.0.0.0
+</code></pre></div><h1 id="在application-server上设置network-server">在application-server上设置network-server</h1>
+<p>你可以设置为 <code>chirpstack-ns.{namespace}:8000</code> 或者 <code>chirpstack-ns.{namespace}.svc.cluster.local:8000</code></p>
+<p>这里的{namespace}替换为真实的命名空间</p>
+<p><img src="https://res.cloudinary.com/lyp/image/upload/v1612010769/hugo/blog.github.io/chirpstack/create-ns.jpg" alt="login"></p>
+<h1 id="如果你用了gateway-bridge这个组件的话可以用下面的命令把svc暴露出来">如果你用了gateway-bridge这个组件的话，可以用下面的命令把svc暴露出来</h1>
+<pre><code>kubectl expose deploy gateway-bridge --port 1700 --target-port=1700 --protocol=UDP --name udpservice --type=NodePort  
+</code></pre><h1 id="总结">总结</h1>
+<p>到目前为止ChirpStack已经在K8S上部署起来了,默认服务都是创建了SVC但是没有进一步暴露出来，具体的暴露方式目前是让用户来选择，可以把AS的端口暴露出来后就可以访问AS了.MQTT服务和gateway-bridge服务也是如此,数据需要上传到服务端需要将服务暴露出来。</p>
 
 
         <h2>微信公众号</h2>
@@ -371,12 +418,12 @@ $(function() {
                 <ul class="pager">
                     
                     <li class="previous">
-                        <a href="/tmp/2021-01-16-%E7%BB%99%E5%8D%9A%E5%AE%A2%E6%B7%BB%E5%8A%A0%E9%98%85%E8%AF%BBxx%E5%88%86%E9%92%9F%E5%8A%9F%E8%83%BD/" data-toggle="tooltip" data-placement="top" title="给hugo博客添加字数统计和阅读需要xx分钟的功能">&larr; 给hugo博客添加字数统计和阅读需要xx分钟的功能</a>
+                        <a href="/post/k8s-client-go%E6%BA%90%E7%A0%81%E5%89%96%E6%9E%90/" data-toggle="tooltip" data-placement="top" title="k8s-client-go源码剖析(二)">&larr; k8s-client-go源码剖析(二)</a>
                     </li>
                     
                     
                     <li class="next">
-                        <a href="/post/2021-02-17-support-comment/" data-toggle="tooltip" data-placement="top" title="给hugo博客添加评论功能">给hugo博客添加评论功能 &rarr;</a>
+                        <a href="/post/first-lorawan-gateway-device/" data-toggle="tooltip" data-placement="top" title="LoraWan的第一个网关与设备">LoraWan的第一个网关与设备 &rarr;</a>
                     </li>
                     
                 </ul>
@@ -630,9 +677,11 @@ async>
 <h2>相关文章</h2>
 <ul style="margin-bottom: 25px;">
     
-    <li><a href="/tmp/2021-01-16-%E7%BB%99%E5%8D%9A%E5%AE%A2%E6%B7%BB%E5%8A%A0%E9%98%85%E8%AF%BBxx%E5%88%86%E9%92%9F%E5%8A%9F%E8%83%BD/">给hugo博客添加字数统计和阅读需要xx分钟的功能</a></li>
+    <li><a href="/post/docker-compose-deploy-chirpstack/">用docker-compose快速部署ChirpStack</a></li>
     
-    <li><a href="/post/blog-list/">blog-list记录</a></li>
+    <li><a href="/post/docker-note/">docker常用命令集合</a></li>
+    
+    <li><a href="/post/docker-swarm-monitor/">部署docker swarm集群监控</a></li>
     
 </ul>
 

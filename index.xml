@@ -27,10 +27,10 @@
     
     <item>
       <title>ChirpStack自定义JS codec函数</title>
-      <link>/post/2021-03-05-chirpstack-custom-js/</link>
+      <link>/post/chirpstack-custom-js-encodec/</link>
       <pubDate>Sat, 06 Mar 2021 00:00:00 +0000</pubDate>
       
-      <guid>/post/2021-03-05-chirpstack-custom-js/</guid>
+      <guid>/post/chirpstack-custom-js-encodec/</guid>
       <description>前言 ChirpStack作为Lorawan Server，可以同时接收不同客户的设备数据(通过Application或Org区分开),而如果这</description>
     </item>
     
@@ -45,28 +45,28 @@
     
     <item>
       <title>部署Halo博客</title>
-      <link>/post/2021-02-26-deploy-halo/</link>
+      <link>/post/deploy-halo/</link>
       <pubDate>Fri, 26 Feb 2021 00:00:00 +0000</pubDate>
       
-      <guid>/post/2021-02-26-deploy-halo/</guid>
+      <guid>/post/deploy-halo/</guid>
       <description>前言 jar包部署 注意:jar包部署需要jdk11版本 Docker方式部署 docker方式部署很简单，一条命令即可。 docker run -it -d --name halo -p 8090:8090 -v ~/.halo:/root/.halo halohub/halo 其中</description>
     </item>
     
     <item>
       <title>给hugo博客添加评论功能</title>
-      <link>/post/2021-02-17-support-comment/</link>
+      <link>/post/hugo-comment/</link>
       <pubDate>Wed, 17 Feb 2021 00:00:00 +0000</pubDate>
       
-      <guid>/post/2021-02-17-support-comment/</guid>
+      <guid>/post/hugo-comment/</guid>
       <description>缘由 静态博客不像动态博客一样想要什么功能就写个代码实现，但是折腾一番还是可以满足日常需求的。本文主要讲述使用utterances给静态博客实</description>
     </item>
     
     <item>
       <title>给hugo博客添加字数统计和阅读需要xx分钟的功能</title>
-      <link>/post/addons-of-word-count-hugo/</link>
+      <link>/post/addons-word-count-hugo/</link>
       <pubDate>Tue, 16 Feb 2021 00:00:00 +0000</pubDate>
       
-      <guid>/post/addons-of-word-count-hugo/</guid>
+      <guid>/post/addons-word-count-hugo/</guid>
       <description>缘由 在看别人博客时经常在文章标题下面见到有共xx字,阅读约xx分钟的字眼，这个功能在hugo中本身就已经自带了，开启这个功能即可。 修改博客页</description>
     </item>
     
@@ -108,19 +108,19 @@
     
     <item>
       <title>LoraWan的第一个网关与设备</title>
-      <link>/post/2021-02-25-lorawan-first-device-gateway/</link>
+      <link>/post/first-lorawan-gateway-device/</link>
       <pubDate>Fri, 05 Feb 2021 00:00:00 +0000</pubDate>
       
-      <guid>/post/2021-02-25-lorawan-first-device-gateway/</guid>
+      <guid>/post/first-lorawan-gateway-device/</guid>
       <description>LoraWan数据走向 可以先看一下下面的数据图 从节点到网关是通过无线传输，也就是lora协议。LoraWan网关接收到数据后将其转化为网络数</description>
     </item>
     
     <item>
       <title>用helm chart将chripstack部署到kubernetes之上</title>
-      <link>/post/use-helm-chart-deploy-chirpstack-on-kubernetes/</link>
+      <link>/post/use-helm-deploy-chirpstack-kubernetes/</link>
       <pubDate>Sat, 30 Jan 2021 00:00:00 +0000</pubDate>
       
-      <guid>/post/use-helm-chart-deploy-chirpstack-on-kubernetes/</guid>
+      <guid>/post/use-helm-deploy-chirpstack-kubernetes/</guid>
       <description>chirpstack-helm-chart 开源lorawan server 项目chirpstack的helm chart english 如何贡献 如果你想对这个项目进行贡献可以点击fork按钮fork这个项目并且发起P</description>
     </item>
     

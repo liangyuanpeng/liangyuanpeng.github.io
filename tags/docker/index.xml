@@ -9,19 +9,19 @@
     <lastBuildDate>Fri, 26 Feb 2021 00:00:00 +0000</lastBuildDate><atom:link href="/tags/docker/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>部署Halo博客</title>
-      <link>/post/2021-02-26-deploy-halo/</link>
+      <link>/post/deploy-halo/</link>
       <pubDate>Fri, 26 Feb 2021 00:00:00 +0000</pubDate>
       
-      <guid>/post/2021-02-26-deploy-halo/</guid>
+      <guid>/post/deploy-halo/</guid>
       <description>前言 jar包部署 注意:jar包部署需要jdk11版本 Docker方式部署 docker方式部署很简单，一条命令即可。 docker run -it -d --name halo -p 8090:8090 -v ~/.halo:/root/.halo halohub/halo 其中</description>
     </item>
     
     <item>
       <title>用helm chart将chripstack部署到kubernetes之上</title>
-      <link>/post/use-helm-chart-deploy-chirpstack-on-kubernetes/</link>
+      <link>/post/use-helm-deploy-chirpstack-kubernetes/</link>
       <pubDate>Sat, 30 Jan 2021 00:00:00 +0000</pubDate>
       
-      <guid>/post/use-helm-chart-deploy-chirpstack-on-kubernetes/</guid>
+      <guid>/post/use-helm-deploy-chirpstack-kubernetes/</guid>
       <description>chirpstack-helm-chart 开源lorawan server 项目chirpstack的helm chart english 如何贡献 如果你想对这个项目进行贡献可以点击fork按钮fork这个项目并且发起P</description>
     </item>
     
