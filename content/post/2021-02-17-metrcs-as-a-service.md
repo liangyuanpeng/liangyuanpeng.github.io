@@ -3,10 +3,10 @@ layout:     post
 title:      "metrics托管服务即将发布"
 subtitle:   ""
 description: "在云原生时代,每时每刻都有metrics被prometheus定时抓取.."
-date:       2021-02-17
+date:       2021-03-11
 author:     "lyp"
 image: "https://res.cloudinary.com/lyp/image/upload/v1544363191/hugo/blog.github.io/743a4e9227e1f14cb24a1eb6db29e183.jpg"
-published: false
+published: true
 tags:
     - Metrics
     - Prometheus
@@ -21,10 +21,29 @@ categories:
 
 一般人们不会专门为了自己的一个小网站专门去部署监控的内容，毕竟在大流量来临之前没必要去花这些功夫，但是了解自己线上系统运行情况还是非常需要有一个监控存在的。  
 
-#  
+#  产品介绍  
 
-用户可以在专属的Grafana页面看到自己的程序运行时情况，下面以JVM程序为例给个图：   
+用户只需要暴露标准的prometheus exporter给平台抓取metrics即可，然后可以在专属的Grafana页面看到自己的程序运行时情况，下面以JVM程序为例给个图：   
 
-![metrics-jvm](/img/metrics-jvm.png)  
+![metrics-jvm](https://res.cloudinary.com/lyp/image/upload/v1615419259/hugo/blog.github.io/saas/prometheus/metrics-jvm.png)    
 
-# 注意 本文还在创作当中
+## 支持的exporter类型  
+
+1. JVM Micrometer exporter
+2. Node exporter  
+3. Redis exporter
+
+#  产品定价   
+
+
+|  |  基础版   | 高级版  |
+|  ----|  ----  | ----  |
+| 价格 | 50/年  | 暂定/年 |
+| metrics应用数 | 3  | 暂定 |
+| 数据保存 | 两个月  | 一年 |
+| Node Exporter | √  | √ |
+| Redis Exporter | √  | √ |
+| 邮件告警 | √ | √ |
+| 钉钉告警 | ×  | √ |
+|prometheus实例 | 共享 | 独立 |
+|独立Grafana实例 | × | √ |
