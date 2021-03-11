@@ -1,5 +1,6 @@
 ---
 layout:     post 
+slug:   "chirpstack-custom-js-encodec"
 title:      "ChirpStack自定义JS codec函数"
 subtitle:   "JS编解码函数的使用,减少程序解码数据工作量"
 description: "轻快,简洁,功能强大,使用Spring Boot开发的博客系统/CMS系统,值得一试."

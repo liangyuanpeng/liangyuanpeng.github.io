@@ -1,6 +1,6 @@
 ---
 layout:     post 
-slug:   "use helm chart deploy chirpstack on kubernetes"
+slug:   "use-helm-deploy-chirpstack-kubernetes"
 title:      "用helm chart将chripstack部署到kubernetes之上"
 subtitle:   ""
 description: "用helm chart将chripstack部署到kubernetes之上。"  
