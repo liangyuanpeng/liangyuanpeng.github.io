@@ -6,7 +6,16 @@
     <description>Recent content in Hugo on Hi,I`m lan</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 17 Feb 2021 00:00:00 +0000</lastBuildDate><atom:link href="/tags/hugo/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 11 Mar 2021 00:00:00 +0000</lastBuildDate><atom:link href="/tags/hugo/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Hugo博客SEO优化-URL和标题区分开</title>
+      <link>/post/hugo-slug-url/</link>
+      <pubDate>Thu, 11 Mar 2021 00:00:00 +0000</pubDate>
+      
+      <guid>/post/hugo-slug-url/</guid>
+      <description>前言 Hugo博客默认情况下你的md文件是什么名字那么在网站上点击对应博客时URL就显示什么,但是我们将URL复制发给别人时中文就会显示一串看</description>
+    </item>
+    
     <item>
       <title>给hugo博客添加评论功能</title>
       <link>/post/hugo-comment/</link>

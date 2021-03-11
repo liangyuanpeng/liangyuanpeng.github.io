@@ -29,6 +29,12 @@
     <loc>/</loc>
     <lastmod>2021-03-11T00:00:00+00:00</lastmod>
   </url><url>
+    <loc>/tags/hugo/</loc>
+    <lastmod>2021-03-11T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>/post/hugo-slug-url/</loc>
+    <lastmod>2021-03-11T00:00:00+00:00</lastmod>
+  </url><url>
     <loc>/tags/metrics/</loc>
     <lastmod>2021-03-11T00:00:00+00:00</lastmod>
   </url><url>
@@ -51,6 +57,9 @@
     <lastmod>2021-03-11T00:00:00+00:00</lastmod>
   </url><url>
     <loc>/tags/</loc>
+    <lastmod>2021-03-11T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>/categories/tech/</loc>
     <lastmod>2021-03-11T00:00:00+00:00</lastmod>
   </url><url>
     <loc>/tags/webhook/</loc>
@@ -86,9 +95,6 @@
     <loc>/tags/springboot/</loc>
     <lastmod>2021-03-04T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>/categories/tech/</loc>
-    <lastmod>2021-03-04T00:00:00+00:00</lastmod>
-  </url><url>
     <loc>/tags/%E5%85%8D%E8%B4%B9/</loc>
     <lastmod>2021-03-04T00:00:00+00:00</lastmod>
   </url><url>
@@ -103,9 +109,6 @@
   </url><url>
     <loc>/post/deploy-halo/</loc>
     <lastmod>2021-02-26T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>/tags/hugo/</loc>
-    <lastmod>2021-02-17T00:00:00+00:00</lastmod>
   </url><url>
     <loc>/tags/utterances/</loc>
     <lastmod>2021-02-17T00:00:00+00:00</lastmod>
@@ -156,6 +159,12 @@
     <lastmod>2021-02-07T00:00:00+00:00</lastmod>
   </url><url>
     <loc>/tags/lank8s.cn/</loc>
+    <lastmod>2021-02-07T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>/tags/openkruise/</loc>
+    <lastmod>2021-02-07T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>/post/openkruise-column/</loc>
     <lastmod>2021-02-07T00:00:00+00:00</lastmod>
   </url><url>
     <loc>/tags/%E7%8E%A9%E8%BD%ACkubernetes/</loc>

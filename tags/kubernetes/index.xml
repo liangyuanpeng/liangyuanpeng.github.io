@@ -17,6 +17,15 @@
     </item>
     
     <item>
+      <title>OpenKruise专栏介绍</title>
+      <link>/post/openkruise-column/</link>
+      <pubDate>Sun, 07 Feb 2021 00:00:00 +0000</pubDate>
+      
+      <guid>/post/openkruise-column/</guid>
+      <description>OpenKruise 是什么 OpenKruise 是 Kubernetes 的一个标准扩展，它可以配合原生 Kubernetes 使用，并为管理应用容器、sidecar、镜像分发等方面提供更加强大和高效的能力. 最初由阿里巴巴</description>
+    </item>
+    
+    <item>
       <title>部署Prometheus-Operator监控kubernetes</title>
       <link>/post/deploy-prometheus-operator-kubernetes/</link>
       <pubDate>Sun, 07 Feb 2021 00:00:00 +0000</pubDate>

@@ -17,6 +17,15 @@
     </item>
     
     <item>
+      <title>Hugo博客SEO优化-URL和标题区分开</title>
+      <link>/post/hugo-slug-url/</link>
+      <pubDate>Thu, 11 Mar 2021 00:00:00 +0000</pubDate>
+      
+      <guid>/post/hugo-slug-url/</guid>
+      <description>前言 Hugo博客默认情况下你的md文件是什么名字那么在网站上点击对应博客时URL就显示什么,但是我们将URL复制发给别人时中文就会显示一串看</description>
+    </item>
+    
+    <item>
       <title>metrics托管服务即将发布</title>
       <link>/post/metrics-as-a-service/</link>
       <pubDate>Thu, 11 Mar 2021 00:00:00 +0000</pubDate>
@@ -113,6 +122,15 @@
       
       <guid>/post/kubeadm-deploy-kubernetes-lank8scn/</guid>
       <description>本文实现目标 本文主要使用kubeadm快速部署一个单机的kubernetes,其中镜像仓库使用lank8s.cn,当然也可以使用其他地址,l</description>
+    </item>
+    
+    <item>
+      <title>OpenKruise专栏介绍</title>
+      <link>/post/openkruise-column/</link>
+      <pubDate>Sun, 07 Feb 2021 00:00:00 +0000</pubDate>
+      
+      <guid>/post/openkruise-column/</guid>
+      <description>OpenKruise 是什么 OpenKruise 是 Kubernetes 的一个标准扩展，它可以配合原生 Kubernetes 使用，并为管理应用容器、sidecar、镜像分发等方面提供更加强大和高效的能力. 最初由阿里巴巴</description>
     </item>
     
     <item>
