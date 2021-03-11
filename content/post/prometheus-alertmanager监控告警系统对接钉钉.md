@@ -101,7 +101,7 @@ curl http://192.168.3.169:8094/index/metrics/30
 注意:将IP替换成实际机器IP,本文后续不再强调.  
 
 过了一会可以在钉钉看到机器人发送了告警:  
-![]()
+![dingtalk-alert](https://res.cloudinary.com/lyp/image/upload/v1615478134/hugo/blog.github.io/prometheus/dingtalk-alert.png)
 
 ## 告警恢复通知  
 
@@ -111,7 +111,7 @@ curl http://192.168.3.169:8094/index/metrics/5
 ```  
 
 过一会钉钉就看到了机器人发送了告警恢复的通知:  
-![]()  
+![dingtalk-alert-normal](https://res.cloudinary.com/lyp/image/upload/v1615478135/hugo/blog.github.io/prometheus/dingtalk-normal.png)  
 
 # 闭幕  
 
