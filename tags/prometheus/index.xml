@@ -9,10 +9,10 @@
     <lastBuildDate>Thu, 11 Mar 2021 00:00:00 +0000</lastBuildDate><atom:link href="/tags/prometheus/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>metrics托管服务即将发布</title>
-      <link>/post/2021-02-17-metrcs-as-a-service/</link>
+      <link>/post/2021-03-11-metrcs-as-a-service-copy/</link>
       <pubDate>Thu, 11 Mar 2021 00:00:00 +0000</pubDate>
       
-      <guid>/post/2021-02-17-metrcs-as-a-service/</guid>
+      <guid>/post/2021-03-11-metrcs-as-a-service-copy/</guid>
       <description>前言 现在很多人都在使用静态博客来记录自己的内容，但动态博客依然还有很多存在，也许永远也不会消失。最近几年一个基于SpringBoot编写的B</description>
     </item>
     

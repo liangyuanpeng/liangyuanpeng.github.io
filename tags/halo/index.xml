@@ -6,7 +6,16 @@
     <description>Recent content in halo on Hi,I`m lan</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 04 Mar 2021 00:00:00 +0000</lastBuildDate><atom:link href="/tags/halo/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 11 Mar 2021 00:00:00 +0000</lastBuildDate><atom:link href="/tags/halo/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>halo托管服务即将发布</title>
+      <link>/post/2021-03-11-halo-as-a-service/</link>
+      <pubDate>Thu, 11 Mar 2021 00:00:00 +0000</pubDate>
+      
+      <guid>/post/2021-03-11-halo-as-a-service/</guid>
+      <description>前言 产品介绍 产品定价 基础版 高级版 价格 暂定/年 暂定/年 如果部署了托管版Halo，则可免费享用监控大屏(Metrics as a service)服务</description>
+    </item>
+    
     <item>
       <title>免费帮部署Halo博客</title>
       <link>/post/free-deploy-halo/</link>
