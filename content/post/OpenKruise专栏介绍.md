@@ -5,9 +5,9 @@ title:      "OpenKruise专栏介绍"
 subtitle:   "OpenKruise专栏介绍"
 description: " "
 date:       2021-02-07
-author:     "lyp"
+author:     "梁远鹏"
 image: "https://res.cloudinary.com/lyp/image/upload/v1612744351/hugo/blog.github.io/pexels-bruno-cervera-6032877.jpg"
-published: false
+published: true
 tags:
     - kubernetes
     - CloudNative
@@ -17,7 +17,7 @@ categories:
 ---  
 
 # OpenKruise 是什么
->OpenKruise 是 Kubernetes 的一个标准扩展，它可以配合原生 Kubernetes 使用，并为管理应用容器、sidecar、镜像分发等方面提供更加强大和高效的能力.  
+> OpenKruise 是 Kubernetes 的一个标准扩展，它可以配合原生 Kubernetes 使用，并为管理应用容器、sidecar、镜像分发等方面提供更加强大和高效的能力.  
 
 最初由阿里巴巴开源，提供各种高级workload,2021年将会开发出更多的workload,非常期待.目前已经贡献给CNCNF，处于sandbox级的项目.  
 
