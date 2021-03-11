@@ -36,10 +36,10 @@
     
     <item>
       <title>给hugo博客添加字数统计和阅读需要xx分钟的功能</title>
-      <link>/post/addons-of-word-count-and-reading-time-for-hugo/</link>
+      <link>/post/addons-of-word-count-hugo/</link>
       <pubDate>Tue, 16 Feb 2021 00:00:00 +0000</pubDate>
       
-      <guid>/post/addons-of-word-count-and-reading-time-for-hugo/</guid>
+      <guid>/post/addons-of-word-count-hugo/</guid>
       <description>缘由 在看别人博客时经常在文章标题下面见到有共xx字,阅读约xx分钟的字眼，这个功能在hugo中本身就已经自带了，开启这个功能即可。 修改博客页</description>
     </item>
     
