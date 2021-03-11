@@ -390,12 +390,12 @@ cd prometheus-webhook-dingtalk
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">curl http://192.168.3.169:8094/index/metrics/30
 </code></pre></div><p>注意:将IP替换成实际机器IP,本文后续不再强调.</p>
 <p>过了一会可以在钉钉看到机器人发送了告警:<br>
-<img src="" alt=""></p>
+<img src="https://res.cloudinary.com/lyp/image/upload/v1615478134/hugo/blog.github.io/prometheus/dingtalk-alert.png" alt="dingtalk-alert"></p>
 <h2 id="告警恢复通知">告警恢复通知</h2>
 <p>设置metrics恢复正常值(阀值以下都可以):</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">curl http://192.168.3.169:8094/index/metrics/5
 </code></pre></div><p>过一会钉钉就看到了机器人发送了告警恢复的通知:<br>
-<img src="" alt=""></p>
+<img src="https://res.cloudinary.com/lyp/image/upload/v1615478135/hugo/blog.github.io/prometheus/dingtalk-normal.png" alt="dingtalk-alert-normal"></p>
 <h1 id="闭幕">闭幕</h1>
 <p>到目前为止一个Metrics在SpringBoot程序中发生变化并且被Prometheus抓取到,并且检测到持续了xx分钟后由AlertManager触发告警到钉钉机器人的这样一个过程就完成了，当然<code>prometheus-webhook-dingtalk</code>这个webhook程序是否还有更高级的玩法可以自己去挖掘挖掘,比如一个告警触发多个钉钉机器人,比如配置多个钉钉机器人,由不同的告警触发不同的钉钉机器人(这在生产时很容易遇到).</p>
 <p>并且本文是使用<code>docker-compose</code>部署Prometheus和<code>AlertManager</code>的,在kubernetes部署下是否又有更方便的配置,应该也是我接下来会在博客当中想要写的内容.</p>
