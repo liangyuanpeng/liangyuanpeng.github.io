@@ -72,10 +72,9 @@ route:
   repeat_interval: 1h
   receiver: 'email'  #与下面name对应,标识使用哪一个告警 自定义的name
 receivers:
-- name: 'email'
-  email_configs: 
-    # send_resolved:  是否发送恢复告警 
-  - to: liangyuanpeng@xxx.com  #告警发给哪个人接收
+- name: 'dingtalk'
+  webhook_configs:
+  - url: http://192.168.3.75:8060/dingtalk/webhook1/send  
 ```
 
 # 注意：本文还处于持续创作当中。
