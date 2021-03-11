@@ -30,4 +30,4 @@ categories:
 |  ----|  ----  | ----  |
 | 价格 | 暂定/年  | 暂定/年 |
 
-如果部署了托管版Halo，则可免费享用[监控大屏(Metrics as a service)服务](https://liangyuanpeng.com/post/2021-03-11-metrcs-as-a-service/)
+如果部署了托管版Halo，则可免费享用[监控大屏(Metrics as a service)服务](https://liangyuanpeng.com/post/2021-03-11-metrics-as-a-service/)
