@@ -1,5 +1,6 @@
 ---
 layout:     post 
+slug:   "remote deploy of jenkins for linux application"
 title:      "Jenkins远程部署Linux服务器"
 subtitle:   ""
 description: "发展到一定程度后自动化部署会成为必不可少的一部分，目前Jenkins是插件丰富且最流行的工具。"
