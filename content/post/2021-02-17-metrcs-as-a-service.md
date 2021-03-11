@@ -45,5 +45,7 @@ categories:
 | Redis Exporter | √  | √ |
 | 邮件告警 | √ | √ |
 | 钉钉告警 | ×  | √ |
-|prometheus实例 | 共享 | 独立 |
+|独立Prometheus实例 | × | √ |
 |独立Grafana实例 | × | √ |
+|存储空间 | 暂定 | 暂定 |
+|部署节点 | 香港 | 香港 |
