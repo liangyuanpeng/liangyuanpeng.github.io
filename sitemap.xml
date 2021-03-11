@@ -2,6 +2,9 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>/tags/alertmanager/</loc>
+    <lastmod>2021-03-11T00:00:00+00:00</lastmod>
+  </url><url>
     <loc>/tags/blog/</loc>
     <lastmod>2021-03-11T00:00:00+00:00</lastmod>
   </url><url>
@@ -9,6 +12,12 @@
     <lastmod>2021-03-11T00:00:00+00:00</lastmod>
   </url><url>
     <loc>/categories/cloudnative/</loc>
+    <lastmod>2021-03-11T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>/tags/docker-compose/</loc>
+    <lastmod>2021-03-11T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>/tags/email/</loc>
     <lastmod>2021-03-11T00:00:00+00:00</lastmod>
   </url><url>
     <loc>/tags/halo/</loc>
@@ -32,10 +41,22 @@
     <loc>/tags/prometheus/</loc>
     <lastmod>2021-03-11T00:00:00+00:00</lastmod>
   </url><url>
+    <loc>/post/prometheus-alertmanager-monitoring-dingtalk/</loc>
+    <lastmod>2021-03-11T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>/post/prometheus-alertmanager-monitoring-quickstart/</loc>
+    <lastmod>2021-03-11T00:00:00+00:00</lastmod>
+  </url><url>
     <loc>/tags/saas/</loc>
     <lastmod>2021-03-11T00:00:00+00:00</lastmod>
   </url><url>
     <loc>/tags/</loc>
+    <lastmod>2021-03-11T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>/tags/webhook/</loc>
+    <lastmod>2021-03-11T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>/tags/%E9%92%89%E9%92%89/</loc>
     <lastmod>2021-03-11T00:00:00+00:00</lastmod>
   </url><url>
     <loc>/tags/chirpstack/</loc>
@@ -160,9 +181,6 @@
   </url><url>
     <loc>/tags/%E6%BA%90%E7%A0%81%E5%89%96%E6%9E%90/</loc>
     <lastmod>2021-01-23T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>/tags/docker-compose/</loc>
-    <lastmod>2021-01-17T00:00:00+00:00</lastmod>
   </url><url>
     <loc>/post/docker-compose-deploy-chirpstack/</loc>
     <lastmod>2021-01-17T00:00:00+00:00</lastmod>
