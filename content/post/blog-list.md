@@ -81,4 +81,6 @@ tags:
 
 19. - [ ] halo文件存储-minio-阿里-百度-腾讯-华为  
 
-20. - [ ] springboot添加prometheus支持
+20. - [ ] springboot添加prometheus支持  
+
+21. - [ ] hugo标题与URL区分开

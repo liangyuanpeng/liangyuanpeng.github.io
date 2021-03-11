@@ -38,8 +38,8 @@ categories:
 
 |  |  基础版   | 高级版  |
 |  ----|  ----  | ----  |
-| 价格 | 50/年  | 暂定/年 |
-| metrics应用数 | 3  | 暂定 |
+| 价格 | 50/年  | 待定/年 |
+| metrics应用数 | 3  | 待定 |
 | 数据保存 | 两个月  | 一年 |
 | Node Exporter | √  | √ |
 | Redis Exporter | √  | √ |
@@ -47,7 +47,11 @@ categories:
 | 钉钉告警 | ×  | √ |
 |独立Prometheus实例 | × | √ |
 |独立Grafana实例 | × | √ |
-|存储空间 | 暂定 | 暂定 |
+|存储空间 | 待定 | 待定 |
+|自定义Grafana DashBoard id | 待定 | 待定 |
+|自定义Metrics抓取间隔 | × | √ |
+|Prometheus自定义远程数据存储 | × | √ |
 |部署节点 | 香港 | 香港 |  
+
 
 如果使用了[Halo as a service](https://liangyuanpeng.com/post/2021-03-11-halo-as-a-service/)，则可免费享用基础版.
