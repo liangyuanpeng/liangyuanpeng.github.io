@@ -1,5 +1,6 @@
 ---
 layout:     post 
+slug:      "blog-list-todo"
 title:      "blog-list记录"
 subtitle:   ""
 description: "记录blog内容计划以及执行进度"

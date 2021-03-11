@@ -1,5 +1,6 @@
 ---
 layout:     post 
+slug:      "jib-springboot-docker-maven"
 title:      "不用安装docker也能构建docker镜像"
 subtitle:   ""
 description: "构建java的docker镜像,用jib,简单粗暴.."  

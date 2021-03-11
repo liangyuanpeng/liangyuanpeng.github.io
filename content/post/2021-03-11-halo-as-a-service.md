@@ -1,5 +1,6 @@
 ---
 layout:     post 
+slug:      "halo-as-a-service"
 title:      "halo托管服务即将发布"
 subtitle:   ""
 description: ""

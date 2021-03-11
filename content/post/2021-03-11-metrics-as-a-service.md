@@ -1,5 +1,6 @@
 ---
 layout:     post 
+slug:      "metrics-as-a-service"
 title:      "metrics托管服务即将发布"
 subtitle:   ""
 description: "在云原生时代,每时每刻都有metrics被prometheus定时抓取.."

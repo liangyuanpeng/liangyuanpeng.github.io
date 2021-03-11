@@ -1,5 +1,6 @@
 ---
 layout:     post 
+slug:      "k8s-client-go-source-2"
 title:      "k8s-client-go源码剖析(二)"
 subtitle:   ""
 description: "k8s-client-go源码剖析(二)"

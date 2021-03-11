@@ -1,12 +1,13 @@
 ---
 layout:     post 
+slug:      "fluentd-quickstart"
 title:      "fluentd语法入门"
 subtitle:   ""
 description: "Fluentd是一个开源的日志统一处理数据收集器,非常轻量级,目前是CNCF的毕业项目."  
 date:       2020-02-14
 author:     "lan"
 image: "https://res.cloudinary.com/lyp/image/upload/v1581649210/hugo/blog.github.io/blur-close-up-code-computer-546819.jpg"
-published: false
+published: true
 tags: 
     - docker
     - cncf
