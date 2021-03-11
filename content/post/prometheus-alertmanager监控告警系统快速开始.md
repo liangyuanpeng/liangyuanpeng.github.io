@@ -74,7 +74,9 @@ route:
 receivers:
 - name: 'dingtalk'
   webhook_configs:
-  - url: http://192.168.3.75:8060/dingtalk/webhook1/send  
+  - url: http://{IP}:8060/dingtalk/webhook1/send  
 ```
+
+其中IP填写为正确的webhook程序所在IP。
 
 # 注意：本文还处于持续创作当中。
