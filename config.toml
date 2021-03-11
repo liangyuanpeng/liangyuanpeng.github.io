@@ -15,9 +15,9 @@ home = ["HTML", "RSS", "Algolia"]
 [params]
  # header_image = "img/home-bg-jeep.jpg"
  header_image = "https://res.cloudinary.com/lyp/image/upload/v1537619755/hugo/banner/WechatIMG413.jpg"
- SEOTitle = "lyp的博客 | lyp Blog"
+ SEOTitle = "liangyuanpeng的博客 | liangyuanpeng's Blog"
   description = "lan，工程师, 开源爱好者 | 公众号:四颗咖啡豆"
-  keyword = "liangyuanpeng , lan , lyp的网络日志, lan的博客, lan Blog, 博客, 个人网站, 互联网, Web,  Istio, 微服务"
+  keyword = "liangyuanpeng , lanLiang , liangyuanpeng的网络日志, lan的博客, lan Blog, 博客, 个人网站, 互联网, Web,  Istio, 微服务"
   #slogan = "路在脚下，心向远方"
  slogan = ""
 

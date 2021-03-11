@@ -84,4 +84,10 @@ tags:
 
 20. - [ ] springboot添加prometheus支持  
 
-21. - [ ] hugo标题与URL区分开
+21. - [ ] hugo标题与URL区分开---> 效果完成了，缺少Blog输出
+
+22. - [ ] KubeSphere部署最简版，以及日志清理配置  
+
+23. - [ ] prometheus-alertmanager监控系统  
+
+24. - [ ] 单独使用AlertManager,通过API调用触发告警
