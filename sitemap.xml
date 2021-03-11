@@ -14,7 +14,7 @@
     <loc>/tags/halo/</loc>
     <lastmod>2021-03-11T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>/post/2021-03-11-halo-as-a-service/</loc>
+    <loc>/post/halo-as-a-service/</loc>
     <lastmod>2021-03-11T00:00:00+00:00</lastmod>
   </url><url>
     <loc>/</loc>
@@ -23,7 +23,7 @@
     <loc>/tags/metrics/</loc>
     <lastmod>2021-03-11T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>/post/2021-03-11-metrics-as-a-service/</loc>
+    <loc>/post/metrics-as-a-service/</loc>
     <lastmod>2021-03-11T00:00:00+00:00</lastmod>
   </url><url>
     <loc>/post/</loc>
@@ -104,7 +104,7 @@
     <loc>/tmp/2021-01-16-%E7%BB%99%E5%8D%9A%E5%AE%A2%E6%B7%BB%E5%8A%A0%E9%98%85%E8%AF%BBxx%E5%88%86%E9%92%9F%E5%8A%9F%E8%83%BD/</loc>
     <lastmod>2021-02-16T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>/post/2021-01-15-ant-design-been-deleted/</loc>
+    <loc>/post/ant-design-deleted-404/</loc>
     <lastmod>2021-02-15T00:00:00+00:00</lastmod>
   </url><url>
     <loc>/tags/news/</loc>
@@ -116,7 +116,7 @@
     <loc>/tags/devops/</loc>
     <lastmod>2021-02-08T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>/post/virtualbox-import-old-system/</loc>
+    <loc>/post/virtualbox-imported-old-vm-system/</loc>
     <lastmod>2021-02-08T00:00:00+00:00</lastmod>
   </url><url>
     <loc>/tags/%E8%99%9A%E6%8B%9F%E6%9C%BA/</loc>
@@ -125,7 +125,7 @@
     <loc>/tags/kubeadm/</loc>
     <lastmod>2021-02-07T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>/post/2021-02-07-deploy-k8s-lank8scn/</loc>
+    <loc>/post/kubeadm-deploy-kubernetes-lank8scn/</loc>
     <lastmod>2021-02-07T00:00:00+00:00</lastmod>
   </url><url>
     <loc>/tags/kubernetes/</loc>
@@ -135,6 +135,12 @@
     <lastmod>2021-02-07T00:00:00+00:00</lastmod>
   </url><url>
     <loc>/tags/lank8s.cn/</loc>
+    <lastmod>2021-02-07T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>/tags/%E7%8E%A9%E8%BD%ACkubernetes/</loc>
+    <lastmod>2021-02-07T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>/post/deploy-prometheus-operator-kubernetes/</loc>
     <lastmod>2021-02-07T00:00:00+00:00</lastmod>
   </url><url>
     <loc>/post/first-lorawan-gateway-device/</loc>
@@ -149,7 +155,7 @@
     <loc>/tags/golang/</loc>
     <lastmod>2021-01-23T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>/post/k8s-client-go%E6%BA%90%E7%A0%81%E5%89%96%E6%9E%90/</loc>
+    <loc>/post/k8s-client-go-source-2/</loc>
     <lastmod>2021-01-23T00:00:00+00:00</lastmod>
   </url><url>
     <loc>/tags/%E6%BA%90%E7%A0%81%E5%89%96%E6%9E%90/</loc>
@@ -170,7 +176,7 @@
     <loc>/post/springboot-micrometer-influx/</loc>
     <lastmod>2020-03-08T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>/post/blog-list/</loc>
+    <loc>/post/blog-list-todo/</loc>
     <lastmod>2020-03-07T00:00:00+00:00</lastmod>
   </url><url>
     <loc>/tags/java/</loc>
@@ -182,7 +188,7 @@
     <loc>/tags/maven/</loc>
     <lastmod>2020-02-18T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>/post/springboot-jib-docker/</loc>
+    <loc>/post/jib-springboot-docker-maven/</loc>
     <lastmod>2020-02-18T00:00:00+00:00</lastmod>
   </url><url>
     <loc>/tags/cadvisor/</loc>
@@ -191,7 +197,7 @@
     <loc>/tags/elasticsearch/</loc>
     <lastmod>2020-02-17T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>/post/cadvisor-kafka-fluentd-es/</loc>
+    <loc>/post/elasticsearch-fluentd-kafka/</loc>
     <lastmod>2020-02-17T00:00:00+00:00</lastmod>
   </url><url>
     <loc>/tags/fluentd/</loc>
@@ -206,7 +212,7 @@
     <loc>/tags/logstash/</loc>
     <lastmod>2020-02-16T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>/post/docker-log-driver-logstash/</loc>
+    <loc>/post/logstash-logdriver-docker/</loc>
     <lastmod>2020-02-16T00:00:00+00:00</lastmod>
   </url><url>
     <loc>/tags/%E6%97%A5%E5%BF%97%E6%94%B6%E9%9B%86/</loc>
@@ -218,16 +224,19 @@
     <loc>/tags/image/</loc>
     <lastmod>2020-02-15T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>/post/docker-log-driver-fluentd/</loc>
+    <loc>/post/fluentd-logdrive-docker/</loc>
     <lastmod>2020-02-15T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>/post/docker-image-fluentd-es-kafka/</loc>
+    <loc>/post/fluentd-plugin-kafka/</loc>
     <lastmod>2020-02-15T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>/post/fluentd-quickstart/</loc>
+    <lastmod>2020-02-14T00:00:00+00:00</lastmod>
   </url><url>
     <loc>/tags/middleware/</loc>
     <lastmod>2020-02-14T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>/post/docker-deploy-kafka/</loc>
+    <loc>/post/docker-compose-deploy-kafka/</loc>
     <lastmod>2020-02-14T00:00:00+00:00</lastmod>
   </url><url>
     <loc>/tags/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/</loc>
@@ -236,16 +245,16 @@
     <loc>/tags/docker-swarm/</loc>
     <lastmod>2020-02-09T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>/post/docker-note/</loc>
+    <loc>/post/deploy-command/</loc>
     <lastmod>2020-02-09T00:00:00+00:00</lastmod>
   </url><url>
     <loc>/tags/note/</loc>
     <lastmod>2020-02-09T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>/post/docker-swarm-monitor/</loc>
+    <loc>/post/deploy-docker-swarm-monitoring/</loc>
     <lastmod>2020-02-09T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>/post/docker-deploy-minio/</loc>
+    <loc>/post/deploy-minio/</loc>
     <lastmod>2020-01-16T00:00:00+00:00</lastmod>
   </url><url>
     <loc>/tags/%E5%AD%98%E5%82%A8/</loc>
@@ -290,7 +299,7 @@
     <loc>/tags/%E5%89%8D%E5%90%8E%E7%AB%AF%E5%88%86%E7%A6%BB/</loc>
     <lastmod>2019-01-06T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>/post/2019-01-06-%E9%83%A8%E7%BD%B2react%E5%BA%94%E7%94%A8/</loc>
+    <loc>/post/deploy-react-app/</loc>
     <lastmod>2019-01-06T00:00:00+00:00</lastmod>
   </url><url>
     <loc>/tags/rpc/</loc>
@@ -347,7 +356,7 @@
     <loc>/tags/apache/</loc>
     <lastmod>2018-11-27T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>/post/2018-11-27-rocketmq%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/</loc>
+    <loc>/post/deploy-apache-rocketmq/</loc>
     <lastmod>2018-11-27T00:00:00+00:00</lastmod>
   </url><url>
     <loc>/tags/rocketmq/</loc>
@@ -356,7 +365,7 @@
     <loc>/tags/%E6%9E%B6%E6%9E%84%E6%BC%94%E8%BF%9B/</loc>
     <lastmod>2018-11-27T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>/post/2018-09-22-ci%E8%BF%87%E7%A8%8B%E4%B8%AD%E6%8B%89%E5%8F%96%E4%BB%93%E5%BA%93%E7%9A%84%E6%B3%A8%E6%84%8F%E7%82%B9/</loc>
+    <loc>/post/note-ci-repo/</loc>
     <lastmod>2018-09-22T00:00:00+00:00</lastmod>
   </url><url>
     <loc>/tags/git/</loc>

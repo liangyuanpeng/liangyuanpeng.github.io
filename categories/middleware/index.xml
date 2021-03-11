@@ -9,55 +9,64 @@
     <lastBuildDate>Mon, 17 Feb 2020 00:00:00 +0000</lastBuildDate><atom:link href="/categories/middleware/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Elasticsearch&#43;Fluentd&#43;Kafka搭建分布式日志系统</title>
-      <link>/post/cadvisor-kafka-fluentd-es/</link>
+      <link>/post/elasticsearch-fluentd-kafka/</link>
       <pubDate>Mon, 17 Feb 2020 00:00:00 +0000</pubDate>
       
-      <guid>/post/cadvisor-kafka-fluentd-es/</guid>
+      <guid>/post/elasticsearch-fluentd-kafka/</guid>
       <description>前言 由于logstash内存占用较大,灵活性相对没那么好,ELK正在被EFK逐步替代.其中本文所讲的EFK是Elasticsearch+Fl</description>
     </item>
     
     <item>
       <title>使用logstash作为docker日志驱动收集日志</title>
-      <link>/post/docker-log-driver-logstash/</link>
+      <link>/post/logstash-logdriver-docker/</link>
       <pubDate>Sun, 16 Feb 2020 00:00:00 +0000</pubDate>
       
-      <guid>/post/docker-log-driver-logstash/</guid>
+      <guid>/post/logstash-logdriver-docker/</guid>
       <description>前言 logstash是一个开源的日志统一处理数据收集器,属于ELK中的L,在日志收集领域应用广泛. docker默认的日志驱动是json-fi</description>
     </item>
     
     <item>
       <title>使用fluentd作为docker日志驱动收集日志</title>
-      <link>/post/docker-log-driver-fluentd/</link>
+      <link>/post/fluentd-logdrive-docker/</link>
       <pubDate>Sat, 15 Feb 2020 00:00:00 +0000</pubDate>
       
-      <guid>/post/docker-log-driver-fluentd/</guid>
+      <guid>/post/fluentd-logdrive-docker/</guid>
       <description>前言 docker默认的日志驱动是json-file,每一个容器都会在本地生成一个/var/lib/docker/containers/con</description>
     </item>
     
     <item>
       <title>制作带有kafka插件和es插件的fluentd镜像</title>
-      <link>/post/docker-image-fluentd-es-kafka/</link>
+      <link>/post/fluentd-plugin-kafka/</link>
       <pubDate>Sat, 15 Feb 2020 00:00:00 +0000</pubDate>
       
-      <guid>/post/docker-image-fluentd-es-kafka/</guid>
+      <guid>/post/fluentd-plugin-kafka/</guid>
+      <description>前言 Fluentd是用于统一日志记录层的开源数据收集器,是继Kubernetes、Prometheus、Envoy 、CoreDNS 和cont</description>
+    </item>
+    
+    <item>
+      <title>fluentd语法入门</title>
+      <link>/post/fluentd-quickstart/</link>
+      <pubDate>Fri, 14 Feb 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/post/fluentd-quickstart/</guid>
       <description>前言 Fluentd是用于统一日志记录层的开源数据收集器,是继Kubernetes、Prometheus、Envoy 、CoreDNS 和cont</description>
     </item>
     
     <item>
       <title>利用docker和docker-compose部署单机kafka</title>
-      <link>/post/docker-deploy-kafka/</link>
+      <link>/post/docker-compose-deploy-kafka/</link>
       <pubDate>Fri, 14 Feb 2020 00:00:00 +0000</pubDate>
       
-      <guid>/post/docker-deploy-kafka/</guid>
+      <guid>/post/docker-compose-deploy-kafka/</guid>
       <description>前提 docker docker-compose 其中docker-compose不是必须的,单单使用docker也是可以的,这里主要介绍docker和docker-compose两</description>
     </item>
     
     <item>
       <title>docker部署minio</title>
-      <link>/post/docker-deploy-minio/</link>
+      <link>/post/deploy-minio/</link>
       <pubDate>Thu, 16 Jan 2020 00:00:00 +0000</pubDate>
       
-      <guid>/post/docker-deploy-minio/</guid>
+      <guid>/post/deploy-minio/</guid>
       <description>前提 docker docker部署 docker部署minio非常简单，只需要两条命令即可完成minio服务器的部署。 docker pull minio/minio docker run -p 9000:9000 minio/minio server /data 下面是两条命令的</description>
     </item>
     
@@ -180,10 +189,10 @@
     
     <item>
       <title>Apache RocketMQ单机部署</title>
-      <link>/post/2018-11-27-rocketmq%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/</link>
+      <link>/post/deploy-apache-rocketmq/</link>
       <pubDate>Tue, 27 Nov 2018 00:00:00 +0000</pubDate>
       
-      <guid>/post/2018-11-27-rocketmq%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/</guid>
+      <guid>/post/deploy-apache-rocketmq/</guid>
       <description>前言 这篇文章以4.3.0版本为标准进行讲述在linux下部署RocketMQ单机实例,在此之前需要已配置JAVA环境。 apache RocketMQ 是阿里巴巴在201</description>
     </item>
     

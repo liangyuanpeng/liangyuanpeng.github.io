@@ -9,19 +9,19 @@
     <lastBuildDate>Fri, 14 Feb 2020 00:00:00 +0000</lastBuildDate><atom:link href="/tags/middleware/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>利用docker和docker-compose部署单机kafka</title>
-      <link>/post/docker-deploy-kafka/</link>
+      <link>/post/docker-compose-deploy-kafka/</link>
       <pubDate>Fri, 14 Feb 2020 00:00:00 +0000</pubDate>
       
-      <guid>/post/docker-deploy-kafka/</guid>
+      <guid>/post/docker-compose-deploy-kafka/</guid>
       <description>前提 docker docker-compose 其中docker-compose不是必须的,单单使用docker也是可以的,这里主要介绍docker和docker-compose两</description>
     </item>
     
     <item>
       <title>docker部署minio</title>
-      <link>/post/docker-deploy-minio/</link>
+      <link>/post/deploy-minio/</link>
       <pubDate>Thu, 16 Jan 2020 00:00:00 +0000</pubDate>
       
-      <guid>/post/docker-deploy-minio/</guid>
+      <guid>/post/deploy-minio/</guid>
       <description>前提 docker docker部署 docker部署minio非常简单，只需要两条命令即可完成minio服务器的部署。 docker pull minio/minio docker run -p 9000:9000 minio/minio server /data 下面是两条命令的</description>
     </item>
     
@@ -144,10 +144,10 @@
     
     <item>
       <title>Apache RocketMQ单机部署</title>
-      <link>/post/2018-11-27-rocketmq%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/</link>
+      <link>/post/deploy-apache-rocketmq/</link>
       <pubDate>Tue, 27 Nov 2018 00:00:00 +0000</pubDate>
       
-      <guid>/post/2018-11-27-rocketmq%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/</guid>
+      <guid>/post/deploy-apache-rocketmq/</guid>
       <description>前言 这篇文章以4.3.0版本为标准进行讲述在linux下部署RocketMQ单机实例,在此之前需要已配置JAVA环境。 apache RocketMQ 是阿里巴巴在201</description>
     </item>
     

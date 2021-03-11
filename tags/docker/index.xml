@@ -36,64 +36,73 @@
     
     <item>
       <title>不用安装docker也能构建docker镜像</title>
-      <link>/post/springboot-jib-docker/</link>
+      <link>/post/jib-springboot-docker-maven/</link>
       <pubDate>Tue, 18 Feb 2020 00:00:00 +0000</pubDate>
       
-      <guid>/post/springboot-jib-docker/</guid>
+      <guid>/post/jib-springboot-docker-maven/</guid>
       <description>前提 docker 容器镜像仓库 这里举例可以公用的两个 dockerhub 阿里云容器镜像服务 前言 本文主要介绍的是google开源的一个java领域的docker构建工具ji</description>
     </item>
     
     <item>
       <title>Elasticsearch&#43;Fluentd&#43;Kafka搭建分布式日志系统</title>
-      <link>/post/cadvisor-kafka-fluentd-es/</link>
+      <link>/post/elasticsearch-fluentd-kafka/</link>
       <pubDate>Mon, 17 Feb 2020 00:00:00 +0000</pubDate>
       
-      <guid>/post/cadvisor-kafka-fluentd-es/</guid>
+      <guid>/post/elasticsearch-fluentd-kafka/</guid>
       <description>前言 由于logstash内存占用较大,灵活性相对没那么好,ELK正在被EFK逐步替代.其中本文所讲的EFK是Elasticsearch+Fl</description>
     </item>
     
     <item>
       <title>使用logstash作为docker日志驱动收集日志</title>
-      <link>/post/docker-log-driver-logstash/</link>
+      <link>/post/logstash-logdriver-docker/</link>
       <pubDate>Sun, 16 Feb 2020 00:00:00 +0000</pubDate>
       
-      <guid>/post/docker-log-driver-logstash/</guid>
+      <guid>/post/logstash-logdriver-docker/</guid>
       <description>前言 logstash是一个开源的日志统一处理数据收集器,属于ELK中的L,在日志收集领域应用广泛. docker默认的日志驱动是json-fi</description>
     </item>
     
     <item>
       <title>使用fluentd作为docker日志驱动收集日志</title>
-      <link>/post/docker-log-driver-fluentd/</link>
+      <link>/post/fluentd-logdrive-docker/</link>
       <pubDate>Sat, 15 Feb 2020 00:00:00 +0000</pubDate>
       
-      <guid>/post/docker-log-driver-fluentd/</guid>
+      <guid>/post/fluentd-logdrive-docker/</guid>
       <description>前言 docker默认的日志驱动是json-file,每一个容器都会在本地生成一个/var/lib/docker/containers/con</description>
     </item>
     
     <item>
       <title>制作带有kafka插件和es插件的fluentd镜像</title>
-      <link>/post/docker-image-fluentd-es-kafka/</link>
+      <link>/post/fluentd-plugin-kafka/</link>
       <pubDate>Sat, 15 Feb 2020 00:00:00 +0000</pubDate>
       
-      <guid>/post/docker-image-fluentd-es-kafka/</guid>
+      <guid>/post/fluentd-plugin-kafka/</guid>
+      <description>前言 Fluentd是用于统一日志记录层的开源数据收集器,是继Kubernetes、Prometheus、Envoy 、CoreDNS 和cont</description>
+    </item>
+    
+    <item>
+      <title>fluentd语法入门</title>
+      <link>/post/fluentd-quickstart/</link>
+      <pubDate>Fri, 14 Feb 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/post/fluentd-quickstart/</guid>
       <description>前言 Fluentd是用于统一日志记录层的开源数据收集器,是继Kubernetes、Prometheus、Envoy 、CoreDNS 和cont</description>
     </item>
     
     <item>
       <title>docker常用命令集合</title>
-      <link>/post/docker-note/</link>
+      <link>/post/deploy-command/</link>
       <pubDate>Sun, 09 Feb 2020 00:00:00 +0000</pubDate>
       
-      <guid>/post/docker-note/</guid>
-      <description>停止一台机器上的所有容器 docker stop `docker ps -qa` 根据特定关键字删除镜像 docker rmi `docker images | grep NAME`</description>
+      <guid>/post/deploy-command/</guid>
+      <description>停止一台机器上的所有容器 docker stop `docker ps -qa` 根据特定关键字删除镜像 docker rmi `docker images | grep NAME` 本文有新内容时将持续更新</description>
     </item>
     
     <item>
       <title>部署docker swarm集群监控</title>
-      <link>/post/docker-swarm-monitor/</link>
+      <link>/post/deploy-docker-swarm-monitoring/</link>
       <pubDate>Sun, 09 Feb 2020 00:00:00 +0000</pubDate>
       
-      <guid>/post/docker-swarm-monitor/</guid>
+      <guid>/post/deploy-docker-swarm-monitoring/</guid>
       <description>前提 Docker 前言 现在Docker Swarm已经彻底输给了K8S,但是现在K8S依然很复杂，上手难度较Docker Swarm高，如果是小规模团队且需</description>
     </item>
     

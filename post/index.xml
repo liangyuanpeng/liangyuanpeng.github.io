@@ -9,19 +9,19 @@
     <lastBuildDate>Thu, 11 Mar 2021 00:00:00 +0000</lastBuildDate><atom:link href="/post/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>halo托管服务即将发布</title>
-      <link>/post/2021-03-11-halo-as-a-service/</link>
+      <link>/post/halo-as-a-service/</link>
       <pubDate>Thu, 11 Mar 2021 00:00:00 +0000</pubDate>
       
-      <guid>/post/2021-03-11-halo-as-a-service/</guid>
+      <guid>/post/halo-as-a-service/</guid>
       <description>前言 产品介绍 产品定价 基础版 高级版 价格 暂定/年 暂定/年 如果部署了托管版Halo，则可免费享用监控大屏(Metrics as a service)服务</description>
     </item>
     
     <item>
       <title>metrics托管服务即将发布</title>
-      <link>/post/2021-03-11-metrics-as-a-service/</link>
+      <link>/post/metrics-as-a-service/</link>
       <pubDate>Thu, 11 Mar 2021 00:00:00 +0000</pubDate>
       
-      <guid>/post/2021-03-11-metrics-as-a-service/</guid>
+      <guid>/post/metrics-as-a-service/</guid>
       <description>前言 现在很多人都在使用静态博客来记录自己的内容，但动态博客依然还有很多存在，也许永远也不会消失。最近几年一个基于SpringBoot编写的B</description>
     </item>
     
@@ -72,29 +72,38 @@
     
     <item>
       <title>Ant Design被删源码库!!404√</title>
-      <link>/post/2021-01-15-ant-design-been-deleted/</link>
+      <link>/post/ant-design-deleted-404/</link>
       <pubDate>Mon, 15 Feb 2021 00:00:00 +0000</pubDate>
       
-      <guid>/post/2021-01-15-ant-design-been-deleted/</guid>
+      <guid>/post/ant-design-deleted-404/</guid>
       <description>了解 Ant Design Ant-Design是蚂蚁金服基于React开源的一款企业级UI 设计语言和 React 组件库，深受人们喜爱。 最早消息 还在当前过年的时间点，A</description>
     </item>
     
     <item>
       <title>VirtualbBox导入旧版本虚拟机系统</title>
-      <link>/post/virtualbox-import-old-system/</link>
+      <link>/post/virtualbox-imported-old-vm-system/</link>
       <pubDate>Mon, 08 Feb 2021 00:00:00 +0000</pubDate>
       
-      <guid>/post/virtualbox-import-old-system/</guid>
+      <guid>/post/virtualbox-imported-old-vm-system/</guid>
       <description>动机 由于VirtualBox自动更新了导致打开了VirtualBox后之前的虚拟机都没显示出来了，需要重新找回之前的虚拟机。 更新后的Virt</description>
     </item>
     
     <item>
       <title>kubeadm配合短域名lank8s.cn部署kubernetes</title>
-      <link>/post/2021-02-07-deploy-k8s-lank8scn/</link>
+      <link>/post/kubeadm-deploy-kubernetes-lank8scn/</link>
       <pubDate>Sun, 07 Feb 2021 00:00:00 +0000</pubDate>
       
-      <guid>/post/2021-02-07-deploy-k8s-lank8scn/</guid>
+      <guid>/post/kubeadm-deploy-kubernetes-lank8scn/</guid>
       <description>本文实现目标 本文主要使用kubeadm快速部署一个单机的kubernetes,其中镜像仓库使用lank8s.cn,当然也可以使用其他地址,l</description>
+    </item>
+    
+    <item>
+      <title>部署Prometheus-Operator监控kubernetes</title>
+      <link>/post/deploy-prometheus-operator-kubernetes/</link>
+      <pubDate>Sun, 07 Feb 2021 00:00:00 +0000</pubDate>
+      
+      <guid>/post/deploy-prometheus-operator-kubernetes/</guid>
+      <description></description>
     </item>
     
     <item>
@@ -117,10 +126,10 @@
     
     <item>
       <title>k8s-client-go源码剖析(二)</title>
-      <link>/post/k8s-client-go%E6%BA%90%E7%A0%81%E5%89%96%E6%9E%90/</link>
+      <link>/post/k8s-client-go-source-2/</link>
       <pubDate>Sat, 23 Jan 2021 00:00:00 +0000</pubDate>
       
-      <guid>/post/k8s-client-go%E6%BA%90%E7%A0%81%E5%89%96%E6%9E%90/</guid>
+      <guid>/post/k8s-client-go-source-2/</guid>
       <description>简介：云原生社区活动&amp;mdash;Kubernetes源码剖析第一期第二周 本周是K8S源码研习社第一期第二周，学习内容是学习Informer</description>
     </item>
     
@@ -144,91 +153,100 @@
     
     <item>
       <title>blog-list记录</title>
-      <link>/post/blog-list/</link>
+      <link>/post/blog-list-todo/</link>
       <pubDate>Sat, 07 Mar 2020 00:00:00 +0000</pubDate>
       
-      <guid>/post/blog-list/</guid>
+      <guid>/post/blog-list-todo/</guid>
       <description>记录Blog发布计划以及执行进度 [ x ] 微服务监控:Micrometer InfluxDb 添加-&amp;gt;2020-03-07 22:23:08 [ ] 微服务监控:Micromet</description>
     </item>
     
     <item>
       <title>不用安装docker也能构建docker镜像</title>
-      <link>/post/springboot-jib-docker/</link>
+      <link>/post/jib-springboot-docker-maven/</link>
       <pubDate>Tue, 18 Feb 2020 00:00:00 +0000</pubDate>
       
-      <guid>/post/springboot-jib-docker/</guid>
+      <guid>/post/jib-springboot-docker-maven/</guid>
       <description>前提 docker 容器镜像仓库 这里举例可以公用的两个 dockerhub 阿里云容器镜像服务 前言 本文主要介绍的是google开源的一个java领域的docker构建工具ji</description>
     </item>
     
     <item>
       <title>Elasticsearch&#43;Fluentd&#43;Kafka搭建分布式日志系统</title>
-      <link>/post/cadvisor-kafka-fluentd-es/</link>
+      <link>/post/elasticsearch-fluentd-kafka/</link>
       <pubDate>Mon, 17 Feb 2020 00:00:00 +0000</pubDate>
       
-      <guid>/post/cadvisor-kafka-fluentd-es/</guid>
+      <guid>/post/elasticsearch-fluentd-kafka/</guid>
       <description>前言 由于logstash内存占用较大,灵活性相对没那么好,ELK正在被EFK逐步替代.其中本文所讲的EFK是Elasticsearch+Fl</description>
     </item>
     
     <item>
       <title>使用logstash作为docker日志驱动收集日志</title>
-      <link>/post/docker-log-driver-logstash/</link>
+      <link>/post/logstash-logdriver-docker/</link>
       <pubDate>Sun, 16 Feb 2020 00:00:00 +0000</pubDate>
       
-      <guid>/post/docker-log-driver-logstash/</guid>
+      <guid>/post/logstash-logdriver-docker/</guid>
       <description>前言 logstash是一个开源的日志统一处理数据收集器,属于ELK中的L,在日志收集领域应用广泛. docker默认的日志驱动是json-fi</description>
     </item>
     
     <item>
       <title>使用fluentd作为docker日志驱动收集日志</title>
-      <link>/post/docker-log-driver-fluentd/</link>
+      <link>/post/fluentd-logdrive-docker/</link>
       <pubDate>Sat, 15 Feb 2020 00:00:00 +0000</pubDate>
       
-      <guid>/post/docker-log-driver-fluentd/</guid>
+      <guid>/post/fluentd-logdrive-docker/</guid>
       <description>前言 docker默认的日志驱动是json-file,每一个容器都会在本地生成一个/var/lib/docker/containers/con</description>
     </item>
     
     <item>
       <title>制作带有kafka插件和es插件的fluentd镜像</title>
-      <link>/post/docker-image-fluentd-es-kafka/</link>
+      <link>/post/fluentd-plugin-kafka/</link>
       <pubDate>Sat, 15 Feb 2020 00:00:00 +0000</pubDate>
       
-      <guid>/post/docker-image-fluentd-es-kafka/</guid>
+      <guid>/post/fluentd-plugin-kafka/</guid>
+      <description>前言 Fluentd是用于统一日志记录层的开源数据收集器,是继Kubernetes、Prometheus、Envoy 、CoreDNS 和cont</description>
+    </item>
+    
+    <item>
+      <title>fluentd语法入门</title>
+      <link>/post/fluentd-quickstart/</link>
+      <pubDate>Fri, 14 Feb 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/post/fluentd-quickstart/</guid>
       <description>前言 Fluentd是用于统一日志记录层的开源数据收集器,是继Kubernetes、Prometheus、Envoy 、CoreDNS 和cont</description>
     </item>
     
     <item>
       <title>利用docker和docker-compose部署单机kafka</title>
-      <link>/post/docker-deploy-kafka/</link>
+      <link>/post/docker-compose-deploy-kafka/</link>
       <pubDate>Fri, 14 Feb 2020 00:00:00 +0000</pubDate>
       
-      <guid>/post/docker-deploy-kafka/</guid>
+      <guid>/post/docker-compose-deploy-kafka/</guid>
       <description>前提 docker docker-compose 其中docker-compose不是必须的,单单使用docker也是可以的,这里主要介绍docker和docker-compose两</description>
     </item>
     
     <item>
       <title>docker常用命令集合</title>
-      <link>/post/docker-note/</link>
+      <link>/post/deploy-command/</link>
       <pubDate>Sun, 09 Feb 2020 00:00:00 +0000</pubDate>
       
-      <guid>/post/docker-note/</guid>
-      <description>停止一台机器上的所有容器 docker stop `docker ps -qa` 根据特定关键字删除镜像 docker rmi `docker images | grep NAME`</description>
+      <guid>/post/deploy-command/</guid>
+      <description>停止一台机器上的所有容器 docker stop `docker ps -qa` 根据特定关键字删除镜像 docker rmi `docker images | grep NAME` 本文有新内容时将持续更新</description>
     </item>
     
     <item>
       <title>部署docker swarm集群监控</title>
-      <link>/post/docker-swarm-monitor/</link>
+      <link>/post/deploy-docker-swarm-monitoring/</link>
       <pubDate>Sun, 09 Feb 2020 00:00:00 +0000</pubDate>
       
-      <guid>/post/docker-swarm-monitor/</guid>
+      <guid>/post/deploy-docker-swarm-monitoring/</guid>
       <description>前提 Docker 前言 现在Docker Swarm已经彻底输给了K8S,但是现在K8S依然很复杂，上手难度较Docker Swarm高，如果是小规模团队且需</description>
     </item>
     
     <item>
       <title>docker部署minio</title>
-      <link>/post/docker-deploy-minio/</link>
+      <link>/post/deploy-minio/</link>
       <pubDate>Thu, 16 Jan 2020 00:00:00 +0000</pubDate>
       
-      <guid>/post/docker-deploy-minio/</guid>
+      <guid>/post/deploy-minio/</guid>
       <description>前提 docker docker部署 docker部署minio非常简单，只需要两条命令即可完成minio服务器的部署。 docker pull minio/minio docker run -p 9000:9000 minio/minio server /data 下面是两条命令的</description>
     </item>
     
@@ -252,10 +270,10 @@
     
     <item>
       <title>部署React应用</title>
-      <link>/post/2019-01-06-%E9%83%A8%E7%BD%B2react%E5%BA%94%E7%94%A8/</link>
+      <link>/post/deploy-react-app/</link>
       <pubDate>Sun, 06 Jan 2019 00:00:00 +0000</pubDate>
       
-      <guid>/post/2019-01-06-%E9%83%A8%E7%BD%B2react%E5%BA%94%E7%94%A8/</guid>
+      <guid>/post/deploy-react-app/</guid>
       <description>前言 前后端分离已经是大趋势，服务器端只需要关注自己的接口逻辑实现，而不需要关注前端的页面跳转，这一部分交由前端处理。常见的就是React应用</description>
     </item>
     
@@ -378,19 +396,19 @@
     
     <item>
       <title>Apache RocketMQ单机部署</title>
-      <link>/post/2018-11-27-rocketmq%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/</link>
+      <link>/post/deploy-apache-rocketmq/</link>
       <pubDate>Tue, 27 Nov 2018 00:00:00 +0000</pubDate>
       
-      <guid>/post/2018-11-27-rocketmq%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/</guid>
+      <guid>/post/deploy-apache-rocketmq/</guid>
       <description>前言 这篇文章以4.3.0版本为标准进行讲述在linux下部署RocketMQ单机实例,在此之前需要已配置JAVA环境。 apache RocketMQ 是阿里巴巴在201</description>
     </item>
     
     <item>
       <title>CI过程中拉取仓库的注意点</title>
-      <link>/post/2018-09-22-ci%E8%BF%87%E7%A8%8B%E4%B8%AD%E6%8B%89%E5%8F%96%E4%BB%93%E5%BA%93%E7%9A%84%E6%B3%A8%E6%84%8F%E7%82%B9/</link>
+      <link>/post/note-ci-repo/</link>
       <pubDate>Sat, 22 Sep 2018 00:00:00 +0000</pubDate>
       
-      <guid>/post/2018-09-22-ci%E8%BF%87%E7%A8%8B%E4%B8%AD%E6%8B%89%E5%8F%96%E4%BB%93%E5%BA%93%E7%9A%84%E6%B3%A8%E6%84%8F%E7%82%B9/</guid>
+      <guid>/post/note-ci-repo/</guid>
       <description>前言 CI过程中拉取仓库的注意点 备注：本文安装指南基于Ubuntu 16.04，在Centos上某些安装步骤的命令可能需要稍作改动。 CI Hugo博</description>
     </item>
     
