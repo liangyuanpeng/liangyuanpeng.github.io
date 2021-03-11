@@ -52,7 +52,7 @@ home = ["HTML", "RSS", "Algolia"]
 
   [params.social]
   #rss            = true 
-  email          = "gcslyp@gmail.com"
+  email          = "liangyuanpengem@163.com"
   #facebook      = "full profile url in facebook"
   #googleplus    = "full profile url in googleplus"
   twitter       = "https://twitter.com/lan31793328"
