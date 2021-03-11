@@ -3,15 +3,36 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>/categories/</loc>
-    <lastmod>2021-03-06T00:00:00+00:00</lastmod>
+    <lastmod>2021-03-11T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>/categories/cloudnative/</loc>
+    <lastmod>2021-03-11T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>/</loc>
+    <lastmod>2021-03-11T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>/tags/metrics/</loc>
+    <lastmod>2021-03-11T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>/post/2021-02-17-metrcs-as-a-service/</loc>
+    <lastmod>2021-03-11T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>/post/</loc>
+    <lastmod>2021-03-11T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>/tags/prometheus/</loc>
+    <lastmod>2021-03-11T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>/tags/saas/</loc>
+    <lastmod>2021-03-11T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>/tags/</loc>
+    <lastmod>2021-03-11T00:00:00+00:00</lastmod>
   </url><url>
     <loc>/tags/chirpstack/</loc>
     <lastmod>2021-03-06T00:00:00+00:00</lastmod>
   </url><url>
     <loc>/post/2021-03-05-chirpstack-custom-js/</loc>
-    <lastmod>2021-03-06T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>/</loc>
     <lastmod>2021-03-06T00:00:00+00:00</lastmod>
   </url><url>
     <loc>/categories/iot/</loc>
@@ -21,12 +42,6 @@
     <lastmod>2021-03-06T00:00:00+00:00</lastmod>
   </url><url>
     <loc>/tags/lorawan/</loc>
-    <lastmod>2021-03-06T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>/post/</loc>
-    <lastmod>2021-03-06T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>/tags/</loc>
     <lastmod>2021-03-06T00:00:00+00:00</lastmod>
   </url><url>
     <loc>/tags/%E7%89%A9%E8%81%94%E7%BD%91/</loc>
@@ -120,9 +135,6 @@
     <lastmod>2021-01-30T00:00:00+00:00</lastmod>
   </url><url>
     <loc>/tags/client-go/</loc>
-    <lastmod>2021-01-23T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>/categories/cloudnative/</loc>
     <lastmod>2021-01-23T00:00:00+00:00</lastmod>
   </url><url>
     <loc>/tags/golang/</loc>

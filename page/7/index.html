@@ -171,6 +171,24 @@
             
 
 <div class="post-preview">
+    <a href="/post/sofarpc%E6%B3%A8%E8%A7%A3%E6%94%AF%E6%8C%81%E5%89%96%E6%9E%90/">
+        <h2 class="post-title">
+            转|SOFARPC注解支持剖析
+        </h2>
+	
+        <div class="post-content-preview">
+	
+            编程 API 方式与Spring 的 ApplicationContextAware 类似。XML的方式依赖于在xml中引入 SOFA 命名空间，利用 Bean 的生命周期管理，进行 Bean 的注入。相比这两种方式，通过 Annotation 方式发布 JVM 服务更加灵活方便，只需要在实现类上加 @SofaService、@SofaRefernce 注解即可进行服务的发布和引用。本文针对 SOFARPC 在注解的支持和使用分原理、源码两部分进行一一介绍。
+        
+        </div>
+    </a>
+    <p class="post-meta">
+    Posted by lyp Tuesday, December 11, 2018
+    </p>
+</div>
+<hr>
+
+<div class="post-preview">
     <a href="/post/sofarpc%E8%B7%A8%E8%AF%AD%E8%A8%80%E6%94%AF%E6%8C%81%E5%89%96%E6%9E%90/">
         <h2 class="post-title">
             转|SOFARPC跨语言支持剖析
@@ -233,24 +251,6 @@
         <div class="post-content-preview">
 	
             去哪儿网近日在GitHub上开源了其内部广泛使用的消息队列 (内部代号 QMQ)，本文从去哪儿网使用消息队列所碰到的各种问题出发探讨去哪儿网消息队列的设计与实现。
-        
-        </div>
-    </a>
-    <p class="post-meta">
-    Posted by lyp Sunday, December 9, 2018
-    </p>
-</div>
-<hr>
-
-<div class="post-preview">
-    <a href="/post/sofarpc%E5%90%8C%E6%AD%A5%E5%BC%82%E6%AD%A5%E5%AE%9E%E7%8E%B0%E5%89%96%E6%9E%90/">
-        <h2 class="post-title">
-            转|SOFARPC同步异步实现剖析
-        </h2>
-	
-        <div class="post-content-preview">
-	
-            这一篇，我们为大家带来了开发过程中，最常接触到的同步异步调用解析。本文会介绍下同步异步的使用场景，以及 SOFARPC 中的代码实现机制，为了方便大家理解和阅读代码。不会过多的设计代码实现细节，更多的还是希望大家从中有所收获，并能够独立阅读核心代码。
         
         </div>
     </a>
@@ -468,6 +468,8 @@
                  
              
                  
+             
+                 
                      <a href="/tags/middleware" title="middleware">
                          middleware
                      </a>
@@ -496,9 +498,13 @@
                  
              
                  
+             
+                 
                      <a href="/tags/rpc" title="rpc">
                          rpc
                      </a>
+                 
+             
                  
              
                  

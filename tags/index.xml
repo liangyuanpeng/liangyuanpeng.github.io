@@ -6,7 +6,34 @@
     <description>Recent content in Tags on Hi,I`m lan</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 06 Mar 2021 00:00:00 +0000</lastBuildDate><atom:link href="/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 11 Mar 2021 00:00:00 +0000</lastBuildDate><atom:link href="/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Metrics</title>
+      <link>/tags/metrics/</link>
+      <pubDate>Thu, 11 Mar 2021 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/metrics/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Prometheus</title>
+      <link>/tags/prometheus/</link>
+      <pubDate>Thu, 11 Mar 2021 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/prometheus/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>SAAS</title>
+      <link>/tags/saas/</link>
+      <pubDate>Thu, 11 Mar 2021 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/saas/</guid>
+      <description></description>
+    </item>
+    
     <item>
       <title>chirpstack</title>
       <link>/tags/chirpstack/</link>
