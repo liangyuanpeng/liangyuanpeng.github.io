@@ -13,10 +13,10 @@
     
     <meta name="description" content="lan，工程师, 开源爱好者 | 公众号:四颗咖啡豆">
     
-    <meta name="keyword"  content="liangyuanpeng , lan , lyp的网络日志, lan的博客, lan Blog, 博客, 个人网站, 互联网, Web,  Istio, 微服务">
+    <meta name="keyword"  content="liangyuanpeng , lanLiang , liangyuanpeng的网络日志, lan的博客, lan Blog, 博客, 个人网站, 互联网, Web,  Istio, 微服务">
     <link rel="shortcut icon" href="img/favicon.ico">
 
-    <title>prometheus-alertmanager监控告警系统快速开始-lyp的博客 | lyp Blog</title>
+    <title>prometheus-alertmanager监控告警系统快速开始-liangyuanpeng的博客 | liangyuanpeng&#39;s Blog</title>
 
     <link rel="canonical" href="/post/prometheus-alertmanager-monitoring-quickstart/">
 
@@ -311,7 +311,7 @@ $(function() {
 });
 </script>
 
-                            阅读 </span></span>|<span class="post-date">共259字</span>，阅读约<span class="more-meta"> 1 分钟</span>
+                            阅读 </span></span>|<span class="post-date">共893字</span>，阅读约<span class="more-meta"> 2 分钟</span>
                         
                     </span>
                 </div>
@@ -346,13 +346,48 @@ $(function() {
 <ol>
 <li>数据源异常时alertmanager发送告警</li>
 <li>邮件发送模版</li>
+<li>对接飞书</li>
+<li>对接slack</li>
 </ol>
 <h1 id="遇到的问题">遇到的问题:</h1>
 <ol>
 <li>邮件发送失败</li>
 </ol>
 <pre><code>err=&quot;establish TLS connection to server: x509: certificate is valid for *.mxhichina.com, mxhichina.com, not smtp.xxx.com&quot;
-</code></pre>
+</code></pre><h1 id="前言">前言</h1>
+<p>Prometheus已经成为当前时代的监控系统中的主流软件,但仅仅靠Prometheus抓取Metrics是不够的，我们需要将这些Metrics使用起来，这才是价值所在。而Metrics可以用在两个方面，第一个是Metrics可视化，可以清楚的看到Metrics的趋势变化。第二个用处是告警，当某个指标在某个时间点或时间段飙升超过预定阀值时发出警告，提醒相关人员当前发生的事情。</p>
+<h1 id="prometheus集成alertmanager告警">Prometheus集成AlertManager告警</h1>
+<p>本文主要讲述告警的部分，分为webhook告警和Email告警。</p>
+<p>比较常用的是Email告警，而WebHook更适合企业内部定制化告警，例如需要将告警输出到消息队列中，消息消费者再进行相应处理。</p>
+<p>在正式展示具体配置之前可以先想一想，这样一个Email告警需要有什么样子的配置呢?这里简单列一下看看和你想的一不一样。</p>
+<ol>
+<li>邮件的服务器相关配置，例如用的是哪个邮件服务器、邮件服务器端口号、告警邮箱的帐号、告警邮箱的密码。</li>
+<li>邮件告警的接收人，触发了邮件告警肯定有一个邮件甚至多个地址需要接收邮件。</li>
+<li>邮件的标题</li>
+<li>邮件的内容</li>
+</ol>
+<p>接下来看看AlertManager邮件相关配置:</p>
+<pre><code>global:
+  resolve_timeout: 5m
+  smtp_from: 'xxx@xxx.com' #告警邮件显示邮件发送人
+  smtp_smarthost: 'smtp.xxx.com:{port}'   # 邮件服务器  域名:端口
+  smtp_auth_username: 'xxx@xxx.com' #帐号
+  smtp_auth_password: 'password'  #密码
+  smtp_require_tls: false  #是否必须TLS
+
+route:
+  group_by: ['alertname']
+  group_wait: 10s
+  group_interval: 10s
+  repeat_interval: 1h
+  receiver: 'email'  #与下面name对应,标识使用哪一个告警 自定义的name
+receivers:
+- name: 'email'
+  email_configs: 
+    # send_resolved:  是否发送恢复告警 
+  - to: liangyuanpeng@xxx.com  #告警发给哪个人接收
+</code></pre><h1 id="注意本文还处于持续创作当中">注意：本文还处于持续创作当中。</h1>
+
 
         <h2>微信公众号</h2>
 <p>扫描下面的二维码关注我们的微信公众号,第一时间查看最新内容。同时也可以关注我的Github，看看我都在了解什么技术，在页面底部可以找到我的Github。</p>
