@@ -29,6 +29,8 @@ docker-compose配置以及相关配置文件最终都会贴出来。
 
 AlertManager本身不支持钉钉通知，实现的方式是使用一个实现了钉钉通知API的webhook程序，AlertManager将告警发送到webhook程序，webhook程序再将内容转换成钉钉通知需要的格式发送到钉钉API。  
 
+本文阅读前提: 阅读了博文[prometheus-alertmanager监控告警系统快速开始](https://liangyuanpeng.com/post/prometheus-alertmanager-monitoring-quickstart/)
+
 # 支持钉钉的webhook程序
 
 本文使用的是开源项目[https://github.com/timonwong/prometheus-webhook-dingtalk](https://github.com/timonwong/prometheus-webhook-dingtalk),感谢作者以及贡献者们的辛苦劳动。  
