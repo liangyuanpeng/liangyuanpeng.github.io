@@ -13,7 +13,7 @@
     
     <meta name="description" content="lan，工程师, 开源爱好者 | 公众号:四颗咖啡豆">
     
-    <meta name="keyword"  content="liangyuanpeng , lanLiang , liangyuanpeng的网络日志, lan的博客, lan Blog, 博客, 个人网站, 互联网, Web,  Istio, 微服务">
+    <meta name="keyword"  content="liangyuanpeng|LanLiang|OpenYurt|Knative|Pulsar|Prometheus|Halo||边缘计算kubernetes|Docker|CloudNative|Golang|Rust|Istio|微服务">
     <link rel="shortcut icon" href="img/favicon.ico">
 
     <title>springboot添加prometheus支持-liangyuanpeng的博客 | liangyuanpeng&#39;s Blog</title>
@@ -299,7 +299,7 @@ $(function() {
 });
 </script>
 
-                            阅读 </span></span>|<span class="post-date">共18字</span>，阅读约<span class="more-meta"> 1 分钟</span>
+                            阅读 </span></span>|<span class="post-date">共1540字</span>，阅读约<span class="more-meta"> 4 分钟</span>
                         
                     </span>
                 </div>
@@ -325,9 +325,81 @@ $(function() {
                 <header>
                 <h2>TOC</h2>
                 </header>
-                <nav id="TableOfContents"></nav>
+                <nav id="TableOfContents">
+  <ul>
+    <li><a href="#引入相关依赖">引入相关依赖</a></li>
+    <li><a href="#启用actuatorprometheus">启用/actuator/prometheus</a></li>
+  </ul>
+</nav>
 		
-		<h1 id="本文还在创作当中这几天将会正式发布">本文还在创作当中,这几天将会正式发布</h1>
+		<h1 id="前言">前言</h1>
+<p>云原生时代Golang语言开始火热起来,Docker、Kubernetes、Istio、Knative、Prometheus、Influx等等云原生领域的前沿软件都是用GO语言来实现的,其中监控领域的佼佼者莫过于Prometheus,更是被OpenMetrics以推进Prometheus metrics格式作为标准发展,而Java作为最常用轮子也最全的语言自然也会紧跟着步伐,本文来看看SpringBoot如何支持Prometheus生态。</p>
+<h1 id="micrometer">Micrometer</h1>
+<p>在正式开始之前先来了解一下<code>Micrometer</code>,SpringBoot也是依靠<code>Micrometer</code>和Prometheus来集成,但不仅仅是Prometheus,InfluxDB、Elasticsearch、StatsD、Datadog、Graphite等等中间件都可以依靠Micrometer来对接.</p>
+<p>这就像Java日志领域当中的<code>SLF4J</code>,你只需要引入<code>SLF4J</code>和对应实现的依赖,程序就可以使用<code>SLF4J</code>的对象去打印日志,而不需要没替换一个新的日志系统,你的程序的LOG对象就需要全部替换为新的对象.</p>
+<p><code>Micrometer</code>也是如此,在文章<a href="https://liangyuanpeng.com/post/springboot-micrometer-influx/">微服务监控:SpringBoot-Micrometer-Influx</a>当中已经有例子来演示SpringBoot依靠Micrometer将metrics数据发送到InfluxDB,本文只不过再演示一次<code>Micrometer</code>对接Prometheus而已.SpringBoot2在actuator中引入了Micrometer,可以说内置了prometheus支持也不为过.</p>
+<h1 id="暴露prometheus-metrics路径">暴露prometheus metrics路径</h1>
+<p>让SpringBoot程序支持Prometheus抓取需要做的就是启用<code>/actuator/prometheus</code>路径,提供给prometheus抓取metrics.</p>
+<h2 id="引入相关依赖">引入相关依赖</h2>
+<p>只需要在pom文件中引入两个相关依赖就可以了:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml">        <span style="color:#f92672">&lt;dependency&gt;</span>
+            <span style="color:#f92672">&lt;groupId&gt;</span>io.micrometer<span style="color:#f92672">&lt;/groupId&gt;</span>
+            <span style="color:#f92672">&lt;artifactId&gt;</span>micrometer-registry-prometheus<span style="color:#f92672">&lt;/artifactId&gt;</span>
+        <span style="color:#f92672">&lt;/dependency&gt;</span>
+        <span style="color:#f92672">&lt;dependency&gt;</span>
+            <span style="color:#f92672">&lt;groupId&gt;</span>org.springframework.boot<span style="color:#f92672">&lt;/groupId&gt;</span>
+            <span style="color:#f92672">&lt;artifactId&gt;</span>spring-boot-starter-actuator<span style="color:#f92672">&lt;/artifactId&gt;</span>
+        <span style="color:#f92672">&lt;/dependency&gt;</span>
+</code></pre></div><h2 id="启用actuatorprometheus">启用/actuator/prometheus</h2>
+<p>只需要在springboot的yml配置文件添加以下内容即可:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#f92672">management</span>:
+  <span style="color:#f92672">metrics</span>:
+    <span style="color:#f92672">tags</span>:
+      <span style="color:#f92672">application</span>: <span style="color:#ae81ff">${spring.application.name}</span>
+      <span style="color:#f92672">port</span>: <span style="color:#ae81ff">${server.port}</span>
+      <span style="color:#f92672">ip</span>: <span style="color:#ae81ff">${spring.cloud.client.ip-address}</span>
+  <span style="color:#f92672">endpoints</span>:
+    <span style="color:#f92672">web</span>:
+      <span style="color:#f92672">base-path</span>: <span style="color:#ae81ff">/actuator </span> <span style="color:#75715e">#默认 /actuator</span>
+      <span style="color:#f92672">exposure</span>:
+        <span style="color:#f92672">include</span>: <span style="color:#e6db74">&#39;*&#39;</span>
+</code></pre></div><p>其中主要的部分是<code>management.endpoints.web.exposure.include</code>,意思是actuator下的路径开放哪一些路径,上述的配置是开放所有路径,项目启动后可以在浏览器访问<code>http://{IP}:{PORT}/actuator</code>看看都有哪一些路径.</p>
+<p>也可以选择性的开放部分路径,例如仅开放<code>/actuator/prometheus</code>和<code>/actuator/health</code>路径,那么配置文件应该是下面的样子:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#f92672">management</span>:
+  <span style="color:#f92672">metrics</span>:
+    <span style="color:#f92672">tags</span>:
+      <span style="color:#f92672">application</span>: <span style="color:#ae81ff">${spring.application.name}</span>
+      <span style="color:#f92672">port</span>: <span style="color:#ae81ff">${server.port}</span>
+      <span style="color:#f92672">ip</span>: <span style="color:#ae81ff">${spring.cloud.client.ip-address}</span>
+  <span style="color:#f92672">endpoints</span>:
+    <span style="color:#f92672">web</span>:
+      <span style="color:#f92672">base-path</span>: <span style="color:#ae81ff">/actuator </span> <span style="color:#75715e">#默认 /actuator</span>
+      <span style="color:#f92672">exposure</span>:
+        <span style="color:#f92672">include</span>: <span style="color:#e6db74">&#39;prometheus,health&#39;</span>
+        <span style="color:#75715e"># exclude: &#39;&#39; #排除哪些路径</span>
+</code></pre></div><p>同样的,也可以选择性的只关闭某一个路径,如上述<code>exclude</code>展示,使用<code>exclude</code>来排除某些路径.</p>
+<p>在配置好<code>prometheus</code>路径开放只有可以访问<code>http://{IP}:{PORT}/actuator/prometheus</code>来看看prometheus能够抓取到的metrics.</p>
+<p><img src="https://res.cloudinary.com/lyp/image/upload/v1615534837/hugo/blog.github.io/prometheus/springboot-prometheus.png" alt="springboot-prometheus"></p>
+<p>其中上述配置<code>management.metrics.tags....</code>的作用是可以在配置文件直接添加tag,例如我们再给所有metrics添加一个<code>author</code>的tag,配置如下:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#f92672">management</span>:
+  <span style="color:#f92672">metrics</span>:
+    <span style="color:#f92672">tags</span>:
+      <span style="color:#f92672">application</span>: <span style="color:#ae81ff">${spring.application.name}</span>
+      <span style="color:#f92672">port</span>: <span style="color:#ae81ff">${server.port}</span>
+      <span style="color:#f92672">ip</span>: <span style="color:#ae81ff">${spring.cloud.client.ip-address}</span>
+      <span style="color:#f92672">author</span>: <span style="color:#ae81ff">liangyuanpeng</span>
+  <span style="color:#f92672">endpoints</span>:
+    <span style="color:#f92672">web</span>:
+      <span style="color:#f92672">base-path</span>: <span style="color:#ae81ff">/actuator </span> <span style="color:#75715e">#默认 /actuator</span>
+      <span style="color:#f92672">exposure</span>:
+        <span style="color:#f92672">include</span>: <span style="color:#e6db74">&#39;prometheus,health&#39;</span>
+        <span style="color:#75715e"># exclude: &#39;&#39; #排除哪些路径</span>
+</code></pre></div><p><img src="https://res.cloudinary.com/lyp/image/upload/v1615534837/hugo/blog.github.io/prometheus/springboot-prometheus-tag.png" alt="springboot-prometheus-tag"></p>
+<p>可以看到<code>tag</code>已经在metrics加上了.</p>
+<h1 id="结语">结语</h1>
+<p>操作下来其实也不是很难对吧,主要归功于SpringBoot生态的成熟度,正因为如此即使Java内存使用量大也依然是使用最多的语言.</p>
+<h1 id="tips">Tips</h1>
+<p>本文没有写部署Prometheus的部分,如果有同学希望本文添加这部分内容可以留言让我知道,我会考虑是否添加Prometheus部分内容. :)</p>
 
 
         <h2>微信公众号</h2>
