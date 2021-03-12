@@ -82,7 +82,7 @@ tags:
 
 19. - [ ] halo文件存储-minio-阿里-百度-腾讯-华为  
 
-20. - [ ] [springboot添加prometheus支持](https://liangyuanpeng.com/post/springboot-support-prometheus/)  
+20. - [x] [springboot添加prometheus支持](https://liangyuanpeng.com/post/springboot-support-prometheus/)  
 
 21. - [x] [hugo标题与URL区分开](https://liangyuanpeng.com/post/hugo-slug-url/)
 
@@ -92,4 +92,6 @@ tags:
 
 24. - [ ] 单独使用AlertManager,通过API调用触发告警  
 
-25. - [ ] 静态博客集成流量监控-->[Google Analytics](https://analytics.google.com/analytics/web/)
+25. - [ ] 静态博客集成流量监控-->[Google Analytics](https://analytics.google.com/analytics/web/)  
+
+24. - [ ] Prometheus-AlertManager对接飞书机器人  
