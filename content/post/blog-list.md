@@ -14,7 +14,7 @@ tags:
 
 # 记录Blog发布计划以及执行进度
 
-1. - [ x ] [微服务监控:Micrometer InfluxDb](https://liangyuanpeng.com/post/springboot-micrometer-influx/)  
+1. - [x] [微服务监控:Micrometer InfluxDb](https://liangyuanpeng.com/post/springboot-micrometer-influx/)  
 ```
 添加->2020-03-07 22:23:08   
 ```
@@ -84,7 +84,7 @@ tags:
 
 20. - [ ] [springboot添加prometheus支持](https://liangyuanpeng.com/post/springboot-support-prometheus/)  
 
-21. - [ x ] [hugo标题与URL区分开](https://liangyuanpeng.com/post/hugo-slug-url/)
+21. - [x] [hugo标题与URL区分开](https://liangyuanpeng.com/post/hugo-slug-url/)
 
 22. - [ ] KubeSphere部署最简版，以及日志清理配置  
 

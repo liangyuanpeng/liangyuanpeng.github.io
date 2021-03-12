@@ -13,8 +13,7 @@ tags:
     - 日志收集
     - logstash
 categories: 
-    - Middleware
-    - devops
+    - DevOps
 ---
 
 

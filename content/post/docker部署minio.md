@@ -13,7 +13,7 @@ tags:
     - Middleware
     - CloudNative
 categories: 
-    - Middleware
+    - TECH
 ---
 
 

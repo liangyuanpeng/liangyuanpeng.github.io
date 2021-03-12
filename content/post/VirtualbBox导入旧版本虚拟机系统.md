@@ -12,7 +12,7 @@ tags:
     - devops
     - 虚拟机
 categories: 
-    - devops
+    - DevOps
 ---
 
 # 动机  

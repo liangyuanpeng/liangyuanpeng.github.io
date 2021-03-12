@@ -13,7 +13,7 @@ tags:
     - micrometer
     - influx
 categories: 
-    - DEVOPS
+    - DevOps
 ---
 
 
