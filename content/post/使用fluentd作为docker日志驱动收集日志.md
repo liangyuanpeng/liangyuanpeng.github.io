@@ -13,7 +13,7 @@ tags:
     - cncf
     - image
     - fluentd
-    - cloudNative
+    - CloudNative
     - 日志收集
 categories: 
     - TECH
