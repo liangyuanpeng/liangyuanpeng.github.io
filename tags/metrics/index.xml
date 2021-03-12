@@ -6,7 +6,16 @@
     <description>Recent content in Metrics on Hi,I`m lan</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 11 Mar 2021 00:00:00 +0000</lastBuildDate><atom:link href="/tags/metrics/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 12 Mar 2021 00:00:00 +0000</lastBuildDate><atom:link href="/tags/metrics/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>springboot添加prometheus支持</title>
+      <link>/post/springboot-support-prometheus/</link>
+      <pubDate>Fri, 12 Mar 2021 00:00:00 +0000</pubDate>
+      
+      <guid>/post/springboot-support-prometheus/</guid>
+      <description>本文还在创作当中,这几天将会正式发布</description>
+    </item>
+    
     <item>
       <title>metrics托管服务即将发布</title>
       <link>/post/metrics-as-a-service/</link>

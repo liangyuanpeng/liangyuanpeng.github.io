@@ -6,22 +6,76 @@
     <description>Recent content in Tags on Hi,I`m lan</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 11 Mar 2021 00:00:00 +0000</lastBuildDate><atom:link href="/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 12 Mar 2021 00:00:00 +0000</lastBuildDate><atom:link href="/tags/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>alertmanager</title>
-      <link>/tags/alertmanager/</link>
-      <pubDate>Thu, 11 Mar 2021 00:00:00 +0000</pubDate>
+      <title>Algolia</title>
+      <link>/tags/algolia/</link>
+      <pubDate>Fri, 12 Mar 2021 00:00:00 +0000</pubDate>
       
-      <guid>/tags/alertmanager/</guid>
+      <guid>/tags/algolia/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Blog</title>
       <link>/tags/blog/</link>
-      <pubDate>Thu, 11 Mar 2021 00:00:00 +0000</pubDate>
+      <pubDate>Fri, 12 Mar 2021 00:00:00 +0000</pubDate>
       
       <guid>/tags/blog/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>CI</title>
+      <link>/tags/ci/</link>
+      <pubDate>Fri, 12 Mar 2021 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/ci/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>java</title>
+      <link>/tags/java/</link>
+      <pubDate>Fri, 12 Mar 2021 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/java/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Metrics</title>
+      <link>/tags/metrics/</link>
+      <pubDate>Fri, 12 Mar 2021 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/metrics/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Prometheus</title>
+      <link>/tags/prometheus/</link>
+      <pubDate>Fri, 12 Mar 2021 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/prometheus/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>SpringBoot</title>
+      <link>/tags/springboot/</link>
+      <pubDate>Fri, 12 Mar 2021 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/springboot/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>alertmanager</title>
+      <link>/tags/alertmanager/</link>
+      <pubDate>Thu, 11 Mar 2021 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/alertmanager/</guid>
       <description></description>
     </item>
     
@@ -58,24 +112,6 @@
       <pubDate>Thu, 11 Mar 2021 00:00:00 +0000</pubDate>
       
       <guid>/tags/hugo/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Metrics</title>
-      <link>/tags/metrics/</link>
-      <pubDate>Thu, 11 Mar 2021 00:00:00 +0000</pubDate>
-      
-      <guid>/tags/metrics/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Prometheus</title>
-      <link>/tags/prometheus/</link>
-      <pubDate>Thu, 11 Mar 2021 00:00:00 +0000</pubDate>
-      
-      <guid>/tags/prometheus/</guid>
       <description></description>
     </item>
     
@@ -157,15 +193,6 @@
       <pubDate>Thu, 04 Mar 2021 00:00:00 +0000</pubDate>
       
       <guid>/tags/ops/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>SpringBoot</title>
-      <link>/tags/springboot/</link>
-      <pubDate>Thu, 04 Mar 2021 00:00:00 +0000</pubDate>
-      
-      <guid>/tags/springboot/</guid>
       <description></description>
     </item>
     
@@ -332,15 +359,6 @@
     </item>
     
     <item>
-      <title>java</title>
-      <link>/tags/java/</link>
-      <pubDate>Tue, 18 Feb 2020 00:00:00 +0000</pubDate>
-      
-      <guid>/tags/java/</guid>
-      <description></description>
-    </item>
-    
-    <item>
       <title>jib</title>
       <link>/tags/jib/</link>
       <pubDate>Tue, 18 Feb 2020 00:00:00 +0000</pubDate>
@@ -499,15 +517,6 @@
       <pubDate>Wed, 01 Jan 2020 00:00:00 +0000</pubDate>
       
       <guid>/tags/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>CI</title>
-      <link>/tags/ci/</link>
-      <pubDate>Sun, 13 Jan 2019 00:00:00 +0000</pubDate>
-      
-      <guid>/tags/ci/</guid>
       <description></description>
     </item>
     
