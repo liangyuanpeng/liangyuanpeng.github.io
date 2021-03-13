@@ -95,3 +95,5 @@ tags:
 25. - [ ] 静态博客集成流量监控-->[Google Analytics](https://analytics.google.com/analytics/web/)  
 
 24. - [ ] Prometheus-AlertManager对接飞书机器人  
+
+25. - [ ] Github Action快速发布Cloudflare Page应用
