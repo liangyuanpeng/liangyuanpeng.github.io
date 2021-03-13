@@ -33,7 +33,7 @@ categories:
 1. JVM Micrometer exporter
 2. Node exporter  
 3. Redis exporter  
-4. Nginx exporter
+4. Nginx exporter  
 
 #  产品定价   
 
@@ -58,6 +58,8 @@ categories:
 
 除了基础版和高级版还计划会推出一个尊享版,可完全掌控的Prometheus实例、Grafana实例和AlertManager实例,当然数据存储依然是另算了.  
 
-现在我们正在寻找种子用户100名,可拥有以20元购买基础版的永久账号,如果你有想法请联系我们!可以直接在下面评论也可以发邮件给我,甚至是加我的微信联系我(请备注Metrics托管服务种子用户).
+现在我们正在寻找种子用户50名,可拥有以20元(一顿快餐的事)购买基础版的永久账号,如果你有想法请联系我们!可以直接在下面评论也可以发邮件给我,甚至是加我的微信联系我(请备注Metrics托管服务种子用户).  
+
+我们还将计划支持Apache、tomcat等exporter,由于基础版只支持3个exporter数,如果您希望在基础版使用更多exporter可付费支持,每增加一个exporter将需要付费12元/年,平均一个月只需1块钱.
 
 如果使用了[Halo as a service](https://liangyuanpeng.com/post/2021-03-11-halo-as-a-service/)，则可免费享用基础版.
