@@ -96,4 +96,6 @@ tags:
 
 24. - [ ] Prometheus-AlertManager对接飞书机器人  
 
-25. - [ ] Github Action快速发布Cloudflare Page应用
+25. - [ ] Github Action快速发布Cloudflare Page应用  
+
+26. - [ ] Nginx暴露Prometheus metrics
