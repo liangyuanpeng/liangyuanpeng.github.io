@@ -80,7 +80,7 @@ tags:
 
 18. - [ ] 部署halo博客,jar部署并且作为系统服务/docker部署
 
-19. - [ ] halo文件存储-minio-阿里-百度-腾讯-华为  
+19. - [ ] ~~halo文件存储-minio-阿里-百度-腾讯-华为~~  
 
 20. - [x] [springboot添加prometheus支持](https://liangyuanpeng.com/post/springboot-support-prometheus/)  
 
@@ -98,4 +98,6 @@ tags:
 
 25. - [ ] Github Action快速发布Cloudflare Page应用  
 
-26. - [ ] Nginx暴露Prometheus metrics
+26. - [ ] Nginx暴露Prometheus metrics  
+
+27. - [ ] HTTP API动态创建Gragana Dashboard
