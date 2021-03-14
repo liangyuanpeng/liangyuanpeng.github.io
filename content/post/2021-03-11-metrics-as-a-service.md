@@ -46,6 +46,8 @@ categories:
 | Node Exporter | √| √  | √ |
 | Redis Exporter | √| √  | √ |
 | Nginx Exporter | √| √  | √ |
+| Apache Exporter | 将会支持| 将会支持  | 将会支持 |
+| Tomcat Exporter | 将会支持| 将会支持  | 将会支持 |
 | 邮件告警 | √| √ | √ |
 | 钉钉告警 | ×| ×  | √ |
 |独立Prometheus实例 | ×| × | √ |
