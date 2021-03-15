@@ -43,8 +43,8 @@ categories:
 | 价格 | 50/年| 69/年  | 待定/年 |
 | metrics应用数 | 3| 3  | 待定 |
 | 数据保存 | 两个月| 两个月  | 一年 |
-| Node Exporter | √| √  | √ |
-| Redis Exporter | √| √  | √ |
+| Node Exporter | 将会支持| 将会支持  | 将会支持 |
+| Redis Exporter | 将会支持| 将会支持  | 将会支持 |
 | Nginx Exporter | √| √  | √ |
 | Apache Exporter | 将会支持| 将会支持  | 将会支持 |
 | Tomcat Exporter | 将会支持| 将会支持  | 将会支持 |
@@ -66,3 +66,12 @@ categories:
 我们还将计划支持Apache、tomcat等exporter,由于基础版只支持3个exporter数,如果您希望在基础版使用更多exporter可付费支持,每增加一个exporter将需要付费12元/年,平均一个月只需1块钱.
 
 如果使用了[Halo as a service](https://liangyuanpeng.com/post/2021-03-11-halo-as-a-service/)，则可免费享用基础版.
+
+
+# 小提示  
+基础版支持`3个`Metrics应用,因此可以和自己的小伙伴一起购买一个服务,平摊下来一个月一块多…白嫖✔
+
+# 特别说明  
+
+随着产品的完善,基础版价格可能会在`69~109`波动,如果你有需求但产品还没提供能力,可以联系我们咨询进度.毫无疑问的一点是提前付费将会加速我们的开发进度.  
+
