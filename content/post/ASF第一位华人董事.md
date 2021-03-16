@@ -10,6 +10,7 @@ image: "https://res.cloudinary.com/lyp/image/upload/v1544363190/hugo/blog.github
 published: true
 tags:
     - apache
+    - 开源
 categories: 
     - TECH
 ---

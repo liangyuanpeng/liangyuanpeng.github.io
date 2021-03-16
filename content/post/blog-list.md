@@ -105,3 +105,5 @@ tags:
 28. - [ ] kube-prometheus监控外部metrics  
 
 29. - [ ] kube-prometheus适用范围,一个K8S集群部署了kube-prometheus如何限制只用在某个namespace下->spec.namespaceSelector.any=true
+
+30. - [ ] 开始你的开源贡献之旅->讲述给Halo提issue md文件导入失败
