@@ -14,7 +14,13 @@
     <meta name="description" content="在 RPC 调用过程中，我们经常会和多个服务端进行远程调用，如果在每次调用的时候，都进行 TCP连接，会对 RPC的性能有比较大的影响，因此，实际的场景中，我们经常要对连接进行管理和保持。">
     
     <meta name="keyword"  content="liangyuanpeng|LanLiang|OpenYurt|Knative|Pulsar|Prometheus|Halo||边缘计算kubernetes|Docker|CloudNative|Golang|Rust|Istio|微服务">
-    <link rel="shortcut icon" href="img/favicon.ico">
+    <link rel="shortcut icon" href="img/logo.png">
+
+
+    
+    <meta property="og:image" content="https://res.cloudinary.com/lyp/image/upload/v1544363182/hugo/blog.github.io/e64ae3596ed565b8202d395d771665dd.jpg" />
+    <meta name="twitter:image" content="https://res.cloudinary.com/lyp/image/upload/v1544363182/hugo/blog.github.io/e64ae3596ed565b8202d395d771665dd.jpg" />
+
 
     <title>转|SOFARPC连接管理与心跳剖析-liangyuanpeng的博客 | liangyuanpeng&#39;s Blog</title>
 
@@ -167,7 +173,7 @@
                     </div>
                     <h1>转|SOFARPC连接管理与心跳剖析</h1>
                     <h2 class="subheading"></h2>
-                    <span  class="meta">Posted by lyp on Monday, December 10, 2018
+                    <span  class="meta">Posted by lyp on 2018-12-10
                         
                         <span id="busuanzi_container_page_pv">|<span id="busuanzi_value_page_pv"></span><span>
                             <span id="/post/sofarpc%E8%BF%9E%E6%8E%A5%E7%AE%A1%E7%90%86%E4%B8%8E%E5%BF%83%E8%B7%B3%E5%89%96%E6%9E%90/" class="leancloud_visitors meta_data_item" data-flag-title="">
@@ -181,127 +187,8 @@
 
 
 
-<script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
 
-<script>
-	AV.initialize("", "");
-</script>
 
-<script type="text/javascript">
-function showTime(Counter) {
-    var query = new AV.Query(Counter);
-    var entries = [];
-    var $visitors = $(".leancloud_visitors");
-
-    $visitors.each(function() {
-        entries.push($(this).attr("id").trim());
-    });
-
-    query.containedIn('url', entries);
-    query.find()
-        .done(function(results) {
-            var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
-            var OLD_COUNT_CONTAINER_REF = '.old-visitors-count';
-
-            
-            
-            
-            
-
-            for (var i = 0; i < results.length; i++) {
-                var item = results[i];
-                var url = item.get('url');
-                var time = item.get('time');
-                var element = document.getElementById(url);
-
-                $(element).find(COUNT_CONTAINER_REF).text(time);
-            }
-            for (var i = 0; i < entries.length; i++) {
-                var url = entries[i];
-                var element = document.getElementById(url);
-                var countSpan = $(element).find(COUNT_CONTAINER_REF);
-                if (countSpan.text() == '') {
-                    var oldCountSpan = $(element).find(OLD_COUNT_CONTAINER_REF).text();
-                    if(oldCountSpan!=''){
-                        countSpan.text(0+parseInt(oldCountSpan));
-                    }else{
-                        countSpan.text(0);          
-                    }
-                }
-            }
-        })
-        .fail(function(object, error) {
-            console.log("Error: " + error.code + " " + error.message);
-        });
-}
-
-function addCount(Counter) {
-    var $visitors = $(".leancloud_visitors");
-    var url = $visitors.attr('id').trim();
-    var title = $visitors.attr('data-flag-title').trim();
-    var query = new AV.Query(Counter);
-
-    query.equalTo("url", url);
-    query.find({
-        success: function(results) {
-            if (results.length > 0) {
-                var counter = results[0];
-                counter.fetchWhenSave(true);
-                counter.increment("time");
-                counter.save(null, {
-                    success: function(counter) {
-                        var $element = $(document.getElementById(url));
-                        $element.find('.leancloud-visitors-count').text(counter.get('time'));
-                    },
-                    error: function(counter, error) {
-                        console.log('Failed to save Visitor num, with error message: ' + error.message);
-                    }
-                });
-            } else {
-                var newcounter = new Counter();
-                 
-                var acl = new AV.ACL();
-                acl.setPublicReadAccess(true);
-                acl.setPublicWriteAccess(true);
-                newcounter.setACL(acl);
-                 
-                newcounter.set("title", title);
-                newcounter.set("url", url);
-                var OLD_COUNT_CONTAINER_REF = '.old-visitors-count';
-                var $element = $(document.getElementById(url));
-                var oldCountSpan = $element.find(OLD_COUNT_CONTAINER_REF).text();
-                if(oldCountSpan!=''){
-                    newcounter.set("time", parseInt(oldCountSpan)+1);
-                }else{
- 	                    newcounter.set("time",  1);
-                }
-                newcounter.save(null, {
-                    success: function(newcounter) {
-                        var $element = $(document.getElementById(url));
-                        $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
-                    },
-                    error: function(newcounter, error) {
-                        console.log('Failed to create');
-                    }
-                });
-            }
-        },
-        error: function(error) {
-            console.log('Error:' + error.code + " " + error.message);
-        }
-    });
-}
-$(function() {
-    var Counter = AV.Object.extend("Counter");
-    
-    
-    if ($('.leancloud_visitors').length == 1) {
-        addCount(Counter);
-    } else {
-        showTime(Counter);
-    }
-});
-</script>
 
                             阅读 </span></span>|<span class="post-date">共4970字</span>，阅读约<span class="more-meta"> 10 分钟</span>
                         
