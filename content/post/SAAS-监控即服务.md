@@ -27,7 +27,11 @@ categories:
 
 用户只需要暴露标准的prometheus exporter给平台抓取metrics即可，然后可以在专属的Grafana页面看到自己的程序运行时情况，下面以JVM程序为例给个图：   
 
-![metrics-jvm](https://res.cloudinary.com/lyp/image/upload/v1615419259/hugo/blog.github.io/saas/prometheus/metrics-jvm.png)    
+![metrics-jvm](https://res.cloudinary.com/lyp/image/upload/v1615419259/hugo/blog.github.io/saas/prometheus/metrics-jvm.png)  
+
+如果没有明白这有什么用那么举一个例子来说明一下,比如你有一个博客,而这个博客是通过Nginx(或其他web服务器)对外公布的,当nginx出了问题导致网站不可访问时你只有打开页面后才能知道是否能够访问,而对接了我们这个平台后平台会定时拉取Nginx的metrics信息,当Nginx metrics信息抓取不到时就会发`邮件/钉钉通知/飞书通知等`来告诉你网站出故障了.  
+
+JVM或者Redis都是相同的道理,可以指定某个指标超过阀值就触发告警,比如Reids key突然暴增(网站被攻击了),平台立即发出通知,不需要你再手动确认当前运行情况.
 
 ## 支持的exporter类型  
 
