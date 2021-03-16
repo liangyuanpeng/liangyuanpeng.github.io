@@ -100,4 +100,8 @@ tags:
 
 26. - [ ] Nginx暴露Prometheus metrics  
 
-27. - [ ] HTTP API动态创建Gragana Dashboard
+27. - [ ] HTTP API动态创建Gragana Dashboard  
+
+28. - [ ] kube-prometheus监控外部metrics  
+
+29. - [ ] kube-prometheus适用范围,一个K8S集群部署了kube-prometheus如何限制只用在某个namespace下->spec.namespaceSelector.any=true
