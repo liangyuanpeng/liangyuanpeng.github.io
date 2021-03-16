@@ -5,6 +5,7 @@ title:      "metrics托管服务即将发布"
 subtitle:   ""
 description: "在云原生时代,每时每刻都有metrics被prometheus定时抓取.."
 date:       2021-03-11
+# date: {{ dateFormat "2006-01-02" .Date }}
 author:     "lyp"
 image: "https://res.cloudinary.com/lyp/image/upload/v1544363191/hugo/blog.github.io/743a4e9227e1f14cb24a1eb6db29e183.jpg"
 published: true
@@ -65,7 +66,7 @@ categories:
 
 我们还将计划支持Apache、tomcat等exporter,由于基础版只支持3个exporter数,如果您希望在基础版使用更多exporter可付费支持,每增加一个exporter将需要付费12元/年,平均一个月只需1块钱.
 
-如果使用了[Halo as a service](https://liangyuanpeng.com/post/halo-as-a-service/)，则可免费享用基础版.
+如果使用了[Halo即服务](https://liangyuanpeng.com/post/halo-as-a-service/)，则可免费享用基础版.
 
 
 # 小提示  
