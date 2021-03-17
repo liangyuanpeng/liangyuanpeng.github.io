@@ -4,7 +4,7 @@ title:      "longhorn helloworld"
 subtitle:   ""
 description: "前后端分离已经是大趋势，服务器端只需要关注自己的接口逻辑实现，而不需要关注前端的页面跳转，这一部分交由前端处理。常见的就是React应用或vue应用"
 date:       2020-04-16
-author:     "lyp"
+author:     "梁远鹏"
 image: "https://res.cloudinary.com/lyp/image/upload/v1544363191/hugo/blog.github.io/743a4e9227e1f14cb24a1eb6db29e183.jpg"
 published: false
 tags:

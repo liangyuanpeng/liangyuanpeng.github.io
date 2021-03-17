@@ -4,7 +4,7 @@ title:      "转|SOFARPC泛化调用实现剖析"
 subtitle:   ""
 description: "我们知道，在 RPC 调用中，客户端需要加载服务端提供的接口定义类，但是，很多情况下，这个并不总是可行的，于是，衍生了泛化调用的需求，一个成熟的，功能完善的 RPC 框架一般都会支持泛化调用，那么什么是泛化调用呢？SOFA RPC 又是如何支持泛化调用的？同时又是如何实现的？ 和其他的 RPC 泛化调用又有何不同？有何优势？我们将在本文一一解答这些问题。"  
 date:       2018-12-12
-author:     "lyp"
+author:     "梁远鹏"
 image: "https://res.cloudinary.com/lyp/image/upload/v1543506262/hugo/blog.github.io/apache-rocketMQ-introduction/7046d2bf0d97278682129887309cc1a6.jpg"
 published: true
 tags:

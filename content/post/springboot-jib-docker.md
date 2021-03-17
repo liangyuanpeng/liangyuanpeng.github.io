@@ -5,7 +5,7 @@ title:      "不用安装docker也能构建docker镜像"
 subtitle:   ""
 description: "构建java的docker镜像,用jib,简单粗暴.."  
 date:       2020-02-18
-author:     "lan"
+author:     "梁远鹏"
 image: "https://res.cloudinary.com/lyp/image/upload/v1582044225/hugo/blog.github.io/devops/jib/apple-code-coding-computer-574069.jpg"
 published: true
 tags: 

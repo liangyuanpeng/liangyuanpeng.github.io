@@ -5,7 +5,7 @@ title:      "使用logstash作为docker日志驱动收集日志"
 subtitle:   ""
 description: "logstash是一个开源的日志统一处理数据收集器,属于ELK中的L,在日志收集领域应用广泛."  
 date:       2020-02-16
-author:     "lan"
+author:     "梁远鹏"
 image: "https://res.cloudinary.com/lyp/image/upload/v1581870144/hugo/blog.github.io/macbook-pro-beside-dslr-camera-and-mug-3568521.jpg"
 published: true
 tags: 

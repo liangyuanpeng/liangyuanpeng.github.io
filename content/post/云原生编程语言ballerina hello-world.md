@@ -5,7 +5,7 @@ title:      "云原生编程语言ballerina:hello-world"
 subtitle:   ""
 description: "随着云原生的发展,业务规模的壮大,yml的维护会越来越复杂,这时候提高效能的工具或语言就应运而生了,ballerina便是其一."
 date:       2020-01-01
-author:     "lyp"
+author:     "梁远鹏"
 image: "https://res.cloudinary.com/lyp/image/upload/v1544363191/hugo/blog.github.io/743a4e9227e1f14cb24a1eb6db29e183.jpg"
 published: true
 tags:

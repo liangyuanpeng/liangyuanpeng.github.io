@@ -5,7 +5,7 @@ title:      "VirtualbBox导入旧版本虚拟机系统"
 subtitle:   "VirtualbBox导入旧版本虚拟机系统"
 description: " "
 date:       2021-02-08
-author:     "lyp"
+author:     "梁远鹏"
 image: "https://res.cloudinary.com/lyp/image/upload/v1612746030/hugo/blog.github.io/pexels-eva-elijas-5949232.jpg"
 published: true
 tags:

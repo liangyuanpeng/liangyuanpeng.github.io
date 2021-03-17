@@ -5,7 +5,7 @@ title:      "docker常用命令集合"
 subtitle:   ""
 description: "记录docker常用命令"
 date:       2020-02-09
-author:     "lyp"
+author:     "梁远鹏"
 image: "https://res.cloudinary.com/lyp/image/upload/v1544363190/hugo/blog.github.io/19375a83fc004035fb1102a4551f2287.jpg"
 published: true
 tags:

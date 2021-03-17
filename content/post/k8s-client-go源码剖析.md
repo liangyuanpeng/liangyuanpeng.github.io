@@ -5,7 +5,7 @@ title:      "k8s-client-go源码剖析(二)"
 subtitle:   ""
 description: "k8s-client-go源码剖析(二)"
 date:       2021-01-23
-author:     "LanLiang"
+author:     "梁远鹏"
 image: "https://res.cloudinary.com/lyp/image/upload/v1544363191/hugo/blog.github.io/743a4e9227e1f14cb24a1eb6db29e183.jpg"
 published: true
 tags:

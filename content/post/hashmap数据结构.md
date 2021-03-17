@@ -4,7 +4,7 @@ title:      "理解HashMap"
 subtitle:   ""
 description: "从名字上看就知道HashMap是基于Hash算法实现的一种map，一般称之为散列表(hash table)"
 date:       2019-01-02
-author:     "lyp"
+author:     "梁远鹏"
 image: "https://res.cloudinary.com/lyp/image/upload/v1544363190/hugo/blog.github.io/19375a83fc004035fb1102a4551f2287.jpg"
 published: false
 tags:

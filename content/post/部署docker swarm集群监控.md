@@ -5,7 +5,7 @@ title:      "部署docker swarm集群监控"
 subtitle:   ""
 description: "docker swarm在容器编排的战争中已经输给了K8S，但是在小规模团队或人力有限的情况下，使用docker swarm进行容器编排还是不错的。"
 date:       2020-02-09
-author:     "lyp"
+author:     "梁远鹏"
 image: "https://res.cloudinary.com/lyp/image/upload/v1544363190/hugo/blog.github.io/19375a83fc004035fb1102a4551f2287.jpg"
 published: true
 tags:

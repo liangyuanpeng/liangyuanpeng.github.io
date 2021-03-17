@@ -5,7 +5,7 @@ title:      "制作带有kafka插件和es插件的fluentd镜像"
 subtitle:   ""
 description: "Fluentd是一个开源的日志统一处理数据收集器,非常轻量级,目前是CNCF的毕业项目."  
 date:       2020-02-15
-author:     "lan"
+author:     "梁远鹏"
 image: "https://res.cloudinary.com/lyp/image/upload/v1581729516/hugo/blog.github.io/avian-beak-bird-blur-416117.jpg"
 published: true
 tags: 

@@ -5,7 +5,7 @@ title:      "kubeadm配合短域名lank8s.cn部署kubernetes"
 subtitle:   ""
 description: "本文主要使用kubeadm快速部署一个单机的kubernetes,其中镜像仓库使用lank8s.cn,当然也可以使用其他地址,lank8s.cn主要优势是短域名,好记. "
 date:       2021-02-07
-author:     "lyp"
+author:     "梁远鹏"
 image: "https://res.cloudinary.com/lyp/image/upload/v1612709640/hugo/blog.github.io/pexels-taryn-elliott-4909166.jpg"
 published: true
 tags:

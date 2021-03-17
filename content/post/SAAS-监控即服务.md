@@ -5,7 +5,7 @@ title:      "metrics托管服务即将发布"
 subtitle:   ""
 description: "在云原生时代,每时每刻都有metrics被prometheus定时抓取.."
 date:       2021-03-11
-author:     "lyp"
+author:     "梁远鹏"
 image: "https://res.cloudinary.com/lyp/image/upload/v1544363191/hugo/blog.github.io/743a4e9227e1f14cb24a1eb6db29e183.jpg"
 published: true
 tags:

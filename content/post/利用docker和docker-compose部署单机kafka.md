@@ -5,7 +5,7 @@ title:      "利用docker和docker-compose部署单机kafka"
 subtitle:   ""
 description: "Apache Kafka是一个分布式流处理平台，最初由LinkedIn开发并开源贡献给Apache"  
 date:       2020-02-14
-author:     "lan"
+author:     "梁远鹏"
 image: "https://res.cloudinary.com/lyp/image/upload/v1581649210/hugo/blog.github.io/blur-close-up-code-computer-546819.jpg"
 published: true
 tags: 

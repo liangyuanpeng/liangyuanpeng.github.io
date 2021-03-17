@@ -4,7 +4,7 @@ title:      "转|SOFARPC序列化比较"
 subtitle:   ""
 description: "在应用服务化架构中，RPC 框架是非常重要的基础组件。而在 RPC 框架当中，序列化（以及反序列化）又是必不可少的一环。因为序列化的性能对整体框架性能有比较大的影响，之前的文章中，我们已经详细剖析了 SOFARPC 各个核心功能模块的实现原理，想必大家已经很清楚 RPC 的调用流程。"  
 date:       2018-12-11
-author:     "lyp"
+author:     "梁远鹏"
 image: "https://res.cloudinary.com/lyp/image/upload/v1544363182/hugo/blog.github.io/e64ae3596ed565b8202d395d771665dd.jpg"
 published: true
 tags:
