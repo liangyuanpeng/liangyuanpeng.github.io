@@ -6,7 +6,16 @@
     <description>Recent content in CloudNative on Hi,I`m lan</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 12 Mar 2021 00:00:00 +0000</lastBuildDate><atom:link href="/categories/cloudnative/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 18 Mar 2021 00:00:00 +0000</lastBuildDate><atom:link href="/categories/cloudnative/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>prometheus研习社筹划</title>
+      <link>/post/prometheusyxs-pre-prod/</link>
+      <pubDate>Thu, 18 Mar 2021 00:00:00 +0000</pubDate>
+      
+      <guid>/post/prometheusyxs-pre-prod/</guid>
+      <description>前言 Hi,我正在筹划一个Prometheus研习社的社区,希望整合Prometheus中文技术内容,帮助Prometheus技术在国内的推广</description>
+    </item>
+    
     <item>
       <title>springboot添加prometheus支持</title>
       <link>/post/springboot-support-prometheus/</link>
