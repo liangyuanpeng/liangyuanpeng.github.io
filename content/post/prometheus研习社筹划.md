@@ -39,7 +39,10 @@ Prometheus生态相关都会涉及,大概列一下就是下面这样:
 6. 各种Exporter(如:SpringBoot actuator..)  
 7. AlertManager(告警联动)  
 8. Grafana(Prometheus数据源可视化数据)  
-9. OpenMetrics(Prometheus指标格式规范)
+9. OpenMetrics(Prometheus指标格式规范)  
+10. M3DB(大规模存储)  
+
+包括但不仅限以上内容.
 
 # 与我联系
 
