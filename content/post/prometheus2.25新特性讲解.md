@@ -27,11 +27,24 @@ Prometheus作为第二个从CNCF毕业的顶级项目,其成熟程度是毋庸�
 
 TODO 把更新点都列出来
 
-1. 2个实验性功能  
-2. 8个增强  
-3. 10个BugFix  
+1. [实验性功能]支持remote_write请求,默认不启用,启用需要启动参数指定--enable-feature = remote-write-receiver  
+2. [实验性功能]新增'@'修饰符,默认不启用,启用需要启动参数指定--enable-feature = promql-at-modifier
+3. [增强]完善测试案例testgroup添加name属性  
+4. [增强]UI界面上添加警告相关信息
+5. [增强]加大压缩Histogram类型metrics的存储存储桶数,由512增大到8192  
+6. [增强]允许设置自定义的header在远程写请求中  
+7. [增强]将dashboard和config的libsonnet中的grafana替换成了grafanaPrometheus  
+8. [增强]kubernetes服务发现中添加ndponits labels的metadata  
+9. [增强]UI界面添加显示TSDB标签对的总数数据  
+10. [增强]TSDB每分钟加载块数据,如果检测到有更新就执行保留数据操作.(这个PR标记成了#8243 应该是写错了,看了下这个PR 和块数据没关系)  
+11. [BugFix]修复启动时web.listen-address参数没有传递端口报错问题  
+12. [BugFix]完善一个错误处理,打开Mmap文件时继续走逻辑而不是立刻返回错误  
+13. [BugFix]  
+14. [BugFix]  
 
-本文会主要讲解两个实验性功能和两个增强＃8273 ＃8416、和BUGFIX ＃8423 ＃8353。  
+总共是`2个`实验性功能`8个`增强`10个`BugFix  
+
+本文会主要讲解两个实验性功能和两个增强＃8273 ＃8416、和BUGFIX ＃8423 ＃8353。   TODO 用数字说出是哪几个
 
 官方地址是:[https://github.com/prometheus/prometheus/releases/tag/v2.25.0](https://github.com/prometheus/prometheus/releases/tag/v2.25.0) 
 
@@ -68,9 +81,9 @@ PR地址:[https://github.com/prometheus/prometheus/pull/8424](https://github.com
 
 说明: Graph(图表)即某段时间范围内的结果,Table即实时查询.可以看看下面两个图再进一步理解.  
 
-![table]()  
+![table](https://res.cloudinary.com/lyp/image/upload/v1616047736/hugo/blog.github.io/prometheus/version/2.25/topk-org-table.png)  
 
-![graph]()
+![graph](https://res.cloudinary.com/lyp/image/upload/v1616047735/hugo/blog.github.io/prometheus/version/2.25/topk-org-graph.png)
 
 一起来看看下面的`PromQL`:  
 
@@ -82,7 +95,8 @@ topk(2, rate(jvm_memory_used_bytes[30m] @ end()))
 
 `rate(jvm_memory_used_bytes[1m])`是希望查询的实际数据,`topk(2, rate(jvm_memory_used_bytes[30m] @ end())) ` 意思是筛选出最近时间段内(如果是Table则是实时)30分钟平均速率趋势最大的2个指标,然后展示他们在时间段内1分钟的平均速率数据.  
 
-相关PR有三个,分别是:＃8121 ＃8436 ＃8425  
+相关PR有三个,分别是:＃8121 ＃8436 ＃8425 
+TODO 
 
 # 增强  
 
@@ -124,7 +138,9 @@ PR地址:[https://github.com/prometheus/prometheus/pull/8273](https://github.com
 
 # 在UI界面上添加TSDB标签对的总数  
 
-TODO
+这算一个TSDB数据基本信息完善,把标签对总数数据显示了出来
+
+![add-label-pair](https://res.cloudinary.com/lyp/image/upload/v1616047735/hugo/blog.github.io/prometheus/version/2.25/add-label-pair.png)
 
 # BugFix  
 
@@ -136,4 +152,4 @@ TODO
 
 在Prometheus压缩或保留失败时产生了一些`*.tmp`文件,例如`01EQ0DZ14E04F7P51Q3NA1562G.tmp`,而且prometheus永远也没有情理这些文件,导致这些临时文件越来越多.如果你已经在生产环境看到了一些tmp文件并且越来越多的话,是时候升级prometheus了,否则这些临时文件会越来越多,直到磁盘空间满载.  
 
-PR地址:[https://github.com/prometheus/prometheus/pull/8353](https://github.com/prometheus/prometheus/pull/8353)
+PR地址:[https://github.com/prometheus/prometheus/pull/8353](https://github.com/prometheus/prometheus/pull/8353)  
