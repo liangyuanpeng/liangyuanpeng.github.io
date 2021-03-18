@@ -25,6 +25,8 @@ Prometheus作为第二个从CNCF毕业的顶级项目,其成熟程度是毋庸�
 
 在Prometheus-v2.25.0版本中更新一览:  
 
+TODO 把更新点都列出来
+
 1. 2个实验性功能  
 2. 8个增强  
 3. 10个BugFix  
@@ -78,6 +80,60 @@ and
 topk(2, rate(jvm_memory_used_bytes[30m] @ end())) 
 ```  
 
-`rate(jvm_memory_used_bytes[1m])`是希望查询的实际数据,`topk(2, rate(jvm_memory_used_bytes[30m] @ end())) ` 意思是筛选出最近时间段内(如果是Table则是实时)30分钟平均速率趋势最大的2个指标,然后展示他们1分钟的平均速率数据.  
+`rate(jvm_memory_used_bytes[1m])`是希望查询的实际数据,`topk(2, rate(jvm_memory_used_bytes[30m] @ end())) ` 意思是筛选出最近时间段内(如果是Table则是实时)30分钟平均速率趋势最大的2个指标,然后展示他们在时间段内1分钟的平均速率数据.  
 
-相关PR有三个,分别是:＃8121 ＃8436 ＃8425
+相关PR有三个,分别是:＃8121 ＃8436 ＃8425  
+
+# 增强  
+
+## 远程存储支持自定义HTTP Header  
+
+只需要在`remote_write`的`url配置下`添加一个`headers`的参数即可,填充`map类型`内容,如果版本在`v2.25以下`时填写了header内容会`报错`
+
+```yaml
+remote_write:
+  - url: http://192.168.3.75:9494/api/v1/write
+    headers:
+      key: value
+```  
+
+当然了,一些HTTP自身的Header是不允许覆盖内容的,贴一下源码:  
+
+```golang
+	unchangeableHeaders = map[string]struct{}{
+		// NOTE: authorization is checked specially,
+		// see RemoteWriteConfig.UnmarshalYAML.
+		// "authorization":                  {},
+		"host":                              {},
+		"content-encoding":                  {},
+		"content-type":                      {},
+		"x-prometheus-remote-write-version": {},
+		"user-agent":                        {},
+		"connection":                        {},
+		"keep-alive":                        {},
+		"proxy-authenticate":                {},
+		"proxy-authorization":               {},
+		"www-authenticate":                  {},
+	}
+```  
+
+毕竟这是HTTP自带的header,如果覆盖了会引起一些未知的错误.  
+
+PR地址:[https://github.com/prometheus/prometheus/pull/8273](https://github.com/prometheus/prometheus/pull/8273)
+
+
+# 在UI界面上添加TSDB标签对的总数  
+
+TODO
+
+# BugFix  
+
+## 在启动时删除2.21以前版本的临时数据  
+
+这个Issue在[https://github.com/prometheus/prometheus/issues/8180](https://github.com/prometheus/prometheus/issues/8180)  
+
+是一位用户在2.15.2时遇到的一个问题,后来升级到了2.22.1版本.  
+
+在Prometheus压缩或保留失败时产生了一些`*.tmp`文件,例如`01EQ0DZ14E04F7P51Q3NA1562G.tmp`,而且prometheus永远也没有情理这些文件,导致这些临时文件越来越多.如果你已经在生产环境看到了一些tmp文件并且越来越多的话,是时候升级prometheus了,否则这些临时文件会越来越多,直到磁盘空间满载.  
+
+PR地址:[https://github.com/prometheus/prometheus/pull/8353](https://github.com/prometheus/prometheus/pull/8353)
