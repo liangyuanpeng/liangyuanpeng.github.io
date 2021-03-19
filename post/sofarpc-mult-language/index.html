@@ -14,7 +14,7 @@
     <meta name="baidu-site-verification" content="code-ANZvlnN0Xr" />
 
     
-    <meta name="description" content="RPC 框架需要创造一种调用远程服务如同调用本地般的体验，因此在实现一个基于 RPC 框架的微服务架构的系统时，服务消费者（客户端）往往只需要知道服务端提供了哪些接口和方法，并不需要知道服务具体由哪些 IP 在提供。RPC 框架本身的服务发现和路由寻址功能解决了如何知道目标地址的问题，该过程对于 RPC 客户端调用方来说应该是完全透明的。">
+    <meta name="description" content="随着 TIOBE 10月份的编程语言排行的发布，C&#43;&#43;重回第三的位置，新兴的 Swift 和 Go 表现出强劲的上升趋势。与此同时，虽然目前 Java 的领头位置尚未出现有力挑战，我们希望能够在基础设施的建设上预留跨语言的可扩展设计。同时，跨语言的挑战也是工程实际面临的现状，蚂蚁内部如 AI、IoT，算法等缺少 JVM 原生支持的领域，往往不可避免地需要涉及到跨语言调用的问题。">
     
     <meta name="keyword"  content="liangyuanpeng|LanLiang|OpenYurt|Knative|Pulsar|Prometheus|Halo||边缘计算kubernetes|Docker|CloudNative|Golang|Rust|Istio|微服务">
     <link rel="shortcut icon" href="img/logo.png">
@@ -25,9 +25,9 @@
     <meta name="twitter:image" content="https://res.cloudinary.com/lyp/image/upload/v1544363182/hugo/blog.github.io/e64ae3596ed565b8202d395d771665dd.jpg" />
 
 
-    <title>转|SOFARPC路由实现剖析-liangyuanpeng的博客 | liangyuanpeng&#39;s Blog</title>
+    <title>转|SOFARPC跨语言支持剖析-liangyuanpeng的博客 | liangyuanpeng&#39;s Blog</title>
 
-    <link rel="canonical" href="/post/sofarpc%E8%B7%AF%E7%94%B1%E5%AE%9E%E7%8E%B0%E5%89%96%E6%9E%90/">
+    <link rel="canonical" href="/post/sofarpc-mult-language/">
 
     <link rel="stylesheet" href="https://res.cloudinary.com/lyp/raw/upload/v1537369740/hugo/css/iDisqus.min.css"/>
 
@@ -174,12 +174,12 @@
                         </a>
                         
                     </div>
-                    <h1>转|SOFARPC路由实现剖析</h1>
+                    <h1>转|SOFARPC跨语言支持剖析</h1>
                     <h2 class="subheading"></h2>
                     <span  class="meta">Posted by 梁远鹏 on 2018-12-11
                         
                         <span id="busuanzi_container_page_pv">|<span id="busuanzi_value_page_pv"></span><span>
-                            <span id="/post/sofarpc%E8%B7%AF%E7%94%B1%E5%AE%9E%E7%8E%B0%E5%89%96%E6%9E%90/" class="leancloud_visitors meta_data_item" data-flag-title="">
+                            <span id="/post/sofarpc-mult-language/" class="leancloud_visitors meta_data_item" data-flag-title="">
     <span class="post-meta-item-icon">
       <span class="octicon octicon-eye"></span> 
     </span>
@@ -193,7 +193,7 @@
 
 
 
-                            阅读 </span></span>|<span class="post-date">共3646字</span>，阅读约<span class="more-meta"> 8 分钟</span>
+                            阅读 </span></span>|<span class="post-date">共3704字</span>，阅读约<span class="more-meta"> 8 分钟</span>
                         
                     </span>
                 </div>
@@ -221,157 +221,181 @@
                 </header>
                 <nav id="TableOfContents">
   <ul>
-    <li><a href="#local注册中心local">Local注册中心(Local)</a></li>
-    <li><a href="#zookeeper注册中心zookeeper">Zookeeper注册中心(Zookeeper)</a></li>
-    <li><a href="#consul注册中心consul">Consul注册中心(Consul)</a></li>
-    <li><a href="#其他注册中心">其他注册中心</a></li>
-  </ul>
-
-  <ul>
-    <li><a href="#路由原理和设计">路由原理和设计</a></li>
-    <li><a href="#直连directurlrouter">直连(DirectUrlRouter)</a></li>
-    <li><a href="#注册中心registryrouter">注册中心(RegistryRouter)</a></li>
-    <li><a href="#自定义customrouter">自定义(CustomRouter)</a></li>
-  </ul>
-
-  <ul>
-    <li><a href="#权重随机randomloadbalancer">权重随机(RandomLoadBalancer)</a></li>
-    <li><a href="#顺序轮询roundrobinloadbalancer">顺序轮询(RoundRobinLoadBalancer)</a></li>
-    <li><a href="#本地优先localpreferenceloadbalancer">本地优先(LocalPreferenceLoadBalancer)</a></li>
-    <li><a href="#一致性-hashconsistenthashloadbalancer">一致性 Hash(ConsistentHashLoadBalancer)</a></li>
-    <li><a href="#权重一致性-hashweightconsistenthashloadbalancer">权重一致性 Hash(WeightConsistentHashLoadBalancer)</a></li>
-    <li><a href="#负载均衡比较">负载均衡比较</a></li>
+    <li><a href="#前言">前言</a></li>
+    <li><a href="#总体设计">总体设计</a></li>
+    <li><a href="#通讯协议和序列化协议">通讯协议和序列化协议</a>
+      <ul>
+        <li><a href="#json-over-http">JSON Over HTTP</a></li>
+        <li><a href="#hessian-over-bolt">Hessian Over BOLT</a></li>
+        <li><a href="#protobuf-over-bolt">Protobuf Over BOLT</a></li>
+        <li><a href="#others-over-bolt">Others Over BOLT</a></li>
+      </ul>
+    </li>
+    <li><a href="#服务发现">服务发现</a>
+      <ul>
+        <li><a href="#各语言对接注册中心">各语言对接注册中心</a></li>
+        <li><a href="#各语言对接sofamosn">各语言对接SOFAMosn</a></li>
+      </ul>
+    </li>
+    <li><a href="#参考资料">参考资料</a></li>
+    <li><a href="#结语">结语</a></li>
   </ul>
 </nav>
 		
-		<h1 id="前言">前言</h1>
-<p>RPC 框架需要创造一种调用远程服务如同调用本地般的体验，因此在实现一个基于 RPC 框架的微服务架构的系统时，服务消费者（客户端）往往只需要知道服务端提供了哪些接口和方法，并不需要知道服务具体由哪些 IP 在提供。RPC 框架本身的服务发现和路由寻址功能解决了如何知道目标地址的问题，该过程对于 RPC 客户端调用方来说应该是完全透明的。</p>
-<p>在这个过程中，RPC 框架需要接入注册中心来完成服务发现和路由寻址的功能。同时，在应用大规模请求时，微服务系统还需要对请求服务集群化，同时通过负载均衡来达到降低访问压力的效果。</p>
-<p>本文我们会先介绍一下注册中心，然后介绍一下 SOFRPC 中的几种路由，最后会介绍一下负载均衡的几种比较。</p>
-<h1 id="注册中心支持">注册中心支持</h1>
-<p>首先我们简要介绍一下注册中心的原理。</p>
-<p><img src="https://res.cloudinary.com/lyp/image/upload/v1544535227/hugo/blog.github.io/sofa-rpc/lysx/1539692412461-668ebd75-a2ab-4964-9d94-5c1bea671f65.png" alt="dsr.png | center | 747x435" title=""></p>
-<p>服务端推送地址给注册中心，注册中心将地址进行合并后，推送给客户端。</p>
-<p>其中，注册中心的场景依赖于各类注册中心的实现。在这里，SOFARPC 提供了注册中心的抽象类 <code>Registry</code>，该抽象类提供了注册中心的配置、启动、注册、反注册、订阅等方法。客户端在接入过程中，可以通过配置来激活 Zookeeper、Consul、local 等注册中心注册进启动类中，当请求到来时，可以通过注册中心进行相应的路由。</p>
-<p>注册中心的抽象类如下：</p>
-<p><img src="https://res.cloudinary.com/lyp/image/upload/v1544535255/hugo/blog.github.io/sofa-rpc/lysx/1539692913442-161e0822-79a4-4b98-91fb-997f26f6f9e2.png" alt="carbon (3).png | center | 747x1142" title=""></p>
-<p>在这个接口的基础上，目前内置实现了几种注册中心。包括即将合并的。</p>
-<p><img src="https://res.cloudinary.com/lyp/image/upload/v1544535275/hugo/blog.github.io/sofa-rpc/lysx/1539688664778-0d967e6a-9960-4164-985f-d72f348d09cf.png" alt="registry.png | center | 747x212" title=""></p>
-<h2 id="local注册中心local">Local注册中心(Local)</h2>
-<p>Local 注册中心是 SOFARPC 自己实现的一个本地注册中心，该注册中心的实现主要由类 <code>LocalRegistry</code>提供，可以调用其 <code>register(ProviderConfig config)</code> 方法实现服务的注册，主要是文件的读写。</p>
-<p>实现原理很简单，通过在本地注册文件来保存服务的发布和订阅信息。</p>
-<h2 id="zookeeper注册中心zookeeper">Zookeeper注册中心(Zookeeper)</h2>
-<p>Zookeeper 接入 SOFARPC 的实现类为 <code>ZookeeperRegistry</code>。目前是 SOFARPC 中默认的注册中心实现。也是大多数情况下，可以方便使用的。</p>
-<p>Zookeeper 是一个分布式协调服务，用于维护配置信息、命名、提供分布式同步功能以及提供组服务等。Zookeeper 提供了服务注册与发现的解决方案，提供了简单的 API，可以让集成者简洁调用。</p>
-<p>当要发布一个 SOFARPC 服务时，首先需要在 zookeeper 中注册服务提供者的相关信息，包括：该服务接口隶属于哪个系统、服务的 IP 以及端口号、服务的请求 URL 和服务的权重等等。zookeeper 在这个过程中，注意负责对 SOFARPC 中的服务信息进行中心存储，同时负责把服务注册信息的更新及时通知到服务消费者。</p>
-<p>作为服务调用者，SOFARPC 调用端在调用时，若走的路由链路中有注册中心，则会从注册中心中获取到服务注册的相关信息，然后在调用时会根据负载均衡策略来发送请求。</p>
-<h2 id="consul注册中心consul">Consul注册中心(Consul)</h2>
-<p>Consul 注册中心与 SOFARPC 之间的对接主要依赖于 <code>ConsulRegistry</code>类。</p>
-<p>该注册中心在功能表现上与 zookeeper 看起来一致。对比起 Zookeeper 来，Consul 支持多数据中心，同时支持 http 和 dns 等接口，有着多语言的能力。</p>
-<h2 id="其他注册中心">其他注册中心</h2>
-<p>目前已经在开发中的有 Nacos，SOFAMesh 等。也可以根据自己的场景，进行方便的扩展。</p>
-<h1 id="路由设计">路由设计</h1>
-<h2 id="路由原理和设计">路由原理和设计</h2>
-<p>在阅读本部分之前，请大家注意：路由是为了选中一组地址。</p>
-<p>SOFARPC 通过对各类注册中心的支持，实现了服务发现、路由寻址的功能。访问客户端时，请求的路由可以由以下一些实现类实现：DirectUrlRouter、RegistryRouter、CustomRouter，上述三个路由实现类分别对应了直接地址路由（不需要经过注册中心直接路由直连到某个地址）、注册中心路由、以及客户自定义路由等。路由从 AddressHolder 获取到地址，同时通过各种负载均衡算法进行负载均衡，请求到相应的系统接口。</p>
-<p>首先我们看一下整个路由寻址过程的阶段。</p>
-<p><img src="https://res.cloudinary.com/lyp/image/upload/v1544535309/hugo/blog.github.io/sofa-rpc/lysx/1539681890237-34f1c5ff-d618-469a-a314-ab8152d1a133.png" alt="image.png | left | 747x673" title=""></p>
-<p>这 SOFARPC 中，路由可以分为地址直连路由、注册中心路由以及客户定制化路由。这以上三个路由均扩展了 Router 抽象类。服务路由的抽象类代码如下：</p>
-<p><img src="https://res.cloudinary.com/lyp/image/upload/v1544535331/hugo/blog.github.io/sofa-rpc/lysx/1539692990384-ad3d35e7-ec57-4c7d-9529-8cfc82538057.png" alt="carbon (4).png | center | 747x573" title=""></p>
-<p>这里的核心代码是 route 这个方法，将本次请求的信息，和服务列表进行计算。当客户端请求到达 Router 时，会根据请求的参数信息从 Router 和连接管理器中获取请求地址，通过调用 <code>route(SofaRequest request, List&lt;ProviderInfo&gt; providerInfos)</code> 方法达到路由寻址的目的。</p>
-<p>其中，路由并不是一个非此即彼的过程，这些可选的路由是由用户和系统的配置，被构造成一个路由链来执行的。这样。就可以有一些兜底的逻辑，如指定了 IP 地址，那我们就直接路由到这个地址，如果没有，就进行注册中心的路由等等。</p>
-<h2 id="直连directurlrouter">直连(DirectUrlRouter)</h2>
-<p>直接路由是比较简单的，因为有专门的配置，所以地址列表这些都是可以很方便地进行识别，在客户端配置时，可通过如下方式配置：</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">ConsumerConfig<span style="color:#f92672">&lt;</span>HelloService<span style="color:#f92672">&gt;</span> consumer <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> ConsumerConfig<span style="color:#f92672">&lt;</span>HelloService<span style="color:#f92672">&gt;()</span>        
-            <span style="color:#f92672">.</span><span style="color:#a6e22e">setInterfaceId</span><span style="color:#f92672">(</span>HelloService<span style="color:#f92672">.</span><span style="color:#a6e22e">class</span><span style="color:#f92672">.</span><span style="color:#a6e22e">getName</span><span style="color:#f92672">())</span>        
-            <span style="color:#f92672">.</span><span style="color:#a6e22e">setRegistry</span><span style="color:#f92672">(</span>registryConfig<span style="color:#f92672">)</span>        
-            <span style="color:#f92672">.</span><span style="color:#a6e22e">setDirectUrl</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;bolt://127.0.0.1:12201&#34;</span><span style="color:#f92672">);</span>
-</code></pre></div><p>直接地址路由扩展了 Router 抽象类的实现，在重写的 route 方法中，直接获取配置好的直接路由地址。当请求到来时，直接从地址管理列表中，拿到对应的地址，就实现了直接地址路由的功能。</p>
-<h2 id="注册中心registryrouter">注册中心(RegistryRouter)</h2>
-<p>注册中心路由同样扩展了 Router 抽象方法，这个 Router是大多数情况下使用最多的路由，主要是从本应用使用的注册中心中获取对应的地址，并进行路由寻址等。后面我们会介绍目前注册中心的几个内置实现。</p>
-<h2 id="自定义customrouter">自定义(CustomRouter)</h2>
-<p>客户定制化路由可以配置客户自己所定制的路由实现，可以参考直接地址路由或者注册中心路由的实现，扩展 Router 类即可。</p>
-<p>这里的使用场景</p>
-<p>一种是对于某些用户来说，在注册中心的场景下，用户认为所有的地址并不是等价的。会对地址进行人为拆分，使用方保存了自己的的所有服务提供方地址（或者是通过某种方法查询），然后重写路由定制逻辑，通过方法级别进行地址的选择。</p>
-<p>另一种是，用户可以通过这个接口实现一些功能，例如切流、灰度、同机房优先等等。</p>
-<h1 id="负载均衡实现">负载均衡实现</h1>
-<p>经过前面两个部分的介绍，我们知道，通过不同的注册中心和直连指定的方式，经过路由链的选择，我们已经拿到了一组地址，这一组地址如果选出一个地址进行本次的调用。就涉及到负载均衡的选择。下面我们会给大家介绍下每种负载均衡的比较和优势。</p>
-<p>现在，SOFARPC 提供如下一些负载均衡器。下面是各个负载均衡器的类名称以及算法原理，以下各个类名可以直接在代码中进行搜索阅读。</p>
-<p>注意：负载均衡的计算全部是在客户端实现的。</p>
-<p>负载均衡器的抽象类下：</p>
-<p><img src="https://res.cloudinary.com/lyp/image/upload/v1544535388/hugo/blog.github.io/sofa-rpc/lysx/1539693047408-a6941247-ea75-4d41-8db8-0461d2c1ca92.png" alt="carbon (5).png | center | 747x470" title=""></p>
-<h2 id="权重随机randomloadbalancer">权重随机(RandomLoadBalancer)</h2>
-<p>这个负载均衡算法是默认的实现，带权重的随机负载均衡算法。是目前默认开启的负载均衡算法。
-在算法在进行负载均衡时，全部列表按照权重进行随机选择。</p>
-<p>权重随机的思路很简单，每个服务地址，在发布的时候，带上了一个 weight 的标签，SOFARPC 在路由的时候，汇总所有的权重值，然后产生一个0到这个总权重值的随机数，看这个数是落在哪个范围内，就知道要选哪个服务端作为本次调用的地址，默认为100，当然，用户也可以指定或者通过某些操作 API 进行修改。在 SOFARPC，预热权重功能会在启动期间，使得某个刚刚启动的服务端地址的权重为一个较小的值。</p>
-<p>对于所有权重一样的情况下。权重随机也就退化成了完全随机。
-而对于权重有差异的情况下，就能实现，权重小的调用少，权重多的调用量大。</p>
-<p><img src="https://res.cloudinary.com/lyp/image/upload/v1544535411/hugo/blog.github.io/sofa-rpc/lysx/1539683741740-9b913c1a-084a-4c75-87ce-b45adff9dcc9.png" alt="router.png | center | 747x217" title=""></p>
-<p>这个直观理解就是一个线段掷骰子 的问题，相信大家配合代码一看就明白了。</p>
-<p>配合预热权重功能，这个就将权重随机的功能真正使用了起来。另外，也可以通过配置覆盖，动态得修改某些服务提供方的权重信息。来实现地址摘除等。这个需要依赖于注册中心的实现。</p>
-<h2 id="顺序轮询roundrobinloadbalancer">顺序轮询(RoundRobinLoadBalancer)</h2>
-<p>进行依次轮询来进行负载均衡。主要用来调用量比较少的情况下。
-该负载均衡算法在实现时，不关心权重，按照方法级进行轮询，相互不会影响。这个非常简单。就是一个环状，轮询完了就再次重新开始。</p>
-<p><img src="https://res.cloudinary.com/lyp/image/upload/v1544535441/hugo/blog.github.io/sofa-rpc/lysx/1539686332192-7e9e59be-6923-46a8-a1a4-d3c2eaf5d82f.png" alt="Canvas 2.png | center | 599x509" title=""></p>
-<h2 id="本地优先localpreferenceloadbalancer">本地优先(LocalPreferenceLoadBalancer)</h2>
-<p>该负载均衡算法提升了本机的调用性能。在负载均衡时使用保持本机优先。这个相信大家也比较好理解。
-在所有的可选地址中，找到本机发布的地址，然后进行调用。</p>
-<h2 id="一致性-hashconsistenthashloadbalancer">一致性 Hash(ConsistentHashLoadBalancer)</h2>
-<p>一致性 hash 算法，保障了客户端和服务器之间比较稳定的连接关系。
-该算法通过一致性 hash，保证了第一参数同样的请求能够负载均衡到同样的节点上。一致性 Hash 大家都了解比较多了，这里 SOFARPC 是通过方法入参的第一个参数来做负载均衡的 Hash 的。</p>
-<p><img src="https://res.cloudinary.com/lyp/image/upload/v1544535466/hugo/blog.github.io/sofa-rpc/lysx/1539687461330-e4ea81be-1184-4e20-9466-3c64a841fc41.png" alt="hash.png | center | 747x554" title=""></p>
-<h2 id="权重一致性-hashweightconsistenthashloadbalancer">权重一致性 Hash(WeightConsistentHashLoadBalancer)</h2>
-<p>带权重的一致性 hash 算法。在一致性 Hash的基础上，设置虚拟节点的时候，权重大的 ProviderInfo 会生成更多的节点。这样被选中的概率就更高。这里不再做详细说明。大家有兴趣可以从代码中进行阅读。</p>
-<h2 id="负载均衡比较">负载均衡比较</h2>
+		<h2 id="前言">前言</h2>
+<p>随着 TIOBE 10月份的编程语言<a href="https://www.tiobe.com/tiobe-index/">排行</a> 的发布，C++重回第三的位置，新兴的 Swift 和 Go 表现出强劲的上升趋势。<br>
+与此同时，虽然目前 Java 的领头位置尚未出现有力挑战，我们希望能够在基础设施的建设上预留跨语言的可扩展设计。同时，跨语言的挑战也是工程实际面临的现状，蚂蚁内部如 AI、IoT，算法等缺少 JVM 原生支持的领域，往往不可避免地需要涉及到跨语言调用的问题。</p>
+<p>本文将为大家介绍 基于 SOFARPC 的微服务应用在面临跨语言调用时的方案和实现。</p>
+<h2 id="总体设计">总体设计</h2>
+<p>经过前面几篇对 SOFARPC 的 BOLT 协议和序列化这些的介绍，相信大家已经对 RPC 有了一些自己的理解，提到跨语言，我们会首先想到其他语言调用 Java，Java 调用其他语言，那么这里的跨，体现在代码上，到底跨在哪里？</p>
+<p>从跨语言的实现上来说，主要解决两个方面的问题：</p>
+<ul>
+<li>跨语言的通讯协议和序列化协议</li>
+<li>跨语言服务发现</li>
+</ul>
+<p>另外从跨语言的落地来说，还得解决一个平滑兼容的问题。</p>
+<p>业界常见的做法是一般是通过 DNS 和 HTTP 来解决跨语言的问题，但是在内部已经有完善技术栈体系的情况下，直接切换一个新的方案显然是不合适的，所以蚂蚁内部是在已有的技术体系基础上进行改进。</p>
+<p>蚂蚁内部使用的通讯协议是Bolt，序列化协议是Hessian。我们知道，服务端和客户端在请求和返回之间携带的结构化的业务数据，需要在传输到达对端后，被本地的语言能够易于解析消费。<br>
+由于语言本身特性的差异，同一对象的在序列化和反序列化的转换后，结构可能有差异，但是需要保证其转换操作是可逆的。以上这点Hessian做的不是很好，其跨语言的兼容性不能满足跨语言的需求，所以另外一个可行的方案就是就是选择其它基于 IDL 的序列化协议，例如<code>Protobuf</code>。</p>
+<p>现成的服务注册中心一般都有一些多语言解决方案，像<code>Zookeeper</code>、<code>SOFARegistry</code>、<code>Consul</code>、<code>etcd</code>等都有多语言客户端，所以服务发现这块问题不算太大。</p>
+<p>例如下面就是一个基于注册中心 + Bolt协议 + Protobuf序列化的设计图。</p>
+<p><img src="https://res.cloudinary.com/lyp/image/upload/v1544533804/hugo/blog.github.io/sofa-rpc/kyyzc/1540814354303-c1d8fde9-4de6-44d7-bd3e-67f7f6fd0fe6.png" alt="跨语言.png | center | 747x440" title=""></p>
+<h2 id="通讯协议和序列化协议">通讯协议和序列化协议</h2>
+<p>通讯协议只要跨语言各方约定清楚，大家安装约定实现即可，而序列化协议则需要较多的考量。
+序列化的协议选择列出一些考虑要点：</p>
+<ul>
+<li>是否采用具备自我描述能力的序列化方案，如不需要借助一些 schema 或者接口描述文件。</li>
+<li>是否为语言无关的，包括脚本语言在内。</li>
+<li>是否压缩比例足够小，满足网络传输场景的要求。</li>
+<li>是否序列化和反序列化的性能均足够优秀。</li>
+<li>是否向前/向后兼容，能够处理传输对象的新增属性在服务端和客户端版本不一致的情况。</li>
+<li>是否支持加密、签名、压缩以及扩展的上下文。</li>
+</ul>
+<h3 id="json-over-http">JSON Over HTTP</h3>
+<p>首先，说到跨语言，序列化支持，肯定有同学会问，为什么不直接通过 Http的Json来搞定呢？
+虽然得益于JSON和HTTP在各个语言的广泛支持，在多语言场景下改造支持非常便捷，能够低成本的解决网络通讯和序列化的问题。服务发现的过程则可以使用最简单的固定URL（协议+域名+端口+路径）的形式，负载均衡依赖于F5或者LVS等实现。
+但是这个方案的有明显的局限性：</p>
+<ol>
+<li>HTTP 作为无状态的应用层协议，在性能上相比基于传输层协议（TCP）的方案处于劣势。HTTP/1.1后可以通过设置keep-alive使用长连接，可以一定程度上规避建立连接的时间损耗；然而最大的问题是，客户端线程采用了 request-response 的模式，在发送了 request 之后被阻塞，直到拿到 response 之后才能继续发送。这一问题直到 HTTP/2.0 才被解决。</li>
+<li>JSON 是基于明文的序列化，较二进制的序列化方案，其序列化的结果可读性强，但是压缩率和性能仍有差距，这种对于互联网高并发业务场景下，意味着硬件成本的提升。</li>
+<li>对于网络变化的响应。订阅端处理不够强大。</li>
+</ol>
+<h3 id="hessian-over-bolt">Hessian Over BOLT</h3>
+<p>在否决了上一个方案后，我们继续看，蚂蚁内部，最开始的时候，SOFARPC 还没有支持 Protobuf 作为序列化方式，当时为了跨语言，NodeJs的同学已经在此基础上，用 js 重写了一个 hessian 的版本，完成了序列化。也已经在线上平稳运行。但是当我们要扩展给其他语言的时候，重写 hessian 的成本太高。而且 Java语言提供的接口和参数信息，其他语言也需要自己理解一遍，对应地转换成自己的语言对象。因此该方案在特定场景下是可行的。但不具备推广至其他语言的优势。</p>
+<p>Node的实现版本可以参考：<a href="https://github.com/alipay/sofa-rpc-node">https://github.com/alipay/sofa-rpc-node</a></p>
+<h3 id="protobuf-over-bolt">Protobuf Over BOLT</h3>
+<p>Protobuf 基于IDL，本身具备平台无关、跨语言的特性，是一个理想的序列化方案。但是需要先编写proto文件，结构化地描述传输的业务对象，并生成中间代码。</p>
+<p>由于要重点介绍一下这种方案，因此再次回顾一下SOFABolt的协议规范部分，便于后面的解释。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-plain" data-lang="plain">Request command protocol for v1
+0     1     2           4           6           8          10           12          14         16
++-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+
+|proto| type| cmdcode   |ver2 |   requestId           |codec|        timeout        |  classLen |
++-----------+-----------+-----------+-----------+-----------+-----------+-----------+-----------+
+|headerLen  | contentLen            |                             ... ...                       |
++-----------+-----------+-----------+                                                           +
+|               className + header  + content  bytes                                            |
++                                                                                               +
+|                               ... ...                                                         |
++-----------------------------------------------------------------------------------------------+
+
+codec: code for codec 序列化,hessian 是1,pb 是11,java 是2
+
+Response command protocol for v1
+0     1     2     3     4           6           8          10           12          14         16
++-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+
+|proto| type| cmdcode   |ver2 |   requestId           |codec|respstatus |  classLen |headerLen  |
++-----------+-----------+-----------+-----------+-----------+-----------+-----------+-----------+
+| contentLen            |                  ... ...                                              |
++-----------------------+                                                                       +
+|                         className + header  + content  bytes                                  |
++                                                                                               +
+|                               ... ...                                                         |
++-----------------------------------------------------------------------------------------------+
+respstatus: response status 服务端响应结果状态
+</code></pre></div><p>对于现有的通信协议，我们改进时，将 content部分存储为入参对象和返回值，他们都是 pb序列化之后的值。这样将直接对接到现在的协议上。又利用了 BOLT的通信协议。</p>
+<p>以下描述了跨语言中对 Protobuf协议的使用：</p>
+<p><img src="https://res.cloudinary.com/lyp/image/upload/v1544533826/hugo/blog.github.io/sofa-rpc/kyyzc/1540814966719-289d3d32-3642-4178-a7f3-cce928ae6a5e.png" alt="pb 序列化.png | center | 747x433" title=""></p>
+<p>首先我们看 header 部分，是简单的扁平化的 KV。默认会增加以下三个 Entry：</p>
 <table>
 <thead>
 <tr>
-<th>负载均衡算法</th>
-<th>优点</th>
-<th>缺点</th>
-<th>场景</th>
+<th>Key</th>
+<th>Value</th>
+<th>备注</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>权重随机</td>
-<td>快速方便</td>
-<td>调用量小的情况下不完全均衡</td>
-<td>大多数场景</td>
+<td>sofa_head_method_name</td>
+<td>对方方法名</td>
+<td>对应 SofaRequest#methodName</td>
 </tr>
 <tr>
-<td>顺序轮询</td>
-<td>调用完全均衡</td>
-<td>没有权重。</td>
-<td>TPS小的场景</td>
+<td>sofa_head_target_app</td>
+<td>对方的应用名</td>
+<td>对应 SofaRequest#targetAppName</td>
 </tr>
 <tr>
-<td>本地优先</td>
-<td>本地优先</td>
-<td>有场景限制。</td>
-<td>本地有服务发布的场景。</td>
+<td>sofa_head_target_service</td>
+<td>对方的服务唯一命名</td>
+<td>对应 SofaRequest#targetServiceUniqueName</td>
 </tr>
 <tr>
-<td>一致性 Hash</td>
-<td>调用机器相对固定</td>
-<td>性能相对一般</td>
-<td>对调用机器需要相对固定的场景。</td>
-</tr>
-<tr>
-<td>权重一致性 Hash</td>
-<td>调用机器相对固定，有权重</td>
-<td>性能相对一般</td>
-<td>对调用机器需要相对固定的场景。</td>
+<td>sofa_head_response_error</td>
+<td>true/false</td>
+<td>仅在响应中出现</td>
 </tr>
 </tbody>
 </table>
-<h1 id="总结">总结</h1>
-<p>到这里，路由实现剖析基本就介绍完了。</p>
-<p>在本文中，我们剖析了 SOFARPC 的路由实现，详细解释了 SOFARPC 在对路由的实现方式及相应的扩展方式。
-除此之外，介绍了不同注册中心的接入方法，及接入的实现。
-最后，本文介绍了一些负载均衡算法，并对这些算法进行了相应的对比。</p>
+<p>我们再看 body 部分，根据 Protobuf 的实现，所有被序列化的对象均实现了 MessageLite 接口，然而由于多个Classloader 存在的可能，代码上为了避免强转 MessageList 接口的失败，并未直接调用 toByteArray 方法，而是通过反射机制调用 toByteArray 获得 byte 数组。</p>
+<p>针对SofaRequest这个 RPC中的传输对象，由于 Protobuf 仅支持对于单个对象的序列化，因此 SofaRequest 类型的对象进行序列化，实际支持的是 SofaRequest#methodArgs 数组中的首个元素对象进行的序列化，也就是说目前我们仅支持一个入参对象。</p>
+<p>针对 SofaResponse 这个响应对象，当出现框架异常或者返回对象是一个 Throwable 代表的业务异常时，直接将错误消息字符串序列化；并在响应头中设置 sofa_head_response_error=true，其他情况才序列化业务返回对象。这样可以避免比如 Java 语言的错误栈，由于含有 一些线程类和异常类，其他语言是无法解析的。</p>
+<p>反序列化的过程稍复杂一些，上游调用传入SofaRequest/SofaResponse的实例，先要在空白的SofaRequest对象中填入前文中在 header 反序列化中的解析的头部信息，接着根据Header中接口+方法名找到等待反序列化对象的 class，并借助反射调用 parseFrom 接口生成对象，成为 SofaRequest#MethodArgs 的首个元素对象。</p>
+<h3 id="others-over-bolt">Others Over BOLT</h3>
+<p>在上一个方案的基础上，我们也可以支持更多的语言，对JSON、Kyro的支持也分别处于开发和规划中。 JSON的支持已经开发完成待合并。这里不再做过多说明。</p>
+<h2 id="服务发现">服务发现</h2>
+<p>跨语言各方约定了通讯协议和序列化协议后，就可以完成各自的服务端和客户端实现，跨语言已经能完成点对点的调用了。但在实际的线上场景下，我们还是需要通过注册中心等服务发现的形式，来保证跨语言调用的可用性。目前，有两种可选的方案。</p>
+<h3 id="各语言对接注册中心">各语言对接注册中心</h3>
+<p>对于服务发现，前面说到的最早进行跨语言的 NodeJs 实现了对接 SOFA Registry 的能力。<br>
+直接通过对 Java原生序列化和一些 hessian 的重写，来操作完成了。在蚂蚁内部，这种方案在只有 Node的情况下是可以的，但是更通用的场景下。<br>
+如果我们有了新的注册中心，要对接更多的注册中心，其他语言在语言表达上的差异性，使得这种方案很难推广到其他项目。NodeJs 版本的 hessian：<a href="https://github.com/alipay/sofa-hessian-node">https://github.com/alipay/sofa-hessian-node</a></p>
+<h3 id="各语言对接sofamosn">各语言对接SOFAMosn</h3>
+<p>由于每个语言都去对接对接中心存在一定的难度，也不具备可推广性，而在蚂蚁内部，我们已经在一些跨语言的场景下，运行 SOFAMosn，通过 SOFAMosn，我们对接了站内的注册中心，其他的语言，仅需要将自己需要订阅和发布的信息，通过 Http的接口形式，通知 SOFAMosn，SOFAMosn 将会将这些信息和注册中心进行注册和订阅，并维持地址信息。</p>
+<p>这样对于其他语言来说，仅需要非常简单的 json请求，就完成了跨语言的服务注册和订阅。后续新注册中心的对接等等。其他语言都不再需要理解。相关的 sdk。我们已经开发并实现完成。对于 SOFAMosn 的更多介绍，可以参看 SOFAMosn官网：<a href="http://www.sofastack.tech/sofa-mosn/docs/README">http://www.sofastack.tech/sofa-mosn/docs/README</a></p>
+<table>
+<thead>
+<tr>
+<th>语言</th>
+<th>实现</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>python</td>
+<td><a href="https://github.com/alipay/sofa-bolt-python">https://github.com/alipay/sofa-bolt-python</a></td>
+</tr>
+<tr>
+<td>node</td>
+<td><a href="https://github.com/alipay/sofa-rpc-node">https://github.com/alipay/sofa-rpc-node</a></td>
+</tr>
+<tr>
+<td>c++</td>
+<td><a href="https://github.com/alipay/sofa-bolt-cpp">https://github.com/alipay/sofa-bolt-cpp</a></td>
+</tr>
+</tbody>
+</table>
+<p>当然如果你并不需要进行服务寻址，或者能够接受硬负载或者固定 IP的调用方式。也可以直接使用。</p>
+<h2 id="参考资料">参考资料</h2>
+<p>SOFA 微服务多语言演进 <a href="https://mp.weixin.qq.com/s/kfbDIq4GgdSU7KC2jqSRAw">https://mp.weixin.qq.com/s/kfbDIq4GgdSU7KC2jqSRAw</a><br>
+SOFARPC 框架之总体设计与扩展机制 <a href="https://mp.weixin.qq.com/s/ZKUmmFT0NWEAvba2MJiJfA">https://mp.weixin.qq.com/s/ZKUmmFT0NWEAvba2MJiJfA</a><br>
+蚂蚁通信框架实践 <a href="https://mp.weixin.qq.com/s/JRsbK1Un2av9GKmJ8DK7IQ">https://mp.weixin.qq.com/s/JRsbK1Un2av9GKmJ8DK7IQ</a><br>
+JVM Serializers <a href="https://github.com/eishay/jvm-serializers/wiki">https://github.com/eishay/jvm-serializers/wiki</a></p>
+<h2 id="结语">结语</h2>
+<p>至此，我们介绍了 SOFARPC 中对于 Protobuf 的跨语言实现，并介绍了一些 NodeJs 对跨语言的支持，最后介绍了我们用 SOFAMosn 实现通用的服务发现。</p>
+<p>在大多数场景下，我们更推荐是使用 SOFAMosn来做服务寻址，这样之后 Mosn 层面的一些限流熔断。也可以在多语言上进行使用。</p>
+<p>而对一些场景比较简单，能够容忍固定 IP调用，或者使用硬件负载均衡设备的。也可以直接使用各个跨语言客户端，进行直接开发调用。</p>
 <hr>
-<p>文章转自<a href="https://mp.weixin.qq.com/s/kjAYRxLwiSgFAjqJU-z41Q">剖析 | SOFARPC 框架】之SOFARPC 路由实现剖析</a></p>
+<p>文章转自<a href="http://www.sofastack.tech/post/nuo9ph">剖析 | SOFARPC 框架】之SOFARPC 跨语言支持剖析</a></p>
 
 
         <h2>微信公众号</h2>
@@ -384,12 +408,12 @@
                 <ul class="pager">
                     
                     <li class="previous">
-                        <a href="/post/sofarpc%E8%BF%9E%E6%8E%A5%E7%AE%A1%E7%90%86%E4%B8%8E%E5%BF%83%E8%B7%B3%E5%89%96%E6%9E%90/" data-toggle="tooltip" data-placement="top" title="转|SOFARPC连接管理与心跳剖析">&larr; 转|SOFARPC连接管理与心跳剖析</a>
+                        <a href="/post/sofarpc-route-impl/" data-toggle="tooltip" data-placement="top" title="转|SOFARPC路由实现剖析">&larr; 转|SOFARPC路由实现剖析</a>
                     </li>
                     
                     
                     <li class="next">
-                        <a href="/post/sofarpc%E8%B7%A8%E8%AF%AD%E8%A8%80%E6%94%AF%E6%8C%81%E5%89%96%E6%9E%90/" data-toggle="tooltip" data-placement="top" title="转|SOFARPC跨语言支持剖析">转|SOFARPC跨语言支持剖析 &rarr;</a>
+                        <a href="/post/sofarpc-annotation/" data-toggle="tooltip" data-placement="top" title="转|SOFARPC注解支持剖析">转|SOFARPC注解支持剖析 &rarr;</a>
                     </li>
                     
                 </ul>
@@ -685,25 +709,25 @@ async>
 <h2>相关文章</h2>
 <ul style="margin-bottom: 25px;">
     
-    <li><a href="/post/sofarpc%E5%BA%8F%E5%88%97%E5%8C%96%E6%AF%94%E8%BE%83/">转|SOFARPC序列化比较</a></li>
+    <li><a href="/post/sofarpc-serializer/">转|SOFARPC序列化比较</a></li>
     
-    <li><a href="/post/sofarpc%E6%B3%A8%E8%A7%A3%E6%94%AF%E6%8C%81%E5%89%96%E6%9E%90/">转|SOFARPC注解支持剖析</a></li>
+    <li><a href="/post/sofarpc-annotation/">转|SOFARPC注解支持剖析</a></li>
     
-    <li><a href="/post/sofarpc%E8%B7%A8%E8%AF%AD%E8%A8%80%E6%94%AF%E6%8C%81%E5%89%96%E6%9E%90/">转|SOFARPC跨语言支持剖析</a></li>
+    <li><a href="/post/sofarpc-route-impl/">转|SOFARPC路由实现剖析</a></li>
     
-    <li><a href="/post/sofarpc%E8%BF%9E%E6%8E%A5%E7%AE%A1%E7%90%86%E4%B8%8E%E5%BF%83%E8%B7%B3%E5%89%96%E6%9E%90/">转|SOFARPC连接管理与心跳剖析</a></li>
+    <li><a href="/post/sofarpc-heartbeat-connect/">转|SOFARPC连接管理与心跳剖析</a></li>
     
-    <li><a href="/post/sofarpc%E5%90%8C%E6%AD%A5%E5%BC%82%E6%AD%A5%E5%AE%9E%E7%8E%B0%E5%89%96%E6%9E%90/">转|SOFARPC同步异步实现剖析</a></li>
+    <li><a href="/post/sofarpc-sync-async/">转|SOFARPC同步异步实现剖析</a></li>
     
-    <li><a href="/post/sofarpc%E7%BA%BF%E7%A8%8B%E6%A8%A1%E5%9E%8B%E5%89%96%E6%9E%90/">转|SOFARPC线程模型剖析</a></li>
+    <li><a href="/post/sofarpc-modle/">转|SOFARPC线程模型剖析</a></li>
     
-    <li><a href="/post/2018-12-08-sofarpc%E9%93%BE%E8%B7%AF%E8%BF%BD%E8%B8%AA%E5%89%96%E6%9E%90/">转|SOFARPC链路追踪剖析</a></li>
+    <li><a href="/post/sofarpc-trace/">转|SOFARPC链路追踪剖析</a></li>
     
-    <li><a href="/post/2018-12-05-sofarpc%E6%A1%86%E6%9E%B6%E4%B9%8B%E6%80%BB%E4%BD%93%E8%AE%BE%E8%AE%A1%E4%B8%8E%E6%89%A9%E5%B1%95%E6%9C%BA%E5%88%B6/">转|SOFARPC框架之总体设计与扩展机制</a></li>
+    <li><a href="/post/sofarpc-design/">转|SOFARPC框架之总体设计与扩展机制</a></li>
     
     <li><a href="/post/%E5%8E%BB%E5%93%AA%E5%84%BF%E7%BD%91%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/">去哪儿网消息队列设计与实现</a></li>
     
-    <li><a href="/post/2018-12-08-awesome%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/">AWESOME消息队列</a></li>
+    <li><a href="/post/awesome-messagequeue/">AWESOME消息队列</a></li>
     
 </ul>
 
