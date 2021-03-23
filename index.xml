@@ -6,7 +6,16 @@
     <description>Recent content on Hi,I`m lan</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 18 Mar 2021 00:00:00 +0000</lastBuildDate><atom:link href="/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 23 Mar 2021 00:00:00 +0000</lastBuildDate><atom:link href="/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>centos-install-php</title>
+      <link>/post/centos%E5%AE%89%E8%A3%85php8.0/</link>
+      <pubDate>Tue, 23 Mar 2021 00:00:00 +0000</pubDate>
+      
+      <guid>/post/centos%E5%AE%89%E8%A3%85php8.0/</guid>
+      <description>动机 之前一直没有接触PHP的经验,需要安装PHP是由于要搭建Flarum论坛,找了一圈,类似这种论坛的实现都是PHP做的,虽然PHP是世界上</description>
+    </item>
+    
     <item>
       <title>prometheus研习社筹划</title>
       <link>/post/prometheusyxs-pre-prod/</link>

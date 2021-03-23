@@ -6,22 +6,22 @@
     <description>Recent content in Categories on Hi,I`m lan</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 18 Mar 2021 00:00:00 +0000</lastBuildDate><atom:link href="/categories/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 23 Mar 2021 00:00:00 +0000</lastBuildDate><atom:link href="/categories/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>TECH</title>
+      <link>/categories/tech/</link>
+      <pubDate>Tue, 23 Mar 2021 00:00:00 +0000</pubDate>
+      
+      <guid>/categories/tech/</guid>
+      <description></description>
+    </item>
+    
     <item>
       <title>CloudNative</title>
       <link>/categories/cloudnative/</link>
       <pubDate>Thu, 18 Mar 2021 00:00:00 +0000</pubDate>
       
       <guid>/categories/cloudnative/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>TECH</title>
-      <link>/categories/tech/</link>
-      <pubDate>Fri, 12 Mar 2021 00:00:00 +0000</pubDate>
-      
-      <guid>/categories/tech/</guid>
       <description></description>
     </item>
     

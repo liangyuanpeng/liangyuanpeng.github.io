@@ -3,7 +3,28 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>/categories/</loc>
-    <lastmod>2021-03-18T00:00:00+00:00</lastmod>
+    <lastmod>2021-03-23T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>/post/centos%E5%AE%89%E8%A3%85php8.0/</loc>
+    <lastmod>2021-03-23T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>/</loc>
+    <lastmod>2021-03-23T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>/tags/ops/</loc>
+    <lastmod>2021-03-23T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>/tags/php/</loc>
+    <lastmod>2021-03-23T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>/post/</loc>
+    <lastmod>2021-03-23T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>/tags/</loc>
+    <lastmod>2021-03-23T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>/categories/tech/</loc>
+    <lastmod>2021-03-23T00:00:00+00:00</lastmod>
   </url><url>
     <loc>/categories/cloudnative/</loc>
     <lastmod>2021-03-18T00:00:00+00:00</lastmod>
@@ -11,25 +32,13 @@
     <loc>/tags/cncf/</loc>
     <lastmod>2021-03-18T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>/</loc>
-    <lastmod>2021-03-18T00:00:00+00:00</lastmod>
-  </url><url>
     <loc>/tags/monitor/</loc>
-    <lastmod>2021-03-18T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>/tags/ops/</loc>
-    <lastmod>2021-03-18T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>/post/</loc>
     <lastmod>2021-03-18T00:00:00+00:00</lastmod>
   </url><url>
     <loc>/tags/prometheus/</loc>
     <lastmod>2021-03-18T00:00:00+00:00</lastmod>
   </url><url>
     <loc>/post/prometheusyxs-pre-prod/</loc>
-    <lastmod>2021-03-18T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>/tags/</loc>
     <lastmod>2021-03-18T00:00:00+00:00</lastmod>
   </url><url>
     <loc>/tags/algolia/</loc>
@@ -54,9 +63,6 @@
     <lastmod>2021-03-12T00:00:00+00:00</lastmod>
   </url><url>
     <loc>/post/springboot-support-prometheus/</loc>
-    <lastmod>2021-03-12T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>/categories/tech/</loc>
     <lastmod>2021-03-12T00:00:00+00:00</lastmod>
   </url><url>
     <loc>/tags/%E5%BC%80%E6%BA%90/</loc>

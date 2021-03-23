@@ -174,6 +174,24 @@
             
 
 <div class="post-preview">
+    <a href="/post/sofarpc-generic-invoke/">
+        <h2 class="post-title">
+            转|SOFARPC泛化调用实现剖析
+        </h2>
+	
+        <div class="post-content-preview">
+	
+            我们知道，在 RPC 调用中，客户端需要加载服务端提供的接口定义类，但是，很多情况下，这个并不总是可行的，于是，衍生了泛化调用的需求，一个成熟的，功能完善的 RPC 框架一般都会支持泛化调用，那么什么是泛化调用呢？SOFA RPC 又是如何支持泛化调用的？同时又是如何实现的？ 和其他的 RPC 泛化调用又有何不同？有何优势？我们将在本文一一解答这些问题。
+        
+        </div>
+    </a>
+    <p class="post-meta">
+    Posted by 梁远鹏 Wednesday, December 12, 2018
+    </p>
+</div>
+<hr>
+
+<div class="post-preview">
     <a href="/post/sofarpc-serializer/">
         <h2 class="post-title">
             转|SOFARPC序列化比较
@@ -241,24 +259,6 @@
     </a>
     <p class="post-meta">
     Posted by 梁远鹏 Tuesday, December 11, 2018
-    </p>
-</div>
-<hr>
-
-<div class="post-preview">
-    <a href="/post/sofarpc-heartbeat-connect/">
-        <h2 class="post-title">
-            转|SOFARPC连接管理与心跳剖析
-        </h2>
-	
-        <div class="post-content-preview">
-	
-            在 RPC 调用过程中，我们经常会和多个服务端进行远程调用，如果在每次调用的时候，都进行 TCP连接，会对 RPC的性能有比较大的影响，因此，实际的场景中，我们经常要对连接进行管理和保持。
-        
-        </div>
-    </a>
-    <p class="post-meta">
-    Posted by 梁远鹏 Monday, December 10, 2018
     </p>
 </div>
 <hr>
@@ -528,6 +528,8 @@
                      <a href="/tags/ops" title="ops">
                          ops
                      </a>
+                 
+             
                  
              
                  
