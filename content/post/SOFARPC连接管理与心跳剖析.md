@@ -1,5 +1,6 @@
 ---
 layout:     post 
+slug:      "sofarpc-heartbeat-connect"
 title:      "转|SOFARPC连接管理与心跳剖析"
 subtitle:   ""
 description: "在 RPC 调用过程中，我们经常会和多个服务端进行远程调用，如果在每次调用的时候，都进行 TCP连接，会对 RPC的性能有比较大的影响，因此，实际的场景中，我们经常要对连接进行管理和保持。"  

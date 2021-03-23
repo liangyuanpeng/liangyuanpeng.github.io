@@ -1,5 +1,6 @@
 ---
 layout:     post 
+slug:      "sofarpc-annotation"
 title:      "转|SOFARPC注解支持剖析"
 subtitle:   ""
 description: "编程 API 方式与Spring 的 ApplicationContextAware 类似。XML的方式依赖于在xml中引入 SOFA 命名空间，利用 Bean 的生命周期管理，进行 Bean 的注入。相比这两种方式，通过 Annotation 方式发布 JVM 服务更加灵活方便，只需要在实现类上加 @SofaService、@SofaRefernce 注解即可进行服务的发布和引用。本文针对 SOFARPC 在注解的支持和使用分原理、源码两部分进行一一介绍。"  

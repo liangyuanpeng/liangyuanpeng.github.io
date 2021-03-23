@@ -1,5 +1,6 @@
 ---
 layout:     post 
+slug:      "sofarpc-mult-language"
 title:      "转|SOFARPC跨语言支持剖析"
 subtitle:   ""
 description: "随着 TIOBE 10月份的编程语言排行的发布，C++重回第三的位置，新兴的 Swift 和 Go 表现出强劲的上升趋势。与此同时，虽然目前 Java 的领头位置尚未出现有力挑战，我们希望能够在基础设施的建设上预留跨语言的可扩展设计。同时，跨语言的挑战也是工程实际面临的现状，蚂蚁内部如 AI、IoT，算法等缺少 JVM 原生支持的领域，往往不可避免地需要涉及到跨语言调用的问题。"  
