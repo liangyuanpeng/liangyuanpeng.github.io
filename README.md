@@ -1,6 +1,8 @@
 # liangyuanpeng.github.io
 [![Build Status](https://travis-ci.com/liangyuanpeng/liangyuanpeng.github.io.svg?branch=source)](https://travis-ci.com/liangyuanpeng/liangyuanpeng.github.io)
-Hi, I'm lanLiang, 梁远鹏的博客.  
+Hi, I'm lanLiang, 梁远鹏的博客.    
+
+博客使用Hugo搭建,托管于Cloudflare Pages.
 
 # git 子模块命令相关  
 
