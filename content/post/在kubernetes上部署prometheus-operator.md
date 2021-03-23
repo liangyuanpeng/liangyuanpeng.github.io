@@ -11,7 +11,7 @@ published: true
 tags:
     - kubernetes
     - CloudNative
-    - Prometheus
+    - prometheus
     - 玩转Kubernetes
 categories: 
     - kubernetes

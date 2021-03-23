@@ -11,7 +11,7 @@ image: "https://res.cloudinary.com/lyp/image/upload/v1544363191/hugo/blog.github
 published: true
 tags:
     - metrics
-    - Prometheus
+    - prometheus
     - SAAS
 categories: 
     - CloudNative
