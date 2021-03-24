@@ -1,7 +1,8 @@
 ---
 layout:     post 
-title:      "centos-install-php"
+slug:      "centos-install-php"
 subtitle:   "centos安装php8.0"
+title:   "centos安装php8.0"
 description: " "
 date:       2021-03-23
 author:     "梁远鹏"

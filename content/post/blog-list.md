@@ -5,6 +5,7 @@ title:      "blog-list记录"
 subtitle:   ""
 description: "记录blog内容计划以及执行进度"
 date:       2020-03-07
+# weight: 100
 author:     "梁远鹏"
 image: "https://res.cloudinary.com/lyp/image/upload/v1583589958/hugo/blog.github.io/pembroke-welsh-corgi-lying-on-the-sand-under-white-cloud-164186.jpg"
 published: true
