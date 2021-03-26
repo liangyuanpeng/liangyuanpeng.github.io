@@ -12,8 +12,8 @@ tags:
     - Algolia
     - CI/CD
     - Blog
-    - Github
-    - GithubAction
+    - github
+    - githubaction
 categories: 
     - CloudNative
 ---

@@ -77,7 +77,7 @@ tags:
 
 16. - [ ] [loft文章翻译](https://loft.sh/blog/kubernetes-multi-tenancy-best-practices-guide/)  
 
-17. - [ ] [自动化构建algolia索引](https://liangyuanpeng.com/post/auto-build-algolia-index/)  
+17. - [x] [自动化构建algolia索引](https://liangyuanpeng.com/post/auto-build-algolia-index/)  
 
 18. - [ ] 部署halo博客,jar部署并且作为系统服务/docker部署
 
@@ -106,5 +106,3 @@ tags:
 28. - [ ] kube-prometheus监控外部metrics  
 
 29. - [ ] kube-prometheus适用范围,一个K8S集群部署了kube-prometheus如何限制只用在某个namespace下->spec.namespaceSelector.any=true
-
-30. - [ ] 开始你的开源贡献之旅->讲述给Halo提issue md文件导入失败
