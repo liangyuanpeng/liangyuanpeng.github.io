@@ -7,12 +7,13 @@ description: "Prometheus作为第二个从CNCF毕业的顶级项目,其成熟程
 date:       2021-03-17
 author:     "梁远鹏"
 image: "https://res.cloudinary.com/lyp/image/upload/v1612744351/hugo/blog.github.io/pexels-bruno-cervera-6032877.jpg"
-published: false
+published: true
 tags:
     - prometheus
     - cncf
     - monitor
     - ops
+	- metrics
 categories: 
     - CloudNative
 ---  
@@ -153,3 +154,6 @@ PR地址:[https://github.com/prometheus/prometheus/pull/8273](https://github.com
 在Prometheus压缩或保留失败时产生了一些`*.tmp`文件,例如`01EQ0DZ14E04F7P51Q3NA1562G.tmp`,而且prometheus永远也没有情理这些文件,导致这些临时文件越来越多.如果你已经在生产环境看到了一些tmp文件并且越来越多的话,是时候升级prometheus了,否则这些临时文件会越来越多,直到磁盘空间满载.  
 
 PR地址:[https://github.com/prometheus/prometheus/pull/8353](https://github.com/prometheus/prometheus/pull/8353)  
+
+
+# 注意 本文还处于创作阶段,将会尽快完善
