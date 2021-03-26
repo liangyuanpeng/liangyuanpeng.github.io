@@ -40,6 +40,7 @@ jobs:
               docker run -v $PWD/hostfile:/tmp/hostfile -v $PWD/public:/tmp/public -e ANSIBLE_HOST_KEY_CHECKING=false --rm registry.cn-shenzhen.aliyuncs.com/lan-k8s/ubuntu:ansible ansible  -i /tmp/hostfile site -m copy -a "src=/tmp/public/public.tar dest=/usr/local/kafeidou/blog/liangyuanpeng.github.io"
               docker run -v $PWD/hostfile:/tmp/hostfile -e ANSIBLE_HOST_KEY_CHECKING=false --rm registry.cn-shenzhen.aliyuncs.com/lan-k8s/ubuntu:ansible ansible -i /tmp/hostfile site  -m shell -a "cd /usr/local/kafeidou/blog/liangyuanpeng.github.io && tar -xvf public.tar"
               rm -f hostfile
+              rm -f public/public.tar
 
 # 暂停 暂时不触发部署github page
       - name: Deploy
