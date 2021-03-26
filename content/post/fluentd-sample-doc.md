@@ -29,4 +29,6 @@ Fluentd是用于统一日志记录层的开源数据收集器,是继Kubernetes�
 实验主要以docker进行环境搭建,所以需要提前准备好docker
 
 
-## fluent.conf文件编写  
+## fluent.conf文件编写    
+
+# 注意 本文还处于创作阶段,将会尽快完善
