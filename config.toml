@@ -12,7 +12,14 @@ hasCJKLanguage = true
 [outputs]
 home = ["HTML", "RSS", "Algolia"]
 
+[sitemap]
+#  changefreq = "monthly"
+#  filename = "sitemap.xml"
+#  priority = 0.5
+   
+
 [params]
+  domain = "https://liangyuanpeng.com"
  # header_image = "img/home-bg-jeep.jpg"
  header_image = "https://res.cloudinary.com/lyp/image/upload/v1537619755/hugo/banner/WechatIMG413.jpg"
  SEOTitle = "liangyuanpeng的博客 | liangyuanpeng's Blog"
