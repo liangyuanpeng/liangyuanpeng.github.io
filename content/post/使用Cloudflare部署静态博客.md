@@ -1,5 +1,6 @@
 ---
 layout:     post 
+slug:      "cloudflare-deploy-hugo-site"
 title:      "cloudflare-pages-deploy-hugo-site"
 subtitle:   "使用Cloudflare pages部署静态博客"
 description: " "
