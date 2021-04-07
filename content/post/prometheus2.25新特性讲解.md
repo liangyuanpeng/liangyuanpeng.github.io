@@ -26,8 +26,6 @@ Prometheus作为第二个从CNCF毕业的顶级项目,其成熟程度是毋庸�
 
 在Prometheus-v2.25.0版本中更新一览:  
 
-TODO 把更新点都列出来
-
 1. [实验性功能]支持remote_write请求,默认不启用,启用需要启动参数指定--enable-feature = remote-write-receiver  
 2. [实验性功能]新增'@'修饰符,默认不启用,启用需要启动参数指定--enable-feature = promql-at-modifier
 3. [增强]完善测试案例testgroup添加name属性  
@@ -40,12 +38,16 @@ TODO 把更新点都列出来
 10. [增强]TSDB每分钟加载块数据,如果检测到有更新就执行保留数据操作.(这个PR标记成了#8243 应该是写错了,看了下这个PR 和块数据没关系)  
 11. [BugFix]修复启动时web.listen-address参数没有传递端口报错问题  
 12. [BugFix]完善一个错误处理,打开Mmap文件时继续走逻辑而不是立刻返回错误  
-13. [BugFix]  
-14. [BugFix]  
+13. [BugFix]弃用未使用的参数--alertmanager.timeout  
+14. [BugFix]Mixins:支持在警报中的v2.23中重命名的远程写入指标   
+15. [BugFix]远程写请求写入错误日志修改为警告  
+16. [BugFix]启动时删除2.21之前版本的临时块数据   
+17-20 ...
 
 总共是`2个`实验性功能`8个`增强`10个`BugFix  
 
-本文会主要讲解两个实验性功能和两个增强＃8273 ＃8416、和BUGFIX ＃8423 ＃8353。   TODO 用数字说出是哪几个
+https://github.com/prometheus/prometheus/pull/8424
+本文会主要讲解两个实验性功能和两个增强和一个BUGFIX
 
 官方地址是:[https://github.com/prometheus/prometheus/releases/tag/v2.25.0](https://github.com/prometheus/prometheus/releases/tag/v2.25.0) 
 
@@ -96,8 +98,7 @@ topk(2, rate(jvm_memory_used_bytes[30m] @ end()))
 
 `rate(jvm_memory_used_bytes[1m])`是希望查询的实际数据,`topk(2, rate(jvm_memory_used_bytes[30m] @ end())) ` 意思是筛选出最近时间段内(如果是Table则是实时)30分钟平均速率趋势最大的2个指标,然后展示他们在时间段内1分钟的平均速率数据.  
 
-相关PR有三个,分别是:＃8121 ＃8436 ＃8425 
-TODO 
+相关PR有三个,分别是:[#8121](https://github.com/prometheus/prometheus/pull/8695) [#8436](https://github.com/prometheus/prometheus/pull/8695)  [#8425](https://github.com/prometheus/prometheus/pull/8695)  
 
 # 增强  
 
@@ -151,9 +152,10 @@ PR地址:[https://github.com/prometheus/prometheus/pull/8273](https://github.com
 
 是一位用户在2.15.2时遇到的一个问题,后来升级到了2.22.1版本.  
 
-在Prometheus压缩或保留失败时产生了一些`*.tmp`文件,例如`01EQ0DZ14E04F7P51Q3NA1562G.tmp`,而且prometheus永远也没有情理这些文件,导致这些临时文件越来越多.如果你已经在生产环境看到了一些tmp文件并且越来越多的话,是时候升级prometheus了,否则这些临时文件会越来越多,直到磁盘空间满载.  
+在Prometheus压缩或保留失败时产生了一些`*.tmp`文件,例如`01EQ0DZ14E04F7P51Q3NA1562G.tmp`,而且prometheus永远也没有清理这些文件,导致这些临时文件越来越多.如果你已经在生产环境看到了一些tmp文件并且越来越多的话,是时候升级prometheus了,否则这些临时文件会越来越多,直到磁盘空间满载.  
 
 PR地址:[https://github.com/prometheus/prometheus/pull/8353](https://github.com/prometheus/prometheus/pull/8353)  
 
+# 总结  
 
-# 注意 本文还处于创作阶段,将会尽快完善
+prometheus社区非常活跃,v2.25.0到v2.26.0只用了一个半月,并且更新点也不少.偶尔关注一下新版本的一些更新点还是很有用的,可以了解社区发展方向的同时也可以看看社区的活跃程度.当然,官方推出的更新内容说明都是英文的,也可以等待本系列文章,发布中文版本说明.
