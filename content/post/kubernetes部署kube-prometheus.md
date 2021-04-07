@@ -75,7 +75,7 @@ kubectl --namespace monitoring port-forward svc/prometheus-k8s 9090 --address 0.
 ```shell
 kubectl --namespace monitoring port-forward svc/grafana 3000 --address 0.0.0.0
 ```  
-在页面打开`http://宿主IP:3000` 进入到prometheus页面  
+在页面打开`http://宿主IP:3000` 进入到grafana页面  
 ![grafana](https://res.cloudinary.com/lyp/image/upload/v1617766066/hugo/blog.github.io/prometheus/grafana.png)
 
 ## 查看AlertManager  
@@ -83,7 +83,7 @@ kubectl --namespace monitoring port-forward svc/grafana 3000 --address 0.0.0.0
 kubectl --namespace monitoring port-forward svc/alertmanager-main 9093 --address 0.0.0.0
 ```  
 
-在页面打开`http://宿主IP:9093` 进入到prometheus页面  
+在页面打开`http://宿主IP:9093` 进入到alertmanager页面  
 ![grafana](https://res.cloudinary.com/lyp/image/upload/v1617766065/hugo/blog.github.io/prometheus/alertmanager.png)
 
 # 自定义修改kube-prometheus参数  
@@ -122,7 +122,5 @@ spec:
 # 总结  
 
 总的来说kube-prometheus需要注意的问题是,默认存储24h并且没有持久化,千万记得修改这部分配置,否则可能会引发数据丢失问题.  
-
-本文没有讲述数据持久化相关内容,
 
 本文的部署步骤基本上就是按照官方文档操作了一遍,注意:随着时间的推移和kube-prometheus的演进,按照本文使用最新版本部署可能会出现部署失败的问题,归根结底是因为kube-prometheus最新版本部署内容或步骤发生了一些变化,因此建议首先阅读官方文档.  
