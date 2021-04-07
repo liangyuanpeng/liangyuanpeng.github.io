@@ -9,9 +9,61 @@ $navbar.className+=" in";}}</script><style type=text/css>header.intro-header{bac
 <a class=tag href=/tags/cloudnative title=CloudNative>CloudNative</a>
 <a class=tag href=/tags/etcd title=etcd>etcd</a></div><h1>prometheus对接CoreDNS实现服务发现</h1><h2 class=subheading></h2><span class=meta>Posted by 梁远鹏 on 2021-03-23
 <span id=busuanzi_container_page_pv>|<span id=busuanzi_value_page_pv></span><span>
-<span id=/post/prometheus-coredns-sd/ class="leancloud_visitors meta_data_item" data-flag-title><span class=post-meta-item-icon><span class="octicon octicon-eye"></span></span><i class="fa fa-eye"></i><span class=old-visitors-count style=display:none></span><span class=leancloud-visitors-count></span></span>阅读 </span></span>|<span class=post-date>共18字</span>，阅读约<span class=more-meta> 1 分钟</span></span></div></div></div></div></header><article><div class=container><div class=row><div class="col-lg-8 col-lg-offset-2
+<span id=/post/prometheus-coredns-sd/ class="leancloud_visitors meta_data_item" data-flag-title><span class=post-meta-item-icon><span class="octicon octicon-eye"></span></span><i class="fa fa-eye"></i><span class=old-visitors-count style=display:none></span><span class=leancloud-visitors-count></span></span>阅读 </span></span>|<span class=post-date>共414字</span>，阅读约<span class=more-meta> 1 分钟</span></span></div></div></div></div></header><article><div class=container><div class=row><div class="col-lg-8 col-lg-offset-2
 col-md-10 col-md-offset-1
-post-container"><header><h2>TOC</h2></header><nav id=TableOfContents></nav><h1 id=注意-本文还处于创作阶段将会尽快完善>注意 本文还处于创作阶段,将会尽快完善</h1><h2>微信公众号</h2><p>扫描下面的二维码关注我们的微信公众号,第一时间查看最新内容。同时也可以关注我的Github，看看我都在了解什么技术，在页面底部可以找到我的Github。</p><img src=https://res.cloudinary.com/lyp/image/upload/v1581729955/hugo/blog.github.io/qrcode_for_sikekafeidou.jpg alt=wechat-account-qrcode><hr><ul class=pager><li class=previous><a href=/post/cloudflare-deploy-hugo-site/ data-toggle=tooltip data-placement=top title=cloudflare-pages-deploy-hugo-site>&larr; cloudflare-pages-deploy-hugo-site</a></li><li class=next><a href=/post/centos-install-php/ data-toggle=tooltip data-placement=top title=centos安装php8.0>centos安装php8.0 &rarr;</a></li></ul><script src=https://utteranc.es/client.js repo=liangyuanpeng/liangyuanpeng.github.io issue-term=title theme=github-light crossorigin=anonymous async></script></div><div class="col-lg-8 col-lg-offset-2
+post-container"><header><h2>TOC</h2></header><nav id=TableOfContents></nav><h1 id=启动etcd>启动etcd</h1><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell><span style=color:#f92672>[</span>root@localhost etcd-v3.2.32-linux-amd64<span style=color:#f92672>]</span><span style=color:#75715e># ./etcd --listen-peer-urls=&#34;http://0.0.0.0:2380&#34; --listen-client-urls=&#34;http://0.0.0.0:2379&#34; --advertise-client-urls=&#34;http://0.0.0.0:2379&#34;</span>
+2021-04-07 16:03:31.438164 W | pkg/flags: unrecognized environment variable ETCD_VER<span style=color:#f92672>=</span>v3.2.32
+2021-04-07 16:03:31.438308 I | etcdmain: etcd Version: 3.2.32
+2021-04-07 16:03:31.438321 I | etcdmain: Git SHA: 7dc07f2a9
+2021-04-07 16:03:31.438331 I | etcdmain: Go Version: go1.12.17
+</code></pre></div><p>coredns配置文件</p><pre><code>liangyuanpeng.com {
+    etcd {
+        path /skydns
+        endpoint http://192.168.3.181:2379
+    }
+    prometheus
+    cache
+    loadbalance
+}
+
+. {
+    forward . 8.8.8.8:53 8.8.4.4:53
+    cache
+}
+</code></pre><p>为了更好的查看效果,建议把下面配置给注释掉:</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell>. <span style=color:#f92672>{</span>
+    forward . 8.8.8.8:53 8.8.4.4:53
+    cache
+<span style=color:#f92672>}</span>
+</code></pre></div><p>这样一来,当没有查询到数据时就不会再从8888和8844去检查dns了.</p><p>启动coredns</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell><span style=color:#f92672>[</span>root@node123 hades<span style=color:#f92672>]</span><span style=color:#75715e># coredns -conf corefile-etcd-plugin </span>
+skydns.local.:53
+.:53
+CoreDNS-1.8.3
+linux/amd64, go1.16, <span style=color:#ae81ff>4293992</span>
+</code></pre></div><p>设置DNS A记录:</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell>./etcdctl set /skydns/com/liangyuanpeng/www/ <span style=color:#e6db74>&#39;{&#34;host&#34;:&#34;192.168.3.152&#34;}&#39;</span>
+</code></pre></div><h1 id=注意-etcd-api版本使用v3>注意 etcd API版本使用v3</h1><p>查看Etcd中的数据:</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell>./etcdctl get /skydns/ --prefix<span style=color:#f92672>=</span>true --keys-only<span style=color:#f92672>=</span>true
+</code></pre></div><p>正常的情况下会看到刚才设置进去的key.</p><p>查看DNS是否设置成功</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell><span style=color:#f92672>[</span>root@node123 ~<span style=color:#f92672>]</span><span style=color:#75715e># dig @192.168.3.123 www.liangyuanpeng.com</span>
+
+; &lt;&lt;&gt;&gt; DiG 9.11.4-P2-RedHat-9.11.4-26.P2.el7_9.4 &lt;&lt;&gt;&gt; @192.168.3.123 www.liangyuanpeng.com
+; <span style=color:#f92672>(</span><span style=color:#ae81ff>1</span> server found<span style=color:#f92672>)</span>
+;; global options: +cmd
+;; Got answer:
+;; -&gt;&gt;HEADER<span style=color:#e6db74>&lt;&lt;- opco</span>de: QUERY, status: NOERROR, id: <span style=color:#ae81ff>35705</span>
+;; flags: qr aa rd; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: <span style=color:#ae81ff>1</span>
+;; WARNING: recursion requested but not available
+
+;; OPT PSEUDOSECTION:
+; EDNS: version: 0, flags:; udp: <span style=color:#ae81ff>4096</span>
+;; QUESTION SECTION:
+;www.liangyuanpeng.com.         IN      A
+
+;; ANSWER SECTION:
+www.liangyuanpeng.com.  <span style=color:#ae81ff>265</span>     IN      A       192.168.3.152
+
+;; Query time: <span style=color:#ae81ff>0</span> msec
+;; SERVER: 192.168.3.123#53<span style=color:#f92672>(</span>192.168.3.123<span style=color:#f92672>)</span>
+;; WHEN: Wed Apr <span style=color:#ae81ff>07</span> 04:20:28 EDT <span style=color:#ae81ff>2021</span>
+;; MSG SIZE  rcvd: <span style=color:#ae81ff>87</span>
+</code></pre></div><p>可以看到成功将DNS <code>www.liangyuanpeng.com</code>解析成了<code>192.168.3.152</code>,也就是前面设置到etcd中的内容</p><h1 id=注意-本文还处于创作阶段将会尽快完善>注意 本文还处于创作阶段,将会尽快完善</h1><h2>微信公众号</h2><p>扫描下面的二维码关注我们的微信公众号,第一时间查看最新内容。同时也可以关注我的Github，看看我都在了解什么技术，在页面底部可以找到我的Github。</p><img src=https://res.cloudinary.com/lyp/image/upload/v1581729955/hugo/blog.github.io/qrcode_for_sikekafeidou.jpg alt=wechat-account-qrcode><hr><ul class=pager><li class=previous><a href=/post/cloudflare-deploy-hugo-site/ data-toggle=tooltip data-placement=top title=cloudflare-pages-deploy-hugo-site>&larr; cloudflare-pages-deploy-hugo-site</a></li><li class=next><a href=/post/centos-install-php/ data-toggle=tooltip data-placement=top title=centos安装php8.0>centos安装php8.0 &rarr;</a></li></ul><script src=https://utteranc.es/client.js repo=liangyuanpeng/liangyuanpeng.github.io issue-term=title theme=github-light crossorigin=anonymous async></script></div><div class="col-lg-8 col-lg-offset-2
 col-md-10 col-md-offset-1
 sidebar-container"><section><hr class="hidden-sm hidden-xs"><h5><a href=/tags/>FEATURED TAGS</a></h5><div class=tags><a href=/tags/blog title=blog>blog</a>
 <a href=/tags/chirpstack title=chirpstack>chirpstack</a>
