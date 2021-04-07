@@ -108,8 +108,21 @@ spec:
       url: http://xxx/api/v1/write
 ```  
 
+如果需要将数据持久化可以使用storageClass,一般我是习惯使用longhorn,以下面伪配置为例:  
+```yaml
+spec:
+  storage:
+    volumeClaimTemplate:
+      spec:
+        storageClassName: longhorn
+```  
+
+上述数据持久化配置可能不完整,仅供参考.
+
 # 总结  
 
 总的来说kube-prometheus需要注意的问题是,默认存储24h并且没有持久化,千万记得修改这部分配置,否则可能会引发数据丢失问题.  
+
+本文没有讲述数据持久化相关内容,
 
 本文的部署步骤基本上就是按照官方文档操作了一遍,注意:随着时间的推移和kube-prometheus的演进,按照本文使用最新版本部署可能会出现部署失败的问题,归根结底是因为kube-prometheus最新版本部署内容或步骤发生了一些变化,因此建议首先阅读官方文档.  
