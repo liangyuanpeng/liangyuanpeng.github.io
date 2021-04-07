@@ -1,6 +1,6 @@
 ---
 layout:     post 
-slug:      "prometheus-replease-log"
+slug:      "springboot-clear-unuse-metrics"
 title:      "清理SpringBoot应用无用的metrics指标"
 subtitle:   ""
 description: ""
