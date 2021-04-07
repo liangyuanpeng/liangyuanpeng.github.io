@@ -28,4 +28,7 @@ prometheus的迭代速度还是很快的,v2.25到v2.26的大版本只有一个�
 
 ![prometheus-update](https://res.cloudinary.com/lyp/image/upload/v1616686853/hugo/blog.github.io/prometheus/ea14e284fc63fc009d801274cad03d8.png)
 
+# 系列文章
+将会持续发布prometheus版本发布中文说明,欢迎关注[系列文章目录](https://liangyuanpeng.com/post/prometheus-replease-log/)
+
 # 注意 本文还处于创作阶段,将会尽快完善
