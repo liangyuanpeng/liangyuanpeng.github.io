@@ -20,5 +20,8 @@ categories:
 
 # 本文将专注于prometheus版本发布中文说明  
 
-Prometheus Github地址: [https://github.com/prometheus/prometheus](https://github.com/prometheus/prometheus)
+Prometheus Github地址: [https://github.com/prometheus/prometheus](https://github.com/prometheus/prometheus)  
+
+- [prometheus2.25新特性讲解](https://liangyuanpeng.com/post/prometheus-v2.25-feature/)
+- [prometheus2.26新特性讲解](https://liangyuanpeng.com/post/prometheus-release-v2.26rc.0)
 

@@ -1,6 +1,6 @@
 ---
 layout:     post 
-slug:      "prometheus-v2.26rc.0-feature"
+slug:      "prometheus-release-v2.26rc.0"
 title:      "Prometheus2.26rc.0新特性讲解"
 subtitle:   ""
 description: "Prometheus作为第二个从CNCF毕业的顶级项目,其成熟程度是毋庸置疑的,甚至推出了另一个CNCF项目OpenMetrics,希望将Prometheus的指标格式演进成为一个行业规范"

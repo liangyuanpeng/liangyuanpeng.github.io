@@ -10,7 +10,7 @@ image: "https://res.cloudinary.com/lyp/image/upload/v1544363191/hugo/blog.github
 published: true
 tags:
     - GoLang
-    - Kubernetes
+    - kubernetes
     - 源码剖析
     - CloudNative
     - client-go
