@@ -18,7 +18,7 @@ categories:
     - CloudNative
 ---    
 
-# 本文将专注于prometheus版本发布中文说明  
+# 本系列文章专注于prometheus版本发布中文说明  
 
 Prometheus Github地址: [https://github.com/prometheus/prometheus](https://github.com/prometheus/prometheus)  
 
