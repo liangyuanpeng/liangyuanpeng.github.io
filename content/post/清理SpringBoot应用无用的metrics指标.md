@@ -36,7 +36,12 @@ categories:
   
 然后试试`remove`,可以发现有两个remove方法可以用,分别传入`ID对象`和`metrics对象`,但如果需要全部清理呢?有没有类似List的clear方法呢?  
 
-再试试`clear`方法,发现是有这个方法的,并且我先测试了一遍,看看`clear`方法是否能够达到预期(清除metrics).  
+![metrics-try-remove-method](https://res.cloudinary.com/lyp/image/upload/v1618206239/hugo/blog.github.io/prometheus/springboot/metrics-try-remove-method.png)  
+
+
+再试试`clear`方法,发现是有这个方法的,并且我先测试了一遍,看看`clear`方法是否能够达到预期(清除metrics).   
+
+![metrics-try-clear-method](https://res.cloudinary.com/lyp/image/upload/v1618206238/hugo/blog.github.io/prometheus/springboot/metrics-try-clear-method.png)
 
 # 实操测试
 
@@ -48,11 +53,11 @@ categories:
 5. 再次浏览器看看`/actuator/prometheus`接口返回的内容    
 
 清理metrics前的接口内容:  
-![https://res.cloudinary.com/lyp/image/upload/v1618206795/hugo/blog.github.io/prometheus/springboot/clear-metrics-before.png](https://res.cloudinary.com/lyp/image/upload/v1618206795/hugo/blog.github.io/prometheus/springboot/clear-metrics-before.png)
+![clear-metrics-before](https://res.cloudinary.com/lyp/image/upload/v1618206795/hugo/blog.github.io/prometheus/springboot/clear-metrics-before.png)
 
 清理了metrics后的接口内容:  
 
-![https://res.cloudinary.com/lyp/image/upload/v1618206795/hugo/blog.github.io/prometheus/springboot/clear-metrics-after.png](https://res.cloudinary.com/lyp/image/upload/v1618206795/hugo/blog.github.io/prometheus/springboot/clear-metrics-after.png)  
+![clear-metrics-after](https://res.cloudinary.com/lyp/image/upload/v1618206795/hugo/blog.github.io/prometheus/springboot/clear-metrics-after.png)  
 
 可以看到调用接口后metrics清除了信息.  
 
@@ -64,7 +69,29 @@ categories:
 
 网友说没这个方法? 咋回事?!  
 
+点进clear源码看了一下,方法说明描述得很清楚,1.2.0版本发布的方法,而网友用的版本低于1.2.0,因此没有这个方法.  
+```java
+/**
+     * Clear all meters.
+     * @since 1.2.0
+     */
+    @Incubating(since = "1.2.0")
+    public void clear() {
+        meterMap.keySet().forEach(this::remove);
+    }
+```
 
-# 注意  
-本文还在创作当中,将会尽快发布!
+# 能不能根据根据某些标签来删除特定的metrics  
+
+![clear-metrics-from-tags](https://res.cloudinary.com/lyp/image/upload/v1618212053/hugo/blog.github.io/prometheus/springboot/clear-metrics-from-tags.png)
+
+当然可以!  
+
+![metrics-registry-find-tags.png](https://res.cloudinary.com/lyp/image/upload/v1618212255/hugo/blog.github.io/prometheus/springboot/metrics-registry-find-tags.png)  
+
+可以看到每一个metrics的tag列表都可以拿得到,那就好办了,通过标签对比筛选出自己想要删除的metrics,然后用`remove`方法删除就可以了.
+
+# 总结  
+
+当程序有动态新增metrics时就要考虑无用metrics清除的机制,如果metrics数量太多的话就会影响到业务应用.
 
