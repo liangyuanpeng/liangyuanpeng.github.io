@@ -41,8 +41,10 @@ API文档既然可以以文件的方式下载下来,那肯定可以再以某种�
 执行的docker命令如下:  
 
 ```shell
-docker run -it -d --name swagger -p 80:8080 -e SWAGGER_JSON=/doc/swagger.json -v {文档文件目录}:/doc swaggerapi/swagger-ui
-```
+docker run -it -d --name swagger -p 80:8080 -e SWAGGER_JSON=/doc/kubesphere.json -v {文档文件目录}:/doc swaggerapi/swagger-ui
+```  
+
+上述命令中假定swagger文件名为`kubesphere.json`,如果你的文件叫其他名字,记得修改成真实文件名.
 
 
 接着就可以通过访问本机本机IP来看kubesphere的API文档了.  
