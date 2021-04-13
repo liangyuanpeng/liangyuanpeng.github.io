@@ -6,7 +6,7 @@ subtitle:   ""
 description: ""
 date:       2021-04-07
 author:     "梁远鹏"
-image: "https://res.cloudinary.com/lyp/image/upload/v1612744351/hugo/blog.github.io/pexels-bruno-cervera-6032877.jpg"
+image: "https://res.cloudinary.com/lyp/image/upload/v1618109095/hugo/banner/pexels-mikael-blomkvist-6483585.jpg"
 published: true
 tags:
     - prometheus
