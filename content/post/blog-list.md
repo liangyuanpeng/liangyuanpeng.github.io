@@ -105,4 +105,8 @@ tags:
 
 28. - [ ] kube-prometheus监控外部metrics  
 
-29. - [ ] kube-prometheus适用范围,一个K8S集群部署了kube-prometheus如何限制只用在某个namespace下->spec.namespaceSelector.any=true
+29. - [ ] kube-prometheus适用范围,一个K8S集群部署了kube-prometheus如何限制只用在某个namespace下->spec.namespaceSelector.any=true  
+
+30. - [ ] springboot-data-redis(lettuce)使用redis6,客户端缓存功能讲解  
+
+31. - [ ] sprigboot-data-redis 封装的jdk集合,代码直接使用集合的方式,实际数据是存储在redis,对用户透明,https://docs.spring.io/spring-data/data-redis/docs/current/reference/html/#redis:support  响应式写法体验.ReactiveRedisTemplate
