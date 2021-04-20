@@ -2,7 +2,7 @@
 layout:     post 
 slug:      "cloudflare-deploy-hugo-site"
 title:      "使用Cloudflare pages部署静态博客"
-subtitle:   "使用Cloudflare pages部署静态博客"
+subtitle:   "使"
 description: " "
 date:       2021-03-22
 author:     "梁远鹏"
