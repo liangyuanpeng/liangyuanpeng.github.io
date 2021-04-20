@@ -93,7 +93,7 @@ tags:
 
 24. - [ ] 单独使用AlertManager,通过API调用触发告警  
 
-25. - [ ] 静态博客集成流量监控-->[Google Analytics](https://analytics.google.com/analytics/web/)  
+25. - [x] 静态博客集成流量监控-->[Google Analytics](https://analytics.google.com/analytics/web/)  
 
 24. - [ ] Prometheus-AlertManager对接飞书机器人  
 
@@ -105,4 +105,12 @@ tags:
 
 28. - [ ] kube-prometheus监控外部metrics  
 
-29. - [ ] kube-prometheus适用范围,一个K8S集群部署了kube-prometheus如何限制只用在某个namespace下->spec.namespaceSelector.any=true
+29. - [ ] kube-prometheus适用范围,一个K8S集群部署了kube-prometheus如何限制只用在某个namespace下->spec.namespaceSelector.any=true  
+
+30. - [ ] springboot-data-redis(lettuce)使用redis6,客户端缓存功能讲解  
+
+31. - [ ] sprigboot-data-redis 封装的jdk集合,代码直接使用集合的方式,实际数据是存储在redis,对用户透明,https://docs.spring.io/spring-data/data-redis/docs/current/reference/html/#redis:support  响应式写法体验.ReactiveRedisTemplate
+
+32. - [ ]翻译文章https://loft.sh/blog/introduction-into-virtual-clusters-in-kubernetes/  
+
+33. - [ ]翻译文章 Rust基金会相关 https://foundation.rust-lang.org/posts/2021-04-15-introducing-shane-miller/
