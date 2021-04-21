@@ -111,4 +111,6 @@ tags:
 
 31. - [ ] sprigboot-data-redis 封装的jdk集合,代码直接使用集合的方式,实际数据是存储在redis,对用户透明,https://docs.spring.io/spring-data/data-redis/docs/current/reference/html/#redis:support  响应式写法体验.ReactiveRedisTemplate
 
-32. - [ ]翻译文章https://loft.sh/blog/introduction-into-virtual-clusters-in-kubernetes/
+32. - [ ]翻译文章https://loft.sh/blog/introduction-into-virtual-clusters-in-kubernetes/  
+
+33. - [ ] kubernetes拉取私有镜像
