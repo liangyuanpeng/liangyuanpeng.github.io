@@ -89,11 +89,11 @@ tags:
 
 22. - [ ] KubeSphere部署最简版，以及日志清理配置  
 
-23. - [ ] [prometheus-alertmanager监控系统](https://liangyuanpeng.com/post/prometheus-alertmanager-monitoring-quickstart/)  
+23. - [x] [prometheus-alertmanager监控系统](https://liangyuanpeng.com/post/prometheus-alertmanager-monitoring-quickstart/)  
 
 24. - [ ] 单独使用AlertManager,通过API调用触发告警  
 
-25. - [ ] 静态博客集成流量监控-->[Google Analytics](https://analytics.google.com/analytics/web/)  
+25. - [x] 静态博客集成流量监控-->[Google Analytics](https://analytics.google.com/analytics/web/)  
 
 24. - [ ] Prometheus-AlertManager对接飞书机器人  
 
@@ -114,3 +114,5 @@ tags:
 32. - [ ]翻译文章https://loft.sh/blog/introduction-into-virtual-clusters-in-kubernetes/  
 
 33. - [ ] kubernetes拉取私有镜像
+
+34. - [ ]翻译文章 Rust基金会相关 https://foundation.rust-lang.org/posts/2021-04-15-introducing-shane-miller/
