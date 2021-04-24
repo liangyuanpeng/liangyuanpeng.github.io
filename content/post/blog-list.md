@@ -115,4 +115,6 @@ tags:
 
 33. - [ ] kubernetes拉取私有镜像
 
-34. - [ ]翻译文章 Rust基金会相关 https://foundation.rust-lang.org/posts/2021-04-15-introducing-shane-miller/
+34. - [x]翻译文章 Rust基金会相关 https://foundation.rust-lang.org/posts/2021-04-15-introducing-shane-miller/
+
+35. - [ ]翻译文章 https://cd.foundation/blog/2021/04/22/cloud-native-ci-cd-with-tekton-building-custom-tasks/
