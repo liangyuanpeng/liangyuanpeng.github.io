@@ -72,8 +72,16 @@ kubernetes多租户系统实现会遇到下面三个挑战:
 # 可用的解决方案  
 
 ## kiosk 
-[kiosk](https://github.com/loft-sh/kiosk) 
+[kiosk](https://github.com/loft-sh/kiosk)是开源的kubernetes多租户扩展,它被设计为任何kubernetes集群的轻量级、可插拔和可自定义的解决方案，以简单的方式解决了一些多租户的难题。包括用户账号分离，用户级别的资源消耗限制以及 
 
-## Loft
+## Loft  
+[Loft](https://loft.sh/)  
 
-# 注意 本文还处于创作阶段,将会尽快完善
+# 总结  
+随着kubernetes的采用率进一步向上发展和kubernetes单租户模型日益充满困难,kubernetes多租户已经成为了很多组织面临的挑战之一.
+
+在实现kubernetes的多租户时，你需要确认是否需要硬多租户或软多租户是否已经能够满足。但不管怎么说你需要解决三个主要问题:怎么样去管理用户/租户,怎么样限制资源的使用以及如何隔离资源.限制有几个工具例如dex,kiosk和loft能够帮助你更轻松地建立kubernetes多租户机制.
+
+# 注意 本文还处于创作阶段,将会尽快完善  
+
+本文翻译至[kubernetes-multi-tenancy-best-practices-guide](https://loft.sh/blog/kubernetes-multi-tenancy-best-practices-guide/)
