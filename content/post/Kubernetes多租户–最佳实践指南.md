@@ -75,7 +75,9 @@ kubernetes多租户系统实现会遇到下面三个挑战:
 [kiosk](https://github.com/loft-sh/kiosk)是开源的kubernetes多租户扩展,它被设计为任何kubernetes集群的轻量级、可插拔和可自定义的解决方案，以简单的方式解决了一些多租户的难题。包括用户账号分离，用户级别的资源消耗限制以及 
 
 ## Loft  
-[Loft](https://loft.sh/)  
+[Loft](https://loft.sh/)是一个基于kiosk实现,提供全方位的多租户解决方案.Loft能够安装在任何kubernetes集群上,能够让租户按需创建namespace和虚拟集群(virtual Clusters).它关注用户管理(包括单点登录)和用户隔离,并且让集群管理员可以设置使用限制,因此文章上述提到的一些多租户问题都能够处理.Loft还提供了一些额外的功能,例如休眠模式,通过关闭没有使用的namespace和 virtual Clusters来降低云计算成本.  
+
+Loft是一个有免费套餐的商业产品,同时也包含在[EKS最佳实践多租户指南](https://aws.github.io/aws-eks-best-practices)(我看了一下,链接已经404,因此链接替换成EKS最佳实践首页)当中.虽然它最初专注于多租户开发案例,但也可以用在生产案例,例如[集群分片](https://loft.sh/use-cases/kubernetes-cluster-sharding)或者是[在共享集群里面运行产品的多个实例](https://loft.sh/use-cases/cloud-native-managed-products).
 
 # 总结  
 随着kubernetes的采用率进一步向上发展和kubernetes单租户模型日益充满困难,kubernetes多租户已经成为了很多组织面临的挑战之一.
