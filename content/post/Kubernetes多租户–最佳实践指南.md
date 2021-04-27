@@ -67,12 +67,19 @@ kubernetes多租户系统实现会遇到下面三个挑战:
 
 ## 用户管理  
 ## 公平的资源共享  
+
 ## 隔离  
+
+挑战:第三个挑战是将不同的租户彼此隔离.这样可以防止租户之间相互干扰.如文章上所述,这个隔离的程度取决于你是使用硬租户还是软租户、系统是否只提供给受信任的租户使用以及系统是否能够免收平台系统本身程序的错误.
+
+解决方案:把kubernetes namespace作为租户的基本隔离处理,另外vClusters提供了比namespace更多的隔离,同时让租户拥有更多的灵活性.Another factor that should be considered for isolating tenants is network traffic: Network policies should be configured in a way that by default all traffic is denied and only traffic within the same namespace, internet traffic for containers, and requests to the DNS are allowed. This makes it much harder for tenants to attack or interfere with each other.
 
 # 可用的解决方案  
 
+已经存在的一些有用的解决方案去帮助你构建kubernetes多租户平台.除了前面提到的dex还有kiosk和loft.
+
 ## kiosk 
-[kiosk](https://github.com/loft-sh/kiosk)是开源的kubernetes多租户扩展,它被设计为任何kubernetes集群的轻量级、可插拔和可自定义的解决方案，以简单的方式解决了一些多租户的难题。包括用户账号分离，用户级别的资源消耗限制以及 
+[kiosk](https://github.com/loft-sh/kiosk)是开源的kubernetes多租户扩展,它被设计为任何kubernetes集群的轻量级、可插拔和可自定义的解决方案，以简单的方式解决了一些多租户的难题。包括用户账号分离，用户级别的资源消耗限制以及用于安全租户隔离和自助服务namespace初始化的namespace模版.kiosk虽然没有内置用户管理功能,但也是构建多租户系统非常好的方式. 
 
 ## Loft  
 [Loft](https://loft.sh/)是一个基于kiosk实现,提供全方位的多租户解决方案.Loft能够安装在任何kubernetes集群上,能够让租户按需创建namespace和虚拟集群(virtual Clusters).它关注用户管理(包括单点登录)和用户隔离,并且让集群管理员可以设置使用限制,因此文章上述提到的一些多租户问题都能够处理.Loft还提供了一些额外的功能,例如休眠模式,通过关闭没有使用的namespace和 virtual Clusters来降低云计算成本.  
