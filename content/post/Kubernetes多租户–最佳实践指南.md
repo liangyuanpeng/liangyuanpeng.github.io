@@ -42,6 +42,10 @@ kubernetes的多租户意味着多个用户共享同一个集群和控制平面,
 
 # 软多租户 VS 硬多租户  
 
+软多租户和硬多租户虽然听起来是截然不同的对立面,但实际上他们是同一目标的不同实现.甚至有人认为kubernetes中不可能做到完美的硬多租户,因为kubernetes的设计方式是一个集中的控制平面始终会被租户引入潜在的漏洞并且共享这些问题.  
+
+通常硬多租户会被更看好(因为它可以更好的用于各种租户),而软多租户则更容易实现.
+
 # 多租户kubernetes的局限性  
 
 实现了多租户后你的kubernetes集群就会存在了一些限制.因为和单租户集群的用户相比,多租户中的租户在技术上会存在某些限制,例如基于namespace实现的多租户限制一个示例是租户无法使用CRD,无法安装使用了RBAC的helm chart或者更改集群的某些配置(例如kubernetes版本).
@@ -66,13 +70,22 @@ kubernetes的多租户意味着多个用户共享同一个集群和控制平面,
 kubernetes多租户系统实现会遇到下面三个挑战:  
 
 ## 用户管理  
+
+挑战:大部分公司已经为他们的工程师提供了用户管理系统.可以在Github、微软、谷歌或其他任何服务中.由于用户不应该在第二个地方或更多地方管理多次,所以你需要为你的kubernetes系统开启单点登录.  
+
+解决方案: 使用CNCF沙箱项目dex,你可以为租户提供单点登录功能.Dex是一个提供了OIDC和OAuth2功能的程序,包含了LDAP和SAML在内的各种身份认证,因此可以在很多用户管理系统中使用.所以,dex是一个可以为kubernetes多租户系统很好的解决用户管理挑战的选项.
+
 ## 公平的资源共享  
+
+挑战:由于所有租户共享相同的基础资源,即网络和计算资源.第二个挑战是确保租户之间能够公平地共享可用资源.这一点很重要,因为你不会希望某个租户消耗了全部资源或者消耗了过多的资源(有意或无意)导致其他租户出现异常情况.所以需要保证所有的租户都有相对应的资源限制.  
+
+解决方案:租户的资源使用能够通过kubernetes的Resource Quotas被kubernetes原生限制,由于如果为这些资源开启了限制用户必须指定CPU和内存限制,因此也可以用LimitRanges来设置一些智能的默认值.
 
 ## 隔离  
 
 挑战:第三个挑战是将不同的租户彼此隔离.这样可以防止租户之间相互干扰.如文章上所述,这个隔离的程度取决于你是使用硬租户还是软租户、系统是否只提供给受信任的租户使用以及系统是否能够免收平台系统本身程序的错误.
 
-解决方案:把kubernetes namespace作为租户的基本隔离处理,另外vClusters提供了比namespace更多的隔离,同时让租户拥有更多的灵活性.Another factor that should be considered for isolating tenants is network traffic: Network policies should be configured in a way that by default all traffic is denied and only traffic within the same namespace, internet traffic for containers, and requests to the DNS are allowed. This makes it much harder for tenants to attack or interfere with each other.
+解决方案:把kubernetes namespace作为租户的基本隔离处理,另外vClusters提供了比namespace更多的隔离,同时让租户拥有更多的灵活性.隔离租户的另一个考虑因素是网络流量:网络策略默认情况下应该已经配置了拒绝所有流量并且仅允许同一命名空间的流量,容器的公网流量还有DNS的请求流量.这让租户攻击或者干扰其他租户变得更加地困难.
 
 # 可用的解决方案  
 
@@ -92,7 +105,5 @@ Loft是一个有免费套餐的商业产品,同时也包含在[EKS最佳实践�
 随着kubernetes的采用率进一步向上发展和kubernetes单租户模型日益充满困难,kubernetes多租户已经成为了很多组织面临的挑战之一.
 
 在实现kubernetes的多租户时，你需要确认是否需要硬多租户或软多租户是否已经能够满足。但不管怎么说你需要解决三个主要问题:怎么样去管理用户/租户,怎么样限制资源的使用以及如何隔离资源.限制有几个工具例如dex,kiosk和loft能够帮助你更轻松地建立kubernetes多租户机制.
-
-# 注意 本文还处于创作阶段,将会尽快完善  
 
 本文翻译至[kubernetes-multi-tenancy-best-practices-guide](https://loft.sh/blog/kubernetes-multi-tenancy-best-practices-guide/)
