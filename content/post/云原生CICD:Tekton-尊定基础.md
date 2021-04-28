@@ -30,7 +30,11 @@ categories:
 
 这说明用Tekon非常合适管理kubernetes的工作负载(workloads),但是为什么不选择其他更加流行的工具呢?  
 
-常用的一些CI/CD解决方案,例如Jenkins, Travis or Bamboo不是kubernetes原生的或者kubernetes集成得还不够.
+常用的一些CI/CD解决方案,例如Jenkins, Travis or Bamboo都不是kubernetes原生的或者kubernetes集成度还不够.在这样的前提下就使得部署,运维和管理CI/CD工具本身以及用这样的CI/CD工具去部署任何kubernetes应用变得困难和烦恼.另一方面,Tekton可以很容易地作为kubernetes operator和其他容器不是在一起,每一个Tekton pipeline只是另一种kubernetes资源,管理方式和Pod或Deployments相同.  
+
+这也让Tekton可以很好的和GitOps搭配使用.
+
+
 
 # 注意 本文还在翻译当中  
 
