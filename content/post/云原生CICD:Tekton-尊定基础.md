@@ -3,7 +3,7 @@ layout:     post
 slug:      "cloudnative-cicd-tekton"
 title:      "云原生CICD:Tekton-尊定基础"
 subtitle:   ""
-description: "使用Tekton Pipelines启动Kubernetes上的云原生CI / CD的最简单方法…"
+description: "使用Tekton Pipelines启动Kubernetes上的云原生CI/CD的最简单方法…"
 date:       2021-04-27
 author:     "梁远鹏"
 image: "https://res.cloudinary.com/lyp/image/upload/v1612744351/hugo/blog.github.io/pexels-bruno-cervera-6032877.jpg"
@@ -32,7 +32,9 @@ categories:
 
 常用的一些CI/CD解决方案,例如Jenkins, Travis or Bamboo都不是kubernetes原生的或者kubernetes集成度还不够.在这样的前提下就使得部署,运维和管理CI/CD工具本身以及用这样的CI/CD工具去部署任何kubernetes应用变得困难和烦恼.另一方面,Tekton可以很容易地作为kubernetes operator和其他容器不是在一起,每一个Tekton pipeline只是另一种kubernetes资源,管理方式和Pod或Deployments相同.  
 
-这也让Tekton可以很好的和GitOps搭配使用.因此你可以将所有pipeline和配置都维护在Git当中,上述工具中至少有一种无法这样做(是的我非常讨厌Jenkins).
+这也让Tekton可以很好的和GitOps搭配使用.因此你可以将所有pipeline和配置都维护在Git当中,上述工具中至少有一种无法这样做(是的我非常讨厌Jenkins).和其他CI/CD工具相比资源的消耗同样有优势,整个Tekton只是部署几个Pod,当没有pipelines运行的时候只消耗很少量的CPU和内存. 
+
+也就是说,如果你的应用都是部署在kubernetes之上的,那么最好也用kubernetes原生的CI/CD工具.那么Tekton是唯一的选择吗?当然不是,其他工具也可以用,JenkinsX就是其中一个,也是另一种kubernetes原生方式进行持续交付的工具.
 
 
 
