@@ -32,7 +32,7 @@ categories:
 
 常用的一些CI/CD解决方案,例如Jenkins, Travis or Bamboo都不是kubernetes原生的或者kubernetes集成度还不够.在这样的前提下就使得部署,运维和管理CI/CD工具本身以及用这样的CI/CD工具去部署任何kubernetes应用变得困难和烦恼.另一方面,Tekton可以很容易地作为kubernetes operator和其他容器不是在一起,每一个Tekton pipeline只是另一种kubernetes资源,管理方式和Pod或Deployments相同.  
 
-这也让Tekton可以很好的和GitOps搭配使用.
+这也让Tekton可以很好的和GitOps搭配使用.因此你可以将所有pipeline和配置都维护在Git当中,上述工具中至少有一种无法这样做(是的我非常讨厌Jenkins).
 
 
 
