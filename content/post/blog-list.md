@@ -75,7 +75,7 @@ tags:
 ```  
 15. - [ ] [文章翻译https://grafana.com/blog/2021/02/03/auto-instrumenting-a-java-spring-boot-application-for-traces-and-logs-using-opentelemetry-and-grafana-tempo/](https://grafana.com/blog/2021/02/03/auto-instrumenting-a-java-spring-boot-application-for-traces-and-logs-using-opentelemetry-and-grafana-tempo/)
 
-16. - [ ] [loft文章翻译](https://loft.sh/blog/kubernetes-multi-tenancy-best-practices-guide/)  
+16. - [x] [loft文章翻译](https://loft.sh/blog/kubernetes-multi-tenancy-best-practices-guide/)  
 
 17. - [x] [自动化构建algolia索引](https://liangyuanpeng.com/post/auto-build-algolia-index/)  
 
@@ -89,7 +89,7 @@ tags:
 
 22. - [ ] KubeSphere部署最简版，以及日志清理配置  
 
-23. - [ ] [prometheus-alertmanager监控系统](https://liangyuanpeng.com/post/prometheus-alertmanager-monitoring-quickstart/)  
+23. - [x] [prometheus-alertmanager监控系统](https://liangyuanpeng.com/post/prometheus-alertmanager-monitoring-quickstart/)  
 
 24. - [ ] 单独使用AlertManager,通过API调用触发告警  
 
@@ -115,4 +115,11 @@ tags:
 
 33. - [ ]翻译文章 Rust基金会相关 https://foundation.rust-lang.org/posts/2021-04-15-introducing-shane-miller/  
 
-34. - [ ]Rust写k8s Controller https://blog.frankel.ch/start-rust/6/
+33. - [ ] kubernetes拉取私有镜像
+
+34. - [x]翻译文章 Rust基金会相关 https://foundation.rust-lang.org/posts/2021-04-15-introducing-shane-miller/
+
+35. - [ ]翻译文章 https://cd.foundation/blog/2021/04/22/cloud-native-ci-cd-with-tekton-building-custom-tasks/  
+
+36. - [ ] 翻译文章 https://itnext.io/cloud-native-ci-cd-with-tekton-laying-the-foundation-a377a1b59ac0
+
