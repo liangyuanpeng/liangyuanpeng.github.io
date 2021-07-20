@@ -113,4 +113,6 @@ tags:
 
 32. - [ ]翻译文章https://loft.sh/blog/introduction-into-virtual-clusters-in-kubernetes/  
 
-33. - [ ]翻译文章 Rust基金会相关 https://foundation.rust-lang.org/posts/2021-04-15-introducing-shane-miller/
+33. - [ ]翻译文章 Rust基金会相关 https://foundation.rust-lang.org/posts/2021-04-15-introducing-shane-miller/  
+
+34. - [ ]Rust写k8s Controller https://blog.frankel.ch/start-rust/6/
