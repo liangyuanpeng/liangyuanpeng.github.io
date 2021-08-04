@@ -23,7 +23,7 @@ home = ["HTML", "RSS", "Algolia"]
  # header_image = "img/home-bg-jeep.jpg"
  header_image = "https://res.cloudinary.com/lyp/image/upload/v1537619755/hugo/banner/WechatIMG413.jpg"
  SEOTitle = "liangyuanpeng的博客 | liangyuanpeng's Blog"
-  description = "lan，工程师, 开源爱好者 | 公众号:四颗咖啡豆"
+  description = "lan，工程师, OpenYurt Member,CDF中文本地化SIG成员,开源爱好者 | 公众号:四颗咖啡豆"
   keyword = "liangyuanpeng|LanLiang|OpenYurt|Knative|Pulsar|Prometheus|Halo||边缘计算kubernetes|Docker|CloudNative|Golang|Rust|Istio|微服务"
   #slogan = "路在脚下，心向远方"
  slogan = ""
@@ -43,7 +43,7 @@ home = ["HTML", "RSS", "Algolia"]
   algolia_apiKey = "2aa49a052dc7b70cf63c1f5ebcae8934"
 
   # Sidebar settings
-  sidebar_about_description = "云原生爱好者|公众号:四颗咖啡豆"
+  sidebar_about_description = "OpenYurt Member|公众号:四颗咖啡豆"
   sidebar_avatar = "https://res.cloudinary.com/lyp/image/upload/v1537624737/hugo/avatar/%E5%93%88%E5%B8%8C%E5%A4%B4%E5%83%8F.jpg"      # use absolute URL, seeing it's used in both `/` and `/about/`
 
   featured_tags = true 
