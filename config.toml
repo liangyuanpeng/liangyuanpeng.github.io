@@ -43,7 +43,7 @@ home = ["HTML", "RSS", "Algolia"]
   algolia_apiKey = "2aa49a052dc7b70cf63c1f5ebcae8934"
 
   # Sidebar settings
-  sidebar_about_description = "OpenYurt Member|公众号:四颗咖啡豆"
+  sidebar_about_description = "OpenYurt Member|CDF中文本地化SIG成员|CNCF粉丝|Pulsar爱好者|公众号:四颗咖啡豆"
   sidebar_avatar = "https://res.cloudinary.com/lyp/image/upload/v1537624737/hugo/avatar/%E5%93%88%E5%B8%8C%E5%A4%B4%E5%83%8F.jpg"      # use absolute URL, seeing it's used in both `/` and `/about/`
 
   featured_tags = true 
