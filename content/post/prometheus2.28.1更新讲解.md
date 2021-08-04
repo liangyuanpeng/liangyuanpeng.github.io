@@ -31,6 +31,4 @@ Prometheus作为第二个从CNCF毕业的顶级项目,其成熟程度是毋庸�
 
 2. 修复从HTTP SD删除抓取目标后没有更新目标组,依然可以看到被删除的目标.  [#9020](https://github.com/prometheus/prometheus/pull/9020)  
 
-3. 完善了kit/log日志级别的处理,github.com/prometheus/exporter-toolkit `v0.5.1`升级为`v0.6.0`.  
-
-[#9021](https://github.com/prometheus/prometheus/pull/9021) 
+3. 完善了kit/log日志级别的处理,github.com/prometheus/exporter-toolkit `v0.5.1`升级为`v0.6.0`.  [#9021](https://github.com/prometheus/prometheus/pull/9021) 
