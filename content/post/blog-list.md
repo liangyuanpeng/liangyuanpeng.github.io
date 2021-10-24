@@ -37,11 +37,11 @@ tags:
 ```
 添加->2020-03-07 22:23:08   
 ```  
-6. - [ ] SpringCloud Ribbon负载均衡  
+6. - [ ] ~~SpringCloud Ribbon负载均衡~~  
 ```
 添加->2020-03-07 22:23:08   
 ```  
-7. - [ ] SpringCloud Hystrix  
+7. - [ ] ~~SpringCloud Hystrix~~  
 ```
 添加->2020-03-07 22:23:08   
 ```  
@@ -57,7 +57,7 @@ tags:
 ```
 添加->2020-03-08 12:13:19   
 ```  
-11. - [ ] docker swarm部署apache-pulsar  
+11. - [ ] ~~docker swarm部署apache-pulsar~~  
 ```
 添加->2020-03-08 12:13:19   
 ```  
@@ -121,5 +121,23 @@ tags:
 
 35. - [ ]翻译文章 https://cd.foundation/blog/2021/04/22/cloud-native-ci-cd-with-tekton-building-custom-tasks/  
 
-36. - [ ] 翻译文章 https://itnext.io/cloud-native-ci-cd-with-tekton-laying-the-foundation-a377a1b59ac0
+36. - [ ] 翻译文章 https://itnext.io/cloud-native-ci-cd-with-tekton-laying-the-foundation-a377a1b59ac0  
+
+37. - [ ] 编写kubernetes webhook  
+
+38. - [ ] 为K8S证书添加新域名  
+
+39. - [ ] fluentd语法入门  
+
+40. - [ ] k8s部署云原生CD引擎Argo
+
+41. - [ ] Contour快速使用  
+
+42. - [ ] contour版本发布说明   
+
+43. - [ ] k8s部署minio
+
+44. - [ ] k8s部署nats  
+
+45. - [ ] k8s部署nats
 
