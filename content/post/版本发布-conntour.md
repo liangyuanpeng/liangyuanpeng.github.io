@@ -7,10 +7,11 @@ description: ""
 date:       2021-07-28
 author:     "梁远鹏"
 image: "https://res.cloudinary.com/lyp/image/upload/v1612744351/hugo/blog.github.io/pexels-bruno-cervera-6032877.jpg"
-published: false
+published: true
 tags:
     - cncf
     - gateway
+    - contour
 categories: 
     - CloudNative
 ---    
@@ -19,3 +20,5 @@ categories:
 
 Contour Github地址: [https://github.com/projectcontour/contour](https://github.com/projectcontour/contour)  
 
+
+- [Contour-v1.19.1发布](https://liangyuanpeng.com/post/contour-v1.19.1-release/)
