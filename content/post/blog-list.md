@@ -133,7 +133,7 @@ tags:
 
 41. - [ ] Contour快速使用  
 
-42. - [ ] contour版本发布说明   
+42. - [x] contour版本发布说明   
 
 43. - [ ] k8s部署minio
 
