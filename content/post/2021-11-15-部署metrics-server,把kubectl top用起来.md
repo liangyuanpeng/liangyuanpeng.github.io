@@ -13,7 +13,7 @@ tags:
     - tech
     - k8s
     - kubernetes
-categories: [ CloudNative ]
+categories: [ kubernetes ]
 ---
 
 # 在部署metrics-server之前使用kubectl top

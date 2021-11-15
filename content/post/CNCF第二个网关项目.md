@@ -13,7 +13,7 @@ tags:
     - emissary
     - cncf
 categories: 
-    - TECH
+    - kubernetes
 ---
 
 我还在翻译这篇文章的时候公众号CNCF已经发布了翻译好的文章...因此我没有继续翻译了.这里做了传送门.  
