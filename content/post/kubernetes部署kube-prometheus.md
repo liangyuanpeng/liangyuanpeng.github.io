@@ -14,6 +14,7 @@ tags:
     - k8s
     - kubeprometheus
     - prometheus
+    - cncf
 categories: 
     - kubernetes
 ---  
