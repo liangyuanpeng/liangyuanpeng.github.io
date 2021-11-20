@@ -217,7 +217,7 @@ spec:
 
 ```  
 
-直接用这个yaml部署的话是国内会部署失败的,因为镜像使用了k8s.gcr.io,而国内访问不了.  
+直接用这个yaml部署的话是国内会部署失败的,因为镜像使用了`k8s.gcr.io`,而国内访问不了.  
 
 这时候只需要把`k8s.gcr.io`修改为`lank8s.cn`,再次部署这个yaml就可以了!
 
@@ -225,13 +225,13 @@ spec:
 
 # 什么是lank8s.cn  
 
-lank8s.cn是我个人在长久维护的一个免费k8s.gcr.io镜像代理服务,也就是说k8s.gcr.io有什么镜像就可以通过lank8s.cn拉取什么镜像.  
+lank8s.cn是我个人在长久维护的一个免费`k8s.gcr.io`镜像代理服务,也就是说k8s.gcr.io有什么镜像就可以通过lank8s.cn拉取什么镜像.  
 
-另一个gcr.io仓库也有对应的gcr.lank8s.cn,不一样的是gcr.lank8s.cn是以收费方式推出的服务,这是希望分担一下我在lank8s.cn上服务器,域名等费用的经济压力.  
+另一个`gcr.io`仓库也有对应的`gcr.lank8s.cn`,不一样的是`gcr.lank8s.cn`是以收费方式推出的服务,这是希望分担一下我在`lank8s.cn`上服务器,域名等费用的经济压力.  
 
-但是gcr.lank8s.cn也有部分免费镜像提供支持,例如/google_samples的镜像,/kubebuilder的镜像,/istio-release的镜像.  
+但是`gcr.lank8s.cn`也有部分免费镜像提供支持,例如/google_samples的镜像,/kubebuilder的镜像,/istio-release的镜像.  
 
-详细内容请查看:[lank8s](https://github.com/lank8s)
+详细内容请查看:[https://github.com/lank8s](https://github.com/lank8s)
 
 # 注意  
 
