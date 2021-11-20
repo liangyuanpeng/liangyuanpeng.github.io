@@ -219,7 +219,34 @@ spec:
 
 直接用这个yaml部署的话是国内会部署失败的,因为镜像使用了`k8s.gcr.io`,而国内访问不了.  
 
-这时候只需要把`k8s.gcr.io`修改为`lank8s.cn`,再次部署这个yaml就可以了!
+这时候只需要把`k8s.gcr.io`修改为`lank8s.cn`,再次部署这个yaml就可以了!  
+
+如果部署`k8s.gcr.io`的镜像容器多了,每次都去修改的话就会很繁琐,这时候可以部署一个webhook来自动化这个过程(将`k8s.gcr.io`修改为`lank8s.cn`).现在lank8s.cn提供了一个在线的webhook在开发测试环境使用,马上会手把手教你部署一个webhook在本地集群.  
+
+你可以这样体验一下在线的webhook:  
+```yaml
+apiVersion: admissionregistration.k8s.io/v1beta1
+kind: MutatingWebhookConfiguration
+metadata:
+  name: lanwebhook
+webhooks:
+  - name: lanwebhook.lank8s.cn
+    clientConfig:
+      url: "https://lank8s.cn/mutate"
+    rules:
+      - operations: [ "CREATE" ]
+        apiGroups: ["apps", ""]
+        apiVersions: ["v1"]
+        resources: ["deployments","daemonsets","statefulsets"]
+```  
+
+使用上面内容创建一个webhook-conf.yaml,然后create/apply.  
+
+```shell
+kubectl apply -f webhook-conf.yaml
+```  
+
+完美拉取`k8s.gcr.io`镜像!
 
 # kubectl top原理
 
