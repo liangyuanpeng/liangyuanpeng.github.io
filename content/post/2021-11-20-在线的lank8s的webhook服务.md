@@ -1,7 +1,7 @@
 ---
 layout:     post 
 slug:      "deploy-lank8s-webhook-for-k8s.gcr.io"
-title:      "部署lank8s webhook之后,不再为k8s.gcr.io镜像苦恼"
+title:      "部署在线的lank8s webhook之后,不再为k8s.gcr.io镜像苦恼"
 subtitle:   ""
 description: ""
 date:       2021-11-20
@@ -21,6 +21,8 @@ categories: [ kubernetes ]
 前提: 使用这项在线服务需要保证kubernetes所在的机器是联网状态.
 
 lank8s webhook是一项在线的webook服务,唯一的作用就是将本地集群中的`deployments/daemonsets/statefulsets`,镜像的`k8s.gcr.io`替换为`lank8s.cn`,不再为墙外镜像苦恼.    
+
+马上将会支持替换`gcr.io`镜像为`gcr.lank8s.cn`.
 
 # 会影响速度吗?  
 
