@@ -225,6 +225,14 @@ spec:
 
 # 什么是lank8s.cn  
 
+lank8s.cn是我个人在长久维护的一个免费k8s.gcr.io镜像代理服务,也就是说k8s.gcr.io有什么镜像就可以通过lank8s.cn拉取什么镜像.  
+
+另一个gcr.io仓库也有对应的gcr.lank8s.cn,不一样的是gcr.lank8s.cn是以收费方式推出的服务,这是希望分担一下我在lank8s.cn上服务器,域名等费用的经济压力.  
+
+但是gcr.lank8s.cn也有部分免费镜像提供支持,例如/google_samples的镜像,/kubebuilder的镜像,/istio-release的镜像.  
+
+详细内容请查看:[lank8s](https://github.com/lank8s)
+
 # 注意  
 
 本文还在持续创作当中.
