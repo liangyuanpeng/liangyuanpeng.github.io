@@ -1,7 +1,7 @@
 ---
 layout:     post 
 slug:      "deploy-lank8s-webhook-for-k8s.gcr.io"
-title:      "部署在线的lank8s webhook之后,不再为k8s.gcr.io镜像苦恼"
+title:      "部署在线的lank8s webhook之后,不再为k8s.gcr.io/gcr.io镜像苦恼"
 subtitle:   ""
 description: ""
 date:       2021-11-20
