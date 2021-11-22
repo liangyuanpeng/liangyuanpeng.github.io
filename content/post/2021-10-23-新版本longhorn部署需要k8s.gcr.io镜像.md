@@ -168,6 +168,12 @@ longhorn-ui-75ccbd4695-c9rn6                1/1     Running   0          97s
 
 # 后续 
 
-后续会实现一个webhook,效果是部署webhook后会部署/更新阶段将k8s.gcr.io替换为`lank8s.cn`,这样就减少了人工成本,不再需要去修改部署helm chart时的命令或者去修改yaml了.  
+后续会实现一个webhook,效果是部署webhook后会部署/更新阶段将`k8s.gcr.io`替换为`lank8s.cn`,这样就减少了人工成本,不再需要去修改部署helm chart时的命令或者去修改yaml了.  
 
-当部署了这样的一个webhook之后,就可以像以前一样使用简短的命令就可以愉快的使用longhorn了,例如:`helm install longhorn -n longhorn-system`,一起期待吧!
+当部署了这样的一个webhook之后,就可以像以前一样使用简短的命令就可以愉快的使用longhorn了,例如:`helm install longhorn -n longhorn-system`,一起期待吧!  
+
+# 更新:在线webhook服务 
+
+目前在线的webhook服务已经上线,只需要在k8s集群部署一个webhook配置,就可以使用在线webhook自动化的修改`gcr.lank8s.io`为`lank8s.cn`了,告别手动时代!  
+
+点击[在线的lank8s的webhook服务](https://liangyuanpeng.com/post/deploy-lank8s-webhook-for-k8s.gcr.io/)查看怎么使用.
