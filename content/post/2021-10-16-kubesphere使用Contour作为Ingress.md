@@ -12,7 +12,7 @@ tags:
     - contour 
     - cncf
     - kubesphere
-categories: [ CloudNative ]
+categories: [ kubernetes ]
 ---
 
 # 前言
