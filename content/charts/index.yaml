@@ -9,7 +9,7 @@ entries:
     name: chirpstack-helm-chart
     type: application
     urls:
-    - https://liangyuanpeng.github.io/charts/packages/chirpstack-helm-chart-0.3.0.tgz
+    - https://liangyuanpeng.github.io/charts/chirpstack-helm-chart-0.3.0.tgz
     version: 0.3.0
   - apiVersion: v2
     appVersion: 1.16.0
@@ -19,6 +19,6 @@ entries:
     name: chirpstack-helm-chart
     type: application
     urls:
-    - https://liangyuanpeng.github.io/charts/packages/chirpstack-helm-chart-0.2.0.tgz
+    - https://liangyuanpeng.github.io/charts/chirpstack-helm-chart-0.2.0.tgz
     version: 0.2.0
 generated: "2021-12-15T16:47:51.00246299+08:00"
