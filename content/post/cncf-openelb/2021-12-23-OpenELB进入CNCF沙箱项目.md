@@ -1,7 +1,7 @@
 ---
 layout:     post 
-slug:      "litmus-chaos-incubation-coming"
-title:      "LitmusChaos即将毕业"
+slug:      "openelb-cncf-sanbox"
+title:      "OpenELB进入CNCF沙箱项目"
 subtitle:   ""
 description: ""
 date:       2021-12-23
@@ -10,15 +10,13 @@ image: "https://res.cloudinary.com/lyp/image/upload/v1612709780/hugo/blog.github
 published: true
 tags:
     - cncf
+    - openelb
 categories: [ CLOUDNATIVE ]
 ---    
 
-# 即将毕业的LitmusChaos  
+# 恭喜OpenELB  
 
-目前LitmusChaos项目正在进入毕业投票阶段,相信很快就会宣布正式毕业.  
-
-投票详情见:https://lists.cncf.io/g/cncf-toc/message/6423
-
+OpenELB项目宣布进入CNCF沙箱项目.
 
 # 注意  
 本文还在持续创作当中
