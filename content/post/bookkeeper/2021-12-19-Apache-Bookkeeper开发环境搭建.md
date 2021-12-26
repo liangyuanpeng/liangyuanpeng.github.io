@@ -19,7 +19,25 @@ categories: [ TECH ]
 mvn package -DsipTests=true
 ```  
 
-顺利的话就成功的打包好了.
+顺利的话就成功的打包好了.  
+
+```log
+[INFO] Apache BookKeeper :: Tests :: Backward Compatibility :: Test upgrade between yahoo custom version and current SUCCESS [  0.373 s]
+[INFO] Apache BookKeeper :: Tests :: Backward Compatibility :: Test Bouncy Castle Provider load non FIPS version SUCCESS [  0.484 s]
+[INFO] Apache BookKeeper :: Tests :: Integration .......... SUCCESS [  0.013 s]
+[INFO] Apache BookKeeper :: Tests :: Integration :: Smoke test SUCCESS [  0.547 s]
+[INFO] Apache BookKeeper :: Tests :: Integration :: Standalone test SUCCESS [  0.289 s]
+[INFO] Apache BookKeeper :: Tests :: Integration :: Cluster test SUCCESS [  0.667 s]
+[INFO] Apache BookKeeper :: Tests :: Bash Scripts Test .... SUCCESS [  5.297 s]
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  09:55 min
+[INFO] Finished at: 2021-12-26T20:57:56+08:00
+[INFO] ------------------------------------------------------------------------
+```  
+
+我这里是第一次打包,包含下载依赖花费了近10分钟.
 
 ## 可能会出现的问题
 
