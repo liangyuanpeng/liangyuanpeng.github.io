@@ -59,9 +59,15 @@ categories: [ CloudNative ]
 
 # 难道push模式就没什么缺点吗?  
 
-软件工程没有银弹! 缺点自然也是有的,那就是安全问题.  
+软件工程没有银弹! 缺点自然也是有的.
 
-想象一下,如果你的metrics push地址(prometheus)被某些有心人发现了,那么很有可能就会对这个地址发起攻击,将服务器的带宽占用了甚至有可能让prometheus崩溃.
+## 安全问题
+
+想象一下,如果你的metrics push地址(prometheus)被某些有心人发现了,那么很有可能就会对这个地址发起攻击,将服务器的带宽占用了甚至有可能让prometheus崩溃.  
+
+## 无法对metrics做relabel操作  
+
+用prometheus pull的时候可以在存储metrics之前对metrics做一些操作，例如relable.添加label,修改label的值,丢弃某些label,只保留某些label等等.而这些在push模式下是做不到的,除非push端分别实现了这些功能.
 
 # 后续计划  
 
