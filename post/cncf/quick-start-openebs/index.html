@@ -6,9 +6,9 @@ function handleMagic(e){if($navbar.className.indexOf('in')>0){$navbar.className=
 $navbar.className+=" in";}}</script><style type=text/css>header.intro-header{background-image:url(https://liangyuanpeng.com/%5Bimg/post-bg-2015.jpg%5D%28https:/res.cloudinary.com/lyp/image/upload/v1581729516/hugo/blog.github.io/avian-beak-bird-blur-416117.jpg%29)}</style><header class=intro-header><div class=container><div class=row><div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1"><div class=post-heading><div class=tags><a class=tag href=/tags/openebs title=openebs>openebs</a>
 <a class=tag href=/tags/cncf title=cncf>cncf</a></div><h1>快速开始OpenEBS</h1><h2 class=subheading></h2><span class=meta>Posted by 梁远鹏 on 2021-10-17
 <span id=busuanzi_container_page_pv>|<span id=busuanzi_value_page_pv></span><span>
-<span id=/post/cncf/quick-start-openebs/ class="leancloud_visitors meta_data_item" data-flag-title><span class=post-meta-item-icon><span class="octicon octicon-eye"></span></span><i class="fa fa-eye"></i><span class=old-visitors-count style=display:none></span><span class=leancloud-visitors-count></span></span>阅读 </span></span>|<span class=post-date>共852字</span>，阅读约<span class=more-meta> 2 分钟</span></span></div></div></div></div></header><article><div class=container><div class=row><div class="col-lg-8 col-lg-offset-2
+<span id=/post/cncf/quick-start-openebs/ class="leancloud_visitors meta_data_item" data-flag-title><span class=post-meta-item-icon><span class="octicon octicon-eye"></span></span><i class="fa fa-eye"></i><span class=old-visitors-count style=display:none></span><span class=leancloud-visitors-count></span></span>阅读 </span></span>|<span class=post-date>共1217字</span>，阅读约<span class=more-meta> 3 分钟</span></span></div></div></div></div></header><article><div class=container><div class=row><div class="col-lg-8 col-lg-offset-2
 col-md-10 col-md-offset-1
-post-container"><header><h2>TOC</h2></header><nav id=TableOfContents><ul><li><a href=#helm方式>Helm方式</a></li></ul></nav><h1 id=前言>前言</h1><h1 id=前提>前提</h1><p>使用OpenEBS需要机器已经安装了<code>iSCSI</code></p><p>ubuntu可以用下面的命令安装和开启:</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell>sudo apt-get update
+post-container"><header><h2>TOC</h2></header><nav id=TableOfContents><ul><li><a href=#helm方式>Helm方式</a></li></ul></nav><h1 id=前言>前言</h1><h1 id=前提>前提</h1><ul><li>使用OpenEBS需要机器已经安装了<code>iSCSI</code></li><li>已经安装了kubernetes</li></ul><p>ubuntu可以用下面的命令安装和开启:</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell>sudo apt-get update
 sudo apt-get install open-iscsi
 sudo systemctl enable --now iscsid
 </code></pre></div><p>centos系列系统可以用下面的命令安装和开启:</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell>yum install iscsi-initiator-utils -y
@@ -74,7 +74,56 @@ coalesce.go:200: warning: cannot overwrite table with non table <span style=colo
 longhorn (default)   driver.longhorn.io   Delete          Immediate              true                   4d3h
 openebs-device       openebs.io/local     Delete          WaitForFirstConsumer   false                  3m12s
 openebs-hostpath     openebs.io/local     Delete          WaitForFirstConsumer   false                  3m12s
-</code></pre><h1 id=试用动态pvc>试用动态PVC</h1><p>当openebs的所有pod都处于Running的时候就已经真正安装OpenEBS成功了,接下来试用一下动态PVC的效果.</p><h1 id=记录>记录</h1><p>完整命令设置命令</p><pre><code>helm install openebs --namespace openebs openebs/openebs --create-namespace --set csiController.resizer.registry=lank8s.cn  --set csiController.snapshotter.registry=lank8s.cn  --set csiController.snapshotController.registry=lank8s.cn  --set csiController.attacher.registry=lank8s.cn    --set csiController.provisioner.registry=lank8s.cn  --set csiNode.driverRegistrar.image=lank8s.cn
+</code></pre><h1 id=试用动态pvc>试用动态PVC</h1><p>当openebs的所有pod都处于Running的时候就已经真正安装OpenEBS成功了,接下来试用一下动态PVC的效果.</p><p>以<code>redis</code>作为有状态服务部署.</p><p>redis.yaml:</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml><span style=color:#f92672>apiVersion</span>: <span style=color:#ae81ff>apps/v1</span>
+<span style=color:#f92672>kind</span>: <span style=color:#ae81ff>StatefulSet</span>
+<span style=color:#f92672>metadata</span>:
+  <span style=color:#f92672>labels</span>:
+    <span style=color:#f92672>app</span>: <span style=color:#ae81ff>redis</span>
+  <span style=color:#f92672>name</span>: <span style=color:#ae81ff>redis</span>
+<span style=color:#f92672>spec</span>:
+  <span style=color:#f92672>selector</span>:
+    <span style=color:#f92672>matchLabels</span>: 
+      <span style=color:#f92672>app</span>: <span style=color:#ae81ff>redis</span>
+  <span style=color:#f92672>serviceName</span>: <span style=color:#ae81ff>redis-svc</span>
+  <span style=color:#f92672>replicas</span>: <span style=color:#ae81ff>1</span>
+  <span style=color:#f92672>template</span>:
+    <span style=color:#f92672>metadata</span>:
+      <span style=color:#f92672>labels</span>:
+        <span style=color:#f92672>app</span>: <span style=color:#ae81ff>redis</span>
+    <span style=color:#f92672>spec</span>:
+      <span style=color:#f92672>containers</span>:
+        - <span style=color:#f92672>image</span>: <span style=color:#ae81ff>redis:6.2.4</span>
+          <span style=color:#f92672>name</span>: <span style=color:#ae81ff>redis</span>
+          <span style=color:#f92672>imagePullPolicy</span>: <span style=color:#ae81ff>IfNotPresent</span>
+          <span style=color:#f92672>volumeMounts</span>:
+            - <span style=color:#f92672>name</span>: <span style=color:#ae81ff>redis-vct</span>
+              <span style=color:#f92672>mountPath</span>: <span style=color:#ae81ff>/data</span>
+  <span style=color:#f92672>volumeClaimTemplates</span>:
+    - <span style=color:#f92672>metadata</span>:
+        <span style=color:#f92672>name</span>: <span style=color:#ae81ff>redis-vct</span>
+      <span style=color:#f92672>spec</span>:
+        <span style=color:#f92672>storageClassName</span>: <span style=color:#ae81ff>openebs-jiva-csi-default</span>
+        <span style=color:#f92672>accessModes</span>: [<span style=color:#e6db74>&#34;ReadWriteOnce&#34;</span>]
+        <span style=color:#f92672>resources</span>:
+          <span style=color:#f92672>requests</span>:
+            <span style=color:#f92672>storage</span>: <span style=color:#ae81ff>1Gi</span>
+---
+<span style=color:#f92672>apiVersion</span>: <span style=color:#ae81ff>v1</span>
+<span style=color:#f92672>kind</span>: <span style=color:#ae81ff>Service</span>
+<span style=color:#f92672>metadata</span>:
+  <span style=color:#f92672>name</span>: <span style=color:#ae81ff>redis</span>
+  <span style=color:#f92672>labels</span>:
+    <span style=color:#f92672>app</span>: <span style=color:#ae81ff>redis</span>
+<span style=color:#f92672>spec</span>:
+  <span style=color:#f92672>ports</span>:
+    - <span style=color:#f92672>port</span>: <span style=color:#ae81ff>6379</span>
+      <span style=color:#f92672>name</span>: <span style=color:#ae81ff>redis</span>
+  <span style=color:#f92672>type</span>: <span style=color:#ae81ff>ClusterIP</span>
+  <span style=color:#f92672>selector</span>:
+    <span style=color:#f92672>app</span>: <span style=color:#ae81ff>redis</span>
+</code></pre></div><p>写好yaml文件后运行<code>kubectl apply -f redis.yaml</code>部署redis.</p><p>redis的pod运行起来后进到redis存一条数据:</p><ol><li>kubectl exec -it redis-0 sh</li><li>redis-cli</li><li>set lank8scn 1</li></ol><p>这时候数据已经存在pvc里面了,可以验证一下,将<code>redis-0</code>这个pod删除,如果<code>重建</code>后的<code>redis-0</code>这个pod还有<code>lank8scn</code>这个key的数据,那么说明数据已经持久化成功了.</p><ol><li>kubectl delete po redis-0</li><li>kubectl exec -it redis-0 sh(等待redis的pod成功运行后)</li><li>redis-cli</li><li>get lank8scn</li></ol><p>顺利的话你得到key的数据:</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell>127.0.0.1:6379&gt; get lank8scn
+<span style=color:#e6db74>&#34;1&#34;</span>
+</code></pre></div><p>这时候说明已经使用openebs作为storageclass并且动态生成PVC成功了.</p><h1 id=记录>记录</h1><p>完整命令设置命令</p><pre><code>helm install openebs --namespace openebs openebs/openebs --create-namespace --set csiController.resizer.registry=lank8s.cn  --set csiController.snapshotter.registry=lank8s.cn  --set csiController.snapshotController.registry=lank8s.cn  --set csiController.attacher.registry=lank8s.cn    --set csiController.provisioner.registry=lank8s.cn  --set csiNode.driverRegistrar.image=lank8s.cn
 </code></pre><h1 id=注意>注意</h1><p>本文还在持续编写中</p><h2>微信公众号</h2><p>扫描下面的二维码关注我们的微信公众号,第一时间查看最新内容。同时也可以关注我的Github，看看我都在了解什么技术，在页面底部可以找到我的Github。</p><img src=https://res.cloudinary.com/lyp/image/upload/v1581729955/hugo/blog.github.io/qrcode_for_sikekafeidou.jpg alt=wechat-account-qrcode><hr><ul class=pager><li class=previous><a href=/post/cncf-kubernetes/add-new-domain-for-k8s-ca/ data-toggle=tooltip data-placement=top title=给k8s证书添加新的域名.>&larr; 给k8s证书添加新的域名.</a></li><li class=next><a href=/post/cncf-envoy/implement-envoy-xds/ data-toggle=tooltip data-placement=top title=实现Envoy的xds服务>实现Envoy的xds服务 &rarr;</a></li></ul><script src=https://utteranc.es/client.js repo=liangyuanpeng/liangyuanpeng.github.io issue-term=title theme=github-light crossorigin=anonymous async></script></div><div class="col-lg-8 col-lg-offset-2
 col-md-10 col-md-offset-1
 sidebar-container"><section><hr class="hidden-sm hidden-xs"><h5><a href=/tags/>FEATURED TAGS</a></h5><div class=tags><a href=/tags/blog title=blog>blog</a>
