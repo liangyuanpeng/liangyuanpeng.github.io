@@ -50,9 +50,7 @@ webhooks:
 
 # 试用  
 
-接下来试着通过这个在线的webhook部署一下gcr.io的镜像,镜像使用kubernetes构建源码时用到的`gcr.lank8s.cn/distroless/static`镜像.  
-
-TODO
+接下来试着通过这个在线的webhook部署一下gcr.io的镜像,镜像使用收集k8s监控数据时经常用到的`k8s.gcr.io/metrics-server/metrics-server`镜像.具体可以来看[部署metrics-server,把kubectl top用起来](https://liangyuanpeng.com/post/cncf-kubernetes/deploy-metrics-server-for-kubectl-top/)
 
 # 注意  
 
