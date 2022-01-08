@@ -46,7 +46,13 @@ webhooks:
         resources: ["deployments","daemonsets","statefulsets"]
 ```  
 
-这是一个最简的配置,你也可以根据具体情况扩展这个配置文件,例如加上限制某个namespace才启用这个`MutatingWebhook`.  
+这是一个最简的配置,你也可以根据具体情况扩展这个配置文件,例如加上限制某个namespace才启用这个`MutatingWebhook`.    
+
+# 试用  
+
+接下来试着通过这个在线的webhook部署一下gcr.io的镜像,镜像使用kubernetes构建源码时用到的`gcr.lank8s.cn/distroless/static`镜像.  
+
+TODO
 
 # 注意  
 
