@@ -3,6 +3,16 @@ entries:
   chirpstack:
   - apiVersion: v2
     appVersion: 1.16.0
+    created: "2022-01-09T15:39:21.820165012+08:00"
+    description: A Helm chart for Kubernetes
+    digest: 553cdadb73290601a8e5c17b3d0f648c84fd1c3beb5798630db61dba4deecd2b
+    name: chirpstack
+    type: application
+    urls:
+    - https://liangyuanpeng.github.io/charts/chirpstack-0.5.0.tgz
+    version: 0.5.0
+  - apiVersion: v2
+    appVersion: 1.16.0
     created: "2021-12-30T00:11:47.345833289+08:00"
     description: A Helm chart for Kubernetes
     digest: ac394dfec6996202396860d5e1da819eeb76338829a8d34c3fb846b299cb8761
