@@ -88,12 +88,12 @@ longhorn-ui-75ccbd4695-92cj2                1/1     Running             0       
 
 下面是helm upgrade更新longhorn的命令:
 ```shell
-helm upgrade longhorn longhorn/longhorn --namespace longhorn-system --set image.csi.attacher.repository=lank8s.cn-storage/csi-attacher --set image.csi.provisioner.repository=lank8s.cn-storage/csi-provisioner --set image.csi.nodeDriverRegistrar.repository=lank8s.cn-storage/csi-node-driver-registrar --set image.csi.resizer.repository=lank8s.cn-storage/csi-resizer --set image.csi.snapshotter.repository=lank8s.cn-storage/csi-snapshotter --set persistence.defaultClassReplicaCount=1 --set csi.attacherReplicaCount=1  --set csi.provisionerReplicaCount=1  --set csi.resizerReplicaCount=1  --set csi.snapshotterReplicaCount=1
+helm upgrade longhorn longhorn/longhorn --namespace longhorn-system --set image.csi.attacher.repository=lank8s.cn/sig-storage/csi-attacher --set image.csi.provisioner.repository=lank8s.cn/sig-storage/csi-provisioner --set image.csi.nodeDriverRegistrar.repository=lank8s.cn/sig-storage/csi-node-driver-registrar --set image.csi.resizer.repository=lank8s.cn/sig-storage/csi-resizer --set image.csi.snapshotter.repository=lank8s.cn/sig-storage/csi-snapshotter --set persistence.defaultClassReplicaCount=1 --set csi.attacherReplicaCount=1  --set csi.provisionerReplicaCount=1  --set csi.resizerReplicaCount=1  --set csi.snapshotterReplicaCount=1
 ```  
 
 为了最简部署多了一些设置副本数为1的设置,如果希望使用默认的副本数的话可以用下面的helm upgrade命令:  
 ```shell
-helm upgrade longhorn longhorn/longhorn --namespace longhorn-system --set image.csi.attacher.repository=lank8s.cn-storage/csi-attacher --set image.csi.provisioner.repository=lank8s.cn-storage/csi-provisioner --set image.csi.nodeDriverRegistrar.repository=lank8s.cn-storage/csi-node-driver-registrar --set image.csi.resizer.repository=lank8s.cn-storage/csi-resizer --set image.csi.snapshotter.repository=lank8s.cn-storage/csi-snapshotter
+helm upgrade longhorn longhorn/longhorn --namespace longhorn-system --set image.csi.attacher.repository=lank8s.cn/sig-storage/csi-attacher --set image.csi.provisioner.repository=lank8s.cn/sig-storage/csi-provisioner --set image.csi.nodeDriverRegistrar.repository=lank8s.cn/sig-storage/csi-node-driver-registrar --set image.csi.resizer.repository=lank8s.cn/sig-storage/csi-resizer --set image.csi.snapshotter.repository=lank8s.cn/sig-storage/csi-snapshotter
 ```
 
 执行命令,等一会看看部署的情况，正常的话应该都running了:  
@@ -137,14 +137,14 @@ Events:
 设置副本数版本:  
 ```shell
 helm uninstall longhorn -n longhorn-system
-helm install longhorn longhorn/longhorn --namespace longhorn-system --set image.csi.attacher.repository=lank8s.cn-storage/csi-attacher --set image.csi.provisioner.repository=lank8s.cn-storage/csi-provisioner --set image.csi.nodeDriverRegistrar.repository=lank8s.cn-storage/csi-node-driver-registrar --set image.csi.resizer.repository=lank8s.cn-storage/csi-resizer --set image.csi.snapshotter.repository=lank8s.cn-storage/csi-snapshotter --set persistence.defaultClassReplicaCount=1 --set csi.attacherReplicaCount=1  --set csi.provisionerReplicaCount=1  --set csi.resizerReplicaCount=1  --set csi.snapshotterReplicaCount=1
+helm install longhorn longhorn/longhorn --namespace longhorn-system --set image.csi.attacher.repository=lank8s.cn/sig-storage/csi-attacher --set image.csi.provisioner.repository=lank8s.cn/sig-storage/csi-provisioner --set image.csi.nodeDriverRegistrar.repository=lank8s.cn/sig-storage/csi-node-driver-registrar --set image.csi.resizer.repository=lank8s.cn/sig-storage/csi-resizer --set image.csi.snapshotter.repository=lank8s.cn/sig-storage/csi-snapshotter --set persistence.defaultClassReplicaCount=1 --set csi.attacherReplicaCount=1  --set csi.provisionerReplicaCount=1  --set csi.resizerReplicaCount=1  --set csi.snapshotterReplicaCount=1
 ```
 
 
 不设置副本数版本:  
 ```shell
 helm uninstall longhorn -n longhorn-system
-helm install longhorn longhorn/longhorn --namespace longhorn-system --set image.csi.attacher.repository=lank8s.cn-storage/csi-attacher --set image.csi.provisioner.repository=lank8s.cn-storage/csi-provisioner --set image.csi.nodeDriverRegistrar.repository=lank8s.cn-storage/csi-node-driver-registrar --set image.csi.resizer.repository=lank8s.cn-storage/csi-resizer --set image.csi.snapshotter.repository=lank8s.cn-storage/csi-snapshotter
+helm install longhorn longhorn/longhorn --namespace longhorn-system --set image.csi.attacher.repository=lank8s.cn/sig-storage/csi-attacher --set image.csi.provisioner.repository=lank8s.cn/sig-storage/csi-provisioner --set image.csi.nodeDriverRegistrar.repository=lank8s.cn/sig-storage/csi-node-driver-registrar --set image.csi.resizer.repository=lank8s.cn/sig-storage/csi-resizer --set image.csi.snapshotter.repository=lank8s.cn/sig-storage/csi-snapshotter
 ```  
 
 这时候再看下pod,所有pod都起来了.   
