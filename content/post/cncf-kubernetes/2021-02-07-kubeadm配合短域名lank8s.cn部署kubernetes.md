@@ -121,10 +121,108 @@ kube-system   kube-scheduler-installk8s            1/1     Running   0          
 可以用watch命令查看pod的动态部署情况  
 ```
 watch kubectl get po -A
-```  
+```    
 
-5. 还在创作当中
+过一会就全部运行起来了.
 
 # kubernetes hell world!  
 
-部署一个两个实例的nginx服务
+部署一个nginx服务  
+
+nginx-deployment.yaml:  
+```yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+    name: nginx
+spec:
+    replicas: 1
+    selector:
+        matchLabels:
+          app: nginx
+    template:
+        metadata:
+            labels:
+                app: nginx
+        spec:
+            containers:
+            - name: nginx
+              image: nginx:1.21.3
+              imagePullPolicy: IfNotPresent
+              ports:
+                - containerPort: 80
+              resources:
+                requests:
+                    memory: "256Mi"
+                    cpu: "100m"
+                limits:
+                    memory: "512Mi"
+                    cpu: "800m"
+```  
+
+nginx-svc.yaml:  
+```
+apiVersion: v1
+kind: Service
+metadata:
+    name: nginx
+spec:
+    selector:
+        app: nginx
+    type: NodePort
+    ports:
+        - name: http
+          protocol: TCP
+          port: 80
+          targetPort: 80
+```  
+
+执行命令应用:  
+```
+kubectl apply -f nginx-deployment.yaml
+kubectl apply -f nginx-svc.yaml
+```  
+
+使用`kubectl get pod`和`kubectl get svc`就可以分别看到对应的pod和service运行起来了.  
+
+service使用的是NodePort类型,因此这暴露了一个宿主机端口号来访问Nginx服务,我这里显示的端口号是30460,因此我通过这个端口来访问Nginx:  
+```
+...
+nginx                           NodePort    10.97.211.40    <none>        80:30460/TCP
+...
+```  
+
+可以通过浏览器访问`IP:30460`,也可以直接用curl在linux系统上直接访问,我这里使用curl来访问:   
+
+执行`curl localhost:30460`得到下面的结果:
+```
+<!DOCTYPE html>
+<html>
+<head>
+<title>Welcome to nginx!</title>
+<style>
+html { color-scheme: light dark; }
+body { width: 35em; margin: 0 auto;
+font-family: Tahoma, Verdana, Arial, sans-serif; }
+</style>
+</head>
+<body>
+<h1>Welcome to nginx!</h1>
+<p>If you see this page, the nginx web server is successfully installed and
+working. Further configuration is required.</p>
+
+<p>For online documentation and support please refer to
+<a href="http://nginx.org/">nginx.org</a>.<br/>
+Commercial support is available at
+<a href="http://nginx.com/">nginx.com</a>.</p>
+
+<p><em>Thank you for using nginx.</em></p>
+</body>
+</html>
+```  
+
+# 总结  
+
+到目前为止就用kubeadm使用国内网络轻松部署起一个kubernetes了,`lank8s.cn`是我个人在维护的一个`k8s.gcr.io`镜像的代理,还有一个`gcr.lank8s.cn`可以代替`gcr.io`来拉取镜像.  
+
+详情可以看看[lank8s.cn服务](https://liangyuanpeng.com/post/cncf-kubernetes/service-lank8s.cn)
