@@ -23,7 +23,7 @@ mv argocd-linux-amd64 /usr/local/bin
 </code></pre></div><h1 id=通过cli修改默认密码>通过CLI修改默认密码</h1><p>初始密码是自动生成的,可以用下面的命令查看初始密码是什么:</p><pre><code>kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath=&quot;{.data.password}&quot; | base64 -d; echo
 </code></pre><p>使用<code>admin</code>账号和上面的密码登陆ArgoCD server:</p><pre><code>argocd login &lt;ARGOCD_SERVER&gt;
 </code></pre><p>修改密码:</p><pre><code>argocd account update-password
-</code></pre><h1 id=创建一个application>创建一个Application</h1><p><a href=https://victoriametrics.github.io/helm-charts/>https://victoriametrics.github.io/helm-charts/</a></p><h2>微信公众号</h2><p>扫描下面的二维码关注我们的微信公众号,第一时间查看最新内容。同时也可以关注我的Github，看看我都在了解什么技术，在页面底部可以找到我的Github。</p><img src=https://res.cloudinary.com/lyp/image/upload/v1581729955/hugo/blog.github.io/qrcode_for_sikekafeidou.jpg alt=wechat-account-qrcode><hr><ul class=pager><li class=previous><a href=/post/cncf-kubernetes/kubernetes-qa/ data-toggle=tooltip data-placement=top title=kubernetes常见问题>&larr; kubernetes常见问题</a></li></ul><script src=https://utteranc.es/client.js repo=liangyuanpeng/liangyuanpeng.github.io issue-term=title theme=github-light crossorigin=anonymous async></script></div><div class="col-lg-8 col-lg-offset-2
+</code></pre><h1 id=创建一个application>创建一个Application</h1><p><a href=https://victoriametrics.github.io/helm-charts/>https://victoriametrics.github.io/helm-charts/</a></p><h2>微信公众号</h2><p>扫描下面的二维码关注我们的微信公众号,第一时间查看最新内容。同时也可以关注我的Github，看看我都在了解什么技术，在页面底部可以找到我的Github。</p><img src=https://res.cloudinary.com/lyp/image/upload/v1581729955/hugo/blog.github.io/qrcode_for_sikekafeidou.jpg alt=wechat-account-qrcode><hr><ul class=pager><li class=previous><a href=/post/cncf-kubernetes/kubernetes-qa/ data-toggle=tooltip data-placement=top title=kubernetes常见问题>&larr; kubernetes常见问题</a></li><li class=next><a href=/post/cncf-envoy/envoy-xds-with-file/ data-toggle=tooltip data-placement=top title="静态文件作为Envoy的v3 XDS">静态文件作为Envoy的v3 XDS &rarr;</a></li></ul><script src=https://utteranc.es/client.js repo=liangyuanpeng/liangyuanpeng.github.io issue-term=title theme=github-light crossorigin=anonymous async></script></div><div class="col-lg-8 col-lg-offset-2
 col-md-10 col-md-offset-1
 sidebar-container"><section><hr class="hidden-sm hidden-xs"><h5><a href=/tags/>FEATURED TAGS</a></h5><div class=tags><a href=/tags/blog title=blog>blog</a>
 <a href=/tags/bookkeeper title=bookkeeper>bookkeeper</a>
@@ -34,6 +34,7 @@ sidebar-container"><section><hr class="hidden-sm hidden-xs"><h5><a href=/tags/>F
 <a href=/tags/contour title=contour>contour</a>
 <a href=/tags/docker title=docker>docker</a>
 <a href=/tags/docker-compose title=docker-compose>docker-compose</a>
+<a href=/tags/envoy title=envoy>envoy</a>
 <a href=/tags/fluentd title=fluentd>fluentd</a>
 <a href=/tags/foundation title=foundation>foundation</a>
 <a href=/tags/golang title=golang>golang</a>
