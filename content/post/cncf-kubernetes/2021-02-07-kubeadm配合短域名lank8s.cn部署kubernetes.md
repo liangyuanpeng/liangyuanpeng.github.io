@@ -129,7 +129,8 @@ watch kubectl get po -A
 
 部署一个nginx服务  
 
-nginx-deployment.yaml:  
+nginx-deployment.yaml:   
+
 ```yaml
 apiVersion: apps/v1
 kind: Deployment
