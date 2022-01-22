@@ -8,7 +8,7 @@ $navbar.className+=" in";}}</script><style type=text/css>header.intro-header{bac
 <a class=tag href=/tags/lank8s.cn title=lank8s.cn>lank8s.cn</a>
 <a class=tag href=/tags/kubeadm title=kubeadm>kubeadm</a></div><h1>kubeadm配合短域名lank8s.cn部署kubernetes</h1><h2 class=subheading></h2><span class=meta>Posted by 梁远鹏 on 2021-02-07
 <span id=busuanzi_container_page_pv>|<span id=busuanzi_value_page_pv></span><span>
-<span id=/post/cncf-kubernetes/kubeadm-deploy-kubernetes-lank8scn/ class="leancloud_visitors meta_data_item" data-flag-title><span class=post-meta-item-icon><span class="octicon octicon-eye"></span></span><i class="fa fa-eye"></i><span class=old-visitors-count style=display:none></span><span class=leancloud-visitors-count></span></span>阅读 </span></span>|<span class=post-date>共760字</span>，阅读约<span class=more-meta> 2 分钟</span></span></div></div></div></div></header><article><div class=container><div class=row><div class="col-lg-8 col-lg-offset-2
+<span id=/post/cncf-kubernetes/kubeadm-deploy-kubernetes-lank8scn/ class="leancloud_visitors meta_data_item" data-flag-title><span class=post-meta-item-icon><span class="octicon octicon-eye"></span></span><i class="fa fa-eye"></i><span class=old-visitors-count style=display:none></span><span class=leancloud-visitors-count></span></span>阅读 </span></span>|<span class=post-date>共1269字</span>，阅读约<span class=more-meta> 3 分钟</span></span></div></div></div></div></header><article><div class=container><div class=row><div class="col-lg-8 col-lg-offset-2
 col-md-10 col-md-offset-1
 post-container"><header><h2>TOC</h2></header><nav id=TableOfContents></nav><h1 id=本文实现目标>本文实现目标</h1><p>本文主要使用kubeadm快速部署一个单机的kubernetes,其中镜像仓库使用lank8s.cn,当然也可以使用其他地址,lank8s.cn主要优势是短域名,好记.</p><h1 id=前提>前提</h1><p>本文内容不包括讲述docker安装,因此需要自行先安装好docker。</p><h1 id=安装kubectlkubeletkubeadm>安装kubectl、kubelet、kubeadm</h1><ol><li>添加国内源</li></ol><pre><code>cat &lt;&lt;EOF &gt; /etc/yum.repos.d/kubernetes.repo
 [kubernetes]
@@ -56,7 +56,75 @@ kube-system   kube-controller-manager-installk8s   1/1     Running   0          
 kube-system   kube-proxy-tkmc7                     1/1     Running   0          72s
 kube-system   kube-scheduler-installk8s            1/1     Running   0          81s
 </code></pre><p>这是因为CNI插件需要另外部署,本文使用kube-flannel,部署文件可以从kube-flannel的官方github仓库下载,不过可能会由于版本问题引起的冲突,这里推荐使用与本文一致的<a href=https://res.cloudinary.com/lyp/raw/upload/v1612710643/hugo/blog.github.io/kubernetes/kube-flannel.yml>kube-flannel文件</a>.</p><ol start=4><li>部署kube-flannel</li></ol><p><code>kubectl apply -f kube-flannel.yml</code></p><p>可以用watch命令查看pod的动态部署情况</p><pre><code>watch kubectl get po -A
-</code></pre><ol start=5><li>还在创作当中</li></ol><h1 id=kubernetes-hell-world>kubernetes hell world!</h1><p>部署一个两个实例的nginx服务</p><h2>微信公众号</h2><p>扫描下面的二维码关注我们的微信公众号,第一时间查看最新内容。同时也可以关注我的Github，看看我都在了解什么技术，在页面底部可以找到我的Github。</p><img src=https://res.cloudinary.com/lyp/image/upload/v1581729955/hugo/blog.github.io/qrcode_for_sikekafeidou.jpg alt=wechat-account-qrcode><hr><ul class=pager><li class=previous><a href=/post/openkruise-column/ data-toggle=tooltip data-placement=top title=OpenKruise专栏介绍>&larr; OpenKruise专栏介绍</a></li><li class=next><a href=/post/virtualbox-imported-old-vm-system/ data-toggle=tooltip data-placement=top title=VirtualbBox导入旧版本虚拟机系统>VirtualbBox导入旧版本虚拟机系统 &rarr;</a></li></ul><script src=https://utteranc.es/client.js repo=liangyuanpeng/liangyuanpeng.github.io issue-term=title theme=github-light crossorigin=anonymous async></script></div><div class="col-lg-8 col-lg-offset-2
+</code></pre><p>过一会就全部运行起来了.</p><h1 id=kubernetes-hell-world>kubernetes hell world!</h1><p>部署一个nginx服务</p><p>nginx-deployment.yaml:</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml><span style=color:#f92672>apiVersion</span>: <span style=color:#ae81ff>apps/v1</span>
+<span style=color:#f92672>kind</span>: <span style=color:#ae81ff>Deployment</span>
+<span style=color:#f92672>metadata</span>:
+    <span style=color:#f92672>name</span>: <span style=color:#ae81ff>nginx</span>
+<span style=color:#f92672>spec</span>:
+    <span style=color:#f92672>replicas</span>: <span style=color:#ae81ff>1</span>
+    <span style=color:#f92672>selector</span>:
+        <span style=color:#f92672>matchLabels</span>:
+          <span style=color:#f92672>app</span>: <span style=color:#ae81ff>nginx</span>
+    <span style=color:#f92672>template</span>:
+        <span style=color:#f92672>metadata</span>:
+            <span style=color:#f92672>labels</span>:
+                <span style=color:#f92672>app</span>: <span style=color:#ae81ff>nginx</span>
+        <span style=color:#f92672>spec</span>:
+            <span style=color:#f92672>containers</span>:
+            - <span style=color:#f92672>name</span>: <span style=color:#ae81ff>nginx</span>
+              <span style=color:#f92672>image</span>: <span style=color:#ae81ff>nginx:1.21.3</span>
+              <span style=color:#f92672>imagePullPolicy</span>: <span style=color:#ae81ff>IfNotPresent</span>
+              <span style=color:#f92672>ports</span>:
+                - <span style=color:#f92672>containerPort</span>: <span style=color:#ae81ff>80</span>
+              <span style=color:#f92672>resources</span>:
+                <span style=color:#f92672>requests</span>:
+                    <span style=color:#f92672>memory</span>: <span style=color:#e6db74>&#34;256Mi&#34;</span>
+                    <span style=color:#f92672>cpu</span>: <span style=color:#e6db74>&#34;100m&#34;</span>
+                <span style=color:#f92672>limits</span>:
+                    <span style=color:#f92672>memory</span>: <span style=color:#e6db74>&#34;512Mi&#34;</span>
+                    <span style=color:#f92672>cpu</span>: <span style=color:#e6db74>&#34;800m&#34;</span>
+</code></pre></div><p>nginx-svc.yaml:</p><pre><code>apiVersion: v1
+kind: Service
+metadata:
+    name: nginx
+spec:
+    selector:
+        app: nginx
+    type: NodePort
+    ports:
+        - name: http
+          protocol: TCP
+          port: 80
+          targetPort: 80
+</code></pre><p>执行命令应用:</p><pre><code>kubectl apply -f nginx-deployment.yaml
+kubectl apply -f nginx-svc.yaml
+</code></pre><p>使用<code>kubectl get pod</code>和<code>kubectl get svc</code>就可以分别看到对应的pod和service运行起来了.</p><p>service使用的是NodePort类型,因此这暴露了一个宿主机端口号来访问Nginx服务,我这里显示的端口号是30460,因此我通过这个端口来访问Nginx:</p><pre><code>...
+nginx                           NodePort    10.97.211.40    &lt;none&gt;        80:30460/TCP
+...
+</code></pre><p>可以通过浏览器访问<code>IP:30460</code>,也可以直接用curl在linux系统上直接访问,我这里使用curl来访问:</p><p>执行<code>curl localhost:30460</code>得到下面的结果:</p><pre><code>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+&lt;title&gt;Welcome to nginx!&lt;/title&gt;
+&lt;style&gt;
+html { color-scheme: light dark; }
+body { width: 35em; margin: 0 auto;
+font-family: Tahoma, Verdana, Arial, sans-serif; }
+&lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;h1&gt;Welcome to nginx!&lt;/h1&gt;
+&lt;p&gt;If you see this page, the nginx web server is successfully installed and
+working. Further configuration is required.&lt;/p&gt;
+
+&lt;p&gt;For online documentation and support please refer to
+&lt;a href=&quot;http://nginx.org/&quot;&gt;nginx.org&lt;/a&gt;.&lt;br/&gt;
+Commercial support is available at
+&lt;a href=&quot;http://nginx.com/&quot;&gt;nginx.com&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;Thank you for using nginx.&lt;/em&gt;&lt;/p&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre><h1 id=总结>总结</h1><p>到目前为止就用kubeadm使用国内网络轻松部署起一个kubernetes了,<code>lank8s.cn</code>是我个人在维护的一个<code>k8s.gcr.io</code>镜像的代理,还有一个<code>gcr.lank8s.cn</code>可以代替<code>gcr.io</code>来拉取镜像.</p><p>详情可以看看<a href=https://liangyuanpeng.com/post/cncf-kubernetes/service-lank8s.cn>lank8s.cn服务</a></p><h2>微信公众号</h2><p>扫描下面的二维码关注我们的微信公众号,第一时间查看最新内容。同时也可以关注我的Github，看看我都在了解什么技术，在页面底部可以找到我的Github。</p><img src=https://res.cloudinary.com/lyp/image/upload/v1581729955/hugo/blog.github.io/qrcode_for_sikekafeidou.jpg alt=wechat-account-qrcode><hr><ul class=pager><li class=previous><a href=/post/openkruise-column/ data-toggle=tooltip data-placement=top title=OpenKruise专栏介绍>&larr; OpenKruise专栏介绍</a></li><li class=next><a href=/post/virtualbox-imported-old-vm-system/ data-toggle=tooltip data-placement=top title=VirtualbBox导入旧版本虚拟机系统>VirtualbBox导入旧版本虚拟机系统 &rarr;</a></li></ul><script src=https://utteranc.es/client.js repo=liangyuanpeng/liangyuanpeng.github.io issue-term=title theme=github-light crossorigin=anonymous async></script></div><div class="col-lg-8 col-lg-offset-2
 col-md-10 col-md-offset-1
 sidebar-container"><section><hr class="hidden-sm hidden-xs"><h5><a href=/tags/>FEATURED TAGS</a></h5><div class=tags><a href=/tags/blog title=blog>blog</a>
 <a href=/tags/bookkeeper title=bookkeeper>bookkeeper</a>
