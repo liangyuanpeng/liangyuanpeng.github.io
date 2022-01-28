@@ -33,7 +33,13 @@ E0118 00:40:00.935698    8504 run.go:120] "command failed" err="invalid port val
 
 参数`--insecure-port`只允许设置为`0`.  
 
-这个还没注意到更新点,如果希望使用非tls端口要怎么做呢?
+这个还没注意到更新点,如果希望使用非tls端口要怎么做呢?  
+
+# Volume挂载问题 
+
+## configmap内容更新后,在pod中对应文件的修改时间没有变化  
+
+这与configmap的更新机制有关
 
 # 温馨提示 
 
