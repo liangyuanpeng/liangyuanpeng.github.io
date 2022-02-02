@@ -57,7 +57,11 @@ while let Some(line) = logs.try_next().await? {
     }
 ```  
 
-完整的例子在[log_stream.rs](https://github.com/kube-rs/kube-rs/blob/bf3b248f0c96b229863e0bff510fdf118efd2381/examples/log_stream.rs)
+完整的例子在[log_stream.rs](https://github.com/kube-rs/kube-rs/blob/bf3b248f0c96b229863e0bff510fdf118efd2381/examples/log_stream.rs)  
+
+# 总结  
+
+虽然`kube-rs`在最近才进入CNCF,但是其实已经被不少项目正式采用了,例如CNCF中的[krator](https://github.com/krator-rs/krator)、[krustlet](https://github.com/krustlet/krustlet)以及linkerd2中的[policy-controller](https://github.com/linkerd/linkerd2/tree/main/policy-controller).完整的项目采用列表可以在[kube-rs 采用者](https://github.com/kube-rs/kube-rs/blob/master/ADOPTERS.md)找到.
 
 
 # 注意
