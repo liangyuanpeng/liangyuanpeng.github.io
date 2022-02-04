@@ -10,6 +10,7 @@ image: "[img/post-bg-2015.jpg](https://res.cloudinary.com/lyp/image/upload/v1581
 published: true
 tags:
     - rust 
+    - cncf
 categories: [ kubernetes ]
 ---
 
