@@ -8,9 +8,9 @@ $navbar.className+=" in";}}</script><style type=text/css>header.intro-header{bac
 <a class=tag href=/tags/lank8s.cn title=lank8s.cn>lank8s.cn</a>
 <a class=tag href=/tags/kubeadm title=kubeadm>kubeadm</a></div><h1>kubeadm配合短域名lank8s.cn部署kubernetes</h1><h2 class=subheading></h2><span class=meta>Posted by 梁远鹏 on 2021-02-07
 <span id=busuanzi_container_page_pv>|<span id=busuanzi_value_page_pv></span><span>
-<span id=/post/cncf-kubernetes/kubeadm-deploy-kubernetes-lank8scn/ class="leancloud_visitors meta_data_item" data-flag-title><span class=post-meta-item-icon><span class="octicon octicon-eye"></span></span><i class="fa fa-eye"></i><span class=old-visitors-count style=display:none></span><span class=leancloud-visitors-count></span></span>阅读 </span></span>|<span class=post-date>共1269字</span>，阅读约<span class=more-meta> 3 分钟</span></span></div></div></div></div></header><article><div class=container><div class=row><div class="col-lg-8 col-lg-offset-2
+<span id=/post/cncf-kubernetes/kubeadm-deploy-kubernetes-lank8scn/ class="leancloud_visitors meta_data_item" data-flag-title><span class=post-meta-item-icon><span class="octicon octicon-eye"></span></span><i class="fa fa-eye"></i><span class=old-visitors-count style=display:none></span><span class=leancloud-visitors-count></span></span>阅读 </span></span>|<span class=post-date>共1430字</span>，阅读约<span class=more-meta> 3 分钟</span></span></div></div></div></div></header><article><div class=container><div class=row><div class="col-lg-8 col-lg-offset-2
 col-md-10 col-md-offset-1
-post-container"><header><h2>TOC</h2></header><nav id=TableOfContents></nav><h1 id=本文实现目标>本文实现目标</h1><p>本文主要使用kubeadm快速部署一个单机的kubernetes,其中镜像仓库使用lank8s.cn,当然也可以使用其他地址,lank8s.cn主要优势是短域名,好记.</p><h1 id=前提>前提</h1><p>本文内容不包括讲述docker安装,因此需要自行先安装好docker。</p><h1 id=安装kubectlkubeletkubeadm>安装kubectl、kubelet、kubeadm</h1><ol><li>添加国内源</li></ol><pre><code>cat &lt;&lt;EOF &gt; /etc/yum.repos.d/kubernetes.repo
+post-container"><header><h2>TOC</h2></header><nav id=TableOfContents><ul><li><a href=#注意>注意</a></li><li><a href=#部署一个nginx服务>部署一个nginx服务</a></li></ul></nav><h1 id=本文实现目标>本文实现目标</h1><p>本文主要使用kubeadm快速部署一个单机的kubernetes,其中镜像仓库使用lank8s.cn,当然也可以使用其他地址,lank8s.cn主要优势是短域名,好记.</p><h1 id=前提>前提</h1><p>本文内容不包括讲述docker安装,因此需要自行先安装好docker。</p><h1 id=安装kubectlkubeletkubeadm>安装kubectl、kubelet、kubeadm</h1><ol><li>添加国内源</li></ol><pre><code>cat &lt;&lt;EOF &gt; /etc/yum.repos.d/kubernetes.repo
 [kubernetes]
 name=Kubernetes
 baseurl=https://mirrors.aliyun.com/kubernetes/yum/repos/kubernetes-el7-x86_64
@@ -55,8 +55,11 @@ kube-system   kube-apiserver-installk8s            1/1     Running   0          
 kube-system   kube-controller-manager-installk8s   1/1     Running   0          80s
 kube-system   kube-proxy-tkmc7                     1/1     Running   0          72s
 kube-system   kube-scheduler-installk8s            1/1     Running   0          81s
-</code></pre><p>这是因为CNI插件需要另外部署,本文使用kube-flannel,部署文件可以从kube-flannel的官方github仓库下载,不过可能会由于版本问题引起的冲突,这里推荐使用与本文一致的<a href=https://res.cloudinary.com/lyp/raw/upload/v1612710643/hugo/blog.github.io/kubernetes/kube-flannel.yml>kube-flannel文件</a>.</p><ol start=4><li>部署kube-flannel</li></ol><p><code>kubectl apply -f kube-flannel.yml</code></p><p>可以用watch命令查看pod的动态部署情况</p><pre><code>watch kubectl get po -A
-</code></pre><p>过一会就全部运行起来了.</p><h1 id=kubernetes-hell-world>kubernetes hell world!</h1><p>部署一个nginx服务</p><p>nginx-deployment.yaml:</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml><span style=color:#f92672>apiVersion</span>: <span style=color:#ae81ff>apps/v1</span>
+</code></pre><p>这是因为CNI插件需要另外部署,本文使用kube-flannel,部署文件可以从kube-flannel的官方github仓库下载,不过可能会由于版本问题引起的冲突,这里推荐使用与本文一致的<a href=https://res.cloudinary.com/lyp/raw/upload/v1612710643/hugo/blog.github.io/kubernetes/kube-flannel.yml>kube-flannel文件</a>.</p><ol start=4><li>部署kube-flannel</li></ol><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell>
+kubectl apply -f kube-flannel.yml  
+
+</code></pre></div><p>可以用watch命令查看pod的动态部署情况</p><pre><code>watch kubectl get po -A
+</code></pre><p>过一会就全部运行起来了.</p><h1 id=kubernetes-hell-world>kubernetes hell world!</h1><h2 id=注意>注意</h2><p>此时只有一个master节点,master节点默认是有污点的(无法部署服务),如果希望在master节点部署服务的话需要给master节点去除污点:</p><p>首先用<code>kubectl get node</code>查看你的node名,然后用<code>kubectl taint node {NODENAME} node-role.kubernetes.io/master-</code>给对应节点去除master污点.</p><h2 id=部署一个nginx服务>部署一个nginx服务</h2><p>nginx-deployment.yaml:</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml><span style=color:#f92672>apiVersion</span>: <span style=color:#ae81ff>apps/v1</span>
 <span style=color:#f92672>kind</span>: <span style=color:#ae81ff>Deployment</span>
 <span style=color:#f92672>metadata</span>:
     <span style=color:#f92672>name</span>: <span style=color:#ae81ff>nginx</span>
