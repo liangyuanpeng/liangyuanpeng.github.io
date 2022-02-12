@@ -1,0 +1,23 @@
+---
+layout:     post 
+slug:      "write-k8s-controller-with-kube-rs"
+title:      "用kube-rs实现一个kubernetes controller"
+subtitle:   ""
+description: ""
+date:       2022-02-02
+author:     "梁远鹏"
+image: "[img/post-bg-2015.jpg](https://res.cloudinary.com/lyp/image/upload/v1581729516/hugo/blog.github.io/avian-beak-bird-blur-416117.jpg)"
+published: false
+tags:
+    - rust 
+    - cncf
+categories: [ kubernetes ]
+---
+
+# 介绍  
+
+[kube-rs](https://github.com/kube-rs/kube-rs)目前是CNCF的沙箱项目,有一个官方的controller实现示例[controller-rs](https://github.com/kube-rs/controller-rs).  
+
+# 注意
+
+本文还在持续创作中
