@@ -1,0 +1,78 @@
+<!doctype html><html lang=en-us><head><head><meta name=google-site-verification content="9vIieCe-Qpd78QOmBl63rGtIVbhY6sYyuxX3j8XWBA4"><meta name=baidu-site-verification content="LRrmH41lz7"><meta charset=utf-8><meta http-equiv=x-ua-compatible content="IE=edge"><meta name=google-site-verification content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI"><meta name=viewport content="width=device-width,initial-scale=1"><meta name=baidu-site-verification content="HGLXRsUXC4"><meta name=baidu-site-verification content="code-ANZvlnN0Xr"><meta name=description content="lan，工程师⎈, OpenYurt Member,CDF中文本地化SIG成员,开源爱好者 | 公众号:四颗咖啡豆"><meta name=keyword content="liangyuanpeng|LanLiang|OpenYurt|Knative|Pulsar|Prometheus|Halo||边缘计算kubernetes|Docker|CloudNative|Golang|Rust|Istio|微服务"><link rel="shortcut icon" href=https://liangyuanpeng.com/img/logo.png><meta property="og:image" content="https://liangyuanpeng.com/img/post-bg-2015.jpg"><meta name=twitter:image content="https://liangyuanpeng.com/img/post-bg-2015.jpg"><title>用Rust开发Envoy wasm filter-liangyuanpeng的博客 | liangyuanpeng's Blog</title><link rel=canonical href=https://liangyuanpeng.com/post/cncf-envoy/ennoy-wasm-filter-with-rust/><link rel=stylesheet href=https://res.cloudinary.com/lyp/raw/upload/v1537369740/hugo/css/iDisqus.min.css><link rel=stylesheet href=https://res.cloudinary.com/lyp/raw/upload/v1537369744/hugo/css/bootstrap.min.css><link rel=stylesheet href=https://res.cloudinary.com/lyp/raw/upload/v1537369740/hugo/css/hux-blog.min.css><link rel=stylesheet href=https://res.cloudinary.com/lyp/raw/upload/v1537369740/hugo/css/syntax.css><link href=//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css rel=stylesheet type=text/css><script src=https://res.cloudinary.com/lyp/raw/upload/v1537369966/hugo/js/jquery.min.js></script><script src=https://res.cloudinary.com/lyp/raw/upload/v1537369966/hugo/js/bootstrap.min.js></script><script src=https://res.cloudinary.com/lyp/raw/upload/v1537369964/hugo/js/hux-blog.min.js></script><script defer src=https://static.cloudflareinsights.com/beacon.min.js data-cf-beacon='{"token": "f73bc0092aeb491d89984c0eb5a87ac2"}'></script></head></head><nav class="navbar navbar-default navbar-custom navbar-fixed-top"><div class=container-fluid><div class="navbar-header page-scroll"><button type=button class=navbar-toggle>
+<span class=sr-only>Toggle navigation</span>
+<span class=icon-bar></span><span class=icon-bar></span><span class=icon-bar></span></button>
+<a class=navbar-brand href=https://liangyuanpeng.com//>Hi,I`m lan</a></div><div id=huxblog_navbar><div class=navbar-collapse><ul class="nav navbar-nav navbar-right"><li><a href=https://liangyuanpeng.com//>Home</a></li><li><a href=https://liangyuanpeng.com/categories/cloudnative>cloudnative</a></li><li><a href=https://liangyuanpeng.com/categories/devops>devops</a></li><li><a href=https://liangyuanpeng.com/categories/iot>iot</a></li><li><a href=https://liangyuanpeng.com/categories/kubernetes>kubernetes</a></li><li><a href=https://liangyuanpeng.com/categories/tech>tech</a></li><li><a href=https://liangyuanpeng.com/search>SEARCH <img src=https://liangyuanpeng.com/img/search.png height=15 style=cursor:pointer></a></li></ul></div></div></div></nav><script>var $body=document.body;var $toggle=document.querySelector('.navbar-toggle');var $navbar=document.querySelector('#huxblog_navbar');var $collapse=document.querySelector('.navbar-collapse');$toggle.addEventListener('click',handleMagic)
+function handleMagic(e){if($navbar.className.indexOf('in')>0){$navbar.className=" ";setTimeout(function(){if($navbar.className.indexOf('in')<0){$collapse.style.height="0px"}},400)}else{$collapse.style.height="auto"
+$navbar.className+=" in";}}</script><style type=text/css>header.intro-header{background-image:url(https://liangyuanpeng.com/img/post-bg-2015.jpg)}</style><header class=intro-header><div class=container><div class=row><div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1"><div class=post-heading><div class=tags><a class=tag href=/tags/envoy title=envoy>envoy</a>
+<a class=tag href=/tags/cncf title=cncf>cncf</a>
+<a class=tag href=/tags/rust title=rust>rust</a></div><h1>用Rust开发Envoy wasm filter</h1><h2 class=subheading></h2><span class=meta>Posted by 梁远鹏 on 2022-03-20
+<span id=busuanzi_container_page_pv>|<span id=busuanzi_value_page_pv></span><span>
+<span id=/post/cncf-envoy/ennoy-wasm-filter-with-rust/ class="leancloud_visitors meta_data_item" data-flag-title><span class=post-meta-item-icon><span class="octicon octicon-eye"></span></span><i class="fa fa-eye"></i><span class=old-visitors-count style=display:none></span><span class=leancloud-visitors-count></span></span>阅读 </span></span>|<span class=post-date>共1030字</span>，阅读约<span class=more-meta> 3 分钟</span></span></div></div></div></div></header><article><div class=container><div class=row><div class="col-lg-8 col-lg-offset-2
+col-md-10 col-md-offset-1
+post-container"><header><h2>TOC</h2></header><nav id=TableOfContents><ul><li><a href=#示例项目结构>示例项目结构</a></li><li><a href=#configrs>config.rs</a></li><li><a href=#filterrs>filter.rs</a></li><li><a href=#运行示例看看效果>运行示例,看看效果</a></li></ul><ul><li><a href=#实现www-authenticate认证逻辑>实现WWW-Authenticate认证逻辑</a></li><li><a href=#添加配置参数>添加配置参数</a></li><li><a href=#实现域名白名单>实现域名白名单</a></li><li><a href=#实现url白名单>实现URL白名单</a></li></ul></nav><h1 id=heading></h1><h1 id=目标>目标</h1><p>用WASM filter实现<code>WWW-Authenticate</code>认证,并且<code>支持配置</code>域名白名单和URL白名单.</p><h1 id=了解envoy-wasm-rust-sdk例子>了解envoy-wasm-rust-sdk例子</h1><p>首先非常感谢<code>tetratelabs</code>的相关工作,因为我们是基于<a href=https://github.com/tetratelabs/envoy-wasm-rust-sdk>envoy-wasm-rust-sdk</a>来开发这样的一个WASM filter的,这个开源仓库提供了三个示例并且都配有相应的docker-comose.yaml,可以非常方便的看到示例的效果.</p><p>有三个这样的示例:</p><ul><li>日志记录器</li><li>http过滤器</li><li>network过滤器</li></ul><p>如果在这之前你已经看过这个项目的示例,那么看本文会很轻松,如果没有看过那我会推荐你先看一遍这篇文章,接着试一试<a href=https://github.com/tetratelabs/envoy-wasm-rust-sdk>envoy-wasm-rust-sdk</a>的<code>http-filter</code>示例,最后再回来看一遍这篇文章,效果会更好.</p><h2 id=示例项目结构>示例项目结构</h2><p>在本文中我们了解<code>http过滤器</code>这个示例就可以了,因为后续内容都是基于这个示例来做修改的.</p><p>首先我们看一下这个示例的项目结构:</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell>lan@lan:~/repo/git/envoy-wasm-rust-sdk/examples/http-filter$ tree .
+.
+├── Cargo.toml
+├── docker-compose.yaml
+├── envoy.yaml
+├── README.md
+├── src
+│   ├── config.rs
+│   ├── factory.rs
+│   ├── filter.rs
+│   ├── lib.rs
+│   └── stats.rs
+└── wasm
+    └── module
+        ├── Cargo.toml
+        └── src
+            └── lib.rs
+</code></pre></div><p>这就是一个典型<code>lib</code>类型的<code>cargo项目</code>,最终的效果是将项目打包成一个wasm二进制文件.</p><p>在本文中我们主要关注的是<code>config.rs</code>和<code>filter.rs</code></p><h2 id=configrs>config.rs</h2><p><code>config.rs</code>主要是和配置相关的内容.</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-rust data-lang=rust>...
+<span style=color:#66d9ef>pub</span> <span style=color:#66d9ef>struct</span> <span style=color:#a6e22e>SampleHttpFilterConfig</span> {
+    <span style=color:#75715e>#[serde(default)]</span>
+    <span style=color:#66d9ef>pub</span> param: String,
+}
+...
+<span style=color:#66d9ef>impl</span> Default <span style=color:#66d9ef>for</span> SampleHttpFilterConfig {
+    <span style=color:#66d9ef>fn</span> <span style=color:#a6e22e>default</span>() -&gt; <span style=color:#a6e22e>Self</span> {
+        SampleHttpFilterConfig {
+            param: String::default(),
+        }
+    }
+}
+</code></pre></div><p><code>SampleHttpFilterConfig</code>是这个filter需要使用到的一些配置,实现了<code>Default</code>这个<code>Trait</code>,简单理解的话就是说这个<code>default()</code>是Rust世界中的无参构造函数,new一个对象时给字段赋值.</p><p>还可以看到这个示例只有一个字符串类型的param字段,这个参数是可以在envoy的配置文件中作为参数传进来的(默认是envoy.yaml).</p><p>这个文件需要了解的内容就这么多:</p><ul><li>有一个配置对象</li><li>可以添加字段并且实现<code>Default</code>这个<code>Trait</code></li><li>可以从envoy配置文件配置参数到这个对象对应字段</li></ul><h2 id=filterrs>filter.rs</h2><p>接下来了解下<code>filter.rs</code>这个文件时干嘛的,看名字可以猜到主要是过滤器需要过滤什么东西(过滤器的逻辑),</p><h2 id=运行示例看看效果>运行示例,看看效果</h2><h1 id=开发我们的filter逻辑>开发我们的filter逻辑</h1><h2 id=实现www-authenticate认证逻辑>实现WWW-Authenticate认证逻辑</h2><h2 id=添加配置参数>添加配置参数</h2><h2 id=实现域名白名单>实现域名白名单</h2><h2 id=实现url白名单>实现URL白名单</h2><h1 id=总结>总结</h1><p>到目前为止,我们使用Rust开发了一个支持参数配置的envoy wasm filter.</p><h1 id=注意>注意</h1><p>本文还在持续创作当中,这几天会完成创作.</p><h2>微信公众号</h2><p>扫描下面的二维码关注我们的微信公众号,第一时间查看最新内容。同时也可以关注我的Github，看看我都在了解什么技术，在页面底部可以找到我的Github。</p><img src=https://res.cloudinary.com/lyp/image/upload/v1581729955/hugo/blog.github.io/qrcode_for_sikekafeidou.jpg alt=wechat-account-qrcode><hr><ul class=pager><li class=previous><a href=/post/fundation-cncf/open-tracing-project-archive/ data-toggle=tooltip data-placement=top title=CNCF批准OpenTracing项目归档>&larr; CNCF批准OpenTracing项目归档</a></li></ul><script src=https://utteranc.es/client.js repo=liangyuanpeng/liangyuanpeng.github.io issue-term=title theme=github-light crossorigin=anonymous async></script></div><div class="col-lg-8 col-lg-offset-2
+col-md-10 col-md-offset-1
+sidebar-container"><section><hr class="hidden-sm hidden-xs"><h5><a href=/tags/>FEATURED TAGS</a></h5><div class=tags><a href=/tags/blog title=blog>blog</a>
+<a href=/tags/bookkeeper title=bookkeeper>bookkeeper</a>
+<a href=/tags/chirpstack title=chirpstack>chirpstack</a>
+<a href=/tags/ci/cd title=ci/cd>ci/cd</a>
+<a href=/tags/cloudnative title=cloudnative>cloudnative</a>
+<a href=/tags/cncf title=cncf>cncf</a>
+<a href=/tags/contour title=contour>contour</a>
+<a href=/tags/docker title=docker>docker</a>
+<a href=/tags/docker-compose title=docker-compose>docker-compose</a>
+<a href=/tags/envoy title=envoy>envoy</a>
+<a href=/tags/fluentd title=fluentd>fluentd</a>
+<a href=/tags/foundation title=foundation>foundation</a>
+<a href=/tags/golang title=golang>golang</a>
+<a href=/tags/hugo title=hugo>hugo</a>
+<a href=/tags/image title=image>image</a>
+<a href=/tags/iot title=iot>iot</a>
+<a href=/tags/k8s title=k8s>k8s</a>
+<a href=/tags/kubernetes title=kubernetes>kubernetes</a>
+<a href=/tags/kubesphere title=kubesphere>kubesphere</a>
+<a href=/tags/lorawan title=lorawan>lorawan</a>
+<a href=/tags/metrics title=metrics>metrics</a>
+<a href=/tags/middleware title=middleware>middleware</a>
+<a href=/tags/monitor title=monitor>monitor</a>
+<a href=/tags/mq title=mq>mq</a>
+<a href=/tags/ops title=ops>ops</a>
+<a href=/tags/prometheus title=prometheus>prometheus</a>
+<a href=/tags/rpc title=rpc>rpc</a>
+<a href=/tags/rust title=rust>rust</a>
+<a href=/tags/sofa title=sofa>sofa</a>
+<a href=/tags/sofastack title=sofastack>sofastack</a>
+<a href=/tags/springboot title=springboot>springboot</a>
+<a href=/tags/tech title=tech>tech</a></div></section></div><div class="col-lg- col-lg-offset-2
+col-md-10 col-md-offset-1"><section><hr class="hidden-sm hidden-xs"><h2>相关文章</h2><ul style=margin-bottom:25px><li><a href=/post/fundation-rust/quick-start-kubernetes-client-rust/>快速认识kubernetes的rust客户端</a></li><li><a href=/post/fundation-cncf/rust-project-in-cncf/>cncf基金会中的rust项目</a></li><li><a href=/post/cncf-envoy/envoy-file-xds-with-reload-configmap/>将热更新configmap作为Envoy的XDS服务</a></li><li><a href=/post/cncf-envoy/envoy-xds-with-file/>静态文件作为Envoy的v3 XDS</a></li><li><a href=/post/cncf-envoy/auth-with-envoy/>Envoy外部认证服务器</a></li><li><a href=/post/cncf-envoy/implement-envoy-xds/>实现Envoy的xds服务</a></li><li><a href=/post/fundation-cncf/open-tracing-project-archive/>CNCF批准OpenTracing项目归档</a></li><li><a href=/post/fundation-rust/what-is-cargo-in-rust/>什么是cargo</a></li><li><a href=/post/fundation-rust/rust-exception-qa/>Rust常见问题</a></li><li><a href=/post/fundation-cncf/k8s-cd-argo-deploy/>k8s部署云原生CD引擎Argo</a></li></ul></section></div></div></div></article><footer><div class=container><div class=row><div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1"><ul class="list-inline text-center"><li><a href rel=alternate type=application/rss+xml title="Hi,I`m lan"><span class="fa-stack fa-lg"><i class="fa fa-circle fa-stack-2x"></i><i class="fa fa-rss fa-stack-1x fa-inverse"></i></span></a></li><li><a target=_blank href=https://github.com/liangyuanpeng><span class="fa-stack fa-lg"><i class="fa fa-circle fa-stack-2x"></i><i class="fa fa-github fa-stack-1x fa-inverse"></i></span></a></li><li><a href=mailto:liangyuanpengem@163.com><span class="fa-stack fa-lg"><i class="fa fa-circle fa-stack-2x"></i><i class="fa fa-envelope fa-stack-1x fa-inverse"></i></span></a></li><li><a href=https://twitter.com/lan31793328><span class="fa-stack fa-lg"><i class="fa fa-circle fa-stack-2x"></i><i class="fa fa-twitter fa-stack-1x fa-inverse"></i></span></a></li><li><a target=_blank href=https://www.zhihu.com/people/liangyuanpeng><span class="fa-stack fa-lg"><i class="fa fa-circle fa-stack-2x"></i><i class="fa fa-stack-1x fa-inverse">知</i></span></a></li><li><a target=_blank href=https://weibo.com/u/1908782280><span class="fa-stack fa-lg"><i class="fa fa-circle fa-stack-2x"></i><i class="fa fa-weibo fa-stack-1x fa-inverse"></i></span></a></li></ul><p class="copyright text-muted">Copyright &copy; Hi,I`m lan , 2022<br><a href=https://themes.gohugo.io/hugo-theme-cleanwhite>CleanWhite Hugo Theme</a> by <a href=https://zhaohuabing.com>Huabing</a> |
+<iframe style=margin-left:2px;margin-bottom:-5px frameborder=0 scrolling=0 width=100px height=20px src="https://ghbtns.com/github-btn.html?user=zhaohuabing&repo=hugo-theme-cleanwhite&type=star&count=true"></iframe></p></div></div></div></footer><script>function async(u,c){var d=document,t='script',o=d.createElement(t),s=d.getElementsByTagName(t)[0];o.src=u;if(c){o.addEventListener('load',function(e){c(null,e);},false);}
+s.parentNode.insertBefore(o,s);}</script><script>if($('#tag_cloud').length!==0){async("/js/jquery.tagcloud.js",function(){$.fn.tagcloud.defaults={color:{start:'#bbbbee',end:'#0085a1'},};$('#tag_cloud a').tagcloud();})}</script><script>async("https://cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.js",function(){var $nav=document.querySelector("nav");if($nav)FastClick.attach($nav);})</script><script>var _baId='71126c746d53d10cdb4275496d9cc84b';var _hmt=_hmt||[];(function(){var hm=document.createElement("script");hm.src="//hm.baidu.com/hm.js?"+_baId;var s=document.getElementsByTagName("script")[0];s.parentNode.insertBefore(hm,s);})();</script></body></html>
