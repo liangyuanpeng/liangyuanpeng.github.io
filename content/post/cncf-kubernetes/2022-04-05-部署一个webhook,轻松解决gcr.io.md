@@ -32,7 +32,7 @@ kubectl create namespace replacer
 kubectl apply -f deploy -n replacer
 ```  
 
-很快你就会看到在 replacer 这个 namespace 下有一个 Deployment 部署好了  
+很快你就会看到在 replacer 这个 namespace 下有一个 Deployment 部署好了,因为默认是使用ghcr.io的镜像,因此如果拉取镜像太慢的话可以把 `ghcr.io`修改为 `ghcr.lank8s.cn` 来加速拉取镜像.  
 
 同时这个库下有一个测试的yaml,在部署好webhook后可以试试测试的效果:   
 
@@ -52,6 +52,12 @@ helm install replacer lyp/replacer -n replacer --create-namespace
 ```  
 
 Helm 部署的方式也非常简单,两行命令就可以了,不过这里没有提供测试的文件,可能需要另外拉取镜像验证一下.  
+
+同样的,默认的镜像是 `ghcr.io` 的,如果拉取速度太慢的话可以把镜像仓库修改为 `ghcr.lank8s.cn`.  
+
+```
+helm install replacer -n replacer yp/replacer --set waitfor.image.repository=ghcr.lank8s.cn/liangyuanpeng/waitfor --set replacer.image.repository=ghcr.lank8s.cn/liangyuanpeng/replacer  --create-namespace
+```
 
 # 总结  
 
