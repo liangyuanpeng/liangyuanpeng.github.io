@@ -57,6 +57,3 @@ ubuntu:
 ```shell
 sudo apt install -y g++
 ```  
-
-# 注意  
-本文还在持续创作当中

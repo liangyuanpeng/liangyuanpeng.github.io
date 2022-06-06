@@ -112,11 +112,9 @@ org.apache.bookkeeper.bookie.BookieException$MetadataStoreException: Failed to g
 2021-12-26 22:04:02,315 - INFO  - [main:ComponentStarter@86] - Started component bookie-server.
 ```
 
-## bookkeeper+etcd
-
 ## localbookie方式部署  
 
-这种方式主要是用于
+这种方式主要是用于本地开发环境.
 
 # 注意  
 本文还在持续创作当中
