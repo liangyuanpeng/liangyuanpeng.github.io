@@ -20,6 +20,8 @@ categories: [ kubernetes ]
 
 # 部署metrics-server  
 
+## yaml部署
+
 yaml文件如下:  
 ```yaml
 apiVersion: v1
@@ -248,7 +250,17 @@ kubectl apply -f webhook-conf.yaml
 
 完美拉取`k8s.gcr.io`镜像!
 
-# kubectl top原理
+## Helm 部署
+
+```
+helm repo add metrics-server https://kubernetes-sigs.github.io/metrics-server/
+helm upgrade --install metrics-server metrics-server/metrics-server -n kube-system --set image.repository=lank8s.cn/metrics-server/metrics-server
+
+```
+
+# kubectl top原理  
+
+测试PR
 
 # 什么是lank8s.cn  
 

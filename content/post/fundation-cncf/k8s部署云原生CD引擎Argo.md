@@ -53,11 +53,11 @@ mv argocd-linux-amd64 /usr/local/bin
 kubectl patch svc argocd-server -n argocd -p '{"spec": {"type": "LoadBalancer"}}'
 ```  
 
-## 使用ingress来访问  
+### 使用ingress来访问  
 
 这里我推荐使用Contour  
 
-## 使用kubectl直接转发端口号  
+### 使用kubectl直接转发端口号  
 ```shell
 kubectl port-forward svc/argocd-server -n argocd 8080:443
 ```  
@@ -80,6 +80,10 @@ argocd account update-password
 ```
 
 # 创建一个Application  
+
+首先从上面三种方式中选择一种来暴露service,本文使用的是kubectl转发的方式.  
+
+访问IP:PORT
  
 https://victoriametrics.github.io/helm-charts/
 

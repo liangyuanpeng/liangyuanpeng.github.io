@@ -116,18 +116,28 @@ kube-system   kube-scheduler-installk8s            1/1     Running   0          
 
 4. 部署kube-flannel  
 
-```kubectl apply -f kube-flannel.yml```
+```shell  
+
+kubectl apply -f kube-flannel.yml  
+
+```  
 
 可以用watch命令查看pod的动态部署情况  
-```
+```  
 watch kubectl get po -A
 ```    
 
-过一会就全部运行起来了.
+过一会就全部运行起来了. 
 
 # kubernetes hell world!  
 
-部署一个nginx服务  
+## 注意  
+
+此时只有一个master节点,master节点默认是有污点的(无法部署服务),如果希望在master节点部署服务的话需要给master节点去除污点:  
+
+首先用`kubectl get node`查看你的node名,然后用`kubectl taint node {NODENAME} node-role.kubernetes.io/master-`给对应节点去除master污点.  
+
+##  部署一个nginx服务  
 
 nginx-deployment.yaml:   
 
