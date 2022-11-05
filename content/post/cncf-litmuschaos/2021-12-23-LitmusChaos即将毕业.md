@@ -1,7 +1,7 @@
 ---
 layout:     post 
 slug:      "litmus-chaos-incubation-coming"
-title:      "LitmusChaos即将毕业"
+title:      "LitmusChaos即将进入孵化阶段"
 subtitle:   ""
 description: ""
 date:       2021-12-23
@@ -15,10 +15,10 @@ categories: [ CLOUDNATIVE ]
 
 # 即将毕业的LitmusChaos  
 
-目前LitmusChaos项目正在进入毕业投票阶段,相信很快就会宣布正式毕业.  
+目前LitmusChaos项目正在进入孵化投票阶段,相信很快就会宣布正式成为孵化项目.  
 
-投票详情见:https://lists.cncf.io/g/cncf-toc/message/6423
+投票详情见:https://lists.cncf.io/g/cncf-toc/topic/87384452#6441
 
+投票结果: https://lists.cncf.io/g/cncf-toc/message/6483?p=%2C%2C%2C20%2C0%2C0%2C0%3A%3ACreated%2C%2CLitmusChaos%2C20%2C2%2C0%2C88352009 
 
-# 注意  
-本文还在持续创作当中
+LitmusChaos在2022年1月12日成为CNCF孵化项目.
