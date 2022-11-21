@@ -38,7 +38,7 @@ drone支持以下几种配置:
 
 ## 使用yaml配置  
 
-yaml 配置作为默认的使用方式,了解甚至熟练运用是必要的,即使是使用 jsonnet 配置也需要了解 yaml 配置的内容,因为最终的内容都是使用 yaml,而 jsonnet 只是让编写配置文件的人员能够拥有更灵活的 yaml 配置编写能力.
+yaml 配置作为默认的使用方式,了解甚至熟练运用是必要的,即使是使用 jsonnet 配置也需要了解 yaml 配置的内容,因为最终的内容都是使用 yaml,而 jsonnet 是让编写配置文件的人员能够拥有更灵活的 yaml 配置编写能力.
 
 ## 使用jsonnet配置  
 
@@ -51,7 +51,11 @@ yaml 配置作为默认的使用方式,了解甚至熟练运用是必要的,即�
 local trivyci = import 'pipeline-trivy.jsonnet';
 ```
 
-最终会得到一个错误:
+使用命令`drone jsonnet --format --stdout` 能够正常解析,但是当 push 更改到代码仓库后,drone server 报错了:
+
+```
+RUNTIME ERROR: couldn't open import "pipeline-trivy.libsonnet": no match locally or in the Jsonnet library paths .drone.jsonnet:1:17-50 thunk <trivyci> from <$> .drone.jsonnet:236:18-25 thunk <trivyciamd64> from <$> .drone.jsonnet:243:3-15 thunk from <$> During manifestation
+```
 
 # 支持的源码服务提供商
 
@@ -97,4 +101,33 @@ local trivyci = import 'pipeline-trivy.jsonnet';
 2. 原生不支持通过修改的 path 来触发 CI
 
 例如只希望提交中有 *.go 或 *.java 文件更新时才会触发 CI. 这在当前的 Drone 无法直接支持.
+
+meltwater 的开源项目[drone-convert-pathschanged](https://github.com/meltwater/drone-convert-pathschanged)能够做到这样的效果,例如:
+
+仅当某些文件更新时才会触发整个 pipeline.
+```
+trigger:
+  paths:
+    include:
+    - README.md
+```
+
+仅当某些文件有更新时才会触发 step.
+```
+---
+kind: pipeline
+name: readme
+
+steps:
+- name: message
+  image: busybox
+  commands:
+  - echo "README.md was changed”
+  when:
+    paths:
+      include:
+      - README.md
+```
+
+不过似乎支持的平台和 drone 支持的平台不是一致的,例如在发布本文时还不支持 gitea.
 
