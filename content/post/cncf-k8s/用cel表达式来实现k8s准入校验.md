@@ -180,6 +180,12 @@ The deployments "envoy" is invalid: : ValidatingAdmissionPolicy 'demo-policy.exa
 
 我们来修改一下让策略变成 含有`environment=test`标签的 namespace 下所有 pod 的镜像资源必须是内网地址.
 
+# 敬请期待
+
+我将会开源一个 CRD 用于配合 ValidatingAdmissionPolicy 做更为灵活的准入校验，参考前面的 CRD 字段作为参数传递到策略中，目前这个字段是不变的或者说是 CRD 逻辑相关的变更，但如果这个字段能够以更灵活的方式将逻辑以脚本的方式处理 K8S API 数据最终得到一个值是不是更妙呢?
+
+你可以先想象一下如果希望用 ValidatingAdmissionPolicy 做到限制一个 namespace 下 pod 的数量的话需要怎么做?
+
 # 注意
 
 本文还在持续创作中
