@@ -35,7 +35,7 @@ kind create cluster  --config dev/k8s/1.26/kindconfig/kind.yaml --image kindest/
 k label namespace   default  environment=test
 ```
 
-注意 kind 创建集群时需要指定 1.26的 image,否则默认会使用 1.25.3 版本.
+注意这个版本的 kind 创建集群时需要指定 1.26的 image,否则默认会使用 1.25.3 版本.
 
 另一个注意点是需要开启 ValidatingAdmissionPolicy 这个功能以及开启 admissionregistration.k8s.io/v1alpha1 API.
 
@@ -186,6 +186,8 @@ The deployments "envoy" is invalid: : ValidatingAdmissionPolicy 'demo-policy.exa
 
 你可以先想象一下如果希望用 ValidatingAdmissionPolicy 做到限制一个 namespace 下 pod 的数量的话需要怎么做?
 
+
 # 注意
 
 本文还在持续创作中
+
