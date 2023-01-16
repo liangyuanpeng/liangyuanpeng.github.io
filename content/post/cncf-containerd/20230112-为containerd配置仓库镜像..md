@@ -62,3 +62,8 @@ containerdConfigPatches:
   [plugins."io.containerd.grpc.v1.cri".registry.mirrors."ghcr.io"]
     endpoint = ["https://ghcr.lank8s.cn"]
 ```
+
+
+# 注意 
+
+本文还在持续创作当中.
