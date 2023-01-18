@@ -97,7 +97,7 @@ $ kubectl logs -f pulsar-consumer-77f96bbf9d-bwspx
 # 笔记  
 
 1. function worker会使用到Dlog，直接连接的ZK. 
-2. 有状态的pulsar function会使用到BK的table service,而table service似乎也是连接ZK.
+2. ~~有状态的pulsar function会使用到BK的table service,而table service似乎也是连接ZK~~.
 
 # 注意 
 
