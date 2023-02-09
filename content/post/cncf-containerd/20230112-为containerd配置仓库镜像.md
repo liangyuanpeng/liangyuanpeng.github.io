@@ -16,11 +16,13 @@ categories: [ CloudNative ]
 
 # 前言    
 
-containerd 的仓库镜像功能是很有用的功能,特别是国内无法访问 gcr.io 和 k8s.gcr.io 以及registry.k8s.io 这些镜像仓库的情况下.
+containerd 的仓库镜像功能是很有用的功能,特别是国内无法访问 gcr.io 和 k8s.gcr.io 以及 registry.k8s.io 这些镜像仓库的情况下.
 
-其他用到 containerd 的地方,K3S 和 Kind 都提供了比较简单的方式来为内置的 containerd 配置仓库镜像.
+K3S 和 Kind 都提供了比较简单的方式来为内置的 containerd 配置仓库镜像.
 
 # K3S   
+
+下面列出关键部分,也就是配置镜像代理加速部分,至于 K3S 的部署不在本位内容范围内,修改好配置后重启下 K3S 就可以生效了.
 
 ```yaml
 root@k3sm3:~# cat >> /etc/rancher/k3s/registries.yaml <<EOF
@@ -38,11 +40,6 @@ mirrors:
   "registry.k8s.io":
     endpoint:
     - "https://registry.lank8s.cn"
-configs:
-  "gcr.io":
-    auth:
-      username: admin # this is the registry username
-      password: Harbor12345 # this is the registry password
 EOF
 root@k3sm3:~# systemctl restart k3s
 ```
@@ -51,6 +48,7 @@ root@k3sm3:~# systemctl restart k3s
 
 官方文档地址: https://kind.sigs.k8s.io/docs/user/local-registry/
 
+有可能你使用以下命令会失效,是由于 Kind 的不断发展会导致下面字段 apiVersion 不再是 kind.x-k8s.io/v1alpha4 版本,而是更好的版本,本文使用的 Kind 版本是 `kind v0.17.0 go1.19.2 linux/amd64`.
 
 kind.config 
 ```yaml
@@ -68,11 +66,7 @@ containerdConfigPatches:
     endpoint = ["https://ghcr.lank8s.cn"]
 ```
 
-
-```shell
-kind create cluster --config kind.config 
-```
-
+执行以下命令用于初始化 K8S 集群.
 
 ```shell
 oem@lan:~/repo/git/liangyuanpeng.github.io/content/post/cncf-containerd$ kind create cluster --config kind.config 
@@ -88,6 +82,8 @@ You can now use your cluster with:
 
 kubectl cluster-info --context kind-kind
 ```  
+
+# 校验效果
 
 K8S 测试环境准备好之后就可以部署一个容器来试试镜像拉取的效果.
 
@@ -115,13 +111,17 @@ spec:
           image: gcr.io/distroless/static:nonroot
 ```
 
+执行以下命令来部署上述的 Deployment 资源.
+```shell
 kubectl apply -f deployment.yaml
+```
 
 这里提供了一个　yaml 用于部署　Deployment 来拉取 `gcr.io/distroless/static:nonroot` 镜像,如果配置生效的话那么在无法访问　`gcr.io` 的情况下可以看到容器会成功拉取到镜像,最后　Pod　的状态是 `CrashLoopBackOff` 是由于容器无法启动的问题.
 
-TODO 使用一个可以正常启动的容器来做示例.
+# 关于 lank8s.cn
 
+关于 lank8s.cn 可以通过 [lank8s.cn服务](https://liangyuanpeng.com/post/cncf-kubernetes/service-lank8s.cn/) 或 [Lank8s Github组织](https://github.com/lank8s) 了解更多.
 
-# 注意 
+# 注意
 
-本文还在持续创作当中.
+本文仍在创作当中.
