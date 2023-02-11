@@ -1,7 +1,7 @@
 apiVersion: admissionregistration.k8s.io/v1alpha1
 kind: ValidatingAdmissionPolicy
 metadata:
-  name: "demo-policy.example.com"
+  name: "demo-policy.lank8s.local"
 spec:
   paramKind:
     apiVersion: v1
