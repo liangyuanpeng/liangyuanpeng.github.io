@@ -1,12 +1,15 @@
 apiVersion: admissionregistration.k8s.io/v1alpha1
 kind: ValidatingAdmissionPolicyBinding
 metadata:
-  name: "demo-binding-test.lank8s.local"
+  name: lank8s.local
 spec:
-  policyName: "demo-policy.lank8s.local"
+  policyName: lank8s.local
+  paramRef:
+    name: "coredns"
+    namespace: kube-system
   matchResources:
     namespaceSelector:
       matchExpressions:
       - key: environment
         operator: In
-        values: ["test"]
+        values: ["production"]

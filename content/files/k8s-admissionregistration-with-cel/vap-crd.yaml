@@ -1,11 +1,11 @@
 apiVersion: admissionregistration.k8s.io/v1alpha1
 kind: ValidatingAdmissionPolicy
 metadata:
-  name: "demo-policy.lank8s.local"
+  name: lank8s.local
 spec:
   paramKind:
-    apiVersion: v1
-    kind: ReplicaLimit
+    apiVersion: apps/v1
+    kind: Deployment
   matchConstraints:
     resourceRules:
     - apiGroups:   ["apps"]
@@ -13,4 +13,4 @@ spec:
       operations:  ["CREATE", "UPDATE"]
       resources:   ["deployments"]
   validations:
-    - expression: "object.spec.replicas <= params.maxReplicas"
+    - expression: "object.spec.replicas <= params.spec.replicas"
