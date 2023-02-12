@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: envoy
+  labels:
+    app: envoy
+spec:
+  selector:
+    matchLabels:
+      app: envoy
+  replicas: 6
+  template:
+    metadata:
+      labels:
+        app: envoy
+    spec:
+      containers:
+        - name: envoy
+          image: envoyproxy/envoy:v1.25.1
+          imagePullPolicy: IfNotPresent
+          ports:
+            - name: envoy
+              protocol: TCP
+              containerPort: 10000
+            - name: admin
+              containerPort: 9901
+          command: 
+            - /bin/sh
+            - -c
+            - envoy -c /etc/envoy/envoy.yaml
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: envoy
+  labels:
+    app: envoy
+spec:
+  ports:
+    - port: 10000
+      name: envoy
+    - name: admin
+      port: 9901
+  type: ClusterIP
+  selector:
+    app: envoy
