@@ -1,0 +1,114 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  labels:
+    app: zot
+  name: zot
+spec:
+  selector:
+    matchLabels:
+      app: zot
+  serviceName: zot-svc
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: zot
+    spec:
+      volumes:
+        - name: zotdata
+          hostPath:
+            path: /zotdata
+        - name: zot-config
+          configMap:
+            name: zot-configmap
+      containers:
+        - name: zot
+          image: ghcr.io/project-zot/zot-linux-amd64:v1.4.3
+          imagePullPolicy: IfNotPresent
+          volumeMounts:
+          - name: zotdata
+            mountPath: /tmp/zotdata
+          - name: zot-config
+            mountPath: /etc/zot
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: zot
+  labels:
+    app: zot
+spec:
+  ports:
+    - port: 5000
+      name: zot
+      nodePort: 30000
+  type: NodePort
+  selector:
+    app: zot
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: zot-configmap
+data:
+  config.json: |
+    {
+        "distSpecVersion": "1.0.1",
+        "storage": {
+            "rootDirectory": "/tmp/zotdata",
+            "gc": true,
+            "gcDelay": "1h",
+            "gcInterval": "24h"
+        },
+        "http": {
+            "address": "0.0.0.0",
+            "port": "5000"
+        },
+        "log": {
+            "level": "debug"
+        },
+        "extensions": {
+            "scrub": {
+                "enable": true,
+                "interval": "3h"
+            },
+            "sync": {
+                "enable": true,
+                "registries": [
+                    {
+                        "urls": [
+                            "https://k8s.lank8s.cn"
+                        ],
+                        "onDemand": true,
+                        "tlsVerify": true,
+                        "maxRetries": 2,
+                        "retryDelay": "5m"
+                    },
+                    {
+                        "urls": [
+                            "https://gcr.lank8s.cn"
+                        ],
+                        "onDemand": true,
+                        "tlsVerify": true,
+                        "maxRetries": 2,
+                        "retryDelay": "5m"
+                    },
+                    {
+                        "urls": [
+                            "https://registry.lank8s.cn"
+                        ],
+                        "onDemand": true,
+                        "tlsVerify": true,
+                        "maxRetries": 2,
+                        "retryDelay": "5m"
+                    }]
+            },
+            "metrics": {
+                "enable": true,
+                "prometheus": {
+                    "path": "/metrics"
+                }
+            }
+        }
+    }
