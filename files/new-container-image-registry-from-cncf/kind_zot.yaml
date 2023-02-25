@@ -1,0 +1,27 @@
+kind: Cluster
+apiVersion: kind.x-k8s.io/v1alpha4
+featureGates:
+  "ValidatingAdmissionPolicy": true
+  "AggregatedDiscoveryEndpoint": true
+runtimeConfig:
+  "api/alpha": "true"
+networking:
+  apiServerAddress: "0.0.0.0"
+  apiServerPort: 6443
+containerdConfigPatches:
+- |-
+  [plugins."io.containerd.grpc.v1.cri".registry.mirrors."gcr.io"]
+    endpoint = ["http://zot-control-plane:30000"]
+  [plugins."io.containerd.grpc.v1.cri".registry.mirrors."k8s.gcr.io"]
+    endpoint = ["http://zot-control-plane:30000"]
+  [plugins."io.containerd.grpc.v1.cri".registry.mirrors."registry.k8s.io"]
+    endpoint = ["http://zot-control-plane:30000"]
+nodes:
+- role: control-plane
+  extraMounts:
+  - hostPath: /lank8s/zotdata
+    containerPath: /zotdata
+  extraPortMappings:
+  - containerPort: 30000
+    hostPort: 30005
+    listenAddress: "0.0.0.0"

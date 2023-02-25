@@ -1,0 +1,15 @@
+apiVersion: admissionregistration.k8s.io/v1alpha1
+kind: ValidatingAdmissionPolicyBinding
+metadata:
+  name: lank8s.local
+spec:
+  policyName: lank8s.local
+  paramRef:
+    name: "coredns"
+    namespace: kube-system
+  matchResources:
+    namespaceSelector:
+      matchExpressions:
+      - key: environment
+        operator: In
+        values: ["production"]
