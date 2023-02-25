@@ -18,13 +18,13 @@ categories:
 
 # 什么是Cloudflare  
 
-Cloudflare是一家美国
+Cloudflare是一家美国公司
 
 # 为什么转到Cloudflare pages  
 
-记得我第一次听说Cloudflare时是在技术群看到其他人聊CDN时看到的,由于当时我一直使用netlify部署我的hugo站点,对速度也没有什么要求,因此并没有在意.  
+记得我第一次听说 Cloudflare 时是在技术群看到其他人聊 CDN 时看到的,由于当时我一直使用 netlify 部署我的 hugo 站点,对速度也没有什么要求,因此并没有在意.  
 
-后来由于有了让百度搜索引擎收录我站点的想法,但是一直没有收录,于是我从Netlify转战到了Cloudflare,尝试一下Cloudflare pages.用Cloudflare pages重新部署了我的Hugo站点.(当前百度还没有收录我的站点 :(... )    
+后来由于有了让百度搜索引擎收录我站点的想法,但是一直没有收录,于是我从 Netlify 转战到了 Cloudflare,尝试一下 Cloudflare pages.用 Cloudflare pages重新部署了我的 Hugo 站点.(当前百度还没有收录我的站点 :(... )    
 
 
 # 创建站点  
