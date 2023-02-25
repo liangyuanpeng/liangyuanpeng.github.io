@@ -30,6 +30,14 @@ jobs:
       - name: Run container for atomic-algolia
         run: docker run --rm -e ALGOLIA_ADMIN_KEY=${{ secrets.ALGOLIA_ADMIN_KEY }} -e ALGOLIA_INDEX_FILE=/public/algolia.json -e ALGOLIA_APP_ID=${{ secrets.ALGOLIA_APP_ID }} -e ALGOLIA_INDEX_NAME=${{ secrets.ALGOLIA_INDEX_NAME }} -v $PWD/public:/public registry.cn-shenzhen.aliyuncs.com/lan-k8s/ubuntu:algolia atomic-algolia
 
+# 部署github page  将source分支生成的public静态文件部署到master分支
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./public
+          publish_branch: master
+
       #将主站点liangyuanpeng.com的百度trackId替换成blog。liangyuanpeng.com站点的百度trackId
       - name: Deploy from site blog on server
         run: |
@@ -44,11 +52,3 @@ jobs:
               docker run -v $PWD/hostfile:/tmp/hostfile -e ANSIBLE_HOST_KEY_CHECKING=false --rm registry.cn-shenzhen.aliyuncs.com/lan-k8s/ubuntu:ansible ansible -i /tmp/hostfile site  -m shell -a "cd /usr/local/kafeidou/blog/liangyuanpeng.github.io && tar -xvf public.tar"
               rm -f hostfile
               rm -f public/public.tar
-
-# 部署github page  将source分支生成的public静态文件部署到master分支
-      - name: Deploy
-        uses: peaceiris/actions-gh-pages@v3
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./public
-          publish_branch: master
