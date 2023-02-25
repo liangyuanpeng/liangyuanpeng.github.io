@@ -118,10 +118,11 @@ kubectl apply -f deployment.yaml
 
 这里提供了一个　yaml 用于部署　Deployment 来拉取 `gcr.io/distroless/static:nonroot` 镜像,如果配置生效的话那么在无法访问　`gcr.io` 的情况下可以看到容器会成功拉取到镜像,最后　Pod　的状态是 `CrashLoopBackOff` 是由于容器无法启动的问题.
 
+# 本文更友好
+
+使用一个 `gcr.io` / `registry.k8s.io` 中可以正常运行的一个容器,欢迎投稿.
+
 # 关于 lank8s.cn
 
 关于 lank8s.cn 可以通过 [lank8s.cn服务](https://liangyuanpeng.com/post/cncf-kubernetes/service-lank8s.cn/) 或 [Lank8s Github组织](https://github.com/lank8s) 了解更多.
 
-# 注意
-
-本文仍在创作当中.
