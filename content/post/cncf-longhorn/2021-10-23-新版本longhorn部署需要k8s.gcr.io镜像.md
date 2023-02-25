@@ -177,3 +177,7 @@ longhorn-ui-75ccbd4695-c9rn6                1/1     Running   0          97s
 目前在线的webhook服务已经上线,只需要在k8s集群部署一个webhook配置,就可以使用在线webhook自动化的修改`gcr.lank8s.io`为`lank8s.cn`了,告别手动时代!  
 
 点击[在线的lank8s的webhook服务](https://liangyuanpeng.com/post/deploy-lank8s-webhook-for-k8s.gcr.io/)查看怎么使用.
+
+# 更新:看看国内如何拉取gcr.io和registry.k8s.io镜像的
+
+[传送门:国内环境拉取gcr和k8s镜像](https://liangyuanpeng.com/post/cncf-k8s/pull-gcr-k8s-image-with-lank8s/)
