@@ -10,11 +10,11 @@
 <meta name=baidu-site-verification content="code-ANZvlnN0Xr">
 <meta name=description content="这一篇，我们为大家带来了开发过程中，最常接触到的同步异步调用解析。本文会介绍下同步异步的使用场景，以及 SOFARPC 中的代码实现机制，为了方便大家理解和阅读代码。不会过多的设计代码实现细节，更多的还是希望大家从中有所收获，并能够独立阅读核心代码。">
 <meta name=keyword content="liangyuanpeng|LanLiang|OpenYurt|Knative|Pulsar|Prometheus|Halo||边缘计算kubernetes|Docker|CloudNative|Golang|Rust|Istio|微服务">
-<link rel="shortcut icon" href=https://liangyuanpeng.com/img/logo.png>
+<link rel="shortcut icon" href=img/logo.png>
 <meta property="og:image" content="https://res.cloudinary.com/lyp/image/upload/v1544363182/hugo/blog.github.io/e64ae3596ed565b8202d395d771665dd.jpg">
 <meta name=twitter:image content="https://res.cloudinary.com/lyp/image/upload/v1544363182/hugo/blog.github.io/e64ae3596ed565b8202d395d771665dd.jpg">
 <title>转|SOFARPC同步异步实现剖析-liangyuanpeng的博客 | liangyuanpeng's Blog</title>
-<link rel=canonical href=https://liangyuanpeng.com/post/sofastack/sofarpc-sync-async/>
+<link rel=canonical href=/post/sofastack/sofarpc-sync-async/>
 <link rel=stylesheet href=https://res.cloudinary.com/lyp/raw/upload/v1537369740/hugo/css/iDisqus.min.css>
 <link rel=stylesheet href=https://res.cloudinary.com/lyp/raw/upload/v1537369744/hugo/css/bootstrap.min.css>
 <link rel=stylesheet href=https://res.cloudinary.com/lyp/raw/upload/v1537369740/hugo/css/hux-blog.min.css>
@@ -35,31 +35,31 @@
 <span class=icon-bar></span>
 <span class=icon-bar></span>
 </button>
-<a class=navbar-brand href=https://liangyuanpeng.com//>Hi,I`m lan</a>
+<a class=navbar-brand href=/>Hi,I`m lan</a>
 </div>
 <div id=huxblog_navbar>
 <div class=navbar-collapse>
 <ul class="nav navbar-nav navbar-right">
 <li>
-<a href=https://liangyuanpeng.com//>Home</a>
+<a href=/>Home</a>
 </li>
 <li>
-<a href=https://liangyuanpeng.com/categories/cloudnative>cloudnative</a>
+<a href=categories/cloudnative>cloudnative</a>
 </li>
 <li>
-<a href=https://liangyuanpeng.com/categories/devops>devops</a>
+<a href=categories/devops>devops</a>
 </li>
 <li>
-<a href=https://liangyuanpeng.com/categories/iot>iot</a>
+<a href=categories/iot>iot</a>
 </li>
 <li>
-<a href=https://liangyuanpeng.com/categories/kubernetes>kubernetes</a>
+<a href=categories/kubernetes>kubernetes</a>
 </li>
 <li>
-<a href=https://liangyuanpeng.com/categories/tech>tech</a>
+<a href=categories/tech>tech</a>
 </li>
 <li>
-<a href=https://liangyuanpeng.com/search>SEARCH <img src=https://liangyuanpeng.com/img/search.png height=15 style=cursor:pointer></a>
+<a href=search>SEARCH <img src=img/search.png height=15 style=cursor:pointer></a>
 </li>
 </ul>
 </div>
