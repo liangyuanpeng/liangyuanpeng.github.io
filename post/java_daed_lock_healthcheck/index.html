@@ -1,14 +1,121 @@
-<!doctype html><html lang=en-us><head><head><meta name=google-site-verification content="9vIieCe-Qpd78QOmBl63rGtIVbhY6sYyuxX3j8XWBA4"><meta name=baidu-site-verification content="LRrmH41lz7"><meta charset=utf-8><meta http-equiv=x-ua-compatible content="IE=edge"><meta name=google-site-verification content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI"><meta name=viewport content="width=device-width,initial-scale=1"><meta name=baidu-site-verification content="HGLXRsUXC4"><meta name=baidu-site-verification content="code-ANZvlnN0Xr"><meta name=description content="你要偷偷学会让程序主动监测死锁,然后惊艳所有人!"><meta name=keyword content="liangyuanpeng|LanLiang|OpenYurt|Knative|Pulsar|Prometheus|Halo||边缘计算kubernetes|Docker|CloudNative|Golang|Rust|Istio|微服务"><link rel="shortcut icon" href=https://liangyuanpeng.com/img/logo.png><meta property="og:image" content="https://res.cloudinary.com/lyp/image/upload/v1612767214/hugo/blog.github.io/pexels-shuxuan-cao-4719637.jpg"><meta name=twitter:image content="https://res.cloudinary.com/lyp/image/upload/v1612767214/hugo/blog.github.io/pexels-shuxuan-cao-4719637.jpg"><title>让java程序主动监测死锁-liangyuanpeng的博客 | liangyuanpeng's Blog</title><link rel=canonical href=https://liangyuanpeng.com/post/java_daed_lock_healthcheck/><link rel=stylesheet href=https://res.cloudinary.com/lyp/raw/upload/v1537369740/hugo/css/iDisqus.min.css><link rel=stylesheet href=https://res.cloudinary.com/lyp/raw/upload/v1537369744/hugo/css/bootstrap.min.css><link rel=stylesheet href=https://res.cloudinary.com/lyp/raw/upload/v1537369740/hugo/css/hux-blog.min.css><link rel=stylesheet href=https://res.cloudinary.com/lyp/raw/upload/v1537369740/hugo/css/syntax.css><link href=//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css rel=stylesheet type=text/css><script src=https://res.cloudinary.com/lyp/raw/upload/v1537369966/hugo/js/jquery.min.js></script><script src=https://res.cloudinary.com/lyp/raw/upload/v1537369966/hugo/js/bootstrap.min.js></script><script src=https://res.cloudinary.com/lyp/raw/upload/v1537369964/hugo/js/hux-blog.min.js></script><script defer src=https://static.cloudflareinsights.com/beacon.min.js data-cf-beacon='{"token": "f73bc0092aeb491d89984c0eb5a87ac2"}'></script></head></head><nav class="navbar navbar-default navbar-custom navbar-fixed-top"><div class=container-fluid><div class="navbar-header page-scroll"><button type=button class=navbar-toggle>
+<!doctype html><html lang=en-us>
+<head><head>
+<meta name=google-site-verification content="9vIieCe-Qpd78QOmBl63rGtIVbhY6sYyuxX3j8XWBA4">
+<meta name=baidu-site-verification content="LRrmH41lz7">
+<meta charset=utf-8>
+<meta http-equiv=x-ua-compatible content="IE=edge">
+<meta name=google-site-verification content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
+<meta name=viewport content="width=device-width,initial-scale=1">
+<meta name=baidu-site-verification content="HGLXRsUXC4">
+<meta name=baidu-site-verification content="code-ANZvlnN0Xr">
+<meta name=description content="你要偷偷学会让程序主动监测死锁,然后惊艳所有人!">
+<meta name=keyword content="liangyuanpeng|LanLiang|OpenYurt|Knative|Pulsar|Prometheus|Halo||边缘计算kubernetes|Docker|CloudNative|Golang|Rust|Istio|微服务">
+<link rel="shortcut icon" href=https://liangyuanpeng.com/img/logo.png>
+<meta property="og:image" content="https://res.cloudinary.com/lyp/image/upload/v1612767214/hugo/blog.github.io/pexels-shuxuan-cao-4719637.jpg">
+<meta name=twitter:image content="https://res.cloudinary.com/lyp/image/upload/v1612767214/hugo/blog.github.io/pexels-shuxuan-cao-4719637.jpg">
+<title>让java程序主动监测死锁-liangyuanpeng的博客 | liangyuanpeng's Blog</title>
+<link rel=canonical href=https://liangyuanpeng.com/post/java_daed_lock_healthcheck/>
+<link rel=stylesheet href=https://res.cloudinary.com/lyp/raw/upload/v1537369740/hugo/css/iDisqus.min.css>
+<link rel=stylesheet href=https://res.cloudinary.com/lyp/raw/upload/v1537369744/hugo/css/bootstrap.min.css>
+<link rel=stylesheet href=https://res.cloudinary.com/lyp/raw/upload/v1537369740/hugo/css/hux-blog.min.css>
+<link rel=stylesheet href=https://res.cloudinary.com/lyp/raw/upload/v1537369740/hugo/css/syntax.css>
+<link href=//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css rel=stylesheet type=text/css>
+<script src=https://res.cloudinary.com/lyp/raw/upload/v1537369966/hugo/js/jquery.min.js></script>
+<script src=https://res.cloudinary.com/lyp/raw/upload/v1537369966/hugo/js/bootstrap.min.js></script>
+<script src=https://res.cloudinary.com/lyp/raw/upload/v1537369964/hugo/js/hux-blog.min.js></script>
+<script defer src=https://static.cloudflareinsights.com/beacon.min.js data-cf-beacon='{"token": "f73bc0092aeb491d89984c0eb5a87ac2"}'></script>
+</head>
+</head>
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+<div class=container-fluid>
+<div class="navbar-header page-scroll">
+<button type=button class=navbar-toggle>
 <span class=sr-only>Toggle navigation</span>
-<span class=icon-bar></span><span class=icon-bar></span><span class=icon-bar></span></button>
-<a class=navbar-brand href=https://liangyuanpeng.com//>Hi,I`m lan</a></div><div id=huxblog_navbar><div class=navbar-collapse><ul class="nav navbar-nav navbar-right"><li><a href=https://liangyuanpeng.com//>Home</a></li><li><a href=https://liangyuanpeng.com/categories/cloudnative>cloudnative</a></li><li><a href=https://liangyuanpeng.com/categories/devops>devops</a></li><li><a href=https://liangyuanpeng.com/categories/iot>iot</a></li><li><a href=https://liangyuanpeng.com/categories/kubernetes>kubernetes</a></li><li><a href=https://liangyuanpeng.com/categories/tech>tech</a></li><li><a href=https://liangyuanpeng.com/search>SEARCH <img src=https://liangyuanpeng.com/img/search.png height=15 style=cursor:pointer></a></li></ul></div></div></div></nav><script>var $body=document.body;var $toggle=document.querySelector('.navbar-toggle');var $navbar=document.querySelector('#huxblog_navbar');var $collapse=document.querySelector('.navbar-collapse');$toggle.addEventListener('click',handleMagic)
-function handleMagic(e){if($navbar.className.indexOf('in')>0){$navbar.className=" ";setTimeout(function(){if($navbar.className.indexOf('in')<0){$collapse.style.height="0px"}},400)}else{$collapse.style.height="auto"
-$navbar.className+=" in";}}</script><style type=text/css>header.intro-header{background-image:url(https://res.cloudinary.com/lyp/image/upload/v1612767214/hugo/blog.github.io/pexels-shuxuan-cao-4719637.jpg)}</style><header class=intro-header><div class=container><div class=row><div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1"><div class=post-heading><div class=tags><a class=tag href=/tags/jvm title=jvm>jvm</a>
-<a class=tag href=/tags/metrics title=metrics>metrics</a></div><h1>让java程序主动监测死锁</h1><h2 class=subheading></h2><span class=meta>Posted by 梁远鹏 on 2021-04-14
+<span class=icon-bar></span>
+<span class=icon-bar></span>
+<span class=icon-bar></span>
+</button>
+<a class=navbar-brand href=https://liangyuanpeng.com//>Hi,I`m lan</a>
+</div>
+<div id=huxblog_navbar>
+<div class=navbar-collapse>
+<ul class="nav navbar-nav navbar-right">
+<li>
+<a href=https://liangyuanpeng.com//>Home</a>
+</li>
+<li>
+<a href=https://liangyuanpeng.com/categories/cloudnative>cloudnative</a>
+</li>
+<li>
+<a href=https://liangyuanpeng.com/categories/devops>devops</a>
+</li>
+<li>
+<a href=https://liangyuanpeng.com/categories/iot>iot</a>
+</li>
+<li>
+<a href=https://liangyuanpeng.com/categories/kubernetes>kubernetes</a>
+</li>
+<li>
+<a href=https://liangyuanpeng.com/categories/tech>tech</a>
+</li>
+<li>
+<a href=https://liangyuanpeng.com/search>SEARCH <img src=https://liangyuanpeng.com/img/search.png height=15 style=cursor:pointer></a>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</nav>
+<script>var $body=document.body,$toggle=document.querySelector('.navbar-toggle'),$navbar=document.querySelector('#huxblog_navbar'),$collapse=document.querySelector('.navbar-collapse');$toggle.addEventListener('click',handleMagic);function handleMagic(a){$navbar.className.indexOf('in')>0?($navbar.className=" ",setTimeout(function(){$navbar.className.indexOf('in')<0&&($collapse.style.height="0px")},400)):($collapse.style.height="auto",$navbar.className+=" in")}</script>
+<style type=text/css>header.intro-header{background-image:url(https://res.cloudinary.com/lyp/image/upload/v1612767214/hugo/blog.github.io/pexels-shuxuan-cao-4719637.jpg)}</style>
+<header class=intro-header>
+<div class=container>
+<div class=row>
+<div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+<div class=post-heading>
+<div class=tags>
+<a class=tag href=/tags/jvm title=jvm>
+jvm
+</a>
+<a class=tag href=/tags/metrics title=metrics>
+metrics
+</a>
+</div>
+<h1>让java程序主动监测死锁</h1>
+<h2 class=subheading></h2>
+<span class=meta>Posted by 梁远鹏 on 2021-04-14
 <span id=busuanzi_container_page_pv>|<span id=busuanzi_value_page_pv></span><span>
-<span id=/post/java_daed_lock_healthcheck/ class="leancloud_visitors meta_data_item" data-flag-title><span class=post-meta-item-icon><span class="octicon octicon-eye"></span></span><i class="fa fa-eye"></i><span class=old-visitors-count style=display:none></span><span class=leancloud-visitors-count></span></span>阅读 </span></span>|<span class=post-date>共1369字</span>，阅读约<span class=more-meta> 3 分钟</span></span></div></div></div></div></header><article><div class=container><div class=row><div class="col-lg-8 col-lg-offset-2
+<span id=/post/java_daed_lock_healthcheck/ class="leancloud_visitors meta_data_item" data-flag-title>
+<span class=post-meta-item-icon>
+<span class="octicon octicon-eye"></span>
+</span>
+<i class="fa fa-eye"></i>
+<span class=old-visitors-count style=display:none></span>
+<span class=leancloud-visitors-count></span>
+</span>
+阅读 </span></span>|<span class=post-date>共1369字</span>，阅读约<span class=more-meta> 3 分钟</span>
+</span>
+</div>
+</div>
+</div>
+</div>
+</header>
+<article>
+<div class=container>
+<div class=row>
+<div class="col-lg-8 col-lg-offset-2
 col-md-10 col-md-offset-1
-post-container"><header><h2>TOC</h2></header><nav id=TableOfContents></nav><h1 id=前言>前言</h1><p>SpringBoot2.x引入了Micrometer,重点支持了tag,而tag是prometheus和influxdb这类新兴监控存储相关中间件天然特性.</p><p>而本文主要讲述检测程序中是否有死锁发生,这部分使用的是dropwizard-metrics的metrics-healthchecks来实现的.</p><h1 id=死锁检测配置>死锁检测配置</h1><p>首先引入对应的包依赖,maven:</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-xml data-lang=xml>  <span style=color:#f92672>&lt;dependency&gt;</span>
+post-container">
+<header>
+<h2>TOC</h2>
+</header>
+<nav id=TableOfContents></nav>
+<h1 id=前言>前言</h1>
+<p>SpringBoot2.x引入了Micrometer,重点支持了tag,而tag是prometheus和influxdb这类新兴监控存储相关中间件天然特性.</p>
+<p>而本文主要讲述检测程序中是否有死锁发生,这部分使用的是dropwizard-metrics的metrics-healthchecks来实现的.</p>
+<h1 id=死锁检测配置>死锁检测配置</h1>
+<p>首先引入对应的包依赖,maven:</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-xml data-lang=xml>  <span style=color:#f92672>&lt;dependency&gt;</span>
             <span style=color:#f92672>&lt;groupId&gt;</span>io.dropwizard.metrics<span style=color:#f92672>&lt;/groupId&gt;</span>
             <span style=color:#f92672>&lt;artifactId&gt;</span>metrics-healthchecks<span style=color:#f92672>&lt;/artifactId&gt;</span>
             <span style=color:#f92672>&lt;version&gt;</span>4.1.19<span style=color:#f92672>&lt;/version&gt;</span>
@@ -18,11 +125,12 @@ post-container"><header><h2>TOC</h2></header><nav id=TableOfContents></nav><h1 i
             <span style=color:#f92672>&lt;artifactId&gt;</span>metrics-jvm<span style=color:#f92672>&lt;/artifactId&gt;</span>
             <span style=color:#f92672>&lt;version&gt;</span>4.1.19<span style=color:#f92672>&lt;/version&gt;</span>
   <span style=color:#f92672>&lt;/dependency&gt;</span>
-</code></pre></div><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java>String healthCheckName <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;thread_dead_lock&#34;</span><span style=color:#f92672>;</span>
+</code></pre></div><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java>String healthCheckName <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;thread_dead_lock&#34;</span><span style=color:#f92672>;</span>
 HealthCheckRegistry healthCheckRegistry <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> HealthCheckRegistry<span style=color:#f92672>();</span>
 healthCheckRegistry<span style=color:#f92672>.</span><span style=color:#a6e22e>register</span><span style=color:#f92672>(</span>healthCheckName<span style=color:#f92672>,</span><span style=color:#66d9ef>new</span> ThreadDeadlockHealthCheck<span style=color:#f92672>());</span>  
 healthCheckRegistry<span style=color:#f92672>.</span><span style=color:#a6e22e>runHealthCheck</span><span style=color:#f92672>(</span>healthCheckName<span style=color:#f92672>).</span><span style=color:#a6e22e>isHealthy</span><span style=color:#f92672>();</span>
-</code></pre></div><p>这样就加入了一个死锁检测,每次运行<code>healthCheckRegistry.runHealthCheck(healthCheckName).isHealthy()</code>时就可以知道当前程序是否有死锁了.</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java>    <span style=color:#66d9ef>protected</span>  <span style=color:#66d9ef>final</span> ScheduledThreadPoolExecutor SCHEDULE_EXECUTOR <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> ScheduledThreadPoolExecutor<span style=color:#f92672>(</span>1<span style=color:#f92672>);</span>
+</code></pre></div><p>这样就加入了一个死锁检测,每次运行<code>healthCheckRegistry.runHealthCheck(healthCheckName).isHealthy()</code>时就可以知道当前程序是否有死锁了.</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java>    <span style=color:#66d9ef>protected</span>  <span style=color:#66d9ef>final</span> ScheduledThreadPoolExecutor SCHEDULE_EXECUTOR <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> ScheduledThreadPoolExecutor<span style=color:#f92672>(</span>1<span style=color:#f92672>);</span>
     <span style=color:#66d9ef>public</span> io<span style=color:#f92672>.</span><span style=color:#a6e22e>micrometer</span><span style=color:#f92672>.</span><span style=color:#a6e22e>core</span><span style=color:#f92672>.</span><span style=color:#a6e22e>instrument</span><span style=color:#f92672>.</span><span style=color:#a6e22e>MeterRegistry</span> meterRegistry<span style=color:#f92672>;</span>
 <span style=color:#f92672>...</span>
             AtomicInteger current <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> AtomicInteger<span style=color:#f92672>(</span>healthCheckRegistry<span style=color:#f92672>.</span><span style=color:#a6e22e>runHealthCheck</span><span style=color:#f92672>(</span>healthCheckName<span style=color:#f92672>).</span><span style=color:#a6e22e>isHealthy</span><span style=color:#f92672>()?</span>1<span style=color:#f92672>:</span>0<span style=color:#f92672>);</span>
@@ -37,7 +145,12 @@ healthCheckRegistry<span style=color:#f92672>.</span><span style=color:#a6e22e>r
                     current<span style=color:#f92672>.</span><span style=color:#a6e22e>set</span><span style=color:#f92672>(</span>result<span style=color:#f92672>.</span><span style=color:#a6e22e>isHealthy</span><span style=color:#f92672>()?</span>1<span style=color:#f92672>:</span>0<span style=color:#f92672>);</span>
                 <span style=color:#f92672>}</span>
             <span style=color:#f92672>},</span>0<span style=color:#f92672>,</span>30<span style=color:#f92672>,</span> TimeUnit<span style=color:#f92672>.</span><span style=color:#a6e22e>SECONDS</span><span style=color:#f92672>);</span>
-</code></pre></div><p>这样就可以定时检测程序中是否有死锁存在,如果有,<code>thread_dead_lock</code>这个metrics会显示为0.也可以通过<code>HealthCheck.Result result</code>这个对象,把死锁相关信息打印在程序log中,这样可以将信息收集到专门的日志系统去.比如Elasticsearch.</p><h1 id=原理>原理</h1><p>需要配置的内容和编写的代码并不多,只需要少量代码就可以做到检测程序死锁了.那么这一切是如何做到的呢?一起来看一下.</p><p>首先从最外面的入口点进源码看看逻辑.</p><p>点进<code>ThreadDeadlockHealthCheck</code>类看看有什么代码,可以看到只有很少的代码,有一个重写的check方法:</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>ThreadDeadlockHealthCheck</span> <span style=color:#66d9ef>extends</span> HealthCheck <span style=color:#f92672>{</span>
+</code></pre></div><p>这样就可以定时检测程序中是否有死锁存在,如果有,<code>thread_dead_lock</code>这个metrics会显示为0.也可以通过<code>HealthCheck.Result result</code>这个对象,把死锁相关信息打印在程序log中,这样可以将信息收集到专门的日志系统去.比如Elasticsearch.</p>
+<h1 id=原理>原理</h1>
+<p>需要配置的内容和编写的代码并不多,只需要少量代码就可以做到检测程序死锁了.那么这一切是如何做到的呢?一起来看一下.</p>
+<p>首先从最外面的入口点进源码看看逻辑.</p>
+<p>点进<code>ThreadDeadlockHealthCheck</code>类看看有什么代码,可以看到只有很少的代码,有一个重写的check方法:</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>ThreadDeadlockHealthCheck</span> <span style=color:#66d9ef>extends</span> HealthCheck <span style=color:#f92672>{</span>
     <span style=color:#66d9ef>private</span> <span style=color:#66d9ef>final</span> ThreadDeadlockDetector detector<span style=color:#f92672>;</span>
 
     <span style=color:#75715e>/**
@@ -66,7 +179,8 @@ healthCheckRegistry<span style=color:#f92672>.</span><span style=color:#a6e22e>r
     <span style=color:#f92672>}</span>
 <span style=color:#f92672>}</span>
 
-</code></pre></div><p>从<code>getDeadlockedThreads</code>方法名可以看明白这个方法是获取当前死锁线程集合.点进去看看是如何获取的.感觉离原理越来越近了.</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=color:#66d9ef>public</span> Set<span style=color:#f92672>&lt;</span>String<span style=color:#f92672>&gt;</span> <span style=color:#a6e22e>getDeadlockedThreads</span><span style=color:#f92672>()</span> <span style=color:#f92672>{</span>
+</code></pre></div><p>从<code>getDeadlockedThreads</code>方法名可以看明白这个方法是获取当前死锁线程集合.点进去看看是如何获取的.感觉离原理越来越近了.</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=color:#66d9ef>public</span> Set<span style=color:#f92672>&lt;</span>String<span style=color:#f92672>&gt;</span> <span style=color:#a6e22e>getDeadlockedThreads</span><span style=color:#f92672>()</span> <span style=color:#f92672>{</span>
         <span style=color:#66d9ef>final</span> <span style=color:#66d9ef>long</span><span style=color:#f92672>[]</span> ids <span style=color:#f92672>=</span> threads<span style=color:#f92672>.</span><span style=color:#a6e22e>findDeadlockedThreads</span><span style=color:#f92672>();</span>
         <span style=color:#66d9ef>if</span> <span style=color:#f92672>(</span>ids <span style=color:#f92672>!=</span> <span style=color:#66d9ef>null</span><span style=color:#f92672>)</span> <span style=color:#f92672>{</span>
             <span style=color:#66d9ef>final</span> Set<span style=color:#f92672>&lt;</span>String<span style=color:#f92672>&gt;</span> deadlocks <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> HashSet<span style=color:#f92672>&lt;&gt;();</span>
@@ -91,44 +205,228 @@ healthCheckRegistry<span style=color:#f92672>.</span><span style=color:#a6e22e>r
         <span style=color:#f92672>}</span>
         <span style=color:#66d9ef>return</span> Collections<span style=color:#f92672>.</span><span style=color:#a6e22e>emptySet</span><span style=color:#f92672>();</span>
     <span style=color:#f92672>}</span>
-</code></pre></div><p>点进去后发现是通过<code>final long[] ids = threads.findDeadlockedThreads();</code>获取到死锁的线程id数字,看看<code>threads</code>变量是一个什么东西.</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=color:#66d9ef>private</span> <span style=color:#66d9ef>final</span> ThreadMXBean threads<span style=color:#f92672>;</span>
-</code></pre></div><p>可以看到这是ThreadMXBean提供的方法,而这个类是<code>java.lang.management</code>包下的.这个包是JDK提供的一些用于检测JVM状态的API类.可以拿到当前JVM的内存,GC,线程,class等各种信息.</p><p>我们这里是用的其中一种MXBean类:ThreadMXBean,来获取线程相关的信息.感兴趣的可以自己去研究下,例如获取内存信息的一个类:<code>MemoryMXBean</code>,这里不展开讲述.</p><p>细心的同学可以发现我们目前已经拿到了死锁线程的ID数组,如果数组有内容其实就说明当前程序有发生死锁.</p><p>后面的逻辑是拿一些死锁线程具体的信息,例如线程名,锁名,锁持有者.</p><p>因此对于没有接入或不希望接入<code>dropwizard.metrics</code>的同学来说,完全可以自己实现一个检测程序是否有死锁的逻辑.</p><h1 id=总结>总结</h1><p>对于当前没有检测死锁的程序来说,发生死锁时所产生的未知影响是很大的.而如果程序能够自己定时检测是否有死锁并且发生时能够快速的发出警告,很大程度上可以避免一些不必要的损失.</p><p>如果你的程序当前还没有死锁检测,赶紧偷偷加上监控死锁的逻辑,然后惊艳所有人!!!</p><h2>微信公众号</h2><p>扫描下面的二维码关注我们的微信公众号,第一时间查看最新内容。同时也可以关注我的Github，看看我都在了解什么技术，在页面底部可以找到我的Github。</p><img src=https://res.cloudinary.com/lyp/image/upload/v1581729955/hugo/blog.github.io/qrcode_for_sikekafeidou.jpg alt=wechat-account-qrcode><hr><ul class=pager><li class=previous><a href=/post/automation-test-wechat-api/ data-toggle=tooltip data-placement=top title=微信小程序接口自动化的实现方案>&larr; 微信小程序接口自动化的实现方案</a></li><li class=next><a href=/post/cncf-kubernetes/k8s-multi-tenancy-guide/ data-toggle=tooltip data-placement=top title=Kubernetes多租户–最佳实践指南>Kubernetes多租户–最佳实践指南 &rarr;</a></li></ul><script src=https://utteranc.es/client.js repo=liangyuanpeng/liangyuanpeng.github.io issue-term=title theme=github-light crossorigin=anonymous async></script></div><div class="col-lg-8 col-lg-offset-2
+</code></pre></div><p>点进去后发现是通过<code>final long[] ids = threads.findDeadlockedThreads();</code>获取到死锁的线程id数字,看看<code>threads</code>变量是一个什么东西.</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=color:#66d9ef>private</span> <span style=color:#66d9ef>final</span> ThreadMXBean threads<span style=color:#f92672>;</span>
+</code></pre></div><p>可以看到这是ThreadMXBean提供的方法,而这个类是<code>java.lang.management</code>包下的.这个包是JDK提供的一些用于检测JVM状态的API类.可以拿到当前JVM的内存,GC,线程,class等各种信息.</p>
+<p>我们这里是用的其中一种MXBean类:ThreadMXBean,来获取线程相关的信息.感兴趣的可以自己去研究下,例如获取内存信息的一个类:<code>MemoryMXBean</code>,这里不展开讲述.</p>
+<p>细心的同学可以发现我们目前已经拿到了死锁线程的ID数组,如果数组有内容其实就说明当前程序有发生死锁.</p>
+<p>后面的逻辑是拿一些死锁线程具体的信息,例如线程名,锁名,锁持有者.</p>
+<p>因此对于没有接入或不希望接入<code>dropwizard.metrics</code>的同学来说,完全可以自己实现一个检测程序是否有死锁的逻辑.</p>
+<h1 id=总结>总结</h1>
+<p>对于当前没有检测死锁的程序来说,发生死锁时所产生的未知影响是很大的.而如果程序能够自己定时检测是否有死锁并且发生时能够快速的发出警告,很大程度上可以避免一些不必要的损失.</p>
+<p>如果你的程序当前还没有死锁检测,赶紧偷偷加上监控死锁的逻辑,然后惊艳所有人!!!</p>
+<h2>微信公众号</h2>
+<p>扫描下面的二维码关注我们的微信公众号,第一时间查看最新内容。同时也可以关注我的Github，看看我都在了解什么技术，在页面底部可以找到我的Github。</p>
+<img src=https://res.cloudinary.com/lyp/image/upload/v1581729955/hugo/blog.github.io/qrcode_for_sikekafeidou.jpg alt=wechat-account-qrcode>
+<hr>
+<ul class=pager>
+<li class=previous>
+<a href=/post/automation-test-wechat-api/ data-toggle=tooltip data-placement=top title=微信小程序接口自动化的实现方案>&larr; 微信小程序接口自动化的实现方案</a>
+</li>
+<li class=next>
+<a href=/post/cncf-kubernetes/k8s-multi-tenancy-guide/ data-toggle=tooltip data-placement=top title=Kubernetes多租户–最佳实践指南>Kubernetes多租户–最佳实践指南 &rarr;</a>
+</li>
+</ul>
+<script src=https://utteranc.es/client.js repo=liangyuanpeng/liangyuanpeng.github.io issue-term=title theme=github-light crossorigin=anonymous async></script>
+</div>
+<div class="col-lg-8 col-lg-offset-2
 col-md-10 col-md-offset-1
-sidebar-container"><section><hr class="hidden-sm hidden-xs"><h5><a href=/tags/>FEATURED TAGS</a></h5><div class=tags><a href=/tags/blog title=blog>blog</a>
-<a href=/tags/bookkeeper title=bookkeeper>bookkeeper</a>
-<a href=/tags/chirpstack title=chirpstack>chirpstack</a>
-<a href=/tags/ci/cd title=ci/cd>ci/cd</a>
-<a href=/tags/cloudnative title=cloudnative>cloudnative</a>
-<a href=/tags/cncf title=cncf>cncf</a>
-<a href=/tags/contour title=contour>contour</a>
-<a href=/tags/docker title=docker>docker</a>
-<a href=/tags/docker-compose title=docker-compose>docker-compose</a>
-<a href=/tags/envoy title=envoy>envoy</a>
-<a href=/tags/fluentd title=fluentd>fluentd</a>
-<a href=/tags/foundation title=foundation>foundation</a>
-<a href=/tags/golang title=golang>golang</a>
-<a href=/tags/hugo title=hugo>hugo</a>
-<a href=/tags/image title=image>image</a>
-<a href=/tags/iot title=iot>iot</a>
-<a href=/tags/k8s title=k8s>k8s</a>
-<a href=/tags/kubernetes title=kubernetes>kubernetes</a>
-<a href=/tags/kubesphere title=kubesphere>kubesphere</a>
-<a href=/tags/lorawan title=lorawan>lorawan</a>
-<a href=/tags/metrics title=metrics>metrics</a>
-<a href=/tags/middleware title=middleware>middleware</a>
-<a href=/tags/monitor title=monitor>monitor</a>
-<a href=/tags/mq title=mq>mq</a>
-<a href=/tags/nginx title=nginx>nginx</a>
-<a href=/tags/ops title=ops>ops</a>
-<a href=/tags/prometheus title=prometheus>prometheus</a>
-<a href=/tags/pulsar title=pulsar>pulsar</a>
-<a href=/tags/rpc title=rpc>rpc</a>
-<a href=/tags/rust title=rust>rust</a>
-<a href=/tags/sofa title=sofa>sofa</a>
-<a href=/tags/sofastack title=sofastack>sofastack</a>
-<a href=/tags/springboot title=springboot>springboot</a>
-<a href=/tags/tech title=tech>tech</a></div></section></div><div class="col-lg- col-lg-offset-2
-col-md-10 col-md-offset-1"><section><hr class="hidden-sm hidden-xs"><h2>相关文章</h2><ul style=margin-bottom:25px><li><a href=/post/cncf-prometheus/prometheus-replease-log/>Prometheus版本发布说明</a></li><li><a href=/post/springboot-clear-unuse-metrics/>清理SpringBoot应用无用的metrics指标</a></li><li><a href=/post/cncf-prometheus/prometheus-release-v2.26rc.0/>Prometheus2.26rc.0新特性讲解</a></li><li><a href=/post/cncf-prometheus/prometheus-v2.25-feature/>Prometheus2.25新特性讲解</a></li><li><a href=/post/cncf-prometheus/springboot-support-prometheus/>springboot添加prometheus支持</a></li></ul></section></div></div></div></article><footer><div class=container><div class=row><div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1"><ul class="list-inline text-center"><li><a href rel=alternate type=application/rss+xml title="Hi,I`m lan"><span class="fa-stack fa-lg"><i class="fa fa-circle fa-stack-2x"></i><i class="fa fa-rss fa-stack-1x fa-inverse"></i></span></a></li><li><a target=_blank href=https://github.com/liangyuanpeng><span class="fa-stack fa-lg"><i class="fa fa-circle fa-stack-2x"></i><i class="fa fa-github fa-stack-1x fa-inverse"></i></span></a></li><li><a href=mailto:liangyuanpengem@163.com><span class="fa-stack fa-lg"><i class="fa fa-circle fa-stack-2x"></i><i class="fa fa-envelope fa-stack-1x fa-inverse"></i></span></a></li><li><a href=https://twitter.com/lan31793328><span class="fa-stack fa-lg"><i class="fa fa-circle fa-stack-2x"></i><i class="fa fa-twitter fa-stack-1x fa-inverse"></i></span></a></li><li><a target=_blank href=https://www.zhihu.com/people/liangyuanpeng><span class="fa-stack fa-lg"><i class="fa fa-circle fa-stack-2x"></i><i class="fa fa-stack-1x fa-inverse">知</i></span></a></li><li><a target=_blank href=https://weibo.com/u/1908782280><span class="fa-stack fa-lg"><i class="fa fa-circle fa-stack-2x"></i><i class="fa fa-weibo fa-stack-1x fa-inverse"></i></span></a></li></ul><p class="copyright text-muted">Copyright &copy; Hi,I`m lan , 2021<br><a href=https://themes.gohugo.io/hugo-theme-cleanwhite>CleanWhite Hugo Theme</a> by <a href=https://zhaohuabing.com>Huabing</a> |
-<iframe style=margin-left:2px;margin-bottom:-5px frameborder=0 scrolling=0 width=100px height=20px src="https://ghbtns.com/github-btn.html?user=zhaohuabing&repo=hugo-theme-cleanwhite&type=star&count=true"></iframe></p></div></div></div></footer><script>function async(u,c){var d=document,t='script',o=d.createElement(t),s=d.getElementsByTagName(t)[0];o.src=u;if(c){o.addEventListener('load',function(e){c(null,e);},false);}
-s.parentNode.insertBefore(o,s);}</script><script>if($('#tag_cloud').length!==0){async("/js/jquery.tagcloud.js",function(){$.fn.tagcloud.defaults={color:{start:'#bbbbee',end:'#0085a1'},};$('#tag_cloud a').tagcloud();})}</script><script>async("https://cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.js",function(){var $nav=document.querySelector("nav");if($nav)FastClick.attach($nav);})</script><script>var _baId='fad9c137f8ce239f9b323d36c871f8e6';var _hmt=_hmt||[];(function(){var hm=document.createElement("script");hm.src="//hm.baidu.com/hm.js?"+_baId;var s=document.getElementsByTagName("script")[0];s.parentNode.insertBefore(hm,s);})();</script><script async src="https://www.googletagmanager.com/gtag/js?id=G-RTTRHGYFWL"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}
-gtag('js',new Date());gtag('config','G-RTTRHGYFWL');</script></body></html>
+sidebar-container">
+<section>
+<hr class="hidden-sm hidden-xs">
+<h5><a href=/tags/>FEATURED TAGS</a></h5>
+<div class=tags>
+<a href=/tags/blog title=blog>
+blog
+</a>
+<a href=/tags/bookkeeper title=bookkeeper>
+bookkeeper
+</a>
+<a href=/tags/chirpstack title=chirpstack>
+chirpstack
+</a>
+<a href=/tags/ci/cd title=ci/cd>
+ci/cd
+</a>
+<a href=/tags/cloudnative title=cloudnative>
+cloudnative
+</a>
+<a href=/tags/cncf title=cncf>
+cncf
+</a>
+<a href=/tags/contour title=contour>
+contour
+</a>
+<a href=/tags/docker title=docker>
+docker
+</a>
+<a href=/tags/docker-compose title=docker-compose>
+docker-compose
+</a>
+<a href=/tags/envoy title=envoy>
+envoy
+</a>
+<a href=/tags/fluentd title=fluentd>
+fluentd
+</a>
+<a href=/tags/foundation title=foundation>
+foundation
+</a>
+<a href=/tags/golang title=golang>
+golang
+</a>
+<a href=/tags/hugo title=hugo>
+hugo
+</a>
+<a href=/tags/image title=image>
+image
+</a>
+<a href=/tags/iot title=iot>
+iot
+</a>
+<a href=/tags/k8s title=k8s>
+k8s
+</a>
+<a href=/tags/kubernetes title=kubernetes>
+kubernetes
+</a>
+<a href=/tags/kubesphere title=kubesphere>
+kubesphere
+</a>
+<a href=/tags/lorawan title=lorawan>
+lorawan
+</a>
+<a href=/tags/metrics title=metrics>
+metrics
+</a>
+<a href=/tags/middleware title=middleware>
+middleware
+</a>
+<a href=/tags/monitor title=monitor>
+monitor
+</a>
+<a href=/tags/mq title=mq>
+mq
+</a>
+<a href=/tags/nginx title=nginx>
+nginx
+</a>
+<a href=/tags/ops title=ops>
+ops
+</a>
+<a href=/tags/prometheus title=prometheus>
+prometheus
+</a>
+<a href=/tags/pulsar title=pulsar>
+pulsar
+</a>
+<a href=/tags/rpc title=rpc>
+rpc
+</a>
+<a href=/tags/rust title=rust>
+rust
+</a>
+<a href=/tags/sofa title=sofa>
+sofa
+</a>
+<a href=/tags/sofastack title=sofastack>
+sofastack
+</a>
+<a href=/tags/springboot title=springboot>
+springboot
+</a>
+<a href=/tags/tech title=tech>
+tech
+</a>
+</div>
+</section>
+</div>
+<div class="col-lg- col-lg-offset-2
+col-md-10 col-md-offset-1">
+<section>
+<hr class="hidden-sm hidden-xs">
+<h2>相关文章</h2>
+<ul style=margin-bottom:25px>
+<li><a href=/post/cncf-prometheus/prometheus-replease-log/>Prometheus版本发布说明</a></li>
+<li><a href=/post/springboot-clear-unuse-metrics/>清理SpringBoot应用无用的metrics指标</a></li>
+<li><a href=/post/cncf-prometheus/prometheus-release-v2.26rc.0/>Prometheus2.26rc.0新特性讲解</a></li>
+<li><a href=/post/cncf-prometheus/prometheus-v2.25-feature/>Prometheus2.25新特性讲解</a></li>
+<li><a href=/post/cncf-prometheus/springboot-support-prometheus/>springboot添加prometheus支持</a></li>
+</ul>
+</section>
+</div>
+</div>
+</div>
+</article>
+<footer>
+<div class=container>
+<div class=row>
+<div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+<ul class="list-inline text-center">
+<li>
+<a href rel=alternate type=application/rss+xml title="Hi,I`m lan">
+<span class="fa-stack fa-lg">
+<i class="fa fa-circle fa-stack-2x"></i>
+<i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+</span>
+</a>
+</li>
+<li>
+<a target=_blank href=https://github.com/liangyuanpeng>
+<span class="fa-stack fa-lg">
+<i class="fa fa-circle fa-stack-2x"></i>
+<i class="fa fa-github fa-stack-1x fa-inverse"></i>
+</span>
+</a>
+</li>
+<li>
+<a href=mailto:liangyuanpengem@163.com>
+<span class="fa-stack fa-lg">
+<i class="fa fa-circle fa-stack-2x"></i>
+<i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
+</span>
+</a>
+</li>
+<li>
+<a href=https://twitter.com/lan31793328>
+<span class="fa-stack fa-lg">
+<i class="fa fa-circle fa-stack-2x"></i>
+<i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+</span>
+</a>
+</li>
+<li>
+<a target=_blank href=https://www.zhihu.com/people/liangyuanpeng>
+<span class="fa-stack fa-lg">
+<i class="fa fa-circle fa-stack-2x"></i>
+<i class="fa fa-stack-1x fa-inverse">知</i>
+</span>
+</a>
+</li>
+<li>
+<a target=_blank href=https://weibo.com/u/1908782280>
+<span class="fa-stack fa-lg">
+<i class="fa fa-circle fa-stack-2x"></i>
+<i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+</span>
+</a>
+</li>
+</ul>
+<p class="copyright text-muted">
+Copyright &copy; Hi,I`m lan , 2021
+<br>
+<a href=https://themes.gohugo.io/hugo-theme-cleanwhite>CleanWhite Hugo Theme</a> by <a href=https://zhaohuabing.com>Huabing</a> |
+<iframe style=margin-left:2px;margin-bottom:-5px frameborder=0 scrolling=0 width=100px height=20px src="https://ghbtns.com/github-btn.html?user=zhaohuabing&repo=hugo-theme-cleanwhite&type=star&count=true"></iframe>
+</p>
+</div>
+</div>
+</div>
+</footer>
+<script>function async(f,b){var c=document,d='script',a=c.createElement(d),e=c.getElementsByTagName(d)[0];a.src=f,b&&a.addEventListener('load',function(a){b(null,a)},!1),e.parentNode.insertBefore(a,e)}</script>
+<script>$('#tag_cloud').length!==0&&async("/js/jquery.tagcloud.js",function(){$.fn.tagcloud.defaults={color:{start:'#bbbbee',end:'#0085a1'}},$('#tag_cloud a').tagcloud()})</script>
+<script>async("https://cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.js",function(){var a=document.querySelector("nav");a&&FastClick.attach(a)})</script>
+<script>var _baId='fad9c137f8ce239f9b323d36c871f8e6',_hmt=_hmt||[];(function(){var a=document.createElement("script"),b;a.src="//hm.baidu.com/hm.js?"+_baId,b=document.getElementsByTagName("script")[0],b.parentNode.insertBefore(a,b)})()</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-RTTRHGYFWL"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date),gtag('config','G-RTTRHGYFWL')</script>
+</body>
+</html>

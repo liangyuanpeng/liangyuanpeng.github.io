@@ -1,50 +1,346 @@
-<!doctype html><html lang=en-us><head><head><meta name=google-site-verification content="9vIieCe-Qpd78QOmBl63rGtIVbhY6sYyuxX3j8XWBA4"><meta name=baidu-site-verification content="LRrmH41lz7"><meta charset=utf-8><meta http-equiv=x-ua-compatible content="IE=edge"><meta name=google-site-verification content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI"><meta name=viewport content="width=device-width,initial-scale=1"><meta name=baidu-site-verification content="HGLXRsUXC4"><meta name=baidu-site-verification content="code-ANZvlnN0Xr"><meta name=description content="lan，工程师⎈, OpenYurt Member,CDF中文本地化SIG成员,开源爱好者 | 公众号:四颗咖啡豆"><meta name=keyword content="liangyuanpeng|LanLiang|OpenYurt|Knative|Pulsar|Prometheus|Halo||边缘计算kubernetes|Docker|CloudNative|Golang|Rust|Istio|微服务"><link rel="shortcut icon" href=https://liangyuanpeng.com/img/logo.png><title>zookeeper-liangyuanpeng的博客 | liangyuanpeng's Blog</title><link rel=canonical href=https://liangyuanpeng.com/tags/zookeeper/><link rel=stylesheet href=https://res.cloudinary.com/lyp/raw/upload/v1537369740/hugo/css/iDisqus.min.css><link rel=stylesheet href=https://res.cloudinary.com/lyp/raw/upload/v1537369744/hugo/css/bootstrap.min.css><link rel=stylesheet href=https://res.cloudinary.com/lyp/raw/upload/v1537369740/hugo/css/hux-blog.min.css><link rel=stylesheet href=https://res.cloudinary.com/lyp/raw/upload/v1537369740/hugo/css/syntax.css><link href=//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css rel=stylesheet type=text/css><script src=https://res.cloudinary.com/lyp/raw/upload/v1537369966/hugo/js/jquery.min.js></script><script src=https://res.cloudinary.com/lyp/raw/upload/v1537369966/hugo/js/bootstrap.min.js></script><script src=https://res.cloudinary.com/lyp/raw/upload/v1537369964/hugo/js/hux-blog.min.js></script><script defer src=https://static.cloudflareinsights.com/beacon.min.js data-cf-beacon='{"token": "f73bc0092aeb491d89984c0eb5a87ac2"}'></script></head></head><nav class="navbar navbar-default navbar-custom navbar-fixed-top"><div class=container-fluid><div class="navbar-header page-scroll"><button type=button class=navbar-toggle>
+<!doctype html><html lang=en-us>
+<head><head>
+<meta name=google-site-verification content="9vIieCe-Qpd78QOmBl63rGtIVbhY6sYyuxX3j8XWBA4">
+<meta name=baidu-site-verification content="LRrmH41lz7">
+<meta charset=utf-8>
+<meta http-equiv=x-ua-compatible content="IE=edge">
+<meta name=google-site-verification content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
+<meta name=viewport content="width=device-width,initial-scale=1">
+<meta name=baidu-site-verification content="HGLXRsUXC4">
+<meta name=baidu-site-verification content="code-ANZvlnN0Xr">
+<meta name=description content="lan，工程师⎈, OpenYurt Member,CDF中文本地化SIG成员,开源爱好者 | 公众号:四颗咖啡豆">
+<meta name=keyword content="liangyuanpeng|LanLiang|OpenYurt|Knative|Pulsar|Prometheus|Halo||边缘计算kubernetes|Docker|CloudNative|Golang|Rust|Istio|微服务">
+<link rel="shortcut icon" href=https://liangyuanpeng.com/img/logo.png>
+<title>zookeeper-liangyuanpeng的博客 | liangyuanpeng's Blog</title>
+<link rel=canonical href=https://liangyuanpeng.com/tags/zookeeper/>
+<link rel=stylesheet href=https://res.cloudinary.com/lyp/raw/upload/v1537369740/hugo/css/iDisqus.min.css>
+<link rel=stylesheet href=https://res.cloudinary.com/lyp/raw/upload/v1537369744/hugo/css/bootstrap.min.css>
+<link rel=stylesheet href=https://res.cloudinary.com/lyp/raw/upload/v1537369740/hugo/css/hux-blog.min.css>
+<link rel=stylesheet href=https://res.cloudinary.com/lyp/raw/upload/v1537369740/hugo/css/syntax.css>
+<link href=//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css rel=stylesheet type=text/css>
+<script src=https://res.cloudinary.com/lyp/raw/upload/v1537369966/hugo/js/jquery.min.js></script>
+<script src=https://res.cloudinary.com/lyp/raw/upload/v1537369966/hugo/js/bootstrap.min.js></script>
+<script src=https://res.cloudinary.com/lyp/raw/upload/v1537369964/hugo/js/hux-blog.min.js></script>
+<script defer src=https://static.cloudflareinsights.com/beacon.min.js data-cf-beacon='{"token": "f73bc0092aeb491d89984c0eb5a87ac2"}'></script>
+</head>
+</head>
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+<div class=container-fluid>
+<div class="navbar-header page-scroll">
+<button type=button class=navbar-toggle>
 <span class=sr-only>Toggle navigation</span>
-<span class=icon-bar></span><span class=icon-bar></span><span class=icon-bar></span></button>
-<a class=navbar-brand href=https://liangyuanpeng.com//>Hi,I`m lan</a></div><div id=huxblog_navbar><div class=navbar-collapse><ul class="nav navbar-nav navbar-right"><li><a href=https://liangyuanpeng.com//>Home</a></li><li><a href=https://liangyuanpeng.com/categories/cloudnative>cloudnative</a></li><li><a href=https://liangyuanpeng.com/categories/devops>devops</a></li><li><a href=https://liangyuanpeng.com/categories/iot>iot</a></li><li><a href=https://liangyuanpeng.com/categories/kubernetes>kubernetes</a></li><li><a href=https://liangyuanpeng.com/categories/tech>tech</a></li><li><a href=https://liangyuanpeng.com/search>SEARCH <img src=https://liangyuanpeng.com/img/search.png height=15 style=cursor:pointer></a></li></ul></div></div></div></nav><script>var $body=document.body;var $toggle=document.querySelector('.navbar-toggle');var $navbar=document.querySelector('#huxblog_navbar');var $collapse=document.querySelector('.navbar-collapse');$toggle.addEventListener('click',handleMagic)
-function handleMagic(e){if($navbar.className.indexOf('in')>0){$navbar.className=" ";setTimeout(function(){if($navbar.className.indexOf('in')<0){$collapse.style.height="0px"}},400)}else{$collapse.style.height="auto"
-$navbar.className+=" in";}}</script><header class=intro-header style=background-image:url(https://res.cloudinary.com/lyp/image/upload/v1537619755/hugo/banner/WechatIMG413.jpg)><div class=container><div class=row><div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1"><div class=site-heading><h1>Hi,I`m lan</h1><span class=subheading></span></div></div></div></div></header><div class=container><div class=row><div class="col-lg-8 col-lg-offset-1
+<span class=icon-bar></span>
+<span class=icon-bar></span>
+<span class=icon-bar></span>
+</button>
+<a class=navbar-brand href=https://liangyuanpeng.com//>Hi,I`m lan</a>
+</div>
+<div id=huxblog_navbar>
+<div class=navbar-collapse>
+<ul class="nav navbar-nav navbar-right">
+<li>
+<a href=https://liangyuanpeng.com//>Home</a>
+</li>
+<li>
+<a href=https://liangyuanpeng.com/categories/cloudnative>cloudnative</a>
+</li>
+<li>
+<a href=https://liangyuanpeng.com/categories/devops>devops</a>
+</li>
+<li>
+<a href=https://liangyuanpeng.com/categories/iot>iot</a>
+</li>
+<li>
+<a href=https://liangyuanpeng.com/categories/kubernetes>kubernetes</a>
+</li>
+<li>
+<a href=https://liangyuanpeng.com/categories/tech>tech</a>
+</li>
+<li>
+<a href=https://liangyuanpeng.com/search>SEARCH <img src=https://liangyuanpeng.com/img/search.png height=15 style=cursor:pointer></a>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</nav>
+<script>var $body=document.body,$toggle=document.querySelector('.navbar-toggle'),$navbar=document.querySelector('#huxblog_navbar'),$collapse=document.querySelector('.navbar-collapse');$toggle.addEventListener('click',handleMagic);function handleMagic(a){$navbar.className.indexOf('in')>0?($navbar.className=" ",setTimeout(function(){$navbar.className.indexOf('in')<0&&($collapse.style.height="0px")},400)):($collapse.style.height="auto",$navbar.className+=" in")}</script>
+<header class=intro-header style=background-image:url(https://res.cloudinary.com/lyp/image/upload/v1537619755/hugo/banner/WechatIMG413.jpg)>
+<div class=container>
+<div class=row>
+<div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+<div class=site-heading>
+<h1>Hi,I`m lan </h1>
+<span class=subheading></span>
+</div>
+</div>
+</div>
+</div>
+</header>
+<div class=container>
+<div class=row>
+<div class="col-lg-8 col-lg-offset-1
 col-md-8 col-md-offset-1
 col-sm-12
 col-xs-12
-post-container"><div class=post-preview><a href=https://liangyuanpeng.com/post/apache-bookkeeper/simple-deploy-for-apache-bookkeeper/><h2 class=post-title>简单部署Apache-Bookkeeper</h2><div class=post-content-preview>前言 开始部署 由于apache bookkeeper(本文后续简称为BK)需要使用元数据服务中心,当前支持zookeeper和etcd,本文将会</div></a><p class=post-meta>Posted by 梁远鹏 2021-12-26</p></div><hr></div><div class="col-lg-3 col-lg-offset-0
+post-container">
+<div class=post-preview>
+<a href=https://liangyuanpeng.com/post/apache-bookkeeper/simple-deploy-for-apache-bookkeeper/>
+<h2 class=post-title>
+简单部署Apache-Bookkeeper
+</h2>
+<div class=post-content-preview>
+前言 开始部署 由于apache bookkeeper(本文后续简称为BK)需要使用元数据服务中心,当前支持zookeeper和etcd,本文将会
+</div>
+</a>
+<p class=post-meta>
+Posted by 梁远鹏 2021-12-26
+</p>
+</div>
+<hr>
+</div>
+<div class="col-lg-3 col-lg-offset-0
 col-md-3 col-md-offset-0
 col-sm-12
 col-xs-12
-sidebar-container"><section class="visible-md visible-lg"><hr><h5><a href>ABOUT ME</a></h5><div class=short-about><img src=https://res.cloudinary.com/lyp/image/upload/v1537624737/hugo/avatar/%E5%93%88%E5%B8%8C%E5%A4%B4%E5%83%8F.jpg><p>OpenYurt Member|CDF中文本地化SIG成员|CNCF粉丝|Pulsar爱好者|公众号:四颗咖啡豆</p><ul class=list-inline><li><a href=https://liangyuanpeng.com/tags/zookeeper/index.xml rel=alternate type=application/rss+xml title="Hi,I`m lan"><span class="fa-stack fa-lg"><i class="fa fa-circle fa-stack-2x"></i><i class="fa fa-rss fa-stack-1x fa-inverse"></i></span></a></li><li><a target=_blank href=https://github.com/liangyuanpeng><span class="fa-stack fa-lg"><i class="fa fa-circle fa-stack-2x"></i><i class="fa fa-github fa-stack-1x fa-inverse"></i></span></a></li><li><a href=https://twitter.com/lan31793328><span class="fa-stack fa-lg"><i class="fa fa-circle fa-stack-2x"></i><i class="fa fa-twitter fa-stack-1x fa-inverse"></i></span></a></li><li><a target=_blank href=https://www.zhihu.com/people/liangyuanpeng><span class="fa-stack fa-lg"><i class="fa fa-circle fa-stack-2x"></i><i class="fa fa-stack-1x fa-inverse">知</i></span></a></li><li><a target=_blank href=https://weibo.com/u/1908782280><span class="fa-stack fa-lg"><i class="fa fa-circle fa-stack-2x"></i><i class="fa fa-weibo fa-stack-1x fa-inverse"></i></span></a></li></ul></div></section><section><hr class="hidden-sm hidden-xs"><h5>FEATURED TAGS</h5><div class=tags><a href=/tags/blog title=blog>blog</a>
-<a href=/tags/bookkeeper title=bookkeeper>bookkeeper</a>
-<a href=/tags/chirpstack title=chirpstack>chirpstack</a>
-<a href=/tags/ci/cd title=ci/cd>ci/cd</a>
-<a href=/tags/cloudnative title=cloudnative>cloudnative</a>
-<a href=/tags/cncf title=cncf>cncf</a>
-<a href=/tags/contour title=contour>contour</a>
-<a href=/tags/docker title=docker>docker</a>
-<a href=/tags/docker-compose title=docker-compose>docker-compose</a>
-<a href=/tags/envoy title=envoy>envoy</a>
-<a href=/tags/fluentd title=fluentd>fluentd</a>
-<a href=/tags/foundation title=foundation>foundation</a>
-<a href=/tags/golang title=golang>golang</a>
-<a href=/tags/hugo title=hugo>hugo</a>
-<a href=/tags/image title=image>image</a>
-<a href=/tags/iot title=iot>iot</a>
-<a href=/tags/k8s title=k8s>k8s</a>
-<a href=/tags/kubernetes title=kubernetes>kubernetes</a>
-<a href=/tags/kubesphere title=kubesphere>kubesphere</a>
-<a href=/tags/lorawan title=lorawan>lorawan</a>
-<a href=/tags/metrics title=metrics>metrics</a>
-<a href=/tags/middleware title=middleware>middleware</a>
-<a href=/tags/monitor title=monitor>monitor</a>
-<a href=/tags/mq title=mq>mq</a>
-<a href=/tags/nginx title=nginx>nginx</a>
-<a href=/tags/ops title=ops>ops</a>
-<a href=/tags/prometheus title=prometheus>prometheus</a>
-<a href=/tags/pulsar title=pulsar>pulsar</a>
-<a href=/tags/rpc title=rpc>rpc</a>
-<a href=/tags/rust title=rust>rust</a>
-<a href=/tags/sofa title=sofa>sofa</a>
-<a href=/tags/sofastack title=sofastack>sofastack</a>
-<a href=/tags/springboot title=springboot>springboot</a>
-<a href=/tags/tech title=tech>tech</a></div></section><hr><h5>BOOKMARKS</h5><ul class=list-inline><li><a target=_blank href></a></li><li><a target=_blank href=http://www.servicemesh.cn>ServiceMesh中文网</a></li><li><a target=_blank href=https://servicemesh.gitbooks.io/awesome-servicemesh>Awesome Service Mesh</a></li><li><a target=_blank href></a></li></ul></div></div></div><footer><div class=container><div class=row><div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1"><ul class="list-inline text-center"><li><a href=https://liangyuanpeng.com/tags/zookeeper/index.xml rel=alternate type=application/rss+xml title="Hi,I`m lan"><span class="fa-stack fa-lg"><i class="fa fa-circle fa-stack-2x"></i><i class="fa fa-rss fa-stack-1x fa-inverse"></i></span></a></li><li><a target=_blank href=https://github.com/liangyuanpeng><span class="fa-stack fa-lg"><i class="fa fa-circle fa-stack-2x"></i><i class="fa fa-github fa-stack-1x fa-inverse"></i></span></a></li><li><a href=mailto:liangyuanpengem@163.com><span class="fa-stack fa-lg"><i class="fa fa-circle fa-stack-2x"></i><i class="fa fa-envelope fa-stack-1x fa-inverse"></i></span></a></li><li><a href=https://twitter.com/lan31793328><span class="fa-stack fa-lg"><i class="fa fa-circle fa-stack-2x"></i><i class="fa fa-twitter fa-stack-1x fa-inverse"></i></span></a></li><li><a target=_blank href=https://www.zhihu.com/people/liangyuanpeng><span class="fa-stack fa-lg"><i class="fa fa-circle fa-stack-2x"></i><i class="fa fa-stack-1x fa-inverse">知</i></span></a></li><li><a target=_blank href=https://weibo.com/u/1908782280><span class="fa-stack fa-lg"><i class="fa fa-circle fa-stack-2x"></i><i class="fa fa-weibo fa-stack-1x fa-inverse"></i></span></a></li></ul><p class="copyright text-muted">Copyright &copy; Hi,I`m lan , 2021<br><a href=https://themes.gohugo.io/hugo-theme-cleanwhite>CleanWhite Hugo Theme</a> by <a href=https://zhaohuabing.com>Huabing</a> |
-<iframe style=margin-left:2px;margin-bottom:-5px frameborder=0 scrolling=0 width=100px height=20px src="https://ghbtns.com/github-btn.html?user=zhaohuabing&repo=hugo-theme-cleanwhite&type=star&count=true"></iframe></p></div></div></div></footer><script>function async(u,c){var d=document,t='script',o=d.createElement(t),s=d.getElementsByTagName(t)[0];o.src=u;if(c){o.addEventListener('load',function(e){c(null,e);},false);}
-s.parentNode.insertBefore(o,s);}</script><script>if($('#tag_cloud').length!==0){async("/js/jquery.tagcloud.js",function(){$.fn.tagcloud.defaults={color:{start:'#bbbbee',end:'#0085a1'},};$('#tag_cloud a').tagcloud();})}</script><script>async("https://cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.js",function(){var $nav=document.querySelector("nav");if($nav)FastClick.attach($nav);})</script><script>var _baId='fad9c137f8ce239f9b323d36c871f8e6';var _hmt=_hmt||[];(function(){var hm=document.createElement("script");hm.src="//hm.baidu.com/hm.js?"+_baId;var s=document.getElementsByTagName("script")[0];s.parentNode.insertBefore(hm,s);})();</script><script async src="https://www.googletagmanager.com/gtag/js?id=G-RTTRHGYFWL"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}
-gtag('js',new Date());gtag('config','G-RTTRHGYFWL');</script></body></html>
+sidebar-container">
+<section class="visible-md visible-lg">
+<hr><h5><a href>ABOUT ME</a></h5>
+<div class=short-about>
+<img src=https://res.cloudinary.com/lyp/image/upload/v1537624737/hugo/avatar/%E5%93%88%E5%B8%8C%E5%A4%B4%E5%83%8F.jpg>
+<p>OpenYurt Member|CDF中文本地化SIG成员|CNCF粉丝|Pulsar爱好者|公众号:四颗咖啡豆</p>
+<ul class=list-inline>
+<li>
+<a href=https://liangyuanpeng.com/tags/zookeeper/index.xml rel=alternate type=application/rss+xml title="Hi,I`m lan">
+<span class="fa-stack fa-lg">
+<i class="fa fa-circle fa-stack-2x"></i>
+<i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+</span>
+</a>
+</li>
+<li>
+<a target=_blank href=https://github.com/liangyuanpeng>
+<span class="fa-stack fa-lg">
+<i class="fa fa-circle fa-stack-2x"></i>
+<i class="fa fa-github fa-stack-1x fa-inverse"></i>
+</span>
+</a>
+</li>
+<li>
+<a href=https://twitter.com/lan31793328>
+<span class="fa-stack fa-lg">
+<i class="fa fa-circle fa-stack-2x"></i>
+<i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+</span>
+</a>
+</li>
+<li>
+<a target=_blank href=https://www.zhihu.com/people/liangyuanpeng>
+<span class="fa-stack fa-lg">
+<i class="fa fa-circle fa-stack-2x"></i>
+<i class="fa fa-stack-1x fa-inverse">知</i>
+</span>
+</a>
+</li>
+<li>
+<a target=_blank href=https://weibo.com/u/1908782280>
+<span class="fa-stack fa-lg">
+<i class="fa fa-circle fa-stack-2x"></i>
+<i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+</span>
+</a>
+</li>
+</ul>
+</div>
+</section>
+<section>
+<hr class="hidden-sm hidden-xs">
+<h5>FEATURED TAGS</h5>
+<div class=tags>
+<a href=/tags/blog title=blog>
+blog
+</a>
+<a href=/tags/bookkeeper title=bookkeeper>
+bookkeeper
+</a>
+<a href=/tags/chirpstack title=chirpstack>
+chirpstack
+</a>
+<a href=/tags/ci/cd title=ci/cd>
+ci/cd
+</a>
+<a href=/tags/cloudnative title=cloudnative>
+cloudnative
+</a>
+<a href=/tags/cncf title=cncf>
+cncf
+</a>
+<a href=/tags/contour title=contour>
+contour
+</a>
+<a href=/tags/docker title=docker>
+docker
+</a>
+<a href=/tags/docker-compose title=docker-compose>
+docker-compose
+</a>
+<a href=/tags/envoy title=envoy>
+envoy
+</a>
+<a href=/tags/fluentd title=fluentd>
+fluentd
+</a>
+<a href=/tags/foundation title=foundation>
+foundation
+</a>
+<a href=/tags/golang title=golang>
+golang
+</a>
+<a href=/tags/hugo title=hugo>
+hugo
+</a>
+<a href=/tags/image title=image>
+image
+</a>
+<a href=/tags/iot title=iot>
+iot
+</a>
+<a href=/tags/k8s title=k8s>
+k8s
+</a>
+<a href=/tags/kubernetes title=kubernetes>
+kubernetes
+</a>
+<a href=/tags/kubesphere title=kubesphere>
+kubesphere
+</a>
+<a href=/tags/lorawan title=lorawan>
+lorawan
+</a>
+<a href=/tags/metrics title=metrics>
+metrics
+</a>
+<a href=/tags/middleware title=middleware>
+middleware
+</a>
+<a href=/tags/monitor title=monitor>
+monitor
+</a>
+<a href=/tags/mq title=mq>
+mq
+</a>
+<a href=/tags/nginx title=nginx>
+nginx
+</a>
+<a href=/tags/ops title=ops>
+ops
+</a>
+<a href=/tags/prometheus title=prometheus>
+prometheus
+</a>
+<a href=/tags/pulsar title=pulsar>
+pulsar
+</a>
+<a href=/tags/rpc title=rpc>
+rpc
+</a>
+<a href=/tags/rust title=rust>
+rust
+</a>
+<a href=/tags/sofa title=sofa>
+sofa
+</a>
+<a href=/tags/sofastack title=sofastack>
+sofastack
+</a>
+<a href=/tags/springboot title=springboot>
+springboot
+</a>
+<a href=/tags/tech title=tech>
+tech
+</a>
+</div>
+</section>
+<hr>
+<h5>BOOKMARKS</h5>
+<ul class=list-inline>
+<li><a target=_blank href></a></li>
+<li><a target=_blank href=http://www.servicemesh.cn>ServiceMesh中文网</a></li>
+<li><a target=_blank href=https://servicemesh.gitbooks.io/awesome-servicemesh>Awesome Service Mesh</a></li>
+<li><a target=_blank href></a></li>
+</ul>
+</div>
+</div>
+</div>
+<footer>
+<div class=container>
+<div class=row>
+<div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+<ul class="list-inline text-center">
+<li>
+<a href=https://liangyuanpeng.com/tags/zookeeper/index.xml rel=alternate type=application/rss+xml title="Hi,I`m lan">
+<span class="fa-stack fa-lg">
+<i class="fa fa-circle fa-stack-2x"></i>
+<i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+</span>
+</a>
+</li>
+<li>
+<a target=_blank href=https://github.com/liangyuanpeng>
+<span class="fa-stack fa-lg">
+<i class="fa fa-circle fa-stack-2x"></i>
+<i class="fa fa-github fa-stack-1x fa-inverse"></i>
+</span>
+</a>
+</li>
+<li>
+<a href=mailto:liangyuanpengem@163.com>
+<span class="fa-stack fa-lg">
+<i class="fa fa-circle fa-stack-2x"></i>
+<i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
+</span>
+</a>
+</li>
+<li>
+<a href=https://twitter.com/lan31793328>
+<span class="fa-stack fa-lg">
+<i class="fa fa-circle fa-stack-2x"></i>
+<i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+</span>
+</a>
+</li>
+<li>
+<a target=_blank href=https://www.zhihu.com/people/liangyuanpeng>
+<span class="fa-stack fa-lg">
+<i class="fa fa-circle fa-stack-2x"></i>
+<i class="fa fa-stack-1x fa-inverse">知</i>
+</span>
+</a>
+</li>
+<li>
+<a target=_blank href=https://weibo.com/u/1908782280>
+<span class="fa-stack fa-lg">
+<i class="fa fa-circle fa-stack-2x"></i>
+<i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+</span>
+</a>
+</li>
+</ul>
+<p class="copyright text-muted">
+Copyright &copy; Hi,I`m lan , 2021
+<br>
+<a href=https://themes.gohugo.io/hugo-theme-cleanwhite>CleanWhite Hugo Theme</a> by <a href=https://zhaohuabing.com>Huabing</a> |
+<iframe style=margin-left:2px;margin-bottom:-5px frameborder=0 scrolling=0 width=100px height=20px src="https://ghbtns.com/github-btn.html?user=zhaohuabing&repo=hugo-theme-cleanwhite&type=star&count=true"></iframe>
+</p>
+</div>
+</div>
+</div>
+</footer>
+<script>function async(f,b){var c=document,d='script',a=c.createElement(d),e=c.getElementsByTagName(d)[0];a.src=f,b&&a.addEventListener('load',function(a){b(null,a)},!1),e.parentNode.insertBefore(a,e)}</script>
+<script>$('#tag_cloud').length!==0&&async("/js/jquery.tagcloud.js",function(){$.fn.tagcloud.defaults={color:{start:'#bbbbee',end:'#0085a1'}},$('#tag_cloud a').tagcloud()})</script>
+<script>async("https://cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.js",function(){var a=document.querySelector("nav");a&&FastClick.attach(a)})</script>
+<script>var _baId='fad9c137f8ce239f9b323d36c871f8e6',_hmt=_hmt||[];(function(){var a=document.createElement("script"),b;a.src="//hm.baidu.com/hm.js?"+_baId,b=document.getElementsByTagName("script")[0],b.parentNode.insertBefore(a,b)})()</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-RTTRHGYFWL"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date),gtag('config','G-RTTRHGYFWL')</script>
+</body>
+</html>

@@ -1,16 +1,135 @@
-<!doctype html><html lang=en-us><head><head><meta name=google-site-verification content="9vIieCe-Qpd78QOmBl63rGtIVbhY6sYyuxX3j8XWBA4"><meta name=baidu-site-verification content="LRrmH41lz7"><meta charset=utf-8><meta http-equiv=x-ua-compatible content="IE=edge"><meta name=google-site-verification content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI"><meta name=viewport content="width=device-width,initial-scale=1"><meta name=baidu-site-verification content="HGLXRsUXC4"><meta name=baidu-site-verification content="code-ANZvlnN0Xr"><meta name=description content><meta name=keyword content="liangyuanpeng|LanLiang|OpenYurt|Knative|Pulsar|Prometheus|Halo||边缘计算kubernetes|Docker|CloudNative|Golang|Rust|Istio|微服务"><link rel="shortcut icon" href=https://liangyuanpeng.com/img/logo.png><meta property="og:image" content="https://res.cloudinary.com/lyp/image/upload/v1612709780/hugo/blog.github.io/pexels-matt-hardy-2568001.jpg"><meta name=twitter:image content="https://res.cloudinary.com/lyp/image/upload/v1612709780/hugo/blog.github.io/pexels-matt-hardy-2568001.jpg"><title>部署去ZK后的Apache Pulsar-liangyuanpeng的博客 | liangyuanpeng's Blog</title><link rel=canonical href=https://liangyuanpeng.com/post/apache-pulsar/deploy-pulsar/><link rel=stylesheet href=https://res.cloudinary.com/lyp/raw/upload/v1537369740/hugo/css/iDisqus.min.css><link rel=stylesheet href=https://res.cloudinary.com/lyp/raw/upload/v1537369744/hugo/css/bootstrap.min.css><link rel=stylesheet href=https://res.cloudinary.com/lyp/raw/upload/v1537369740/hugo/css/hux-blog.min.css><link rel=stylesheet href=https://res.cloudinary.com/lyp/raw/upload/v1537369740/hugo/css/syntax.css><link href=//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css rel=stylesheet type=text/css><script src=https://res.cloudinary.com/lyp/raw/upload/v1537369966/hugo/js/jquery.min.js></script><script src=https://res.cloudinary.com/lyp/raw/upload/v1537369966/hugo/js/bootstrap.min.js></script><script src=https://res.cloudinary.com/lyp/raw/upload/v1537369964/hugo/js/hux-blog.min.js></script><script defer src=https://static.cloudflareinsights.com/beacon.min.js data-cf-beacon='{"token": "f73bc0092aeb491d89984c0eb5a87ac2"}'></script></head></head><nav class="navbar navbar-default navbar-custom navbar-fixed-top"><div class=container-fluid><div class="navbar-header page-scroll"><button type=button class=navbar-toggle>
+<!doctype html><html lang=en-us>
+<head><head>
+<meta name=google-site-verification content="9vIieCe-Qpd78QOmBl63rGtIVbhY6sYyuxX3j8XWBA4">
+<meta name=baidu-site-verification content="LRrmH41lz7">
+<meta charset=utf-8>
+<meta http-equiv=x-ua-compatible content="IE=edge">
+<meta name=google-site-verification content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
+<meta name=viewport content="width=device-width,initial-scale=1">
+<meta name=baidu-site-verification content="HGLXRsUXC4">
+<meta name=baidu-site-verification content="code-ANZvlnN0Xr">
+<meta name=description content=" ">
+<meta name=keyword content="liangyuanpeng|LanLiang|OpenYurt|Knative|Pulsar|Prometheus|Halo||边缘计算kubernetes|Docker|CloudNative|Golang|Rust|Istio|微服务">
+<link rel="shortcut icon" href=https://liangyuanpeng.com/img/logo.png>
+<meta property="og:image" content="https://res.cloudinary.com/lyp/image/upload/v1612709780/hugo/blog.github.io/pexels-matt-hardy-2568001.jpg">
+<meta name=twitter:image content="https://res.cloudinary.com/lyp/image/upload/v1612709780/hugo/blog.github.io/pexels-matt-hardy-2568001.jpg">
+<title>部署去ZK后的Apache Pulsar-liangyuanpeng的博客 | liangyuanpeng's Blog</title>
+<link rel=canonical href=https://liangyuanpeng.com/post/apache-pulsar/deploy-pulsar/>
+<link rel=stylesheet href=https://res.cloudinary.com/lyp/raw/upload/v1537369740/hugo/css/iDisqus.min.css>
+<link rel=stylesheet href=https://res.cloudinary.com/lyp/raw/upload/v1537369744/hugo/css/bootstrap.min.css>
+<link rel=stylesheet href=https://res.cloudinary.com/lyp/raw/upload/v1537369740/hugo/css/hux-blog.min.css>
+<link rel=stylesheet href=https://res.cloudinary.com/lyp/raw/upload/v1537369740/hugo/css/syntax.css>
+<link href=//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css rel=stylesheet type=text/css>
+<script src=https://res.cloudinary.com/lyp/raw/upload/v1537369966/hugo/js/jquery.min.js></script>
+<script src=https://res.cloudinary.com/lyp/raw/upload/v1537369966/hugo/js/bootstrap.min.js></script>
+<script src=https://res.cloudinary.com/lyp/raw/upload/v1537369964/hugo/js/hux-blog.min.js></script>
+<script defer src=https://static.cloudflareinsights.com/beacon.min.js data-cf-beacon='{"token": "f73bc0092aeb491d89984c0eb5a87ac2"}'></script>
+</head>
+</head>
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+<div class=container-fluid>
+<div class="navbar-header page-scroll">
+<button type=button class=navbar-toggle>
 <span class=sr-only>Toggle navigation</span>
-<span class=icon-bar></span><span class=icon-bar></span><span class=icon-bar></span></button>
-<a class=navbar-brand href=https://liangyuanpeng.com//>Hi,I`m lan</a></div><div id=huxblog_navbar><div class=navbar-collapse><ul class="nav navbar-nav navbar-right"><li><a href=https://liangyuanpeng.com//>Home</a></li><li><a href=https://liangyuanpeng.com/categories/cloudnative>cloudnative</a></li><li><a href=https://liangyuanpeng.com/categories/devops>devops</a></li><li><a href=https://liangyuanpeng.com/categories/iot>iot</a></li><li><a href=https://liangyuanpeng.com/categories/kubernetes>kubernetes</a></li><li><a href=https://liangyuanpeng.com/categories/tech>tech</a></li><li><a href=https://liangyuanpeng.com/search>SEARCH <img src=https://liangyuanpeng.com/img/search.png height=15 style=cursor:pointer></a></li></ul></div></div></div></nav><script>var $body=document.body;var $toggle=document.querySelector('.navbar-toggle');var $navbar=document.querySelector('#huxblog_navbar');var $collapse=document.querySelector('.navbar-collapse');$toggle.addEventListener('click',handleMagic)
-function handleMagic(e){if($navbar.className.indexOf('in')>0){$navbar.className=" ";setTimeout(function(){if($navbar.className.indexOf('in')<0){$collapse.style.height="0px"}},400)}else{$collapse.style.height="auto"
-$navbar.className+=" in";}}</script><style type=text/css>header.intro-header{background-image:url(https://res.cloudinary.com/lyp/image/upload/v1612709780/hugo/blog.github.io/pexels-matt-hardy-2568001.jpg)}</style><header class=intro-header><div class=container><div class=row><div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1"><div class=post-heading><div class=tags><a class=tag href=/tags/cloudnative title=CloudNative>CloudNative</a>
-<a class=tag href=/tags/pulsar title=Pulsar>Pulsar</a></div><h1>部署去ZK后的Apache Pulsar</h1><h2 class=subheading></h2><span class=meta>Posted by 梁远鹏 on 2021-05-22
+<span class=icon-bar></span>
+<span class=icon-bar></span>
+<span class=icon-bar></span>
+</button>
+<a class=navbar-brand href=https://liangyuanpeng.com//>Hi,I`m lan</a>
+</div>
+<div id=huxblog_navbar>
+<div class=navbar-collapse>
+<ul class="nav navbar-nav navbar-right">
+<li>
+<a href=https://liangyuanpeng.com//>Home</a>
+</li>
+<li>
+<a href=https://liangyuanpeng.com/categories/cloudnative>cloudnative</a>
+</li>
+<li>
+<a href=https://liangyuanpeng.com/categories/devops>devops</a>
+</li>
+<li>
+<a href=https://liangyuanpeng.com/categories/iot>iot</a>
+</li>
+<li>
+<a href=https://liangyuanpeng.com/categories/kubernetes>kubernetes</a>
+</li>
+<li>
+<a href=https://liangyuanpeng.com/categories/tech>tech</a>
+</li>
+<li>
+<a href=https://liangyuanpeng.com/search>SEARCH <img src=https://liangyuanpeng.com/img/search.png height=15 style=cursor:pointer></a>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</nav>
+<script>var $body=document.body,$toggle=document.querySelector('.navbar-toggle'),$navbar=document.querySelector('#huxblog_navbar'),$collapse=document.querySelector('.navbar-collapse');$toggle.addEventListener('click',handleMagic);function handleMagic(a){$navbar.className.indexOf('in')>0?($navbar.className=" ",setTimeout(function(){$navbar.className.indexOf('in')<0&&($collapse.style.height="0px")},400)):($collapse.style.height="auto",$navbar.className+=" in")}</script>
+<style type=text/css>header.intro-header{background-image:url(https://res.cloudinary.com/lyp/image/upload/v1612709780/hugo/blog.github.io/pexels-matt-hardy-2568001.jpg)}</style>
+<header class=intro-header>
+<div class=container>
+<div class=row>
+<div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+<div class=post-heading>
+<div class=tags>
+<a class=tag href=/tags/cloudnative title=CloudNative>
+CloudNative
+</a>
+<a class=tag href=/tags/pulsar title=Pulsar>
+Pulsar
+</a>
+</div>
+<h1>部署去ZK后的Apache Pulsar</h1>
+<h2 class=subheading></h2>
+<span class=meta>Posted by 梁远鹏 on 2021-05-22
 <span id=busuanzi_container_page_pv>|<span id=busuanzi_value_page_pv></span><span>
-<span id=/post/apache-pulsar/deploy-pulsar/ class="leancloud_visitors meta_data_item" data-flag-title><span class=post-meta-item-icon><span class="octicon octicon-eye"></span></span><i class="fa fa-eye"></i><span class=old-visitors-count style=display:none></span><span class=leancloud-visitors-count></span></span>阅读 </span></span>|<span class=post-date>共900字</span>，阅读约<span class=more-meta> 2 分钟</span></span></div></div></div></div></header><article><div class=container><div class=row><div class="col-lg-8 col-lg-offset-2
+<span id=/post/apache-pulsar/deploy-pulsar/ class="leancloud_visitors meta_data_item" data-flag-title>
+<span class=post-meta-item-icon>
+<span class="octicon octicon-eye"></span>
+</span>
+<i class="fa fa-eye"></i>
+<span class=old-visitors-count style=display:none></span>
+<span class=leancloud-visitors-count></span>
+</span>
+阅读 </span></span>|<span class=post-date>共900字</span>，阅读约<span class=more-meta> 2 分钟</span>
+</span>
+</div>
+</div>
+</div>
+</div>
+</header>
+<article>
+<div class=container>
+<div class=row>
+<div class="col-lg-8 col-lg-offset-2
 col-md-10 col-md-offset-1
-post-container"><header><h2>TOC</h2></header><nav id=TableOfContents><ul><li><a href=#docker-compose>docker-compose</a></li><li><a href=#kubernetes>kubernetes</a></li></ul></nav><h1 id=前言>前言</h1><h1 id=当我们在说元数据中心的时候我们在说什么>当我们在说元数据中心的时候我们在说什么</h1><p>Bookkeeper 和 Pulsar Broker 都有各自的元数据中心,并且都有自己的元数据中心接口,默认都是ZK.</p><p>要实现Pulsar去Zookeeper化的话意味着Pulsar Broker和Bookkeeper都需要拥有这样的能力. Bookkeeper 本身有etcd 元数据中心接口的实现,但是Pulsar Broker也实现了BK的元数据中心接口,我们这里讨论的 Bookkeeper 对接etcd 也是使用 Pulsar Broker 自身实现的 Bookkeeper 元数据接口.而不是 Bookkeeper 自带的 etcd 元数据接口实现.</p><p>基本上有了这样的框架之后,后续 Pulsar 如果要发展自己的元数据中心会相对比较顺利.</p><p>本文示例会以 Pulsar 2.10.0 这个版本,其中配套的 Bookkeeper 版本是4.14.4,这个版本的 Bookkeeper 的autoRecovery 逻辑中依然是直接连接了 Zookeeper,因此需要启动时需要在 bookkeeper.conf 中把 autoRecoveryDaemonEnabled 设置为 false.</p><h1 id=部署>部署</h1><p>部署相关的yaml都可以在<a href=https://github.com/pulsar-sigs/deploy-files>pulsar-sigs/deploy-files</a>中找到.</p><p>首先将仓库clone到本地：</p><pre><code>git clone https://github.com/pulsar-sigs/deploy-files.git
+post-container">
+<header>
+<h2>TOC</h2>
+</header>
+<nav id=TableOfContents>
+<ul>
+<li><a href=#docker-compose>docker-compose</a></li>
+<li><a href=#kubernetes>kubernetes</a></li>
+</ul>
+</nav>
+<h1 id=前言>前言</h1>
+<h1 id=当我们在说元数据中心的时候我们在说什么>当我们在说元数据中心的时候我们在说什么</h1>
+<p>Bookkeeper 和 Pulsar Broker 都有各自的元数据中心,并且都有自己的元数据中心接口,默认都是ZK.</p>
+<p>要实现Pulsar去Zookeeper化的话意味着Pulsar Broker和Bookkeeper都需要拥有这样的能力. Bookkeeper 本身有etcd 元数据中心接口的实现,但是Pulsar Broker也实现了BK的元数据中心接口,我们这里讨论的 Bookkeeper 对接etcd 也是使用 Pulsar Broker 自身实现的 Bookkeeper 元数据接口.而不是 Bookkeeper 自带的 etcd 元数据接口实现.</p>
+<p>基本上有了这样的框架之后,后续 Pulsar 如果要发展自己的元数据中心会相对比较顺利.</p>
+<p>本文示例会以 Pulsar 2.10.0 这个版本,其中配套的 Bookkeeper 版本是4.14.4,这个版本的 Bookkeeper 的autoRecovery 逻辑中依然是直接连接了 Zookeeper,因此需要启动时需要在 bookkeeper.conf 中把 autoRecoveryDaemonEnabled 设置为 false.</p>
+<h1 id=部署>部署</h1>
+<p>部署相关的yaml都可以在<a href=https://github.com/pulsar-sigs/deploy-files>pulsar-sigs/deploy-files</a>中找到.</p>
+<p>首先将仓库clone到本地：</p>
+<pre tabindex=0><code>git clone https://github.com/pulsar-sigs/deploy-files.git
 cd deploy-files
-</code></pre><p>以下docker-compose和kubernetes部署方式都会以这个仓库的文件作为基础.</p><h2 id=docker-compose>docker-compose</h2><h2 id=kubernetes>kubernetes</h2><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell>$ cd kubernetes
+</code></pre><p>以下docker-compose和kubernetes部署方式都会以这个仓库的文件作为基础.</p>
+<h2 id=docker-compose>docker-compose</h2>
+<h2 id=kubernetes>kubernetes</h2>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell>$ cd kubernetes
 $ kubectl apply -f .
 service/bk created
 service/bknp created
@@ -31,7 +150,8 @@ role.rbac.authorization.k8s.io/pulsar created
 clusterrole.rbac.authorization.k8s.io/pulsar created
 rolebinding.rbac.authorization.k8s.io/pulsar created
 clusterrolebinding.rbac.authorization.k8s.io/pulsar created
-</code></pre></div><p>耐心等待一段时间后所有Pod都会处于Running状态.</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell>$ kubectl get po
+</code></pre></div><p>耐心等待一段时间后所有Pod都会处于Running状态.</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell>$ kubectl get po
 NAME                               READY   STATUS      RESTARTS   AGE
 bk-0                               1/1     Running     <span style=color:#ae81ff>0</span>          2m38s
 etcd-0                             1/1     Running     <span style=color:#ae81ff>0</span>          2m38s
@@ -40,47 +160,237 @@ pulsar-consumer-77f96bbf9d-bwspx   1/1     Running     <span style=color:#ae81ff
 pulsar-init-gs5f4                  0/1     Completed   <span style=color:#ae81ff>0</span>          2m38s
 pulsar-producer-9b46f7455-ndtsq    1/1     Running     <span style=color:#ae81ff>1</span>          2m37s
 pulsarctl-0                        1/1     Running     <span style=color:#ae81ff>0</span>          2m38s
-</code></pre></div><p>其中有些镜像是使用的 <code>ghcr.io</code> 仓库,如果访问不了或者实在太慢了,可以把 <code>ghcr.io</code> 替换为 <code>ghcr.lank8s.cn</code> ,这是我在维护的一个 <code>ghcr.io</code> 镜像仓库的代理仓库.</p><p>假设这时候所有的Pod都已经启动在Running了,我们可以看一下pulsar-client consumer这个pod,他会不断的消费pulsar topic的消息,正常的话可以看到不断的有日志打印出来.</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell>$ kubectl logs -f pulsar-consumer-77f96bbf9d-bwspx
+</code></pre></div><p>其中有些镜像是使用的 <code>ghcr.io</code> 仓库,如果访问不了或者实在太慢了,可以把 <code>ghcr.io</code> 替换为 <code>ghcr.lank8s.cn</code> ,这是我在维护的一个 <code>ghcr.io</code> 镜像仓库的代理仓库.</p>
+<p>假设这时候所有的Pod都已经启动在Running了,我们可以看一下pulsar-client consumer这个pod,他会不断的消费pulsar topic的消息,正常的话可以看到不断的有日志打印出来.</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell>$ kubectl logs -f pulsar-consumer-77f96bbf9d-bwspx
 ...
 2022/05/22 11:11:55 consume message: topic is persistent://public/default/lan-partition-0 , topic key is : and payload is :hello 
 2022/05/22 11:11:56 consume message: topic is persistent://public/default/lan-partition-0 , topic key is : and payload is :hello 
-</code></pre></div><p>可以看到不断的会有log打印, 这时基于 <code>etcd</code> 元数据中心的 <code>pulsar</code> 已经处于正常的工作状态了.</p><h1 id=笔记>笔记</h1><ol><li>function worker会使用到Dlog，直接连接的ZK.</li><li>有状态的pulsar function会使用到BK的table service,而table service似乎也是连接ZK.</li></ol><h1 id=注意>注意</h1><p>本文还在持续创作当中.</p><h2>微信公众号</h2><p>扫描下面的二维码关注我们的微信公众号,第一时间查看最新内容。同时也可以关注我的Github，看看我都在了解什么技术，在页面底部可以找到我的Github。</p><img src=https://res.cloudinary.com/lyp/image/upload/v1581729955/hugo/blog.github.io/qrcode_for_sikekafeidou.jpg alt=wechat-account-qrcode><hr><ul class=pager><li class=previous><a href=/post/fundation-rust/introducing-shane-miller/ data-toggle=tooltip data-placement=top title="[了解Rust基金会]介绍Shane Miller">&larr; [了解Rust基金会]介绍Shane Miller</a></li><li class=next><a href=/post/cncf-prometheus/prometheus-v2.28.1-update/ data-toggle=tooltip data-placement=top title=Prometheus2.28.1更新讲解>Prometheus2.28.1更新讲解 &rarr;</a></li></ul><script src=https://utteranc.es/client.js repo=liangyuanpeng/liangyuanpeng.github.io issue-term=title theme=github-light crossorigin=anonymous async></script></div><div class="col-lg-8 col-lg-offset-2
+</code></pre></div><p>可以看到不断的会有log打印, 这时基于 <code>etcd</code> 元数据中心的 <code>pulsar</code> 已经处于正常的工作状态了.</p>
+<h1 id=笔记>笔记</h1>
+<ol>
+<li>function worker会使用到Dlog，直接连接的ZK.</li>
+<li>有状态的pulsar function会使用到BK的table service,而table service似乎也是连接ZK.</li>
+</ol>
+<h1 id=注意>注意</h1>
+<p>本文还在持续创作当中.</p>
+<h2>微信公众号</h2>
+<p>扫描下面的二维码关注我们的微信公众号,第一时间查看最新内容。同时也可以关注我的Github，看看我都在了解什么技术，在页面底部可以找到我的Github。</p>
+<img src=https://res.cloudinary.com/lyp/image/upload/v1581729955/hugo/blog.github.io/qrcode_for_sikekafeidou.jpg alt=wechat-account-qrcode>
+<hr>
+<ul class=pager>
+<li class=previous>
+<a href=/post/fundation-rust/introducing-shane-miller/ data-toggle=tooltip data-placement=top title="[了解Rust基金会]介绍Shane Miller">&larr; [了解Rust基金会]介绍Shane Miller</a>
+</li>
+<li class=next>
+<a href=/post/cncf-prometheus/prometheus-v2.28.1-update/ data-toggle=tooltip data-placement=top title=Prometheus2.28.1更新讲解>Prometheus2.28.1更新讲解 &rarr;</a>
+</li>
+</ul>
+<script src=https://utteranc.es/client.js repo=liangyuanpeng/liangyuanpeng.github.io issue-term=title theme=github-light crossorigin=anonymous async></script>
+</div>
+<div class="col-lg-8 col-lg-offset-2
 col-md-10 col-md-offset-1
-sidebar-container"><section><hr class="hidden-sm hidden-xs"><h5><a href=/tags/>FEATURED TAGS</a></h5><div class=tags><a href=/tags/blog title=blog>blog</a>
-<a href=/tags/bookkeeper title=bookkeeper>bookkeeper</a>
-<a href=/tags/chirpstack title=chirpstack>chirpstack</a>
-<a href=/tags/ci/cd title=ci/cd>ci/cd</a>
-<a href=/tags/cloudnative title=cloudnative>cloudnative</a>
-<a href=/tags/cncf title=cncf>cncf</a>
-<a href=/tags/contour title=contour>contour</a>
-<a href=/tags/docker title=docker>docker</a>
-<a href=/tags/docker-compose title=docker-compose>docker-compose</a>
-<a href=/tags/envoy title=envoy>envoy</a>
-<a href=/tags/fluentd title=fluentd>fluentd</a>
-<a href=/tags/foundation title=foundation>foundation</a>
-<a href=/tags/golang title=golang>golang</a>
-<a href=/tags/hugo title=hugo>hugo</a>
-<a href=/tags/image title=image>image</a>
-<a href=/tags/iot title=iot>iot</a>
-<a href=/tags/k8s title=k8s>k8s</a>
-<a href=/tags/kubernetes title=kubernetes>kubernetes</a>
-<a href=/tags/kubesphere title=kubesphere>kubesphere</a>
-<a href=/tags/lorawan title=lorawan>lorawan</a>
-<a href=/tags/metrics title=metrics>metrics</a>
-<a href=/tags/middleware title=middleware>middleware</a>
-<a href=/tags/monitor title=monitor>monitor</a>
-<a href=/tags/mq title=mq>mq</a>
-<a href=/tags/nginx title=nginx>nginx</a>
-<a href=/tags/ops title=ops>ops</a>
-<a href=/tags/prometheus title=prometheus>prometheus</a>
-<a href=/tags/pulsar title=pulsar>pulsar</a>
-<a href=/tags/rpc title=rpc>rpc</a>
-<a href=/tags/rust title=rust>rust</a>
-<a href=/tags/sofa title=sofa>sofa</a>
-<a href=/tags/sofastack title=sofastack>sofastack</a>
-<a href=/tags/springboot title=springboot>springboot</a>
-<a href=/tags/tech title=tech>tech</a></div></section></div><div class="col-lg- col-lg-offset-2
-col-md-10 col-md-offset-1"><section><hr class="hidden-sm hidden-xs"><h2>相关文章</h2><ul style=margin-bottom:25px><li><a href=/post/cncf-kubernetes/k8s-multi-tenancy-guide/>Kubernetes多租户–最佳实践指南</a></li><li><a href=/post/cncf-longhorn/k8s-deploy-longhorn/>kubernetes部署longhorn</a></li><li><a href=/post/cncf-prometheus/prometheus-coredns-sd/>prometheus对接CoreDNS实现服务发现</a></li><li><a href=/post/cncf-openkruise/openkruise-column/>OpenKruise专栏介绍</a></li><li><a href=/post/cncf-kubernetes/kubeadm-deploy-kubernetes-lank8scn/>kubeadm配合短域名lank8s.cn部署kubernetes</a></li><li><a href=/post/cncf-kubernetes/k8s-client-go-source-2/>k8s-client-go源码剖析(二)</a></li><li><a href=/post/cncf-fluentd/fluentd-logdrive-docker/>使用fluentd作为docker日志驱动收集日志</a></li><li><a href=/post/cncf-fluentd/fluentd-quickstart/>fluentd语法入门</a></li><li><a href=/post/deploy-minio/>docker部署minio</a></li><li><a href=/post/ballerina-hello-world/>云原生编程语言ballerina:hello-world</a></li></ul></section></div></div></div></article><footer><div class=container><div class=row><div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1"><ul class="list-inline text-center"><li><a href rel=alternate type=application/rss+xml title="Hi,I`m lan"><span class="fa-stack fa-lg"><i class="fa fa-circle fa-stack-2x"></i><i class="fa fa-rss fa-stack-1x fa-inverse"></i></span></a></li><li><a target=_blank href=https://github.com/liangyuanpeng><span class="fa-stack fa-lg"><i class="fa fa-circle fa-stack-2x"></i><i class="fa fa-github fa-stack-1x fa-inverse"></i></span></a></li><li><a href=mailto:liangyuanpengem@163.com><span class="fa-stack fa-lg"><i class="fa fa-circle fa-stack-2x"></i><i class="fa fa-envelope fa-stack-1x fa-inverse"></i></span></a></li><li><a href=https://twitter.com/lan31793328><span class="fa-stack fa-lg"><i class="fa fa-circle fa-stack-2x"></i><i class="fa fa-twitter fa-stack-1x fa-inverse"></i></span></a></li><li><a target=_blank href=https://www.zhihu.com/people/liangyuanpeng><span class="fa-stack fa-lg"><i class="fa fa-circle fa-stack-2x"></i><i class="fa fa-stack-1x fa-inverse">知</i></span></a></li><li><a target=_blank href=https://weibo.com/u/1908782280><span class="fa-stack fa-lg"><i class="fa fa-circle fa-stack-2x"></i><i class="fa fa-weibo fa-stack-1x fa-inverse"></i></span></a></li></ul><p class="copyright text-muted">Copyright &copy; Hi,I`m lan , 2021<br><a href=https://themes.gohugo.io/hugo-theme-cleanwhite>CleanWhite Hugo Theme</a> by <a href=https://zhaohuabing.com>Huabing</a> |
-<iframe style=margin-left:2px;margin-bottom:-5px frameborder=0 scrolling=0 width=100px height=20px src="https://ghbtns.com/github-btn.html?user=zhaohuabing&repo=hugo-theme-cleanwhite&type=star&count=true"></iframe></p></div></div></div></footer><script>function async(u,c){var d=document,t='script',o=d.createElement(t),s=d.getElementsByTagName(t)[0];o.src=u;if(c){o.addEventListener('load',function(e){c(null,e);},false);}
-s.parentNode.insertBefore(o,s);}</script><script>if($('#tag_cloud').length!==0){async("/js/jquery.tagcloud.js",function(){$.fn.tagcloud.defaults={color:{start:'#bbbbee',end:'#0085a1'},};$('#tag_cloud a').tagcloud();})}</script><script>async("https://cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.js",function(){var $nav=document.querySelector("nav");if($nav)FastClick.attach($nav);})</script><script>var _baId='fad9c137f8ce239f9b323d36c871f8e6';var _hmt=_hmt||[];(function(){var hm=document.createElement("script");hm.src="//hm.baidu.com/hm.js?"+_baId;var s=document.getElementsByTagName("script")[0];s.parentNode.insertBefore(hm,s);})();</script><script async src="https://www.googletagmanager.com/gtag/js?id=G-RTTRHGYFWL"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}
-gtag('js',new Date());gtag('config','G-RTTRHGYFWL');</script></body></html>
+sidebar-container">
+<section>
+<hr class="hidden-sm hidden-xs">
+<h5><a href=/tags/>FEATURED TAGS</a></h5>
+<div class=tags>
+<a href=/tags/blog title=blog>
+blog
+</a>
+<a href=/tags/bookkeeper title=bookkeeper>
+bookkeeper
+</a>
+<a href=/tags/chirpstack title=chirpstack>
+chirpstack
+</a>
+<a href=/tags/ci/cd title=ci/cd>
+ci/cd
+</a>
+<a href=/tags/cloudnative title=cloudnative>
+cloudnative
+</a>
+<a href=/tags/cncf title=cncf>
+cncf
+</a>
+<a href=/tags/contour title=contour>
+contour
+</a>
+<a href=/tags/docker title=docker>
+docker
+</a>
+<a href=/tags/docker-compose title=docker-compose>
+docker-compose
+</a>
+<a href=/tags/envoy title=envoy>
+envoy
+</a>
+<a href=/tags/fluentd title=fluentd>
+fluentd
+</a>
+<a href=/tags/foundation title=foundation>
+foundation
+</a>
+<a href=/tags/golang title=golang>
+golang
+</a>
+<a href=/tags/hugo title=hugo>
+hugo
+</a>
+<a href=/tags/image title=image>
+image
+</a>
+<a href=/tags/iot title=iot>
+iot
+</a>
+<a href=/tags/k8s title=k8s>
+k8s
+</a>
+<a href=/tags/kubernetes title=kubernetes>
+kubernetes
+</a>
+<a href=/tags/kubesphere title=kubesphere>
+kubesphere
+</a>
+<a href=/tags/lorawan title=lorawan>
+lorawan
+</a>
+<a href=/tags/metrics title=metrics>
+metrics
+</a>
+<a href=/tags/middleware title=middleware>
+middleware
+</a>
+<a href=/tags/monitor title=monitor>
+monitor
+</a>
+<a href=/tags/mq title=mq>
+mq
+</a>
+<a href=/tags/nginx title=nginx>
+nginx
+</a>
+<a href=/tags/ops title=ops>
+ops
+</a>
+<a href=/tags/prometheus title=prometheus>
+prometheus
+</a>
+<a href=/tags/pulsar title=pulsar>
+pulsar
+</a>
+<a href=/tags/rpc title=rpc>
+rpc
+</a>
+<a href=/tags/rust title=rust>
+rust
+</a>
+<a href=/tags/sofa title=sofa>
+sofa
+</a>
+<a href=/tags/sofastack title=sofastack>
+sofastack
+</a>
+<a href=/tags/springboot title=springboot>
+springboot
+</a>
+<a href=/tags/tech title=tech>
+tech
+</a>
+</div>
+</section>
+</div>
+<div class="col-lg- col-lg-offset-2
+col-md-10 col-md-offset-1">
+<section>
+<hr class="hidden-sm hidden-xs">
+<h2>相关文章</h2>
+<ul style=margin-bottom:25px>
+<li><a href=/post/cncf-kubernetes/k8s-multi-tenancy-guide/>Kubernetes多租户–最佳实践指南</a></li>
+<li><a href=/post/cncf-longhorn/k8s-deploy-longhorn/>kubernetes部署longhorn</a></li>
+<li><a href=/post/cncf-prometheus/prometheus-coredns-sd/>prometheus对接CoreDNS实现服务发现</a></li>
+<li><a href=/post/cncf-openkruise/openkruise-column/>OpenKruise专栏介绍</a></li>
+<li><a href=/post/cncf-kubernetes/kubeadm-deploy-kubernetes-lank8scn/>kubeadm配合短域名lank8s.cn部署kubernetes</a></li>
+<li><a href=/post/cncf-kubernetes/k8s-client-go-source-2/>k8s-client-go源码剖析(二)</a></li>
+<li><a href=/post/cncf-fluentd/fluentd-logdrive-docker/>使用fluentd作为docker日志驱动收集日志</a></li>
+<li><a href=/post/cncf-fluentd/fluentd-quickstart/>fluentd语法入门</a></li>
+<li><a href=/post/deploy-minio/>docker部署minio</a></li>
+<li><a href=/post/ballerina-hello-world/>云原生编程语言ballerina:hello-world</a></li>
+</ul>
+</section>
+</div>
+</div>
+</div>
+</article>
+<footer>
+<div class=container>
+<div class=row>
+<div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+<ul class="list-inline text-center">
+<li>
+<a href rel=alternate type=application/rss+xml title="Hi,I`m lan">
+<span class="fa-stack fa-lg">
+<i class="fa fa-circle fa-stack-2x"></i>
+<i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+</span>
+</a>
+</li>
+<li>
+<a target=_blank href=https://github.com/liangyuanpeng>
+<span class="fa-stack fa-lg">
+<i class="fa fa-circle fa-stack-2x"></i>
+<i class="fa fa-github fa-stack-1x fa-inverse"></i>
+</span>
+</a>
+</li>
+<li>
+<a href=mailto:liangyuanpengem@163.com>
+<span class="fa-stack fa-lg">
+<i class="fa fa-circle fa-stack-2x"></i>
+<i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
+</span>
+</a>
+</li>
+<li>
+<a href=https://twitter.com/lan31793328>
+<span class="fa-stack fa-lg">
+<i class="fa fa-circle fa-stack-2x"></i>
+<i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+</span>
+</a>
+</li>
+<li>
+<a target=_blank href=https://www.zhihu.com/people/liangyuanpeng>
+<span class="fa-stack fa-lg">
+<i class="fa fa-circle fa-stack-2x"></i>
+<i class="fa fa-stack-1x fa-inverse">知</i>
+</span>
+</a>
+</li>
+<li>
+<a target=_blank href=https://weibo.com/u/1908782280>
+<span class="fa-stack fa-lg">
+<i class="fa fa-circle fa-stack-2x"></i>
+<i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+</span>
+</a>
+</li>
+</ul>
+<p class="copyright text-muted">
+Copyright &copy; Hi,I`m lan , 2021
+<br>
+<a href=https://themes.gohugo.io/hugo-theme-cleanwhite>CleanWhite Hugo Theme</a> by <a href=https://zhaohuabing.com>Huabing</a> |
+<iframe style=margin-left:2px;margin-bottom:-5px frameborder=0 scrolling=0 width=100px height=20px src="https://ghbtns.com/github-btn.html?user=zhaohuabing&repo=hugo-theme-cleanwhite&type=star&count=true"></iframe>
+</p>
+</div>
+</div>
+</div>
+</footer>
+<script>function async(f,b){var c=document,d='script',a=c.createElement(d),e=c.getElementsByTagName(d)[0];a.src=f,b&&a.addEventListener('load',function(a){b(null,a)},!1),e.parentNode.insertBefore(a,e)}</script>
+<script>$('#tag_cloud').length!==0&&async("/js/jquery.tagcloud.js",function(){$.fn.tagcloud.defaults={color:{start:'#bbbbee',end:'#0085a1'}},$('#tag_cloud a').tagcloud()})</script>
+<script>async("https://cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.js",function(){var a=document.querySelector("nav");a&&FastClick.attach(a)})</script>
+<script>var _baId='fad9c137f8ce239f9b323d36c871f8e6',_hmt=_hmt||[];(function(){var a=document.createElement("script"),b;a.src="//hm.baidu.com/hm.js?"+_baId,b=document.getElementsByTagName("script")[0],b.parentNode.insertBefore(a,b)})()</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-RTTRHGYFWL"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date),gtag('config','G-RTTRHGYFWL')</script>
+</body>
+</html>
