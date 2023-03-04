@@ -1,0 +1,509 @@
+<!doctype html><html lang=en-us>
+<head><head>
+<meta name=google-site-verification content="9vIieCe-Qpd78QOmBl63rGtIVbhY6sYyuxX3j8XWBA4">
+<meta name=baidu-site-verification content="LRrmH41lz7">
+<meta charset=utf-8>
+<meta http-equiv=x-ua-compatible content="IE=edge">
+<meta name=google-site-verification content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
+<meta name=viewport content="width=device-width,initial-scale=1">
+<meta name=baidu-site-verification content="HGLXRsUXC4">
+<meta name=baidu-site-verification content="code-ANZvlnN0Xr">
+<meta name=description content="lan，工程师⎈, OpenYurt Member,CDF中文本地化SIG成员,开源爱好者 | 公众号:四颗咖啡豆">
+<meta name=keyword content="liangyuanpeng|LanLiang|OpenYurt|Knative|Pulsar|Prometheus|Halo||边缘计算kubernetes|Docker|CloudNative|Golang|Rust|Istio|微服务">
+<link rel="shortcut icon" href=img/logo.png>
+<meta property="og:image" content="https://res.cloudinary.com/lyp/image/upload/v1543506262/hugo/blog.github.io/apache-rocketMQ-introduction/7046d2bf0d97278682129887309cc1a6.jpg">
+<meta name=twitter:image content="https://res.cloudinary.com/lyp/image/upload/v1543506262/hugo/blog.github.io/apache-rocketMQ-introduction/7046d2bf0d97278682129887309cc1a6.jpg">
+<title>flomesh-ingress浅试-liangyuanpeng的博客 | liangyuanpeng's Blog</title>
+<link rel=canonical href=/post/cncf-kubernetes/flomesh-ingress-quickstart/>
+<link rel=stylesheet href=https://res.cloudinary.com/lyp/raw/upload/v1537369740/hugo/css/iDisqus.min.css>
+<link rel=stylesheet href=https://res.cloudinary.com/lyp/raw/upload/v1537369744/hugo/css/bootstrap.min.css>
+<link rel=stylesheet href=https://res.cloudinary.com/lyp/raw/upload/v1537369740/hugo/css/hux-blog.min.css>
+<link rel=stylesheet href=https://res.cloudinary.com/lyp/raw/upload/v1537369740/hugo/css/syntax.css>
+<link href=//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css rel=stylesheet type=text/css>
+<script src=https://res.cloudinary.com/lyp/raw/upload/v1537369966/hugo/js/jquery.min.js></script>
+<script src=https://res.cloudinary.com/lyp/raw/upload/v1537369966/hugo/js/bootstrap.min.js></script>
+<script src=https://res.cloudinary.com/lyp/raw/upload/v1537369964/hugo/js/hux-blog.min.js></script>
+<script defer src=https://static.cloudflareinsights.com/beacon.min.js data-cf-beacon='{"token": "f73bc0092aeb491d89984c0eb5a87ac2"}'></script>
+</head>
+</head>
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+<div class=container-fluid>
+<div class="navbar-header page-scroll">
+<button type=button class=navbar-toggle>
+<span class=sr-only>Toggle navigation</span>
+<span class=icon-bar></span>
+<span class=icon-bar></span>
+<span class=icon-bar></span>
+</button>
+<a class=navbar-brand href=/>Hi,I`m lan</a>
+</div>
+<div id=huxblog_navbar>
+<div class=navbar-collapse>
+<ul class="nav navbar-nav navbar-right">
+<li>
+<a href=/>Home</a>
+</li>
+<li>
+<a href=categories/cloudnative>cloudnative</a>
+</li>
+<li>
+<a href=categories/devops>devops</a>
+</li>
+<li>
+<a href=categories/iot>iot</a>
+</li>
+<li>
+<a href=categories/kubernetes>kubernetes</a>
+</li>
+<li>
+<a href=categories/tech>tech</a>
+</li>
+<li>
+<a href=search>SEARCH <img src=img/search.png height=15 style=cursor:pointer></a>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</nav>
+<script>var $body=document.body,$toggle=document.querySelector('.navbar-toggle'),$navbar=document.querySelector('#huxblog_navbar'),$collapse=document.querySelector('.navbar-collapse');$toggle.addEventListener('click',handleMagic);function handleMagic(a){$navbar.className.indexOf('in')>0?($navbar.className=" ",setTimeout(function(){$navbar.className.indexOf('in')<0&&($collapse.style.height="0px")},400)):($collapse.style.height="auto",$navbar.className+=" in")}</script>
+<style type=text/css>header.intro-header{background-image:url(https://res.cloudinary.com/lyp/image/upload/v1543506262/hugo/blog.github.io/apache-rocketMQ-introduction/7046d2bf0d97278682129887309cc1a6.jpg)}</style>
+<header class=intro-header>
+<div class=container>
+<div class=row>
+<div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+<div class=post-heading>
+<div class=tags>
+<a class=tag href=/tags/flomesh title=flomesh>
+flomesh
+</a>
+<a class=tag href=/tags/fsm title=fsm>
+fsm
+</a>
+<a class=tag href=/tags/kubernetes title=kubernetes>
+kubernetes
+</a>
+</div>
+<h1>flomesh-ingress浅试</h1>
+<h2 class=subheading></h2>
+<span class=meta>Posted by 梁远鹏 on 2023-03-03
+<span id=busuanzi_container_page_pv>|<span id=busuanzi_value_page_pv></span><span>
+<span id=/post/cncf-kubernetes/flomesh-ingress-quickstart/ class="leancloud_visitors meta_data_item" data-flag-title>
+<span class=post-meta-item-icon>
+<span class="octicon octicon-eye"></span>
+</span>
+<i class="fa fa-eye"></i>
+<span class=old-visitors-count style=display:none></span>
+<span class=leancloud-visitors-count></span>
+</span>
+阅读 </span></span>|<span class=post-date>共1042字</span>，阅读约<span class=more-meta> 3 分钟</span>
+</span>
+</div>
+</div>
+</div>
+</div>
+</header>
+<article>
+<div class=container>
+<div class=row>
+<div class="col-lg-8 col-lg-offset-2
+col-md-10 col-md-offset-1
+post-container">
+<header>
+<h2>TOC</h2>
+</header>
+<nav id=TableOfContents>
+<ul>
+<li><a href=#版本信息>版本信息</a></li>
+<li><a href=#kind-配置文件>Kind 配置文件</a></li>
+</ul>
+<ul>
+<li><a href=#部署fsm>部署fsm</a></li>
+<li><a href=#创建ingress>创建ingress</a></li>
+<li><a href=#部署后端服务httpbin>部署后端服务httpbin</a></li>
+</ul>
+</nav>
+<h1 id=heading></h1>
+<h1 id=前提>前提</h1>
+<p>在开始之前,你需要以下前提准备.</p>
+<p>对于本文来说使用的 K8S 环境是基于 Kind 来搭建的,因此将 Kind 命令写在前提内,但是如果你使用了其他工具搭建 K8S 或已经有 K8S 集群了,那么这是非必须的.</p>
+<ul>
+<li>helm v3</li>
+<li>kubernetes 集群</li>
+<li>Kind (用于搭建 K8S 环境,非必须)</li>
+</ul>
+<h2 id=版本信息>版本信息</h2>
+<p>本文基于以下环境信息</p>
+<ul>
+<li>kubernetes v1.26.0</li>
+<li>fsm helm chart fsm-0.2.3</li>
+</ul>
+<h2 id=kind-配置文件>Kind 配置文件</h2>
+<p>对于 Kind 的配置,这里贴出本文所使用的配置文件,同时也提供一个在线地址,因此你可以直接<a href=https://liangyuanpeng.com/files/kind/v1alpha4/kind.yaml>下载配置文件</a>来使用.</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml><span style=color:#f92672>kind</span>: <span style=color:#ae81ff>Cluster</span>
+<span style=color:#f92672>apiVersion</span>: <span style=color:#ae81ff>kind.x-k8s.io/v1alpha4</span>
+<span style=color:#f92672>containerdConfigPatches</span>:
+- |-<span style=color:#e6db74>
+</span><span style=color:#e6db74>  [plugins.&#34;io.containerd.grpc.v1.cri&#34;.registry.mirrors.&#34;gcr.io&#34;]
+</span><span style=color:#e6db74>    endpoint = [&#34;https://gcr.lank8s.cn&#34;]
+</span><span style=color:#e6db74>  [plugins.&#34;io.containerd.grpc.v1.cri&#34;.registry.mirrors.&#34;k8s.gcr.io&#34;]
+</span><span style=color:#e6db74>    endpoint = [&#34;https://k8s.lank8s.cn&#34;]
+</span><span style=color:#e6db74>  [plugins.&#34;io.containerd.grpc.v1.cri&#34;.registry.mirrors.&#34;registry.k8s.io&#34;]
+</span><span style=color:#e6db74>    endpoint = [&#34;https://registry.lank8s.cn&#34;]</span>  
+</code></pre></div><h1 id=部署>部署</h1>
+<h2 id=部署fsm>部署fsm</h2>
+<p>首先使用 helm 安装 fsm:</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell>helm repo add fsm https://charts.flomesh.io
+helm install fsm fsm/fsm --namespace flomesh --create-namespace
+</code></pre></div><p>顺利的话可以看到 flomesh 这个 namespace 下所有的 pod 都运行起来了.</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell>oem@lan:~$ k get po -n flomesh                                                                                                                                          
+NAME                                READY   STATUS    RESTARTS   AGE
+fsm-ingress-pipy-65958fd9d6-v46vl   1/1     Running   <span style=color:#ae81ff>0</span>          3h15m
+fsm-manager-9c7665764-8wcvv         1/1     Running   <span style=color:#ae81ff>0</span>          3h15m
+fsm-repo-89cb68547-kv94n            1/1     Running   <span style=color:#ae81ff>0</span>          3h15m
+</code></pre></div><h2 id=创建ingress>创建ingress</h2>
+<p>使用在线文件:</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell>kubectl apply -f https://liangyuanpeng.com/files/flomesh-ingress-quickstart/ingress.yaml
+</code></pre></div><p>使用下述文件,自行保存下述内容到文件中然后应用:</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell>kubectl apply -f ingress.yaml
+</code></pre></div><p>ingress.yaml</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml><span style=color:#f92672>apiVersion</span>: <span style=color:#ae81ff>networking.k8s.io/v1</span>
+<span style=color:#f92672>kind</span>: <span style=color:#ae81ff>Ingress</span>
+<span style=color:#f92672>metadata</span>:
+  <span style=color:#f92672>name</span>: <span style=color:#ae81ff>httpbin</span>
+  <span style=color:#f92672>labels</span>:
+    <span style=color:#f92672>app</span>: <span style=color:#ae81ff>httpbin</span>
+    <span style=color:#f92672>controller</span>: <span style=color:#ae81ff>pipy</span>
+<span style=color:#f92672>spec</span>:
+  <span style=color:#f92672>ingressClassName</span>: <span style=color:#ae81ff>pipy</span>
+  <span style=color:#f92672>rules</span>:
+    - <span style=color:#f92672>host</span>: <span style=color:#ae81ff>lan.local</span>
+      <span style=color:#f92672>http</span>:
+        <span style=color:#f92672>paths</span>:
+          - <span style=color:#f92672>path</span>: <span style=color:#ae81ff>/ip</span>
+            <span style=color:#f92672>pathType</span>: <span style=color:#ae81ff>Exact</span>
+            <span style=color:#f92672>backend</span>:
+              <span style=color:#f92672>service</span>:
+                <span style=color:#f92672>name</span>: <span style=color:#ae81ff>httpbin</span>
+                <span style=color:#f92672>port</span>:
+                  <span style=color:#f92672>number</span>: <span style=color:#ae81ff>80</span>
+          - <span style=color:#f92672>path</span>: <span style=color:#ae81ff>/</span>
+            <span style=color:#f92672>pathType</span>: <span style=color:#ae81ff>Prefix</span>
+            <span style=color:#f92672>backend</span>:
+              <span style=color:#f92672>service</span>:
+                <span style=color:#f92672>name</span>: <span style=color:#ae81ff>httpbin</span>
+                <span style=color:#f92672>port</span>:
+                  <span style=color:#f92672>number</span>: <span style=color:#ae81ff>80</span>
+</code></pre></div><h2 id=部署后端服务httpbin>部署后端服务httpbin</h2>
+<p>使用在线文件:</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell>kubectl apply -f https://liangyuanpeng.com/files/exampleapp/httpbin.yaml
+</code></pre></div><p>使用下述文件,自行保存下述内容到文件中然后应用:</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell>kubectl apply -f httpbin.yaml
+</code></pre></div><p>httpbin.yaml</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml><span style=color:#f92672>apiVersion</span>: <span style=color:#ae81ff>apps/v1</span>
+<span style=color:#f92672>kind</span>: <span style=color:#ae81ff>Deployment</span>
+<span style=color:#f92672>metadata</span>:
+  <span style=color:#f92672>labels</span>:
+    <span style=color:#f92672>app</span>: <span style=color:#ae81ff>httpbin</span>
+  <span style=color:#f92672>name</span>: <span style=color:#ae81ff>httpbin</span>
+<span style=color:#f92672>spec</span>:
+  <span style=color:#f92672>replicas</span>: <span style=color:#ae81ff>3</span>
+  <span style=color:#f92672>selector</span>:
+    <span style=color:#f92672>matchLabels</span>:
+      <span style=color:#f92672>app</span>: <span style=color:#ae81ff>httpbin</span>
+  <span style=color:#f92672>template</span>:
+    <span style=color:#f92672>metadata</span>:
+      <span style=color:#f92672>labels</span>:
+        <span style=color:#f92672>app</span>: <span style=color:#ae81ff>httpbin</span>
+    <span style=color:#f92672>spec</span>:
+      <span style=color:#f92672>containers</span>:
+        - <span style=color:#f92672>image</span>: <span style=color:#ae81ff>docker.io/kennethreitz/httpbin</span>
+          <span style=color:#f92672>name</span>: <span style=color:#ae81ff>httpbin</span>
+---
+<span style=color:#f92672>apiVersion</span>: <span style=color:#ae81ff>v1</span>
+<span style=color:#f92672>kind</span>: <span style=color:#ae81ff>Service</span>
+<span style=color:#f92672>metadata</span>:
+  <span style=color:#f92672>labels</span>:
+    <span style=color:#f92672>app</span>: <span style=color:#ae81ff>httpbin</span>
+  <span style=color:#f92672>name</span>: <span style=color:#ae81ff>httpbin</span>
+<span style=color:#f92672>spec</span>:
+  <span style=color:#f92672>ports</span>:
+    - <span style=color:#f92672>port</span>: <span style=color:#ae81ff>80</span>
+      <span style=color:#f92672>protocol</span>: <span style=color:#ae81ff>TCP</span>
+      <span style=color:#f92672>targetPort</span>: <span style=color:#ae81ff>80</span>
+  <span style=color:#f92672>selector</span>:
+    <span style=color:#f92672>app</span>: <span style=color:#ae81ff>httpbin</span>
+  <span style=color:#f92672>sessionAffinity</span>: <span style=color:#ae81ff>None</span>
+  <span style=color:#f92672>type</span>: <span style=color:#ae81ff>ClusterIP</span>
+</code></pre></div><h1 id=测试一下>测试一下!</h1>
+<p>首先恭喜,你已经安装了 flomesh ingress controller 和 httpbin.</p>
+<p>你可以检查一下目前所有 pod 是否都已经准备就绪了:</p>
+<p>检查 httpbin 相关内容:</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell>oem@lan:~$ kubectl get po,svc,ing -l app<span style=color:#f92672>=</span>httpbin
+NAME                           READY   STATUS    RESTARTS      AGE
+pod/httpbin-749b466b9c-5m54z   1/1     Running   <span style=color:#ae81ff>0</span>             7s
+pod/httpbin-749b466b9c-7vgh6   1/1     Running   <span style=color:#ae81ff>1</span> <span style=color:#f92672>(</span>73m ago<span style=color:#f92672>)</span>   10h
+pod/httpbin-749b466b9c-86cgc   1/1     Running   <span style=color:#ae81ff>0</span>             7s
+
+NAME              TYPE        CLUSTER-IP      EXTERNAL-IP   PORT<span style=color:#f92672>(</span>S<span style=color:#f92672>)</span>   AGE
+service/httpbin   ClusterIP   10.96.201.220   &lt;none&gt;        80/TCP    11h
+
+NAME                                CLASS   HOSTS       ADDRESS   PORTS   AGE
+ingress.networking.k8s.io/httpbin   pipy    lan.local             <span style=color:#ae81ff>80</span>      11h
+</code></pre></div><p>正常来说你会看到上述三个内容:</p>
+<ul>
+<li>3 个准备就绪的 httpbin 的 pod</li>
+<li>一个带有 80 端口号的 httpbin svc</li>
+<li>一个匹配 lan.local 域名并且匹配端口号 80 的一个 ingress</li>
+</ul>
+<p>检查 flomesh ingress 相关内容:</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell>oem@lan:~$ kubectl get po -n flomesh
+NAME                                READY   STATUS    RESTARTS      AGE
+fsm-ingress-pipy-65958fd9d6-v46vl   1/1     Running   <span style=color:#ae81ff>1</span> <span style=color:#f92672>(</span>75m ago<span style=color:#f92672>)</span>   14h
+fsm-manager-9c7665764-8wcvv         1/1     Running   <span style=color:#ae81ff>1</span> <span style=color:#f92672>(</span>75m ago<span style=color:#f92672>)</span>   14h
+fsm-repo-89cb68547-kv94n            1/1     Running   <span style=color:#ae81ff>1</span> <span style=color:#f92672>(</span>75m ago<span style=color:#f92672>)</span>   14h
+</code></pre></div><p>正常来说你会看到以下准备就绪的 pod (只检查了 pod 资源):</p>
+<ul>
+<li>fsm-ingress-pipy</li>
+<li>fsm-manager</li>
+<li>fsm-repo</li>
+</ul>
+<p>接下来使用<code>kubectl port-forward</code> 来暴露流量进行测试:</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell>kubectl -n flomesh port-forward service/fsm-ingress-pipy-controller 8888:80
+</code></pre></div><p>来测试一下访问效果:</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell>oem@lan:~$ curl -H <span style=color:#e6db74>&#34;host: lan.local&#34;</span> localhost:8888/ip 
+<span style=color:#f92672>{</span>
+  <span style=color:#e6db74>&#34;origin&#34;</span>: <span style=color:#e6db74>&#34;10.244.0.4&#34;</span>
+<span style=color:#f92672>}</span>
+oem@lan:~$ curl -H <span style=color:#e6db74>&#34;host: lan.local&#34;</span> localhost:8888/headers
+<span style=color:#f92672>{</span>
+  <span style=color:#e6db74>&#34;headers&#34;</span>: <span style=color:#f92672>{</span>
+    <span style=color:#e6db74>&#34;Accept&#34;</span>: <span style=color:#e6db74>&#34;*/*&#34;</span>, 
+    <span style=color:#e6db74>&#34;Connection&#34;</span>: <span style=color:#e6db74>&#34;keep-alive&#34;</span>, 
+    <span style=color:#e6db74>&#34;Content-Length&#34;</span>: <span style=color:#e6db74>&#34;0&#34;</span>, 
+    <span style=color:#e6db74>&#34;Host&#34;</span>: <span style=color:#e6db74>&#34;lan.local&#34;</span>, 
+    <span style=color:#e6db74>&#34;User-Agent&#34;</span>: <span style=color:#e6db74>&#34;curl/7.81.0&#34;</span>
+  <span style=color:#f92672>}</span>
+<span style=color:#f92672>}</span>
+</code></pre></div><p>如果你也在使用上述示例命令后也能看到类似的结果,那么恭喜你已经成功部署了一个后端应用服务,创建了 ingress 并且基于 flomesh ingress controller 来将流量路由到了后端应用服务.</p>
+<p>注意上述示例中为请求添加了 <code>host: lan.local</code> 的 header,与 ingress 中 host 设定的值是一致的,如果你希望使用其他值需要修改成一样的内容.</p>
+<h1 id=下一步>下一步</h1>
+<p>在2023年的今天, Gateway API 还处于一个 v1beta1 的版本,但是诸多的 ingress controller 都纷纷跟进,实现了 Gateway API,但是从<a href=https://gateway-api.sigs.k8s.io/implementations/>Gateway API官网</a>看到 fsm 还不支持 Gateway API,显示的状态是 work in progress,意味着开发中,但目前不支持.</p>
+<p>期待 fsm 支持 Gateway API 的那一天,然后就可以进行下一步:基于 Gateway API 尝试 FSM 流量管理.</p>
+<h2>微信公众号</h2>
+<p>扫描下面的二维码关注我们的微信公众号,第一时间查看最新内容。同时也可以关注我的Github，看看我都在了解什么技术，在页面底部可以找到我的Github。</p>
+<img src=https://res.cloudinary.com/lyp/image/upload/v1581729955/hugo/blog.github.io/qrcode_for_sikekafeidou.jpg alt=wechat-account-qrcode>
+<hr>
+<ul class=pager>
+<li class=previous>
+<a href=/post/cncf-carvel/ytt-vs-x/ data-toggle=tooltip data-placement=top title=ytt与各类yaml相关工具对比>&larr; ytt与各类yaml相关工具对比</a>
+</li>
+</ul>
+<script src=https://utteranc.es/client.js repo=liangyuanpeng/liangyuanpeng.github.io issue-term=title theme=github-light crossorigin=anonymous async></script>
+</div>
+<div class="col-lg-8 col-lg-offset-2
+col-md-10 col-md-offset-1
+sidebar-container">
+<section>
+<hr class="hidden-sm hidden-xs">
+<h5><a href=/tags/>FEATURED TAGS</a></h5>
+<div class=tags>
+<a href=/tags/blog title=blog>
+blog
+</a>
+<a href=/tags/bookkeeper title=bookkeeper>
+bookkeeper
+</a>
+<a href=/tags/chirpstack title=chirpstack>
+chirpstack
+</a>
+<a href=/tags/ci/cd title=ci/cd>
+ci/cd
+</a>
+<a href=/tags/cloudnative title=cloudnative>
+cloudnative
+</a>
+<a href=/tags/cncf title=cncf>
+cncf
+</a>
+<a href=/tags/contour title=contour>
+contour
+</a>
+<a href=/tags/docker title=docker>
+docker
+</a>
+<a href=/tags/docker-compose title=docker-compose>
+docker-compose
+</a>
+<a href=/tags/envoy title=envoy>
+envoy
+</a>
+<a href=/tags/fluentd title=fluentd>
+fluentd
+</a>
+<a href=/tags/foundation title=foundation>
+foundation
+</a>
+<a href=/tags/golang title=golang>
+golang
+</a>
+<a href=/tags/hugo title=hugo>
+hugo
+</a>
+<a href=/tags/image title=image>
+image
+</a>
+<a href=/tags/iot title=iot>
+iot
+</a>
+<a href=/tags/k8s title=k8s>
+k8s
+</a>
+<a href=/tags/kubernetes title=kubernetes>
+kubernetes
+</a>
+<a href=/tags/kubesphere title=kubesphere>
+kubesphere
+</a>
+<a href=/tags/lorawan title=lorawan>
+lorawan
+</a>
+<a href=/tags/metrics title=metrics>
+metrics
+</a>
+<a href=/tags/middleware title=middleware>
+middleware
+</a>
+<a href=/tags/monitor title=monitor>
+monitor
+</a>
+<a href=/tags/mq title=mq>
+mq
+</a>
+<a href=/tags/nginx title=nginx>
+nginx
+</a>
+<a href=/tags/ops title=ops>
+ops
+</a>
+<a href=/tags/prometheus title=prometheus>
+prometheus
+</a>
+<a href=/tags/pulsar title=pulsar>
+pulsar
+</a>
+<a href=/tags/rpc title=rpc>
+rpc
+</a>
+<a href=/tags/rust title=rust>
+rust
+</a>
+<a href=/tags/sofa title=sofa>
+sofa
+</a>
+<a href=/tags/sofastack title=sofastack>
+sofastack
+</a>
+<a href=/tags/springboot title=springboot>
+springboot
+</a>
+<a href=/tags/tech title=tech>
+tech
+</a>
+</div>
+</section>
+</div>
+<div class="col-lg- col-lg-offset-2
+col-md-10 col-md-offset-1">
+<section>
+<hr class="hidden-sm hidden-xs">
+<h2>相关文章</h2>
+<ul style=margin-bottom:25px>
+<li><a href=/post/cncf-kubernetes/compile-kubernetes/>编译kubernetes组件</a></li>
+<li><a href=/post/cncf-kubernetes/resolve-gcr.io-with-webhook-of-repalcer/>部署一个webhook,轻松解决gcr.io</a></li>
+<li><a href=/post/fundation-cncf/rust-project-in-cncf/>cncf基金会中的rust项目</a></li>
+<li><a href=/post/cncf-envoy/envoy-file-xds-with-reload-configmap/>将热更新configmap作为Envoy的XDS服务</a></li>
+<li><a href=/post/fundation-cncf/k8s-cd-argo-deploy/>k8s部署云原生CD引擎Argo</a></li>
+<li><a href=/post/cncf-kubernetes/kubernetes-qa/>kubernetes常见问题</a></li>
+<li><a href=/post/cncf-kubernetes/proxy-kube-apiserver/>反向代理kube-apiserver的请求</a></li>
+<li><a href=/post/fundation-cncf/deploy-full-ssl-etcd/>部署一个完整带SSL的etcd</a></li>
+<li><a href=/post/cncf-contour/contour-v1.18.3-release/>Contour-v1.18.3发布</a></li>
+<li><a href=/post/cncf-contour/contour-v1.20.0-beta.1-release/>Contour-v1.20.0-beta.1发布</a></li>
+</ul>
+</section>
+</div>
+</div>
+</div>
+</article>
+<footer>
+<div class=container>
+<div class=row>
+<div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+<ul class="list-inline text-center">
+<li>
+<a href rel=alternate type=application/rss+xml title="Hi,I`m lan">
+<span class="fa-stack fa-lg">
+<i class="fa fa-circle fa-stack-2x"></i>
+<i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+</span>
+</a>
+</li>
+<li>
+<a target=_blank href=https://github.com/liangyuanpeng>
+<span class="fa-stack fa-lg">
+<i class="fa fa-circle fa-stack-2x"></i>
+<i class="fa fa-github fa-stack-1x fa-inverse"></i>
+</span>
+</a>
+</li>
+<li>
+<a href=mailto:liangyuanpengem@163.com>
+<span class="fa-stack fa-lg">
+<i class="fa fa-circle fa-stack-2x"></i>
+<i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
+</span>
+</a>
+</li>
+<li>
+<a href=https://twitter.com/lan31793328>
+<span class="fa-stack fa-lg">
+<i class="fa fa-circle fa-stack-2x"></i>
+<i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+</span>
+</a>
+</li>
+<li>
+<a target=_blank href=https://www.zhihu.com/people/liangyuanpeng>
+<span class="fa-stack fa-lg">
+<i class="fa fa-circle fa-stack-2x"></i>
+<i class="fa fa-stack-1x fa-inverse">知</i>
+</span>
+</a>
+</li>
+<li>
+<a target=_blank href=https://weibo.com/u/1908782280>
+<span class="fa-stack fa-lg">
+<i class="fa fa-circle fa-stack-2x"></i>
+<i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+</span>
+</a>
+</li>
+</ul>
+<p class="copyright text-muted">
+Copyright &copy; Hi,I`m lan , 2023
+<br>
+<a href=https://themes.gohugo.io/hugo-theme-cleanwhite>CleanWhite Hugo Theme</a> by <a href=https://zhaohuabing.com>Huabing</a> |
+<iframe style=margin-left:2px;margin-bottom:-5px frameborder=0 scrolling=0 width=100px height=20px src="https://ghbtns.com/github-btn.html?user=zhaohuabing&repo=hugo-theme-cleanwhite&type=star&count=true"></iframe>
+</p>
+</div>
+</div>
+</div>
+</footer>
+<script>function async(f,b){var c=document,d='script',a=c.createElement(d),e=c.getElementsByTagName(d)[0];a.src=f,b&&a.addEventListener('load',function(a){b(null,a)},!1),e.parentNode.insertBefore(a,e)}</script>
+<script>$('#tag_cloud').length!==0&&async("/js/jquery.tagcloud.js",function(){$.fn.tagcloud.defaults={color:{start:'#bbbbee',end:'#0085a1'}},$('#tag_cloud a').tagcloud()})</script>
+<script>async("https://cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.js",function(){var a=document.querySelector("nav");a&&FastClick.attach(a)})</script>
+<script>var _baId='fad9c137f8ce239f9b323d36c871f8e6',_hmt=_hmt||[];(function(){var a=document.createElement("script"),b;a.src="//hm.baidu.com/hm.js?"+_baId,b=document.getElementsByTagName("script")[0],b.parentNode.insertBefore(a,b)})()</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-RTTRHGYFWL"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date),gtag('config','G-RTTRHGYFWL')</script>
+</body>
+</html>

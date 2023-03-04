@@ -11,10 +11,8 @@
 <meta name=description content="lan，工程师⎈, OpenYurt Member,CDF中文本地化SIG成员,开源爱好者 | 公众号:四颗咖啡豆">
 <meta name=keyword content="liangyuanpeng|LanLiang|OpenYurt|Knative|Pulsar|Prometheus|Halo||边缘计算kubernetes|Docker|CloudNative|Golang|Rust|Istio|微服务">
 <link rel="shortcut icon" href=img/logo.png>
-<meta property="og:image" content="https://res.cloudinary.com/lyp/image/upload/v1635353670/hugo/banner/pexels-helena-lopes-2253275.jpg">
-<meta name=twitter:image content="https://res.cloudinary.com/lyp/image/upload/v1635353670/hugo/banner/pexels-helena-lopes-2253275.jpg">
-<title>单独部署一个kube-apiserver-liangyuanpeng的博客 | liangyuanpeng's Blog</title>
-<link rel=canonical href=/post/cncf-kubernetes/deploy-kube-apiserver-only-with-etcd/>
+<title>flomesh-liangyuanpeng的博客 | liangyuanpeng's Blog</title>
+<link rel=canonical href=/tags/flomesh/>
 <link rel=stylesheet href=https://res.cloudinary.com/lyp/raw/upload/v1537369740/hugo/css/iDisqus.min.css>
 <link rel=stylesheet href=https://res.cloudinary.com/lyp/raw/upload/v1537369744/hugo/css/bootstrap.min.css>
 <link rel=stylesheet href=https://res.cloudinary.com/lyp/raw/upload/v1537369740/hugo/css/hux-blog.min.css>
@@ -67,73 +65,97 @@
 </div>
 </nav>
 <script>var $body=document.body,$toggle=document.querySelector('.navbar-toggle'),$navbar=document.querySelector('#huxblog_navbar'),$collapse=document.querySelector('.navbar-collapse');$toggle.addEventListener('click',handleMagic);function handleMagic(a){$navbar.className.indexOf('in')>0?($navbar.className=" ",setTimeout(function(){$navbar.className.indexOf('in')<0&&($collapse.style.height="0px")},400)):($collapse.style.height="auto",$navbar.className+=" in")}</script>
-<style type=text/css>header.intro-header{background-image:url(https://res.cloudinary.com/lyp/image/upload/v1635353670/hugo/banner/pexels-helena-lopes-2253275.jpg)}</style>
-<header class=intro-header>
+<header class=intro-header style=background-image:url(https://res.cloudinary.com/lyp/image/upload/v1537619755/hugo/banner/WechatIMG413.jpg)>
 <div class=container>
 <div class=row>
 <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-<div class=post-heading>
-<div class=tags>
-<a class=tag href=/tags/kubernetes title=kubernetes>
-kubernetes
-</a>
-<a class=tag href=/tags/cncf title=cncf>
-cncf
-</a>
-</div>
-<h1>单独部署一个kube-apiserver</h1>
-<h2 class=subheading></h2>
-<span class=meta>Posted by 梁远鹏 on 2022-01-17
-<span id=busuanzi_container_page_pv>|<span id=busuanzi_value_page_pv></span><span>
-<span id=/post/cncf-kubernetes/deploy-kube-apiserver-only-with-etcd/ class="leancloud_visitors meta_data_item" data-flag-title>
-<span class=post-meta-item-icon>
-<span class="octicon octicon-eye"></span>
-</span>
-<i class="fa fa-eye"></i>
-<span class=old-visitors-count style=display:none></span>
-<span class=leancloud-visitors-count></span>
-</span>
-阅读 </span></span>|<span class=post-date>共166字</span>，阅读约<span class=more-meta> 1 分钟</span>
-</span>
+<div class=site-heading>
+<h1>Hi,I`m lan </h1>
+<span class=subheading></span>
 </div>
 </div>
 </div>
 </div>
 </header>
-<article>
 <div class=container>
 <div class=row>
-<div class="col-lg-8 col-lg-offset-2
-col-md-10 col-md-offset-1
+<div class="col-lg-8 col-lg-offset-1
+col-md-8 col-md-offset-1
+col-sm-12
+col-xs-12
 post-container">
-<header>
-<h2>TOC</h2>
-</header>
-<nav id=TableOfContents></nav>
-<p>虽然标题是<code>"单独部署"</code>,但是更严谨的说法应该是单独部署<code>kube-apiserver</code>而不部署其他k8s组件,因为<code>kube-apiserver</code>部署依赖于<code>etcd</code>,因此我们还需要一个已经部署好的<code>etcd</code>.</p>
-<p>你可以通过文章<a href=https://liangyuanpeng.com/post/function-cncf/deploy-full-ssl-etcd>部署一个完整带SSL的etcd</a>的指引来部署一个本篇文章会使用到的etcd.</p>
-<h1 id=注意>注意</h1>
-<p>本文还在持续创作当中.</p>
-<h2>微信公众号</h2>
-<p>扫描下面的二维码关注我们的微信公众号,第一时间查看最新内容。同时也可以关注我的Github，看看我都在了解什么技术，在页面底部可以找到我的Github。</p>
-<img src=https://res.cloudinary.com/lyp/image/upload/v1581729955/hugo/blog.github.io/qrcode_for_sikekafeidou.jpg alt=wechat-account-qrcode>
+<div class=post-preview>
+<a href=/post/cncf-kubernetes/flomesh-ingress-quickstart/>
+<h2 class=post-title>
+flomesh-ingress浅试
+</h2>
+<div class=post-content-preview>
+前提 在开始之前,你需要以下前提准备. 对于本文来说使用的 K8S 环境是基于 Kind 来搭建的,因此将 Kind 命令写在前提内,但是如果你使用了其他工具搭建 K8S 或已经有
+</div>
+</a>
+<p class=post-meta>
+Posted by 梁远鹏 2023-03-03
+</p>
+</div>
 <hr>
-<ul class=pager>
-<li class=previous>
-<a href=/post/cncf-kubernetes/proxy-kube-apiserver/ data-toggle=tooltip data-placement=top title=反向代理kube-apiserver的请求>&larr; 反向代理kube-apiserver的请求</a>
+</div>
+<div class="col-lg-3 col-lg-offset-0
+col-md-3 col-md-offset-0
+col-sm-12
+col-xs-12
+sidebar-container">
+<section class="visible-md visible-lg">
+<hr><h5><a href>ABOUT ME</a></h5>
+<div class=short-about>
+<img src=https://res.cloudinary.com/lyp/image/upload/v1537624737/hugo/avatar/%E5%93%88%E5%B8%8C%E5%A4%B4%E5%83%8F.jpg>
+<p>OpenYurt Member|CDF中文本地化SIG成员|CNCF粉丝|Pulsar爱好者|公众号:四颗咖啡豆</p>
+<ul class=list-inline>
+<li>
+<a href=/tags/flomesh/index.xml rel=alternate type=application/rss+xml title="Hi,I`m lan">
+<span class="fa-stack fa-lg">
+<i class="fa fa-circle fa-stack-2x"></i>
+<i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+</span>
+</a>
 </li>
-<li class=next>
-<a href=/post/cncf-kubernetes/kubernetes-qa/ data-toggle=tooltip data-placement=top title=kubernetes常见问题>kubernetes常见问题 &rarr;</a>
+<li>
+<a target=_blank href=https://github.com/liangyuanpeng>
+<span class="fa-stack fa-lg">
+<i class="fa fa-circle fa-stack-2x"></i>
+<i class="fa fa-github fa-stack-1x fa-inverse"></i>
+</span>
+</a>
+</li>
+<li>
+<a href=https://twitter.com/lan31793328>
+<span class="fa-stack fa-lg">
+<i class="fa fa-circle fa-stack-2x"></i>
+<i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+</span>
+</a>
+</li>
+<li>
+<a target=_blank href=https://www.zhihu.com/people/liangyuanpeng>
+<span class="fa-stack fa-lg">
+<i class="fa fa-circle fa-stack-2x"></i>
+<i class="fa fa-stack-1x fa-inverse">知</i>
+</span>
+</a>
+</li>
+<li>
+<a target=_blank href=https://weibo.com/u/1908782280>
+<span class="fa-stack fa-lg">
+<i class="fa fa-circle fa-stack-2x"></i>
+<i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+</span>
+</a>
 </li>
 </ul>
-<script src=https://utteranc.es/client.js repo=liangyuanpeng/liangyuanpeng.github.io issue-term=title theme=github-light crossorigin=anonymous async></script>
 </div>
-<div class="col-lg-8 col-lg-offset-2
-col-md-10 col-md-offset-1
-sidebar-container">
+</section>
 <section>
 <hr class="hidden-sm hidden-xs">
-<h5><a href=/tags/>FEATURED TAGS</a></h5>
+<h5>FEATURED TAGS</h5>
 <div class=tags>
 <a href=/tags/blog title=blog>
 blog
@@ -239,36 +261,22 @@ tech
 </a>
 </div>
 </section>
-</div>
-<div class="col-lg- col-lg-offset-2
-col-md-10 col-md-offset-1">
-<section>
-<hr class="hidden-sm hidden-xs">
-<h2>相关文章</h2>
-<ul style=margin-bottom:25px>
-<li><a href=/post/cncf-kubernetes/proxy-kube-apiserver/>反向代理kube-apiserver的请求</a></li>
-<li><a href=/post/fundation-cncf/deploy-full-ssl-etcd/>部署一个完整带SSL的etcd</a></li>
-<li><a href=/post/cncf-contour/contour-v1.18.3-release/>Contour-v1.18.3发布</a></li>
-<li><a href=/post/cncf-contour/contour-v1.20.0-beta.1-release/>Contour-v1.20.0-beta.1发布</a></li>
-<li><a href=/post/cncf-contour/contour-v1.20.0-beta.1-release/>Contour-v1.20.0-beta.1发布</a></li>
-<li><a href=/post/cncf-kubernetes/deploy-chaosmesh-with-helm/>helm部署chaosmesh</a></li>
-<li><a href=/post/cncf-kubernetes/dev-webhook-for-kubernetes/>k8s-webhook开发技巧</a></li>
-<li><a href=/post/cncf-kubernetes/deploy-lank8s-webhook-for-k8s.gcr.io/>部署在线的lank8s webhook之后,不再为k8s.gcr.io/gcr.io镜像苦恼</a></li>
-<li><a href=/post/cncf-kubernetes/deploy-metrics-server-for-kubectl-top/>部署metrics-server,把kubectl top用起来</a></li>
-<li><a href=/post/cncf-contour/contour-v1.9.0-release/>Contour-v1.9.0发布</a></li>
+<hr>
+<h5>BOOKMARKS</h5>
+<ul class=list-inline>
+<li><a target=_blank href=http://www.servicemesh.cn>ServiceMesh中文网</a></li>
+<li><a target=_blank href=https://servicemesh.gitbooks.io/awesome-servicemesh>Awesome Service Mesh</a></li>
 </ul>
-</section>
 </div>
 </div>
 </div>
-</article>
 <footer>
 <div class=container>
 <div class=row>
 <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
 <ul class="list-inline text-center">
 <li>
-<a href rel=alternate type=application/rss+xml title="Hi,I`m lan">
+<a href=/tags/flomesh/index.xml rel=alternate type=application/rss+xml title="Hi,I`m lan">
 <span class="fa-stack fa-lg">
 <i class="fa fa-circle fa-stack-2x"></i>
 <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
@@ -317,7 +325,7 @@ col-md-10 col-md-offset-1">
 </li>
 </ul>
 <p class="copyright text-muted">
-Copyright &copy; Hi,I`m lan , 2022
+Copyright &copy; Hi,I`m lan , 2023
 <br>
 <a href=https://themes.gohugo.io/hugo-theme-cleanwhite>CleanWhite Hugo Theme</a> by <a href=https://zhaohuabing.com>Huabing</a> |
 <iframe style=margin-left:2px;margin-bottom:-5px frameborder=0 scrolling=0 width=100px height=20px src="https://ghbtns.com/github-btn.html?user=zhaohuabing&repo=hugo-theme-cleanwhite&type=star&count=true"></iframe>

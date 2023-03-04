@@ -1,0 +1,27 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: httpbin
+  labels:
+    app: httpbin
+    controller: pipy
+spec:
+  ingressClassName: pipy
+  rules:
+    - host: lan.local
+      http:
+        paths:
+          - path: /ip
+            pathType: Exact
+            backend:
+              service:
+                name: httpbin
+                port:
+                  number: 80
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: httpbin
+                port:
+                  number: 80
