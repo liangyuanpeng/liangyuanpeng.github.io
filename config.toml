@@ -1,4 +1,4 @@
-baseurl = "https://liangyuanpeng.com/"
+# baseurl = "https://liangyuanpeng.com/"
 title = "Hi,I`m lan"
 theme = "hugo-theme-cleanwhite"
 languageCode = "en-us"
@@ -71,23 +71,13 @@ home = ["HTML", "RSS", "Algolia"]
   #pinterest     = "full profile url in pinterest"
   zhihu = "https://www.zhihu.com/people/liangyuanpeng"
   weibo = "https://weibo.com/u/1908782280"
-  
- #[[params.friend_link]]
- # title = "Linda的博客"
- # href =  "https://liangyuanpeng.com"
 
-  [[params.bookmark_link]]
- # title =  "Martin Fowler"
- # href =  "https://martinfowler.com"
   [[params.bookmark_link]]
     title = "ServiceMesh中文网"
     href =  "http://www.servicemesh.cn"
   [[params.bookmark_link]]
     title = "Awesome Service Mesh"
     href = "https://servicemesh.gitbooks.io/awesome-servicemesh"
-  [[params.bookmark_link]]
- # title =  "Image Compression"
- # href = "https://tinypng.com"
   
 [outputFormats.Algolia]
 baseName = "algolia"
