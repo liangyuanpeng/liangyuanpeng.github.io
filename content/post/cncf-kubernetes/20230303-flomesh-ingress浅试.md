@@ -190,7 +190,8 @@ NAME                                CLASS   HOSTS       ADDRESS   PORTS   AGE
 ingress.networking.k8s.io/httpbin   pipy    lan.local             80      11h
 ```
 
-正常来说你会看到上述三个内容:
+正常来说你会看到上述三个内容:  
+
 - 3 个准备就绪的 httpbin 的 pod
 - 一个带有 80 端口号的 httpbin svc
 - 一个匹配 lan.local 域名并且匹配端口号 80 的一个 ingress
@@ -205,7 +206,8 @@ fsm-manager-9c7665764-8wcvv         1/1     Running   1 (75m ago)   14h
 fsm-repo-89cb68547-kv94n            1/1     Running   1 (75m ago)   14h
 ```  
 
-正常来说你会看到以下准备就绪的 pod (只检查了 pod 资源):
+正常来说你会看到以下准备就绪的 pod (只检查了 pod 资源):  
+
 - fsm-ingress-pipy
 - fsm-manager
 - fsm-repo
