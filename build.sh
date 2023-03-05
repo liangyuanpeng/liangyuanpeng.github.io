@@ -11,4 +11,7 @@ cd bin
 # ls
 # tar -xf oras_0.16.0_linux_amd64.tar.gz
 # rm LICENSE
+
+# https://github.com/kubernetes-sigs/krew/releases/download/v0.4.3/krew-linux_amd64.tar.gz
+# https://github.com/kubernetes-sigs/krew/releases/download/v0.4.3/krew-darwin_arm64.tar.gz
 ls
