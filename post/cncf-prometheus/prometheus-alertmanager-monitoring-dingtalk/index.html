@@ -99,7 +99,7 @@ alertmanager
 <span class=old-visitors-count style=display:none></span>
 <span class=leancloud-visitors-count></span>
 </span>
-阅读 </span></span>|<span class=post-date>共1520字</span>，阅读约<span class=more-meta> 4 分钟</span>
+阅读 </span></span>|<span class=post-date>共1500字</span>，阅读约<span class=more-meta> 3 分钟</span>
 </span>
 </div>
 </div>
@@ -125,7 +125,6 @@ post-container">
 <li><a href=#告警恢复通知>告警恢复通知</a></li>
 </ul>
 </nav>
-<h1 id=本文还在创作当中将在这几天正式发布>本文还在创作当中，将在这几天正式发布。</h1>
 <h1 id=前言>前言</h1>
 <p>本文将会讲解alertmanager对接钉钉,并且会演示通过修改metrics值来触发alertmanager进行告警并且展示告警以及告警恢复的情况。</p>
 <p>在此之前你可以先查看一下本文的上一篇文章&ndash;><a href=https://liangyuanpeng.com/post/prometheus-alertmanager-monitoring-quickstart/>prometheus-alertmanager监控告警系统快速开始</a></p>
@@ -179,7 +178,8 @@ cd prometheus-webhook-dingtalk
 <h1 id=闭幕>闭幕</h1>
 <p>到目前为止一个Metrics在SpringBoot程序中发生变化并且被Prometheus抓取到,并且检测到持续了xx分钟后由AlertManager触发告警到钉钉机器人的这样一个过程就完成了，当然<code>prometheus-webhook-dingtalk</code>这个webhook程序是否还有更高级的玩法可以自己去挖掘挖掘,比如一个告警触发多个钉钉机器人,比如配置多个钉钉机器人,由不同的告警触发不同的钉钉机器人(这在生产时很容易遇到).</p>
 <p>并且本文是使用<code>docker-compose</code>部署Prometheus和<code>AlertManager</code>的,在kubernetes部署下是否又有更方便的配置,应该也是我接下来会在博客当中想要写的内容.</p>
-<h1 id=注意本文还处于持续创作当中>注意：本文还处于持续创作当中。</h1>
+<h1 id=注意>注意</h1>
+<p>本文还处于持续创作当中。</p>
 <h2>微信公众号</h2>
 <p>扫描下面的二维码关注我们的微信公众号,第一时间查看最新内容。同时也可以关注我的Github，看看我都在了解什么技术，在页面底部可以找到我的Github。</p>
 <img src=https://res.cloudinary.com/lyp/image/upload/v1581729955/hugo/blog.github.io/qrcode_for_sikekafeidou.jpg alt=wechat-account-qrcode>
