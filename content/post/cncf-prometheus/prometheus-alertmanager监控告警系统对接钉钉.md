@@ -17,7 +17,6 @@ categories:
     - CloudNative
 ---
 
-# 本文还在创作当中，将在这几天正式发布。  
 
 # 前言
 
@@ -120,4 +119,6 @@ curl http://192.168.3.169:8094/index/metrics/5
 并且本文是使用`docker-compose`部署Prometheus和`AlertManager`的,在kubernetes部署下是否又有更方便的配置,应该也是我接下来会在博客当中想要写的内容.
 
 
-# 注意：本文还处于持续创作当中。
+# 注意
+
+本文还处于持续创作当中。
