@@ -10,3 +10,5 @@ containerdConfigPatches:
     endpoint = ["https://registry.lank8s.cn"]
 nodes:
 - role: control-plane
+- role: worker
+- role: worker
