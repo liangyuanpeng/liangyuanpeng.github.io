@@ -14,6 +14,8 @@ tags:
     - iot
     - chirpstack
     - kubernetes
+    - cncf
+    - helm
 categories: 
     - kubernetes
 ---
