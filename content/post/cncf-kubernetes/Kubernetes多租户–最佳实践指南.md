@@ -12,6 +12,7 @@ tags:
     - kubernetes 
     - k8s
     - CloudNative
+    - 翻译
 categories: 
     - kubernetes
 ---  

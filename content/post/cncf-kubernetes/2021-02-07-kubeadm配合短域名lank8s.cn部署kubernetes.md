@@ -13,6 +13,7 @@ tags:
     - CloudNative
     - lank8s.cn
     - kubeadm
+    - cncf
 categories: 
     - kubernetes
 ---

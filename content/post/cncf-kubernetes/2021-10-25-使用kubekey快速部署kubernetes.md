@@ -10,6 +10,7 @@ image: "https://res.cloudinary.com/lyp/image/upload/v1635177438/hugo/banner/pexe
 published: true
 tags:
     - tech
+    - kubernetes
 categories: [ kubernetes ]
 ---
 

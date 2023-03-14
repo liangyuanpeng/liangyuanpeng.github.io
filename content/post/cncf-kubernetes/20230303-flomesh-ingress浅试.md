@@ -54,6 +54,9 @@ containerdConfigPatches:
 
 # 部署  
 
+## 部署K8S集群
+
+[用kind搭建k8s集群环境](https://liangyuanpeng.com/post/cncf-kubernetes/run-k8s-with-kind/)
 
 ## 部署fsm
 
