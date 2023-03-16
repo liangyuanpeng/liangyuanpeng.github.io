@@ -1,5 +1,6 @@
 ---
 layout:     post 
+slug:      "know-client-go-with-openkruise"
 title:      "使用client操作OpenKruise资源"
 subtitle:   "使用client操作OpenKruise资源"
 description: " "
@@ -11,6 +12,7 @@ tags:
     - kubernetes
     - CloudNative
     - OpenKruise
+    - cncf
 categories: 
     - kubernetes
 ---  

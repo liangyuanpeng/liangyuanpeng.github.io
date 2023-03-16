@@ -1,5 +1,6 @@
 ---
 layout:     post 
+slug:      "know-openKruise-clonseset"
 title:      "OpenKruise-clonseset!"
 subtitle:   "OpenKruise-clonseset!"
 description: " "
@@ -11,6 +12,7 @@ tags:
     - kubernetes
     - CloudNative
     - OpenKruise
+    - cncf
 categories: 
     - kubernetes
 ---  
