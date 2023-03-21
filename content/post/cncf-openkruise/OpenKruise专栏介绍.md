@@ -7,11 +7,12 @@ description: " "
 date:       2021-02-07
 author:     "梁远鹏"
 image: "https://res.cloudinary.com/lyp/image/upload/v1612744351/hugo/blog.github.io/pexels-bruno-cervera-6032877.jpg"
-published: true
+published: false
 tags:
     - kubernetes
     - CloudNative
     - OpenKruise
+    - cncf
 categories: 
     - kubernetes
 ---  

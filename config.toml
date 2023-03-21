@@ -23,12 +23,12 @@ home = ["HTML", "RSS", "Algolia"]
  # header_image = "img/home-bg-jeep.jpg"
  header_image = "https://res.cloudinary.com/lyp/image/upload/v1537619755/hugo/banner/WechatIMG413.jpg"
  SEOTitle = "liangyuanpeng的博客 | liangyuanpeng's Blog"
-  description = "lan，工程师⎈, OpenYurt Member,CDF中文本地化SIG成员,开源爱好者 | 公众号:四颗咖啡豆"
+  description = "⎈lan，工程师⎈, OpenYurt Member,CDF中文本地化SIG成员,开源爱好者 | 公众号:四颗咖啡豆"
   keyword = "liangyuanpeng|LanLiang|OpenYurt|Knative|Pulsar|Prometheus|Halo||边缘计算kubernetes|Docker|CloudNative|Golang|Rust|Istio|微服务"
  slogan = ""
 
   image_404 = "img/404-bg.jpg"
-  title_404 = "你来到了云原生沙漠 :("
+  title_404 = "⎈你来到了云原生沙漠 :("
 
   # leancloud storage for page view counter
   page_view_conter = true
@@ -42,7 +42,7 @@ home = ["HTML", "RSS", "Algolia"]
   algolia_apiKey = "2aa49a052dc7b70cf63c1f5ebcae8934"
 
   # Sidebar settings
-  sidebar_about_description = "OpenYurt Member|CDF中文本地化SIG成员|CNCF粉丝|Pulsar爱好者|公众号:四颗咖啡豆"
+  sidebar_about_description = "OpenYurt Member|CDF中文本地化SIG成员|⎈CNCF粉丝⎈|Pulsar爱好者|公众号:四颗咖啡豆"
   sidebar_avatar = "https://res.cloudinary.com/lyp/image/upload/v1537624737/hugo/avatar/%E5%93%88%E5%B8%8C%E5%A4%B4%E5%83%8F.jpg"      # use absolute URL, seeing it's used in both `/` and `/about/`
 
   featured_tags = true 
@@ -66,7 +66,7 @@ home = ["HTML", "RSS", "Algolia"]
   #stackoverflow  = "full profile url in stackoverflow"
   #instagram     = "full profile url in instagram"
   github         = "https://github.com/liangyuanpeng"  
-  #wechat         = "link of wechat QR code image"
+  wechat         = "https://res.cloudinary.com/lyp/image/upload/v1679386615/hugo/blog.github.io/wechat-lan.png"
   #pinterest     = "full profile url in pinterest"
   zhihu = "https://www.zhihu.com/people/liangyuanpeng"
   weibo = "https://weibo.com/u/1908782280"
@@ -78,7 +78,7 @@ home = ["HTML", "RSS", "Algolia"]
     title = "Awesome Service Mesh"
     href = "https://servicemesh.gitbooks.io/awesome-servicemesh"
   [[params.bookmark_link]]
-    title = "KEDA中文化进行中"
+    title = "⎈KEDA中文化进行中"
     href = "https://keda.liangyuanpeng.com"
   
 [outputFormats.Algolia]
