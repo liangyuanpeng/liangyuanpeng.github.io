@@ -1,0 +1,387 @@
+<!doctype html><html lang=en-us>
+<head><head>
+<meta name=google-site-verification content="9vIieCe-Qpd78QOmBl63rGtIVbhY6sYyuxX3j8XWBA4">
+<meta name=baidu-site-verification content="LRrmH41lz7">
+<meta charset=utf-8>
+<meta http-equiv=x-ua-compatible content="IE=edge">
+<meta name=google-site-verification content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
+<meta name=viewport content="width=device-width,initial-scale=1">
+<meta name=baidu-site-verification content="HGLXRsUXC4">
+<meta name=baidu-site-verification content="code-ANZvlnN0Xr">
+<meta name=description content="lan，工程师⎈, OpenYurt Member,CDF中文本地化SIG成员,开源爱好者 | 公众号:四颗咖啡豆">
+<meta name=keyword content="liangyuanpeng|LanLiang|OpenYurt|Knative|Pulsar|Prometheus|Halo||边缘计算kubernetes|Docker|CloudNative|Golang|Rust|Istio|微服务">
+<link rel="shortcut icon" href=img/logo.png>
+<meta property="og:image" content="https://res.cloudinary.com/lyp/image/upload/v1635353670/hugo/banner/pexels-helena-lopes-2253275.jpg">
+<meta name=twitter:image content="https://res.cloudinary.com/lyp/image/upload/v1635353670/hugo/banner/pexels-helena-lopes-2253275.jpg">
+<title>用kind搭建k8s集群环境-liangyuanpeng的博客 | liangyuanpeng's Blog</title>
+<link rel=canonical href=/post/cncf-kubernetes/run-k8s-with-kind/>
+<link rel=stylesheet href=https://res.cloudinary.com/lyp/raw/upload/v1537369740/hugo/css/iDisqus.min.css>
+<link rel=stylesheet href=https://res.cloudinary.com/lyp/raw/upload/v1537369744/hugo/css/bootstrap.min.css>
+<link rel=stylesheet href=https://res.cloudinary.com/lyp/raw/upload/v1537369740/hugo/css/hux-blog.min.css>
+<link rel=stylesheet href=https://res.cloudinary.com/lyp/raw/upload/v1537369740/hugo/css/syntax.css>
+<link href=//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css rel=stylesheet type=text/css>
+<script src=https://res.cloudinary.com/lyp/raw/upload/v1537369966/hugo/js/jquery.min.js></script>
+<script src=https://res.cloudinary.com/lyp/raw/upload/v1537369966/hugo/js/bootstrap.min.js></script>
+<script src=https://res.cloudinary.com/lyp/raw/upload/v1537369964/hugo/js/hux-blog.min.js></script>
+<script defer src=https://static.cloudflareinsights.com/beacon.min.js data-cf-beacon='{"token": "f73bc0092aeb491d89984c0eb5a87ac2"}'></script>
+</head>
+</head>
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+<div class=container-fluid>
+<div class="navbar-header page-scroll">
+<button type=button class=navbar-toggle>
+<span class=sr-only>Toggle navigation</span>
+<span class=icon-bar></span>
+<span class=icon-bar></span>
+<span class=icon-bar></span>
+</button>
+<a class=navbar-brand href=/>Hi,I`m lan</a>
+</div>
+<div id=huxblog_navbar>
+<div class=navbar-collapse>
+<ul class="nav navbar-nav navbar-right">
+<li>
+<a href=/>Home</a>
+</li>
+<li>
+<a href=categories/cloudnative>cloudnative</a>
+</li>
+<li>
+<a href=categories/devops>devops</a>
+</li>
+<li>
+<a href=categories/iot>iot</a>
+</li>
+<li>
+<a href=categories/kubernetes>kubernetes</a>
+</li>
+<li>
+<a href=categories/tech>tech</a>
+</li>
+<li>
+<a href=search>SEARCH <img src=img/search.png height=15 style=cursor:pointer></a>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</nav>
+<script>var $body=document.body,$toggle=document.querySelector('.navbar-toggle'),$navbar=document.querySelector('#huxblog_navbar'),$collapse=document.querySelector('.navbar-collapse');$toggle.addEventListener('click',handleMagic);function handleMagic(a){$navbar.className.indexOf('in')>0?($navbar.className=" ",setTimeout(function(){$navbar.className.indexOf('in')<0&&($collapse.style.height="0px")},400)):($collapse.style.height="auto",$navbar.className+=" in")}</script>
+<style type=text/css>header.intro-header{background-image:url(https://res.cloudinary.com/lyp/image/upload/v1635353670/hugo/banner/pexels-helena-lopes-2253275.jpg)}</style>
+<header class=intro-header>
+<div class=container>
+<div class=row>
+<div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+<div class=post-heading>
+<div class=tags>
+<a class=tag href=/tags/kubernetes title=kubernetes>
+kubernetes
+</a>
+<a class=tag href=/tags/cncf title=cncf>
+cncf
+</a>
+<a class=tag href=/tags/k8s title=k8s>
+k8s
+</a>
+<a class=tag href=/tags/kind title=kind>
+kind
+</a>
+</div>
+<h1>用kind搭建k8s集群环境</h1>
+<h2 class=subheading></h2>
+<span class=meta>Posted by 梁远鹏 on 2023-03-12
+<span id=busuanzi_container_page_pv>|<span id=busuanzi_value_page_pv></span><span>
+<span id=/post/cncf-kubernetes/run-k8s-with-kind/ class="leancloud_visitors meta_data_item" data-flag-title>
+<span class=post-meta-item-icon>
+<span class="octicon octicon-eye"></span>
+</span>
+<i class="fa fa-eye"></i>
+<span class=old-visitors-count style=display:none></span>
+<span class=leancloud-visitors-count></span>
+</span>
+阅读 </span></span>|<span class=post-date>共674字</span>，阅读约<span class=more-meta> 2 分钟</span>
+</span>
+</div>
+</div>
+</div>
+</div>
+</header>
+<article>
+<div class=container>
+<div class=row>
+<div class="col-lg-8 col-lg-offset-2
+col-md-10 col-md-offset-1
+post-container">
+<header>
+<h2>TOC</h2>
+</header>
+<nav id=TableOfContents>
+<ul>
+<li><a href=#默认带有-lank8scn-服务>默认带有 lank8s.cn 服务</a></li>
+<li><a href=#k8s-126-cel准入校验功能>k8s 1.26 CEL准入校验功能</a></li>
+<li><a href=#多节点>多节点</a></li>
+<li><a href=#k8s-kube-apiserver-端口映射>K8S kube-apiserver 端口映射</a></li>
+<li><a href=#没有lank8scn服务>没有lank8s.cn服务</a></li>
+</ul>
+</nav>
+<h1 id=前言>前言</h1>
+<p>由于各类基于 kubernetes 的云原生实验或测试的前提都是需要一个 kubernetes 环境,而在写博客时总是需要提及使用 kind 来搭建 kubernetes 环境. 因此这里单独写一篇文章来介绍如何用 kind 来部署 kubernetes,同时提供各种不同 kubernetes 环境的kind 配置文件供你使用.</p>
+<h1 id=使用>使用</h1>
+<p>基本上,即使你没有使用过 Kind 也不是问题,因为基于 Kind 来搭建 kubernetes 就是一条命令的事,需要使用到 Kind 命令,因此你需要下载 Kind 命令行工具.</p>
+<p>官方的 Kind 命令下载地址可以在<a href=https://github.com/kubernetes-sigs/kind/releases>Kind发布地址</a>找到,而我提供了一个另一个地址来下载 Kind 命令行,在下载 Github 上文件速度慢的时候可以用这个地址:</p>
+<p><a href=https://res.cloudinary.com/lyp/raw/upload/v1678598428/lan/kind/kind>https://res.cloudinary.com/lyp/raw/upload/v1678598428/lan/kind/kind</a></p>
+<p>版本是 v0.17.0</p>
+<p>对应的Github文件下载地址是:</p>
+<p><a href=https://github.com/kubernetes-sigs/kind/releases/download/v0.17.0/kind-linux-amd64>https://github.com/kubernetes-sigs/kind/releases/download/v0.17.0/kind-linux-amd64</a></p>
+<p>上述文件架构是 linux amd64的,其他架构文件可以自行在上述提供的Github发布地址上找到.</p>
+<p>使用默认的节点镜像以及默认的集群测试环境名称:</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell>kind create --config kind.yaml
+</code></pre></div><p>使用特定节点镜像搭建的测试环境:</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell>kind create --config kind.yaml --image kindest/node:v1.26.0
+</code></pre></div><p>添加<code>--name</code>参数为你的 kind kubernetes 集群命名:</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell>kind create --config kind.yaml --image kindest/node:v1.26.0 --name mykind
+</code></pre></div><h1 id=各类环境的配置文件>各类环境的配置文件</h1>
+<p>由于 Kind 的配置文件也是区分版本的,因此将这个版本放到文件下载路径中,方便明白配置文件的适用范围.</p>
+<p>其中大部分都配置了基于<code>lank8s.cn</code>服务来拉取<code>gcr.io</code>和<code>registry.lank8s.cn</code>的容器镜像,因此你可以愉快的Tekton、Knative等云原生技术,而不需要考虑被墙的镜像的问题了.</p>
+<p>相关配置如下:</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml><span style=color:#f92672>containerdConfigPatches</span>:
+- |-<span style=color:#e6db74>
+</span><span style=color:#e6db74>  [plugins.&#34;io.containerd.grpc.v1.cri&#34;.registry.mirrors.&#34;gcr.io&#34;]
+</span><span style=color:#e6db74>    endpoint = [&#34;https://gcr.lank8s.cn&#34;]
+</span><span style=color:#e6db74>  [plugins.&#34;io.containerd.grpc.v1.cri&#34;.registry.mirrors.&#34;registry.k8s.io&#34;]
+</span><span style=color:#e6db74>    endpoint = [&#34;https://registry.lank8s.cn&#34;]</span>  
+</code></pre></div><p>祝你云原生之旅愉快! :)</p>
+<h2 id=默认带有-lank8scn-服务>默认带有 lank8s.cn 服务</h2>
+<p><a href=https://liangyuanpeng.com/files/kind/v1alpha4/kind.yaml>https://liangyuanpeng.com/files/kind/v1alpha4/kind.yaml</a></p>
+<h2 id=k8s-126-cel准入校验功能>k8s 1.26 CEL准入校验功能</h2>
+<p><a href=https://liangyuanpeng.com/files/kind/v1alpha4/kind_1.26.yaml>https://liangyuanpeng.com/files/kind/v1alpha4/kind_1.26.yaml</a></p>
+<h2 id=多节点>多节点</h2>
+<p><a href=https://liangyuanpeng.com/files/kind/v1alpha4/kind_mult.yaml>https://liangyuanpeng.com/files/kind/v1alpha4/kind_mult.yaml</a></p>
+<h2 id=k8s-kube-apiserver-端口映射>K8S kube-apiserver 端口映射</h2>
+<p>默认情况下使用 Kind 搭建的 kubernetes 环境只能在本机使用,这个配置文件映射了 kube-apiserver 端口,因此可以在机器A用 Kind 搭建环境,在机器B访问Kind 的 K8S.</p>
+<p><a href=https://liangyuanpeng.com/files/kind/v1alpha4/kind_port.yaml>https://liangyuanpeng.com/files/kind/v1alpha4/kind_port.yaml</a></p>
+<h2 id=没有lank8scn服务>没有lank8s.cn服务</h2>
+<p><a href=https://liangyuanpeng.com/files/kind/v1alpha4/kind_nolank8s.yaml>https://liangyuanpeng.com/files/kind/v1alpha4/kind_nolank8s.yaml</a></p>
+<h2>微信公众号</h2>
+<p>扫描下面的二维码关注我们的微信公众号,第一时间查看最新内容。同时也可以关注我的Github，看看我都在了解什么技术，在页面底部可以找到我的Github。</p>
+<img src=https://res.cloudinary.com/lyp/image/upload/v1581729955/hugo/blog.github.io/qrcode_for_sikekafeidou.jpg alt=wechat-account-qrcode>
+<hr>
+<ul class=pager>
+<li class=previous>
+<a href=/post/cncf-kubernetes/flomesh-ingress-quickstart/ data-toggle=tooltip data-placement=top title=flomesh-ingress浅试>&larr; flomesh-ingress浅试</a>
+</li>
+<li class=next>
+<a href=/post/cncf-keda/keda-helmchart-release-with-v2.10.1/ data-toggle=tooltip data-placement=top title=keda-helmchart发布v2.10.1>keda-helmchart发布v2.10.1 &rarr;</a>
+</li>
+</ul>
+<script src=https://utteranc.es/client.js repo=liangyuanpeng/liangyuanpeng.github.io issue-term=title theme=github-light crossorigin=anonymous async></script>
+</div>
+<div class="col-lg-8 col-lg-offset-2
+col-md-10 col-md-offset-1
+sidebar-container">
+<section>
+<hr class="hidden-sm hidden-xs">
+<h5><a href=/tags/>FEATURED TAGS</a></h5>
+<div class=tags>
+<a href=/tags/blog title=blog>
+blog
+</a>
+<a href=/tags/bookkeeper title=bookkeeper>
+bookkeeper
+</a>
+<a href=/tags/chirpstack title=chirpstack>
+chirpstack
+</a>
+<a href=/tags/ci/cd title=ci/cd>
+ci/cd
+</a>
+<a href=/tags/cloudnative title=cloudnative>
+cloudnative
+</a>
+<a href=/tags/cncf title=cncf>
+cncf
+</a>
+<a href=/tags/contour title=contour>
+contour
+</a>
+<a href=/tags/docker title=docker>
+docker
+</a>
+<a href=/tags/docker-compose title=docker-compose>
+docker-compose
+</a>
+<a href=/tags/envoy title=envoy>
+envoy
+</a>
+<a href=/tags/fluentd title=fluentd>
+fluentd
+</a>
+<a href=/tags/foundation title=foundation>
+foundation
+</a>
+<a href=/tags/golang title=golang>
+golang
+</a>
+<a href=/tags/helm title=helm>
+helm
+</a>
+<a href=/tags/hugo title=hugo>
+hugo
+</a>
+<a href=/tags/image title=image>
+image
+</a>
+<a href=/tags/iot title=iot>
+iot
+</a>
+<a href=/tags/k8s title=k8s>
+k8s
+</a>
+<a href=/tags/kubernetes title=kubernetes>
+kubernetes
+</a>
+<a href=/tags/kubesphere title=kubesphere>
+kubesphere
+</a>
+<a href=/tags/lorawan title=lorawan>
+lorawan
+</a>
+<a href=/tags/metrics title=metrics>
+metrics
+</a>
+<a href=/tags/middleware title=middleware>
+middleware
+</a>
+<a href=/tags/monitor title=monitor>
+monitor
+</a>
+<a href=/tags/mq title=mq>
+mq
+</a>
+<a href=/tags/nginx title=nginx>
+nginx
+</a>
+<a href=/tags/ops title=ops>
+ops
+</a>
+<a href=/tags/prometheus title=prometheus>
+prometheus
+</a>
+<a href=/tags/pulsar title=pulsar>
+pulsar
+</a>
+<a href=/tags/rpc title=rpc>
+rpc
+</a>
+<a href=/tags/rust title=rust>
+rust
+</a>
+<a href=/tags/sofa title=sofa>
+sofa
+</a>
+<a href=/tags/sofastack title=sofastack>
+sofastack
+</a>
+<a href=/tags/springboot title=springboot>
+springboot
+</a>
+<a href=/tags/tech title=tech>
+tech
+</a>
+</div>
+</section>
+</div>
+<div class="col-lg- col-lg-offset-2
+col-md-10 col-md-offset-1">
+<section>
+<hr class="hidden-sm hidden-xs">
+<h2>相关文章</h2>
+<ul style=margin-bottom:25px>
+<li><a href=/post/cncf-kubernetes/compile-kubernetes/>编译kubernetes组件</a></li>
+<li><a href=/post/fundation-cncf/rust-project-in-cncf/>cncf基金会中的rust项目</a></li>
+<li><a href=/post/cncf-kubernetes/dev-webhook-for-kubernetes/>k8s-webhook开发技巧</a></li>
+<li><a href=/post/cncf-kubernetes/deploy-lank8s-webhook-for-k8s.gcr.io/>部署在线的lank8s webhook之后,不再为k8s.gcr.io/gcr.io镜像苦恼</a></li>
+<li><a href=/post/cncf-kubernetes/deploy-metrics-server-for-kubectl-top/>部署metrics-server,把kubectl top用起来</a></li>
+<li><a href=/post/cncf-longhorn/k8s-deploy-longhorn/>kubernetes部署longhorn</a></li>
+<li><a href=/post/cncf-prometheus/kubernetes-deploy-kube-prometheus/>kubernetes部署kube-prometheus</a></li>
+<li><a href=/post/cncf-k8s/pull-gcr-k8s-image-with-lank8s/>国内环境拉取gcr和k8s镜像</a></li>
+<li><a href=/post/cncf-k8s/frozen-for-k8s-gcr-io/>[长期更新]k8s组件常用参数</a></li>
+<li><a href=/post/cncf-k8s/frozen-for-k8s-gcr-io/>k8s.gcr.io注册表完全冻结</a></li>
+</ul>
+</section>
+</div>
+</div>
+</div>
+</article>
+<footer>
+<div class=container>
+<div class=row>
+<div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+<ul class="list-inline text-center">
+<li>
+<a href rel=alternate type=application/rss+xml title="Hi,I`m lan">
+<span class="fa-stack fa-lg">
+<i class="fa fa-circle fa-stack-2x"></i>
+<i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+</span>
+</a>
+</li>
+<li>
+<a target=_blank href=https://github.com/liangyuanpeng>
+<span class="fa-stack fa-lg">
+<i class="fa fa-circle fa-stack-2x"></i>
+<i class="fa fa-github fa-stack-1x fa-inverse"></i>
+</span>
+</a>
+</li>
+<li>
+<a href=mailto:liangyuanpengem@163.com>
+<span class="fa-stack fa-lg">
+<i class="fa fa-circle fa-stack-2x"></i>
+<i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
+</span>
+</a>
+</li>
+<li>
+<a href=https://twitter.com/lan31793328>
+<span class="fa-stack fa-lg">
+<i class="fa fa-circle fa-stack-2x"></i>
+<i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+</span>
+</a>
+</li>
+<li>
+<a target=_blank href=https://www.zhihu.com/people/liangyuanpeng>
+<span class="fa-stack fa-lg">
+<i class="fa fa-circle fa-stack-2x"></i>
+<i class="fa fa-stack-1x fa-inverse">知</i>
+</span>
+</a>
+</li>
+<li>
+<a target=_blank href=https://weibo.com/u/1908782280>
+<span class="fa-stack fa-lg">
+<i class="fa fa-circle fa-stack-2x"></i>
+<i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+</span>
+</a>
+</li>
+</ul>
+<p class="copyright text-muted">
+Copyright &copy; Hi,I`m lan , 2023
+<br>
+<a href=https://themes.gohugo.io/hugo-theme-cleanwhite>CleanWhite Hugo Theme</a> by <a href=https://zhaohuabing.com>Huabing</a> |
+<iframe style=margin-left:2px;margin-bottom:-5px frameborder=0 scrolling=0 width=100px height=20px src="https://ghbtns.com/github-btn.html?user=zhaohuabing&repo=hugo-theme-cleanwhite&type=star&count=true"></iframe>
+</p>
+</div>
+</div>
+</div>
+</footer>
+<script>function async(f,b){var c=document,d='script',a=c.createElement(d),e=c.getElementsByTagName(d)[0];a.src=f,b&&a.addEventListener('load',function(a){b(null,a)},!1),e.parentNode.insertBefore(a,e)}</script>
+<script>$('#tag_cloud').length!==0&&async("/js/jquery.tagcloud.js",function(){$.fn.tagcloud.defaults={color:{start:'#bbbbee',end:'#0085a1'}},$('#tag_cloud a').tagcloud()})</script>
+<script>async("https://cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.js",function(){var a=document.querySelector("nav");a&&FastClick.attach(a)})</script>
+<script>var _baId='fad9c137f8ce239f9b323d36c871f8e6',_hmt=_hmt||[];(function(){var a=document.createElement("script"),b;a.src="//hm.baidu.com/hm.js?"+_baId,b=document.getElementsByTagName("script")[0],b.parentNode.insertBefore(a,b)})()</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-RTTRHGYFWL"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date),gtag('config','G-RTTRHGYFWL')</script>
+</body>
+</html>

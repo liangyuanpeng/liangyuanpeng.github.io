@@ -11,10 +11,8 @@
 <meta name=description content="lan，工程师⎈, OpenYurt Member,CDF中文本地化SIG成员,开源爱好者 | 公众号:四颗咖啡豆">
 <meta name=keyword content="liangyuanpeng|LanLiang|OpenYurt|Knative|Pulsar|Prometheus|Halo||边缘计算kubernetes|Docker|CloudNative|Golang|Rust|Istio|微服务">
 <link rel="shortcut icon" href=img/logo.png>
-<meta property="og:image" content="img/post-bg-2015.jpg">
-<meta name=twitter:image content="img/post-bg-2015.jpg">
-<title>给k8s证书添加新的域名.-liangyuanpeng的博客 | liangyuanpeng's Blog</title>
-<link rel=canonical href=/post/cncf-kubernetes/add-new-domain-for-k8s-ca/>
+<title>翻译-liangyuanpeng的博客 | liangyuanpeng's Blog</title>
+<link rel=canonical href=/tags/%E7%BF%BB%E8%AF%91/>
 <link rel=stylesheet href=https://res.cloudinary.com/lyp/raw/upload/v1537369740/hugo/css/iDisqus.min.css>
 <link rel=stylesheet href=https://res.cloudinary.com/lyp/raw/upload/v1537369744/hugo/css/bootstrap.min.css>
 <link rel=stylesheet href=https://res.cloudinary.com/lyp/raw/upload/v1537369740/hugo/css/hux-blog.min.css>
@@ -67,77 +65,97 @@
 </div>
 </nav>
 <script>var $body=document.body,$toggle=document.querySelector('.navbar-toggle'),$navbar=document.querySelector('#huxblog_navbar'),$collapse=document.querySelector('.navbar-collapse');$toggle.addEventListener('click',handleMagic);function handleMagic(a){$navbar.className.indexOf('in')>0?($navbar.className=" ",setTimeout(function(){$navbar.className.indexOf('in')<0&&($collapse.style.height="0px")},400)):($collapse.style.height="auto",$navbar.className+=" in")}</script>
-<style type=text/css>header.intro-header{background-image:url(img/post-bg-2015.jpg)}</style>
-<header class=intro-header>
+<header class=intro-header style=background-image:url(https://res.cloudinary.com/lyp/image/upload/v1537619755/hugo/banner/WechatIMG413.jpg)>
 <div class=container>
 <div class=row>
 <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-<div class=post-heading>
-<div class=tags>
-<a class=tag href=/tags/kubernetes title=kubernetes>
-kubernetes
-</a>
-<a class=tag href=/tags/cncf title=cncf>
-cncf
-</a>
-</div>
-<h1>给k8s证书添加新的域名.</h1>
-<h2 class=subheading></h2>
-<span class=meta>Posted by 梁远鹏 on 2021-10-17
-<span id=busuanzi_container_page_pv>|<span id=busuanzi_value_page_pv></span><span>
-<span id=/post/cncf-kubernetes/add-new-domain-for-k8s-ca/ class="leancloud_visitors meta_data_item" data-flag-title>
-<span class=post-meta-item-icon>
-<span class="octicon octicon-eye"></span>
-</span>
-<i class="fa fa-eye"></i>
-<span class=old-visitors-count style=display:none></span>
-<span class=leancloud-visitors-count></span>
-</span>
-阅读 </span></span>|<span class=post-date>共55字</span>，阅读约<span class=more-meta> 1 分钟</span>
-</span>
+<div class=site-heading>
+<h1>Hi,I`m lan </h1>
+<span class=subheading></span>
 </div>
 </div>
 </div>
 </div>
 </header>
-<article>
 <div class=container>
 <div class=row>
-<div class="col-lg-8 col-lg-offset-2
-col-md-10 col-md-offset-1
+<div class="col-lg-8 col-lg-offset-1
+col-md-8 col-md-offset-1
+col-sm-12
+col-xs-12
 post-container">
-<header>
-<h2>TOC</h2>
-</header>
-<nav id=TableOfContents></nav>
-<h1 id=前言>前言</h1>
-<h1 id=实现方式>实现方式</h1>
-<ol>
-<li>直接重新生成新的apiserver证书</li>
-<li>修改kubeadm配置文件 重新init</li>
-</ol>
-<h1 id=注意>注意</h1>
-<p>本文还在持续编写中</p>
-<h2>微信公众号</h2>
-<p>扫描下面的二维码关注我们的微信公众号,第一时间查看最新内容。同时也可以关注我的Github，看看我都在了解什么技术，在页面底部可以找到我的Github。</p>
-<img src=https://res.cloudinary.com/lyp/image/upload/v1581729955/hugo/blog.github.io/qrcode_for_sikekafeidou.jpg alt=wechat-account-qrcode>
+<div class=post-preview>
+<a href=/post/cncf-kubernetes/k8s-multi-tenancy-guide/>
+<h2 class=post-title>
+Kubernetes多租户–最佳实践指南
+</h2>
+<div class=post-content-preview>
+随着Kubernetes的使用范围不断扩大，Kubernetes多租户成为越来越多的组织感兴趣的话题。但是，由于Kubernetes本身并不是多租户系统，因此正确实现多租户会带来一些挑战
+</div>
+</a>
+<p class=post-meta>
+Posted by 梁远鹏 2021-04-14
+</p>
+</div>
 <hr>
-<ul class=pager>
-<li class=previous>
-<a href=/post/cncf-contour/kubesphere-gateway-with-contour/ data-toggle=tooltip data-placement=top title="KubeSphere使用Contour Ingress作为项目网关">&larr; KubeSphere使用Contour Ingress作为项目网关</a>
+</div>
+<div class="col-lg-3 col-lg-offset-0
+col-md-3 col-md-offset-0
+col-sm-12
+col-xs-12
+sidebar-container">
+<section class="visible-md visible-lg">
+<hr><h5><a href>ABOUT ME</a></h5>
+<div class=short-about>
+<img src=https://res.cloudinary.com/lyp/image/upload/v1537624737/hugo/avatar/%E5%93%88%E5%B8%8C%E5%A4%B4%E5%83%8F.jpg>
+<p>OpenYurt Member|CDF中文本地化SIG成员|CNCF粉丝|Pulsar爱好者|公众号:四颗咖啡豆</p>
+<ul class=list-inline>
+<li>
+<a href=/tags/%E7%BF%BB%E8%AF%91/index.xml rel=alternate type=application/rss+xml title="Hi,I`m lan">
+<span class="fa-stack fa-lg">
+<i class="fa fa-circle fa-stack-2x"></i>
+<i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+</span>
+</a>
 </li>
-<li class=next>
-<a href=/post/cncf-longhorn/deploy-new-longhorn-lank8s.cn/ data-toggle=tooltip data-placement=top title=新版本longhorn部署需要k8s.gcr.io镜像>新版本longhorn部署需要k8s.gcr.io镜像 &rarr;</a>
+<li>
+<a target=_blank href=https://github.com/liangyuanpeng>
+<span class="fa-stack fa-lg">
+<i class="fa fa-circle fa-stack-2x"></i>
+<i class="fa fa-github fa-stack-1x fa-inverse"></i>
+</span>
+</a>
+</li>
+<li>
+<a href=https://twitter.com/lan31793328>
+<span class="fa-stack fa-lg">
+<i class="fa fa-circle fa-stack-2x"></i>
+<i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+</span>
+</a>
+</li>
+<li>
+<a target=_blank href=https://www.zhihu.com/people/liangyuanpeng>
+<span class="fa-stack fa-lg">
+<i class="fa fa-circle fa-stack-2x"></i>
+<i class="fa fa-stack-1x fa-inverse">知</i>
+</span>
+</a>
+</li>
+<li>
+<a target=_blank href=https://weibo.com/u/1908782280>
+<span class="fa-stack fa-lg">
+<i class="fa fa-circle fa-stack-2x"></i>
+<i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+</span>
+</a>
 </li>
 </ul>
-<script src=https://utteranc.es/client.js repo=liangyuanpeng/liangyuanpeng.github.io issue-term=title theme=github-light crossorigin=anonymous async></script>
 </div>
-<div class="col-lg-8 col-lg-offset-2
-col-md-10 col-md-offset-1
-sidebar-container">
+</section>
 <section>
 <hr class="hidden-sm hidden-xs">
-<h5><a href=/tags/>FEATURED TAGS</a></h5>
+<h5>FEATURED TAGS</h5>
 <div class=tags>
 <a href=/tags/blog title=blog>
 blog
@@ -177,6 +195,9 @@ foundation
 </a>
 <a href=/tags/golang title=golang>
 golang
+</a>
+<a href=/tags/helm title=helm>
+helm
 </a>
 <a href=/tags/hugo title=hugo>
 hugo
@@ -243,36 +264,23 @@ tech
 </a>
 </div>
 </section>
-</div>
-<div class="col-lg- col-lg-offset-2
-col-md-10 col-md-offset-1">
-<section>
-<hr class="hidden-sm hidden-xs">
-<h2>相关文章</h2>
-<ul style=margin-bottom:25px>
-<li><a href=/post/cncf-longhorn/k8s-deploy-longhorn/>kubernetes部署longhorn</a></li>
-<li><a href=/post/cncf-prometheus/kubernetes-deploy-kube-prometheus/>kubernetes部署kube-prometheus</a></li>
-<li><a href=/post/cncf-contour/kubesphere-gateway-with-contour/>KubeSphere使用Contour Ingress作为项目网关</a></li>
-<li><a href=/post/cncf-contour/join-contour-docs-wg/>加入contour文档工作组</a></li>
-<li><a href=/post/cncf-contour/announcing-contour-v1.13.0/>宣布Contour v1.13.0</a></li>
-<li><a href=/post/fundation-cd/cdf-new-project-shipwright/>CDF(持续交付基金会)欢迎基于k8s构建容器镜像的框架Shipwright作为新的孵化项目</a></li>
-<li><a href=/post/cncf-contour/contour-replease-log/>contour版本发布说明</a></li>
-<li><a href=/post/cncf-prometheus/prometheus-v2.28.1-update/>Prometheus2.28.1更新讲解</a></li>
-<li><a href=/post/cncf-kubernetes/k8s-multi-tenancy-guide/>Kubernetes多租户–最佳实践指南</a></li>
-<li><a href=/post/cncf-prometheus/prometheus-replease-log/>Prometheus版本发布说明</a></li>
+<hr>
+<h5>BOOKMARKS</h5>
+<ul class=list-inline>
+<li><a target=_blank href=http://www.servicemesh.cn>ServiceMesh中文网</a></li>
+<li><a target=_blank href=https://servicemesh.gitbooks.io/awesome-servicemesh>Awesome Service Mesh</a></li>
+<li><a target=_blank href=https://keda.liangyuanpeng.com>KEDA中文化进行中</a></li>
 </ul>
-</section>
 </div>
 </div>
 </div>
-</article>
 <footer>
 <div class=container>
 <div class=row>
 <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
 <ul class="list-inline text-center">
 <li>
-<a href rel=alternate type=application/rss+xml title="Hi,I`m lan">
+<a href=/tags/%E7%BF%BB%E8%AF%91/index.xml rel=alternate type=application/rss+xml title="Hi,I`m lan">
 <span class="fa-stack fa-lg">
 <i class="fa fa-circle fa-stack-2x"></i>
 <i class="fa fa-rss fa-stack-1x fa-inverse"></i>

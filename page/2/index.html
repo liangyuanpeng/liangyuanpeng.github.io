@@ -86,6 +86,34 @@ col-sm-12
 col-xs-12
 post-container">
 <div class=post-preview>
+<a href=/post/how-to-config-for-cache-from-gateway/>
+<h2 class=post-title>
+常用网关都是如何配置缓存请求的
+</h2>
+<div class=post-content-preview>
+前言 Envoy apisix Pipy docker pull flomesh/pipy:0.90.0-54 pipy的体验 上手门槛比较高，官方文档相对也是比较少的，有一种束手无策的感觉. 例如,官方例子中是的 js 脚本是这样的: pipy() .listen(8000) .demuxHTTP().to( $=>$.muxHTTP().to( $=>$.connect('localhost:8080')
+</div>
+</a>
+<p class=post-meta>
+Posted by 梁远鹏 2023-02-20
+</p>
+</div>
+<hr>
+<div class=post-preview>
+<a href=/post/cncf-envoy/k8s-app-dev-with-envoy/>
+<h2 class=post-title>
+基于Envoy搭建K8S应用开发环境
+</h2>
+<div class=post-content-preview>
+主要思想 主要思想是在 K8S 集群中部署一个 Envoy 服务,然后将请求以 L4/L7 的方式代理请求. 例如搭建 webhook 的开发环境时是做 L7 代理,搭建 kube-apiserver 时是做 L4 代理. 注意 本文还在
+</div>
+</a>
+<p class=post-meta>
+Posted by 梁远鹏 2023-02-19
+</p>
+</div>
+<hr>
+<div class=post-preview>
 <a href=/post/cncf-kubernetes/compile-kubernetes/>
 <h2 class=post-title>
 编译kubernetes组件
@@ -124,34 +152,6 @@ Posted by 梁远鹏 2023-02-16
 </a>
 <p class=post-meta>
 Posted by 梁远鹏 2023-02-16
-</p>
-</div>
-<hr>
-<div class=post-preview>
-<a href=/post/cncf-k8s/frozen-for-k8s-gcr-io/>
-<h2 class=post-title>
-k8s.gcr.io注册表完全冻结
-</h2>
-<div class=post-content-preview>
-前言 k8s.gcr.io 这个注册表将会在 2023年4月3日完全冻结,新的注册表地址为 registry.k8s.io,在2022年11月28日官方就已经发布了一
-</div>
-</a>
-<p class=post-meta>
-Posted by 梁远鹏 2023-02-11
-</p>
-</div>
-<hr>
-<div class=post-preview>
-<a href=/post/cncf-harbor/registry-mirrors-of-harbor/>
-<h2 class=post-title>
-harbor镜像代理
-</h2>
-<div class=post-content-preview>
-前言 关于 lank8s.cn 关于 lank8s.cn 可以通过 lank8s.cn服务 或 Lank8s Github组织 了解更多.
-</div>
-</a>
-<p class=post-meta>
-Posted by 梁远鹏 2023-02-09
 </p>
 </div>
 <hr>
@@ -260,6 +260,9 @@ foundation
 </a>
 <a href=/tags/golang title=golang>
 golang
+</a>
+<a href=/tags/helm title=helm>
+helm
 </a>
 <a href=/tags/hugo title=hugo>
 hugo

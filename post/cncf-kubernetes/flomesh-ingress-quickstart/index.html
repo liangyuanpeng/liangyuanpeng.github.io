@@ -96,7 +96,7 @@ kubernetes
 <span class=old-visitors-count style=display:none></span>
 <span class=leancloud-visitors-count></span>
 </span>
-阅读 </span></span>|<span class=post-date>共1042字</span>，阅读约<span class=more-meta> 3 分钟</span>
+阅读 </span></span>|<span class=post-date>共1063字</span>，阅读约<span class=more-meta> 3 分钟</span>
 </span>
 </div>
 </div>
@@ -118,6 +118,7 @@ post-container">
 <li><a href=#kind-配置文件>Kind 配置文件</a></li>
 </ul>
 <ul>
+<li><a href=#部署k8s集群>部署K8S集群</a></li>
 <li><a href=#部署fsm>部署fsm</a></li>
 <li><a href=#创建ingress>创建ingress</a></li>
 <li><a href=#部署后端服务httpbin>部署后端服务httpbin</a></li>
@@ -151,6 +152,8 @@ post-container">
 </span><span style=color:#e6db74>  [plugins.&#34;io.containerd.grpc.v1.cri&#34;.registry.mirrors.&#34;registry.k8s.io&#34;]
 </span><span style=color:#e6db74>    endpoint = [&#34;https://registry.lank8s.cn&#34;]</span>  
 </code></pre></div><h1 id=部署>部署</h1>
+<h2 id=部署k8s集群>部署K8S集群</h2>
+<p><a href=https://liangyuanpeng.com/post/cncf-kubernetes/run-k8s-with-kind/>用kind搭建k8s集群环境</a></p>
 <h2 id=部署fsm>部署fsm</h2>
 <p>首先使用 helm 安装 fsm:</p>
 <div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell>helm repo add fsm https://charts.flomesh.io
@@ -298,6 +301,9 @@ oem@lan:~$ curl -H <span style=color:#e6db74>&#34;host: lan.local&#34;</span> lo
 <li class=previous>
 <a href=/post/cncf-carvel/ytt-vs-x/ data-toggle=tooltip data-placement=top title=ytt与各类yaml相关工具对比>&larr; ytt与各类yaml相关工具对比</a>
 </li>
+<li class=next>
+<a href=/post/cncf-kubernetes/run-k8s-with-kind/ data-toggle=tooltip data-placement=top title=用kind搭建k8s集群环境>用kind搭建k8s集群环境 &rarr;</a>
+</li>
 </ul>
 <script src=https://utteranc.es/client.js repo=liangyuanpeng/liangyuanpeng.github.io issue-term=title theme=github-light crossorigin=anonymous async></script>
 </div>
@@ -346,6 +352,9 @@ foundation
 </a>
 <a href=/tags/golang title=golang>
 golang
+</a>
+<a href=/tags/helm title=helm>
+helm
 </a>
 <a href=/tags/hugo title=hugo>
 hugo

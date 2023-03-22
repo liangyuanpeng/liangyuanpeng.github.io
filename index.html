@@ -86,6 +86,34 @@ col-sm-12
 col-xs-12
 post-container">
 <div class=post-preview>
+<a href=/post/cncf-keda/keda-helmchart-release-with-v2.10.1/>
+<h2 class=post-title>
+keda-helmchart发布v2.10.1
+</h2>
+<div class=post-content-preview>
+keda helm chart 发布v2.10.1 长话短说 helm repo add kedacore https://kedacore.github.io/charts helm repo update helm install keda kedacore/keda --version 2.10.1 -n keda --create-namespace 新内容 提供了对podLabels在 webhook Deployment 中的配置 (#404 🎉 贡献者 @pari-) 为cert-ma
+</div>
+</a>
+<p class=post-meta>
+Posted by 梁远鹏 2023-03-14
+</p>
+</div>
+<hr>
+<div class=post-preview>
+<a href=/post/cncf-kubernetes/run-k8s-with-kind/>
+<h2 class=post-title>
+用kind搭建k8s集群环境
+</h2>
+<div class=post-content-preview>
+前言 由于各类基于 kubernetes 的云原生实验或测试的前提都是需要一个 kubernetes 环境,而在写博客时总是需要提及使用 kind 来搭建 kubernetes 环境. 因此这里单独写一篇文章来介绍如何用
+</div>
+</a>
+<p class=post-meta>
+Posted by 梁远鹏 2023-03-12
+</p>
+</div>
+<hr>
+<div class=post-preview>
 <a href=/post/cncf-kubernetes/flomesh-ingress-quickstart/>
 <h2 class=post-title>
 flomesh-ingress浅试
@@ -124,34 +152,6 @@ Posted by 梁远鹏 2023-02-25
 </a>
 <p class=post-meta>
 Posted by 梁远鹏 2023-02-22
-</p>
-</div>
-<hr>
-<div class=post-preview>
-<a href=/post/how-to-config-for-cache-from-gateway/>
-<h2 class=post-title>
-常用网关都是如何配置缓存请求的
-</h2>
-<div class=post-content-preview>
-前言 Envoy apisix Pipy docker pull flomesh/pipy:0.90.0-54 pipy的体验 上手门槛比较高，官方文档相对也是比较少的，有一种束手无策的感觉. 例如,官方例子中是的 js 脚本是这样的: pipy() .listen(8000) .demuxHTTP().to( $=>$.muxHTTP().to( $=>$.connect('localhost:8080')
-</div>
-</a>
-<p class=post-meta>
-Posted by 梁远鹏 2023-02-20
-</p>
-</div>
-<hr>
-<div class=post-preview>
-<a href=/post/cncf-envoy/k8s-app-dev-with-envoy/>
-<h2 class=post-title>
-基于Envoy搭建K8S应用开发环境
-</h2>
-<div class=post-content-preview>
-主要思想 主要思想是在 K8S 集群中部署一个 Envoy 服务,然后将请求以 L4/L7 的方式代理请求. 例如搭建 webhook 的开发环境时是做 L7 代理,搭建 kube-apiserver 时是做 L4 代理. 注意 本文还在
-</div>
-</a>
-<p class=post-meta>
-Posted by 梁远鹏 2023-02-19
 </p>
 </div>
 <hr>
@@ -257,6 +257,9 @@ foundation
 </a>
 <a href=/tags/golang title=golang>
 golang
+</a>
+<a href=/tags/helm title=helm>
+helm
 </a>
 <a href=/tags/hugo title=hugo>
 hugo
