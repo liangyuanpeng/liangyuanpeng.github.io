@@ -6,7 +6,7 @@ languageCode = "en-us"
 disqusShortname = ""
 googleAnalytics = "RTTRHGYFWL"
 preserveTaxonomyNames = true
-paginate = 5 #frontpage pagination
+paginate = 10 #frontpage pagination
 hasCJKLanguage = true
 
 [outputs]
@@ -65,8 +65,8 @@ home = ["HTML", "RSS", "Algolia"]
   #linkedin       = "full profile url in linkedin"
   #stackoverflow  = "full profile url in stackoverflow"
   #instagram     = "full profile url in instagram"
-  github         = "https://github.com/liangyuanpeng"  
-  #wechat         = "link of wechat QR code image"
+  github         = "https://github.com/liangyuanpeng"
+  wechat         = "https://res.cloudinary.com/lyp/image/upload/v1679386615/hugo/blog.github.io/wechat-lan.png"
   #pinterest     = "full profile url in pinterest"
   zhihu = "https://www.zhihu.com/people/liangyuanpeng"
   weibo = "https://weibo.com/u/1908782280"
