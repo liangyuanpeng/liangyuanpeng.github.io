@@ -9,7 +9,7 @@
 <meta name=viewport content="width=device-width,initial-scale=1">
 <meta name=baidu-site-verification content="HGLXRsUXC4">
 <meta name=baidu-site-verification content="code-ANZvlnN0Xr">
-<meta name=description content="lan，工程师⎈, OpenYurt Member,CDF中文本地化SIG成员,开源爱好者 | 公众号:四颗咖啡豆">
+<meta name=description content="lan，工程师⎈,远鹏|CNCF粉丝|Pulsar爱好者|公众号:四颗咖啡豆|云原生追随者">
 <meta name=keyword content="liangyuanpeng|LanLiang|OpenYurt|Knative|Pulsar|Prometheus|Halo||边缘计算kubernetes|Docker|CloudNative|Golang|Rust|Istio|微服务">
 <link rel="shortcut icon" href=img/logo.png>
 <title>Hi,I`m lan-liangyuanpeng的博客 | liangyuanpeng's Blog</title>
@@ -58,7 +58,7 @@
 <a href=categories/tech>tech</a>
 </li>
 <li>
-<a href=search>SEARCH <img src=img/search.png height=15 style=cursor:pointer></a>
+<a href=/search/>SEARCH <img src=img/search.png height=15 style=cursor:pointer></a>
 </li>
 </ul>
 </div>
@@ -86,54 +86,13 @@ col-sm-12
 col-xs-12
 post-container">
 <div class=post-preview>
-<a href=/post/how-to-config-for-cache-from-gateway/>
+<a href=/post/cncf-k8s/frozen-for-k8s-gcr-io/>
 <h2 class=post-title>
-常用网关都是如何配置缓存请求的
+<img style=display:inline-block src=https://emoji.slack-edge.com/T09NY5SBT/emoji_k8s_loft/17a832b1a9cadae9.gif height=20 width=20>
+[长期更新]k8s组件常用参数
 </h2>
 <div class=post-content-preview>
-前言 Envoy apisix Pipy docker pull flomesh/pipy:0.90.0-54 pipy的体验 上手门槛比较高，官方文档相对也是比较少的，有一种束手无策的感觉. 例如,官方例子中是的 js 脚本是这样的: pipy() .listen(8000) .demuxHTTP().to( $=>$.muxHTTP().to( $=>$.connect('localhost:8080')
-</div>
-</a>
-<p class=post-meta>
-Posted by 梁远鹏 2023-02-20
-</p>
-</div>
-<hr>
-<div class=post-preview>
-<a href=/post/cncf-envoy/k8s-app-dev-with-envoy/>
-<h2 class=post-title>
-基于Envoy搭建K8S应用开发环境
-</h2>
-<div class=post-content-preview>
-主要思想 主要思想是在 K8S 集群中部署一个 Envoy 服务,然后将请求以 L4/L7 的方式代理请求. 例如搭建 webhook 的开发环境时是做 L7 代理,搭建 kube-apiserver 时是做 L4 代理. 注意 本文还在
-</div>
-</a>
-<p class=post-meta>
-Posted by 梁远鹏 2023-02-19
-</p>
-</div>
-<hr>
-<div class=post-preview>
-<a href=/post/cncf-kubernetes/compile-kubernetes/>
-<h2 class=post-title>
-编译kubernetes组件
-</h2>
-<div class=post-content-preview>
-kubernetes 发展到了今天(2023-02-19),编译 kubernetes 已经是一件很简单的事情,唯一的门槛就是需要有适合的内存资源以及编译需要用到的 registry.k8s.io 中的镜像. 编译 解
-</div>
-</a>
-<p class=post-meta>
-Posted by 梁远鹏 2023-02-19
-</p>
-</div>
-<hr>
-<div class=post-preview>
-<a href=/post/cncf-envoy/ennoy-faq/>
-<h2 class=post-title>
-[长期更新]envoy常用
-</h2>
-<div class=post-content-preview>
-说明 本文主要收集常见场景下 Envoy 的配置以及遇到的一些常见问题,欢迎对本文进行投稿你认为好的场景配置或问题. 权重分流 基于权重做灰度发布. - match: prefix: / route:
+说明 本文主要收集常见场景下 K8S 组件的配置以及遇到的一些常见问题,欢迎对本文进行投稿你认为好的场景配置或问题.
 </div>
 </a>
 <p class=post-meta>
@@ -144,14 +103,131 @@ Posted by 梁远鹏 2023-02-16
 <div class=post-preview>
 <a href=/post/cncf-k8s/frozen-for-k8s-gcr-io/>
 <h2 class=post-title>
-[长期更新]k8s组件常用参数
+<img style=display:inline-block src=https://emoji.slack-edge.com/T09NY5SBT/emoji_k8s_loft/17a832b1a9cadae9.gif height=20 width=20>
+k8s.gcr.io注册表完全冻结
 </h2>
 <div class=post-content-preview>
-说明 本文主要收集常见场景下 K8S 组件的配置以及遇到的一些常见问题,欢迎对本文进行投稿你认为好的场景配置或问题.
+前言 k8s.gcr.io 这个注册表将会在 2023年4月3日完全冻结,新的注册表地址为 registry.k8s.io,在2022年11月28日官方就已经发布了一
 </div>
 </a>
 <p class=post-meta>
-Posted by 梁远鹏 2023-02-16
+Posted by 梁远鹏 2023-02-11
+</p>
+</div>
+<hr>
+<div class=post-preview>
+<a href=/post/cncf-harbor/registry-mirrors-of-harbor/>
+<h2 class=post-title>
+harbor镜像代理
+</h2>
+<div class=post-content-preview>
+前言 关于 lank8s.cn 关于 lank8s.cn 可以通过 lank8s.cn服务 或 Lank8s Github组织 了解更多.
+</div>
+</a>
+<p class=post-meta>
+Posted by 梁远鹏 2023-02-09
+</p>
+</div>
+<hr>
+<div class=post-preview>
+<a href=/post/cncf-zot/new-container-image-registry-of-zot-from-cncf/>
+<h2 class=post-title>
+新的容器镜像仓库选择
+</h2>
+<div class=post-content-preview>
+简介 Zot 是思科开源的遵循 OCI 规范的容器镜像仓库,目前捐赠给了 CNCF,是 Sandbox 级别项目. 本文主要讲述作为镜像代理仓库下的应用场景. 部署 Kubernetes 前提 helm kubernetes cluster 这
+</div>
+</a>
+<p class=post-meta>
+Posted by 梁远鹏 2023-01-18
+</p>
+</div>
+<hr>
+<div class=post-preview>
+<a href=/post/cncf-containerd/registry-mirrors-for-containerd/>
+<h2 class=post-title>
+<img style=display:inline-block src=https://emoji.slack-edge.com/T08PSQ7BQ/kind-logo/6a36c9bdfbbbe16b.png height=20 width=20>
+<img style=display:inline-block src=https://emoji.slack-edge.com/T09NY5SBT/emoji_k8s_loft/17a832b1a9cadae9.gif height=20 width=20>
+为containerd配置仓库镜像
+</h2>
+<div class=post-content-preview>
+前言 containerd 的仓库镜像功能是很有用的功能,特别是国内无法访问 gcr.io 和 k8s.gcr.io 以及 registry.k8s.io 这些镜像仓库的情况下. K3S 和 Kind 都提供了比较简单的方式来为内置的 containerd 配置仓库镜像
+</div>
+</a>
+<p class=post-meta>
+Posted by 梁远鹏 2023-01-12
+</p>
+</div>
+<hr>
+<div class=post-preview>
+<a href=/post/cncf-k8s/k8s-validating-admission-policy-with-crdparam-lua/>
+<h2 class=post-title>
+<img style=display:inline-block src=https://emoji.slack-edge.com/T09NY5SBT/emoji_k8s_loft/17a832b1a9cadae9.gif height=20 width=20>
+K8S内置准入校验CRD参数配合lua起飞
+</h2>
+<div class=post-content-preview>
+前言 k8s 1.26 推出了内置的准入校验机制,只需要使用 CEL 表达式就可以完成基本的准入校验逻辑,而高级功能包含将参数动态化,可以使用 CRD 资源的某个字段作为参
+</div>
+</a>
+<p class=post-meta>
+Posted by 梁远鹏 2023-01-11
+</p>
+</div>
+<hr>
+<div class=post-preview>
+<a href=/post/cncf-k8s/k8s-admissionregistration-with-cel/>
+<h2 class=post-title>
+<img style=display:inline-block src=https://emoji.slack-edge.com/T09NY5SBT/emoji_k8s_loft/17a832b1a9cadae9.gif height=20 width=20>
+用cel表达式来实现k8s准入校验
+</h2>
+<div class=post-content-preview>
+前言 在 K8S 1.26 版本以前,达到 K8S 准入校验策略效果的方式有两种： 自己实现 K8S webook 直接使用 CNCF 项目中以 K8S 策略展开的项目,例如OPA、kyverno. 这些都是
+</div>
+</a>
+<p class=post-meta>
+Posted by 梁远鹏 2023-01-09
+</p>
+</div>
+<hr>
+<div class=post-preview>
+<a href=/post/apache-pulsar/deploy-pulsar/>
+<h2 class=post-title>
+部署去ZK后的Apache Pulsar
+</h2>
+<div class=post-content-preview>
+</div>
+</a>
+<p class=post-meta>
+Posted by 梁远鹏 2022-06-06
+</p>
+</div>
+<hr>
+<div class=post-preview>
+<a href=/post/cncf-kubernetes/resolve-gcr.io-with-webhook-of-repalcer/>
+<h2 class=post-title>
+<img style=display:inline-block src=https://emoji.slack-edge.com/T09NY5SBT/emoji_k8s_loft/17a832b1a9cadae9.gif height=20 width=20>
+部署一个webhook,轻松解决gcr.io
+</h2>
+<div class=post-content-preview>
+前言 lank8s.cn 已经正常运营几年了，目前可以看到每天都有人在使用 gcr.lank8s.cn 来拉取 gcr.io 的镜像,避免了墙带来的困扰,不过当需要拉取的不同的镜像多了之后可能会显得有些
+</div>
+</a>
+<p class=post-meta>
+Posted by 梁远鹏 2022-04-05
+</p>
+</div>
+<hr>
+<div class=post-preview>
+<a href=/post/cncf-envoy/ennoy-wasm-filter-with-go/>
+<h2 class=post-title>
+用GO开发Envoy wasm filter
+</h2>
+<div class=post-content-preview>
+目标 总结 注意 本文还在持续创作当中,这几天会完成创作.
+</div>
+</a>
+<p class=post-meta>
+Posted by 梁远鹏 2022-03-20
 </p>
 </div>
 <hr>
@@ -173,7 +249,7 @@ sidebar-container">
 <hr><h5><a href>ABOUT ME</a></h5>
 <div class=short-about>
 <img src=https://res.cloudinary.com/lyp/image/upload/v1537624737/hugo/avatar/%E5%93%88%E5%B8%8C%E5%A4%B4%E5%83%8F.jpg>
-<p>OpenYurt Member|CDF中文本地化SIG成员|CNCF粉丝|Pulsar爱好者|公众号:四颗咖啡豆</p>
+<p>⎈远鹏|CNCF粉丝|Pulsar爱好者|公众号:四颗咖啡豆|云原生追随者</p>
 <ul class=list-inline>
 <li>
 <a href=/index.xml rel=alternate type=application/rss+xml title="Hi,I`m lan">
@@ -188,6 +264,14 @@ sidebar-container">
 <span class="fa-stack fa-lg">
 <i class="fa fa-circle fa-stack-2x"></i>
 <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+</span>
+</a>
+</li>
+<li>
+<a target=_blank href=https://res.cloudinary.com/lyp/image/upload/v1679386615/hugo/blog.github.io/wechat-lan.png>
+<span class="fa-stack fa-lg">
+<i class="fa fa-circle fa-stack-2x"></i>
+<i class="fa fa-wechat fa-stack-1x fa-inverse"></i>
 </span>
 </a>
 </li>
@@ -357,6 +441,14 @@ tech
 <span class="fa-stack fa-lg">
 <i class="fa fa-circle fa-stack-2x"></i>
 <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+</span>
+</a>
+</li>
+<li>
+<a target=_blank href=https://res.cloudinary.com/lyp/image/upload/v1679386615/hugo/blog.github.io/wechat-lan.png>
+<span class="fa-stack fa-lg">
+<i class="fa fa-circle fa-stack-2x"></i>
+<i class="fa fa-wechat fa-stack-1x fa-inverse"></i>
 </span>
 </a>
 </li>

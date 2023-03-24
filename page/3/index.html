@@ -9,7 +9,7 @@
 <meta name=viewport content="width=device-width,initial-scale=1">
 <meta name=baidu-site-verification content="HGLXRsUXC4">
 <meta name=baidu-site-verification content="code-ANZvlnN0Xr">
-<meta name=description content="lan，工程师⎈, OpenYurt Member,CDF中文本地化SIG成员,开源爱好者 | 公众号:四颗咖啡豆">
+<meta name=description content="lan，工程师⎈,远鹏|CNCF粉丝|Pulsar爱好者|公众号:四颗咖啡豆|云原生追随者">
 <meta name=keyword content="liangyuanpeng|LanLiang|OpenYurt|Knative|Pulsar|Prometheus|Halo||边缘计算kubernetes|Docker|CloudNative|Golang|Rust|Istio|微服务">
 <link rel="shortcut icon" href=img/logo.png>
 <title>Hi,I`m lan-liangyuanpeng的博客 | liangyuanpeng's Blog</title>
@@ -58,7 +58,7 @@
 <a href=categories/tech>tech</a>
 </li>
 <li>
-<a href=search>SEARCH <img src=img/search.png height=15 style=cursor:pointer></a>
+<a href=/search/>SEARCH <img src=img/search.png height=15 style=cursor:pointer></a>
 </li>
 </ul>
 </div>
@@ -86,72 +86,152 @@ col-sm-12
 col-xs-12
 post-container">
 <div class=post-preview>
-<a href=/post/cncf-k8s/frozen-for-k8s-gcr-io/>
+<a href=/post/cncf-envoy/ennoy-wasm-filter-with-rust/>
 <h2 class=post-title>
-k8s.gcr.io注册表完全冻结
+<img style=display:inline-block src=https://emoji.slack-edge.com/T03TRGF7ZM4/rust/bd45fcb3a2329aa4.png height=20 width=20>
+用Rust开发Envoy wasm filter
 </h2>
 <div class=post-content-preview>
-前言 k8s.gcr.io 这个注册表将会在 2023年4月3日完全冻结,新的注册表地址为 registry.k8s.io,在2022年11月28日官方就已经发布了一
+目标 用WASM filter实现WWW-Authenticate认证,并且支持配置域名白名单和URL白名单. 了解envoy-wasm-rust
 </div>
 </a>
 <p class=post-meta>
-Posted by 梁远鹏 2023-02-11
+Posted by 梁远鹏 2022-03-20
 </p>
 </div>
 <hr>
 <div class=post-preview>
-<a href=/post/cncf-harbor/registry-mirrors-of-harbor/>
+<a href=/post/fundation-cncf/open-tracing-project-archive/>
 <h2 class=post-title>
-harbor镜像代理
+CNCF批准OpenTracing项目归档
 </h2>
 <div class=post-content-preview>
-前言 关于 lank8s.cn 关于 lank8s.cn 可以通过 lank8s.cn服务 或 Lank8s Github组织 了解更多.
+OpenTracing归档 自从OpenTracing合并到OpenTelemetry项目后,维护者的意愿是将OpenTracing项目归档,
 </div>
 </a>
 <p class=post-meta>
-Posted by 梁远鹏 2023-02-09
+Posted by 梁远鹏 2022-02-04
 </p>
 </div>
 <hr>
 <div class=post-preview>
-<a href=/post/cncf-zot/new-container-image-registry-of-zot-from-cncf/>
+<a href=/post/fundation-rust/container-for-rust-application/>
 <h2 class=post-title>
-新的容器镜像仓库选择
+<img style=display:inline-block src=https://emoji.slack-edge.com/T03TRGF7ZM4/rust/bd45fcb3a2329aa4.png height=20 width=20>
+Rust应用容器化
 </h2>
 <div class=post-content-preview>
-简介 Zot 是思科开源的遵循 OCI 规范的容器镜像仓库,目前捐赠给了 CNCF,是 Sandbox 级别项目. 本文主要讲述作为镜像代理仓库下的应用场景. 部署 Kubernetes 前提 helm kubernetes cluster 这
+本文打包的rust应用是基于actix-web开发的包含expose metrics的web应用. Rust应用容器化的几种方式 编写Docker
 </div>
 </a>
 <p class=post-meta>
-Posted by 梁远鹏 2023-01-18
+Posted by 梁远鹏 2022-02-02
 </p>
 </div>
 <hr>
 <div class=post-preview>
-<a href=/post/cncf-containerd/registry-mirrors-for-containerd/>
+<a href=/post/fundation-rust/quick-start-kubernetes-client-rust/>
 <h2 class=post-title>
-为containerd配置仓库镜像
+<img style=display:inline-block src=https://emoji.slack-edge.com/T03TRGF7ZM4/rust/bd45fcb3a2329aa4.png height=20 width=20>
+快速认识kubernetes的rust客户端
 </h2>
 <div class=post-content-preview>
-前言 containerd 的仓库镜像功能是很有用的功能,特别是国内无法访问 gcr.io 和 k8s.gcr.io 以及 registry.k8s.io 这些镜像仓库的情况下. K3S 和 Kind 都提供了比较简单的方式来为内置的 containerd 配置仓库镜像
+介绍 kube-rs目前是CNCF的沙箱项目,有一个官方的controller实现示例controller-rs. 还有一个Rust实现的Ope
 </div>
 </a>
 <p class=post-meta>
-Posted by 梁远鹏 2023-01-12
+Posted by 梁远鹏 2022-02-02
 </p>
 </div>
 <hr>
 <div class=post-preview>
-<a href=/post/cncf-k8s/k8s-validating-admission-policy-with-crdparam-lua/>
+<a href=/post/fundation-rust/rust-exception-qa/>
 <h2 class=post-title>
-K8S内置准入校验CRD参数配合lua起飞
+<img style=display:inline-block src=https://emoji.slack-edge.com/T03TRGF7ZM4/rust/bd45fcb3a2329aa4.png height=20 width=20>
+Rust常见问题
 </h2>
 <div class=post-content-preview>
-前言 k8s 1.26 推出了内置的准入校验机制,只需要使用 CEL 表达式就可以完成基本的准入校验逻辑,而高级功能包含将参数动态化,可以使用 CRD 资源的某个字段作为参
+声明 由于我不是 Rust 专家,因此只是将使用/研究 Rust 时遇到的问题分享出来,如有不对之处麻烦提示或帮忙纠正一下,感谢! 常见问题 feature edition2021 is required this Cargo does not support nightly features, but
 </div>
 </a>
 <p class=post-meta>
-Posted by 梁远鹏 2023-01-11
+Posted by 梁远鹏 2022-01-31
+</p>
+</div>
+<hr>
+<div class=post-preview>
+<a href=/post/fundation-cncf/rust-project-in-cncf/>
+<h2 class=post-title>
+<img style=display:inline-block src=https://emoji.slack-edge.com/T09NY5SBT/emoji_k8s_loft/17a832b1a9cadae9.gif height=20 width=20>
+<img style=display:inline-block src=https://emoji.slack-edge.com/T03TRGF7ZM4/rust/bd45fcb3a2329aa4.png height=20 width=20>
+cncf基金会中的rust项目
+</h2>
+<div class=post-content-preview>
+介绍 本文会介绍在CNCF中的Rust项目,项目的介绍可能是很简陋的,如果你可以帮忙完善一下项目的介绍,那就太好了,随时欢迎在评论区或网站仓库
+</div>
+</a>
+<p class=post-meta>
+Posted by 梁远鹏 2022-01-22
+</p>
+</div>
+<hr>
+<div class=post-preview>
+<a href=/post/cncf-envoy/envoy-file-xds-with-reload-configmap/>
+<h2 class=post-title>
+<img style=display:inline-block src=https://emoji.slack-edge.com/T09NY5SBT/emoji_k8s_loft/17a832b1a9cadae9.gif height=20 width=20>
+将热更新configmap作为Envoy的XDS服务
+</h2>
+<div class=post-content-preview>
+前言 由于实验基于kubernetes,因此你首先需要有一个kubernetes环境,这里推荐使用 Kind 命令来搭建.见用kind搭建k8s集群环境
+</div>
+</a>
+<p class=post-meta>
+Posted by 梁远鹏 2022-01-22
+</p>
+</div>
+<hr>
+<div class=post-preview>
+<a href=/post/fundation-cncf/k8s-cd-argo-deploy/>
+<h2 class=post-title>
+<img style=display:inline-block src=https://emoji.slack-edge.com/T09NY5SBT/emoji_k8s_loft/17a832b1a9cadae9.gif height=20 width=20>
+k8s部署云原生CD引擎Argo
+</h2>
+<div class=post-content-preview>
+部署Argo CD 安装Argo CD kubectl create namespace argocd kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml 如果下载访问有问题可以改一下地址,是我个人学习使用的一个代理github文件的下载地址.将r
+</div>
+</a>
+<p class=post-meta>
+Posted by 梁远鹏 2022-01-20
+</p>
+</div>
+<hr>
+<div class=post-preview>
+<a href=/post/cncf-kubernetes/kubernetes-qa/>
+<h2 class=post-title>
+<img style=display:inline-block src=https://emoji.slack-edge.com/T09NY5SBT/emoji_k8s_loft/17a832b1a9cadae9.gif height=20 width=20>
+kubernetes常见问题
+</h2>
+<div class=post-content-preview>
+声明 本文会持续的更新,将在使用kubernetes过程中遇到的问题都收集起来.欢迎投稿加入你遇到的问题. 跨版本升级 service-account-issuer is a required flag, &ndash;service-account-signing-key-file and &ndash;service-account-issuer are required flags 版本
+</div>
+</a>
+<p class=post-meta>
+Posted by 梁远鹏 2022-01-18
+</p>
+</div>
+<hr>
+<div class=post-preview>
+<a href=/post/cncf-kubernetes/proxy-kube-apiserver/>
+<h2 class=post-title>
+<img style=display:inline-block src=https://emoji.slack-edge.com/T09NY5SBT/emoji_k8s_loft/17a832b1a9cadae9.gif height=20 width=20>
+反向代理kube-apiserver的请求
+</h2>
+<div class=post-content-preview>
+本文会介绍在L7中转发下面两种方式的请求以及L4转发. 默认的使用证书的kubectl请求 使用token的kubectl请求 L4比较简单处理,
+</div>
+</a>
+<p class=post-meta>
+Posted by 梁远鹏 2022-01-17
 </p>
 </div>
 <hr>
@@ -173,7 +253,7 @@ sidebar-container">
 <hr><h5><a href>ABOUT ME</a></h5>
 <div class=short-about>
 <img src=https://res.cloudinary.com/lyp/image/upload/v1537624737/hugo/avatar/%E5%93%88%E5%B8%8C%E5%A4%B4%E5%83%8F.jpg>
-<p>OpenYurt Member|CDF中文本地化SIG成员|CNCF粉丝|Pulsar爱好者|公众号:四颗咖啡豆</p>
+<p>⎈远鹏|CNCF粉丝|Pulsar爱好者|公众号:四颗咖啡豆|云原生追随者</p>
 <ul class=list-inline>
 <li>
 <a href=/index.xml rel=alternate type=application/rss+xml title="Hi,I`m lan">
@@ -188,6 +268,14 @@ sidebar-container">
 <span class="fa-stack fa-lg">
 <i class="fa fa-circle fa-stack-2x"></i>
 <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+</span>
+</a>
+</li>
+<li>
+<a target=_blank href=https://res.cloudinary.com/lyp/image/upload/v1679386615/hugo/blog.github.io/wechat-lan.png>
+<span class="fa-stack fa-lg">
+<i class="fa fa-circle fa-stack-2x"></i>
+<i class="fa fa-wechat fa-stack-1x fa-inverse"></i>
 </span>
 </a>
 </li>
@@ -357,6 +445,14 @@ tech
 <span class="fa-stack fa-lg">
 <i class="fa fa-circle fa-stack-2x"></i>
 <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+</span>
+</a>
+</li>
+<li>
+<a target=_blank href=https://res.cloudinary.com/lyp/image/upload/v1679386615/hugo/blog.github.io/wechat-lan.png>
+<span class="fa-stack fa-lg">
+<i class="fa fa-circle fa-stack-2x"></i>
+<i class="fa fa-wechat fa-stack-1x fa-inverse"></i>
 </span>
 </a>
 </li>

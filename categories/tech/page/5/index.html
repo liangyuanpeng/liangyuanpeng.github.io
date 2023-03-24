@@ -8,7 +8,7 @@
 <meta name=viewport content="width=device-width,initial-scale=1">
 <meta name=baidu-site-verification content="HGLXRsUXC4">
 <meta name=baidu-site-verification content="code-ANZvlnN0Xr">
-<meta name=description content="lan，工程师⎈, OpenYurt Member,CDF中文本地化SIG成员,开源爱好者 | 公众号:四颗咖啡豆">
+<meta name=description content="lan，工程师⎈,远鹏|CNCF粉丝|Pulsar爱好者|公众号:四颗咖啡豆|云原生追随者">
 <meta name=keyword content="liangyuanpeng|LanLiang|OpenYurt|Knative|Pulsar|Prometheus|Halo||边缘计算kubernetes|Docker|CloudNative|Golang|Rust|Istio|微服务">
 <link rel="shortcut icon" href=img/logo.png>
 <title>TECH-liangyuanpeng的博客 | liangyuanpeng's Blog</title>
@@ -57,7 +57,7 @@
 <a href=categories/tech>tech</a>
 </li>
 <li>
-<a href=search>SEARCH <img src=img/search.png height=15 style=cursor:pointer></a>
+<a href=/search/>SEARCH <img src=img/search.png height=15 style=cursor:pointer></a>
 </li>
 </ul>
 </div>
@@ -85,78 +85,142 @@ col-sm-12
 col-xs-12
 post-container">
 <div class=post-preview>
-<a href=/post/centos-install-php/>
+<a href=/post/sofastack/sofarpc-route-impl/>
 <h2 class=post-title>
-centos安装php8.0
+转|SOFARPC路由实现剖析
 </h2>
-<h3 class=post-subtitle>
-centos安装php8.0
-</h3>
 <div class=post-content-preview>
+RPC 框架需要创造一种调用远程服务如同调用本地般的体验，因此在实现一个基于 RPC 框架的微服务架构的系统时，服务消费者（客户端）往往只需要知道服务端提供了哪些接口和方法，并不需要知道服务具体由哪些 IP 在提供。RPC 框架本身的服务发现和路由寻址功能解决了如何知道目标地址的问题，该过程对于 RPC 客户端调用方来说应该是完全透明的。
 </div>
 </a>
 <p class=post-meta>
-Posted by 梁远鹏 2021-03-23
+Posted by 梁远鹏 2018-12-11
 </p>
 </div>
 <hr>
 <div class=post-preview>
-<a href=/post/blog/cloudflare-deploy-hugo-site/>
+<a href=/post/sofastack/sofarpc-heartbeat-connect/>
 <h2 class=post-title>
-使用Cloudflare pages部署静态博客
+转|SOFARPC连接管理与心跳剖析
 </h2>
-<h3 class=post-subtitle>
-使
-</h3>
 <div class=post-content-preview>
+在 RPC 调用过程中，我们经常会和多个服务端进行远程调用，如果在每次调用的时候，都进行 TCP连接，会对 RPC的性能有比较大的影响，因此，实际的场景中，我们经常要对连接进行管理和保持。
 </div>
 </a>
 <p class=post-meta>
-Posted by 梁远鹏 2021-03-22
+Posted by 梁远鹏 2018-12-10
 </p>
 </div>
 <hr>
 <div class=post-preview>
-<a href=/post/fundation-apache/first-asf-board-member/>
+<a href=/post/qmq-design/>
 <h2 class=post-title>
-ASF第一位华人董事
+去哪儿网消息队列设计与实现
 </h2>
 <div class=post-content-preview>
-前言 今天一早打开朋友圈就看到几条消息,都是在讲吴晟当选新一届Apache董事会成员,在一定程度上讲中国已经进入Apache核心并且还会一直展
+去哪儿网近日在GitHub上开源了其内部广泛使用的消息队列 (内部代号 QMQ)，本文从去哪儿网使用消息队列所碰到的各种问题出发探讨去哪儿网消息队列的设计与实现。
 </div>
 </a>
 <p class=post-meta>
-Posted by 梁远鹏 2021-03-12
+Posted by 梁远鹏 2018-12-09
 </p>
 </div>
 <hr>
 <div class=post-preview>
-<a href=/post/blog/hugo-slug-url/>
+<a href=/post/sofastack/sofarpc-sync-async/>
 <h2 class=post-title>
-Hugo博客SEO优化-URL和标题区分开
+转|SOFARPC同步异步实现剖析
 </h2>
-<h3 class=post-subtitle>
-Hugo博客SEO优化-URL和标题区分开
-</h3>
 <div class=post-content-preview>
+这一篇，我们为大家带来了开发过程中，最常接触到的同步异步调用解析。本文会介绍下同步异步的使用场景，以及 SOFARPC 中的代码实现机制，为了方便大家理解和阅读代码。不会过多的设计代码实现细节，更多的还是希望大家从中有所收获，并能够独立阅读核心代码。
 </div>
 </a>
 <p class=post-meta>
-Posted by 梁远鹏 2021-03-11
+Posted by 梁远鹏 2018-12-09
 </p>
 </div>
 <hr>
 <div class=post-preview>
-<a href=/post/blog/deploy-halo/>
+<a href=/post/sofastack/sofarpc-modle/>
 <h2 class=post-title>
-部署Halo博客
+转|SOFARPC线程模型剖析
 </h2>
 <div class=post-content-preview>
-轻快,简洁,功能强大,使用Spring Boot开发的博客系统/CMS系统,值得一试.
+这一篇，我们为大家带来了开发过程中，最常接触到的同步异步调用解析。本文会介绍下同步异步的使用场景，以及 SOFARPC 中的代码实现机制，为了方便大家理解和阅读代码。不会过多的设计代码实现细节，更多的还是希望大家从中有所收获，并能够独立阅读核心代码。
 </div>
 </a>
 <p class=post-meta>
-Posted by 梁远鹏 2021-02-26
+Posted by 梁远鹏 2018-12-09
+</p>
+</div>
+<hr>
+<div class=post-preview>
+<a href=/post/awesome-messagequeue/>
+<h2 class=post-title>
+AWESOME消息队列
+</h2>
+<div class=post-content-preview>
+消息队列中间件是分布式系统中重要的组件，主要解决应用解耦，异步消息，流量削锋等问题，实现高性能，高可用，可伸缩和最终一致性架构。
+</div>
+</a>
+<p class=post-meta>
+Posted by 梁远鹏 2018-12-08
+</p>
+</div>
+<hr>
+<div class=post-preview>
+<a href=/post/sofastack/sofarpc-trace/>
+<h2 class=post-title>
+转|SOFARPC链路追踪剖析
+</h2>
+<div class=post-content-preview>
+微服务已经被广泛应用在工业界，微服务带来易于团队并行开发、独立部署、模块化管理等诸多优点。然而微服务将原单体拆分多个模块独立部署，各模块之间链接变得错综复杂，在大规模分布式系统中这种复杂链路给维护带来了诸多困难。如果对整个微服务架构不能了然于胸，便很难理清各模块之间的调用关系。 例如修改一个服务接口，对哪些服务造成影响不能快速定位。
+</div>
+</a>
+<p class=post-meta>
+Posted by 梁远鹏 2018-12-08
+</p>
+</div>
+<hr>
+<div class=post-preview>
+<a href=/post/sofastack/sofarpc-design/>
+<h2 class=post-title>
+转|SOFARPC框架之总体设计与扩展机制
+</h2>
+<div class=post-content-preview>
+RPC框架作为分布式技术的基石，在分布式和微服务环境下，扮演着非常重要的角色。 在蚂蚁金服的分布式技术体系下，我们大量的技术产品（非网关类产品），都需要在内网，进行节点间通信。底层通信框架，已经在蚂蚁自研的 SOFABolt 中的进行了实践，SOFABolt 提供了优秀的通信协议与通信框架，在 SOFABolt 的基础上，我们研发了自己的 RPC 框架，提供了负载均衡，流量转发，链路追踪，链路数据透传，故障剔除等基础能力。
+</div>
+</a>
+<p class=post-meta>
+Posted by 梁远鹏 2018-12-05
+</p>
+</div>
+<hr>
+<div class=post-preview>
+<a href=/post/fundation-apache/deploy-apache-rocketmq/>
+<h2 class=post-title>
+Apache RocketMQ单机部署
+</h2>
+<div class=post-content-preview>
+apache RocketMQ 是阿里巴巴在2016年11月捐赠给了apache基金会并于2017年9月顺利毕业成为apache顶级项目
+</div>
+</a>
+<p class=post-meta>
+Posted by 梁远鹏 2018-11-27
+</p>
+</div>
+<hr>
+<div class=post-preview>
+<a href=/post/note-ci-repo/>
+<h2 class=post-title>
+CI过程中拉取仓库的注意点
+</h2>
+<div class=post-content-preview>
+前言 CI过程中拉取仓库的注意点 备注：本文安装指南基于Ubuntu 16.04，在Centos上某些安装步骤的命令可能需要稍作改动。 CI Hugo博
+</div>
+</a>
+<p class=post-meta>
+Posted by 梁远鹏 2018-09-22
 </p>
 </div>
 <hr>
@@ -178,7 +242,7 @@ sidebar-container">
 <hr><h5><a href>ABOUT ME</a></h5>
 <div class=short-about>
 <img src=https://res.cloudinary.com/lyp/image/upload/v1537624737/hugo/avatar/%E5%93%88%E5%B8%8C%E5%A4%B4%E5%83%8F.jpg>
-<p>OpenYurt Member|CDF中文本地化SIG成员|CNCF粉丝|Pulsar爱好者|公众号:四颗咖啡豆</p>
+<p>⎈远鹏|CNCF粉丝|Pulsar爱好者|公众号:四颗咖啡豆|云原生追随者</p>
 <ul class=list-inline>
 <li>
 <a href=/categories/tech/index.xml rel=alternate type=application/rss+xml title="Hi,I`m lan">
@@ -193,6 +257,14 @@ sidebar-container">
 <span class="fa-stack fa-lg">
 <i class="fa fa-circle fa-stack-2x"></i>
 <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+</span>
+</a>
+</li>
+<li>
+<a target=_blank href=https://res.cloudinary.com/lyp/image/upload/v1679386615/hugo/blog.github.io/wechat-lan.png>
+<span class="fa-stack fa-lg">
+<i class="fa fa-circle fa-stack-2x"></i>
+<i class="fa fa-wechat fa-stack-1x fa-inverse"></i>
 </span>
 </a>
 </li>
@@ -362,6 +434,14 @@ tech
 <span class="fa-stack fa-lg">
 <i class="fa fa-circle fa-stack-2x"></i>
 <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+</span>
+</a>
+</li>
+<li>
+<a target=_blank href=https://res.cloudinary.com/lyp/image/upload/v1679386615/hugo/blog.github.io/wechat-lan.png>
+<span class="fa-stack fa-lg">
+<i class="fa fa-circle fa-stack-2x"></i>
+<i class="fa fa-wechat fa-stack-1x fa-inverse"></i>
 </span>
 </a>
 </li>

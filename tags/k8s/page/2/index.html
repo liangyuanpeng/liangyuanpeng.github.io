@@ -8,7 +8,7 @@
 <meta name=viewport content="width=device-width,initial-scale=1">
 <meta name=baidu-site-verification content="HGLXRsUXC4">
 <meta name=baidu-site-verification content="code-ANZvlnN0Xr">
-<meta name=description content="lan，工程师⎈, OpenYurt Member,CDF中文本地化SIG成员,开源爱好者 | 公众号:四颗咖啡豆">
+<meta name=description content="lan，工程师⎈,远鹏|CNCF粉丝|Pulsar爱好者|公众号:四颗咖啡豆|云原生追随者">
 <meta name=keyword content="liangyuanpeng|LanLiang|OpenYurt|Knative|Pulsar|Prometheus|Halo||边缘计算kubernetes|Docker|CloudNative|Golang|Rust|Istio|微服务">
 <link rel="shortcut icon" href=img/logo.png>
 <title>k8s-liangyuanpeng的博客 | liangyuanpeng's Blog</title>
@@ -57,7 +57,7 @@
 <a href=categories/tech>tech</a>
 </li>
 <li>
-<a href=search>SEARCH <img src=img/search.png height=15 style=cursor:pointer></a>
+<a href=/search/>SEARCH <img src=img/search.png height=15 style=cursor:pointer></a>
 </li>
 </ul>
 </div>
@@ -85,81 +85,81 @@ col-sm-12
 col-xs-12
 post-container">
 <div class=post-preview>
-<a href=/post/cncf-k8s/k8s-validating-admission-policy-with-crdparam-lua/>
+<a href=/post/cncf-kubernetes/deploy-metrics-server-for-kubectl-top/>
 <h2 class=post-title>
-K8S内置准入校验CRD参数配合lua起飞
+<img style=display:inline-block src=https://emoji.slack-edge.com/T09NY5SBT/emoji_k8s_loft/17a832b1a9cadae9.gif height=20 width=20>
+部署metrics-server,把kubectl top用起来
 </h2>
 <div class=post-content-preview>
-前言 k8s 1.26 推出了内置的准入校验机制,只需要使用 CEL 表达式就可以完成基本的准入校验逻辑,而高级功能包含将参数动态化,可以使用 CRD 资源的某个字段作为参
+在部署metrics-server之前使用kubectl top 部署metrics-server yaml部署 yaml文件如下: apiVersion: v1 kind: ServiceAccount metadata: labels: k8s-app: metrics-server name: metrics-server
 </div>
 </a>
 <p class=post-meta>
-Posted by 梁远鹏 2023-01-11
+Posted by 梁远鹏 2021-11-15
 </p>
 </div>
 <hr>
 <div class=post-preview>
-<a href=/post/cncf-k8s/k8s-admissionregistration-with-cel/>
+<a href=/post/cncf-kubernetes/k8s-multi-tenancy-guide/>
 <h2 class=post-title>
-用cel表达式来实现k8s准入校验
+<img style=display:inline-block src=https://emoji.slack-edge.com/T09NY5SBT/emoji_k8s_loft/17a832b1a9cadae9.gif height=20 width=20>
+Kubernetes多租户–最佳实践指南
 </h2>
 <div class=post-content-preview>
-前言 在 K8S 1.26 版本以前,达到 K8S 准入校验策略效果的方式有两种： 自己实现 K8S webook 直接使用 CNCF 项目中以 K8S 策略展开的项目,例如OPA、kyverno. 这些都是
+随着Kubernetes的使用范围不断扩大，Kubernetes多租户成为越来越多的组织感兴趣的话题。但是，由于Kubernetes本身并不是多租户系统，因此正确实现多租户会带来一些挑战
 </div>
 </a>
 <p class=post-meta>
-Posted by 梁远鹏 2023-01-09
+Posted by 梁远鹏 2021-04-14
 </p>
 </div>
 <hr>
 <div class=post-preview>
-<a href=/post/fundation-cncf/rust-project-in-cncf/>
+<a href=/post/cncf-longhorn/k8s-deploy-longhorn/>
 <h2 class=post-title>
-cncf基金会中的rust项目
+<img style=display:inline-block src=https://emoji.slack-edge.com/T09NY5SBT/emoji_k8s_loft/17a832b1a9cadae9.gif height=20 width=20>
+kubernetes部署longhorn
 </h2>
 <div class=post-content-preview>
-介绍 本文会介绍在CNCF中的Rust项目,项目的介绍可能是很简陋的,如果你可以帮忙完善一下项目的介绍,那就太好了,随时欢迎在评论区或网站仓库
+前言 longhorn是rancher公司开源并贡献给CNCF的一个开源分布式存储项目,可用来作为kubernetes的CSI存储. 本文介绍h
 </div>
 </a>
 <p class=post-meta>
-Posted by 梁远鹏 2022-01-22
+Posted by 梁远鹏 2021-04-09
 </p>
 </div>
 <hr>
 <div class=post-preview>
-<a href=/post/cncf-kubernetes/dev-webhook-for-kubernetes/>
+<a href=/post/cncf-prometheus/kubernetes-deploy-kube-prometheus/>
 <h2 class=post-title>
-k8s-webhook开发技巧
+<img style=display:inline-block src=https://emoji.slack-edge.com/T09NY5SBT/emoji_k8s_loft/17a832b1a9cadae9.gif height=20 width=20>
+kubernetes部署kube-prometheus
 </h2>
 <div class=post-content-preview>
-什么是kubernetes webhook 痛点 网上很多文章都是说写了kubernetes webhook代码后编译丢到k8s里面去测试,但是这样就非常消耗时
 </div>
 </a>
 <p class=post-meta>
-Posted by 梁远鹏 2021-11-24
+Posted by 梁远鹏 2021-04-06
 </p>
 </div>
 <hr>
 <div class=post-preview>
-<a href=/post/cncf-kubernetes/deploy-lank8s-webhook-for-k8s.gcr.io/>
+<a href=/post/ballerina-hello-world/>
 <h2 class=post-title>
-部署在线的lank8s webhook之后,不再为k8s.gcr.io/gcr.io镜像苦恼
+云原生编程语言ballerina:hello-world
 </h2>
 <div class=post-content-preview>
-什么是lank8s webhook 前提: 使用这项在线服务需要保证kubernetes所在的机器是联网状态. lank8s webhook是一项在线的webook服务,唯
+随着云原生的发展,业务规模的壮大,yml的维护会越来越复杂,这时候提高效能的工具或语言就应运而生了,ballerina便是其一.
 </div>
 </a>
 <p class=post-meta>
-Posted by 梁远鹏 2021-11-20
+Posted by 梁远鹏 2020-01-01
 </p>
 </div>
 <hr>
 <ul class=pager>
 <li class=previous>
 <a href=/tags/k8s/>&larr; Newer Posts</a>
-</li>
-<li class=next>
-<a href=/tags/k8s/page/3/>Older Posts &rarr;</a>
 </li>
 </ul>
 </div>
@@ -172,7 +172,7 @@ sidebar-container">
 <hr><h5><a href>ABOUT ME</a></h5>
 <div class=short-about>
 <img src=https://res.cloudinary.com/lyp/image/upload/v1537624737/hugo/avatar/%E5%93%88%E5%B8%8C%E5%A4%B4%E5%83%8F.jpg>
-<p>OpenYurt Member|CDF中文本地化SIG成员|CNCF粉丝|Pulsar爱好者|公众号:四颗咖啡豆</p>
+<p>⎈远鹏|CNCF粉丝|Pulsar爱好者|公众号:四颗咖啡豆|云原生追随者</p>
 <ul class=list-inline>
 <li>
 <a href=/tags/k8s/index.xml rel=alternate type=application/rss+xml title="Hi,I`m lan">
@@ -187,6 +187,14 @@ sidebar-container">
 <span class="fa-stack fa-lg">
 <i class="fa fa-circle fa-stack-2x"></i>
 <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+</span>
+</a>
+</li>
+<li>
+<a target=_blank href=https://res.cloudinary.com/lyp/image/upload/v1679386615/hugo/blog.github.io/wechat-lan.png>
+<span class="fa-stack fa-lg">
+<i class="fa fa-circle fa-stack-2x"></i>
+<i class="fa fa-wechat fa-stack-1x fa-inverse"></i>
 </span>
 </a>
 </li>
@@ -356,6 +364,14 @@ tech
 <span class="fa-stack fa-lg">
 <i class="fa fa-circle fa-stack-2x"></i>
 <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+</span>
+</a>
+</li>
+<li>
+<a target=_blank href=https://res.cloudinary.com/lyp/image/upload/v1679386615/hugo/blog.github.io/wechat-lan.png>
+<span class="fa-stack fa-lg">
+<i class="fa fa-circle fa-stack-2x"></i>
+<i class="fa fa-wechat fa-stack-1x fa-inverse"></i>
 </span>
 </a>
 </li>

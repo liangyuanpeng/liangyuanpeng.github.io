@@ -8,7 +8,7 @@
 <meta name=viewport content="width=device-width,initial-scale=1">
 <meta name=baidu-site-verification content="HGLXRsUXC4">
 <meta name=baidu-site-verification content="code-ANZvlnN0Xr">
-<meta name=description content="lan，工程师⎈, OpenYurt Member,CDF中文本地化SIG成员,开源爱好者 | 公众号:四颗咖啡豆">
+<meta name=description content="lan，工程师⎈,远鹏|CNCF粉丝|Pulsar爱好者|公众号:四颗咖啡豆|云原生追随者">
 <meta name=keyword content="liangyuanpeng|LanLiang|OpenYurt|Knative|Pulsar|Prometheus|Halo||边缘计算kubernetes|Docker|CloudNative|Golang|Rust|Istio|微服务">
 <link rel="shortcut icon" href=img/logo.png>
 <meta property="og:image" content="img/post-bg-2015.jpg">
@@ -59,7 +59,7 @@
 <a href=categories/tech>tech</a>
 </li>
 <li>
-<a href=search>SEARCH <img src=img/search.png height=15 style=cursor:pointer></a>
+<a href=/search/>SEARCH <img src=img/search.png height=15 style=cursor:pointer></a>
 </li>
 </ul>
 </div>
@@ -99,7 +99,7 @@ xds
 <span class=old-visitors-count style=display:none></span>
 <span class=leancloud-visitors-count></span>
 </span>
-阅读 </span></span>|<span class=post-date>共773字</span>，阅读约<span class=more-meta> 2 分钟</span>
+阅读 </span></span>|<span class=post-date>共1510字</span>，阅读约<span class=more-meta> 4 分钟</span>
 </span>
 </div>
 </div>
@@ -115,15 +115,41 @@ post-container">
 <header>
 <h2>TOC</h2>
 </header>
-<nav id=TableOfContents></nav>
-<h1 id=heading></h1>
+<nav id=TableOfContents>
+<ul>
+<li><a href=#前提>前提</a></li>
+</ul>
+<ul>
+<li><a href=#inotify-监听-modify-失败>inotify 监听 modify 失败</a></li>
+<li><a href=#configmap-挂载文件只读>configmap 挂载文件只读</a></li>
+</ul>
+</nav>
+<h1 id=前言>前言</h1>
+<p>由于实验基于kubernetes,因此你首先需要有一个kubernetes环境,这里推荐使用 Kind 命令来搭建.见<a href=https://liangyuanpeng.com/post/cncf-kubernetes/run-k8s-with-kind/>用kind搭建k8s集群环境</a></p>
+<h2 id=前提>前提</h2>
+<ul>
+<li>kubernetes</li>
+</ul>
+<h1 id=为什么选择configmap>为什么选择configmap</h1>
 <p>在使用 Envoy 的过程中时常会需要对接 XDS 用作流量的动态管理，那么如何以低成本的方式实现这个效果呢?</p>
 <p>ConfigMap 你值得拥有,本质上还是使用文件作为 Envoy 的 XDS 服务实现,只不过将文件的内容以 ConfigMap 管理起来了.</p>
-<p>原理也很简单,在 Envoy 容器旁启动一个 SideCar,这个 SideCar 的唯一作用就是监听到文件变化之后做一个<code>mv</code>的操作,触发Envoy来重新加载最新的XDS规则文件.</p>
+<h1 id=原理>原理</h1>
+<p>原理也很简单,在 Envoy 容器旁启动一个 SideCar,这个 SideCar 的唯一作用就是监听到文件变化之后做一个<code>mv</code>的操作,触发Envoy来重新加载最新的 XDS 规则文件.</p>
 <p>这样就可以做到了动态的管理 Envoy 规则并且基本上没有上手难度.毕竟在 kubernetes 之上谁还不会操作一个 ConfigMap 呢?</p>
+<h1 id=遇到的问题>遇到的问题</h1>
+<h2 id=inotify-监听-modify-失败>inotify 监听 modify 失败</h2>
 <p>实践的过程发现使用 inotify 监听文件时如果监听 modify 事件的话文件内容更新了,但是却没有触发监控事件,这是为什么呢?这与 configmap 将内容更新到 pod 中的机制有关.后续会有一篇文章来专门讲解一下这个原理.</p>
+<h2 id=configmap-挂载文件只读>configmap 挂载文件只读</h2>
 <p>另一个问题是配置文件通过 configmap 挂载到 pod 之后，是只读的，无法做修改，因此直接对挂载的配置文件做 <code>mv envoy.yaml envoy.yaml_bak && mv envoy.yaml_bak envoy.yaml</code> 是不可行的,本文的思路是用一个 initContainer 将 configmap 挂载的配置文件复制到另一个有读写权限的目录，然后后续每次 configmap 更新时都将文件复制到这个有读写权限的目录来做 mv 操作,进而最终达到让 Envoy 基于静态文件更新配置的效果.</p>
-<p>envoy-deploy.yaml</p>
+<h1 id=开始尝试>开始尝试!</h1>
+<p>我将所有内容都揉在了一个 yaml 内,因此如果你对此感到不适可以拆分成多个单独的 yaml 文件 :)</p>
+<p>对于 service,我使用 NodePort 暴露,只是为了更方便的测试,通过 Envoy admin 接口查看修改的内容是否生效.</p>
+<p>开始部署 Envoy 到 kubernetes.</p>
+<p>将下面展示的内容保存为 Envoy.yaml 并且执行命令应用:</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell>kubectl apply -f envoy.yaml
+</code></pre></div><p>或使用我整理好的在线文件:</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell>kubectl apply -f https://liangyuanpeng.com/files/envoy-file-xds-with-reload-configmap/envoy.yaml
+</code></pre></div><p>envoy.yaml</p>
 <div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml><span style=color:#f92672>apiVersion</span>: <span style=color:#ae81ff>apps/v1</span>
 <span style=color:#f92672>kind</span>: <span style=color:#ae81ff>Deployment</span>
 <span style=color:#f92672>metadata</span>:
@@ -135,6 +161,7 @@ post-container">
     <span style=color:#f92672>matchLabels</span>:
       <span style=color:#f92672>app</span>: <span style=color:#ae81ff>envoy</span>
   <span style=color:#f92672>replicas</span>: <span style=color:#ae81ff>1</span>
+  <span style=color:#f92672>revisionHistoryLimit</span>: <span style=color:#ae81ff>5</span>
   <span style=color:#f92672>template</span>:
     <span style=color:#f92672>metadata</span>:
       <span style=color:#f92672>labels</span>:
@@ -143,7 +170,7 @@ post-container">
       <span style=color:#f92672>volumes</span>:
         - <span style=color:#f92672>name</span>: <span style=color:#ae81ff>envoy-config</span>
           <span style=color:#f92672>configMap</span>:
-            <span style=color:#f92672>name</span>: <span style=color:#ae81ff>envoy-configmap</span>
+            <span style=color:#f92672>name</span>: <span style=color:#ae81ff>envoy</span>
         - <span style=color:#f92672>name</span>: <span style=color:#ae81ff>configs</span>
           <span style=color:#f92672>emptyDir</span>: {}
       <span style=color:#f92672>initContainers</span>:
@@ -154,13 +181,13 @@ post-container">
               <span style=color:#f92672>mountPath</span>: <span style=color:#ae81ff>/tmp</span>
             - <span style=color:#f92672>name</span>: <span style=color:#ae81ff>envoy-config</span>
               <span style=color:#f92672>mountPath</span>: <span style=color:#ae81ff>/configs</span>
-          <span style=color:#f92672>command</span>: 
-          - <span style=color:#ae81ff>/bin/sh</span>
-          - -<span style=color:#ae81ff>c </span>
-          - <span style=color:#ae81ff>cat /configs/cds.yaml &gt; /tmp/cds.yaml &amp;&amp; cat /configs/envoy.yaml &gt; /tmp/envoy.yaml &amp;&amp; cat /configs/inotify.sh &gt;  /tmp/inotify.sh  &amp;&amp; cat /configs/lds.yaml &gt; /tmp/lds.yaml</span>
+          <span style=color:#f92672>command</span>:
+            - <span style=color:#ae81ff>/bin/sh</span>
+            - -<span style=color:#ae81ff>c</span>
+            - <span style=color:#ae81ff>cat /configs/cds.yaml &gt; /tmp/cds.yaml &amp;&amp; cat /configs/envoy.yaml &gt; /tmp/envoy.yaml &amp;&amp; cat /configs/inotify.sh &gt;  /tmp/inotify.sh  &amp;&amp; cat /configs/lds.yaml &gt; /tmp/lds.yaml</span>
       <span style=color:#f92672>containers</span>:
         - <span style=color:#f92672>name</span>: <span style=color:#ae81ff>envoy</span>
-          <span style=color:#f92672>image</span>: <span style=color:#ae81ff>envoyproxy/envoy-dev:latest</span>
+          <span style=color:#f92672>image</span>: <span style=color:#ae81ff>envoyproxy/envoy:v1.25.1</span>
           <span style=color:#f92672>imagePullPolicy</span>: <span style=color:#ae81ff>IfNotPresent</span>
           <span style=color:#f92672>volumeMounts</span>:
             - <span style=color:#f92672>name</span>: <span style=color:#ae81ff>configs</span>
@@ -168,7 +195,7 @@ post-container">
           <span style=color:#f92672>ports</span>:
             - <span style=color:#f92672>name</span>: <span style=color:#ae81ff>admin</span>
               <span style=color:#f92672>containerPort</span>: <span style=color:#ae81ff>19000</span>
-          <span style=color:#f92672>command</span>: 
+          <span style=color:#f92672>command</span>:
             - <span style=color:#ae81ff>/bin/sh</span>
             - -<span style=color:#ae81ff>c</span>
             - <span style=color:#ae81ff>envoy -c /tmp/envoy.yaml</span>
@@ -180,10 +207,17 @@ post-container">
               <span style=color:#f92672>mountPath</span>: <span style=color:#ae81ff>/tmp</span>
             - <span style=color:#f92672>name</span>: <span style=color:#ae81ff>envoy-config</span>
               <span style=color:#f92672>mountPath</span>: <span style=color:#ae81ff>/configs</span>
-          <span style=color:#f92672>command</span>: 
+          <span style=color:#f92672>command</span>:
             - <span style=color:#ae81ff>/bin/sh</span>
             - -<span style=color:#ae81ff>c</span>
             - <span style=color:#ae81ff>sh /tmp/inotify.sh /configs</span>
+          <span style=color:#f92672>resources</span>:
+            <span style=color:#f92672>requests</span>:
+              <span style=color:#f92672>memory</span>: <span style=color:#e6db74>&#34;10Mi&#34;</span>
+              <span style=color:#f92672>cpu</span>: <span style=color:#e6db74>&#34;10m&#34;</span>
+            <span style=color:#f92672>limits</span>:
+              <span style=color:#f92672>memory</span>: <span style=color:#e6db74>&#34;512Mi&#34;</span>
+              <span style=color:#f92672>cpu</span>: <span style=color:#e6db74>&#34;800m&#34;</span>
 ---
 <span style=color:#f92672>apiVersion</span>: <span style=color:#ae81ff>v1</span>
 <span style=color:#f92672>kind</span>: <span style=color:#ae81ff>Service</span>
@@ -195,29 +229,17 @@ post-container">
   <span style=color:#f92672>ports</span>:
     - <span style=color:#f92672>name</span>: <span style=color:#ae81ff>admin</span>
       <span style=color:#f92672>port</span>: <span style=color:#ae81ff>19000</span>
-  <span style=color:#f92672>type</span>: <span style=color:#ae81ff>ClusterIP</span>
-  <span style=color:#f92672>selector</span>:
-    <span style=color:#f92672>app</span>: <span style=color:#ae81ff>envoy</span>
----
-<span style=color:#f92672>apiVersion</span>: <span style=color:#ae81ff>v1</span>
-<span style=color:#f92672>kind</span>: <span style=color:#ae81ff>Service</span>
-<span style=color:#f92672>metadata</span>:
-  <span style=color:#f92672>name</span>: <span style=color:#ae81ff>envoynp</span>
-  <span style=color:#f92672>labels</span>:
-    <span style=color:#f92672>app</span>: <span style=color:#ae81ff>envoy</span>
-<span style=color:#f92672>spec</span>:
-  <span style=color:#f92672>ports</span>:
-    - <span style=color:#f92672>port</span>: <span style=color:#ae81ff>19000</span>
-      <span style=color:#f92672>name</span>: <span style=color:#ae81ff>admin</span>
-      <span style=color:#f92672>nodePort</span>: <span style=color:#ae81ff>30060</span>
+      <span style=color:#f92672>nodePort</span>: <span style=color:#ae81ff>31900</span>
   <span style=color:#f92672>type</span>: <span style=color:#ae81ff>NodePort</span>
   <span style=color:#f92672>selector</span>:
     <span style=color:#f92672>app</span>: <span style=color:#ae81ff>envoy</span>
-</code></pre></div><p>envoy-configmap.yaml</p>
-<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml><span style=color:#f92672>apiVersion</span>: <span style=color:#ae81ff>v1</span>
+
+---
+
+<span style=color:#f92672>apiVersion</span>: <span style=color:#ae81ff>v1</span>
 <span style=color:#f92672>kind</span>: <span style=color:#ae81ff>ConfigMap</span>
 <span style=color:#f92672>metadata</span>:
-  <span style=color:#f92672>name</span>: <span style=color:#ae81ff>envoy-configmap</span>
+  <span style=color:#f92672>name</span>: <span style=color:#ae81ff>envoy</span>
 <span style=color:#f92672>data</span>:
   <span style=color:#f92672>envoy.yaml</span>: |<span style=color:#e6db74>
 </span><span style=color:#e6db74>    node:
@@ -236,8 +258,8 @@ post-container">
 </span><span style=color:#e6db74>      address:
 </span><span style=color:#e6db74>        socket_address:
 </span><span style=color:#e6db74>          address: 0.0.0.0
-</span><span style=color:#e6db74>          port_value: 19000
-</span><span style=color:#e6db74>      </span>    
+</span><span style=color:#e6db74>          port_value: 19000</span>    
+
   <span style=color:#f92672>cds.yaml</span>: |<span style=color:#e6db74>
 </span><span style=color:#e6db74>    resources:
 </span><span style=color:#e6db74>    - &#34;@type&#34;: type.googleapis.com/envoy.config.cluster.v3.Cluster
@@ -260,7 +282,7 @@ post-container">
 </span><span style=color:#e6db74>      address:
 </span><span style=color:#e6db74>        socket_address:
 </span><span style=color:#e6db74>          address: 0.0.0.0
-</span><span style=color:#e6db74>          port_value: 10002
+</span><span style=color:#e6db74>          port_value: 10001
 </span><span style=color:#e6db74>      filter_chains:
 </span><span style=color:#e6db74>      - filters:
 </span><span style=color:#e6db74>          name: envoy.filters.network.http_connection_manager
@@ -288,7 +310,7 @@ post-container">
 </span><span style=color:#e6db74>    /usr/bin/inotifywait -mrq --format &#39;%f&#39; -e create,close_write,delete $1  | while read line
 </span><span style=color:#e6db74>    do
 </span><span style=color:#e6db74>        if [ -f $1/$line ];then
-</span><span style=color:#e6db74>            echo $line
+</span><span style=color:#e6db74>            echo $1/$line
 </span><span style=color:#e6db74>            cat $1/$line &gt; /tmp/$line
 </span><span style=color:#e6db74>            mv /tmp/$line /tmp/$line&#39;_bak&#39;
 </span><span style=color:#e6db74>            mv /tmp/$line&#39;_bak&#39; /tmp/$line
@@ -296,10 +318,57 @@ post-container">
 </span><span style=color:#e6db74>            echo &#34;2&#34;
 </span><span style=color:#e6db74>        fi
 </span><span style=color:#e6db74>    done</span>    
-</code></pre></div><h1 id=注意>注意</h1>
-<p>本文还在持续创作中</p>
+</code></pre></div><p>等待 Envoy pod 启动,运行起来后请求 Envoy admin 接口查看当前 Envoy 监听的端口号:</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell>lan@lan:~$ curl -X GET http://localhost:31900/listeners?format<span style=color:#f92672>=</span>text
+listener_0::0.0.0.0:10001
+</code></pre></div><p>可以看到,当前 Envoy 监听 10001 端口号,这是 Envoy lds 的内容决定的,也就是上述 ConfigMap 内容中的:</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml>
+  <span style=color:#f92672>lds.yaml</span>: |<span style=color:#e6db74>
+</span><span style=color:#e6db74>    resources:
+</span><span style=color:#e6db74>    - &#34;@type&#34;: type.googleapis.com/envoy.config.listener.v3.Listener
+</span><span style=color:#e6db74>      name: listener_0
+</span><span style=color:#e6db74>      address:
+</span><span style=color:#e6db74>        socket_address:
+</span><span style=color:#e6db74>          address: 0.0.0.0
+</span><span style=color:#e6db74>          port_value: 10001
+</span><span style=color:#e6db74>      ...</span>    
+</code></pre></div><p>现在将 10001 修改为 10002,然后将更新应用到 kubernetes 当中:</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell>kubectl apply -f envoy.yaml
+</code></pre></div><p>如果你使用的是在线文件,那么直接使用 <code>kubectl edit configmap envoy</code> 来修改内容,保存后即可.这样就无需在本地操作文件.</p>
+<p>使用命令 <code>kubectl logs -f {podname}</code> 查看 Envoy pod 的日志,等待一会后如果你也看到以下类似的日志,那么说明 Envoy xds(lds) 的内容更新已经动态修改成功了.</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell>...
+<span style=color:#f92672>[</span>2023-03-23 07:38:48.937<span style=color:#f92672>][</span>13<span style=color:#f92672>][</span>info<span style=color:#f92672>][</span>config<span style=color:#f92672>]</span> <span style=color:#f92672>[</span>source/extensions/listener_managers/listener_manager/listener_manager_impl.cc:858<span style=color:#f92672>]</span> all dependencies initialized. starting workers
+<span style=color:#f92672>[</span>2023-03-23 07:40:06.556<span style=color:#f92672>][</span>13<span style=color:#f92672>][</span>info<span style=color:#f92672>][</span>upstream<span style=color:#f92672>]</span> <span style=color:#f92672>[</span>source/extensions/listener_managers/listener_manager/lds_api.cc:79<span style=color:#f92672>]</span> lds: add/update listener <span style=color:#e6db74>&#39;listener_0&#39;</span>
+<span style=color:#f92672>[</span>2023-03-23 07:40:06.561<span style=color:#f92672>][</span>13<span style=color:#f92672>][</span>info<span style=color:#f92672>][</span>upstream<span style=color:#f92672>]</span> <span style=color:#f92672>[</span>source/common/upstream/cds_api_helper.cc:32<span style=color:#f92672>]</span> cds: add <span style=color:#ae81ff>1</span> cluster<span style=color:#f92672>(</span>s<span style=color:#f92672>)</span>, remove <span style=color:#ae81ff>0</span> cluster<span style=color:#f92672>(</span>s<span style=color:#f92672>)</span>
+<span style=color:#f92672>[</span>2023-03-23 07:40:06.561<span style=color:#f92672>][</span>13<span style=color:#f92672>][</span>info<span style=color:#f92672>][</span>upstream<span style=color:#f92672>]</span> <span style=color:#f92672>[</span>source/common/upstream/cds_api_helper.cc:69<span style=color:#f92672>]</span> cds: added/updated <span style=color:#ae81ff>0</span> cluster<span style=color:#f92672>(</span>s<span style=color:#f92672>)</span>, skipped <span style=color:#ae81ff>1</span> unmodified cluster<span style=color:#f92672>(</span>s<span style=color:#f92672>)</span>
+<span style=color:#f92672>[</span>2023-03-23 07:40:06.566<span style=color:#f92672>][</span>13<span style=color:#f92672>][</span>info<span style=color:#f92672>][</span>upstream<span style=color:#f92672>]</span> <span style=color:#f92672>[</span>source/common/upstream/cds_api_helper.cc:32<span style=color:#f92672>]</span> cds: add <span style=color:#ae81ff>1</span> cluster<span style=color:#f92672>(</span>s<span style=color:#f92672>)</span>, remove <span style=color:#ae81ff>0</span> cluster<span style=color:#f92672>(</span>s<span style=color:#f92672>)</span>
+<span style=color:#f92672>[</span>2023-03-23 07:40:06.566<span style=color:#f92672>][</span>13<span style=color:#f92672>][</span>info<span style=color:#f92672>][</span>upstream<span style=color:#f92672>]</span> <span style=color:#f92672>[</span>source/common/upstream/cds_api_helper.cc:69<span style=color:#f92672>]</span> cds: added/updated <span style=color:#ae81ff>0</span> cluster<span style=color:#f92672>(</span>s<span style=color:#f92672>)</span>, skipped <span style=color:#ae81ff>1</span> unmodified cluster<span style=color:#f92672>(</span>s<span style=color:#f92672>)</span>
+<span style=color:#f92672>[</span>2023-03-23 07:40:06.574<span style=color:#f92672>][</span>13<span style=color:#f92672>][</span>info<span style=color:#f92672>][</span>upstream<span style=color:#f92672>]</span> <span style=color:#f92672>[</span>source/common/upstream/cds_api_helper.cc:32<span style=color:#f92672>]</span> cds: add <span style=color:#ae81ff>1</span> cluster<span style=color:#f92672>(</span>s<span style=color:#f92672>)</span>, remove <span style=color:#ae81ff>0</span> cluster<span style=color:#f92672>(</span>s<span style=color:#f92672>)</span>
+<span style=color:#f92672>[</span>2023-03-23 07:40:06.574<span style=color:#f92672>][</span>13<span style=color:#f92672>][</span>info<span style=color:#f92672>][</span>upstream<span style=color:#f92672>]</span> <span style=color:#f92672>[</span>source/common/upstream/cds_api_helper.cc:69<span style=color:#f92672>]</span> cds: added/updated <span style=color:#ae81ff>0</span> cluster<span style=color:#f92672>(</span>s<span style=color:#f92672>)</span>, skipped <span style=color:#ae81ff>1</span> unmodified cluster<span style=color:#f92672>(</span>s<span style=color:#f92672>)</span>
+</code></pre></div><p>这时候再查看一下 Envoy listener 的内容:</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell>lan@lan:~$ curl -X GET http://localhost:31900/listeners?format<span style=color:#f92672>=</span>text
+listener_0::0.0.0.0:10002
+</code></pre></div><p>可以看到 Envoy 监听的端口号从 10001 更新为了 10002,这里做的演示是一个更新操作,你也可以尝试做以下测试:</p>
+<ul>
+<li>新增/删除操作 lds.yaml 内容</li>
+<li>新增/修改/删除操作 cds.yaml 内容</li>
+</ul>
+<p>对于 CDS 的内容,可以从 Envoy admin 接口中的 <code>/clusters</code> 中查看:</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell>lan@lan:~$ curl -X GET http://localhost:31900/clusters
+example_proxy_cluster::observability_name::example_proxy_cluster
+example_proxy_cluster::default_priority::max_connections::1024
+example_proxy_cluster::default_priority::max_pending_requests::1024
+example_proxy_cluster::default_priority::max_requests::1024
+example_proxy_cluster::default_priority::max_retries::3
+example_proxy_cluster::high_priority::max_connections::1024
+example_proxy_cluster::high_priority::max_pending_requests::1024
+example_proxy_cluster::high_priority::max_requests::1024
+example_proxy_cluster::high_priority::max_retries::3
+example_proxy_cluster::added_via_api::true
+</code></pre></div><h1 id=总结>总结</h1>
+<p>到目前为止,你已经拥有了一个基于 configmap 的 envoy xds,因此可以轻松的使用其他工具或程序来修改configmap,达到动态灵活的效果.如果你对这篇文章有任何疑问,欢迎和我进行交流.</p>
 <h2>微信公众号</h2>
-<p>扫描下面的二维码关注我们的微信公众号,第一时间查看最新内容。同时也可以关注我的Github，看看我都在了解什么技术，在页面底部可以找到我的Github。</p>
+<p>扫描下面的二维码关注我们的微信公众号,第一时间查看最新内容。同时也可以关注我的Github,看看我都在了解什么技术,在页面底部可以找到我的Github。</p>
 <img src=https://res.cloudinary.com/lyp/image/upload/v1581729955/hugo/blog.github.io/qrcode_for_sikekafeidou.jpg alt=wechat-account-qrcode>
 <hr>
 <ul class=pager>
@@ -467,6 +536,14 @@ col-md-10 col-md-offset-1">
 <span class="fa-stack fa-lg">
 <i class="fa fa-circle fa-stack-2x"></i>
 <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+</span>
+</a>
+</li>
+<li>
+<a target=_blank href=https://res.cloudinary.com/lyp/image/upload/v1679386615/hugo/blog.github.io/wechat-lan.png>
+<span class="fa-stack fa-lg">
+<i class="fa fa-circle fa-stack-2x"></i>
+<i class="fa fa-wechat fa-stack-1x fa-inverse"></i>
 </span>
 </a>
 </li>

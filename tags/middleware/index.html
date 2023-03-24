@@ -8,7 +8,7 @@
 <meta name=viewport content="width=device-width,initial-scale=1">
 <meta name=baidu-site-verification content="HGLXRsUXC4">
 <meta name=baidu-site-verification content="code-ANZvlnN0Xr">
-<meta name=description content="lan，工程师⎈, OpenYurt Member,CDF中文本地化SIG成员,开源爱好者 | 公众号:四颗咖啡豆">
+<meta name=description content="lan，工程师⎈,远鹏|CNCF粉丝|Pulsar爱好者|公众号:四颗咖啡豆|云原生追随者">
 <meta name=keyword content="liangyuanpeng|LanLiang|OpenYurt|Knative|Pulsar|Prometheus|Halo||边缘计算kubernetes|Docker|CloudNative|Golang|Rust|Istio|微服务">
 <link rel="shortcut icon" href=img/logo.png>
 <title>Middleware-liangyuanpeng的博客 | liangyuanpeng's Blog</title>
@@ -57,7 +57,7 @@
 <a href=categories/tech>tech</a>
 </li>
 <li>
-<a href=search>SEARCH <img src=img/search.png height=15 style=cursor:pointer></a>
+<a href=/search/>SEARCH <img src=img/search.png height=15 style=cursor:pointer></a>
 </li>
 </ul>
 </div>
@@ -154,6 +154,76 @@ Posted by 梁远鹏 2018-12-11
 </p>
 </div>
 <hr>
+<div class=post-preview>
+<a href=/post/sofastack/sofarpc-annotation/>
+<h2 class=post-title>
+转|SOFARPC注解支持剖析
+</h2>
+<div class=post-content-preview>
+编程 API 方式与Spring 的 ApplicationContextAware 类似。XML的方式依赖于在xml中引入 SOFA 命名空间，利用 Bean 的生命周期管理，进行 Bean 的注入。相比这两种方式，通过 Annotation 方式发布 JVM 服务更加灵活方便，只需要在实现类上加 @SofaService、@SofaRefernce 注解即可进行服务的发布和引用。本文针对 SOFARPC 在注解的支持和使用分原理、源码两部分进行一一介绍。
+</div>
+</a>
+<p class=post-meta>
+Posted by 梁远鹏 2018-12-11
+</p>
+</div>
+<hr>
+<div class=post-preview>
+<a href=/post/sofastack/sofarpc-mult-language/>
+<h2 class=post-title>
+转|SOFARPC跨语言支持剖析
+</h2>
+<div class=post-content-preview>
+随着 TIOBE 10月份的编程语言排行的发布，C++重回第三的位置，新兴的 Swift 和 Go 表现出强劲的上升趋势。与此同时，虽然目前 Java 的领头位置尚未出现有力挑战，我们希望能够在基础设施的建设上预留跨语言的可扩展设计。同时，跨语言的挑战也是工程实际面临的现状，蚂蚁内部如 AI、IoT，算法等缺少 JVM 原生支持的领域，往往不可避免地需要涉及到跨语言调用的问题。
+</div>
+</a>
+<p class=post-meta>
+Posted by 梁远鹏 2018-12-11
+</p>
+</div>
+<hr>
+<div class=post-preview>
+<a href=/post/sofastack/sofarpc-route-impl/>
+<h2 class=post-title>
+转|SOFARPC路由实现剖析
+</h2>
+<div class=post-content-preview>
+RPC 框架需要创造一种调用远程服务如同调用本地般的体验，因此在实现一个基于 RPC 框架的微服务架构的系统时，服务消费者（客户端）往往只需要知道服务端提供了哪些接口和方法，并不需要知道服务具体由哪些 IP 在提供。RPC 框架本身的服务发现和路由寻址功能解决了如何知道目标地址的问题，该过程对于 RPC 客户端调用方来说应该是完全透明的。
+</div>
+</a>
+<p class=post-meta>
+Posted by 梁远鹏 2018-12-11
+</p>
+</div>
+<hr>
+<div class=post-preview>
+<a href=/post/sofastack/sofarpc-heartbeat-connect/>
+<h2 class=post-title>
+转|SOFARPC连接管理与心跳剖析
+</h2>
+<div class=post-content-preview>
+在 RPC 调用过程中，我们经常会和多个服务端进行远程调用，如果在每次调用的时候，都进行 TCP连接，会对 RPC的性能有比较大的影响，因此，实际的场景中，我们经常要对连接进行管理和保持。
+</div>
+</a>
+<p class=post-meta>
+Posted by 梁远鹏 2018-12-10
+</p>
+</div>
+<hr>
+<div class=post-preview>
+<a href=/post/qmq-design/>
+<h2 class=post-title>
+去哪儿网消息队列设计与实现
+</h2>
+<div class=post-content-preview>
+去哪儿网近日在GitHub上开源了其内部广泛使用的消息队列 (内部代号 QMQ)，本文从去哪儿网使用消息队列所碰到的各种问题出发探讨去哪儿网消息队列的设计与实现。
+</div>
+</a>
+<p class=post-meta>
+Posted by 梁远鹏 2018-12-09
+</p>
+</div>
+<hr>
 <ul class=pager>
 <li class=next>
 <a href=/tags/middleware/page/2/>Older Posts &rarr;</a>
@@ -169,7 +239,7 @@ sidebar-container">
 <hr><h5><a href>ABOUT ME</a></h5>
 <div class=short-about>
 <img src=https://res.cloudinary.com/lyp/image/upload/v1537624737/hugo/avatar/%E5%93%88%E5%B8%8C%E5%A4%B4%E5%83%8F.jpg>
-<p>OpenYurt Member|CDF中文本地化SIG成员|CNCF粉丝|Pulsar爱好者|公众号:四颗咖啡豆</p>
+<p>⎈远鹏|CNCF粉丝|Pulsar爱好者|公众号:四颗咖啡豆|云原生追随者</p>
 <ul class=list-inline>
 <li>
 <a href=/tags/middleware/index.xml rel=alternate type=application/rss+xml title="Hi,I`m lan">
@@ -184,6 +254,14 @@ sidebar-container">
 <span class="fa-stack fa-lg">
 <i class="fa fa-circle fa-stack-2x"></i>
 <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+</span>
+</a>
+</li>
+<li>
+<a target=_blank href=https://res.cloudinary.com/lyp/image/upload/v1679386615/hugo/blog.github.io/wechat-lan.png>
+<span class="fa-stack fa-lg">
+<i class="fa fa-circle fa-stack-2x"></i>
+<i class="fa fa-wechat fa-stack-1x fa-inverse"></i>
 </span>
 </a>
 </li>
@@ -353,6 +431,14 @@ tech
 <span class="fa-stack fa-lg">
 <i class="fa fa-circle fa-stack-2x"></i>
 <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+</span>
+</a>
+</li>
+<li>
+<a target=_blank href=https://res.cloudinary.com/lyp/image/upload/v1679386615/hugo/blog.github.io/wechat-lan.png>
+<span class="fa-stack fa-lg">
+<i class="fa fa-circle fa-stack-2x"></i>
+<i class="fa fa-wechat fa-stack-1x fa-inverse"></i>
 </span>
 </a>
 </li>

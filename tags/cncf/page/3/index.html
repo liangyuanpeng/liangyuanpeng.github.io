@@ -8,7 +8,7 @@
 <meta name=viewport content="width=device-width,initial-scale=1">
 <meta name=baidu-site-verification content="HGLXRsUXC4">
 <meta name=baidu-site-verification content="code-ANZvlnN0Xr">
-<meta name=description content="lan，工程师⎈, OpenYurt Member,CDF中文本地化SIG成员,开源爱好者 | 公众号:四颗咖啡豆">
+<meta name=description content="lan，工程师⎈,远鹏|CNCF粉丝|Pulsar爱好者|公众号:四颗咖啡豆|云原生追随者">
 <meta name=keyword content="liangyuanpeng|LanLiang|OpenYurt|Knative|Pulsar|Prometheus|Halo||边缘计算kubernetes|Docker|CloudNative|Golang|Rust|Istio|微服务">
 <link rel="shortcut icon" href=img/logo.png>
 <title>cncf-liangyuanpeng的博客 | liangyuanpeng's Blog</title>
@@ -57,7 +57,7 @@
 <a href=categories/tech>tech</a>
 </li>
 <li>
-<a href=search>SEARCH <img src=img/search.png height=15 style=cursor:pointer></a>
+<a href=/search/>SEARCH <img src=img/search.png height=15 style=cursor:pointer></a>
 </li>
 </ul>
 </div>
@@ -85,72 +85,149 @@ col-sm-12
 col-xs-12
 post-container">
 <div class=post-preview>
-<a href=/post/cncf-zot/new-container-image-registry-of-zot-from-cncf/>
+<a href=/post/fundation-cncf/k8s-cd-argo-deploy/>
 <h2 class=post-title>
-新的容器镜像仓库选择
+<img style=display:inline-block src=https://emoji.slack-edge.com/T09NY5SBT/emoji_k8s_loft/17a832b1a9cadae9.gif height=20 width=20>
+k8s部署云原生CD引擎Argo
 </h2>
 <div class=post-content-preview>
-简介 Zot 是思科开源的遵循 OCI 规范的容器镜像仓库,目前捐赠给了 CNCF,是 Sandbox 级别项目. 本文主要讲述作为镜像代理仓库下的应用场景. 部署 Kubernetes 前提 helm kubernetes cluster 这
+部署Argo CD 安装Argo CD kubectl create namespace argocd kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml 如果下载访问有问题可以改一下地址,是我个人学习使用的一个代理github文件的下载地址.将r
 </div>
 </a>
 <p class=post-meta>
-Posted by 梁远鹏 2023-01-18
+Posted by 梁远鹏 2022-01-20
 </p>
 </div>
 <hr>
 <div class=post-preview>
-<a href=/post/cncf-containerd/registry-mirrors-for-containerd/>
+<a href=/post/cncf-kubernetes/kubernetes-qa/>
 <h2 class=post-title>
-为containerd配置仓库镜像
+<img style=display:inline-block src=https://emoji.slack-edge.com/T09NY5SBT/emoji_k8s_loft/17a832b1a9cadae9.gif height=20 width=20>
+kubernetes常见问题
 </h2>
 <div class=post-content-preview>
-前言 containerd 的仓库镜像功能是很有用的功能,特别是国内无法访问 gcr.io 和 k8s.gcr.io 以及 registry.k8s.io 这些镜像仓库的情况下. K3S 和 Kind 都提供了比较简单的方式来为内置的 containerd 配置仓库镜像
+声明 本文会持续的更新,将在使用kubernetes过程中遇到的问题都收集起来.欢迎投稿加入你遇到的问题. 跨版本升级 service-account-issuer is a required flag, &ndash;service-account-signing-key-file and &ndash;service-account-issuer are required flags 版本
 </div>
 </a>
 <p class=post-meta>
-Posted by 梁远鹏 2023-01-12
+Posted by 梁远鹏 2022-01-18
 </p>
 </div>
 <hr>
 <div class=post-preview>
-<a href=/post/cncf-k8s/k8s-validating-admission-policy-with-crdparam-lua/>
+<a href=/post/cncf-kubernetes/proxy-kube-apiserver/>
 <h2 class=post-title>
-K8S内置准入校验CRD参数配合lua起飞
+<img style=display:inline-block src=https://emoji.slack-edge.com/T09NY5SBT/emoji_k8s_loft/17a832b1a9cadae9.gif height=20 width=20>
+反向代理kube-apiserver的请求
 </h2>
 <div class=post-content-preview>
-前言 k8s 1.26 推出了内置的准入校验机制,只需要使用 CEL 表达式就可以完成基本的准入校验逻辑,而高级功能包含将参数动态化,可以使用 CRD 资源的某个字段作为参
+本文会介绍在L7中转发下面两种方式的请求以及L4转发. 默认的使用证书的kubectl请求 使用token的kubectl请求 L4比较简单处理,
 </div>
 </a>
 <p class=post-meta>
-Posted by 梁远鹏 2023-01-11
+Posted by 梁远鹏 2022-01-17
 </p>
 </div>
 <hr>
 <div class=post-preview>
-<a href=/post/cncf-k8s/k8s-admissionregistration-with-cel/>
+<a href=/post/fundation-cncf/deploy-full-ssl-etcd/>
 <h2 class=post-title>
-用cel表达式来实现k8s准入校验
+<img style=display:inline-block src=https://emoji.slack-edge.com/T09NY5SBT/emoji_k8s_loft/17a832b1a9cadae9.gif height=20 width=20>
+<img style=display:inline-block src=https://emoji.slack-edge.com/T08PSQ7BQ/etcd/e4bb1c1a4a508dfd.png height=20 width=20>
+部署一个完整带SSL的etcd
 </h2>
 <div class=post-content-preview>
-前言 在 K8S 1.26 版本以前,达到 K8S 准入校验策略效果的方式有两种： 自己实现 K8S webook 直接使用 CNCF 项目中以 K8S 策略展开的项目,例如OPA、kyverno. 这些都是
 </div>
 </a>
 <p class=post-meta>
-Posted by 梁远鹏 2023-01-09
+Posted by 梁远鹏 2022-01-17
 </p>
 </div>
 <hr>
 <div class=post-preview>
-<a href=/post/cncf-envoy/ennoy-wasm-filter-with-go/>
+<a href=/post/cncf-contour/contour-v1.18.3-release/>
 <h2 class=post-title>
-用GO开发Envoy wasm filter
+<img style=display:inline-block src=https://emoji.slack-edge.com/T09NY5SBT/emoji_k8s_loft/17a832b1a9cadae9.gif height=20 width=20>
+Contour-v1.18.3发布
 </h2>
 <div class=post-content-preview>
-目标 总结 注意 本文还在持续创作当中,这几天会完成创作.
+Contour-v1.18.3发布
 </div>
 </a>
 <p class=post-meta>
-Posted by 梁远鹏 2022-03-20
+Posted by 梁远鹏 2022-01-09
+</p>
+</div>
+<hr>
+<div class=post-preview>
+<a href=/post/cncf-contour/contour-v1.20.0-beta.1-release/>
+<h2 class=post-title>
+<img style=display:inline-block src=https://emoji.slack-edge.com/T09NY5SBT/emoji_k8s_loft/17a832b1a9cadae9.gif height=20 width=20>
+Contour-v1.20.0-beta.1发布
+</h2>
+<div class=post-content-preview>
+Contour-v1.20.0-beta.1发布
+</div>
+</a>
+<p class=post-meta>
+Posted by 梁远鹏 2022-01-09
+</p>
+</div>
+<hr>
+<div class=post-preview>
+<a href=/post/cncf-contour/contour-v1.20.0-beta.1-release/>
+<h2 class=post-title>
+<img style=display:inline-block src=https://emoji.slack-edge.com/T09NY5SBT/emoji_k8s_loft/17a832b1a9cadae9.gif height=20 width=20>
+Contour-v1.20.0-beta.1发布
+</h2>
+<div class=post-content-preview>
+Contour-v1.20.0-beta.1发布
+</div>
+</a>
+<p class=post-meta>
+Posted by 梁远鹏 2022-01-09
+</p>
+</div>
+<hr>
+<div class=post-preview>
+<a href=/post/fundation-cncf/quick-start-openebs/>
+<h2 class=post-title>
+快速开始OpenEBS
+</h2>
+<div class=post-content-preview>
+前言 前提 使用OpenEBS需要机器已经安装了iSCSI 已经安装了kubernetes ubuntu可以用下面的命令安装和开启: sudo apt-get update sudo apt-get install open-iscsi sudo
+</div>
+</a>
+<p class=post-meta>
+Posted by 梁远鹏 2022-01-02
+</p>
+</div>
+<hr>
+<div class=post-preview>
+<a href=/post/cncf-litmuschaos/litmus-chaos-incubation-coming/>
+<h2 class=post-title>
+LitmusChaos即将进入孵化阶段
+</h2>
+<div class=post-content-preview>
+即将毕业的LitmusChaos 目前LitmusChaos项目正在进入孵化投票阶段,相信很快就会宣布正式成为孵化项目. 投票详情见:https
+</div>
+</a>
+<p class=post-meta>
+Posted by 梁远鹏 2021-12-23
+</p>
+</div>
+<hr>
+<div class=post-preview>
+<a href=/post/cncf-openelb/openelb-cncf-sanbox/>
+<h2 class=post-title>
+OpenELB进入CNCF沙箱项目
+</h2>
+<div class=post-content-preview>
+OpenELB是什么 在 Kubernetes 的世界中有三中 service类型,ClusterIP、NodePort 和 LoadBalancer. 而 LoadBalancer 类型一般情况下只有云厂商才会提供这种类
+</div>
+</a>
+<p class=post-meta>
+Posted by 梁远鹏 2021-12-23
 </p>
 </div>
 <hr>
@@ -172,7 +249,7 @@ sidebar-container">
 <hr><h5><a href>ABOUT ME</a></h5>
 <div class=short-about>
 <img src=https://res.cloudinary.com/lyp/image/upload/v1537624737/hugo/avatar/%E5%93%88%E5%B8%8C%E5%A4%B4%E5%83%8F.jpg>
-<p>OpenYurt Member|CDF中文本地化SIG成员|CNCF粉丝|Pulsar爱好者|公众号:四颗咖啡豆</p>
+<p>⎈远鹏|CNCF粉丝|Pulsar爱好者|公众号:四颗咖啡豆|云原生追随者</p>
 <ul class=list-inline>
 <li>
 <a href=/tags/cncf/index.xml rel=alternate type=application/rss+xml title="Hi,I`m lan">
@@ -187,6 +264,14 @@ sidebar-container">
 <span class="fa-stack fa-lg">
 <i class="fa fa-circle fa-stack-2x"></i>
 <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+</span>
+</a>
+</li>
+<li>
+<a target=_blank href=https://res.cloudinary.com/lyp/image/upload/v1679386615/hugo/blog.github.io/wechat-lan.png>
+<span class="fa-stack fa-lg">
+<i class="fa fa-circle fa-stack-2x"></i>
+<i class="fa fa-wechat fa-stack-1x fa-inverse"></i>
 </span>
 </a>
 </li>
@@ -356,6 +441,14 @@ tech
 <span class="fa-stack fa-lg">
 <i class="fa fa-circle fa-stack-2x"></i>
 <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+</span>
+</a>
+</li>
+<li>
+<a target=_blank href=https://res.cloudinary.com/lyp/image/upload/v1679386615/hugo/blog.github.io/wechat-lan.png>
+<span class="fa-stack fa-lg">
+<i class="fa fa-circle fa-stack-2x"></i>
+<i class="fa fa-wechat fa-stack-1x fa-inverse"></i>
 </span>
 </a>
 </li>

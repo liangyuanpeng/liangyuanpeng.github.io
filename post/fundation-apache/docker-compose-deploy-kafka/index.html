@@ -59,7 +59,7 @@
 <a href=categories/tech>tech</a>
 </li>
 <li>
-<a href=search>SEARCH <img src=img/search.png height=15 style=cursor:pointer></a>
+<a href=/search/>SEARCH <img src=img/search.png height=15 style=cursor:pointer></a>
 </li>
 </ul>
 </div>
@@ -309,7 +309,7 @@ services:
 <p>因为单纯使用docker方式部署的话，如果有改动(例如:修改对外开放的端口号)的情况下,docker需要把容器停止<code>docker stop 容器ID/容器NAME</code>,然后删除容器<code>docker rm 容器ID/容器NAME</code>,最后启动新效果的容器<code>docker run ...</code></p>
 <p>而如果在docker-compose部署的情况下如果修改内容只需要修改docker-compose.yml文件对应的地方,例如<code>2181:2181改成2182:2182</code>,然后再次在docker-compose.yml文件对应的目录下执行<code>docker-compose up -d</code>就能达到更新后的效果。</p>
 <h2>微信公众号</h2>
-<p>扫描下面的二维码关注我们的微信公众号,第一时间查看最新内容。同时也可以关注我的Github，看看我都在了解什么技术，在页面底部可以找到我的Github。</p>
+<p>扫描下面的二维码关注我们的微信公众号,第一时间查看最新内容。同时也可以关注我的Github,看看我都在了解什么技术,在页面底部可以找到我的Github。</p>
 <img src=https://res.cloudinary.com/lyp/image/upload/v1581729955/hugo/blog.github.io/qrcode_for_sikekafeidou.jpg alt=wechat-account-qrcode>
 <hr>
 <ul class=pager>
@@ -477,6 +477,14 @@ col-md-10 col-md-offset-1">
 <span class="fa-stack fa-lg">
 <i class="fa fa-circle fa-stack-2x"></i>
 <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+</span>
+</a>
+</li>
+<li>
+<a target=_blank href=https://res.cloudinary.com/lyp/image/upload/v1679386615/hugo/blog.github.io/wechat-lan.png>
+<span class="fa-stack fa-lg">
+<i class="fa fa-circle fa-stack-2x"></i>
+<i class="fa fa-wechat fa-stack-1x fa-inverse"></i>
 </span>
 </a>
 </li>
