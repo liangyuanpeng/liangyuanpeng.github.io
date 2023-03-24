@@ -8,9 +8,10 @@ date:       2022-06-06
 author:     "梁远鹏"
 image: "https://res.cloudinary.com/lyp/image/upload/v1612709780/hugo/blog.github.io/pexels-matt-hardy-2568001.jpg"
 published: true
+wipnote: true
 tags:
     - CloudNative
-    - Pulsar
+    - pulsar
 categories: 
     - TECH
 ---
@@ -26,7 +27,3 @@ categories:
 3. 配置 pulsar-admin 命令行使用的 Token 与 Broker 进行通信.
 4. 使用 [https://github.com/pulsar-sigs/pulsar-client](https://github.com/pulsar-sigs/pulsar-client) 来收发消息,验证生产者和消费者.
 
-
-# 注意 
-
-本文还在持续创作当中.

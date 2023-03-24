@@ -8,6 +8,7 @@ date:       2022-01-17
 author:     "梁远鹏"
 image: "https://res.cloudinary.com/lyp/image/upload/v1635353670/hugo/banner/pexels-helena-lopes-2253275.jpg"
 published: true
+wipnote: true
 tags:
     - kubernetes 
     - cncf
