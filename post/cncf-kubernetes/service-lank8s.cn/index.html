@@ -83,6 +83,18 @@ tech
 <a class=tag href=/tags/kubernetes title=kubernetes>
 kubernetes
 </a>
+<a class=tag href=/tags/knative title=knative>
+knative
+</a>
+<a class=tag href=/tags/tekton title=tekton>
+tekton
+</a>
+<a class=tag href=/tags/kind title=kind>
+kind
+</a>
+<a class=tag href=/tags/distroless title=distroless>
+distroless
+</a>
 </div>
 <h1>lank8s.cn服务</h1>
 <h2 class=subheading></h2>
@@ -96,7 +108,7 @@ kubernetes
 <span class=old-visitors-count style=display:none></span>
 <span class=leancloud-visitors-count></span>
 </span>
-阅读 </span></span>|<span class=post-date>共1918字</span>，阅读约<span class=more-meta> 4 分钟</span>
+阅读 </span></span>|<span class=post-date>共1904字</span>，阅读约<span class=more-meta> 4 分钟</span>
 </span>
 </div>
 </div>
@@ -154,13 +166,13 @@ post-container">
 <td>lank8s.cn</td>
 <td style=text-align:center>支持</td>
 <td style=text-align:center>支持</td>
-<td style=text-align:center>直接从k8s.gcr.io拉取,不存在时间差</td>
+<td style=text-align:center>直接从 registry.k8s.io 拉取,不存在时间差</td>
 <td style=text-align:center>容易记,短域名</td>
 </tr>
 </tbody>
 </table>
 <h1 id=技术使人懒惰>技术使人懒惰</h1>
-<p>我们知道,不管使用哪一种方式,我们都少不了的步骤时再部署一些 <code>k8s.gcr.io</code> 的资源时需要在部署前将 <code>k8s.gcr.io</code> 的镜像修改为国内某个地方(例如 <code>lank8s.cn</code>),这样的事情做得多了也会显得繁琐.</p>
+<p>我们知道,不管使用哪一种方式,我们都少不了的步骤时再部署一些 <code>registry.k8s.io</code> 的资源时需要在部署前将 <code>registry.k8s.io</code> 的镜像修改为国内某个地方(例如 <code>lank8s.cn</code>),这样的事情做得多了也会显得繁琐.</p>
 <p><del>因此我们即将推出一个k8s mutating webhook, 这个webhook的唯一作用就是在创建或更新资源(例如Deployment,Statefulset)将<code>k8s.gcr.io</code>修改为<code>lank8s.cn</code>.后续也会支持参数化,例如支持配置将<code>registry.aliyuncs.com/google_containers</code>修改为<code>lank8s.cn</code></del></p>
 <p>你可以为 containerd 配置仓库镜像,这样当你拉取 registry.gcr.io 的镜像时，不再需要去手动为每个镜像修改地址,可以直接使用到 lank8scn 服务. 参考<a href=https://liangyuanpeng.com/post/cncf-containerd/registry-mirrors-for-containerd/>文章:为containerd配置仓库镜像</a></p>
 <h1 id=服务说明>服务说明</h1>
@@ -178,7 +190,7 @@ post-container">
 <td style=text-align:center>registry.lank8s.cn</td>
 </tr>
 <tr>
-<td>k8s.gcr.io</td>
+<td>registry.k8s.io</td>
 <td style=text-align:center>lank8s.cn</td>
 </tr>
 <tr>
@@ -200,7 +212,7 @@ post-container">
 <p>注意:你从哪里下载的镜像就从哪里校验镜像,例如如果你的镜像地址是 <code>abc.com/kube-apiserver-amd64:v1.24.0</code>,那么你的校验命令应该是:</p>
 <div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell>COSIGN_EXPERIMENTAL<span style=color:#f92672>=</span><span style=color:#ae81ff>1</span> cosign verify abc.com/kube-apiserver-amd64:v1.24.0
 </code></pre></div><h1 id=k8slank8scn-将被淘汰>k8s.lank8s.cn 将被淘汰</h1>
-<p>官方镜像 k8s.gcr.io 使用 registry.k8s.io 替代,而lank8s服务也会跟随上游,将 k8s.lank8s.cn 淘汰,请使用 registry.k8s.io 的镜像服务 registry.lank8s.cn.</p>
+<p>官方镜像 <code>k8s.gcr.io</code> 使用 <code>registry.k8s.io</code> 替代,而 lank8s 服务也会跟随上游,将 <code>k8s.lank8s.cn</code> 淘汰,请使用 <code>registry.k8s.io</code> 的镜像服务 <code>registry.lank8s.cn</code>.</p>
 <h1 id=应用场景>应用场景</h1>
 <p>除了拉取 K8S 官方组件镜像之外,典型的应用场景有以下几个:</p>
 <ul>
@@ -217,7 +229,7 @@ post-container">
 <p>为什么是可能呢?</p>
 <p>因为在服务器压力承受范围内的话<code>gcr.lank8s.cn</code>、<code>lank8s.cn</code>、<code>registry.lank8s.cn</code>、<code>k8s.lank8s.cn</code> 都会免费提供服务,但使用的人越来越多之后服务器承受不了太多人共同使用时<code>gcr.lank8s.cn</code>(<code>lank8s.cn</code>/<code>registry.lank8s.cn</code>依然是免费服务)将会作为付费服务推出.经过多次决策,最终定价为15一年.有意者请加我微信,谢谢!</p>
 <p>由于本意不是为了赚钱,因此即使是收费也会采取比较宽容的策略,比如付费用户在登录了 <code>lank8s.cn</code> (拉取镜像时带有正确的认证信息)后其所在 IP 都可以免费(无需登录)拉取镜像.</p>
-<p>也就是一个局域网内,只要有一个节点登录了 lank8s.cn,那么其他节点都可以直接使用服务.</p>
+<p>也就是一个局域网内,只要有一个节点登录了 <code>lank8s.cn</code>,那么其他节点都可以直接使用服务.</p>
 <p>在服务免费期间成为了付费用户的人员将会额外赠送一年使用时间.</p>
 <p><img src=https://res.cloudinary.com/lyp/image/upload/v1614786289/weixin.jpg alt=weixin></p>
 <h1 id=接受赞助>接受赞助</h1>
@@ -295,6 +307,9 @@ iot
 </a>
 <a href=/tags/k8s title=k8s>
 k8s
+</a>
+<a href=/tags/kind title=kind>
+kind
 </a>
 <a href=/tags/kubernetes title=kubernetes>
 kubernetes
