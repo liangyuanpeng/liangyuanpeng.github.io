@@ -91,11 +91,47 @@ post-container">
 <div id=search-searchbar></div>
 <div class=post-list id=search-hits>
 </div>
-<script>const search=instantsearch({appId:'VLIE75A81B',indexName:'blog',apiKey:'2aa49a052dc7b70cf63c1f5ebcae8934'}),hitTemplate=function(a){let c='';a.date&&(c=moment.unix(a.date).format('MMM D, YYYY'));let d=`${a.url}#${a.anchor}`;const f=a._highlightResult.title.value;let e='';a._highlightResult.headings&&(e=a._highlightResult.headings.map(a=>`<span class="post-breadcrumb">${a.value}</span>`).join(' > '));let b="";return a._highlightResult.content?b=a._highlightResult.content.value:b=a.summary,`
+<script>const search=instantsearch({appId:'VLIE75A81B',indexName:'blog',apiKey:'2aa49a052dc7b70cf63c1f5ebcae8934'}),hitTemplate=function(a){let d='';a.date&&(d=moment.unix(a.date).format('MMM D, YYYY'));let e=`${a.url}#${a.anchor}`;const g=a._highlightResult.title.value;let f='';a._highlightResult.headings&&(f=a._highlightResult.headings.map(a=>`<span class="post-breadcrumb">${a.value}</span>`).join(' > '));let b="";a._highlightResult.content?b=a._highlightResult.content.value:b=a.summary,addImg="";const c=new Date;if(c.getDay()===5||c.getDay()===1){let a="https://emoji.slack-edge.com/T09NY5SBT/partyblob/f8d50eb766418532.gif";c.getDay()===1&&(a='https://emoji.slack-edge.com/T08PSQ7BQ/twinsparrot/20649446b37d9d8c.gif'),addImg+=`
+        <img src="${a}" style="display:inline-block;" height="20" width="20" />
+      `}return addTagImg="",a.tags!=null&&a.tags.forEach(a=>{a==="kubernetes"&&(addTagImg+=`
+        <img src='https://emoji.slack-edge.com/T09NY5SBT/emoji_k8s_loft/17a832b1a9cadae9.gif' style="display:inline-block;" height="20" width="20" />
+      `),a==="golang"&&(addTagImg+=`
+        <img src='https://emoji.slack-edge.com/T08PSQ7BQ/go-mic-drop/24f53c55d14eaa84.png' style="display:inline-block;" height="20" width="20" />
+      `),a==="kind"&&(addTagImg+=`
+        <img src='https://emoji.slack-edge.com/T08PSQ7BQ/kind-logo/6a36c9bdfbbbe16b.png' style="display:inline-block;" height="20" width="20" />
+      `),a==="etcd"&&(addTagImg+=`
+        <img src='https://emoji.slack-edge.com/T08PSQ7BQ/etcd/e4bb1c1a4a508dfd.png' style="display:inline-block;" height="20" width="20" />
+      `),a==="rust"&&(addTagImg+=`
+        <img src='https://emoji.slack-edge.com/T03TRGF7ZM4/rust/bd45fcb3a2329aa4.png' style="display:inline-block;" height="20" width="20" />
+      `),a==="tekton"&&(addTagImg+=`
+        <img src='https://emoji.slack-edge.com/TJ45YV83X/tekton/ecf8f8166682861b.png' style="display:inline-block;" height="20" width="20" />
+      `),a==="knative"&&(addTagImg+=`
+        <img src='https://emoji.slack-edge.com/T08PSQ7BQ/knative/2459593cc135179b.png' style="display:inline-block;" height="20" width="20" />
+      `),a==="envoy"&&(addTagImg+=`
+        <img src='https://emoji.slack-edge.com/T08PSQ7BQ/envoy/1ac93945b9c40706.png' style="display:inline-block;" height="20" width="20" />
+      `),a==="kubevela"&&(addTagImg+=`
+        <img src='https://emoji.slack-edge.com/T08PSQ7BQ/kubevela/7f45da73e6595cc3.png' style="display:inline-block;" height="20" width="20" />
+      `),a==="kubevela"&&(addTagImg+=`
+        <img src='https://emoji.slack-edge.com/T08PSQ7BQ/contour/7be4234a18992733.png' style="display:inline-block;" height="20" width="20" />
+      `),a==="prometheus"&&(addTagImg+=`
+        <img src='https://emoji.slack-edge.com/T08PSQ7BQ/prometheus/a40e8b6a9f6e62ea.png' style="display:inline-block;" height="20" width="20" />
+      `),a==="buildpacks"&&(addTagImg+=`
+        <img src='https://emoji.slack-edge.com/T08PSQ7BQ/buildpacks/384680c2257ac8b8.png' style="display:inline-block;" height="20" width="20" />
+      `),a==="carvel"&&(addTagImg+=`
+        <img src='https://emoji.slack-edge.com/T08PSQ7BQ/carvel/ee636ccbfbd00fd1.png' style="display:inline-block;" height="20" width="20" />
+      `),a==="cncf"&&(addTagImg+=`
+        <img src='https://emoji.slack-edge.com/T08PSQ7BQ/cncf/654bc2f197058c81.png' style="display:inline-block;" height="20" width="20" />
+      `),a==="helm"&&(addTagImg+=`
+        <img src='https://emoji.slack-edge.com/T08PSQ7BQ/helmet/170c9ecaf8882821.png' style="display:inline-block;" height="20" width="20" />
+      `),a==="pulsar"&&(addTagImg+=`
+        <img src='https://emoji.slack-edge.com/T5Z3B324U/pulsarlogo/d478c6241426a501.jpg' style="display:inline-block;" height="20" width="20" />
+      `),a==="bookkeeper"&&(addTagImg+=`
+        <img src='https://bookkeeper.apache.org/img/bk-logo.svg' style="display:inline-block;" height="20" width="20" />
+      `)}),`
     <div class="post-item">
-      <span class="post-meta">${c}</span>
-      <h2><a class="post-link" href="${d}">${f}</a></h2>
-      <a href="${d}" class="post-breadcrumbs">${e}</a>
+      <span class="post-meta">${d}</span>
+      <h2><a class="post-link" href="${e}">${addTagImg} ${g} ${addImg}</a></h2>
+      <a href="${e}" class="post-breadcrumbs">${f}</a>
       <div class="post-snippet">${b}</div>
     </div>
   `};search.addWidget(instantsearch.widgets.searchBox({container:'#search-searchbar',placeholder:'Search into posts...',poweredBy:!0})),search.addWidget(instantsearch.widgets.hits({container:'#search-hits',templates:{item:hitTemplate}})),search.start()</script>
@@ -177,6 +213,9 @@ blog
 <a href=/tags/bookkeeper title=bookkeeper>
 bookkeeper
 </a>
+<a href=/tags/cdf title=cdf>
+cdf
+</a>
 <a href=/tags/chirpstack title=chirpstack>
 chirpstack
 </a>
@@ -191,6 +230,9 @@ cncf
 </a>
 <a href=/tags/contour title=contour>
 contour
+</a>
+<a href=/tags/devops title=devops>
+devops
 </a>
 <a href=/tags/docker title=docker>
 docker
