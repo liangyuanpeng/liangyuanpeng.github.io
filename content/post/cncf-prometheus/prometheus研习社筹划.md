@@ -17,6 +17,10 @@ categories:
     - CloudNative
 ---  
 
+# 当前计划已经废弃  
+
+![](https://em-content.zobj.net/thumbs/160/apple/325/warning_26a0-fe0f.png)
+
 # 前言 
 
 Hi,我正在筹划一个Prometheus研习社的社区,希望整合Prometheus中文技术内容,帮助Prometheus技术在国内的推广以及搭建一个以Prometheus为中心的技术讨论社区.  

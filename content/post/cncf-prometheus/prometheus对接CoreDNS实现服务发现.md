@@ -8,6 +8,7 @@ date:       2021-03-23
 author:     "梁远鹏"
 image: "https://res.cloudinary.com/lyp/image/upload/v1612709780/hugo/blog.github.io/pexels-matt-hardy-2568001.jpg"
 published: true
+wipnote: true
 tags:
     - coredns
     - prometheus
@@ -105,5 +106,3 @@ www.liangyuanpeng.com.  265     IN      A       192.168.3.152
 ```  
 
 可以看到成功将DNS `www.liangyuanpeng.com`解析成了`192.168.3.152`,也就是前面设置到etcd中的内容
-
-# 注意 本文还处于创作阶段,将会尽快完善

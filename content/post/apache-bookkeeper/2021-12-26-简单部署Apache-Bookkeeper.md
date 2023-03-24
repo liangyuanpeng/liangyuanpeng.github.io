@@ -8,6 +8,7 @@ date:       2021-12-26
 author:     "梁远鹏"
 image: "https://res.cloudinary.com/lyp/image/upload/v1612709780/hugo/blog.github.io/pexels-matt-hardy-2568001.jpg"
 published: true
+wipnote: true
 tags:
     - bookkeeper
     - zookeeper
@@ -115,6 +116,3 @@ org.apache.bookkeeper.bookie.BookieException$MetadataStoreException: Failed to g
 ## localbookie方式部署  
 
 这种方式主要是用于本地开发环境.
-
-# 注意  
-本文还在持续创作当中

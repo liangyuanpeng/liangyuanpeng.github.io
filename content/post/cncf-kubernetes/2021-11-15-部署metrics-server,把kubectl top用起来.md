@@ -8,6 +8,7 @@ date:       2021-11-15
 author:     "梁远鹏"
 image: "https://res.cloudinary.com/lyp/image/upload/v1635353670/hugo/banner/pexels-helena-lopes-2253275.jpg"
 published: true
+wipnote: true
 tags:
     - cncf 
     - tech
@@ -271,7 +272,3 @@ lank8s.cn是我个人在长久维护的一个免费`k8s.gcr.io`镜像代理服�
 但是`gcr.lank8s.cn`也有部分免费镜像提供支持,例如/google_samples的镜像,/kubebuilder的镜像,/istio-release的镜像.  
 
 详细内容请查看:[https://github.com/lank8s](https://github.com/lank8s)
-
-# 注意  
-
-本文还在持续创作当中.

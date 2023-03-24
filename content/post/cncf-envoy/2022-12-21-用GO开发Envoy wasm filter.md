@@ -8,6 +8,7 @@ date:       2022-03-20
 author:     "梁远鹏"
 image: "img/post-bg-2015.jpg"
 published: true
+wipnote: true
 tags:
     - envoy 
     - cncf
@@ -18,7 +19,3 @@ categories: [ CloudNative ]
 # 目标  
 
 # 总结
-
-# 注意 
-
-本文还在持续创作当中,这几天会完成创作.
