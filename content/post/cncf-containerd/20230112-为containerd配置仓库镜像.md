@@ -11,6 +11,8 @@ published: true
 tags:
     - containerd 
     - cncf
+    - kind
+    - kubernetes
 categories: [ CloudNative ]
 ---
 

@@ -12,6 +12,7 @@ tags:
     - k8s
     - cncf
     - k8s-1.26
+    - kubernetes
 categories: [ CloudNative ]
 ---
 
