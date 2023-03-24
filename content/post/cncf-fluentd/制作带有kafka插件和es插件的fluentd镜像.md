@@ -13,7 +13,7 @@ tags:
     - cncf
     - image
     - fluentd
-    - cloudNative
+    - CloudNative
 categories: 
     - TECH
 ---
