@@ -105,7 +105,7 @@ cncf
 <span class=old-visitors-count style=display:none></span>
 <span class=leancloud-visitors-count></span>
 </span>
-阅读 </span></span>|<span class=post-date>共1430字</span>，阅读约<span class=more-meta> 3 分钟</span>
+阅读 </span></span>|<span class=post-date>共1395字</span>，阅读约<span class=more-meta> 3 分钟</span>
 </span>
 </div>
 </div>
@@ -130,7 +130,7 @@ post-container">
 <h1 id=本文实现目标>本文实现目标</h1>
 <p>本文主要使用kubeadm快速部署一个单机的kubernetes,其中镜像仓库使用lank8s.cn,当然也可以使用其他地址,lank8s.cn主要优势是短域名,好记.</p>
 <h1 id=前提>前提</h1>
-<p>本文内容不包括讲述docker安装,因此需要自行先安装好docker。</p>
+<p>本文内容不包括讲述 docker 安装,因此需要自行先安装好 docker。</p>
 <h1 id=安装kubectlkubeletkubeadm>安装kubectl、kubelet、kubeadm</h1>
 <ol>
 <li>添加国内源</li>
@@ -160,7 +160,7 @@ EOF
 todo</p>
 </li>
 <li>
-<p>开始kubeadm安装kubernetes</p>
+<p>开始 kubeadm 安装 kubernetes</p>
 </li>
 </ol>
 <pre tabindex=0><code>kubeadm init --kubernetes-version=v1.18.6 --pod-network-cidr=10.244.0.0/16 --service-cidr=10.96.0.0/12 --image-repository=lank8s.cn
@@ -292,7 +292,7 @@ Commercial support is available at
 &lt;/body&gt;
 &lt;/html&gt;
 </code></pre><h1 id=总结>总结</h1>
-<p>到目前为止就用kubeadm使用国内网络轻松部署起一个kubernetes了,<code>lank8s.cn</code>是我个人在维护的一个<code>k8s.gcr.io</code>镜像的代理,还有一个<code>gcr.lank8s.cn</code>可以代替<code>gcr.io</code>来拉取镜像.</p>
+<p>到目前为止就用 kubeadm 使用国内网络轻松部署起一个 kubernetes 了,<code>lank8s.cn</code>是我个人在维护的一个<code>k8s.gcr.io</code>镜像的代理,还有一个<code>gcr.lank8s.cn</code>可以代替<code>gcr.io</code>来拉取镜像.</p>
 <p>详情可以看看<a href=https://liangyuanpeng.com/post/cncf-kubernetes/service-lank8s.cn>lank8s.cn服务</a></p>
 <h2>微信公众号</h2>
 <p>扫描下面的二维码关注我们的微信公众号,第一时间查看最新内容。同时也可以关注我的Github,看看我都在了解什么技术,在页面底部可以找到我的Github。</p>
@@ -438,9 +438,9 @@ col-md-10 col-md-offset-1">
 <hr class="hidden-sm hidden-xs">
 <h2>相关文章</h2>
 <ul style=margin-bottom:25px>
+<li><a href=/post/cncf-kubernetes/k8s-client-go-source-2/>k8s-client-go源码剖析(二)</a></li>
 <li><a href=/post/cncf-openkruise/openkruise-column/>OpenKruise专栏介绍</a></li>
 <li><a href=/post/cncf-kubernetes/use-helm-deploy-chirpstack-kubernetes/>用helm chart将chripstack部署到kubernetes之上</a></li>
-<li><a href=/post/cncf-kubernetes/k8s-client-go-source-2/>k8s-client-go源码剖析(二)</a></li>
 <li><a href=/post/cncf-fluentd/fluentd-logdrive-docker/>使用fluentd作为docker日志驱动收集日志</a></li>
 <li><a href=/post/cncf-fluentd/fluentd-plugin-kafka/>制作带有kafka插件和es插件的fluentd镜像</a></li>
 <li><a href=/post/cncf-fluentd/fluentd-quickstart/>fluentd语法入门</a></li>

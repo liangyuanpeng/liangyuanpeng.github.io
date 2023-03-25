@@ -102,7 +102,7 @@ kubernetes
 <span class=old-visitors-count style=display:none></span>
 <span class=leancloud-visitors-count></span>
 </span>
-阅读 </span></span>|<span class=post-date>共442字</span>，阅读约<span class=more-meta> 1 分钟</span>
+阅读 </span></span>|<span class=post-date>共421字</span>，阅读约<span class=more-meta> 1 分钟</span>
 </span>
 </div>
 </div>
@@ -123,12 +123,12 @@ post-container">
 <h1 id=痛点>痛点</h1>
 <p>网上很多文章都是说写了kubernetes webhook代码后编译丢到k8s里面去测试,但是这样就非常消耗时间和精力,因为无法立刻知道写的代码是否有问题.</p>
 <h1 id=加多一层>加多一层</h1>
-<p>IT界有句老话,所有的问题都可以通过加多一层来解决。</p>
+<p>IT 界有句老话,所有的问题都可以通过加多一层来解决。</p>
 <p>这句话成为了本篇文章的核心所在。</p>
-<p>怎么加多一层从而方便的进行webhook开发呢?</p>
-<p>看一下webhook的调用链路:↓
+<p>怎么加多一层从而方便的进行 webhook 开发呢?</p>
+<p>看一下 webhook 的调用链路:↓
 TODO: 图</p>
-<p>原理就是apiserver调用lan.local webhook,而这个webhook是一个envoy(也可以是nginx或者其他的代理),它的唯一作用就是把webhook请求转发到你的开发环境上,从而进行开发环境中的webhook接口调试.</p>
+<p>原理就是 apiserver 调用lan.local webhook,而这个webhook是一个envoy(也可以是nginx或者其他的代理),它的唯一作用就是把webhook请求转发到你的开发环境上,从而进行开发环境中的webhook接口调试.</p>
 <p>TODO:现在的调用链路图</p>
 <h1 id=开源>开源</h1>
 <p>本文提到的开发 webhook 时用到的配置都可在下面的github仓库上找到.</p>

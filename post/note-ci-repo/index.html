@@ -94,7 +94,7 @@ git
 <span class=old-visitors-count style=display:none></span>
 <span class=leancloud-visitors-count></span>
 </span>
-阅读 </span></span>|<span class=post-date>共302字</span>，阅读约<span class=more-meta> 1 分钟</span>
+阅读 </span></span>|<span class=post-date>共275字</span>，阅读约<span class=more-meta> 1 分钟</span>
 </span>
 </div>
 </div>
@@ -117,35 +117,35 @@ post-container">
 </ul>
 </nav>
 <h2 id=前言>前言</h2>
-<p>CI过程中拉取仓库的注意点</p>
+<p>CI 过程中拉取仓库的注意点</p>
 <blockquote>
-<p>备注：本文安装指南基于Ubuntu 16.04，在Centos上某些安装步骤的命令可能需要稍作改动。</p>
+<p>备注：本文安装指南基于 Ubuntu 16.04，在 Centos 上某些安装步骤的命令可能需要稍作改动。</p>
 </blockquote>
 <h2 id=ci-hugo博客时子模块注意点>CI Hugo博客时子模块注意点</h2>
-<p>在fork了hugo的主题仓库后，hugo使用了自己仓库的hugo主题，但是在CI过程中一直提示没有权限访问仓库。</p>
-<pre tabindex=0><code>Running with gitlab-runner 11.3.0-rc1 (861c565e)
+<p>在 fork 了 hugo 的主题仓库后，hugo 使用了自己仓库的 hugo 主题，但是在 CI 过程中一直提示没有权限访问仓库。</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell>Running with gitlab-runner 11.3.0-rc1 <span style=color:#f92672>(</span>861c565e<span style=color:#f92672>)</span>
   on docker-auto-scale 4e4528ca
 Using Docker executor with image registry.gitlab.com/pages/hugo:latest ...
 Pulling docker image registry.gitlab.com/pages/hugo:latest ...
-Using docker image sha256:e49e435cc0445a3d9f8b2fe75c25fd226ed240940ed8c8c1c00aa339e4498144 for registry.gitlab.com/pages/hugo:latest ...
+Using docker image sha256:e49e435cc0445a3d9f8b2fe75c25fd226ed240940ed8c8c1c00aa339e4498144 <span style=color:#66d9ef>for</span> registry.gitlab.com/pages/hugo:latest ...
 Running on runner-4e4528ca-project-8449745-concurrent-0 via runner-4e4528ca-srm-1537615348-42d15321...
 Cloning repository...
-Cloning into '/builds/liangyuanpeng/liangyuanpeng.gitlab.io'...
+Cloning into <span style=color:#e6db74>&#39;/builds/liangyuanpeng/liangyuanpeng.gitlab.io&#39;</span>...
 Checking out 643a5fbf as master...
 Updating/initializing submodules recursively...
-Submodule 'themes/hugo-theme-cleanwhite' (git@github.com:liangyuanpeng/hugo-theme-cleanwhite.git) registered for path 'themes/hugo-theme-cleanwhite'
-Cloning into '/builds/liangyuanpeng/liangyuanpeng.gitlab.io/themes/hugo-theme-cleanwhite'...
+Submodule <span style=color:#e6db74>&#39;themes/hugo-theme-cleanwhite&#39;</span> <span style=color:#f92672>(</span>git@github.com:liangyuanpeng/hugo-theme-cleanwhite.git<span style=color:#f92672>)</span> registered <span style=color:#66d9ef>for</span> path <span style=color:#e6db74>&#39;themes/hugo-theme-cleanwhite&#39;</span>
+Cloning into <span style=color:#e6db74>&#39;/builds/liangyuanpeng/liangyuanpeng.gitlab.io/themes/hugo-theme-cleanwhite&#39;</span>...
 fatal: cannot run ssh: No such file or directory
 fatal: unable to fork
-fatal: clone of 'git@github.com:liangyuanpeng/hugo-theme-cleanwhite.git' into submodule path '/builds/liangyuanpeng/liangyuanpeng.gitlab.io/themes/hugo-theme-cleanwhite' failed
-Failed to clone 'themes/hugo-theme-cleanwhite'. Retry scheduled
-Cloning into '/builds/liangyuanpeng/liangyuanpeng.gitlab.io/themes/hugo-theme-cleanwhite'...
+fatal: clone of <span style=color:#e6db74>&#39;git@github.com:liangyuanpeng/hugo-theme-cleanwhite.git&#39;</span> into submodule path <span style=color:#e6db74>&#39;/builds/liangyuanpeng/liangyuanpeng.gitlab.io/themes/hugo-theme-cleanwhite&#39;</span> failed
+Failed to clone <span style=color:#e6db74>&#39;themes/hugo-theme-cleanwhite&#39;</span>. Retry scheduled
+Cloning into <span style=color:#e6db74>&#39;/builds/liangyuanpeng/liangyuanpeng.gitlab.io/themes/hugo-theme-cleanwhite&#39;</span>...
 fatal: cannot run ssh: No such file or directory
 fatal: unable to fork
-fatal: clone of 'git@github.com:liangyuanpeng/hugo-theme-cleanwhite.git' into submodule path '/builds/liangyuanpeng/liangyuanpeng.gitlab.io/themes/hugo-theme-cleanwhite' failed
-Failed to clone 'themes/hugo-theme-cleanwhite' a second time, aborting
-ERROR: Job failed: exit code 1
-</code></pre><p>最后发现问题出在使用了git协议拉取仓库，导致没有权限访问。将协议改为https协议即可。</p>
+fatal: clone of <span style=color:#e6db74>&#39;git@github.com:liangyuanpeng/hugo-theme-cleanwhite.git&#39;</span> into submodule path <span style=color:#e6db74>&#39;/builds/liangyuanpeng/liangyuanpeng.gitlab.io/themes/hugo-theme-cleanwhite&#39;</span> failed
+Failed to clone <span style=color:#e6db74>&#39;themes/hugo-theme-cleanwhite&#39;</span> a second time, aborting
+ERROR: Job failed: exit code <span style=color:#ae81ff>1</span>
+</code></pre></div><p>最后发现问题出在使用了 git 协议拉取仓库，导致没有权限访问。将协议改为 https 协议即可。</p>
 <h2>微信公众号</h2>
 <p>扫描下面的二维码关注我们的微信公众号,第一时间查看最新内容。同时也可以关注我的Github,看看我都在了解什么技术,在页面底部可以找到我的Github。</p>
 <img src=https://res.cloudinary.com/lyp/image/upload/v1581729955/hugo/blog.github.io/qrcode_for_sikekafeidou.jpg alt=wechat-account-qrcode>

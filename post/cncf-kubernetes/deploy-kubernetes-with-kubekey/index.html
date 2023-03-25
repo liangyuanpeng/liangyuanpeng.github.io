@@ -81,6 +81,13 @@ tech
 kubernetes
 <img style=display:inline-block src=https://emoji.slack-edge.com/T09NY5SBT/emoji_k8s_loft/17a832b1a9cadae9.gif height=20 width=20>
 </a>
+<a class=tag href=/tags/golang title=golang>
+golang
+<img style=display:inline-block src=https://emoji.slack-edge.com/T08PSQ7BQ/go-mic-drop/24f53c55d14eaa84.png height=20 width=20>
+</a>
+<a class=tag href=/tags/kubekey title=kubekey>
+kubekey
+</a>
 <br>
 </div>
 <h1>使用kubekey快速部署kubernetes</h1>
@@ -95,7 +102,7 @@ kubernetes
 <span class=old-visitors-count style=display:none></span>
 <span class=leancloud-visitors-count></span>
 </span>
-阅读 </span></span>|<span class=post-date>共1060字</span>，阅读约<span class=more-meta> 3 分钟</span>
+阅读 </span></span>|<span class=post-date>共932字</span>，阅读约<span class=more-meta> 2 分钟</span>
 </span>
 </div>
 </div>
@@ -113,10 +120,10 @@ post-container">
 </header>
 <nav id=TableOfContents></nav>
 <h1 id=前言>前言</h1>
-<p>Kubekey是青云研发并开源的一款快速部署kubernetes的工具,并且它也是下一代安装kubesphere的工具,使用kubekey你可以很轻松的就部署一套kubernetes/kubespher环境,我的体验是简直不要太简单了!</p>
-<p>本文主要讲述的内容是用kubekey快速部署kubernets单节点,多节点部署的文章会在下一篇出现,敬请期待吧.</p>
+<p>Kubekey 是青云研发并开源的一款快速部署 kubernetes 的工具,并且它也是下一代安装kubesphere的工具,使用 kubekey 你可以很轻松的就部署一套 kubernetes/kubespher 环境,我的体验是简直不要太简单了!</p>
+<p>本文主要讲述的内容是用 kubekey 快速部署 kubernets 单节点,多节点部署的文章会在下一篇出现,敬请期待吧.</p>
 <h1 id=编写部署配置文件走起>编写部署配置文件走起</h1>
-<p>首先用kk命令创建一个默认的配置文件:</p>
+<p>首先用 kk 命令创建一个默认的配置文件:</p>
 <div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell><span style=color:#f92672>[</span>root@lan1 temp<span style=color:#f92672>]</span><span style=color:#75715e># kk create config</span>
 <span style=color:#f92672>[</span>root@lan1 temp<span style=color:#f92672>]</span><span style=color:#75715e># ls</span>
 config-sample.yaml
@@ -183,11 +190,11 @@ spec:
   registry:
     registryMirrors: <span style=color:#f92672>[]</span>
     insecureRegistries: <span style=color:#f92672>[]</span>
-</code></pre></div><p>我部署的是1.19.8版本的kubernetes,CNI使用的是kubekey默认的calico.</p>
+</code></pre></div><p>我部署的是 1.19.8 版本的 kubernetes,CNI 使用的是 kubekey 默认的 calico.</p>
 <h1 id=开始部署>开始部署</h1>
 <p>在部署前设置一下环境变量:</p>
 <div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell>export KKZONE<span style=color:#f92672>=</span>cn
-</code></pre></div><p>因为默认情况下kk是去github上下载二进制文件(kubectl/kubelet/kubeadm&mldr;)以及去dockerhub下载容器镜像,设置了上面这个环境变量之后呢下载二进制文件就会去青云下载二进制文件以及去阿里镜像仓库下载需要的镜像,在网络方面的使用国内的东西很是很有必要的.</p>
+</code></pre></div><p>因为默认情况下 kk 是去 Github 上下载二进制文件(kubectl/kubelet/kubeadm&mldr;)以及去 dockerhub 下载容器镜像,设置了上面这个环境变量之后呢下载二进制文件就会去青云下载二进制文件以及去阿里镜像仓库下载需要的镜像,在网络方面的使用国内的东西很是很有必要的.</p>
 <p>接下来开始部署:</p>
 <div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell><span style=color:#f92672>[</span>root@lan1 tmp<span style=color:#f92672>]</span><span style=color:#75715e># kk create cluster -f config-sample.yaml -y</span>
 INFO<span style=color:#f92672>[</span>11:40:08 EDT<span style=color:#f92672>]</span> Downloading Installation Files               
@@ -215,10 +222,10 @@ INFO<span style=color:#f92672>[</span>11:42:41 EDT<span style=color:#f92672>]</s
 Push /root/repo/git/tmp/kubekey/v1.19.8/amd64/etcd-v3.4.13-linux-amd64.tar.gz to 192.168.3.152:/tmp/kubekey/etcd-v3.4.13-linux-amd64.tar.gz   Done
 INFO<span style=color:#f92672>[</span>11:42:45 EDT<span style=color:#f92672>]</span> Starting etcd cluster   
 ...
-</code></pre></div><p>kubekey就会完成安装docker/containerd,所有需要的二进制文件并且开始用kubeadm部署kubernetes,一键部署简直不要太舒服了!</p>
+</code></pre></div><p>kubekey 就会完成安装 docker/containerd,所有需要的二进制文件并且开始用 kubeadm 部署 kubernetes,一键部署简直不要太舒服了!</p>
 <p>接下来只需要耐心等待就可以了.</p>
 <h1 id=部署完成检查pod情况>部署完成,检查pod情况</h1>
-<p>当你看到的时候已经成功部署完了,看一下Pod的情况:</p>
+<p>当你看到的时候已经成功部署完了,看一下 Pod 的情况:</p>
 <div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell><span style=color:#f92672>[</span>root@kk1 ~<span style=color:#f92672>]</span><span style=color:#75715e># kubectl get po -A</span>
 NAMESPACE     NAME                                      READY   STATUS    RESTARTS   AGE
 kube-system   calico-kube-controllers-d75c96f46-dqq4z   1/1     Running   <span style=color:#ae81ff>0</span>          37m
@@ -230,14 +237,14 @@ kube-system   kube-controller-manager-kk1               1/1     Running   <span 
 kube-system   kube-proxy-x7722                          1/1     Running   <span style=color:#ae81ff>0</span>          37m
 kube-system   kube-scheduler-kk1                        1/1     Running   <span style=color:#ae81ff>0</span>          37m
 kube-system   nodelocaldns-8hh5d                        1/1     Running   <span style=color:#ae81ff>0</span>          37m
-</code></pre></div><p>可以看到,所有Pod都正常运行了,可以愉快的用kubernetes了.</p>
+</code></pre></div><p>可以看到,所有 Pod 都正常运行了,可以愉快的用 kubernetes 了.</p>
 <h1 id=注意点>注意点</h1>
 <ol>
 <li>
-<p><code>internalAddress</code>需要填绑定网卡的IP地址,etcd会用到这个地址,否则在部署etcd的时候会失败.</p>
+<p><code>internalAddress</code>需要填绑定网卡的 IP 地址,etcd 会用到这个地址,否则在部署 etcd 的时候会失败.</p>
 </li>
 <li>
-<p>记得设置环境变量KKZONE=cn,否则在下载二进制文件的时候可能会非常慢!</p>
+<p>记得设置环境变量<code>KKZONE=cn</code>,否则在下载二进制文件的时候可能会非常慢!</p>
 </li>
 <li>
 <p>不要太快享受,要慢慢享受.</p>
@@ -387,6 +394,7 @@ col-md-10 col-md-offset-1">
 <hr class="hidden-sm hidden-xs">
 <h2>相关文章</h2>
 <ul style=margin-bottom:25px>
+<li><a href=/post/cncf-kubernetes/k8s-client-go-source-2/>k8s-client-go源码剖析(二)</a></li>
 <li><a href=/post/fundation-cd/cdf-new-project-shipwright/>CDF(持续交付基金会)欢迎基于k8s构建容器镜像的框架Shipwright作为新的孵化项目</a></li>
 <li><a href=/post/cncf-kubernetes/k8s-multi-tenancy-guide/>Kubernetes多租户–最佳实践指南</a></li>
 <li><a href=/post/cncf-longhorn/k8s-deploy-longhorn/>kubernetes部署longhorn</a></li>
@@ -394,7 +402,6 @@ col-md-10 col-md-offset-1">
 <li><a href=/post/cncf-openkruise/openkruise-column/>OpenKruise专栏介绍</a></li>
 <li><a href=/post/cncf-kubernetes/kubeadm-deploy-kubernetes-lank8scn/>kubeadm配合短域名lank8s.cn部署kubernetes</a></li>
 <li><a href=/post/cncf-kubernetes/use-helm-deploy-chirpstack-kubernetes/>用helm chart将chripstack部署到kubernetes之上</a></li>
-<li><a href=/post/cncf-kubernetes/k8s-client-go-source-2/>k8s-client-go源码剖析(二)</a></li>
 </ul>
 </section>
 </div>
