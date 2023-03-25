@@ -9,7 +9,7 @@ author:     "梁远鹏"
 image: "https://res.cloudinary.com/lyp/image/upload/v1543506262/hugo/blog.github.io/apache-rocketMQ-introduction/7046d2bf0d97278682129887309cc1a6.jpg"
 published: true
 tags: 
-    - Docker
+    - docker
     - lorawan
     - iot
     - chirpstack

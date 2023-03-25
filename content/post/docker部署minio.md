@@ -12,6 +12,8 @@ tags:
     - 存储
     - Middleware
     - CloudNative
+    - minio
+    - docker
 categories: 
     - TECH
 ---

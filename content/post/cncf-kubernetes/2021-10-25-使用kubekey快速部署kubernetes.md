@@ -11,18 +11,20 @@ published: true
 tags:
     - tech
     - kubernetes
+    - golang
+    - kubekey
 categories: [ kubernetes ]
 ---
 
 # 前言  
 
-Kubekey是青云研发并开源的一款快速部署kubernetes的工具,并且它也是下一代安装kubesphere的工具,使用kubekey你可以很轻松的就部署一套kubernetes/kubespher环境,我的体验是简直不要太简单了!
+Kubekey 是青云研发并开源的一款快速部署 kubernetes 的工具,并且它也是下一代安装kubesphere的工具,使用 kubekey 你可以很轻松的就部署一套 kubernetes/kubespher 环境,我的体验是简直不要太简单了!
 
-本文主要讲述的内容是用kubekey快速部署kubernets单节点,多节点部署的文章会在下一篇出现,敬请期待吧.
+本文主要讲述的内容是用 kubekey 快速部署 kubernets 单节点,多节点部署的文章会在下一篇出现,敬请期待吧.
 
 # 编写部署配置文件走起  
 
-首先用kk命令创建一个默认的配置文件:  
+首先用 kk 命令创建一个默认的配置文件:  
 
 ```shell
 [root@lan1 temp]# kk create config
@@ -96,7 +98,7 @@ spec:
     insecureRegistries: []
 ```  
 
-我部署的是1.19.8版本的kubernetes,CNI使用的是kubekey默认的calico.  
+我部署的是 1.19.8 版本的 kubernetes,CNI 使用的是 kubekey 默认的 calico.  
 
 # 开始部署  
 
@@ -106,7 +108,7 @@ spec:
 export KKZONE=cn
 ```  
 
-因为默认情况下kk是去github上下载二进制文件(kubectl/kubelet/kubeadm...)以及去dockerhub下载容器镜像,设置了上面这个环境变量之后呢下载二进制文件就会去青云下载二进制文件以及去阿里镜像仓库下载需要的镜像,在网络方面的使用国内的东西很是很有必要的.  
+因为默认情况下 kk 是去 Github 上下载二进制文件(kubectl/kubelet/kubeadm...)以及去 dockerhub 下载容器镜像,设置了上面这个环境变量之后呢下载二进制文件就会去青云下载二进制文件以及去阿里镜像仓库下载需要的镜像,在网络方面的使用国内的东西很是很有必要的.  
 
 接下来开始部署:  
 
@@ -139,13 +141,13 @@ INFO[11:42:45 EDT] Starting etcd cluster
 ...
 ```  
 
-kubekey就会完成安装docker/containerd,所有需要的二进制文件并且开始用kubeadm部署kubernetes,一键部署简直不要太舒服了!  
+kubekey 就会完成安装 docker/containerd,所有需要的二进制文件并且开始用 kubeadm 部署 kubernetes,一键部署简直不要太舒服了!  
 
 接下来只需要耐心等待就可以了.  
 
 # 部署完成,检查pod情况  
 
-当你看到的时候已经成功部署完了,看一下Pod的情况:  
+当你看到的时候已经成功部署完了,看一下 Pod 的情况:  
 
 ```shell
 [root@kk1 ~]# kubectl get po -A
@@ -161,12 +163,12 @@ kube-system   kube-scheduler-kk1                        1/1     Running   0     
 kube-system   nodelocaldns-8hh5d                        1/1     Running   0          37m
 ```  
 
-可以看到,所有Pod都正常运行了,可以愉快的用kubernetes了.
+可以看到,所有 Pod 都正常运行了,可以愉快的用 kubernetes 了.
 
 # 注意点
 
-1. `internalAddress`需要填绑定网卡的IP地址,etcd会用到这个地址,否则在部署etcd的时候会失败.  
+1. `internalAddress`需要填绑定网卡的 IP 地址,etcd 会用到这个地址,否则在部署 etcd 的时候会失败.  
 
-2. 记得设置环境变量KKZONE=cn,否则在下载二进制文件的时候可能会非常慢!  
+2. 记得设置环境变量`KKZONE=cn`,否则在下载二进制文件的时候可能会非常慢!  
 
 3. 不要太快享受,要慢慢享受.
