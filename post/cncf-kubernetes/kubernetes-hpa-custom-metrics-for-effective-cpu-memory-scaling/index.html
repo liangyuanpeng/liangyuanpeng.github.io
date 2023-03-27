@@ -1,0 +1,668 @@
+<!doctype html><html lang=en-us>
+<head><head>
+<meta name=google-site-verification content="9vIieCe-Qpd78QOmBl63rGtIVbhY6sYyuxX3j8XWBA4">
+<meta name=baidu-site-verification content="LRrmH41lz7">
+<meta charset=utf-8>
+<meta http-equiv=x-ua-compatible content="IE=edge">
+<meta name=google-site-verification content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
+<meta name=viewport content="width=device-width,initial-scale=1">
+<meta name=baidu-site-verification content="HGLXRsUXC4">
+<meta name=baidu-site-verification content="code-ANZvlnN0Xr">
+<meta name=description content="lan，工程师⎈,远鹏|CNCF粉丝|Pulsar爱好者|公众号:四颗咖啡豆|云原生追随者">
+<meta name=keyword content="liangyuanpeng|LanLiang|OpenYurt|Knative|Pulsar|Prometheus|Halo||边缘计算kubernetes|Docker|CloudNative|Golang|Rust|Istio|微服务">
+<link rel="shortcut icon" href=https://liangyuanpeng.com/img/logo.png>
+<meta property="og:image" content="https://res.cloudinary.com/lyp/image/upload/v1635353670/hugo/banner/pexels-helena-lopes-2253275.jpg">
+<meta name=twitter:image content="https://res.cloudinary.com/lyp/image/upload/v1635353670/hugo/banner/pexels-helena-lopes-2253275.jpg">
+<title>Kubernetes HPA:定制指标实现有效的CPU和内存扩展-liangyuanpeng的博客 | liangyuanpeng's Blog</title>
+<link rel=canonical href=https://liangyuanpeng.com/post/cncf-kubernetes/kubernetes-hpa-custom-metrics-for-effective-cpu-memory-scaling/>
+<link rel=stylesheet href=https://res.cloudinary.com/lyp/raw/upload/v1537369740/hugo/css/iDisqus.min.css>
+<link rel=stylesheet href=https://res.cloudinary.com/lyp/raw/upload/v1537369744/hugo/css/bootstrap.min.css>
+<link rel=stylesheet href=https://res.cloudinary.com/lyp/raw/upload/v1537369740/hugo/css/hux-blog.min.css>
+<link rel=stylesheet href=https://res.cloudinary.com/lyp/raw/upload/v1537369740/hugo/css/syntax.css>
+<link href=//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css rel=stylesheet type=text/css>
+<script src=https://res.cloudinary.com/lyp/raw/upload/v1537369966/hugo/js/jquery.min.js></script>
+<script src=https://res.cloudinary.com/lyp/raw/upload/v1537369966/hugo/js/bootstrap.min.js></script>
+<script src=https://res.cloudinary.com/lyp/raw/upload/v1537369964/hugo/js/hux-blog.min.js></script>
+<script defer src=https://static.cloudflareinsights.com/beacon.min.js data-cf-beacon='{"token": "f73bc0092aeb491d89984c0eb5a87ac2"}'></script>
+</head>
+</head>
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+<div class=container-fluid>
+<div class="navbar-header page-scroll">
+<button type=button class=navbar-toggle>
+<span class=sr-only>Toggle navigation</span>
+<span class=icon-bar></span>
+<span class=icon-bar></span>
+<span class=icon-bar></span>
+</button>
+<a class=navbar-brand href=https://liangyuanpeng.com//>Hi,I`m lan</a>
+</div>
+<div id=huxblog_navbar>
+<div class=navbar-collapse>
+<ul class="nav navbar-nav navbar-right">
+<li>
+<a href=https://liangyuanpeng.com//>Home</a>
+</li>
+<li>
+<a href=https://liangyuanpeng.com/categories/cloudnative>cloudnative</a>
+</li>
+<li>
+<a href=https://liangyuanpeng.com/categories/devops>devops</a>
+</li>
+<li>
+<a href=https://liangyuanpeng.com/categories/iot>iot</a>
+</li>
+<li>
+<a href=https://liangyuanpeng.com/categories/kubernetes>kubernetes</a>
+</li>
+<li>
+<a href=https://liangyuanpeng.com/categories/tech>tech</a>
+</li>
+<li>
+<a href=https://liangyuanpeng.com//search/>SEARCH <img src=https://liangyuanpeng.com/img/search.png height=15 style=cursor:pointer></a>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</nav>
+<script>var $body=document.body,$toggle=document.querySelector('.navbar-toggle'),$navbar=document.querySelector('#huxblog_navbar'),$collapse=document.querySelector('.navbar-collapse');$toggle.addEventListener('click',handleMagic);function handleMagic(a){$navbar.className.indexOf('in')>0?($navbar.className=" ",setTimeout(function(){$navbar.className.indexOf('in')<0&&($collapse.style.height="0px")},400)):($collapse.style.height="auto",$navbar.className+=" in")}</script>
+<style type=text/css>header.intro-header{background-image:url(https://res.cloudinary.com/lyp/image/upload/v1635353670/hugo/banner/pexels-helena-lopes-2253275.jpg)}</style>
+<header class=intro-header>
+<div class=container>
+<div class=row>
+<div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+<div class=post-heading>
+<div class=tags>
+<a class=tag href=/tags/kubernetes title=kubernetes>
+kubernetes
+<img style=display:inline-block src=https://emoji.slack-edge.com/T09NY5SBT/emoji_k8s_loft/17a832b1a9cadae9.gif height=20 width=20>
+</a>
+<a class=tag href=/tags/cncf title=cncf>
+cncf
+<img style=display:inline-block src=https://emoji.slack-edge.com/T08PSQ7BQ/cncf/654bc2f197058c81.png height=20 width=20>
+</a>
+<a class=tag href=/tags/k8s title=k8s>
+k8s
+</a>
+<a class=tag href=/tags/%E7%BF%BB%E8%AF%91 title=翻译>
+翻译
+</a>
+<a class=tag href=/tags/prometheus title=prometheus>
+prometheus
+<img style=display:inline-block src=https://emoji.slack-edge.com/T08PSQ7BQ/prometheus/a40e8b6a9f6e62ea.png height=20 width=20>
+</a>
+<a class=tag href=/tags/hpa title=hpa>
+hpa
+</a>
+<a class=tag href=/tags/metrics-server title=metrics-server>
+metrics-server
+</a>
+<br>
+</div>
+<h1>Kubernetes HPA:定制指标实现有效的CPU和内存扩展</h1>
+<h2 class=subheading></h2>
+<span class=meta>Posted by 梁远鹏 on 2023-03-27
+<span id=busuanzi_container_page_pv>|<span id=busuanzi_value_page_pv></span><span>
+<span id=/post/cncf-kubernetes/kubernetes-hpa-custom-metrics-for-effective-cpu-memory-scaling/ class="leancloud_visitors meta_data_item" data-flag-title>
+<span class=post-meta-item-icon>
+<span class="octicon octicon-eye"></span>
+</span>
+<i class="fa fa-eye"></i>
+<span class=old-visitors-count style=display:none></span>
+<span class=leancloud-visitors-count></span>
+</span>
+阅读 </span></span>|<span class=post-date>共3780字</span>，阅读约<span class=more-meta> 8 分钟</span>
+</span>
+</div>
+</div>
+</div>
+</div>
+</header>
+<article>
+<div class=container>
+<div class=row>
+<div class="col-lg-8 col-lg-offset-2
+col-md-10 col-md-offset-1
+post-container">
+<header>
+<h2>TOC</h2>
+</header>
+<nav id=TableOfContents>
+<ul>
+<li><a href=#自动缩放的重要性>自动缩放的重要性：</a></li>
+</ul>
+<ul>
+<li><a href=#为应用程序设置-cpu-和内存限制具有以下几个重要原因>为应用程序设置 CPU 和内存限制具有以下几个重要原因：</a></li>
+<li><a href=#使用自定义度量和资源限制配置-hpa-的逐步指南>使用自定义度量和资源限制配置 HPA 的逐步指南：</a></li>
+</ul>
+</nav>
+<blockquote>
+<p>作者 <a href=https://medium.com/@caiolombello>caiolombello</a> 译者 <a href=https://github.com/liangyuanpeng>梁远鹏</a></p>
+</blockquote>
+<h1 id=介绍和概述>介绍和概述：</h1>
+<p>Kubernetes 已成为容器编排的事实标准，为管理大规模容器化应用程序提供了强大的平台。 Kubernetes 的一个基本功能是其自动缩放功能，它允许应用程序根据工作负载和性能指标进行扩展或缩减。在本文中，我们将探讨 Horizontal Pod Autoscaler（HPA），这是 Kubernetes 自动缩放的关键组件。我们将深入了解 HPA 的基础知识、工作原理以及如何使用自定义指标和资源限制来增强其性能。通过本文的学习，您将对HPA有一个扎实的理解，并知道如何配置它以优化您的 Kubernetes 部署。</p>
+<h1 id=kubernetes中的自动缩放>Kubernetes中的自动缩放：</h1>
+<p>自动缩放是现代容器编排系统的一个关键功能，使应用程序能够根据需求和性能指标自动调整其资源。这种动态缩放允许系统保持最佳的性能和效率，同时最小化运营成本。</p>
+<p>在Kubernetes中，自动缩放可以在不同的级别实现：</p>
+<ol>
+<li>集群自动缩放：该组件通过根据资源利用率和需求添加或删除集群中的节点来扩展整个 Kubernetes 集群。</li>
+<li>Horizontal Pod Autoscaler（HPA）：HPA根据预定义的性能指标（如CPU利用率、内存使用情况或自定义指标）调整特定部署或有状态集的副本数量。</li>
+<li>Vertical Pod Autoscaler（VPA）：VPA 根据历史使用模式和当前资源需求自动调整 Pod 中各个容器的CPU和内存请求和限制。</li>
+</ol>
+<h2 id=自动缩放的重要性>自动缩放的重要性：</h2>
+<p>自动缩放提供了许多维护高效和弹性系统的优势，包括：</p>
+<p>资源优化：自动缩放确保您的应用程序使用正确的资源量来满足其性能要求，减少了过度提供或欠提供的风险。
+成本效益：通过根据工作负载自动调整资源，您可以最小化基础设施成本，因为您只支付实际需要的资源。
+提高可靠性：自动缩放通过在高需求时进行扩展和在需求减少时进行缩减，以维护应用程序的可用性和性能，从而防止潜在的瓶颈或系统故障。
+提高用户体验：通过确保您的应用程序具有处理不同工作负载所需的必要资源，自动缩放可以通过减少延迟和保持一致的性能来提高整体用户体验。</p>
+<h1 id=kubernetes中的水平pod自动缩放器hpa>Kubernetes中的水平Pod自动缩放器（HPA）</h1>
+<p>Kubernetes中水平Pod自动缩放器（HPA）的基本工作机制包括监控、缩放策略和Kubernetes度量服务器。让我们分解每个组件：</p>
+<ol>
+<li>监控
+HPA 持续监视 Kubernetes 集群中部署的Pod的指标。默认情况下，HPA 监视 CPU 利用率，但也可以配置为监视内存使用情况、自定义指标或其他每个Pod的指标。</li>
+</ol>
+<p>对于每个 Pod 的资源指标（例如CPU），HPA 从每个目标Pod的资源指标 API 获取指标。基于目标利用率或原始值，控制器从所有目标 Pod 的这些值的平均值计算缩放比率。如果某些容器缺少相关资源请求，则 CPU 利用率将未被定义，该指标不会发生自动缩放。</p>
+<p>对于每个 Pod 的自定义指标，控制器的操作方式类似，但使用原始值而不是利用率值。</p>
+<p>对于对象和外部指标，HPA获取描述对象的单个指标，将其与目标值进行比较，并生成缩放比率。在自动缩放/v2 API版本中，在比较之前可以将该值除以 Pod 数。</p>
+<p>这些指标由 Kubernetes Metrics 服务器收集和报告，它从每个节点上运行的 kubelet 汇总资源使用数据。</p>
+<p><img src=https://res.cloudinary.com/lyp/image/upload/v1679884449/hugo/blog.github.io/kubernetes/hpa/hpa_query_metrics.webp alt="Image source: Kubecost | An illustration of how the Horizontal Pod Autoscaler (HPA) works in Kubernetes."></p>
+<ol start=2>
+<li>缩放策略:</li>
+</ol>
+<p>在配置 HPA 时，您需要定义缩放策略来确定自动缩放器如何响应指标的变化。这些策略包括:</p>
+<p>目标指标值: 这是您希望 HPA 维护的指标的期望值。例如，您可能会设置50％的目标 CPU 利用率，以确保您的 Pod 既不会过度负担也不会被浪费。
+最小和最大副本数: 这些值定义了 HPA 可以将您的部署缩放到的最小和最大副本数。这可以防止过度缩放，从而可能导致负载过重或消耗过多的资源。</p>
+<ol start=3>
+<li>缩放决策:</li>
+</ol>
+<p>HPA 使用收集的指标和定义的缩放策略来做出缩放决策。如果监视的指标超过目标值，HPA 将增加部署或状态集的副本数以更均匀地分配负载。相反，如果指标低于目标值，HPA 将减少副本数以节省资源。</p>
+<ol start=4>
+<li>Kubernetes Metrics Server:</li>
+</ol>
+<p>Kubernetes Metrics Server 是资源使用数据的集群聚合器。它从每个节点上的 kubelet 收集数据，并向需要资源使用信息的 HPA 和其他组件提供指标。Metrics Server 是启用 Kubernetes 中实时指标和其他依赖于指标的功能的关键组件。</p>
+<p>总之，在 Kubernetes 中，Horizontal Pod Autoscaler通过持续监视Pod指标，应用基于目标值和副本限制的缩放策略，做出缩放决策以维持最佳资源利用率。 Kubernetes Metrics Server 在为 HPA 提供必要数据以做出明智的决策方面发挥着关键作用。</p>
+<h1 id=hpa中的自定义指标>HPA中的自定义指标</h1>
+<p>自定义指标是用户定义的性能指标，它们扩展了 Kubernetes 中水平 Pod 自动缩放器 (HPA) 支持的默认资源指标（例如 CPU 和内存）。默认情况下，HPA 基于 Pod 资源请求进行缩放决策，这代表 Pod 运行所需的最低资源。然而，这种方法可能不利于实现最佳性能。相反，基于资源限制进行缩放通常更有益，因为这可以确保应用程序不会达到其最大资源限制。自定义指标可以实现更精细和应用程序特定的自动缩放决策，从而提高资源利用率和系统性能。</p>
+<h1 id=为什么需要自定义指标>为什么需要自定义指标：</h1>
+<p>虽然 Kubernetes 提供的默认指标，例如基于资源请求的 CPU 和内存使用情况，在许多情况下非常有用，但它们可能不足以满足所有应用程序的需求。基于资源限制进行缩放可以确保应用程序可以处理各种工作负载，而不会达到其允许的最大资源。自定义指标允许您根据应用程序的特定需求定制 HPA 的缩放行为，从而实现更精确和高效的自动缩放。</p>
+<h1 id=在hpa中使用自定义指标>在HPA中使用自定义指标：</h1>
+<p>要在 HPA 中使用自定义指标，您需要：</p>
+<p>确保您的集群设置支持自定义指标。这通常涉及部署自定义指标 API 服务器并配置必要的监视工具，如 Prometheus。</p>
+<p>如果需要，在您的应用程序代码中定义自定义指标，并通过适当的端点公开它们。</p>
+<p>通过在 HPA 清单中指定自定义指标来配置 HPA 使用它们。</p>
+<p>自定义指标及其用例的示例：</p>
+<ol>
+<li>请求速率：对于那些入站请求数量对资源消耗有显著影响的应用程序，您可以基于请求速率定义自定义指标。这使得 HPA 可以根据实际工作负载而不仅仅是 CPU 或内存使用情况来缩放副本数量。</li>
+</ol>
+<p>用例：需要处理不同入站流量级别的 API 网关。</p>
+<ol start=2>
+<li>队列长度：对于从队列中处理任务的应用程序，您可以创建基于队列长度的自定义指标。这使得 HPA 可以根据任务积压量来缩放应用程序，以确保处理能力与工作负载相匹配。</li>
+</ol>
+<p>用例：消费来自消息队列的后台作业处理服务。</p>
+<ol start=3>
+<li>应用特定的度量指标：您可能拥有特定于应用程序的独特性能指标，例如活动用户会话数量或数据库事务率。基于这些指标创建自定义度量指标可以帮助 HPA 更好地做出针对您应用程序行为的自适应扩展决策。
+应用场景：一个电子商务平台在用户活动出现波动时需要相应地扩展其服务。</li>
+</ol>
+<p>总之，HPA 中的自定义度量指标通过扩展 Kubernetes 支持的默认资源度量指标，实现了更加精确和特定于应用程序的自动扩展。通过利用自定义度量指标，您可以针对更广泛的应用程序和使用情况优化资源利用和性能。</p>
+<h1 id=配置具有-cpu-和内存限制的-hpa>配置具有 CPU 和内存限制的 HPA</h1>
+<h2 id=为应用程序设置-cpu-和内存限制具有以下几个重要原因>为应用程序设置 CPU 和内存限制具有以下几个重要原因：</h2>
+<ol>
+<li>资源管理：通过指定资源限制，您可以防止单个 pod 或容器消耗过多的资源，这可能会影响运行在同一集群上的其他工作负载。</li>
+<li>可预测的性能：设置限制确保您的应用程序在不同的工作负载下拥有足够的资源以实现最佳性能，最大程度地减少性能降低的可能性。</li>
+<li>成本优化：通过限制资源使用，您可以避免在云资源或本地硬件上产生不必要的开支。</li>
+<li>高效的自动缩放：正确配置的资源限制使水平 Pod 自动缩放器 (HPA) 能够做出更好的扩展决策，确保您的应用程序根据实际资源需求进行缩放。</li>
+</ol>
+<h2 id=使用自定义度量和资源限制配置-hpa-的逐步指南>使用自定义度量和资源限制配置 HPA 的逐步指南：</h2>
+<ol>
+<li>设置 Prometheus。我建议使用 <a href=https://artifacthub.io/packages/helm/prometheus-community/kube-prometheus-stack>kube-prometheus-stack Helm Chart</a>，它会部署 cAdvisor 和其他必要的组件。</li>
+<li>在 Prometheus 中创建自定义度量，以根据资源限制监视 CPU 和内存使用情况。将以下示例添加到 Prometheus 配置中：</li>
+</ol>
+<p>CPU 使用限制自定义度量示例：</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml>- <span style=color:#f92672>record</span>: <span style=color:#ae81ff>pod:cpu_usage_percentage:ratio</span>
+  <span style=color:#f92672>expr</span>: |<span style=color:#e6db74>
+</span><span style=color:#e6db74>    sum by (pod, namespace) (
+</span><span style=color:#e6db74>      node_namespace_pod_container:container_cpu_usage_seconds_total:sum_irate{cluster=&#34;&#34;,namespace!=&#34;&#34;,pod!=&#34;&#34;}
+</span><span style=color:#e6db74>    )
+</span><span style=color:#e6db74>    /
+</span><span style=color:#e6db74>    sum by (pod, namespace) (
+</span><span style=color:#e6db74>      kube_pod_container_resource_limits{cluster=&#34;&#34;,job=&#34;kube-state-metrics&#34;,namespace!=&#34;&#34;,pod!=&#34;&#34;,resource=&#34;cpu&#34;}
+</span><span style=color:#e6db74>    ) * 100</span>    
+</code></pre></div><p>内存使用限制自定义指标示例:</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml>- <span style=color:#f92672>record</span>: <span style=color:#ae81ff>pod:memory_usage_percentage:ratio</span>
+  <span style=color:#f92672>expr</span>: |<span style=color:#e6db74>
+</span><span style=color:#e6db74>    sum by (pod, namespace) (
+</span><span style=color:#e6db74>      container_memory_working_set_bytes{cluster=&#34;&#34;,container!=&#34;&#34;,image!=&#34;&#34;,job=&#34;kubelet&#34;,metrics_path=&#34;/metrics/cadvisor&#34;,namespace!=&#34;&#34;,pod!=&#34;&#34;}
+</span><span style=color:#e6db74>    )
+</span><span style=color:#e6db74>    /
+</span><span style=color:#e6db74>    sum by (pod, namespace) (
+</span><span style=color:#e6db74>      kube_pod_container_resource_limits{cluster=&#34;&#34;,job=&#34;kube-state-metrics&#34;,namespace!=&#34;&#34;,pod!=&#34;&#34;,resource=&#34;memory&#34;}
+</span><span style=color:#e6db74>    ) * 100</span>    
+</code></pre></div><ol start=3>
+<li>
+<p>配置将替换默认的 <a href=https://github.com/kubernetes-sigs/metrics-server>Kubernetes Metrics-Server</a> 的 <a href=https://artifacthub.io/packages/helm/prometheus-community/prometheus-adapter>Prometheus Adapter Chart</a>。按照以下步骤操作：</p>
+</li>
+<li>
+<p>配置 Prometheus Adapter 以使用 Prometheus 指标：</p>
+</li>
+<li>
+<p>将自定义指标添加到 Prometheus 适配器（这些指标将在 Prometheus 中找到）：</p>
+</li>
+</ol>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml><span style=color:#f92672>rules</span>:
+  <span style=color:#f92672>default</span>: <span style=color:#66d9ef>true</span>
+  <span style=color:#f92672>custom</span>:
+    - <span style=color:#f92672>seriesQuery</span>: <span style=color:#e6db74>&#39;pod:memory_usage_percentage:ratio{namespace!=&#34;&#34;,pod!=&#34;&#34;}&#39;</span>
+      <span style=color:#f92672>resources</span>:
+        <span style=color:#f92672>overrides</span>:
+          <span style=color:#f92672>namespace</span>: {<span style=color:#f92672>resource</span>: <span style=color:#e6db74>&#34;namespace&#34;</span>}
+          <span style=color:#f92672>pod</span>: {<span style=color:#f92672>resource</span>: <span style=color:#e6db74>&#34;pod&#34;</span>}
+      <span style=color:#f92672>metricsQuery</span>: <span style=color:#e6db74>&#39;&lt;&lt;.Series&gt;&gt;{&lt;&lt;.LabelMatchers&gt;&gt;} / 100&#39;</span>
+    
+    - <span style=color:#f92672>seriesQuery</span>: <span style=color:#e6db74>&#39;pod:cpu_usage_percentage:ratio{namespace!=&#34;&#34;,pod!=&#34;&#34;}&#39;</span>
+      <span style=color:#f92672>resources</span>:
+        <span style=color:#f92672>overrides</span>:
+          <span style=color:#f92672>namespace</span>: {<span style=color:#f92672>resource</span>: <span style=color:#e6db74>&#34;namespace&#34;</span>}
+          <span style=color:#f92672>pod</span>: {<span style=color:#f92672>resource</span>: <span style=color:#e6db74>&#34;pod&#34;</span>}
+      <span style=color:#f92672>metricsQuery</span>: <span style=color:#e6db74>&#39;&lt;&lt;.Series&gt;&gt;{&lt;&lt;.LabelMatchers&gt;&gt;} / 100&#39;</span>
+</code></pre></div><p>您可以在<a href=https://github.com/kubernetes-sigs/prometheus-adapter/blob/master/docs/config-walkthrough.md>官方文档</a>中找到有关 Prometheus Adapter 规则的更多信息。</p>
+<ol start=6>
+<li>对于资源指标，您可以自定义查询以收集 CPU 和内存：</li>
+</ol>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml><span style=color:#f92672>resource</span>:
+  <span style=color:#f92672>cpu</span>:
+    <span style=color:#f92672>containerQuery</span>: |<span style=color:#e6db74>
+</span><span style=color:#e6db74>      sum by (&lt;&lt;.GroupBy&gt;&gt;) (
+</span><span style=color:#e6db74>        rate(container_cpu_usage_seconds_total{container!=&#34;&#34;,&lt;&lt;.LabelMatchers&gt;&gt;}[3m])
+</span><span style=color:#e6db74>      )</span>      
+    <span style=color:#f92672>nodeQuery</span>: |<span style=color:#e6db74>
+</span><span style=color:#e6db74>      sum  by (&lt;&lt;.GroupBy&gt;&gt;) (
+</span><span style=color:#e6db74>        rate(node_cpu_seconds_total{mode!=&#34;idle&#34;,mode!=&#34;iowait&#34;,mode!=&#34;steal&#34;,&lt;&lt;.LabelMatchers&gt;&gt;}[3m])
+</span><span style=color:#e6db74>      )</span>      
+    <span style=color:#f92672>resources</span>:
+      <span style=color:#f92672>overrides</span>:
+        <span style=color:#f92672>node</span>:
+          <span style=color:#f92672>resource</span>: <span style=color:#ae81ff>node</span>
+        <span style=color:#f92672>namespace</span>:
+          <span style=color:#f92672>resource</span>: <span style=color:#ae81ff>namespace</span>
+        <span style=color:#f92672>pod</span>:
+          <span style=color:#f92672>resource</span>: <span style=color:#ae81ff>pod</span>
+    <span style=color:#f92672>containerLabel</span>: <span style=color:#ae81ff>container</span>
+  <span style=color:#f92672>memory</span>:
+    <span style=color:#f92672>containerQuery</span>: |<span style=color:#e6db74>
+</span><span style=color:#e6db74>      sum by (&lt;&lt;.GroupBy&gt;&gt;) (
+</span><span style=color:#e6db74>        avg_over_time(container_memory_working_set_bytes{container!=&#34;&#34;,&lt;&lt;.LabelMatchers&gt;&gt;}[3m])
+</span><span style=color:#e6db74>      )</span>      
+    <span style=color:#f92672>nodeQuery</span>: |<span style=color:#e6db74>
+</span><span style=color:#e6db74>      sum by (&lt;&lt;.GroupBy&gt;&gt;) (
+</span><span style=color:#e6db74>        avg_over_time(node_memory_MemTotal_bytes{&lt;&lt;.LabelMatchers&gt;&gt;}[3m])
+</span><span style=color:#e6db74>        -
+</span><span style=color:#e6db74>        avg_over_time(node_memory_MemAvailable_bytes{&lt;&lt;.LabelMatchers&gt;&gt;}[3m])
+</span><span style=color:#e6db74>      )</span>      
+    <span style=color:#f92672>resources</span>:
+      <span style=color:#f92672>overrides</span>:
+        <span style=color:#f92672>node</span>:
+          <span style=color:#f92672>resource</span>: <span style=color:#ae81ff>node</span>
+        <span style=color:#f92672>namespace</span>:
+          <span style=color:#f92672>resource</span>: <span style=color:#ae81ff>namespace</span>
+        <span style=color:#f92672>pod</span>:
+          <span style=color:#f92672>resource</span>: <span style=color:#ae81ff>pod</span>
+    <span style=color:#f92672>containerLabel</span>: <span style=color:#ae81ff>container</span>
+  <span style=color:#f92672>window</span>: <span style=color:#ae81ff>3m</span>
+</code></pre></div><ol start=7>
+<li>部署 Prometheus Adapter</li>
+</ol>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell>helm repo add --force-update prometheus-community https://prometheus-community.github.io/helm-charts
+
+helm upgrade --install -n monitoring <span style=color:#ae81ff>\
+</span><span style=color:#ae81ff></span>prometheus-adapter prometheus-community/prometheus-adapter --version 4.1.1 -f metrics-server.yaml
+</code></pre></div><ol start=8>
+<li>检查自定义指标是否成功应用</li>
+</ol>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell>kubectl get --raw <span style=color:#e6db74>&#34;/apis/custom.metrics.k8s.io/v1beta1/&#34;</span> | jq
+</code></pre></div><ol start=9>
+<li>为演示，请使用定义了资源限制和请求的 NGINX 进行部署：</li>
+</ol>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell>helm repo add --force-update bitnami https://charts.bitnami.com/bitnami
+
+helm upgrade --install <span style=color:#ae81ff>\
+</span><span style=color:#ae81ff></span>--set resources.limits.cpu<span style=color:#f92672>=</span>100m <span style=color:#ae81ff>\
+</span><span style=color:#ae81ff></span>--set resources.limits.memory<span style=color:#f92672>=</span>128Mi <span style=color:#ae81ff>\
+</span><span style=color:#ae81ff></span>--set resources.requests.cpu<span style=color:#f92672>=</span>50m <span style=color:#ae81ff>\
+</span><span style=color:#ae81ff></span>--set resources.requests.memory<span style=color:#f92672>=</span>64Mi <span style=color:#ae81ff>\
+</span><span style=color:#ae81ff></span>nginx bitnami/nginx --version 13.2.29
+</code></pre></div><ol start=10>
+<li>部署使用了自定义metrics的HPA</li>
+</ol>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml><span style=color:#f92672>apiVersion</span>: <span style=color:#ae81ff>autoscaling/v2</span>
+<span style=color:#f92672>kind</span>: <span style=color:#ae81ff>HorizontalPodAutoscaler</span>
+<span style=color:#f92672>metadata</span>:
+  <span style=color:#f92672>name</span>: <span style=color:#ae81ff>nginx-hpa</span>
+<span style=color:#f92672>spec</span>:
+  <span style=color:#f92672>scaleTargetRef</span>:
+    <span style=color:#f92672>apiVersion</span>: <span style=color:#ae81ff>apps/v1</span>
+    <span style=color:#f92672>kind</span>: <span style=color:#ae81ff>Deployment</span>
+    <span style=color:#f92672>name</span>: <span style=color:#ae81ff>nginx</span>
+  <span style=color:#f92672>minReplicas</span>: <span style=color:#ae81ff>1</span>
+  <span style=color:#f92672>maxReplicas</span>: <span style=color:#ae81ff>10</span>
+  <span style=color:#f92672>metrics</span>:
+  - <span style=color:#f92672>type</span>: <span style=color:#ae81ff>Pods</span>
+    <span style=color:#f92672>pods</span>:
+      <span style=color:#f92672>metric</span>:
+        <span style=color:#f92672>name</span>: <span style=color:#ae81ff>pod:memory_usage_percentage:ratio</span>
+      <span style=color:#f92672>target</span>: 
+        <span style=color:#f92672>type</span>: <span style=color:#ae81ff>Utilization</span>
+        <span style=color:#f92672>averageValue</span>: <span style=color:#ae81ff>0.8</span> <span style=color:#75715e># 80%</span>
+  - <span style=color:#f92672>type</span>: <span style=color:#ae81ff>Pods</span>
+    <span style=color:#f92672>pods</span>:
+      <span style=color:#f92672>metric</span>:
+        <span style=color:#f92672>name</span>: <span style=color:#ae81ff>pod:cpu_usage_percentage:ratio</span>
+      <span style=color:#f92672>target</span>: 
+        <span style=color:#f92672>type</span>: <span style=color:#ae81ff>Utilization</span>
+        <span style=color:#f92672>averageValue</span>: <span style=color:#ae81ff>0.8</span> <span style=color:#75715e># 80%</span>
+</code></pre></div><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell>kubectl apply -f demo/nginx-hpa.yaml
+</code></pre></div><p>如果是使用 helm chart,那么这么 yaml 文件对应的模板是这样的:</p>
+<p>templates/hpa.yaml</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml>{{- <span style=color:#ae81ff>if .Values.autoscaling.enabled }}</span>
+<span style=color:#f92672>apiVersion</span>: <span style=color:#ae81ff>autoscaling/v2</span>
+<span style=color:#f92672>kind</span>: <span style=color:#ae81ff>HorizontalPodAutoscaler</span>
+<span style=color:#f92672>metadata</span>:
+  <span style=color:#f92672>name</span>: {{ <span style=color:#ae81ff>include &#34;app.fullname&#34; . }}</span>
+  <span style=color:#f92672>labels</span>:
+    {{- <span style=color:#ae81ff>include &#34;app.labels&#34; . | nindent 4 }}</span>
+<span style=color:#f92672>spec</span>:
+  <span style=color:#f92672>scaleTargetRef</span>:
+    <span style=color:#f92672>apiVersion</span>: <span style=color:#ae81ff>apps/v1</span>
+    <span style=color:#f92672>kind</span>: <span style=color:#ae81ff>Deployment</span>
+    <span style=color:#f92672>name</span>: {{ <span style=color:#ae81ff>include &#34;app.fullname&#34; . }}</span>
+  <span style=color:#f92672>minReplicas</span>: {{ <span style=color:#ae81ff>.Values.autoscaling.minReplicas }}</span>
+  <span style=color:#f92672>maxReplicas</span>: {{ <span style=color:#ae81ff>.Values.autoscaling.maxReplicas }}</span>
+  <span style=color:#f92672>metrics</span>:
+    {{- <span style=color:#ae81ff>if .Values.autoscaling.targetCPUUtilizationPercentage }}</span>
+    - <span style=color:#f92672>type</span>: <span style=color:#ae81ff>Pods</span>
+      <span style=color:#f92672>pods</span>:
+        <span style=color:#f92672>metric</span>:
+          <span style=color:#f92672>name</span>: <span style=color:#ae81ff>pod:cpu_usage_percentage:ratio</span>
+          <span style=color:#f92672>averageValue</span>: {{- <span style=color:#ae81ff>div .Values.autoscaling.targetCPUUtilizationPercentage 100 -}}</span>
+      {{- <span style=color:#ae81ff>end }}</span>
+      {{- <span style=color:#ae81ff>if .Values.autoscaling.targetMemoryUtilizationPercentage }}</span>
+    - <span style=color:#f92672>type</span>: <span style=color:#ae81ff>Pods</span>
+      <span style=color:#f92672>pods</span>:
+        <span style=color:#f92672>metric</span>:
+          <span style=color:#f92672>name</span>: <span style=color:#ae81ff>pod:memory_usage_percentage:ratio</span>
+          <span style=color:#f92672>averageValue</span>: {{- <span style=color:#ae81ff>div .Values.autoscaling.targetMemoryUtilizationPercentage 100 -}}</span>
+    {{- <span style=color:#ae81ff>end }}</span>
+{{- <span style=color:#ae81ff>end }}</span>
+</code></pre></div><p>values.yaml</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml><span style=color:#f92672>autoscaling</span>:
+  <span style=color:#f92672>enabled</span>: <span style=color:#66d9ef>true</span>
+  <span style=color:#f92672>minReplicas</span>: <span style=color:#ae81ff>1</span>
+  <span style=color:#f92672>maxReplicas</span>: <span style=color:#ae81ff>2</span>
+  <span style=color:#f92672>targetCPUUtilizationPercentage</span>: <span style=color:#ae81ff>80</span>
+  <span style=color:#f92672>targetMemoryUtilizationPercentage</span>: <span style=color:#ae81ff>80</span>
+</code></pre></div><ol start=11>
+<li>检查 HPA 是否正常工作</li>
+</ol>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell>kubectl get hpa nginx-hpa
+</code></pre></div><h1 id=结论>结论</h1>
+<p>在本文中，我们探讨了 Kubernetes 水平 Pod 自动缩放器（HPA）在有效管理应用程序资源和可伸缩性方面的重要性。我们讨论了默认 HPA 的局限性，它依赖于 Pod 资源请求，以及使用基于资源限制的自定义指标以获得更好性能的好处。</p>
+<p>通过设置 Prometheus 和 Prometheus Adapter，我们演示了如何创建 CPU 和内存使用情况的自定义指标，并配置 HPA 使用这些指标进行更精确的自动缩放。按照逐步指南，您可以实施这些概念和技术，以优化应用程序的资源使用，并提高其整体性能。</p>
+<p>我鼓励您将这些原则和技术应用到您的 Kubernetes 部署中，并体验基于自定义指标的高效和弹性自动缩放的优势。祝您愉快地进行缩放！</p>
+<h1 id=原文地址>原文地址</h1>
+<p><a href=https://medium.com/@caiolombello/kubernetes-hpa-custom-metrics-for-effective-cpu-memory-scaling-23526bba9b4>https://medium.com/@caiolombello/kubernetes-hpa-custom-metrics-for-effective-cpu-memory-scaling-23526bba9b4</a></p>
+<h2>微信公众号</h2>
+<p>扫描下面的二维码关注我们的微信公众号,第一时间查看最新内容。同时也可以关注我的Github,看看我都在了解什么技术,在页面底部可以找到我的Github。</p>
+<img src=https://res.cloudinary.com/lyp/image/upload/v1581729955/hugo/blog.github.io/qrcode_for_sikekafeidou.jpg alt=wechat-qrcode>
+<div style="padding:10px 0;margin:20px auto;width:100%;font-size:16px;text-align:center">
+<button class="btn btn-danger" id=rewardButton disable=enable onclick="var qr=document.getElementById('QR');qr.style.display==='none'?qr.style.display='block':qr.style.display='none'">
+<span>「来都来了」赞赏</span></button>
+<div id=QR style=display:none>
+<div id=wechat style=display:inline-block>
+<p>如果本文对你有帮助的话欢迎通过微信或支付宝对我进行赞助,强烈建议你在支付的备注上填上你的 githubID 或你的昵称,让我知道我该感谢谁!!! </br></br>
+赞助金额设置为固定金额:8元. </br>
+8元赠与我,发发发反馈给你,2023祝你收入翻番一路发到底:)</p>
+<a class=fancybox rel=group>
+<img id=wechat_qr src=https://liangyuanpeng.com/files/img/wechat-zhifubao.png alt=Pay></a>
+</div>
+</div>
+</div>
+<hr>
+<ul class=pager>
+<li class=previous>
+<a href=/post/fundation-cd/jfrog-grants-open-source-pyrsia-to-cd-foundation/ data-toggle=tooltip data-placement=top title="JFrog 向 CD 基金会授予开源 Pyrsia">&larr; JFrog 向 CD 基金会授予开源 Pyrsia</a>
+</li>
+<li class=next>
+<a href=/post/cncf-kubernetes/service-lank8s.cn/ data-toggle=tooltip data-placement=top title=lank8s.cn服务>lank8s.cn服务 &rarr;</a>
+</li>
+</ul>
+<script src=https://utteranc.es/client.js repo=liangyuanpeng/liangyuanpeng.github.io issue-term=title theme=github-light crossorigin=anonymous async></script>
+</div>
+<div class="col-lg-8 col-lg-offset-2
+col-md-10 col-md-offset-1
+sidebar-container">
+<section>
+<hr class="hidden-sm hidden-xs">
+<h5><a href=/tags/>FEATURED TAGS</a></h5>
+<div class=tags>
+<a href=/tags/blog title=blog>
+blog
+</a>
+<a href=/tags/bookkeeper title=bookkeeper>
+bookkeeper
+</a>
+<a href=/tags/cdf title=cdf>
+cdf
+</a>
+<a href=/tags/chirpstack title=chirpstack>
+chirpstack
+</a>
+<a href=/tags/ci/cd title=ci/cd>
+ci/cd
+</a>
+<a href=/tags/cloudnative title=cloudnative>
+cloudnative
+</a>
+<a href=/tags/cncf title=cncf>
+cncf
+</a>
+<a href=/tags/contour title=contour>
+contour
+</a>
+<a href=/tags/devops title=devops>
+devops
+</a>
+<a href=/tags/docker title=docker>
+docker
+</a>
+<a href=/tags/docker-compose title=docker-compose>
+docker-compose
+</a>
+<a href=/tags/envoy title=envoy>
+envoy
+</a>
+<a href=/tags/fluentd title=fluentd>
+fluentd
+</a>
+<a href=/tags/foundation title=foundation>
+foundation
+</a>
+<a href=/tags/golang title=golang>
+golang
+</a>
+<a href=/tags/helm title=helm>
+helm
+</a>
+<a href=/tags/hugo title=hugo>
+hugo
+</a>
+<a href=/tags/image title=image>
+image
+</a>
+<a href=/tags/iot title=iot>
+iot
+</a>
+<a href=/tags/k8s title=k8s>
+k8s
+</a>
+<a href=/tags/kind title=kind>
+kind
+</a>
+<a href=/tags/kubernetes title=kubernetes>
+kubernetes
+</a>
+<a href=/tags/kubesphere title=kubesphere>
+kubesphere
+</a>
+<a href=/tags/lorawan title=lorawan>
+lorawan
+</a>
+<a href=/tags/metrics title=metrics>
+metrics
+</a>
+<a href=/tags/middleware title=middleware>
+middleware
+</a>
+<a href=/tags/monitor title=monitor>
+monitor
+</a>
+<a href=/tags/mq title=mq>
+mq
+</a>
+<a href=/tags/nginx title=nginx>
+nginx
+</a>
+<a href=/tags/ops title=ops>
+ops
+</a>
+<a href=/tags/prometheus title=prometheus>
+prometheus
+</a>
+<a href=/tags/pulsar title=pulsar>
+pulsar
+</a>
+<a href=/tags/rpc title=rpc>
+rpc
+</a>
+<a href=/tags/rust title=rust>
+rust
+</a>
+<a href=/tags/sofa title=sofa>
+sofa
+</a>
+<a href=/tags/sofastack title=sofastack>
+sofastack
+</a>
+<a href=/tags/springboot title=springboot>
+springboot
+</a>
+<a href=/tags/tech title=tech>
+tech
+</a>
+<a href=/tags/%E7%BF%BB%E8%AF%91 title=翻译>
+翻译
+</a>
+</div>
+</section>
+</div>
+<div class="col-lg- col-lg-offset-2
+col-md-10 col-md-offset-1">
+<section>
+<hr class="hidden-sm hidden-xs">
+<h2>相关文章</h2>
+<ul style=margin-bottom:25px>
+<li><a href=/post/cncf-prometheus/kubernetes-deploy-kube-prometheus/>kubernetes部署kube-prometheus</a></li>
+<li><a href=/post/cncf-kubernetes/run-k8s-with-kind/>用kind搭建k8s集群环境</a></li>
+<li><a href=/post/cncf-k8s/pull-gcr-k8s-image-with-lank8s/>国内环境拉取gcr和k8s镜像</a></li>
+<li><a href=/post/cncf-kubernetes/compile-kubernetes/>编译kubernetes组件</a></li>
+<li><a href=/post/cncf-k8s/frozen-for-k8s-gcr-io/>[长期更新]k8s组件常用参数</a></li>
+<li><a href=/post/cncf-k8s/frozen-for-k8s-gcr-io/>k8s.gcr.io注册表完全冻结</a></li>
+<li><a href=/post/cncf-k8s/k8s-validating-admission-policy-with-crdparam-lua/>K8S内置准入校验CRD参数配合lua起飞</a></li>
+<li><a href=/post/cncf-k8s/k8s-admissionregistration-with-cel/>用cel表达式来实现k8s准入校验</a></li>
+<li><a href=/post/fundation-cncf/rust-project-in-cncf/>cncf基金会中的rust项目</a></li>
+<li><a href=/post/cncf-kubernetes/dev-webhook-for-kubernetes/>k8s-webhook开发技巧</a></li>
+</ul>
+</section>
+</div>
+</div>
+</div>
+</article>
+<footer>
+<div class=container>
+<div class=row>
+<div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+<ul class="list-inline text-center">
+<li>
+<a href rel=alternate type=application/rss+xml title="Hi,I`m lan">
+<span class="fa-stack fa-lg">
+<i class="fa fa-circle fa-stack-2x"></i>
+<i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+</span>
+</a>
+</li>
+<li>
+<a target=_blank href=https://github.com/liangyuanpeng>
+<span class="fa-stack fa-lg">
+<i class="fa fa-circle fa-stack-2x"></i>
+<i class="fa fa-github fa-stack-1x fa-inverse"></i>
+</span>
+</a>
+</li>
+<li>
+<a target=_blank href=https://res.cloudinary.com/lyp/image/upload/v1679386615/hugo/blog.github.io/wechat-lan.png>
+<span class="fa-stack fa-lg">
+<i class="fa fa-circle fa-stack-2x"></i>
+<i class="fa fa-wechat fa-stack-1x fa-inverse"></i>
+</span>
+</a>
+</li>
+<li>
+<a href=mailto:liangyuanpengem@163.com>
+<span class="fa-stack fa-lg">
+<i class="fa fa-circle fa-stack-2x"></i>
+<i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
+</span>
+</a>
+</li>
+<li>
+<a href=https://twitter.com/lan31793328>
+<span class="fa-stack fa-lg">
+<i class="fa fa-circle fa-stack-2x"></i>
+<i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+</span>
+</a>
+</li>
+<li>
+<a target=_blank href=https://www.zhihu.com/people/liangyuanpeng>
+<span class="fa-stack fa-lg">
+<i class="fa fa-circle fa-stack-2x"></i>
+<i class="fa fa-stack-1x fa-inverse">知</i>
+</span>
+</a>
+</li>
+<li>
+<a target=_blank href=https://weibo.com/u/1908782280>
+<span class="fa-stack fa-lg">
+<i class="fa fa-circle fa-stack-2x"></i>
+<i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+</span>
+</a>
+</li>
+</ul>
+<p class="copyright text-muted">
+Copyright &copy; Hi,I`m lan , 2023
+<br>
+<a href=https://themes.gohugo.io/hugo-theme-cleanwhite>CleanWhite Hugo Theme</a> by <a href=https://zhaohuabing.com>Huabing</a> |
+<iframe style=margin-left:2px;margin-bottom:-5px frameborder=0 scrolling=0 width=100px height=20px src="https://ghbtns.com/github-btn.html?user=zhaohuabing&repo=hugo-theme-cleanwhite&type=star&count=true"></iframe>
+</p>
+</div>
+</div>
+</div>
+</footer>
+<script>function async(f,b){var c=document,d='script',a=c.createElement(d),e=c.getElementsByTagName(d)[0];a.src=f,b&&a.addEventListener('load',function(a){b(null,a)},!1),e.parentNode.insertBefore(a,e)}</script>
+<script>$('#tag_cloud').length!==0&&async("/js/jquery.tagcloud.js",function(){$.fn.tagcloud.defaults={color:{start:'#bbbbee',end:'#0085a1'}},$('#tag_cloud a').tagcloud()})</script>
+<script>async("https://cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.js",function(){var a=document.querySelector("nav");a&&FastClick.attach(a)})</script>
+<script>var _baId='fad9c137f8ce239f9b323d36c871f8e6',_hmt=_hmt||[];(function(){var a=document.createElement("script"),b;a.src="//hm.baidu.com/hm.js?"+_baId,b=document.getElementsByTagName("script")[0],b.parentNode.insertBefore(a,b)})()</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-RTTRHGYFWL"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date),gtag('config','G-RTTRHGYFWL')</script>
+</body>
+</html>

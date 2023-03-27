@@ -173,7 +173,20 @@ post-container">
 <p>当程序有动态新增 metrics 时就要考虑无用 metrics 清除的机制,如果 metrics 数量太多的话就会影响到业务应用.</p>
 <h2>微信公众号</h2>
 <p>扫描下面的二维码关注我们的微信公众号,第一时间查看最新内容。同时也可以关注我的Github,看看我都在了解什么技术,在页面底部可以找到我的Github。</p>
-<img src=https://res.cloudinary.com/lyp/image/upload/v1581729955/hugo/blog.github.io/qrcode_for_sikekafeidou.jpg alt=wechat-account-qrcode>
+<img src=https://res.cloudinary.com/lyp/image/upload/v1581729955/hugo/blog.github.io/qrcode_for_sikekafeidou.jpg alt=wechat-qrcode>
+<div style="padding:10px 0;margin:20px auto;width:100%;font-size:16px;text-align:center">
+<button class="btn btn-danger" id=rewardButton disable=enable onclick="var qr=document.getElementById('QR');qr.style.display==='none'?qr.style.display='block':qr.style.display='none'">
+<span>「来都来了」赞赏</span></button>
+<div id=QR style=display:none>
+<div id=wechat style=display:inline-block>
+<p>如果本文对你有帮助的话欢迎通过微信或支付宝对我进行赞助,强烈建议你在支付的备注上填上你的 githubID 或你的昵称,让我知道我该感谢谁!!! </br></br>
+赞助金额设置为固定金额:8元. </br>
+8元赠与我,发发发反馈给你,2023祝你收入翻番一路发到底:)</p>
+<a class=fancybox rel=group>
+<img id=wechat_qr src=https://liangyuanpeng.com/files/img/wechat-zhifubao.png alt=Pay></a>
+</div>
+</div>
+</div>
 <hr>
 <ul class=pager>
 <li class=previous>
@@ -305,6 +318,9 @@ springboot
 </a>
 <a href=/tags/tech title=tech>
 tech
+</a>
+<a href=/tags/%E7%BF%BB%E8%AF%91 title=翻译>
+翻译
 </a>
 </div>
 </section>
