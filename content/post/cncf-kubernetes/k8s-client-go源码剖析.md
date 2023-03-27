@@ -9,18 +9,19 @@ author:     "梁远鹏"
 image: "https://res.cloudinary.com/lyp/image/upload/v1544363191/hugo/blog.github.io/743a4e9227e1f14cb24a1eb6db29e183.jpg"
 published: true
 tags:
-    - GoLang
+    - golang
     - kubernetes
     - 源码剖析
+    - cncf
     - CloudNative
     - client-go
 categories: 
     - CloudNative
 ---
 
-> 简介：云原生社区活动---Kubernetes源码剖析第一期第二周
+> 简介：云原生社区活动---Kubernetes 源码剖析第一期第二周
 
-本周是K8S源码研习社第一期第二周，学习内容是学习Informer机制，本文以这个课题进行展开。
+本周是 K8S 源码研习社第一期第二周，学习内容是学习Informer机制，本文以这个课题进行展开。
 
 本周研习社社长挺忙的，将本次课程推迟到下一周结束，任何事情都是这样，计划总有可能会被其他事情打破，但最终只要能够回归到对应的主线上，就不是什么问题。就像参与开源一样，最开始的开放源代码只是开始，需要的是能够坚持下去，而这一点往往是很重要的。
 

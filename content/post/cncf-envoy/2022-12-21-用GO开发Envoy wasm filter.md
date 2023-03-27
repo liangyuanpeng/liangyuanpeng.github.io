@@ -12,7 +12,7 @@ wipnote: true
 tags:
     - envoy 
     - cncf
-    - Go
+    - golang
 categories: [ CloudNative ]
 ---
 

@@ -13,6 +13,7 @@ tags:
     - k8s
     - kubernetes
     - cncf
+    - golang
 categories: [ kubernetes ]
 ---
 

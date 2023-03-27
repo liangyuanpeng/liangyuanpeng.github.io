@@ -9,8 +9,8 @@ author:     "梁远鹏"
 image: "https://res.cloudinary.com/lyp/image/upload/v1544363190/hugo/blog.github.io/19375a83fc004035fb1102a4551f2287.jpg"
 published: true
 tags:
-    - Docker
-    - Docker Swarm
+    - docker
+    - docker Swarm
 categories: 
     - CloudNative
 ---
