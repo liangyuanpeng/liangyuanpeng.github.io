@@ -14,7 +14,7 @@ tags:
     - monitor
     - ops
 categories: 
-    - CloudNative
+    - cloudnative
 ---  
 
 # 当前计划已经废弃  

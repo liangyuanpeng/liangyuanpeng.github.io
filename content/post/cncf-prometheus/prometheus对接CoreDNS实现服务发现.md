@@ -16,7 +16,7 @@ tags:
     - CloudNative
     - etcd
 categories: 
-    - CloudNative
+    - cloudnative
 ---  
 
 # 启动etcd  

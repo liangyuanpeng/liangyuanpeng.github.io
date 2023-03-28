@@ -12,7 +12,7 @@ tags:
     - node_exporter
     - metrics
 categories: 
-    - CloudNative
+    - cloudnative
 ---  
 
 # 前言  

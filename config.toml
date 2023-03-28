@@ -1,5 +1,6 @@
-#{baseurl}
-#baseurl = "https://liangyuanpeng.com/"
+
+#baseurl = "#{baseurl}"
+# baseurl = "https://liangyuanpeng.com/"
 title = "Hi,I`m lan"
 theme = "hugo-theme-cleanwhite"
 languageCode = "en-us"

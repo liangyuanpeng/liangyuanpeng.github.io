@@ -12,7 +12,7 @@ tags:
     - docker
     - docker Swarm
 categories: 
-    - CloudNative
+    - cloudnative
 ---
 
 # 前提  
