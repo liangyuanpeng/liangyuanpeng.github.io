@@ -1,4 +1,5 @@
-baseurl = "https://liangyuanpeng.com/"
+#{baseurl}
+#baseurl = "https://liangyuanpeng.com/"
 title = "Hi,I`m lan"
 theme = "hugo-theme-cleanwhite"
 languageCode = "en-us"
@@ -8,6 +9,8 @@ googleAnalytics = "RTTRHGYFWL"
 preserveTaxonomyNames = true
 paginate = 10 #frontpage pagination
 hasCJKLanguage = true
+#logo = "https://res.cloudinary.com/lyp/image/upload/v1679636162/hash-kube-rs-pulsar.png"
+
 
 [outputs]
 home = ["HTML", "RSS", "Algolia"]
@@ -22,10 +25,11 @@ home = ["HTML", "RSS", "Algolia"]
   domain = "https://liangyuanpeng.com"
  # header_image = "img/home-bg-jeep.jpg"
  header_image = "https://res.cloudinary.com/lyp/image/upload/v1537619755/hugo/banner/WechatIMG413.jpg"
- SEOTitle = "liangyuanpeng的博客 | liangyuanpeng's Blog"
+ SEOTitle = "远鹏的博客 | liangyuanpeng's Blog"
   description = "lan，工程师⎈,远鹏|CNCF粉丝|Pulsar爱好者|公众号:四颗咖啡豆|云原生追随者"
   keyword = "liangyuanpeng|LanLiang|OpenYurt|Knative|Pulsar|Prometheus|Halo||边缘计算kubernetes|Docker|CloudNative|Golang|Rust|Istio|微服务"
  slogan = ""
+  logo = "https://res.cloudinary.com/lyp/image/upload/v1679636162/hash-kube-rs-pulsar.png"
 
   image_404 = "img/404-bg.jpg"
   title_404 = "你来到了云原生沙漠 :("
