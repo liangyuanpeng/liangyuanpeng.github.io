@@ -10,11 +10,11 @@
 <meta name=baidu-site-verification content="code-ANZvlnN0Xr">
 <meta name=description content="lan，工程师⎈,远鹏|CNCF粉丝|Pulsar爱好者|公众号:四颗咖啡豆|云原生追随者">
 <meta name=keyword content="liangyuanpeng|LanLiang|OpenYurt|Knative|Pulsar|Prometheus|Halo||边缘计算kubernetes|Docker|CloudNative|Golang|Rust|Istio|微服务">
-<link rel="shortcut icon" href=https://liangyuanpeng.com/img/logo.png>
+<link rel="shortcut icon" href=https://res.cloudinary.com/lyp/image/upload/v1679636162/hash-kube-rs-pulsar.png>
 <meta property="og:image" content="https://res.cloudinary.com/lyp/image/upload/v1635353670/hugo/banner/pexels-helena-lopes-2253275.jpg">
 <meta name=twitter:image content="https://res.cloudinary.com/lyp/image/upload/v1635353670/hugo/banner/pexels-helena-lopes-2253275.jpg">
-<title>Kubernetes HPA:定制指标实现有效的CPU和内存扩展-liangyuanpeng的博客 | liangyuanpeng's Blog</title>
-<link rel=canonical href=https://liangyuanpeng.com/post/cncf-kubernetes/kubernetes-hpa-custom-metrics-for-effective-cpu-memory-scaling/>
+<title>Kubernetes HPA:定制指标实现有效的CPU和内存扩展-远鹏的博客 | liangyuanpeng's Blog</title>
+<link rel=canonical href=/post/cncf-kubernetes/kubernetes-hpa-custom-metrics-for-effective-cpu-memory-scaling/>
 <link rel=stylesheet href=https://res.cloudinary.com/lyp/raw/upload/v1537369740/hugo/css/iDisqus.min.css>
 <link rel=stylesheet href=https://res.cloudinary.com/lyp/raw/upload/v1537369744/hugo/css/bootstrap.min.css>
 <link rel=stylesheet href=https://res.cloudinary.com/lyp/raw/upload/v1537369740/hugo/css/hux-blog.min.css>
@@ -35,31 +35,31 @@
 <span class=icon-bar></span>
 <span class=icon-bar></span>
 </button>
-<a class=navbar-brand href=https://liangyuanpeng.com//>Hi,I`m lan</a>
+<a class=navbar-brand href=/>Hi,I`m lan</a>
 </div>
 <div id=huxblog_navbar>
 <div class=navbar-collapse>
 <ul class="nav navbar-nav navbar-right">
 <li>
-<a href=https://liangyuanpeng.com//>Home</a>
+<a href=/>Home</a>
 </li>
 <li>
-<a href=https://liangyuanpeng.com/categories/cloudnative>cloudnative</a>
+<a href=categories/cloudnative>cloudnative</a>
 </li>
 <li>
-<a href=https://liangyuanpeng.com/categories/devops>devops</a>
+<a href=categories/devops>devops</a>
 </li>
 <li>
-<a href=https://liangyuanpeng.com/categories/iot>iot</a>
+<a href=categories/iot>iot</a>
 </li>
 <li>
-<a href=https://liangyuanpeng.com/categories/kubernetes>kubernetes</a>
+<a href=categories/kubernetes>kubernetes</a>
 </li>
 <li>
-<a href=https://liangyuanpeng.com/categories/tech>tech</a>
+<a href=categories/tech>tech</a>
 </li>
 <li>
-<a href=https://liangyuanpeng.com//search/>SEARCH <img src=https://liangyuanpeng.com/img/search.png height=15 style=cursor:pointer></a>
+<a href=/search/>SEARCH <img src=img/search.png height=15 style=cursor:pointer></a>
 </li>
 </ul>
 </div>
@@ -112,7 +112,7 @@ metrics-server
 <span class=old-visitors-count style=display:none></span>
 <span class=leancloud-visitors-count></span>
 </span>
-阅读 </span></span>|<span class=post-date>共3780字</span>，阅读约<span class=more-meta> 8 分钟</span>
+阅读 </span></span>|<span class=post-date>共3777字</span>，阅读约<span class=more-meta> 8 分钟</span>
 </span>
 </div>
 </div>
@@ -131,6 +131,17 @@ post-container">
 <nav id=TableOfContents>
 <ul>
 <li><a href=#自动缩放的重要性>自动缩放的重要性：</a></li>
+</ul>
+<ul>
+<li><a href=#监控>监控</a></li>
+<li><a href=#缩放策略>缩放策略:</a></li>
+<li><a href=#缩放决策>缩放决策:</a></li>
+<li><a href=#kubernetes-metrics-server>Kubernetes Metrics Server:</a></li>
+</ul>
+<ul>
+<li><a href=#请求速率>请求速率</a></li>
+<li><a href=#队列长度>队列长度</a></li>
+<li><a href=#应用特定的度量指标>应用特定的度量指标</a></li>
 </ul>
 <ul>
 <li><a href=#为应用程序设置-cpu-和内存限制具有以下几个重要原因>为应用程序设置 CPU 和内存限制具有以下几个重要原因：</a></li>
@@ -158,28 +169,20 @@ post-container">
 提高用户体验：通过确保您的应用程序具有处理不同工作负载所需的必要资源，自动缩放可以通过减少延迟和保持一致的性能来提高整体用户体验。</p>
 <h1 id=kubernetes中的水平pod自动缩放器hpa>Kubernetes中的水平Pod自动缩放器（HPA）</h1>
 <p>Kubernetes中水平Pod自动缩放器（HPA）的基本工作机制包括监控、缩放策略和Kubernetes度量服务器。让我们分解每个组件：</p>
-<ol>
-<li>监控
-HPA 持续监视 Kubernetes 集群中部署的Pod的指标。默认情况下，HPA 监视 CPU 利用率，但也可以配置为监视内存使用情况、自定义指标或其他每个Pod的指标。</li>
-</ol>
+<h2 id=监控>监控</h2>
+<p>HPA 持续监视 Kubernetes 集群中部署的Pod的指标。默认情况下，HPA 监视 CPU 利用率，但也可以配置为监视内存使用情况、自定义指标或其他每个Pod的指标。</p>
 <p>对于每个 Pod 的资源指标（例如CPU），HPA 从每个目标Pod的资源指标 API 获取指标。基于目标利用率或原始值，控制器从所有目标 Pod 的这些值的平均值计算缩放比率。如果某些容器缺少相关资源请求，则 CPU 利用率将未被定义，该指标不会发生自动缩放。</p>
 <p>对于每个 Pod 的自定义指标，控制器的操作方式类似，但使用原始值而不是利用率值。</p>
 <p>对于对象和外部指标，HPA获取描述对象的单个指标，将其与目标值进行比较，并生成缩放比率。在自动缩放/v2 API版本中，在比较之前可以将该值除以 Pod 数。</p>
 <p>这些指标由 Kubernetes Metrics 服务器收集和报告，它从每个节点上运行的 kubelet 汇总资源使用数据。</p>
 <p><img src=https://res.cloudinary.com/lyp/image/upload/v1679884449/hugo/blog.github.io/kubernetes/hpa/hpa_query_metrics.webp alt="Image source: Kubecost | An illustration of how the Horizontal Pod Autoscaler (HPA) works in Kubernetes."></p>
-<ol start=2>
-<li>缩放策略:</li>
-</ol>
+<h2 id=缩放策略>缩放策略:</h2>
 <p>在配置 HPA 时，您需要定义缩放策略来确定自动缩放器如何响应指标的变化。这些策略包括:</p>
 <p>目标指标值: 这是您希望 HPA 维护的指标的期望值。例如，您可能会设置50％的目标 CPU 利用率，以确保您的 Pod 既不会过度负担也不会被浪费。
 最小和最大副本数: 这些值定义了 HPA 可以将您的部署缩放到的最小和最大副本数。这可以防止过度缩放，从而可能导致负载过重或消耗过多的资源。</p>
-<ol start=3>
-<li>缩放决策:</li>
-</ol>
+<h2 id=缩放决策>缩放决策:</h2>
 <p>HPA 使用收集的指标和定义的缩放策略来做出缩放决策。如果监视的指标超过目标值，HPA 将增加部署或状态集的副本数以更均匀地分配负载。相反，如果指标低于目标值，HPA 将减少副本数以节省资源。</p>
-<ol start=4>
-<li>Kubernetes Metrics Server:</li>
-</ol>
+<h2 id=kubernetes-metrics-server>Kubernetes Metrics Server:</h2>
 <p>Kubernetes Metrics Server 是资源使用数据的集群聚合器。它从每个节点上的 kubelet 收集数据，并向需要资源使用信息的 HPA 和其他组件提供指标。Metrics Server 是启用 Kubernetes 中实时指标和其他依赖于指标的功能的关键组件。</p>
 <p>总之，在 Kubernetes 中，Horizontal Pod Autoscaler通过持续监视Pod指标，应用基于目标值和副本限制的缩放策略，做出缩放决策以维持最佳资源利用率。 Kubernetes Metrics Server 在为 HPA 提供必要数据以做出明智的决策方面发挥着关键作用。</p>
 <h1 id=hpa中的自定义指标>HPA中的自定义指标</h1>
@@ -192,18 +195,15 @@ HPA 持续监视 Kubernetes 集群中部署的Pod的指标。默认情况下，H
 <p>如果需要，在您的应用程序代码中定义自定义指标，并通过适当的端点公开它们。</p>
 <p>通过在 HPA 清单中指定自定义指标来配置 HPA 使用它们。</p>
 <p>自定义指标及其用例的示例：</p>
-<ol>
-<li>请求速率：对于那些入站请求数量对资源消耗有显著影响的应用程序，您可以基于请求速率定义自定义指标。这使得 HPA 可以根据实际工作负载而不仅仅是 CPU 或内存使用情况来缩放副本数量。</li>
-</ol>
+<h2 id=请求速率>请求速率</h2>
+<p>对于那些入站请求数量对资源消耗有显著影响的应用程序，您可以基于请求速率定义自定义指标。这使得 HPA 可以根据实际工作负载而不仅仅是 CPU 或内存使用情况来缩放副本数量。</p>
 <p>用例：需要处理不同入站流量级别的 API 网关。</p>
-<ol start=2>
-<li>队列长度：对于从队列中处理任务的应用程序，您可以创建基于队列长度的自定义指标。这使得 HPA 可以根据任务积压量来缩放应用程序，以确保处理能力与工作负载相匹配。</li>
-</ol>
+<h2 id=队列长度>队列长度</h2>
+<p>对于从队列中处理任务的应用程序，您可以创建基于队列长度的自定义指标。这使得 HPA 可以根据任务积压量来缩放应用程序，以确保处理能力与工作负载相匹配。</p>
 <p>用例：消费来自消息队列的后台作业处理服务。</p>
-<ol start=3>
-<li>应用特定的度量指标：您可能拥有特定于应用程序的独特性能指标，例如活动用户会话数量或数据库事务率。基于这些指标创建自定义度量指标可以帮助 HPA 更好地做出针对您应用程序行为的自适应扩展决策。
-应用场景：一个电子商务平台在用户活动出现波动时需要相应地扩展其服务。</li>
-</ol>
+<h2 id=应用特定的度量指标>应用特定的度量指标</h2>
+<p>您可能拥有特定于应用程序的独特性能指标，例如活动用户会话数量或数据库事务率。基于这些指标创建自定义度量指标可以帮助 HPA 更好地做出针对您应用程序行为的自适应扩展决策。
+应用场景：一个电子商务平台在用户活动出现波动时需要相应地扩展其服务。</p>
 <p>总之，HPA 中的自定义度量指标通过扩展 Kubernetes 支持的默认资源度量指标，实现了更加精确和特定于应用程序的自动扩展。通过利用自定义度量指标，您可以针对更广泛的应用程序和使用情况优化资源利用和性能。</p>
 <h1 id=配置具有-cpu-和内存限制的-hpa>配置具有 CPU 和内存限制的 HPA</h1>
 <h2 id=为应用程序设置-cpu-和内存限制具有以下几个重要原因>为应用程序设置 CPU 和内存限制具有以下几个重要原因：</h2>
@@ -432,7 +432,7 @@ helm upgrade --install <span style=color:#ae81ff>\
 <a href=/post/fundation-cd/jfrog-grants-open-source-pyrsia-to-cd-foundation/ data-toggle=tooltip data-placement=top title="JFrog 向 CD 基金会授予开源 Pyrsia">&larr; JFrog 向 CD 基金会授予开源 Pyrsia</a>
 </li>
 <li class=next>
-<a href=/post/cncf-kubernetes/service-lank8s.cn/ data-toggle=tooltip data-placement=top title=lank8s.cn服务>lank8s.cn服务 &rarr;</a>
+<a href=/post/cloudnative/dev-desktop-with-webtop/ data-toggle=tooltip data-placement=top title=基于webtop容器的可视化桌面,浏览器就能打开桌面!>基于webtop容器的可视化桌面,浏览器就能打开桌面! &rarr;</a>
 </li>
 </ul>
 <script src=https://utteranc.es/client.js repo=liangyuanpeng/liangyuanpeng.github.io issue-term=title theme=github-light crossorigin=anonymous async></script>

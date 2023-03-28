@@ -10,11 +10,11 @@
 <meta name=baidu-site-verification content="code-ANZvlnN0Xr">
 <meta name=description content="随着 TIOBE 10月份的编程语言排行的发布，C++重回第三的位置，新兴的 Swift 和 Go 表现出强劲的上升趋势。与此同时，虽然目前 Java 的领头位置尚未出现有力挑战，我们希望能够在基础设施的建设上预留跨语言的可扩展设计。同时，跨语言的挑战也是工程实际面临的现状，蚂蚁内部如 AI、IoT，算法等缺少 JVM 原生支持的领域，往往不可避免地需要涉及到跨语言调用的问题。">
 <meta name=keyword content="liangyuanpeng|LanLiang|OpenYurt|Knative|Pulsar|Prometheus|Halo||边缘计算kubernetes|Docker|CloudNative|Golang|Rust|Istio|微服务">
-<link rel="shortcut icon" href=https://liangyuanpeng.com/img/logo.png>
+<link rel="shortcut icon" href=https://res.cloudinary.com/lyp/image/upload/v1679636162/hash-kube-rs-pulsar.png>
 <meta property="og:image" content="https://res.cloudinary.com/lyp/image/upload/v1544363182/hugo/blog.github.io/e64ae3596ed565b8202d395d771665dd.jpg">
 <meta name=twitter:image content="https://res.cloudinary.com/lyp/image/upload/v1544363182/hugo/blog.github.io/e64ae3596ed565b8202d395d771665dd.jpg">
-<title>转|SOFARPC跨语言支持剖析-liangyuanpeng的博客 | liangyuanpeng's Blog</title>
-<link rel=canonical href=https://liangyuanpeng.com/post/sofastack/sofarpc-mult-language/>
+<title>转|SOFARPC跨语言支持剖析-远鹏的博客 | liangyuanpeng's Blog</title>
+<link rel=canonical href=/post/sofastack/sofarpc-mult-language/>
 <link rel=stylesheet href=https://res.cloudinary.com/lyp/raw/upload/v1537369740/hugo/css/iDisqus.min.css>
 <link rel=stylesheet href=https://res.cloudinary.com/lyp/raw/upload/v1537369744/hugo/css/bootstrap.min.css>
 <link rel=stylesheet href=https://res.cloudinary.com/lyp/raw/upload/v1537369740/hugo/css/hux-blog.min.css>
@@ -35,31 +35,31 @@
 <span class=icon-bar></span>
 <span class=icon-bar></span>
 </button>
-<a class=navbar-brand href=https://liangyuanpeng.com//>Hi,I`m lan</a>
+<a class=navbar-brand href=/>Hi,I`m lan</a>
 </div>
 <div id=huxblog_navbar>
 <div class=navbar-collapse>
 <ul class="nav navbar-nav navbar-right">
 <li>
-<a href=https://liangyuanpeng.com//>Home</a>
+<a href=/>Home</a>
 </li>
 <li>
-<a href=https://liangyuanpeng.com/categories/cloudnative>cloudnative</a>
+<a href=categories/cloudnative>cloudnative</a>
 </li>
 <li>
-<a href=https://liangyuanpeng.com/categories/devops>devops</a>
+<a href=categories/devops>devops</a>
 </li>
 <li>
-<a href=https://liangyuanpeng.com/categories/iot>iot</a>
+<a href=categories/iot>iot</a>
 </li>
 <li>
-<a href=https://liangyuanpeng.com/categories/kubernetes>kubernetes</a>
+<a href=categories/kubernetes>kubernetes</a>
 </li>
 <li>
-<a href=https://liangyuanpeng.com/categories/tech>tech</a>
+<a href=categories/tech>tech</a>
 </li>
 <li>
-<a href=https://liangyuanpeng.com//search/>SEARCH <img src=https://liangyuanpeng.com/img/search.png height=15 style=cursor:pointer></a>
+<a href=/search/>SEARCH <img src=img/search.png height=15 style=cursor:pointer></a>
 </li>
 </ul>
 </div>

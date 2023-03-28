@@ -10,11 +10,11 @@
 <meta name=baidu-site-verification content="code-ANZvlnN0Xr">
 <meta name=description content="Contour-v1.20.0-beta.1发布">
 <meta name=keyword content="liangyuanpeng|LanLiang|OpenYurt|Knative|Pulsar|Prometheus|Halo||边缘计算kubernetes|Docker|CloudNative|Golang|Rust|Istio|微服务">
-<link rel="shortcut icon" href=https://liangyuanpeng.com/img/logo.png>
+<link rel="shortcut icon" href=https://res.cloudinary.com/lyp/image/upload/v1679636162/hash-kube-rs-pulsar.png>
 <meta property="og:image" content="https://res.cloudinary.com/lyp/image/upload/v1635353670/hugo/banner/pexels-helena-lopes-2253275.jpg">
 <meta name=twitter:image content="https://res.cloudinary.com/lyp/image/upload/v1635353670/hugo/banner/pexels-helena-lopes-2253275.jpg">
-<title>Contour-v1.20.0-beta.1发布-liangyuanpeng的博客 | liangyuanpeng's Blog</title>
-<link rel=canonical href=https://liangyuanpeng.com/post/cncf-contour/contour-v1.20.0-beta.1-release/>
+<title>Contour-v1.20.0-beta.1发布-远鹏的博客 | liangyuanpeng's Blog</title>
+<link rel=canonical href=/post/cncf-contour/contour-v1.20.0-beta.1-release/>
 <link rel=stylesheet href=https://res.cloudinary.com/lyp/raw/upload/v1537369740/hugo/css/iDisqus.min.css>
 <link rel=stylesheet href=https://res.cloudinary.com/lyp/raw/upload/v1537369744/hugo/css/bootstrap.min.css>
 <link rel=stylesheet href=https://res.cloudinary.com/lyp/raw/upload/v1537369740/hugo/css/hux-blog.min.css>
@@ -35,31 +35,31 @@
 <span class=icon-bar></span>
 <span class=icon-bar></span>
 </button>
-<a class=navbar-brand href=https://liangyuanpeng.com//>Hi,I`m lan</a>
+<a class=navbar-brand href=/>Hi,I`m lan</a>
 </div>
 <div id=huxblog_navbar>
 <div class=navbar-collapse>
 <ul class="nav navbar-nav navbar-right">
 <li>
-<a href=https://liangyuanpeng.com//>Home</a>
+<a href=/>Home</a>
 </li>
 <li>
-<a href=https://liangyuanpeng.com/categories/cloudnative>cloudnative</a>
+<a href=categories/cloudnative>cloudnative</a>
 </li>
 <li>
-<a href=https://liangyuanpeng.com/categories/devops>devops</a>
+<a href=categories/devops>devops</a>
 </li>
 <li>
-<a href=https://liangyuanpeng.com/categories/iot>iot</a>
+<a href=categories/iot>iot</a>
 </li>
 <li>
-<a href=https://liangyuanpeng.com/categories/kubernetes>kubernetes</a>
+<a href=categories/kubernetes>kubernetes</a>
 </li>
 <li>
-<a href=https://liangyuanpeng.com/categories/tech>tech</a>
+<a href=categories/tech>tech</a>
 </li>
 <li>
-<a href=https://liangyuanpeng.com//search/>SEARCH <img src=https://liangyuanpeng.com/img/search.png height=15 style=cursor:pointer></a>
+<a href=/search/>SEARCH <img src=img/search.png height=15 style=cursor:pointer></a>
 </li>
 </ul>
 </div>
@@ -103,7 +103,7 @@ kubernetes
 <span class=old-visitors-count style=display:none></span>
 <span class=leancloud-visitors-count></span>
 </span>
-阅读 </span></span>|<span class=post-date>共1023字</span>，阅读约<span class=more-meta> 3 分钟</span>
+阅读 </span></span>|<span class=post-date>共1085字</span>，阅读约<span class=more-meta> 3 分钟</span>
 </span>
 </div>
 </div>
@@ -121,71 +121,103 @@ post-container">
 </header>
 <nav id=TableOfContents>
 <ul>
-<li><a href=#主要变化>主要变化</a>
-<ul>
-<li><a href=#网关api-v1alpha2-支持>网关API v1alpha2 支持</a></li>
-<li><a href=#contour和envoy之间的xds管理连接设置为tlsv13>Contour和Envoy之间的xDS管理连接设置为TLSv1.3</a></li>
-</ul>
-</li>
-<li><a href=#小改动>小改动</a>
-<ul>
-<li><a href=#https支持的metrics拉取>HTTPS支持的metrics拉取</a></li>
-<li><a href=#heading></a></li>
-<li><a href=#heading-1></a></li>
-<li><a href=#gateway-api-实现pathprefix匹配>Gateway API: 实现PathPrefix匹配</a></li>
-</ul>
-</li>
-<li><a href=#其他变化>其他变化</a></li>
-<li><a href=#文档更改>文档更改</a></li>
+<li><a href=#修复了重复-httpproxy-include-condition的处理>修复了重复 HTTPProxy include condition的处理</a></li>
+<li><a href=#添加对空前缀或者前缀路径匹配的警告>添加对空前缀或者前缀路径匹配/的警告</a></li>
+<li><a href=#对包含和重复路由检测的更改>对包含和重复路由检测的更改</a></li>
+<li><a href=#contour-支持-gateway-api-v060>Contour 支持 Gateway API v0.6.0</a></li>
+<li><a href=#移除-shutdown-manager-sidecar容器的liveness-探针>移除 shutdown-manager sidecar容器的liveness 探针</a></li>
 </ul>
 </nav>
 <h1 id=前言>前言</h1>
-<p>我们很高兴发布发布我们用于kubernetes集群七层反响代理Contour的v1.20.0版本.</p>
-<h1 id=contour是什么>Contour是什么</h1>
-<p>Contour是基于envoy代理实现的k8s ingress controller,新增了HttpProxy的资源,动态创建更新配置,用户在使用时都是在HTTPProxy之上进行操作.</p>
-<p>Contour Ingress controller主要由两个组件一起工作:</p>
+<p>我们很高兴推出 Contour 的 v1.24.0 版本,这是我们针对 kubernetes 集群的第7层 HTTP 反向代理.</p>
+<h1 id=主要更新>主要更新</h1>
+<h2 id=修复了重复-httpproxy-include-condition的处理>修复了重复 HTTPProxy include condition的处理</h2>
+<p>重复的 include condition 现在能够被正确识别, httpproxy 被标记状态为 IncludeError 和 reason 为 DuplicateMatchConditons.</p>
+<p>以前 HttPProxy 处理器只是逐个元素比较相邻的 include 和 condition,而不是作为一个整体在一起比较.</p>
+<p>此外,当识别出重复的 include condition 时,以前的行为是丢弃违规的 HTTPProxy 上所有的路由,包含有效路由.</p>
+<p>因此,任何引用的子 HTTPProxy 都会被标记为孤儿,即使它们能够被正确的包含(即使子 HTTPProxy 的配置是没问题的).有了这个更改后,所有有效的 include 和 Route 规则都会在数据面中处理和编程,这和以前的版本有所不同.</p>
+<p>如果一个 Include 和列表中位于它前面的 Include 具有完全相同的匹配条件,那么这个 Include 就会被认为是一个副本.</p>
+<p>只有被复制的 Include 引用但是没有被其他任何有效 Include 引用的子 HTTPProxy 会被标记为孤儿 HTTPProxy.</p>
+<h2 id=添加对空前缀或者前缀路径匹配的警告>添加对空前缀或者前缀路径匹配/的警告</h2>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml>---
+<span style=color:#f92672>apiVersion</span>: <span style=color:#ae81ff>projectcontour.io/v1</span>
+<span style=color:#f92672>kind</span>: <span style=color:#ae81ff>HTTPProxy</span>
+<span style=color:#f92672>metadata</span>:
+  <span style=color:#f92672>name</span>: <span style=color:#ae81ff>example</span>
+<span style=color:#f92672>spec</span>:
+  <span style=color:#f92672>virtualhost</span>:
+    <span style=color:#f92672>fqdn</span>: <span style=color:#ae81ff>foo-example.bar.com</span>
+  <span style=color:#f92672>includes</span>:
+  - <span style=color:#f92672>name</span>: <span style=color:#ae81ff>example-child1</span>
+  - <span style=color:#f92672>name</span>: <span style=color:#ae81ff>example-child2</span>
+---
+<span style=color:#f92672>apiVersion</span>: <span style=color:#ae81ff>projectcontour.io/v1</span>
+<span style=color:#f92672>kind</span>: <span style=color:#ae81ff>HTTPProxy</span>
+<span style=color:#f92672>metadata</span>:
+  <span style=color:#f92672>name</span>: <span style=color:#ae81ff>example-child1</span>
+<span style=color:#f92672>spec</span>:
+  <span style=color:#f92672>routes</span>:
+    - <span style=color:#f92672>conditions</span>:
+      - <span style=color:#f92672>prefix</span>: <span style=color:#ae81ff>/</span>
+      <span style=color:#f92672>services</span>:
+      - <span style=color:#f92672>name</span>: <span style=color:#ae81ff>s1</span>
+        <span style=color:#f92672>port</span>: <span style=color:#ae81ff>80</span>
+---
+<span style=color:#f92672>apiVersion</span>: <span style=color:#ae81ff>projectcontour.io/v1</span>
+<span style=color:#f92672>kind</span>: <span style=color:#ae81ff>HTTPProxy</span>
+<span style=color:#f92672>metadata</span>:
+  <span style=color:#f92672>name</span>: <span style=color:#ae81ff>example-child2</span>
+<span style=color:#f92672>spec</span>:
+  <span style=color:#f92672>routes</span>:
+  - <span style=color:#f92672>conditions</span>:
+    - <span style=color:#f92672>prefix</span>: <span style=color:#ae81ff>/foo</span>
+    <span style=color:#f92672>services</span>:
+    - <span style=color:#f92672>name</span>: <span style=color:#ae81ff>s2</span>
+      <span style=color:#f92672>port</span>: <span style=color:#ae81ff>80</span>
+</code></pre></div><h2 id=对包含和重复路由检测的更改>对包含和重复路由检测的更改</h2>
+<p>目前在 HTTPProxy include 条件树或单独的 HTTPProxy 中是没有检查重复路由条件的.这意味着您可以让 HTTPProxy 的路由列表后面列出的路由覆盖其他路由.</p>
+<p>如果您有一个基于 Include 条件和 Route 件生成重复路由的路由效果,也会发生同样的问题.</p>
+<p>如果您依赖于这种行为的话,那么在下一个版本中 Contour 将会进行更改.</p>
+<p>我们将会提交一份设计文档来解决这个问题,因为这是一个重大的行为更好,并且鼓励社区参与进来.
+当前的计划是完全验证重复路由匹配条件,因为它们是从 Include 和 Route 条件中生成出来的.
+可能会对 HTTPRoutes 上设置的状态条件进行更改,以改进对这种无效配置的提示.</p>
+<p><a href=https://github.com/sunjayBhatia>@sunjayBhatia</a></p>
 <ul>
-<li>Envoy:高性能代理,所有请求都会经过envoy</li>
-<li>Contour: Envoy的控制平面,屏蔽Envoy复杂的配置,并创建了HTTPProxy资源.</li>
+<li><a href=https://github.com/projectcontour/contour/pull/4931>https://github.com/projectcontour/contour/pull/4931</a></li>
+<li><a href=https://github.com/projectcontour/contour/pull/5017>https://github.com/projectcontour/contour/pull/5017</a></li>
 </ul>
-<p>目前Contour是CNCF孵化项目,值得上手!</p>
-<h1 id=更新点>更新点</h1>
-<h2 id=主要变化>主要变化</h2>
-<h3 id=网关api-v1alpha2-支持>网关API v1alpha2 支持</h3>
-<p>Contour现在支持最新的v1alpha2版本的网关API,这个版本的网关API有很多重大的更新,这些更新可以在<a href=https://github.com/kubernetes-sigs/gateway-api/blob/master/CHANGELOG.md>网关API更新日志</a>中查看详细的说明.</p>
-<p>(<a href=https://github.com/projectcontour/contour/pull/4047>#4047</a> <a href=https://github.com/skriss>@skriss</a>)</p>
-<h3 id=contour和envoy之间的xds管理连接设置为tlsv13>Contour和Envoy之间的xDS管理连接设置为TLSv1.3</h3>
-<p>Contour XDS服务器接受的最低TLS版本从TLSv1.2升级为TLSv1.3</p>
-<p>在之前的Contour 1.19中Envoy XDS客户端最大TLS版本升级为TLSv1.3,</p>
-<p>如果从Contour 1.19升级的话,旧的Envoy将会无法连接到新的Contour,直到Envoy也升级.在Envoy完成升级之前,旧的Envoy无法接收新的配置数据.</p>
-<p>详细信息可以查看Envoy文档中的<a href=https://www.envoyproxy.io/docs/envoy/latest/api-docs/xds_protocol>xDS API</a>以及<a href=https://projectcontour.io/docs/main/architecture/>Contour架构</a>.</p>
-<p>(<a href=https://github.com/projectcontour/contour/pull/4065>#4065</a> <a href=https://github.com/tsaarni>@tsaarni</a>)</p>
-<h2 id=小改动>小改动</h2>
-<h3 id=https支持的metrics拉取>HTTPS支持的metrics拉取</h3>
-<p>现在Ennoy和Contour的metrics指标都可以配置成为HTTPS才能拉取metrics.也可以要求客户端提供证书,证书的合法性会根据已经配置的CA证书来验证是否合法.</p>
-<p>这个功能可以更好的支持Contour metrics的可见性.</p>
-<p>(<a href=https://github.com/projectcontour/contour/pull/3707>#3707</a> <a href=https://github.com/tsaarni>@tsaarni</a>)</p>
-<h3 id=heading></h3>
-<h3 id=heading-1></h3>
-<h3 id=gateway-api-实现pathprefix匹配>Gateway API: 实现PathPrefix匹配</h3>
-<p>Contour实现了v1alpha2 版本Gateway API的路径前缀匹配`</p>
-<h2 id=其他变化>其他变化</h2>
-<h2 id=文档更改>文档更改</h2>
-<h1 id=安装>安装</h1>
-<p>安装v1.20.0-beta.1最简单的方法是kubectl apply下面的yaml文件:</p>
-<p>使用Gateway API:</p>
-<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell>kubectl apply -f https://raw.githubusercontent.com/projectcontour/contour/v1.20.0-beta.1/examples/render/contour-gateway.yaml
-</code></pre></div><p>不使用Gateway API:</p>
-<pre tabindex=0><code>kubectl apply -f https://raw.githubusercontent.com/projectcontour/contour/v1.20.0-beta.1/examples/render/contour.yaml
-</code></pre><h1 id=兼容的-kubernetes-版本>兼容的 Kubernetes 版本</h1>
-<p>Contour v1.20.0-beta.1 针对 Kubernetes 1.20 到 1.22 进行了测试.</p>
-<h1 id=文档>文档</h1>
-<h1 id=您是-contour-用户吗我们很想知道>您是 Contour 用户吗？我们很想知道！</h1>
-<p>如果您正在使用 Contour 并希望将您的组织添加到我们的采用者列表中，请访问此<a href=https://github.com/projectcontour/contour/blob/main/ADOPTERS.md>页面</a>。如果您希望保持组织名称匿名，但仍向我们提供有关 Contour 的使用和方案的反馈，请在此<a href=https://github.com/projectcontour/contour/issues/1269>GitHub issue</a>上发帖。</p>
+<h2 id=contour-支持-gateway-api-v060>Contour 支持 Gateway API v0.6.0</h2>
+<p>有关于Gateway API具体信息,请查看 Gateway API 的发布说明.
+这个版本的API包含了一些与 Contour 用户相关的更改.</p>
+<p>ReferenceGrant 资源升级到 v1beta1,ReferencePolicy已经从API中移除.
+v1alpha2 版本的 GatewayClass、Gateway和HTTPRoute已弃用.
+为了保持一致性,各种资源的状态条件发生了重大变化:</p>
+<ul>
+<li>已向 Gateway 和 Gateway Listener 添加了 Condition 的支持</li>
+<li>就绪条件被移动到扩展一致性,此时 Contour 不处理这个条件</li>
+<li>Scheduled condition 在 Gateway 中弃用</li>
+</ul>
+<p><a href=https://github.com/sunjayBhatia>@sunjayBhatia</a></p>
+<ul>
+<li><a href=https://github.com/projectcontour/contour/pull/4944>https://github.com/projectcontour/contour/pull/4944</a></li>
+</ul>
+<h2 id=移除-shutdown-manager-sidecar容器的liveness-探针>移除 shutdown-manager sidecar容器的liveness 探针</h2>
+<p><a href=https://github.com/skriss>@skriss</a></p>
+<ul>
+<li><a href=https://github.com/projectcontour/contour/pull/4967>https://github.com/projectcontour/contour/pull/4967</a></li>
+</ul>
+<h1 id=次要更新>次要更新</h1>
+<h1 id=其他更新>其他更新</h1>
+<h1 id=文档更新>文档更新</h1>
+<h1 id=弃用和移除通知>弃用和移除通知</h1>
+<h1 id=兼容的-kubernetes-版本>兼容的 kubernetes 版本</h1>
+<p>Contour v1.24.0 针对 kubernetes 1.24 到 1.26 进行了测试.</p>
+<h1 id=感谢社区>感谢社区</h1>
+<p>我们非常感谢所有社区的贡献,使 Contour 变得更好!在此版本中,特别感谢以下贡献者:</p>
+<h1 id=您是-contour-用户吗我们很想知道>您是 Contour 用户吗?我们很想知道!</h1>
+<p>如果您正在使用 Contour,并且希望将您的组织添加到我们的采用者列表中,请访问<a href=https://github.com/projectcontour/contour/blob/master/ADOPTERS.md>此页面</a>.如果您希望保持您的组织名称匿名,但仍然向我们反馈您对 Contour 的使用和场景,请在这个 <a href=https://github.com/projectcontour/contour/issues/1269>Github issue</a> 中留言.</p>
 <h1 id=发布说明地址>发布说明地址</h1>
-<p><a href=https://github.com/projectcontour/contour/releases/tag/v1.20.0-beta.1>https://github.com/projectcontour/contour/releases/tag/v1.20.0-beta.1</a></p>
-<h1 id=注意>注意</h1>
-<p>这个版本的更新点时候挺多的,慢慢翻译中,敬请期待!</p>
+<p><a href=https://github.worker.liangyuanpeng.com/projectcontour/contour/releases/tag/v1.24.0>https://github.worker.liangyuanpeng.com/projectcontour/contour/releases/tag/v1.24.0</a></p>
 <h2>微信公众号</h2>
 <p>扫描下面的二维码关注我们的微信公众号,第一时间查看最新内容。同时也可以关注我的Github,看看我都在了解什么技术,在页面底部可以找到我的Github。</p>
 <img src=https://res.cloudinary.com/lyp/image/upload/v1581729955/hugo/blog.github.io/qrcode_for_sikekafeidou.jpg alt=wechat-qrcode>
@@ -202,13 +234,15 @@ post-container">
 </div>
 </div>
 </div>
+<h2>温馨提示</h2>
+<p>本文还在持续创作中,如果你对本文主题感兴趣可以加我微信好友进行催更,博客下方可以找到我的微信联系方式 :)</p>
 <hr>
 <ul class=pager>
 <li class=previous>
-<a href=/post/cncf-contour/contour-v1.20.0-beta.1-release/ data-toggle=tooltip data-placement=top title=Contour-v1.20.0-beta.1发布>&larr; Contour-v1.20.0-beta.1发布</a>
+<a href=/post/fundation-cncf/quick-start-openebs/ data-toggle=tooltip data-placement=top title=快速开始OpenEBS>&larr; 快速开始OpenEBS</a>
 </li>
 <li class=next>
-<a href=/post/cncf-contour/contour-v1.18.3-release/ data-toggle=tooltip data-placement=top title=Contour-v1.18.3发布>Contour-v1.18.3发布 &rarr;</a>
+<a href=/post/cncf-contour/contour-v1.20.0-beta.1-release/ data-toggle=tooltip data-placement=top title=Contour-v1.20.0-beta.1发布>Contour-v1.20.0-beta.1发布 &rarr;</a>
 </li>
 </ul>
 <script src=https://utteranc.es/client.js repo=liangyuanpeng/liangyuanpeng.github.io issue-term=title theme=github-light crossorigin=anonymous async></script>
