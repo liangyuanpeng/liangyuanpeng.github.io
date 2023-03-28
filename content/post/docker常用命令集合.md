@@ -12,7 +12,7 @@ tags:
     - docker
     - Note
 categories: 
-    - CloudNative
+    - cloudnative
 ---
 
 ## 停止一台机器上的所有容器

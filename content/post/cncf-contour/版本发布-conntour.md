@@ -13,7 +13,7 @@ tags:
     - gateway
     - contour
 categories: 
-    - CloudNative
+    - cloudnative
 ---    
 
 # 本系列文章专注于contour版本发布中文说明  

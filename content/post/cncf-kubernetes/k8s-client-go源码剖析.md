@@ -16,7 +16,7 @@ tags:
     - CloudNative
     - client-go
 categories: 
-    - CloudNative
+    - cloudnative
 ---
 
 > 简介：云原生社区活动---Kubernetes 源码剖析第一期第二周

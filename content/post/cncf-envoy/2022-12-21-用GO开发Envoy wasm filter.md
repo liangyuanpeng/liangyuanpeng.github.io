@@ -13,7 +13,8 @@ tags:
     - envoy 
     - cncf
     - golang
-categories: [ CloudNative ]
+categories: 
+    - cloudnative
 ---
 
 # 目标  

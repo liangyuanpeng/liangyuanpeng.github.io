@@ -10,7 +10,7 @@ image: "https://res.cloudinary.com/lyp/image/upload/v1612709780/hugo/blog.github
 published: true
 tags:
     - cncf
-categories: [ CLOUDNATIVE ]
+categories: [ cloudnative ]
 ---    
 
 # 即将毕业的LitmusChaos  
