@@ -22,7 +22,7 @@ jobs:
 
       - name: Build Hugo
         env:
-          BASEURL: https://liangyuanpeng.github.io
+          BASEURL: liangyuanpeng.github.io
         run: |
           sh build.sh
           hugo --minify && ls public

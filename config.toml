@@ -1,5 +1,5 @@
 
-#baseurl = "#{baseurl}"
+#baseurl = "https://#{baseurl}"
 # baseurl = "https://liangyuanpeng.com/"
 title = "Hi,I`m lan"
 theme = "hugo-theme-cleanwhite"
