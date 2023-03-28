@@ -25,3 +25,5 @@ rm -f LICENSE
 # https://github.com/kubernetes-sigs/krew/releases/download/v0.4.3/krew-linux_amd64.tar.gz
 # https://github.com/kubernetes-sigs/krew/releases/download/v0.4.3/krew-darwin_arm64.tar.gz
 ls
+
+hugo
