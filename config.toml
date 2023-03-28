@@ -48,8 +48,8 @@ home = ["HTML", "RSS", "Algolia"]
 
   # Sidebar settings
   sidebar_about_description = "⎈⎈远鹏|CNCF粉丝|Pulsar爱好者|公众号:四颗咖啡豆|云原生追随者⎈⎈"
-  sidebar_avatar = "https://res.cloudinary.com/lyp/image/upload/v1679636162/hash-kube-rs-pulsar.png"      # use absolute URL, seeing it's used in both `/` and `/about/`
-  sidebar_wechat = "https://res.cloudinary.com/lyp/image/upload/v1679386615/hugo/blog.github.io/wechat-lan.png"
+  sidebar_avatar = "/img/aboutme/hash-kube-rs-pulsar.png"      # use absolute URL, seeing it's used in both `/` and `/about/`
+  sidebar_wechat = "/img/aboutme/wechat-lan.png"
 
 
   featured_tags = true 
@@ -73,7 +73,7 @@ home = ["HTML", "RSS", "Algolia"]
   #stackoverflow  = "full profile url in stackoverflow"
   #instagram     = "full profile url in instagram"
   github         = "https://github.com/liangyuanpeng"
-  wechat         = "https://res.cloudinary.com/lyp/image/upload/v1679386615/hugo/blog.github.io/wechat-lan.png"
+  wechat         = "/img/aboutme/wechat-lan.png"
   #pinterest     = "full profile url in pinterest"
   zhihu = "https://www.zhihu.com/people/liangyuanpeng"
   weibo = "https://weibo.com/u/1908782280"

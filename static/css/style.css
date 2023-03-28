@@ -60,7 +60,6 @@ background-size: 11.1%; /* This is at 6-columns -> just change this # */
 *, *:before, *:after {
   box-sizing: border-box;
 }
-
 body {
   height: 100%;
   font-size: 100%;
