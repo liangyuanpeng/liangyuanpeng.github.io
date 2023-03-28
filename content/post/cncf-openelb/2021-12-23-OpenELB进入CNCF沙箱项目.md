@@ -11,7 +11,7 @@ published: true
 tags:
     - cncf
     - openelb
-categories: [ CLOUDNATIVE ]
+categories: [ cloudnative ]
 ---    
 
 # OpenELB是什么  

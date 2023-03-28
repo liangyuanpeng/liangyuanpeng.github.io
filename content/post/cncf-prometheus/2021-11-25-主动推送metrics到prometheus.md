@@ -12,7 +12,8 @@ tags:
     - cncf 
     - tech
     - prometheus
-categories: [ CloudNative ]
+categories: 
+    - cloudnative
 ---
 
 # 前言  

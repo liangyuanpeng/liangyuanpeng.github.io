@@ -13,7 +13,8 @@ tags:
     - cncf
     - kind
     - kubernetes
-categories: [ CloudNative ]
+categories: 
+    - cloudnative
 ---
 
 # 前言    

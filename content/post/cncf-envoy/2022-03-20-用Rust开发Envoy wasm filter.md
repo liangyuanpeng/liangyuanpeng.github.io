@@ -13,7 +13,8 @@ tags:
     - envoy 
     - cncf
     - rust
-categories: [ CloudNative ]
+categories: 
+    - cloudnative
 ---
 
 # 
