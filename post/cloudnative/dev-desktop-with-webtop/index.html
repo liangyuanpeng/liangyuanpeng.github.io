@@ -97,7 +97,7 @@ webtop
 <span class=old-visitors-count style=display:none></span>
 <span class=leancloud-visitors-count></span>
 </span>
-阅读 </span></span>|<span class=post-date>共423字</span>，阅读约<span class=more-meta> 1 分钟</span>
+阅读 </span></span>|<span class=post-date>共492字</span>，阅读约<span class=more-meta> 1 分钟</span>
 </span>
 </div>
 </div>
@@ -115,7 +115,8 @@ post-container">
 </header>
 <nav id=TableOfContents></nav>
 <h1 id=前言>前言</h1>
-<p>前段时间研究过基于容器来搭建一个可视化的 Linux 开发环境,主要是为了研究 java 开发的 Apache Pulsar 和 Apache Bookkeeper 两个项目的源码,如果是非 JVM 类的语言可以基于 openvscode 来搞一个开发环境,例如在ubuntu20.04镜像之上安装 openvscode,然后在浏览器就可以使用 vscode 了.对于语言环境则需要另外搭建,这是自然的.</p>
+<p>前段时间研究过基于容器来搭建一个可视化的 Linux 开发环境,主要是为了研究 java 开发的 Apache Pulsar 和 Apache Bookkeeper 两个项目的源码,如果是非 JVM 类的语言可以基于 openvscode 来搞一个开发环境,例如在 ubuntu20.04 镜像之上安装 openvscode,然后在浏览器就可以使用 vscode 了.对于语言环境则需要另外搭建,这是自然的.</p>
+<p>最开始的折腾基于 ubuntu 容器镜像安装桌面,然后安装一些其他软件软件例如 VNC 来做可视化,效果都不太好,最后发现了 <a href=https://docs.linuxserver.io/images/docker-webtop>webtop</a> 这个宝藏,直接就已经封装好了一个带有桌面的 Linux 容器环境.</p>
 <h1 id=部署实践>部署实践</h1>
 <p>很简单,一条命令就可以了:</p>
 <div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell>docker run -v $PWD:/work -p 3000:3000 -it -d --name webtop linuxserver/webtop:amd64-ubuntu-kde-781d8753-ls91
@@ -160,6 +161,13 @@ post-container">
 </li>
 </ul>
 <script src=https://utteranc.es/client.js repo=liangyuanpeng/liangyuanpeng.github.io issue-term=title theme=github-light crossorigin=anonymous async></script>
+</div>
+<div class="col-lg-2 col-lg-offset-0
+visible-lg-block
+sidebar-container
+catalog-container">
+扫码下面二维码加我微信 :)
+<img src=https://liangyuanpeng.github.io/img/aboutme/wechat-lan.png>
 </div>
 <div class="col-lg-8 col-lg-offset-2
 col-md-10 col-md-offset-1
@@ -382,8 +390,10 @@ Copyright &copy; Hi,I`m lan , 2023
 </div>
 </div>
 </footer>
+<script>function loadAsync(f,b){var c=document,d='script',a=c.createElement(d),e=c.getElementsByTagName(d)[0];a.src=f,b&&a.addEventListener('load',function(a){b(null,a)},!1),e.parentNode.insertBefore(a,e)}</script>
 <script>function async(f,b){var c=document,d='script',a=c.createElement(d),e=c.getElementsByTagName(d)[0];a.src=f,b&&a.addEventListener('load',function(a){b(null,a)},!1),e.parentNode.insertBefore(a,e)}</script>
 <script>$('#tag_cloud').length!==0&&async("/js/jquery.tagcloud.js",function(){$.fn.tagcloud.defaults={color:{start:'#bbbbee',end:'#0085a1'}},$('#tag_cloud a').tagcloud()})</script>
+<script type=text/javascript>function generateCatalog(a){_containerSelector='div.post-container';var h=$(_containerSelector),c,d,e,f,g,b;return c=h.find('h1,h2,h3,h4,h5,h6'),$(a).html(''),c.each(function(){d=$(this).prop('tagName').toLowerCase(),g="#"+$(this).prop('id'),e=$(this).text(),b=$('<a href="'+g+'" rel="nofollow">'+e+'</a>'),f=$('<li class="'+d+'_nav"></li>').append(b),$(a).append(f)}),!0}generateCatalog(".catalog-body"),$(".catalog-toggle").click(function(a){a.preventDefault(),$('.side-catalog').toggleClass("fold")}),loadAsync("/js/jquery.nav.js",function(){$('.catalog-body').onePageNav({currentClass:"active",changeHash:!1,easing:"swing",filter:"",scrollSpeed:700,scrollOffset:0,scrollThreshold:.2,begin:null,end:null,scrollChange:null,padding:80})})</script>
 <script>async("https://cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.js",function(){var a=document.querySelector("nav");a&&FastClick.attach(a)})</script>
 <script>var _baId='fad9c137f8ce239f9b323d36c871f8e6',_hmt=_hmt||[];(function(){var a=document.createElement("script"),b;a.src="//hm.baidu.com/hm.js?"+_baId,b=document.getElementsByTagName("script")[0],b.parentNode.insertBefore(a,b)})()</script>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-RTTRHGYFWL"></script>
