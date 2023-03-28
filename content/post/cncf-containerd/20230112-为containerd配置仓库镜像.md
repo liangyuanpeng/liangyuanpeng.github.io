@@ -6,7 +6,7 @@ subtitle:   ""
 description: ""
 date:       2023-01-12
 author:     "梁远鹏"
-image: "img/post-bg-2015.jpg"
+image: "img/banner-pexels.jpg"
 published: true
 tags:
     - containerd 
