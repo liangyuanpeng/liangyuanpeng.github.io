@@ -14,15 +14,15 @@
 <meta property="og:image" content="https://res.cloudinary.com/lyp/image/upload/v1543506262/hugo/blog.github.io/apache-rocketMQ-introduction/7046d2bf0d97278682129887309cc1a6.jpg">
 <meta name=twitter:image content="https://res.cloudinary.com/lyp/image/upload/v1543506262/hugo/blog.github.io/apache-rocketMQ-introduction/7046d2bf0d97278682129887309cc1a6.jpg">
 <title>keda-helmchart发布v2.10.1-远鹏的博客 | liangyuanpeng's Blog</title>
-<link rel=canonical href=liangyuanpeng.github.io/liangyuanpeng.github.io/post/cncf-keda/keda-helmchart-release-with-v2.10.1/>
-<link rel=stylesheet href=https://res.cloudinary.com/lyp/raw/upload/v1537369740/hugo/css/iDisqus.min.css>
-<link rel=stylesheet href=https://res.cloudinary.com/lyp/raw/upload/v1537369744/hugo/css/bootstrap.min.css>
-<link rel=stylesheet href=https://res.cloudinary.com/lyp/raw/upload/v1537369740/hugo/css/hux-blog.min.css>
-<link rel=stylesheet href=https://res.cloudinary.com/lyp/raw/upload/v1537369740/hugo/css/syntax.css>
+<link rel=canonical href=https://liangyuanpeng.github.io/post/cncf-keda/keda-helmchart-release-with-v2.10.1/>
+<link rel=stylesheet href=https://liangyuanpeng.github.io/css/iDisqus.min.css>
+<link rel=stylesheet href=https://liangyuanpeng.github.io/css/bootstrap.min.css>
+<link rel=stylesheet href=https://liangyuanpeng.github.io/css/hux-blog.min.css>
+<link rel=stylesheet href=https://liangyuanpeng.github.io/css/syntax.css>
 <link href=//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css rel=stylesheet type=text/css>
-<script src=https://res.cloudinary.com/lyp/raw/upload/v1537369966/hugo/js/jquery.min.js></script>
-<script src=https://res.cloudinary.com/lyp/raw/upload/v1537369966/hugo/js/bootstrap.min.js></script>
-<script src=https://res.cloudinary.com/lyp/raw/upload/v1537369964/hugo/js/hux-blog.min.js></script>
+<script src=https://liangyuanpeng.github.io/js/jquery.min.js></script>
+<script src=https://liangyuanpeng.github.io/js/bootstrap.min.js></script>
+<script src=https://liangyuanpeng.github.io/js/hux-blog.min.js></script>
 <script defer src=https://static.cloudflareinsights.com/beacon.min.js data-cf-beacon='{"token": "f73bc0092aeb491d89984c0eb5a87ac2"}'></script>
 </head>
 </head>
@@ -35,31 +35,31 @@
 <span class=icon-bar></span>
 <span class=icon-bar></span>
 </button>
-<a class=navbar-brand href=liangyuanpeng.github.io/>Hi,I`m lan</a>
+<a class=navbar-brand href=https://liangyuanpeng.github.io/>Hi,I`m lan</a>
 </div>
 <div id=huxblog_navbar>
 <div class=navbar-collapse>
 <ul class="nav navbar-nav navbar-right">
 <li>
-<a href=liangyuanpeng.github.io/>Home</a>
+<a href=https://liangyuanpeng.github.io/>Home</a>
 </li>
 <li>
-<a href=liangyuanpeng.github.io/categories/cloudnative>cloudnative</a>
+<a href=https://liangyuanpeng.github.io/categories/cloudnative>cloudnative</a>
 </li>
 <li>
-<a href=liangyuanpeng.github.io/categories/devops>devops</a>
+<a href=https://liangyuanpeng.github.io/categories/devops>devops</a>
 </li>
 <li>
-<a href=liangyuanpeng.github.io/categories/iot>iot</a>
+<a href=https://liangyuanpeng.github.io/categories/iot>iot</a>
 </li>
 <li>
-<a href=liangyuanpeng.github.io/categories/kubernetes>kubernetes</a>
+<a href=https://liangyuanpeng.github.io/categories/kubernetes>kubernetes</a>
 </li>
 <li>
-<a href=liangyuanpeng.github.io/categories/tech>tech</a>
+<a href=https://liangyuanpeng.github.io/categories/tech>tech</a>
 </li>
 <li>
-<a href=liangyuanpeng.github.io/search/>SEARCH <img src=liangyuanpeng.github.io/img/search.png height=15 style=cursor:pointer></a>
+<a href=https://liangyuanpeng.github.io/search/>SEARCH <img src=https://liangyuanpeng.github.io/img/search.png height=15 style=cursor:pointer></a>
 </li>
 </ul>
 </div>
@@ -74,14 +74,14 @@
 <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
 <div class=post-heading>
 <div class=tags>
-<a class=tag href=/liangyuanpeng.github.io/tags/keda title=keda>
+<a class=tag href=/tags/keda title=keda>
 keda
 </a>
-<a class=tag href=/liangyuanpeng.github.io/tags/cncf title=cncf>
+<a class=tag href=/tags/cncf title=cncf>
 cncf
 <img style=display:inline-block src=https://emoji.slack-edge.com/T08PSQ7BQ/cncf/654bc2f197058c81.png height=20 width=20>
 </a>
-<a class=tag href=/liangyuanpeng.github.io/tags/kubernetes title=kubernetes>
+<a class=tag href=/tags/kubernetes title=kubernetes>
 kubernetes
 <img style=display:inline-block src=https://emoji.slack-edge.com/T09NY5SBT/emoji_k8s_loft/17a832b1a9cadae9.gif height=20 width=20>
 </a>
@@ -91,7 +91,7 @@ kubernetes
 <h2 class=subheading></h2>
 <span class=meta>Posted by 梁远鹏 on 2023-03-14
 <span id=busuanzi_container_page_pv>|<span id=busuanzi_value_page_pv></span><span>
-<span id=liangyuanpeng.github.io/post/cncf-keda/keda-helmchart-release-with-v2.10.1/ class="leancloud_visitors meta_data_item" data-flag-title>
+<span id=/post/cncf-keda/keda-helmchart-release-with-v2.10.1/ class="leancloud_visitors meta_data_item" data-flag-title>
 <span class=post-meta-item-icon>
 <span class="octicon octicon-eye"></span>
 </span>
@@ -147,7 +147,7 @@ helm install keda kedacore/keda --version 2.10.1 -n keda --create-namespace
 <p>完整更新日志: <a href=https://github.com/kedacore/charts/compare/v2.10.0...v2.10.1>https://github.com/kedacore/charts/compare/v2.10.0...v2.10.1</a></p>
 <h2>微信公众号</h2>
 <p>扫描下面的二维码关注我们的微信公众号,第一时间查看最新内容。同时也可以关注我的Github,看看我都在了解什么技术,在页面底部可以找到我的Github。</p>
-<img src=https://res.cloudinary.com/lyp/image/upload/v1581729955/hugo/blog.github.io/qrcode_for_sikekafeidou.jpg alt=wechat-qrcode>
+<img src=/img/qrcode_for_sikekafeidou.jpg alt=wechat-qrcode>
 <div style="padding:10px 0;margin:20px auto;width:100%;font-size:16px;text-align:center">
 <button class="btn btn-danger" id=rewardButton disable=enable onclick="var qr=document.getElementById('QR');qr.style.display==='none'?qr.style.display='block':qr.style.display='none'">
 <span>「来都来了」赞赏</span></button>
@@ -157,7 +157,7 @@ helm install keda kedacore/keda --version 2.10.1 -n keda --create-namespace
 赞助金额设置为固定金额:8元. </br>
 8元赠与我,发发发反馈给你,2023祝你收入翻番一路发到底:)</p>
 <a class=fancybox rel=group>
-<img id=wechat_qr src=https://liangyuanpeng.com/files/img/wechat-zhifubao.png alt=Pay></a>
+<img id=wechat_qr src=/img/wechat-zhifubao.png alt=Pay></a>
 </div>
 </div>
 </div>
@@ -166,10 +166,10 @@ helm install keda kedacore/keda --version 2.10.1 -n keda --create-namespace
 <hr>
 <ul class=pager>
 <li class=previous>
-<a href=liangyuanpeng.github.io/post/cncf-kubernetes/run-k8s-with-kind/ data-toggle=tooltip data-placement=top title=用kind搭建k8s集群环境>&larr; 用kind搭建k8s集群环境</a>
+<a href=/post/cncf-kubernetes/run-k8s-with-kind/ data-toggle=tooltip data-placement=top title=用kind搭建k8s集群环境>&larr; 用kind搭建k8s集群环境</a>
 </li>
 <li class=next>
-<a href=liangyuanpeng.github.io/post/fundation-cd/jfrog-grants-open-source-pyrsia-to-cd-foundation/ data-toggle=tooltip data-placement=top title="JFrog 向 CD 基金会授予开源 Pyrsia">JFrog 向 CD 基金会授予开源 Pyrsia &rarr;</a>
+<a href=/post/fundation-cd/jfrog-grants-open-source-pyrsia-to-cd-foundation/ data-toggle=tooltip data-placement=top title="JFrog 向 CD 基金会授予开源 Pyrsia">JFrog 向 CD 基金会授予开源 Pyrsia &rarr;</a>
 </li>
 </ul>
 <script src=https://utteranc.es/client.js repo=liangyuanpeng/liangyuanpeng.github.io issue-term=title theme=github-light crossorigin=anonymous async></script>
@@ -181,121 +181,121 @@ sidebar-container">
 <hr class="hidden-sm hidden-xs">
 <h5><a href=/tags/>FEATURED TAGS</a></h5>
 <div class=tags>
-<a href=/liangyuanpeng.github.io/tags/blog title=blog>
+<a href=/tags/blog title=blog>
 blog
 </a>
-<a href=/liangyuanpeng.github.io/tags/bookkeeper title=bookkeeper>
+<a href=/tags/bookkeeper title=bookkeeper>
 bookkeeper
 </a>
-<a href=/liangyuanpeng.github.io/tags/cdf title=cdf>
+<a href=/tags/cdf title=cdf>
 cdf
 </a>
-<a href=/liangyuanpeng.github.io/tags/chirpstack title=chirpstack>
+<a href=/tags/chirpstack title=chirpstack>
 chirpstack
 </a>
-<a href=/liangyuanpeng.github.io/tags/ci/cd title=ci/cd>
+<a href=/tags/ci/cd title=ci/cd>
 ci/cd
 </a>
-<a href=/liangyuanpeng.github.io/tags/cloudnative title=cloudnative>
+<a href=/tags/cloudnative title=cloudnative>
 cloudnative
 </a>
-<a href=/liangyuanpeng.github.io/tags/cncf title=cncf>
+<a href=/tags/cncf title=cncf>
 cncf
 </a>
-<a href=/liangyuanpeng.github.io/tags/contour title=contour>
+<a href=/tags/contour title=contour>
 contour
 </a>
-<a href=/liangyuanpeng.github.io/tags/devops title=devops>
+<a href=/tags/devops title=devops>
 devops
 </a>
-<a href=/liangyuanpeng.github.io/tags/docker title=docker>
+<a href=/tags/docker title=docker>
 docker
 </a>
-<a href=/liangyuanpeng.github.io/tags/docker-compose title=docker-compose>
+<a href=/tags/docker-compose title=docker-compose>
 docker-compose
 </a>
-<a href=/liangyuanpeng.github.io/tags/envoy title=envoy>
+<a href=/tags/envoy title=envoy>
 envoy
 </a>
-<a href=/liangyuanpeng.github.io/tags/fluentd title=fluentd>
+<a href=/tags/fluentd title=fluentd>
 fluentd
 </a>
-<a href=/liangyuanpeng.github.io/tags/foundation title=foundation>
+<a href=/tags/foundation title=foundation>
 foundation
 </a>
-<a href=/liangyuanpeng.github.io/tags/golang title=golang>
+<a href=/tags/golang title=golang>
 golang
 </a>
-<a href=/liangyuanpeng.github.io/tags/helm title=helm>
+<a href=/tags/helm title=helm>
 helm
 </a>
-<a href=/liangyuanpeng.github.io/tags/hugo title=hugo>
+<a href=/tags/hugo title=hugo>
 hugo
 </a>
-<a href=/liangyuanpeng.github.io/tags/image title=image>
+<a href=/tags/image title=image>
 image
 </a>
-<a href=/liangyuanpeng.github.io/tags/iot title=iot>
+<a href=/tags/iot title=iot>
 iot
 </a>
-<a href=/liangyuanpeng.github.io/tags/k8s title=k8s>
+<a href=/tags/k8s title=k8s>
 k8s
 </a>
-<a href=/liangyuanpeng.github.io/tags/kind title=kind>
+<a href=/tags/kind title=kind>
 kind
 </a>
-<a href=/liangyuanpeng.github.io/tags/kubernetes title=kubernetes>
+<a href=/tags/kubernetes title=kubernetes>
 kubernetes
 </a>
-<a href=/liangyuanpeng.github.io/tags/kubesphere title=kubesphere>
+<a href=/tags/kubesphere title=kubesphere>
 kubesphere
 </a>
-<a href=/liangyuanpeng.github.io/tags/lorawan title=lorawan>
+<a href=/tags/lorawan title=lorawan>
 lorawan
 </a>
-<a href=/liangyuanpeng.github.io/tags/metrics title=metrics>
+<a href=/tags/metrics title=metrics>
 metrics
 </a>
-<a href=/liangyuanpeng.github.io/tags/middleware title=middleware>
+<a href=/tags/middleware title=middleware>
 middleware
 </a>
-<a href=/liangyuanpeng.github.io/tags/monitor title=monitor>
+<a href=/tags/monitor title=monitor>
 monitor
 </a>
-<a href=/liangyuanpeng.github.io/tags/mq title=mq>
+<a href=/tags/mq title=mq>
 mq
 </a>
-<a href=/liangyuanpeng.github.io/tags/nginx title=nginx>
+<a href=/tags/nginx title=nginx>
 nginx
 </a>
-<a href=/liangyuanpeng.github.io/tags/ops title=ops>
+<a href=/tags/ops title=ops>
 ops
 </a>
-<a href=/liangyuanpeng.github.io/tags/prometheus title=prometheus>
+<a href=/tags/prometheus title=prometheus>
 prometheus
 </a>
-<a href=/liangyuanpeng.github.io/tags/pulsar title=pulsar>
+<a href=/tags/pulsar title=pulsar>
 pulsar
 </a>
-<a href=/liangyuanpeng.github.io/tags/rpc title=rpc>
+<a href=/tags/rpc title=rpc>
 rpc
 </a>
-<a href=/liangyuanpeng.github.io/tags/rust title=rust>
+<a href=/tags/rust title=rust>
 rust
 </a>
-<a href=/liangyuanpeng.github.io/tags/sofa title=sofa>
+<a href=/tags/sofa title=sofa>
 sofa
 </a>
-<a href=/liangyuanpeng.github.io/tags/sofastack title=sofastack>
+<a href=/tags/sofastack title=sofastack>
 sofastack
 </a>
-<a href=/liangyuanpeng.github.io/tags/springboot title=springboot>
+<a href=/tags/springboot title=springboot>
 springboot
 </a>
-<a href=/liangyuanpeng.github.io/tags/tech title=tech>
+<a href=/tags/tech title=tech>
 tech
 </a>
-<a href=/liangyuanpeng.github.io/tags/%E7%BF%BB%E8%AF%91 title=翻译>
+<a href=/tags/%E7%BF%BB%E8%AF%91 title=翻译>
 翻译
 </a>
 </div>
@@ -307,16 +307,16 @@ col-md-10 col-md-offset-1">
 <hr class="hidden-sm hidden-xs">
 <h2>相关文章</h2>
 <ul style=margin-bottom:25px>
-<li><a href=liangyuanpeng.github.io/post/cncf-kubernetes/run-k8s-with-kind/>用kind搭建k8s集群环境</a></li>
-<li><a href=liangyuanpeng.github.io/post/cncf-k8s/pull-gcr-k8s-image-with-lank8s/>国内环境拉取gcr和k8s镜像</a></li>
-<li><a href=liangyuanpeng.github.io/post/cncf-kubernetes/compile-kubernetes/>编译kubernetes组件</a></li>
-<li><a href=liangyuanpeng.github.io/post/cncf-k8s/frozen-for-k8s-gcr-io/>[长期更新]k8s组件常用参数</a></li>
-<li><a href=liangyuanpeng.github.io/post/cncf-k8s/frozen-for-k8s-gcr-io/>k8s.gcr.io注册表完全冻结</a></li>
-<li><a href=liangyuanpeng.github.io/post/cncf-containerd/registry-mirrors-for-containerd/>为containerd配置仓库镜像</a></li>
-<li><a href=liangyuanpeng.github.io/post/cncf-k8s/k8s-validating-admission-policy-with-crdparam-lua/>K8S内置准入校验CRD参数配合lua起飞</a></li>
-<li><a href=liangyuanpeng.github.io/post/cncf-k8s/k8s-admissionregistration-with-cel/>用cel表达式来实现k8s准入校验</a></li>
-<li><a href=liangyuanpeng.github.io/post/fundation-cncf/rust-project-in-cncf/>cncf基金会中的rust项目</a></li>
-<li><a href=liangyuanpeng.github.io/post/cncf-envoy/envoy-file-xds-with-reload-configmap/>将热更新configmap作为Envoy的XDS服务</a></li>
+<li><a href=/post/cncf-kubernetes/run-k8s-with-kind/>用kind搭建k8s集群环境</a></li>
+<li><a href=/post/cncf-k8s/pull-gcr-k8s-image-with-lank8s/>国内环境拉取gcr和k8s镜像</a></li>
+<li><a href=/post/cncf-kubernetes/compile-kubernetes/>编译kubernetes组件</a></li>
+<li><a href=/post/cncf-k8s/frozen-for-k8s-gcr-io/>[长期更新]k8s组件常用参数</a></li>
+<li><a href=/post/cncf-k8s/frozen-for-k8s-gcr-io/>k8s.gcr.io注册表完全冻结</a></li>
+<li><a href=/post/cncf-containerd/registry-mirrors-for-containerd/>为containerd配置仓库镜像</a></li>
+<li><a href=/post/cncf-k8s/k8s-validating-admission-policy-with-crdparam-lua/>K8S内置准入校验CRD参数配合lua起飞</a></li>
+<li><a href=/post/cncf-k8s/k8s-admissionregistration-with-cel/>用cel表达式来实现k8s准入校验</a></li>
+<li><a href=/post/fundation-cncf/rust-project-in-cncf/>cncf基金会中的rust项目</a></li>
+<li><a href=/post/cncf-envoy/envoy-file-xds-with-reload-configmap/>将热更新configmap作为Envoy的XDS服务</a></li>
 </ul>
 </section>
 </div>

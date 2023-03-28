@@ -14,15 +14,15 @@
 <meta property="og:image" content="https://res.cloudinary.com/lyp/image/upload/v1544363182/hugo/blog.github.io/e64ae3596ed565b8202d395d771665dd.jpg">
 <meta name=twitter:image content="https://res.cloudinary.com/lyp/image/upload/v1544363182/hugo/blog.github.io/e64ae3596ed565b8202d395d771665dd.jpg">
 <title>转|SOFARPC链路追踪剖析-远鹏的博客 | liangyuanpeng's Blog</title>
-<link rel=canonical href=liangyuanpeng.github.io/liangyuanpeng.github.io/post/sofastack/sofarpc-trace/>
-<link rel=stylesheet href=https://res.cloudinary.com/lyp/raw/upload/v1537369740/hugo/css/iDisqus.min.css>
-<link rel=stylesheet href=https://res.cloudinary.com/lyp/raw/upload/v1537369744/hugo/css/bootstrap.min.css>
-<link rel=stylesheet href=https://res.cloudinary.com/lyp/raw/upload/v1537369740/hugo/css/hux-blog.min.css>
-<link rel=stylesheet href=https://res.cloudinary.com/lyp/raw/upload/v1537369740/hugo/css/syntax.css>
+<link rel=canonical href=https://liangyuanpeng.github.io/post/sofastack/sofarpc-trace/>
+<link rel=stylesheet href=https://liangyuanpeng.github.io/css/iDisqus.min.css>
+<link rel=stylesheet href=https://liangyuanpeng.github.io/css/bootstrap.min.css>
+<link rel=stylesheet href=https://liangyuanpeng.github.io/css/hux-blog.min.css>
+<link rel=stylesheet href=https://liangyuanpeng.github.io/css/syntax.css>
 <link href=//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css rel=stylesheet type=text/css>
-<script src=https://res.cloudinary.com/lyp/raw/upload/v1537369966/hugo/js/jquery.min.js></script>
-<script src=https://res.cloudinary.com/lyp/raw/upload/v1537369966/hugo/js/bootstrap.min.js></script>
-<script src=https://res.cloudinary.com/lyp/raw/upload/v1537369964/hugo/js/hux-blog.min.js></script>
+<script src=https://liangyuanpeng.github.io/js/jquery.min.js></script>
+<script src=https://liangyuanpeng.github.io/js/bootstrap.min.js></script>
+<script src=https://liangyuanpeng.github.io/js/hux-blog.min.js></script>
 <script defer src=https://static.cloudflareinsights.com/beacon.min.js data-cf-beacon='{"token": "f73bc0092aeb491d89984c0eb5a87ac2"}'></script>
 </head>
 </head>
@@ -35,31 +35,31 @@
 <span class=icon-bar></span>
 <span class=icon-bar></span>
 </button>
-<a class=navbar-brand href=liangyuanpeng.github.io/>Hi,I`m lan</a>
+<a class=navbar-brand href=https://liangyuanpeng.github.io/>Hi,I`m lan</a>
 </div>
 <div id=huxblog_navbar>
 <div class=navbar-collapse>
 <ul class="nav navbar-nav navbar-right">
 <li>
-<a href=liangyuanpeng.github.io/>Home</a>
+<a href=https://liangyuanpeng.github.io/>Home</a>
 </li>
 <li>
-<a href=liangyuanpeng.github.io/categories/cloudnative>cloudnative</a>
+<a href=https://liangyuanpeng.github.io/categories/cloudnative>cloudnative</a>
 </li>
 <li>
-<a href=liangyuanpeng.github.io/categories/devops>devops</a>
+<a href=https://liangyuanpeng.github.io/categories/devops>devops</a>
 </li>
 <li>
-<a href=liangyuanpeng.github.io/categories/iot>iot</a>
+<a href=https://liangyuanpeng.github.io/categories/iot>iot</a>
 </li>
 <li>
-<a href=liangyuanpeng.github.io/categories/kubernetes>kubernetes</a>
+<a href=https://liangyuanpeng.github.io/categories/kubernetes>kubernetes</a>
 </li>
 <li>
-<a href=liangyuanpeng.github.io/categories/tech>tech</a>
+<a href=https://liangyuanpeng.github.io/categories/tech>tech</a>
 </li>
 <li>
-<a href=liangyuanpeng.github.io/search/>SEARCH <img src=liangyuanpeng.github.io/img/search.png height=15 style=cursor:pointer></a>
+<a href=https://liangyuanpeng.github.io/search/>SEARCH <img src=https://liangyuanpeng.github.io/img/search.png height=15 style=cursor:pointer></a>
 </li>
 </ul>
 </div>
@@ -74,16 +74,16 @@
 <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
 <div class=post-heading>
 <div class=tags>
-<a class=tag href=/liangyuanpeng.github.io/tags/rpc title=rpc>
+<a class=tag href=/tags/rpc title=rpc>
 rpc
 </a>
-<a class=tag href=/liangyuanpeng.github.io/tags/sofa title=sofa>
+<a class=tag href=/tags/sofa title=sofa>
 sofa
 </a>
-<a class=tag href=/liangyuanpeng.github.io/tags/sofastack title=sofastack>
+<a class=tag href=/tags/sofastack title=sofastack>
 sofastack
 </a>
-<a class=tag href=/liangyuanpeng.github.io/tags/middleware title=Middleware>
+<a class=tag href=/tags/middleware title=Middleware>
 Middleware
 </a>
 <br>
@@ -92,7 +92,7 @@ Middleware
 <h2 class=subheading></h2>
 <span class=meta>Posted by 梁远鹏 on 2018-12-08
 <span id=busuanzi_container_page_pv>|<span id=busuanzi_value_page_pv></span><span>
-<span id=liangyuanpeng.github.io/post/sofastack/sofarpc-trace/ class="leancloud_visitors meta_data_item" data-flag-title>
+<span id=/post/sofastack/sofarpc-trace/ class="leancloud_visitors meta_data_item" data-flag-title>
 <span class=post-meta-item-icon>
 <span class="octicon octicon-eye"></span>
 </span>
@@ -362,7 +362,7 @@ post-container">
 <p>文章转自<a href=http://www.sofastack.tech/post/lgm3af>【剖析 | SOFARPC 框架】之SOFARPC 链路追踪剖析</a></p>
 <h2>微信公众号</h2>
 <p>扫描下面的二维码关注我们的微信公众号,第一时间查看最新内容。同时也可以关注我的Github,看看我都在了解什么技术,在页面底部可以找到我的Github。</p>
-<img src=https://res.cloudinary.com/lyp/image/upload/v1581729955/hugo/blog.github.io/qrcode_for_sikekafeidou.jpg alt=wechat-qrcode>
+<img src=/img/qrcode_for_sikekafeidou.jpg alt=wechat-qrcode>
 <div style="padding:10px 0;margin:20px auto;width:100%;font-size:16px;text-align:center">
 <button class="btn btn-danger" id=rewardButton disable=enable onclick="var qr=document.getElementById('QR');qr.style.display==='none'?qr.style.display='block':qr.style.display='none'">
 <span>「来都来了」赞赏</span></button>
@@ -372,17 +372,17 @@ post-container">
 赞助金额设置为固定金额:8元. </br>
 8元赠与我,发发发反馈给你,2023祝你收入翻番一路发到底:)</p>
 <a class=fancybox rel=group>
-<img id=wechat_qr src=https://liangyuanpeng.com/files/img/wechat-zhifubao.png alt=Pay></a>
+<img id=wechat_qr src=/img/wechat-zhifubao.png alt=Pay></a>
 </div>
 </div>
 </div>
 <hr>
 <ul class=pager>
 <li class=previous>
-<a href=liangyuanpeng.github.io/post/sofastack/sofarpc-design/ data-toggle=tooltip data-placement=top title=转|SOFARPC框架之总体设计与扩展机制>&larr; 转|SOFARPC框架之总体设计与扩展机制</a>
+<a href=/post/sofastack/sofarpc-design/ data-toggle=tooltip data-placement=top title=转|SOFARPC框架之总体设计与扩展机制>&larr; 转|SOFARPC框架之总体设计与扩展机制</a>
 </li>
 <li class=next>
-<a href=liangyuanpeng.github.io/post/awesome-messagequeue/ data-toggle=tooltip data-placement=top title=AWESOME消息队列>AWESOME消息队列 &rarr;</a>
+<a href=/post/awesome-messagequeue/ data-toggle=tooltip data-placement=top title=AWESOME消息队列>AWESOME消息队列 &rarr;</a>
 </li>
 </ul>
 <script src=https://utteranc.es/client.js repo=liangyuanpeng/liangyuanpeng.github.io issue-term=title theme=github-light crossorigin=anonymous async></script>
@@ -394,121 +394,121 @@ sidebar-container">
 <hr class="hidden-sm hidden-xs">
 <h5><a href=/tags/>FEATURED TAGS</a></h5>
 <div class=tags>
-<a href=/liangyuanpeng.github.io/tags/blog title=blog>
+<a href=/tags/blog title=blog>
 blog
 </a>
-<a href=/liangyuanpeng.github.io/tags/bookkeeper title=bookkeeper>
+<a href=/tags/bookkeeper title=bookkeeper>
 bookkeeper
 </a>
-<a href=/liangyuanpeng.github.io/tags/cdf title=cdf>
+<a href=/tags/cdf title=cdf>
 cdf
 </a>
-<a href=/liangyuanpeng.github.io/tags/chirpstack title=chirpstack>
+<a href=/tags/chirpstack title=chirpstack>
 chirpstack
 </a>
-<a href=/liangyuanpeng.github.io/tags/ci/cd title=ci/cd>
+<a href=/tags/ci/cd title=ci/cd>
 ci/cd
 </a>
-<a href=/liangyuanpeng.github.io/tags/cloudnative title=cloudnative>
+<a href=/tags/cloudnative title=cloudnative>
 cloudnative
 </a>
-<a href=/liangyuanpeng.github.io/tags/cncf title=cncf>
+<a href=/tags/cncf title=cncf>
 cncf
 </a>
-<a href=/liangyuanpeng.github.io/tags/contour title=contour>
+<a href=/tags/contour title=contour>
 contour
 </a>
-<a href=/liangyuanpeng.github.io/tags/devops title=devops>
+<a href=/tags/devops title=devops>
 devops
 </a>
-<a href=/liangyuanpeng.github.io/tags/docker title=docker>
+<a href=/tags/docker title=docker>
 docker
 </a>
-<a href=/liangyuanpeng.github.io/tags/docker-compose title=docker-compose>
+<a href=/tags/docker-compose title=docker-compose>
 docker-compose
 </a>
-<a href=/liangyuanpeng.github.io/tags/envoy title=envoy>
+<a href=/tags/envoy title=envoy>
 envoy
 </a>
-<a href=/liangyuanpeng.github.io/tags/fluentd title=fluentd>
+<a href=/tags/fluentd title=fluentd>
 fluentd
 </a>
-<a href=/liangyuanpeng.github.io/tags/foundation title=foundation>
+<a href=/tags/foundation title=foundation>
 foundation
 </a>
-<a href=/liangyuanpeng.github.io/tags/golang title=golang>
+<a href=/tags/golang title=golang>
 golang
 </a>
-<a href=/liangyuanpeng.github.io/tags/helm title=helm>
+<a href=/tags/helm title=helm>
 helm
 </a>
-<a href=/liangyuanpeng.github.io/tags/hugo title=hugo>
+<a href=/tags/hugo title=hugo>
 hugo
 </a>
-<a href=/liangyuanpeng.github.io/tags/image title=image>
+<a href=/tags/image title=image>
 image
 </a>
-<a href=/liangyuanpeng.github.io/tags/iot title=iot>
+<a href=/tags/iot title=iot>
 iot
 </a>
-<a href=/liangyuanpeng.github.io/tags/k8s title=k8s>
+<a href=/tags/k8s title=k8s>
 k8s
 </a>
-<a href=/liangyuanpeng.github.io/tags/kind title=kind>
+<a href=/tags/kind title=kind>
 kind
 </a>
-<a href=/liangyuanpeng.github.io/tags/kubernetes title=kubernetes>
+<a href=/tags/kubernetes title=kubernetes>
 kubernetes
 </a>
-<a href=/liangyuanpeng.github.io/tags/kubesphere title=kubesphere>
+<a href=/tags/kubesphere title=kubesphere>
 kubesphere
 </a>
-<a href=/liangyuanpeng.github.io/tags/lorawan title=lorawan>
+<a href=/tags/lorawan title=lorawan>
 lorawan
 </a>
-<a href=/liangyuanpeng.github.io/tags/metrics title=metrics>
+<a href=/tags/metrics title=metrics>
 metrics
 </a>
-<a href=/liangyuanpeng.github.io/tags/middleware title=middleware>
+<a href=/tags/middleware title=middleware>
 middleware
 </a>
-<a href=/liangyuanpeng.github.io/tags/monitor title=monitor>
+<a href=/tags/monitor title=monitor>
 monitor
 </a>
-<a href=/liangyuanpeng.github.io/tags/mq title=mq>
+<a href=/tags/mq title=mq>
 mq
 </a>
-<a href=/liangyuanpeng.github.io/tags/nginx title=nginx>
+<a href=/tags/nginx title=nginx>
 nginx
 </a>
-<a href=/liangyuanpeng.github.io/tags/ops title=ops>
+<a href=/tags/ops title=ops>
 ops
 </a>
-<a href=/liangyuanpeng.github.io/tags/prometheus title=prometheus>
+<a href=/tags/prometheus title=prometheus>
 prometheus
 </a>
-<a href=/liangyuanpeng.github.io/tags/pulsar title=pulsar>
+<a href=/tags/pulsar title=pulsar>
 pulsar
 </a>
-<a href=/liangyuanpeng.github.io/tags/rpc title=rpc>
+<a href=/tags/rpc title=rpc>
 rpc
 </a>
-<a href=/liangyuanpeng.github.io/tags/rust title=rust>
+<a href=/tags/rust title=rust>
 rust
 </a>
-<a href=/liangyuanpeng.github.io/tags/sofa title=sofa>
+<a href=/tags/sofa title=sofa>
 sofa
 </a>
-<a href=/liangyuanpeng.github.io/tags/sofastack title=sofastack>
+<a href=/tags/sofastack title=sofastack>
 sofastack
 </a>
-<a href=/liangyuanpeng.github.io/tags/springboot title=springboot>
+<a href=/tags/springboot title=springboot>
 springboot
 </a>
-<a href=/liangyuanpeng.github.io/tags/tech title=tech>
+<a href=/tags/tech title=tech>
 tech
 </a>
-<a href=/liangyuanpeng.github.io/tags/%E7%BF%BB%E8%AF%91 title=翻译>
+<a href=/tags/%E7%BF%BB%E8%AF%91 title=翻译>
 翻译
 </a>
 </div>
@@ -520,9 +520,9 @@ col-md-10 col-md-offset-1">
 <hr class="hidden-sm hidden-xs">
 <h2>相关文章</h2>
 <ul style=margin-bottom:25px>
-<li><a href=liangyuanpeng.github.io/post/sofastack/sofarpc-design/>转|SOFARPC框架之总体设计与扩展机制</a></li>
-<li><a href=liangyuanpeng.github.io/post/awesome-messagequeue/>AWESOME消息队列</a></li>
-<li><a href=liangyuanpeng.github.io/post/fundation-apache/deploy-apache-rocketmq/>Apache RocketMQ单机部署</a></li>
+<li><a href=/post/sofastack/sofarpc-design/>转|SOFARPC框架之总体设计与扩展机制</a></li>
+<li><a href=/post/awesome-messagequeue/>AWESOME消息队列</a></li>
+<li><a href=/post/fundation-apache/deploy-apache-rocketmq/>Apache RocketMQ单机部署</a></li>
 </ul>
 </section>
 </div>
