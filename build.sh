@@ -29,6 +29,7 @@
 if [ $BASEURL ];then
 	echo "ORACLE_HOME = $BASEURL"
     sed 's/#{baseurl}/'$BASEURL'/' config.toml -i
+    sed 's/#baseurl/baseurl/' config.toml -i
 else
 	echo "ORACLE IS NOT EXISTS"
 fi
