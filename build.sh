@@ -26,4 +26,11 @@
 # https://github.com/kubernetes-sigs/krew/releases/download/v0.4.3/krew-darwin_arm64.tar.gz
 # ls
 
+if [ $BASEURL ];then
+	echo "ORACLE_HOME = $BASEURL"
+    sed 's/#{baseurl}/'$BASEURL'/' config.toml -i
+else
+	echo "ORACLE IS NOT EXISTS"
+fi
+
 hugo
