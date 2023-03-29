@@ -13,8 +13,8 @@
 <link rel="shortcut icon" href=https://res.cloudinary.com/lyp/image/upload/v1679636162/hash-kube-rs-pulsar.png>
 <meta property="og:image" content="https://res.cloudinary.com/lyp/image/upload/v1679636162/hash-kube-rs-pulsar.png">
 <meta name=twitter:image content="https://res.cloudinary.com/lyp/image/upload/v1679636162/hash-kube-rs-pulsar.png">
-<title>cncf-远鹏的博客 | liangyuanpeng's Blog</title>
-<link rel=canonical href=https://liangyuanpeng.github.io/tags/cncf/>
+<title>k8up-远鹏的博客 | liangyuanpeng's Blog</title>
+<link rel=canonical href=https://liangyuanpeng.github.io/tags/k8up/>
 <link rel=stylesheet href=https://liangyuanpeng.github.io/css/bootstrap.min.css>
 <link rel=stylesheet href=https://liangyuanpeng.github.io/css/hux-blog.min.css>
 <link rel=stylesheet href=https://liangyuanpeng.github.io/css/syntax.css>
@@ -86,23 +86,6 @@ col-sm-12
 col-xs-12
 post-container">
 <div class=post-preview>
-<a href=https://liangyuanpeng.github.io/post/cncf-kubernetes/run-k8s-with-kind/>
-<h2 class=post-title>
-<img style=display:inline-block src=/img/taglogo/emoji_k8s_loft.gif height=20 width=20>
-<img style=display:inline-block src=/img/taglogo/cncf.png height=20 width=20>
-<img style=display:inline-block src=/img/taglogo/kind.png height=20 width=20>
-用kind搭建k8s集群环境
-</h2>
-<div class=post-content-preview>
-前言 由于各类基于 kubernetes 的云原生实验或测试的前提都是需要一个 kubernetes 环境,而在写博客时总是需要提及使用 kind 来搭建 kubernetes 环境. 因此这里单独写一篇文章来介绍如何用
-</div>
-</a>
-<p class=post-meta>
-Posted by 梁远鹏 2023-03-12
-</p>
-</div>
-<hr>
-<div class=post-preview>
 <a href=https://liangyuanpeng.github.io/post/cncf-k8up/backup-pvc-to-s3-with-k8up/>
 <h2 class=post-title>
 <img style=display:inline-block src=/img/taglogo/cncf.png height=20 width=20>
@@ -118,142 +101,7 @@ Posted by 梁远鹏 2023-03-29
 </p>
 </div>
 <hr>
-<div class=post-preview>
-<a href=https://liangyuanpeng.github.io/post/cncf-kubernetes/kubernetes-hpa-custom-metrics-for-effective-cpu-memory-scaling/>
-<h2 class=post-title>
-<img style=display:inline-block src=/img/taglogo/emoji_k8s_loft.gif height=20 width=20>
-<img style=display:inline-block src=/img/taglogo/cncf.png height=20 width=20>
-<img style=display:inline-block src=https://emoji.slack-edge.com/T08PSQ7BQ/prometheus/a40e8b6a9f6e62ea.png height=20 width=20>
-Kubernetes HPA:定制指标实现有效的CPU和内存扩展
-</h2>
-<div class=post-content-preview>
-作者 caiolombello 译者 梁远鹏 介绍和概述： Kubernetes 已成为容器编排的事实标准，为管理大规模容器化应用程序提供了强大的平台。 Kubernetes 的一个基本功能是其自动缩放功能，它允许
-</div>
-</a>
-<p class=post-meta>
-Posted by 梁远鹏 2023-03-27
-</p>
-</div>
-<hr>
-<div class=post-preview>
-<a href=https://liangyuanpeng.github.io/post/cncf-keda/keda-helmchart-release-with-v2.10.1/>
-<h2 class=post-title>
-<img style=display:inline-block src=/img/taglogo/cncf.png height=20 width=20>
-<img style=display:inline-block src=/img/taglogo/emoji_k8s_loft.gif height=20 width=20>
-keda-helmchart发布v2.10.1
-</h2>
-<div class=post-content-preview>
-keda helm chart 发布v2.10.1 长话短说 helm repo add kedacore https://kedacore.github.io/charts helm repo update helm install keda kedacore/keda --version 2.10.1 -n keda --create-namespace 新内容 提供了对podLabels在 webhook Deployment 中的配置 (#404 🎉 贡献者 @pari-) 为cert-ma
-</div>
-</a>
-<p class=post-meta>
-Posted by 梁远鹏 2023-03-14
-</p>
-</div>
-<hr>
-<div class=post-preview>
-<a href=https://liangyuanpeng.github.io/post/cncf-carvel/ytt-vs-x/>
-<h2 class=post-title>
-<img style=display:inline-block src=https://emoji.slack-edge.com/T08PSQ7BQ/carvel/ee636ccbfbd00fd1.png height=20 width=20>
-<img style=display:inline-block src=/img/taglogo/cncf.png height=20 width=20>
-ytt与各类yaml相关工具对比
-</h2>
-<div class=post-content-preview>
-前言 ytt 是 CNCF 项目 carvel 中的一个命令行工具,来看看 ytt 与业内其他 yaml 相关工具的对比情况. ytt vs Go text/template (或其他的一些文本模板工具) Go模板 Jinja 大多数通用模板工具
-</div>
-</a>
-<p class=post-meta>
-Posted by 梁远鹏 2023-02-25
-</p>
-</div>
-<hr>
-<div class=post-preview>
-<a href=https://liangyuanpeng.github.io/post/cncf-k8s/pull-gcr-k8s-image-with-lank8s/>
-<h2 class=post-title>
-<img style=display:inline-block src=/img/taglogo/cncf.png height=20 width=20>
-<img style=display:inline-block src=/img/taglogo/emoji_k8s_loft.gif height=20 width=20>
-国内环境拉取gcr和k8s镜像
-</h2>
-<div class=post-content-preview>
-前言 本文接下来所有配置都是基于 lank8s服务来做的. containerd crio distribution registry zot registry harbor docker docker pull registry.lank8s.cn/kube-apiserver:v1.26.0 kubeadm
-</div>
-</a>
-<p class=post-meta>
-Posted by 梁远鹏 2023-02-22
-</p>
-</div>
-<hr>
-<div class=post-preview>
-<a href=https://liangyuanpeng.github.io/post/cncf-envoy/k8s-app-dev-with-envoy/>
-<h2 class=post-title>
-<img style=display:inline-block src=https://emoji.slack-edge.com/T08PSQ7BQ/envoy/1ac93945b9c40706.png height=20 width=20>
-<img style=display:inline-block src=/img/taglogo/cncf.png height=20 width=20>
-基于Envoy搭建K8S应用开发环境
-</h2>
-<div class=post-content-preview>
-主要思想 主要思想是在 K8S 集群中部署一个 Envoy 服务,然后将请求以 L4/L7 的方式代理请求. 例如搭建 webhook 的开发环境时是做 L7 代理,搭建 kube-apiserver 时是做 L4 代理.
-</div>
-</a>
-<p class=post-meta>
-Posted by 梁远鹏 2023-02-19
-</p>
-</div>
-<hr>
-<div class=post-preview>
-<a href=https://liangyuanpeng.github.io/post/cncf-kubernetes/compile-kubernetes/>
-<h2 class=post-title>
-<img style=display:inline-block src=/img/taglogo/emoji_k8s_loft.gif height=20 width=20>
-<img style=display:inline-block src=/img/taglogo/cncf.png height=20 width=20>
-<img style=display:inline-block src=https://emoji.slack-edge.com/T08PSQ7BQ/go-mic-drop/24f53c55d14eaa84.png height=20 width=20>
-编译kubernetes组件
-</h2>
-<div class=post-content-preview>
-kubernetes 发展到了今天(2023-02-19),编译 kubernetes 已经是一件很简单的事情,唯一的门槛就是需要有适合的内存资源以及编译需要用到的 registry.k8s.io 中的镜像. 编译 解
-</div>
-</a>
-<p class=post-meta>
-Posted by 梁远鹏 2023-02-19
-</p>
-</div>
-<hr>
-<div class=post-preview>
-<a href=https://liangyuanpeng.github.io/post/cncf-envoy/ennoy-faq/>
-<h2 class=post-title>
-<img style=display:inline-block src=https://emoji.slack-edge.com/T08PSQ7BQ/envoy/1ac93945b9c40706.png height=20 width=20>
-<img style=display:inline-block src=/img/taglogo/cncf.png height=20 width=20>
-[长期更新]envoy常用
-</h2>
-<div class=post-content-preview>
-说明 本文主要收集常见场景下 Envoy 的配置以及遇到的一些常见问题,欢迎对本文进行投稿你认为好的场景配置或问题. 权重分流 基于权重做灰度发布. - match: prefix: / route:
-</div>
-</a>
-<p class=post-meta>
-Posted by 梁远鹏 2023-02-16
-</p>
-</div>
-<hr>
-<div class=post-preview>
-<a href=https://liangyuanpeng.github.io/post/cncf-k8s/frozen-for-k8s-gcr-io/>
-<h2 class=post-title>
-<img style=display:inline-block src=/img/taglogo/cncf.png height=20 width=20>
-<img style=display:inline-block src=/img/taglogo/emoji_k8s_loft.gif height=20 width=20>
-[长期更新]k8s组件常用参数
-</h2>
-<div class=post-content-preview>
-说明 本文主要收集常见场景下 K8S 组件的配置以及遇到的一些常见问题,欢迎对本文进行投稿你认为好的场景配置或问题.
-</div>
-</a>
-<p class=post-meta>
-Posted by 梁远鹏 2023-02-16
-</p>
-</div>
-<hr>
 <script type=text/javascript>function init(){const b=document.querySelectorAll('.post-title'),a=new Date;(a.getDay()===5||a.getDay()===1)&&(imgSrc="https://emoji.slack-edge.com/T09NY5SBT/partyblob/f8d50eb766418532.gif",a.getDay()===1&&(imgSrc="https://emoji.slack-edge.com/T08PSQ7BQ/twinsparrot/20649446b37d9d8c.gif"),b.forEach(b=>{!b.querySelector("img");const a=document.createElement('img');a.src=imgSrc,a.style.display="inline-block",a.height="20",a.width="20",b.appendChild(a)}))}console.log("inbit"),init()</script>
-<ul class=pager>
-<li class=next>
-<a href=/tags/cncf/page/2/>Older Posts &rarr;</a>
-</li>
-</ul>
 </div>
 <div class="col-lg-3 col-lg-offset-0
 col-md-3 col-md-offset-0
@@ -271,7 +119,7 @@ sidebar-container">
 <hr class="hr-slash bio-hr">
 <ul class=list-inline>
 <li>
-<a href=https://liangyuanpeng.github.io/tags/cncf/index.xml rel=alternate type=application/rss+xml title="Hi,I`m lan">
+<a href=https://liangyuanpeng.github.io/tags/k8up/index.xml rel=alternate type=application/rss+xml title="Hi,I`m lan">
 <span class="fa-stack fa-lg">
 <i class="fa fa-circle fa-stack-2x"></i>
 <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
@@ -460,7 +308,7 @@ tech
 <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
 <ul class="list-inline text-center">
 <li>
-<a href=https://liangyuanpeng.github.io/tags/cncf/index.xml rel=alternate type=application/rss+xml title="Hi,I`m lan">
+<a href=https://liangyuanpeng.github.io/tags/k8up/index.xml rel=alternate type=application/rss+xml title="Hi,I`m lan">
 <span class="fa-stack fa-lg">
 <i class="fa fa-circle fa-stack-2x"></i>
 <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
