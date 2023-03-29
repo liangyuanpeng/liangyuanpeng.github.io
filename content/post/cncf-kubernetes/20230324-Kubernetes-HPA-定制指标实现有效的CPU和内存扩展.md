@@ -6,7 +6,7 @@ subtitle:   ""
 description: ""
 date:       2023-03-27
 author:     "梁远鹏"
-image: "https://res.cloudinary.com/lyp/image/upload/v1635353670/hugo/banner/pexels-helena-lopes-2253275.jpg"
+image: "img/banner-pexels.jpg"
 published: true
 tags:
     - kubernetes 
