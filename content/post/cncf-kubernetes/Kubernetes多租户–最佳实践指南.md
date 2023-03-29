@@ -6,7 +6,7 @@ subtitle:   ""
 description: "随着Kubernetes的使用范围不断扩大，Kubernetes多租户成为越来越多的组织感兴趣的话题。但是，由于Kubernetes本身并不是多租户系统，因此正确实现多租户会带来一些挑战"
 date:       2021-04-14
 author:     "梁远鹏"
-image: "https://res.cloudinary.com/lyp/image/upload/v1612767214/hugo/blog.github.io/pexels-shuxuan-cao-4719637.jpg"
+image: "img/banner-pexels.jpg"
 published: true
 tags:
     - kubernetes 

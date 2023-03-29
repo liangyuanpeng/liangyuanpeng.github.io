@@ -8,6 +8,7 @@ date:       2023-01-11
 author:     "梁远鹏"
 image: "img/banner-pexels.jpg"
 published: true
+wipnote: true
 tags:
     - k8s
     - cncf
@@ -27,7 +28,4 @@ k8s 1.26 推出了内置的准入校验机制,只需要使用 CEL 表达式就�
 
 这个项目也会开源在 github 上,可以关注 https://github.com/liangyuanpeng 来跟踪最新进展.
 
-# 注意
-
-本文还在持续创作中
 
