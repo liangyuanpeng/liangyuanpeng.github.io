@@ -4,7 +4,7 @@ slug:      "from-zero-to-kubernets-subproject-lead"
 title:      "从零到 Kubernetes 子项目负责人"
 subtitle:   ""
 description: "加入任何开源社区都可能让人望而生畏，尤其是像 Kubernetes 这样的大型社区"
-date:       2023-03-29
+date:       2023-03-30
 author:     "梁远鹏"
 image: "img/banner-pexels.jpg"
 published: true
