@@ -84,7 +84,7 @@ pulsar
 </div>
 <h1>部署去ZK后的Apache Pulsar</h1>
 <h2 class=subheading></h2>
-<span class=meta>Posted by 梁远鹏 on 2022-06-06
+<span class=meta>Posted by 梁远鹏 on 2021-05-22
 <span id=busuanzi_container_page_pv>|<span id=busuanzi_value_page_pv></span><span>
 <span id=/post/apache-pulsar/deploy-pulsar/ class="leancloud_visitors meta_data_item" data-flag-title>
 <span class=post-meta-item-icon>
@@ -94,7 +94,7 @@ pulsar
 <span class=old-visitors-count style=display:none></span>
 <span class=leancloud-visitors-count></span>
 </span>
-阅读 </span></span>|<span class=post-date>共127字</span>，阅读约<span class=more-meta> 1 分钟</span>
+阅读 </span></span>|<span class=post-date>共887字</span>，阅读约<span class=more-meta> 2 分钟</span>
 </span>
 </div>
 </div>
@@ -110,15 +110,68 @@ post-container">
 <header>
 <h2>TOC</h2>
 </header>
-<nav id=TableOfContents></nav>
+<nav id=TableOfContents>
+<ul>
+<li><a href=#docker-compose>docker-compose</a></li>
+<li><a href=#kubernetes>kubernetes</a></li>
+</ul>
+</nav>
 <h1 id=前言>前言</h1>
-<p>本文基本上是按照<a href=https://pulsar.apache.org/docs/next/security-jwt/>官方文档</a>来实践的,非常简单.</p>
-<p>首先要明确我们需要做的几件事情：</p>
+<h1 id=当我们在说元数据中心的时候我们在说什么>当我们在说元数据中心的时候我们在说什么</h1>
+<p>Bookkeeper 和 Pulsar Broker 都有各自的元数据中心,并且都有自己的元数据中心接口,默认都是ZK.</p>
+<p>要实现Pulsar去Zookeeper化的话意味着Pulsar Broker和Bookkeeper都需要拥有这样的能力. Bookkeeper 本身有etcd 元数据中心接口的实现,但是Pulsar Broker也实现了BK的元数据中心接口,我们这里讨论的 Bookkeeper 对接etcd 也是使用 Pulsar Broker 自身实现的 Bookkeeper 元数据接口.而不是 Bookkeeper 自带的 etcd 元数据接口实现.</p>
+<p>基本上有了这样的框架之后,后续 Pulsar 如果要发展自己的元数据中心会相对比较顺利.</p>
+<p>本文示例会以 Pulsar 2.10.0 这个版本,其中配套的 Bookkeeper 版本是4.14.4,这个版本的 Bookkeeper 的autoRecovery 逻辑中依然是直接连接了 Zookeeper,因此需要启动时需要在 bookkeeper.conf 中把 autoRecoveryDaemonEnabled 设置为 false.</p>
+<h1 id=部署>部署</h1>
+<p>部署相关的yaml都可以在<a href=https://github.com/pulsar-sigs/deploy-files>pulsar-sigs/deploy-files</a>中找到.</p>
+<p>首先将仓库clone到本地：</p>
+<pre tabindex=0><code>git clone https://github.com/pulsar-sigs/deploy-files.git
+cd deploy-files
+</code></pre><p>以下docker-compose和kubernetes部署方式都会以这个仓库的文件作为基础.</p>
+<h2 id=docker-compose>docker-compose</h2>
+<h2 id=kubernetes>kubernetes</h2>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell>$ cd kubernetes
+$ kubectl apply -f .
+service/bk created
+service/bknp created
+statefulset.apps/bk created
+statefulset.apps/busybox created
+service/etcd created
+service/etcdnp created
+statefulset.apps/etcd created
+deployment.apps/pulsar-consumer created
+job.batch/pulsar-init created
+deployment.apps/pulsar-producer created
+service/pulsar created
+service/pulsarnp created
+statefulset.apps/pulsar created
+statefulset.apps/pulsarctl created
+serviceaccount/pulsar created
+role.rbac.authorization.k8s.io/pulsar created
+clusterrole.rbac.authorization.k8s.io/pulsar created
+rolebinding.rbac.authorization.k8s.io/pulsar created
+clusterrolebinding.rbac.authorization.k8s.io/pulsar created
+</code></pre></div><p>耐心等待一段时间后所有Pod都会处于Running状态.</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell>$ kubectl get po
+NAME                               READY   STATUS      RESTARTS   AGE
+bk-0                               1/1     Running     <span style=color:#ae81ff>0</span>          2m38s
+etcd-0                             1/1     Running     <span style=color:#ae81ff>0</span>          2m38s
+pulsar-0                           1/1     Running     <span style=color:#ae81ff>0</span>          2m37s
+pulsar-consumer-77f96bbf9d-bwspx   1/1     Running     <span style=color:#ae81ff>1</span>          2m38s
+pulsar-init-gs5f4                  0/1     Completed   <span style=color:#ae81ff>0</span>          2m38s
+pulsar-producer-9b46f7455-ndtsq    1/1     Running     <span style=color:#ae81ff>1</span>          2m37s
+pulsarctl-0                        1/1     Running     <span style=color:#ae81ff>0</span>          2m38s
+</code></pre></div><p>其中有些镜像是使用的 <code>ghcr.io</code> 仓库,如果访问不了或者实在太慢了,可以把 <code>ghcr.io</code> 替换为 <code>ghcr.lank8s.cn</code> ,这是我在维护的一个 <code>ghcr.io</code> 镜像仓库的代理仓库.</p>
+<p>假设这时候所有的Pod都已经启动在Running了,我们可以看一下pulsar-client consumer这个pod,他会不断的消费pulsar topic的消息,正常的话可以看到不断的有日志打印出来.</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell>$ kubectl logs -f pulsar-consumer-77f96bbf9d-bwspx
+...
+2022/05/22 11:11:55 consume message: topic is persistent://public/default/lan-partition-0 , topic key is : and payload is :hello 
+2022/05/22 11:11:56 consume message: topic is persistent://public/default/lan-partition-0 , topic key is : and payload is :hello 
+</code></pre></div><p>可以看到不断的会有log打印, 这时基于 <code>etcd</code> 元数据中心的 <code>pulsar</code> 已经处于正常的工作状态了.</p>
+<h1 id=笔记>笔记</h1>
 <ol>
-<li>生成 token 并且配置 pulsar broker 开启 Token 认证.</li>
-<li>配置 pulsar broker 开启自身需要用到的客户端认证(Broker会调用RestFul API).</li>
-<li>配置 pulsar-admin 命令行使用的 Token 与 Broker 进行通信.</li>
-<li>使用 <a href=https://github.com/pulsar-sigs/pulsar-client>https://github.com/pulsar-sigs/pulsar-client</a> 来收发消息,验证生产者和消费者.</li>
+<li>function worker会使用到Dlog，直接连接的ZK.</li>
+<li>有状态的pulsar function会使用到BK的table service,而table service似乎也是连接ZK.</li>
 </ol>
 <h2>微信公众号</h2>
 <p>扫描下面的二维码关注我们的微信公众号,第一时间查看最新内容。同时也可以关注我的Github,看看我都在了解什么技术,在页面底部可以找到我的Github。</p>
@@ -141,10 +194,10 @@ post-container">
 <hr>
 <ul class=pager>
 <li class=previous>
-<a href=/post/cncf-kubernetes/resolve-gcr.io-with-webhook-of-repalcer/ data-toggle=tooltip data-placement=top title=部署一个webhook,轻松解决gcr.io>&larr; 部署一个webhook,轻松解决gcr.io</a>
+<a href=/post/fundation-rust/introducing-shane-miller/ data-toggle=tooltip data-placement=top title="[了解Rust基金会]介绍Shane Miller">&larr; [了解Rust基金会]介绍Shane Miller</a>
 </li>
 <li class=next>
-<a href=/post/cncf-k8s/k8s-admissionregistration-with-cel/ data-toggle=tooltip data-placement=top title=用cel表达式来实现k8s准入校验>用cel表达式来实现k8s准入校验 &rarr;</a>
+<a href=/post/cncf-prometheus/prometheus-v2.28.1-update/ data-toggle=tooltip data-placement=top title=Prometheus2.28.1更新讲解>Prometheus2.28.1更新讲解 &rarr;</a>
 </li>
 </ul>
 <script src=https://utteranc.es/client.js repo=liangyuanpeng/liangyuanpeng.github.io issue-term=title theme=github-light crossorigin=anonymous async></script>
@@ -292,9 +345,6 @@ col-md-10 col-md-offset-1">
 <hr class="hidden-sm hidden-xs">
 <h2>相关文章</h2>
 <ul style=margin-bottom:25px>
-<li><a href=/post/apache-pulsar/deploy-pulsar/>部署去ZK后的Apache Pulsar</a></li>
-<li><a href=/post/apache-bookkeeper/bk-client-go-readme/>GO上手项目值得你拥有:Bookkeeper客户端</a></li>
-<li><a href=/post/apache-bookkeeper/bookkeeper-rs-readme/>Rust上手项目值得你拥有:Bookkeeper客户端</a></li>
 <li><a href=/post/cncf-kubernetes/k8s-multi-tenancy-guide/>Kubernetes多租户–最佳实践指南</a></li>
 <li><a href=/post/cncf-longhorn/k8s-deploy-longhorn/>kubernetes部署longhorn</a></li>
 <li><a href=/post/cncf-prometheus/prometheus-coredns-sd/>prometheus对接CoreDNS实现服务发现</a></li>
@@ -302,6 +352,9 @@ col-md-10 col-md-offset-1">
 <li><a href=/post/cncf-kubernetes/kubeadm-deploy-kubernetes-lank8scn/>kubeadm配合短域名lank8s.cn部署kubernetes</a></li>
 <li><a href=/post/cncf-kubernetes/k8s-client-go-source-2/>k8s-client-go源码剖析(二)</a></li>
 <li><a href=/post/cncf-fluentd/fluentd-logdrive-docker/>使用fluentd作为docker日志驱动收集日志</a></li>
+<li><a href=/post/cncf-fluentd/fluentd-plugin-kafka/>制作带有kafka插件和es插件的fluentd镜像</a></li>
+<li><a href=/post/cncf-fluentd/fluentd-quickstart/>fluentd语法入门</a></li>
+<li><a href=/post/deploy-minio/>docker部署minio</a></li>
 </ul>
 </section>
 </div>
@@ -371,7 +424,7 @@ col-md-10 col-md-offset-1">
 </li>
 </ul>
 <p class="copyright text-muted">
-Copyright &copy; Hi,I`m lan , 2022
+Copyright &copy; Hi,I`m lan , 2021
 <br>
 <a href=https://themes.gohugo.io/hugo-theme-cleanwhite>CleanWhite Hugo Theme</a> by <a href=https://zhaohuabing.com>Huabing</a> |
 <iframe style=margin-left:2px;margin-bottom:-5px frameborder=0 scrolling=0 width=100px height=20px src="https://ghbtns.com/github-btn.html?user=zhaohuabing&repo=hugo-theme-cleanwhite&type=star&count=true"></iframe>
