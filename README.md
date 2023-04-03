@@ -1,6 +1,9 @@
 # liangyuanpeng.github.io
-[![Build Status](https://travis-ci.com/liangyuanpeng/liangyuanpeng.github.io.svg?branch=source)](https://travis-ci.com/liangyuanpeng/liangyuanpeng.github.io)
+<!-- [![Build Status](https://travis-ci.com/liangyuanpeng/liangyuanpeng.github.io.svg?branch=source)](https://travis-ci.com/liangyuanpeng/liangyuanpeng.github.io) -->
 Hi, I'm lanLiang, 梁远鹏的博客.    
+
+https://liangyuanpeng.com
+
 
 博客使用Hugo搭建,托管于Cloudflare Pages.
 
@@ -17,7 +20,8 @@ git pull --recurse-submodules  #拉取所有子模块中的依赖项
 git submodule sync  #将新的URL同步更新，该步骤适用于git submodule add或修改.gitmodules文件之后
 git submodule status third_party/ModuleA    #查看子模块状态，即该子模块切入的提交节点位置，即某HASH值
  
-#删除子模块,然后删除对应资源库所有文件
+# 删除子模块,然后删除对应资源库所有文件  
+
 git rm --cached ModuleA
 rm -rf moduleA
  

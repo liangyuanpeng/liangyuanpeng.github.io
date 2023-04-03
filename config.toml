@@ -93,8 +93,7 @@ home = ["HTML", "RSS", "Algolia"]
     href = "/img/taglogo/emoji_k8s_loft.gif"
   [[params.taglogo]]
     tag = "cncf"
-    href = "https://emoji.slack-edge.com/T08PSQ7BQ/cncf/654bc2f197058c81.png"
-
+    href = "/img/taglogo/cncf/cncf.png"
   [[params.taglogo]]
     tag = "pipy"
     href = "/img/taglogo/pipy-300.png"
@@ -149,7 +148,6 @@ home = ["HTML", "RSS", "Algolia"]
   [[params.taglogo]]
     tag = "helm"
     href = "/img/taglogo/helm.png"
-
   [[params.taglogo]]
     tag = "openkruise"
     href = "/img/taglogo/openkruise.png"
@@ -174,6 +172,9 @@ home = ["HTML", "RSS", "Algolia"]
   [[params.taglogo]]
     tag = "istio"
     href = "/img/taglogo/cncf/istio/istio-icon-color.png"
+  [[params.taglogo]]
+    tag = "karmada"
+    href = "/img/taglogo/cncf/karmada/karmada-icon-color.png"
 
 
 [outputFormats.Algolia]
