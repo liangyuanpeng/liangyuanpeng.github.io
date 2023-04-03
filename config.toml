@@ -87,7 +87,95 @@ home = ["HTML", "RSS", "Algolia"]
   [[params.bookmark_link]]
     title = "KEDA中文化进行中"
     href = "https://keda.liangyuanpeng.com"
-  
+
+   [[params.taglogo]]
+    tag = "kubernetes"
+    href = "/img/taglogo/emoji_k8s_loft.gif"
+  [[params.taglogo]]
+    tag = "cncf"
+    href = "https://emoji.slack-edge.com/T08PSQ7BQ/cncf/654bc2f197058c81.png"
+
+  [[params.taglogo]]
+    tag = "pipy"
+    href = "/img/taglogo/pipy-300.png"
+  [[params.taglogo]]
+    tag = "kind"
+    href = "/img/taglogo/kind.png"
+  [[params.taglogo]]
+    tag = "chatgpt"
+    href = "/img/taglogo/ChatGPT_logo.svg"
+  [[params.taglogo]]
+    tag = "docker"
+    href = "/img/taglogo/docker.png"
+  [[params.taglogo]]
+    tag = "golang"
+    href = "/img/taglogo/golang_mic_drop.png"
+  [[params.taglogo]]
+    tag = "etcd"
+    href = "/img/taglogo/etcd.png"
+  [[params.taglogo]]
+    tag = "rust"
+    href = "/img/taglogo/rust.png"
+  [[params.taglogo]]
+    tag = "tekton"
+    href = "/img/taglogo/tekton.png"
+  [[params.taglogo]]
+    tag = "knative"
+    href = "/img/taglogo/knative.png"
+  [[params.taglogo]]
+    tag = "envoy"
+    href = "/img/taglogo/envoy.png"
+  [[params.taglogo]]
+    tag = "contour"
+    href = "/img/taglogo/contour.png"
+  [[params.taglogo]]
+    tag = "kubevela"
+    href = "/img/taglogo/kubevela.png"
+  [[params.taglogo]]
+    tag = "prometheus"
+    href = "/img/taglogo/prometheus.png"
+  [[params.taglogo]]
+    tag = "buildpacks"
+    href = "/img/taglogo/buildpacks.png"
+  [[params.taglogo]]
+    tag = "pulsar"
+    href = "/img/taglogo/pulsar.png"
+  [[params.taglogo]]
+    tag = "bookkeeper"
+    href = "/img/taglogo/bookkeeper_logo.svg"
+  [[params.taglogo]]
+    tag = "carvel"
+    href = "/img/taglogo/carvel.png"
+  [[params.taglogo]]
+    tag = "helm"
+    href = "/img/taglogo/helm.png"
+
+  [[params.taglogo]]
+    tag = "openkruise"
+    href = "/img/taglogo/openkruise.png"
+  [[params.taglogo]]
+    tag = "shipwright"
+    href = "/img/taglogo/shipwright.png"
+  [[params.taglogo]]
+    tag = "longhorn"
+    href = "/img/taglogo/longhorn.png"
+  [[params.taglogo]]
+    tag = "opa"
+    href = "/img/taglogo/opa.png"
+  [[params.taglogo]]
+    tag = "grpc"
+    href = "/img/taglogo/grpc.png"
+  [[params.taglogo]]
+    tag = "cloudevents"
+    href = "/img/taglogo/cloudevents.png"
+  [[params.taglogo]]
+    tag = "oras"
+    href = "/img/taglogo/cncf/oras/oras-horizontal-color.png"
+  [[params.taglogo]]
+    tag = "istio"
+    href = "/img/taglogo/cncf/istio/istio-icon-color.png"
+
+
 [outputFormats.Algolia]
 baseName = "algolia"
 isPlainText = true
