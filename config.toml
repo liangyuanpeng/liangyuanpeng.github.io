@@ -90,7 +90,7 @@ home = ["HTML", "RSS", "Algolia"]
 
    [[params.taglogo]]
     tag = "kubernetes"
-    href = "/img/taglogo/emoji_k8s_loft.gif"
+    href = "/img/taglogo/cncf/kubernetes/emoji_k8s_loft.gif"
   [[params.taglogo]]
     tag = "cncf"
     href = "/img/taglogo/cncf/cncf.png"
@@ -111,61 +111,58 @@ home = ["HTML", "RSS", "Algolia"]
     href = "/img/taglogo/golang_mic_drop.png"
   [[params.taglogo]]
     tag = "etcd"
-    href = "/img/taglogo/etcd.png"
-  [[params.taglogo]]
-    tag = "rust"
-    href = "/img/taglogo/rust.png"
+    href = "/img/taglogo/cncf/etcd/etcd.png"
   [[params.taglogo]]
     tag = "tekton"
-    href = "/img/taglogo/tekton.png"
+    href = "/img/taglogo/cdf/tekton/tekton.png"
   [[params.taglogo]]
     tag = "knative"
-    href = "/img/taglogo/knative.png"
+    href = "/img/taglogo/cncf/knative/knative.png"
   [[params.taglogo]]
     tag = "envoy"
-    href = "/img/taglogo/envoy.png"
+    href = "/img/taglogo/cncf/envoy/envoy.png"
   [[params.taglogo]]
     tag = "contour"
-    href = "/img/taglogo/contour.png"
+    href = "/img/taglogo/cncf/contour/contour.png"
   [[params.taglogo]]
     tag = "kubevela"
-    href = "/img/taglogo/kubevela.png"
+    href = "/img/taglogo/cncf/kubevela/kubevela.png"
   [[params.taglogo]]
     tag = "prometheus"
-    href = "/img/taglogo/prometheus.png"
+    href = "/img/taglogo/cncf/prometheus/prometheus.png"
   [[params.taglogo]]
     tag = "buildpacks"
-    href = "/img/taglogo/buildpacks.png"
+    href = "/img/taglogo/cncf/buildpacks/buildpacks.png"
   [[params.taglogo]]
     tag = "pulsar"
-    href = "/img/taglogo/pulsar.png"
+    href = "/img/taglogo/apache/pulsar/pulsar.png"
   [[params.taglogo]]
     tag = "bookkeeper"
-    href = "/img/taglogo/bookkeeper_logo.svg"
+    href = "/img/taglogo/apache/bookkeeper/bookkeeper_logo.svg"
   [[params.taglogo]]
     tag = "carvel"
-    href = "/img/taglogo/carvel.png"
+    href = "/img/taglogo/cncf/carvel/carvel.png"
   [[params.taglogo]]
     tag = "helm"
-    href = "/img/taglogo/helm.png"
+    href = "/img/taglogo/cncf/helm/helm.png"
   [[params.taglogo]]
     tag = "openkruise"
-    href = "/img/taglogo/openkruise.png"
+    href = "/img/taglogo/cncf/openkruise/openkruise.png"
   [[params.taglogo]]
     tag = "shipwright"
-    href = "/img/taglogo/shipwright.png"
+    href = "/img/taglogo/cdf/shipwright/shipwright.png"
   [[params.taglogo]]
     tag = "longhorn"
-    href = "/img/taglogo/longhorn.png"
+    href = "/img/taglogo/cncf/longhorn/longhorn.png"
   [[params.taglogo]]
     tag = "opa"
-    href = "/img/taglogo/opa.png"
+    href = "/img/taglogo/cncf/opa/opa.png"
   [[params.taglogo]]
     tag = "grpc"
-    href = "/img/taglogo/grpc.png"
+    href = "/img/taglogo/cncf/grpc/grpc.png"
   [[params.taglogo]]
     tag = "cloudevents"
-    href = "/img/taglogo/cloudevents.png"
+    href = "/img/taglogo/cncf/cloudevnets/cloudevents.png"
   [[params.taglogo]]
     tag = "oras"
     href = "/img/taglogo/cncf/oras/oras-horizontal-color.png"
@@ -175,6 +172,15 @@ home = ["HTML", "RSS", "Algolia"]
   [[params.taglogo]]
     tag = "karmada"
     href = "/img/taglogo/cncf/karmada/karmada-icon-color.png"
+  [[params.taglogo]]
+    tag = "k8up"
+    href = "/img/taglogo/cncf/k8up/k8up-icon-color.png"
+  [[params.taglogo]]
+    tag = "fluxcd"
+    href = "/img/taglogo/cncf/fluxcd/flux-icon-color.png"
+  [[params.taglogo]]
+    tag = "rust"
+    href = "/img/taglogo/rust/rust.png"
 
 
 [outputFormats.Algolia]
