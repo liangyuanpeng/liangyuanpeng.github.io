@@ -181,6 +181,9 @@ home = ["HTML", "RSS", "Algolia"]
   [[params.taglogo]]
     tag = "rust"
     href = "/img/taglogo/rust/rust.png"
+  [[params.taglogo]]
+    tag = "opcr"
+    href = "/img/taglogo/cncf/opcr/opcr-icon-color.png"
 
 
 [outputFormats.Algolia]
