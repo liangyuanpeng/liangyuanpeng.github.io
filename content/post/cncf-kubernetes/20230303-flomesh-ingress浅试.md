@@ -6,7 +6,7 @@ subtitle:   ""
 description: ""  
 date:       2023-03-03
 author:     "梁远鹏"
-image: "https://res.cloudinary.com/lyp/image/upload/v1543506262/hugo/blog.github.io/apache-rocketMQ-introduction/7046d2bf0d97278682129887309cc1a6.jpg"
+image: "img/banner-pexels.jpg"
 published: true
 tags: 
     - flomesh
@@ -55,6 +55,9 @@ containerdConfigPatches:
 
 # 部署  
 
+## 部署K8S集群
+
+[用kind搭建k8s集群环境](https://liangyuanpeng.com/post/cncf-kubernetes/run-k8s-with-kind/)
 
 ## 部署fsm
 

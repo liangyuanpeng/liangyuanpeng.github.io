@@ -17,9 +17,9 @@ categories:
 
 # 前言  
 
-SpringBoot2.x引入了Micrometer,重点支持了tag,而tag是prometheus和influxdb这类新兴监控存储相关中间件天然特性.  
+SpringBoot2.x 引入了 Micrometer,重点支持了 tag,而 tag 是 prometheus 和 influxdb 这类新兴监控存储相关中间件天然特性.  
 
-而本文主要讲述检测程序中是否有死锁发生,这部分使用的是dropwizard-metrics的metrics-healthchecks来实现的.  
+而本文主要讲述检测程序中是否有死锁发生,这部分使用的是 dropwizard-metrics 的 metrics-healthchecks 来实现的.  
 
 # 死锁检测配置  
 
@@ -65,7 +65,7 @@ healthCheckRegistry.runHealthCheck(healthCheckName).isHealthy();
             },0,30, TimeUnit.SECONDS);
 ```  
 
-这样就可以定时检测程序中是否有死锁存在,如果有,`thread_dead_lock`这个metrics会显示为0.也可以通过`HealthCheck.Result result`这个对象,把死锁相关信息打印在程序log中,这样可以将信息收集到专门的日志系统去.比如Elasticsearch.  
+这样就可以定时检测程序中是否有死锁存在,如果有,`thread_dead_lock`这个 metrics 会显示为0.也可以通过`HealthCheck.Result result`这个对象,把死锁相关信息打印在程序 log 中,这样可以将信息收集到专门的日志系统去.比如 Elasticsearch.  
 
 # 原理 
 
@@ -73,7 +73,7 @@ healthCheckRegistry.runHealthCheck(healthCheckName).isHealthy();
 
 首先从最外面的入口点进源码看看逻辑.  
 
-点进`ThreadDeadlockHealthCheck`类看看有什么代码,可以看到只有很少的代码,有一个重写的check方法:  
+点进`ThreadDeadlockHealthCheck`类看看有什么代码,可以看到只有很少的代码,有一个重写的`check`方法:  
 
 ```java
 public class ThreadDeadlockHealthCheck extends HealthCheck {
@@ -137,13 +137,13 @@ public Set<String> getDeadlockedThreads() {
     }
 ```  
 
-点进去后发现是通过`final long[] ids = threads.findDeadlockedThreads();`获取到死锁的线程id数字,看看`threads`变量是一个什么东西.  
+点进去后发现是通过`final long[] ids = threads.findDeadlockedThreads();`获取到死锁的线程 id 数字,看看`threads`变量是一个什么东西.  
 
 ```java 
 private final ThreadMXBean threads;
 ```  
 
-可以看到这是ThreadMXBean提供的方法,而这个类是`java.lang.management`包下的.这个包是JDK提供的一些用于检测JVM状态的API类.可以拿到当前JVM的内存,GC,线程,class等各种信息.  
+可以看到这是 ThreadMXBean 提供的方法,而这个类是`java.lang.management`包下的.这个包是JDK提供的一些用于检测 JVM 状态的 API 类.可以拿到当前 JVM 的内存,GC,线程,class 等各种信息.  
 
 我们这里是用的其中一种MXBean类:ThreadMXBean,来获取线程相关的信息.感兴趣的可以自己去研究下,例如获取内存信息的一个类:`MemoryMXBean`,这里不展开讲述.  
 

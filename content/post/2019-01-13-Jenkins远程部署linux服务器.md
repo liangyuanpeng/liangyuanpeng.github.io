@@ -19,7 +19,7 @@ categories:
 ---
 
 ## 前言
-之前在Jenkins上也有一些使用经验了，但是都是使用团队配置好的Jenkins，自己只需要管自己的项目以及执行构建即可，这一次自己尝试了一下配置Jenkins的远程部署Linux服务器以及应用。  
+之前在 Jenkins 上也有一些使用经验了，但是都是使用团队配置好的 Jenkins，自己只需要管自己的项目以及执行构建即可，这一次自己尝试了一下配置 Jenkins 的远程部署 Linux 服务器以及应用。  
 
 > 执行过程如下：  
 > 
@@ -73,7 +73,7 @@ categories:
 
 ![](https://res.cloudinary.com/lyp/image/upload/v1547997030/hugo/blog.github.io/devops/jenkins/Snipaste_2019-01-20_23-09-55.png)
 
-上述图中展示的是笔者将``target``目录下的所有war包都打包到远程服务器``tomcat``下的``webapps/ROOT``目录下，然后``解压war包``，``睡10S``，``执行重启脚本``  
+上述图中展示的是笔者将`target`目录下的所有war包都打包到远程服务器``tomcat``下的``webapps/ROOT``目录下，然后`解压war包`，``睡10S``，``执行重启脚本``  
 
 这里详细讲解下： 
  
@@ -85,7 +85,7 @@ categories:
 
 - ``Exec command``在远程服务器上执行的命令  
 
-远程部署linux服务器的相关配置到这里就完成了，开始愉快的自动化远程部署之旅吧!
+远程部署 linux 服务器的相关配置到这里就完成了，开始愉快的自动化远程部署之旅吧!
 
 
 

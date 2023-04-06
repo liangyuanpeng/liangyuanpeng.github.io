@@ -12,5 +12,5 @@ tags:
     - API
     - Grafana
 categories: 
-    - CloudNative
+    - cloudnative
 ---  

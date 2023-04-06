@@ -20,4 +20,5 @@ jobs:
           # extended: true
 
       - name: Build Hugo
-        run: hugo --minify && ls public
+        run: |
+          hugo --minify && ls public
