@@ -14,8 +14,12 @@ tags:
     - monitor
     - ops
 categories: 
-    - CloudNative
+    - cloudnative
 ---  
+
+# 当前计划已经废弃  
+
+![](https://em-content.zobj.net/thumbs/160/apple/325/warning_26a0-fe0f.png)
 
 # 前言 
 

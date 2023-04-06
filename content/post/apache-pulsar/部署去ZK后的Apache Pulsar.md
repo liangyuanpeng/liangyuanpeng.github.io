@@ -8,9 +8,10 @@ date:       2021-05-22
 author:     "梁远鹏"
 image: "https://res.cloudinary.com/lyp/image/upload/v1612709780/hugo/blog.github.io/pexels-matt-hardy-2568001.jpg"
 published: true
+wipnote: true
 tags:
     - CloudNative
-    - Pulsar
+    - pulsar
 categories: 
     - TECH
 ---
@@ -98,7 +99,3 @@ $ kubectl logs -f pulsar-consumer-77f96bbf9d-bwspx
 
 1. function worker会使用到Dlog，直接连接的ZK. 
 2. 有状态的pulsar function会使用到BK的table service,而table service似乎也是连接ZK.
-
-# 注意 
-
-本文还在持续创作当中.
