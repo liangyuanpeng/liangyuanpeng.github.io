@@ -102,7 +102,7 @@ kind
 <span class=old-visitors-count style=display:none></span>
 <span class=leancloud-visitors-count></span>
 </span>
-阅读 </span></span>|<span class=post-date>共674字</span>，阅读约<span class=more-meta> 2 分钟</span>
+阅读 </span></span>|<span class=post-date>共945字</span>，阅读约<span class=more-meta> 2 分钟</span>
 </span>
 </div>
 </div>
@@ -121,7 +121,14 @@ post-container">
 <nav id=TableOfContents>
 <ul>
 <li><a href=#默认带有-lank8scn-服务>默认带有 lank8s.cn 服务</a></li>
-<li><a href=#k8s-126-cel准入校验功能>k8s 1.26 CEL准入校验功能</a></li>
+<li><a href=#基于flannel-cni的kubernetes>基于flannel CNI的kubernetes</a></li>
+<li><a href=#k8s-126-cel准入校验功能>k8s 1.26 CEL准入校验功能</a>
+<ul>
+<li><a href=#下载-cni>下载 cni</a></li>
+<li><a href=#部署flannel>部署flannel</a></li>
+<li><a href=#回来吧kubernetes>回来吧kubernetes!</a></li>
+</ul>
+</li>
 <li><a href=#多节点>多节点</a></li>
 <li><a href=#k8s-kube-apiserver-端口映射>K8S kube-apiserver 端口映射</a></li>
 <li><a href=#没有lank8scn服务>没有lank8s.cn服务</a></li>
@@ -156,8 +163,25 @@ post-container">
 </code></pre></div><p>祝你云原生之旅愉快! :)</p>
 <h2 id=默认带有-lank8scn-服务>默认带有 lank8s.cn 服务</h2>
 <p><a href=https://liangyuanpeng.com/files/kind/v1alpha4/kind.yaml>https://liangyuanpeng.com/files/kind/v1alpha4/kind.yaml</a></p>
+<h2 id=基于flannel-cni的kubernetes>基于flannel CNI的kubernetes</h2>
+<p><a href=https://liangyuanpeng.com/files/kind/v1alpha4/kind_flannel.yaml>https://liangyuanpeng.com/files/kind/v1alpha4/kind_flannel.yaml</a></p>
 <h2 id=k8s-126-cel准入校验功能>k8s 1.26 CEL准入校验功能</h2>
-<p><a href=https://liangyuanpeng.com/files/kind/v1alpha4/kind_1.26.yaml>https://liangyuanpeng.com/files/kind/v1alpha4/kind_1.26.yaml</a></p>
+<p><a href=https://liangyuanpeng.com/files/kind/v1alpha4/kind_flannel.yaml>https://liangyuanpeng.com/files/kind/v1alpha4/kind_flannel.yaml</a></p>
+<p>默认情况下 Kind 使用的 CNI 是,因此如果你需要使用 flannel CNI 的话,需要禁止默认的CNI并且部署flannel.</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell>lan@lan:~$ k get po -A
+NAMESPACE            NAME                                            READY   STATUS    RESTARTS   AGE
+kube-system          coredns-787d4945fb-d84n2                        0/1     Pending   <span style=color:#ae81ff>0</span>          34s
+kube-system          coredns-787d4945fb-zpvlf                        0/1     Pending   <span style=color:#ae81ff>0</span>          34s
+kube-system          etcd-flannel-control-plane                      1/1     Running   <span style=color:#ae81ff>0</span>          47s
+...
+</code></pre></div><p>可以看到 coredns 是没启动起来的,原因是缺少了 CNI 组件.因此首选需要下载 flannel cni需要的组件,然后部署 flannel.</p>
+<h3 id=下载-cni>下载 cni</h3>
+<p><a href=https://liangyuanpeng.com/files/scripts/install-cni.sh>https://liangyuanpeng.com/files/scripts/install-cni.sh</a></p>
+<p>可以使用这个文件下载 CNI 二进制内容,</p>
+<h3 id=部署flannel>部署flannel</h3>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell>kubectl apply -f https://github.com/flannel-io/flannel/releases/latest/download/kube-flannel.yml
+</code></pre></div><h3 id=回来吧kubernetes>回来吧kubernetes!</h3>
+<p>现在再查看一下所有 pod 的情况,会看到 flannel 的 pod 正在拉取镜像启动,再过一会所有的 pod 都会启动起来了,当然也包括 coredns 的 pod,这时候就可以正常食用你的 kubernetes 测试环境了!</p>
 <h2 id=多节点>多节点</h2>
 <p><a href=https://liangyuanpeng.com/files/kind/v1alpha4/kind_mult.yaml>https://liangyuanpeng.com/files/kind/v1alpha4/kind_mult.yaml</a></p>
 <h2 id=k8s-kube-apiserver-端口映射>K8S kube-apiserver 端口映射</h2>
@@ -184,7 +208,7 @@ post-container">
 <hr>
 <ul class=pager>
 <li class=previous>
-<a href=/post/ebpf/what-is-ebpfan-introductory-guide/ data-toggle=tooltip data-placement=top title=epbf入门指南>&larr; epbf入门指南</a>
+<a href=/post/do-not-totally-believe-github-action/ data-toggle=tooltip data-placement=top title=不要完全相信GithubAction>&larr; 不要完全相信GithubAction</a>
 </li>
 <li class=next>
 <a href=/post/cncf-kubernetes/service-lank8s.cn/ data-toggle=tooltip data-placement=top title=lank8s.cn服务>lank8s.cn服务 &rarr;</a>
@@ -202,132 +226,25 @@ catalog-container">
 <div class="col-lg-8 col-lg-offset-2
 col-md-10 col-md-offset-1
 sidebar-container">
-<section>
-<hr class="hidden-sm hidden-xs">
-<h5><a href=/tags/>FEATURED TAGS</a></h5>
-<div class=tags>
-<a href=/tags/blog title=blog>
-blog
-</a>
-<a href=/tags/bookkeeper title=bookkeeper>
-bookkeeper
-</a>
-<a href=/tags/cdf title=cdf>
-cdf
-</a>
-<a href=/tags/chatgpt title=chatgpt>
-chatgpt
-</a>
-<a href=/tags/chirpstack title=chirpstack>
-chirpstack
-</a>
-<a href=/tags/ci/cd title=ci/cd>
-ci/cd
-</a>
-<a href=/tags/cloudnative title=cloudnative>
-cloudnative
-</a>
-<a href=/tags/cncf title=cncf>
-cncf
-</a>
-<a href=/tags/contour title=contour>
-contour
-</a>
-<a href=/tags/devops title=devops>
-devops
-</a>
-<a href=/tags/docker title=docker>
-docker
-</a>
-<a href=/tags/docker-compose title=docker-compose>
-docker-compose
-</a>
-<a href=/tags/envoy title=envoy>
-envoy
-</a>
-<a href=/tags/fluentd title=fluentd>
-fluentd
-</a>
-<a href=/tags/foundation title=foundation>
-foundation
-</a>
-<a href=/tags/golang title=golang>
-golang
-</a>
-<a href=/tags/helm title=helm>
-helm
-</a>
-<a href=/tags/hugo title=hugo>
-hugo
-</a>
-<a href=/tags/image title=image>
-image
-</a>
-<a href=/tags/iot title=iot>
-iot
-</a>
-<a href=/tags/k8s title=k8s>
-k8s
-</a>
-<a href=/tags/kind title=kind>
-kind
-</a>
-<a href=/tags/kubernetes title=kubernetes>
-kubernetes
-</a>
-<a href=/tags/kubesphere title=kubesphere>
-kubesphere
-</a>
-<a href=/tags/lorawan title=lorawan>
-lorawan
-</a>
-<a href=/tags/metrics title=metrics>
-metrics
-</a>
-<a href=/tags/middleware title=middleware>
-middleware
-</a>
-<a href=/tags/monitor title=monitor>
-monitor
-</a>
-<a href=/tags/mq title=mq>
-mq
-</a>
-<a href=/tags/nginx title=nginx>
-nginx
-</a>
-<a href=/tags/ops title=ops>
-ops
-</a>
-<a href=/tags/prometheus title=prometheus>
-prometheus
-</a>
-<a href=/tags/pulsar title=pulsar>
-pulsar
-</a>
-<a href=/tags/rpc title=rpc>
-rpc
-</a>
-<a href=/tags/rust title=rust>
-rust
-</a>
-<a href=/tags/sofa title=sofa>
-sofa
-</a>
-<a href=/tags/sofastack title=sofastack>
-sofastack
-</a>
-<a href=/tags/springboot title=springboot>
-springboot
-</a>
-<a href=/tags/tech title=tech>
-tech
-</a>
-<a href=/tags/%E7%BF%BB%E8%AF%91 title=翻译>
-翻译
-</a>
+<br>
+<h5>开源项目推荐</h5>
+<style type=text/css>.pinned-repos{max-width:300px;margin:0 auto}.repo-card{display:flex;flex-direction:column;padding:16px;border:1px solid #e1e4e8;border-radius:6px;background-color:#fff}.repo-card:hover{box-shadow:0 1px 3px rgba(36,41,46,8%)}.repo-card h2{margin-top:0;font-size:20px;font-weight:200;color:#0366d6}.repo-card p{margin:8px 0 16px;font-size:14px;color:#586069}.repo-card-stats{display:flex;flex-wrap:wrap;align-items:center}.repo-card-stats span{font-size:12px;color:#586069;margin-right:16px}.repo-card-stats strong{font-weight:200;color:#24292e}</style>
+<ul class="margin-bottom: 25px;pinned-repo-list">
+<li>
+<div class=repo-card>
+<div class=repo-card-details>
+<h2><a href=https://github.com/liangyuanpeng/replacer>replacer</a></h2>
+<p>K8S webhook的参考实现|Replace container image of kubernetes mutate webhook.</p>
+<div class=repo-card-stats>
+<span>Language: <strong>Golang</strong></span>
+<span>Forks: <strong>*</strong></span>
+<span>Stars: <strong>*</strong></span>
+<span>Updated: <strong>Nov 20, 2021</strong></span>
 </div>
-</section>
+</div>
+</div>
+</li>
+</ul>
 </div>
 <div class="col-lg- col-lg-offset-2
 col-md-10 col-md-offset-1">
