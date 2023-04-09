@@ -11,6 +11,7 @@ published: true
 tags:
     - rust 
     - cncf
+    - kube-rs
 categories: [ kubernetes ]
 ---
 
@@ -63,8 +64,3 @@ while let Some(line) = logs.try_next().await? {
 # 总结  
 
 虽然`kube-rs`在最近才进入CNCF,但是其实已经被不少项目正式采用了,例如CNCF中的[krator](https://github.com/krator-rs/krator)、[krustlet](https://github.com/krustlet/krustlet)以及linkerd2中的[policy-controller](https://github.com/linkerd/linkerd2/tree/main/policy-controller).完整的项目采用列表可以在[kube-rs 采用者](https://github.com/kube-rs/kube-rs/blob/master/ADOPTERS.md)找到.
-
-
-# 注意
-
-本文还在持续创作中
