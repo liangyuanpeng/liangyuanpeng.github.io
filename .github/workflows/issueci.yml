@@ -1,0 +1,48 @@
+name: labelaction
+
+on:
+  issues:
+    types:
+      - opened
+
+jobs:
+
+  label_issue:
+    timeout-minutes: 10
+    runs-on: ubuntu-latest
+    steps:
+      - name: Build Hugo
+        run: |
+          env
+          sh scripts/issueci.sh
+
+  #     - name: labelissue
+  #       uses: actions/github-script@v3
+  #       with:
+  #         script: |
+  #           const creator = context.issue.user.login;
+  #           if (creator === 'liangyuanpeng') {
+  #             github.issues.addLabels({
+  #               issue_number: context.issue.number,
+  #               labels: ['utterances',"comments"]
+  #             });
+  #           }
+
+  # check_issue:
+  #   timeout-minutes: 10
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: Check issue title
+  #       uses: actions/github-script@v3
+  #       with:
+  #         script: |
+  #           const title = context.issue.title;
+  #           const creator = context.issue.user.login;
+  #           if (!title.endsWith('-远鹏的博客 | liangyuanpeng's Blog')) {
+  #             if (creator !== 'utterances-bot' && creator !== 'liangyuanpeng') {
+  #               github.issues.update({
+  #                 issue_number: context.issue.number,
+  #                 title: '不合规的issue标题'
+  #               });
+  #             }
+  #           }
