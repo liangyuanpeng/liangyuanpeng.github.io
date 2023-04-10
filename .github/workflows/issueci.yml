@@ -12,10 +12,15 @@ jobs:
     timeout-minutes: 10
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v3
+        with:
+          submodules: true
+          fetch-depth: 0
+
       - name: Build Hugo
         run: |
           env
-          sh scripts/issueci.sh
+          sh scripts/issueci.sh '${{ toJSON(github) }}'
 
   #     - name: labelissue
   #       uses: actions/github-script@v3

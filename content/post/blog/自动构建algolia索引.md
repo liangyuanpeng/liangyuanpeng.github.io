@@ -20,7 +20,7 @@ categories:
 
 # 前言  
 
-相信来到这里的朋友都已经知道 algolia 是什么了, algolia 在静态博客领域作为搜索解决方案已经非常主流了,而每次写完博客/文章后都需要自己手动生成索引并上传到 algolia 确实是很繁琐,本文将提供一个机遇Github Action 自动化构建 algolia 索引的解决方案.  
+相信来到这里的朋友都已经知道 algolia 是什么了, algolia 在静态博客领域作为搜索解决方案已经非常主流了,而每次写完博客/文章后都需要自己手动生成索引并上传到 algolia 确实是很繁琐,本文将提供一个机遇 Github Action 自动化构建 algolia 索引的解决方案.  
 
 # 原理  
 
@@ -29,7 +29,7 @@ categories:
 Github Action 主要做两件事:  
 
 1. 执行 hugo 命令生成静态文件以及 algolia 索引文件( hexo 等其他静态博客也类似),如果你使用的是 hexo 等其他静态博客,可能需要多一个操作来执行相关命令生成 algolia 索引文件.  
-2. 通过安装了 `atomic-algolia` 命令的 docker 容器来将索引文件上传到algolia官网.  
+2. 通过安装了 `atomic-algolia` 命令的 docker 容器来将索引文件上传到 algolia 官网.  
 
 # 配置  
 
@@ -48,3 +48,17 @@ docker run --rm -e ALGOLIA_ADMIN_KEY=${{ secrets.ALGOLIA_ADMIN_KEY }} -e ALGOLIA
 如果有好心网友制作了并且能够达到这个效果的话欢迎留言投稿你的 Dockerfile.
 
 亦或者是给出制作这个容器镜像的相关博客地址也是OK的.
+
+
+
+现在,你的静态博客拥有了`自动化构建algolia索引`的功能,再多一个`阅读本文需要x分钟`的功能不过分吧?
+
+- [给hugo博客添加字数统计和阅读需要xx分钟的功能](/blog/addons-word-count-hugo)
+
+再多一个`评论`功能不过分吧?
+
+- [给hugo博客添加评论功能](/blog/hugo-comment)
+
+再多一个`自动化优化图片`不过分吧?
+
+- [为你的博客添加imgbot优化图片](/blog/add-imgbot-for-your-blog-image)
