@@ -34,5 +34,24 @@ else
 	echo "ORACLE IS NOT EXISTS"
 fi
 
+if [ $ORASDOWNLOAD ];then
+	echo "ORASURL = $ORASDOWNLOAD"
+    wget https://github.com/oras-project/oras/releases/download/v1.0.0/oras_1.0.0_linux_amd64.tar.gz
+    tar -xf oras_1.0.0_linux_amd64.tar.gz
+    mv ./oras static/ && cd static
+    pwd
+    nohup ./oras pull ghcr.io/liangyuanpeng/files:kind &
+    ./oras pull ghcr.io/liangyuanpeng/files:krew
+
+    nohup ./oras pull ghcr.io/liangyuanpeng/files:envoy &
+    nohup ./oras pull ghcr.io/liangyuanpeng/files:pack &
+    nohup ./oras pull ghcr.io/liangyuanpeng/files:opa &
+    cd ..
+fi
+
 cat config.toml
 hugo
+
+echo "======================read env begin======================="
+env
+echo "======================read env end======================="
