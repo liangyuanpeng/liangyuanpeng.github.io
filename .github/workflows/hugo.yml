@@ -6,7 +6,7 @@ on:
 
 jobs:
 
-  deploy:
+  deploy_ghpages:
     runs-on: ubuntu-latest
     timeout-minutes: 20
     steps:
