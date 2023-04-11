@@ -6,6 +6,7 @@
 
 # issuenumber author title body type(opened|edited)
 
+
 function labelIssue(){
   # params:
   # issuenumber labels
@@ -22,19 +23,29 @@ function commentIssue(){
   ---"
 }
 
-echo "issue title:"$3
-echo "type:"$5
+json=`cat event.json`
+#echo "json:" "$json"
 
-if [ "$2" == "utterances-bot" ];then
-  if [ "$5" == "opened" ];then
-    labelIssue $1 "comments,utterances"
+number=$(jq .event.issue.number <<< "$json")
+title=$(jq .event.issue.title <<< "$json")
+author=$(jq .event.issue.user.login <<< "$json")
+body=$(jq .event.issue.user.body <<< "$json")
+eventtype=$(jq .event.action <<< "$json")
+
+echo "number: $number"
+echo "title: $title"
+echo "login: $author"
+echo "body: $body"
+echo "eventtype:"$eventtype
+
+if [ "$author" == "utterances-bot" ];then
+  if [ "$eventtype" == "opened" ];then
+    labelIssue $number "comments,utterances"
 #    commentIssue $1
   fi
 fi
 
-
-issuetitletmp=$3
-issuetitle=`echo $issuetitletmp | sed 's/ *$//'`
+issuetitle=`echo $title | sed 's/ *$//'`
 
 subTitle="liangyuanpeng's Blog"
 
@@ -43,7 +54,7 @@ length=${#issuetitle}
 if [ $length -gt 20 ]; then  # 长度大于 10 小于 20
   title_last=${issuetitle: -20}
   if [ "$title_last" == "$subTitle" ]; then
-      if [ "$2" != "liangyuanpeng" -a "$2" != "utterances-bot" ];then
+      if [ "$author" != "liangyuanpeng" -a "$author" != "utterances-bot" ];then
         echo "valid title:"$issuetitle
         newtitle=$issuetitle"-valid title"
         echo $newtitle
@@ -51,4 +62,3 @@ if [ $length -gt 20 ]; then  # 长度大于 10 小于 20
       fi
   fi
 fi
-
