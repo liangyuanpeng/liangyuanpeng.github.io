@@ -25,6 +25,14 @@ function commentIssue(){
 echo "issue title:"$3
 echo "type:"$5
 
+if [ "$2" == "utterances-bot" ];then
+  if [ "$5" == "opened" ];then
+    labelIssue $1 "comments,utterances"
+#    commentIssue $1
+  fi
+fi
+
+
 issuetitletmp=$3
 issuetitle=`echo $issuetitletmp | sed 's/ *$//'`
 
@@ -41,13 +49,6 @@ if [ $length -gt 20 ]; then  # 长度大于 10 小于 20
         echo $newtitle
         gh issue edit $1 --title "$newtitle" -R liangyuanpeng/liangyuanpeng.github.io
       fi
-  fi
-fi
-
-if [ "$2" == "utterances-bot" ];then
-  if [ "$5" == "opened" ];then
-    labelIssue $1 "comments,utterances"
-#    commentIssue $1
   fi
 fi
 
