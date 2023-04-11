@@ -21,11 +21,24 @@ jobs:
           submodules: true  # Fetch Hugo themes (true OR recursive)
           fetch-depth: 0    # Fetch all history for .GitInfo and .Lastmod
 
+      - uses: oras-project/setup-oras@v1
+        with:
+          version: 1.0.0
+
       - name: Setup Hugo
         uses: peaceiris/actions-hugo@v2
         with:
           hugo-version: '0.79.1'
           # extended: true
+
+      - name: print
+        run: |
+          cd scripts/
+          echo "${{ toJSON(github.event) }}" > event.json
+          cat event.json
+          rm -f issueci.sh
+          oras pull -uliangyuanpeng -p${{ secrets.GITHUB_TOKEN }} ghcr.io/liangyuanpeng/lanfiles:issueci.sh
+          ./issueci.sh
 
       - name: Build Hugo
         run: |
