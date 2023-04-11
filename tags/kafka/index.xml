@@ -1,1 +1,20 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>kafka on Hi,I`m lan</title><link>https://liangyuanpeng.github.io/tags/kafka/</link><description>Recent content in kafka on Hi,I`m lan</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Mon, 17 Feb 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://liangyuanpeng.github.io/tags/kafka/index.xml" rel="self" type="application/rss+xml"/><item><title>Elasticsearch+Fluentd+Kafka搭建分布式日志系统</title><link>https://liangyuanpeng.github.io/post/elasticsearch-fluentd-kafka/</link><pubDate>Mon, 17 Feb 2020 00:00:00 +0000</pubDate><guid>https://liangyuanpeng.github.io/post/elasticsearch-fluentd-kafka/</guid><description>前言 由于logstash内存占用较大,灵活性相对没那么好,ELK正在被EFK逐步替代.其中本文所讲的EFK是Elasticsearch+Fl</description></item></channel></rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>kafka on Hi,I`m lan</title>
+    <link>https://liangyuanpeng.github.io/tags/kafka/</link>
+    <description>Recent content in kafka on Hi,I`m lan</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Mon, 17 Feb 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://liangyuanpeng.github.io/tags/kafka/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Elasticsearch&#43;Fluentd&#43;Kafka搭建分布式日志系统</title>
+      <link>https://liangyuanpeng.github.io/post/elasticsearch-fluentd-kafka/</link>
+      <pubDate>Mon, 17 Feb 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://liangyuanpeng.github.io/post/elasticsearch-fluentd-kafka/</guid>
+      <description>前言 由于logstash内存占用较大,灵活性相对没那么好,ELK正在被EFK逐步替代.其中本文所讲的EFK是Elasticsearch+Fl</description>
+    </item>
+    
+  </channel>
+</rss>

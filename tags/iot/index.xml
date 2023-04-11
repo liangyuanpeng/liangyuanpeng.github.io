@@ -1,1 +1,56 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>iot on Hi,I`m lan</title><link>https://liangyuanpeng.github.io/tags/iot/</link><description>Recent content in iot on Hi,I`m lan</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Tue, 21 Dec 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://liangyuanpeng.github.io/tags/iot/index.xml" rel="self" type="application/rss+xml"/><item><title>欢迎参与chirpstack应用同步器的贡献</title><link>https://liangyuanpeng.github.io/post/lorawan/welcome-contribute-chirpstack-application-syncer/</link><pubDate>Tue, 21 Dec 2021 00:00:00 +0000</pubDate><guid>https://liangyuanpeng.github.io/post/lorawan/welcome-contribute-chirpstack-application-syncer/</guid><description>chirpstack-application-syncer 在两个chirpstack服务器之间同步你的chirpstack application数据,目前还处于初步实现阶段,预期效果会是下面这样:</description></item><item><title>ChirpStack自定义JS codec函数</title><link>https://liangyuanpeng.github.io/post/lorawan/chirpstack-custom-js-encodec/</link><pubDate>Sat, 06 Mar 2021 00:00:00 +0000</pubDate><guid>https://liangyuanpeng.github.io/post/lorawan/chirpstack-custom-js-encodec/</guid><description>前言 ChirpStack作为Lorawan Server，可以同时接收不同客户的设备数据(通过Application或Org区分开),而如果这</description></item><item><title>LoraWan的第一个网关与设备</title><link>https://liangyuanpeng.github.io/post/lorawan/first-lorawan-gateway-device/</link><pubDate>Fri, 05 Feb 2021 00:00:00 +0000</pubDate><guid>https://liangyuanpeng.github.io/post/lorawan/first-lorawan-gateway-device/</guid><description>LoraWan数据走向 可以先看一下下面的数据图 从节点到网关是通过无线传输，也就是lora协议。LoraWan网关接收到数据后将其转化为网络数</description></item><item><title>用helm chart将chripstack部署到kubernetes之上</title><link>https://liangyuanpeng.github.io/post/cncf-kubernetes/use-helm-deploy-chirpstack-kubernetes/</link><pubDate>Sat, 30 Jan 2021 00:00:00 +0000</pubDate><guid>https://liangyuanpeng.github.io/post/cncf-kubernetes/use-helm-deploy-chirpstack-kubernetes/</guid><description>chirpstack-helm-chart 开源lorawan server 项目chirpstack的helm chart english 如何贡献 如果你想对这个项目进行贡献可以点击fork按钮fork这个项目并且发起P</description></item><item><title>用docker-compose快速部署ChirpStack</title><link>https://liangyuanpeng.github.io/post/lorawan/docker-compose-deploy-chirpstack/</link><pubDate>Sun, 17 Jan 2021 00:00:00 +0000</pubDate><guid>https://liangyuanpeng.github.io/post/lorawan/docker-compose-deploy-chirpstack/</guid><description>前提 本文使用docker-compose来部署ChirpStack，请确保已经含有以下环境： Git(非必须，可以先下载源码) Docker Docker-compose 关于Lora</description></item></channel></rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>iot on Hi,I`m lan</title>
+    <link>https://liangyuanpeng.github.io/tags/iot/</link>
+    <description>Recent content in iot on Hi,I`m lan</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 21 Dec 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://liangyuanpeng.github.io/tags/iot/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>欢迎参与chirpstack应用同步器的贡献</title>
+      <link>https://liangyuanpeng.github.io/post/lorawan/welcome-contribute-chirpstack-application-syncer/</link>
+      <pubDate>Tue, 21 Dec 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://liangyuanpeng.github.io/post/lorawan/welcome-contribute-chirpstack-application-syncer/</guid>
+      <description>chirpstack-application-syncer 在两个chirpstack服务器之间同步你的chirpstack application数据,目前还处于初步实现阶段,预期效果会是下面这样:</description>
+    </item>
+    
+    <item>
+      <title>ChirpStack自定义JS codec函数</title>
+      <link>https://liangyuanpeng.github.io/post/lorawan/chirpstack-custom-js-encodec/</link>
+      <pubDate>Sat, 06 Mar 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://liangyuanpeng.github.io/post/lorawan/chirpstack-custom-js-encodec/</guid>
+      <description>前言 ChirpStack作为Lorawan Server，可以同时接收不同客户的设备数据(通过Application或Org区分开),而如果这</description>
+    </item>
+    
+    <item>
+      <title>LoraWan的第一个网关与设备</title>
+      <link>https://liangyuanpeng.github.io/post/lorawan/first-lorawan-gateway-device/</link>
+      <pubDate>Fri, 05 Feb 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://liangyuanpeng.github.io/post/lorawan/first-lorawan-gateway-device/</guid>
+      <description>LoraWan数据走向 可以先看一下下面的数据图 从节点到网关是通过无线传输，也就是lora协议。LoraWan网关接收到数据后将其转化为网络数</description>
+    </item>
+    
+    <item>
+      <title>用helm chart将chripstack部署到kubernetes之上</title>
+      <link>https://liangyuanpeng.github.io/post/cncf-kubernetes/use-helm-deploy-chirpstack-kubernetes/</link>
+      <pubDate>Sat, 30 Jan 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://liangyuanpeng.github.io/post/cncf-kubernetes/use-helm-deploy-chirpstack-kubernetes/</guid>
+      <description>chirpstack-helm-chart 开源lorawan server 项目chirpstack的helm chart english 如何贡献 如果你想对这个项目进行贡献可以点击fork按钮fork这个项目并且发起P</description>
+    </item>
+    
+    <item>
+      <title>用docker-compose快速部署ChirpStack</title>
+      <link>https://liangyuanpeng.github.io/post/lorawan/docker-compose-deploy-chirpstack/</link>
+      <pubDate>Sun, 17 Jan 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://liangyuanpeng.github.io/post/lorawan/docker-compose-deploy-chirpstack/</guid>
+      <description>前提 本文使用docker-compose来部署ChirpStack，请确保已经含有以下环境： Git(非必须，可以先下载源码) Docker Docker-compose 关于Lora</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,1 +1,20 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>React on Hi,I`m lan</title><link>https://liangyuanpeng.github.io/tags/react/</link><description>Recent content in React on Hi,I`m lan</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Sun, 06 Jan 2019 00:00:00 +0000</lastBuildDate><atom:link href="https://liangyuanpeng.github.io/tags/react/index.xml" rel="self" type="application/rss+xml"/><item><title>部署React应用</title><link>https://liangyuanpeng.github.io/post/deploy-react-app/</link><pubDate>Sun, 06 Jan 2019 00:00:00 +0000</pubDate><guid>https://liangyuanpeng.github.io/post/deploy-react-app/</guid><description>前言 前后端分离已经是大趋势，服务器端只需要关注自己的接口逻辑实现，而不需要关注前端的页面跳转，这一部分交由前端处理。常见的就是React应用</description></item></channel></rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>React on Hi,I`m lan</title>
+    <link>https://liangyuanpeng.github.io/tags/react/</link>
+    <description>Recent content in React on Hi,I`m lan</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 06 Jan 2019 00:00:00 +0000</lastBuildDate><atom:link href="https://liangyuanpeng.github.io/tags/react/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>部署React应用</title>
+      <link>https://liangyuanpeng.github.io/post/deploy-react-app/</link>
+      <pubDate>Sun, 06 Jan 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://liangyuanpeng.github.io/post/deploy-react-app/</guid>
+      <description>前言 前后端分离已经是大趋势，服务器端只需要关注自己的接口逻辑实现，而不需要关注前端的页面跳转，这一部分交由前端处理。常见的就是React应用</description>
+    </item>
+    
+  </channel>
+</rss>

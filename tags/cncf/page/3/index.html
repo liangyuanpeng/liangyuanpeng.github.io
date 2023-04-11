@@ -1,544 +1,3798 @@
-<!doctype html><html lang=en-us>
+<!DOCTYPE html>
+<html lang="en-us">
 <head><head>
-<meta name=google-site-verification content="9vIieCe-Qpd78QOmBl63rGtIVbhY6sYyuxX3j8XWBA4">
-<meta name=baidu-site-verification content="LRrmH41lz7">
-<meta charset=utf-8>
-<meta http-equiv=x-ua-compatible content="IE=edge">
-<meta name=google-site-verification content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
-<meta name=viewport content="width=device-width,initial-scale=1">
-<meta name=baidu-site-verification content="HGLXRsUXC4">
-<meta name=baidu-site-verification content="code-ANZvlnN0Xr">
-<meta name=description content="lan，工程师⎈,远鹏|CNCF粉丝|Pulsar爱好者|公众号:四颗咖啡豆|云原生追随者">
-<meta name=keyword content="liangyuanpeng|LanLiang|OpenYurt|Knative|Pulsar|Prometheus|Halo||边缘计算kubernetes|Docker|CloudNative|Golang|Rust|Istio|微服务">
-<link rel="shortcut icon" href=https://res.cloudinary.com/lyp/image/upload/v1679636162/hash-kube-rs-pulsar.png>
-<meta property="og:image" content="https://res.cloudinary.com/lyp/image/upload/v1679636162/hash-kube-rs-pulsar.png">
-<meta name=twitter:image content="https://res.cloudinary.com/lyp/image/upload/v1679636162/hash-kube-rs-pulsar.png">
-<title>cncf-远鹏的博客 | liangyuanpeng's Blog</title>
-<link rel=canonical href=https://liangyuanpeng.github.io/tags/cncf/>
-<link rel=stylesheet href=https://liangyuanpeng.github.io/css/bootstrap.min.css>
-<link rel=stylesheet href=https://liangyuanpeng.github.io/css/hux-blog.min.css>
-<link rel=stylesheet href=https://liangyuanpeng.github.io/css/syntax.css>
-<link href=//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css rel=stylesheet type=text/css>
-<script src=https://liangyuanpeng.github.io/js/jquery.min.js></script>
-<script src=https://liangyuanpeng.github.io/js/bootstrap.min.js></script>
-<script src=https://liangyuanpeng.github.io/js/hux-blog.min.js></script>
-<script defer src=https://static.cloudflareinsights.com/beacon.min.js data-cf-beacon='{"token": "f73bc0092aeb491d89984c0eb5a87ac2"}'></script>
+    <meta name="google-site-verification" content="9vIieCe-Qpd78QOmBl63rGtIVbhY6sYyuxX3j8XWBA4" />
+    <meta name="baidu-site-verification" content="LRrmH41lz7" />
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <meta name="baidu-site-verification" content="HGLXRsUXC4" />
+
+    
+    <meta name="baidu-site-verification" content="code-ANZvlnN0Xr" />
+
+    
+    <meta name="description" content="lan，工程师⎈,远鹏|CNCF粉丝|Pulsar爱好者|公众号:四颗咖啡豆|云原生追随者">
+    
+    <meta name="keyword"  content="liangyuanpeng|LanLiang|OpenYurt|Knative|Pulsar|Prometheus|Halo||边缘计算kubernetes|Docker|CloudNative|Golang|Rust|Istio|微服务">
+
+    
+    <link rel="shortcut icon" href="https://res.cloudinary.com/lyp/image/upload/v1679636162/hash-kube-rs-pulsar.png">
+    
+
+    
+    <meta property="og:image" content="https://res.cloudinary.com/lyp/image/upload/v1679636162/hash-kube-rs-pulsar.png" />
+    <meta name="twitter:image" content="https://res.cloudinary.com/lyp/image/upload/v1679636162/hash-kube-rs-pulsar.png" />
+
+    <title>cncf-远鹏的博客 | liangyuanpeng&#39;s Blog</title>
+
+    <link rel="canonical" href="https://liangyuanpeng.github.io/tags/cncf/">
+
+    
+
+    
+    <link rel="stylesheet" href='https://liangyuanpeng.github.io/css/bootstrap.min.css'>
+
+    
+    <link rel="stylesheet" href="https://liangyuanpeng.github.io/css/hux-blog.min.css">
+
+    
+    <link rel="stylesheet" href="https://liangyuanpeng.github.io/css/syntax.css">
+
+    
+    <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    
+    
+    <script src="https://liangyuanpeng.github.io/js/jquery.min.js"></script>
+
+    
+    <script src="https://liangyuanpeng.github.io/js/bootstrap.min.js"></script>
+
+    
+    <script src="https://liangyuanpeng.github.io/js/hux-blog.min.js"></script>
+
+    
+    <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "f73bc0092aeb491d89984c0eb5a87ac2"}'></script>
 </head>
+
 </head>
+
 <nav class="navbar navbar-default navbar-custom navbar-fixed-top">
-<div class=container-fluid>
-<div class="navbar-header page-scroll">
-<button type=button class=navbar-toggle>
-<span class=sr-only>Toggle navigation</span>
-<span class=icon-bar></span>
-<span class=icon-bar></span>
-<span class=icon-bar></span>
-</button>
-<a class=navbar-brand href=https://liangyuanpeng.github.io/>Hi,I`m lan</a>
-</div>
-<div id=huxblog_navbar>
-<div class=navbar-collapse>
-<ul class="nav navbar-nav navbar-right">
-<li>
-<a href=https://liangyuanpeng.github.io/>Home</a>
-</li>
-<li>
-<a href=https://liangyuanpeng.github.io/categories/cloudnative>cloudnative</a>
-</li>
-<li>
-<a href=https://liangyuanpeng.github.io/categories/devops>devops</a>
-</li>
-<li>
-<a href=https://liangyuanpeng.github.io/categories/iot>iot</a>
-</li>
-<li>
-<a href=https://liangyuanpeng.github.io/categories/kubernetes>kubernetes</a>
-</li>
-<li>
-<a href=https://liangyuanpeng.github.io/categories/tech>tech</a>
-</li>
-<li>
-<a href=https://liangyuanpeng.github.io/search/>SEARCH <img src=https://liangyuanpeng.github.io/img/search.png height=15 style=cursor:pointer></a>
-</li>
-</ul>
-</div>
-</div>
-</div>
+    <div class="container-fluid">
+        
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="https://liangyuanpeng.github.io/">Hi,I`m lan</a>
+        </div>
+
+        
+        
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="https://liangyuanpeng.github.io/">Home</a>
+                    </li>
+                    
+                    <li>
+                        <a href="https://liangyuanpeng.github.io/categories/cloudnative">cloudnative</a>
+                    </li>
+                    
+                    <li>
+                        <a href="https://liangyuanpeng.github.io/categories/devops">devops</a>
+                    </li>
+                    
+                    <li>
+                        <a href="https://liangyuanpeng.github.io/categories/iot">iot</a>
+                    </li>
+                    
+                    <li>
+                        <a href="https://liangyuanpeng.github.io/categories/kubernetes">kubernetes</a>
+                    </li>
+                    
+                    <li>
+                        <a href="https://liangyuanpeng.github.io/categories/tech">tech</a>
+                    </li>
+                    
+
+                    
+		            <li>
+                        <a href="https://liangyuanpeng.github.io/search/">SEARCH <img src="https://liangyuanpeng.github.io/img/search.png" height="15" style="cursor: pointer;"></a>
+		            </li>
+                    
+                </ul>
+            </div>
+        </div>
+        
+    </div>
+    
 </nav>
-<script>var $body=document.body,$toggle=document.querySelector('.navbar-toggle'),$navbar=document.querySelector('#huxblog_navbar'),$collapse=document.querySelector('.navbar-collapse');$toggle.addEventListener('click',handleMagic);function handleMagic(a){$navbar.className.indexOf('in')>0?($navbar.className=" ",setTimeout(function(){$navbar.className.indexOf('in')<0&&($collapse.style.height="0px")},400)):($collapse.style.height="auto",$navbar.className+=" in")}</script>
-<header class=intro-header style=background-image:url(https://liangyuanpeng.github.io/img/banner/art.jpg)>
-<div class=container>
-<div class=row>
-<div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-<div class=site-heading>
-<h1>Hi,I`m lan </h1>
-<span class=subheading></span>
-</div>
-</div>
-</div>
-</div>
+<script>
+    
+    
+    
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        
+            $navbar.className = " ";
+            
+            setTimeout(function(){
+                
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+
+<header class="intro-header" style="background-image: url('https://liangyuanpeng.github.io/img/banner/art.jpg')">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 ">
+                <div class="site-heading">
+                    <h1>Hi,I`m lan </h1>
+                    
+		    <span class="subheading"></span>
+                </div>
+            </div>
+        </div>
+    </div>
 </header>
-<div class=container>
-<div class=row>
-<div class="col-lg-8 col-lg-offset-1
-col-md-8 col-md-offset-1
-col-sm-12
-col-xs-12
-post-container">
-<div class=post-preview>
-<a href=https://liangyuanpeng.github.io/post/fundation-cncf/open-tracing-project-archive/>
-<h2 class=post-title>
-<img style=display:inline-block src=/img/taglogo/cncf/cncf.png height=20 width=20>
-CNCF批准OpenTracing项目归档
-</h2>
-<div class=post-content-preview>
-OpenTracing归档 自从OpenTracing合并到OpenTelemetry项目后,维护者的意愿是将OpenTracing项目归档,
-</div>
-</a>
-<p class=post-meta>
-Posted by 梁远鹏 2022-02-04
-</p>
+
+
+
+  
+<div class="container">
+    <div class="row">
+        
+        
+   	    <div class="
+            col-lg-8 col-lg-offset-1
+            col-md-8 col-md-offset-1
+            col-sm-12
+            col-xs-12
+            post-container
+        ">
+            
+
+
+
+
+<div class="post-preview">
+    <a href="https://liangyuanpeng.github.io/post/fundation-cncf/open-tracing-project-archive/">
+        <h2 class="post-title">
+
+            
+
+            
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                    <img style="display:inline-block;" src="/img/taglogo/cncf/cncf.png" height="20" width="20" />
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+            
+
+            CNCF批准OpenTracing项目归档
+        </h2>
+        
+	
+        <div class="post-content-preview">
+	
+            OpenTracing归档 自从OpenTracing合并到OpenTelemetry项目后,维护者的意愿是将OpenTracing项目归档,
+       
+        </div>
+    </a>
+    <p class="post-meta">
+    Posted by 梁远鹏 2022-02-04 
+    </p>
 </div>
 <hr>
-<div class=post-preview>
-<a href=https://liangyuanpeng.github.io/post/fundation-rust/quick-start-kubernetes-client-rust/>
-<h2 class=post-title>
-<img style=display:inline-block src=/img/taglogo/cncf/cncf.png height=20 width=20>
-<img style=display:inline-block src=/img/taglogo/rust.png height=20 width=20>
-快速认识kubernetes的rust客户端
-</h2>
-<div class=post-content-preview>
-介绍 kube-rs目前是CNCF的沙箱项目,有一个官方的controller实现示例controller-rs. 还有一个Rust实现的Ope
-</div>
-</a>
-<p class=post-meta>
-Posted by 梁远鹏 2022-02-02
-</p>
+
+
+
+<div class="post-preview">
+    <a href="https://liangyuanpeng.github.io/post/fundation-rust/quick-start-kubernetes-client-rust/">
+        <h2 class="post-title">
+
+            
+
+            
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                    <img style="display:inline-block;" src="/img/taglogo/cncf/cncf.png" height="20" width="20" />
+                    
+                
+            
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                    <img style="display:inline-block;" src="/img/taglogo/rust.png" height="20" width="20" />
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+            
+
+            快速认识kubernetes的rust客户端
+        </h2>
+        
+	
+        <div class="post-content-preview">
+	
+            介绍 kube-rs目前是CNCF的沙箱项目,有一个官方的controller实现示例controller-rs. 还有一个Rust实现的Ope
+       
+        </div>
+    </a>
+    <p class="post-meta">
+    Posted by 梁远鹏 2022-02-02 
+    </p>
 </div>
 <hr>
-<div class=post-preview>
-<a href=https://liangyuanpeng.github.io/post/fundation-cncf/rust-project-in-cncf/>
-<h2 class=post-title>
-<img style=display:inline-block src=/img/taglogo/emoji_k8s_loft.gif height=20 width=20>
-<img style=display:inline-block src=/img/taglogo/cncf/cncf.png height=20 width=20>
-<img style=display:inline-block src=/img/taglogo/rust.png height=20 width=20>
-cncf基金会中的rust项目
-</h2>
-<div class=post-content-preview>
-介绍 本文会介绍在CNCF中的Rust项目,项目的介绍可能是很简陋的,如果你可以帮忙完善一下项目的介绍,那就太好了,随时欢迎在评论区或网站仓库
-</div>
-</a>
-<p class=post-meta>
-Posted by 梁远鹏 2022-01-22
-</p>
+
+
+
+<div class="post-preview">
+    <a href="https://liangyuanpeng.github.io/post/fundation-cncf/rust-project-in-cncf/">
+        <h2 class="post-title">
+
+            
+
+            
+                
+                    
+                    <img style="display:inline-block;" src="/img/taglogo/emoji_k8s_loft.gif" height="20" width="20" />
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                    <img style="display:inline-block;" src="/img/taglogo/cncf/cncf.png" height="20" width="20" />
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                    <img style="display:inline-block;" src="/img/taglogo/rust.png" height="20" width="20" />
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            
+
+            cncf基金会中的rust项目
+        </h2>
+        
+	
+        <div class="post-content-preview">
+	
+            介绍 本文会介绍在CNCF中的Rust项目,项目的介绍可能是很简陋的,如果你可以帮忙完善一下项目的介绍,那就太好了,随时欢迎在评论区或网站仓库
+       
+        </div>
+    </a>
+    <p class="post-meta">
+    Posted by 梁远鹏 2022-01-22 
+    </p>
 </div>
 <hr>
-<div class=post-preview>
-<a href=https://liangyuanpeng.github.io/post/cncf-envoy/envoy-file-xds-with-reload-configmap/>
-<h2 class=post-title>
-<img style=display:inline-block src=/img/taglogo/emoji_k8s_loft.gif height=20 width=20>
-<img style=display:inline-block src=/img/taglogo/cncf/cncf.png height=20 width=20>
-<img style=display:inline-block src=/img/taglogo/envoy.png height=20 width=20>
-将热更新configmap作为Envoy的XDS服务
-</h2>
-<div class=post-content-preview>
-前言 由于实验基于kubernetes,因此你首先需要有一个kubernetes环境,这里推荐使用 Kind 命令来搭建.见用kind搭建k8s集群环境
-</div>
-</a>
-<p class=post-meta>
-Posted by 梁远鹏 2022-01-22
-</p>
+
+
+
+<div class="post-preview">
+    <a href="https://liangyuanpeng.github.io/post/cncf-envoy/envoy-file-xds-with-reload-configmap/">
+        <h2 class="post-title">
+
+            
+
+            
+                
+                    
+                
+                    
+                
+                    
+                    <img style="display:inline-block;" src="/img/taglogo/emoji_k8s_loft.gif" height="20" width="20" />
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                    <img style="display:inline-block;" src="/img/taglogo/cncf/cncf.png" height="20" width="20" />
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                    <img style="display:inline-block;" src="/img/taglogo/envoy.png" height="20" width="20" />
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            
+
+            将热更新configmap作为Envoy的XDS服务
+        </h2>
+        
+	
+        <div class="post-content-preview">
+	
+            前言 由于实验基于kubernetes,因此你首先需要有一个kubernetes环境,这里推荐使用 Kind 命令来搭建.见用kind搭建k8s集群环境
+       
+        </div>
+    </a>
+    <p class="post-meta">
+    Posted by 梁远鹏 2022-01-22 
+    </p>
 </div>
 <hr>
-<div class=post-preview>
-<a href=https://liangyuanpeng.github.io/post/fundation-cncf/k8s-cd-argo-deploy/>
-<h2 class=post-title>
-<img style=display:inline-block src=/img/taglogo/emoji_k8s_loft.gif height=20 width=20>
-<img style=display:inline-block src=/img/taglogo/cncf/cncf.png height=20 width=20>
-k8s部署云原生CD引擎Argo
-</h2>
-<div class=post-content-preview>
-部署Argo CD 安装Argo CD kubectl create namespace argocd kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml 如果下载访问有问题可以改一下地址,是我个人学习使用的一个代理github文件的下载地址.将r
-</div>
-</a>
-<p class=post-meta>
-Posted by 梁远鹏 2022-01-20
-</p>
+
+
+
+<div class="post-preview">
+    <a href="https://liangyuanpeng.github.io/post/fundation-cncf/k8s-cd-argo-deploy/">
+        <h2 class="post-title">
+
+            
+
+            
+                
+                    
+                
+                    
+                
+                    
+                    <img style="display:inline-block;" src="/img/taglogo/emoji_k8s_loft.gif" height="20" width="20" />
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                    <img style="display:inline-block;" src="/img/taglogo/cncf/cncf.png" height="20" width="20" />
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            
+
+            k8s部署云原生CD引擎Argo
+        </h2>
+        
+	
+        <div class="post-content-preview">
+	
+            部署Argo CD 安装Argo CD kubectl create namespace argocd kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml 如果下载访问有问题可以改一下地址,是我个人学习使用的一个代理github文件的下载地址.将r
+       
+        </div>
+    </a>
+    <p class="post-meta">
+    Posted by 梁远鹏 2022-01-20 
+    </p>
 </div>
 <hr>
-<div class=post-preview>
-<a href=https://liangyuanpeng.github.io/post/cncf-kubernetes/kubernetes-qa/>
-<h2 class=post-title>
-<img style=display:inline-block src=/img/taglogo/emoji_k8s_loft.gif height=20 width=20>
-<img style=display:inline-block src=/img/taglogo/cncf/cncf.png height=20 width=20>
-kubernetes常见问题
-</h2>
-<div class=post-content-preview>
-声明 本文会持续的更新,将在使用kubernetes过程中遇到的问题都收集起来.欢迎投稿加入你遇到的问题. 跨版本升级 service-account-issuer is a required flag, &ndash;service-account-signing-key-file and &ndash;service-account-issuer are required flags 版本
-</div>
-</a>
-<p class=post-meta>
-Posted by 梁远鹏 2022-01-18
-</p>
+
+
+
+<div class="post-preview">
+    <a href="https://liangyuanpeng.github.io/post/cncf-kubernetes/kubernetes-qa/">
+        <h2 class="post-title">
+
+            
+
+            
+                
+                    
+                    <img style="display:inline-block;" src="/img/taglogo/emoji_k8s_loft.gif" height="20" width="20" />
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                    <img style="display:inline-block;" src="/img/taglogo/cncf/cncf.png" height="20" width="20" />
+                    
+                
+            
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+            
+
+            kubernetes常见问题
+        </h2>
+        
+	
+        <div class="post-content-preview">
+	
+            声明 本文会持续的更新,将在使用kubernetes过程中遇到的问题都收集起来.欢迎投稿加入你遇到的问题. 跨版本升级 service-account-issuer is a required flag, &ndash;service-account-signing-key-file and &ndash;service-account-issuer are required flags 版本
+       
+        </div>
+    </a>
+    <p class="post-meta">
+    Posted by 梁远鹏 2022-01-18 
+    </p>
 </div>
 <hr>
-<div class=post-preview>
-<a href=https://liangyuanpeng.github.io/post/cncf-kubernetes/proxy-kube-apiserver/>
-<h2 class=post-title>
-<img style=display:inline-block src=/img/taglogo/emoji_k8s_loft.gif height=20 width=20>
-<img style=display:inline-block src=/img/taglogo/cncf/cncf.png height=20 width=20>
-反向代理kube-apiserver的请求
-</h2>
-<div class=post-content-preview>
-本文会介绍在L7中转发下面两种方式的请求以及L4转发. 默认的使用证书的kubectl请求 使用token的kubectl请求 L4比较简单处理,
-</div>
-</a>
-<p class=post-meta>
-Posted by 梁远鹏 2022-01-17
-</p>
+
+
+
+<div class="post-preview">
+    <a href="https://liangyuanpeng.github.io/post/cncf-kubernetes/proxy-kube-apiserver/">
+        <h2 class="post-title">
+
+            
+
+            
+                
+                    
+                    <img style="display:inline-block;" src="/img/taglogo/emoji_k8s_loft.gif" height="20" width="20" />
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                    <img style="display:inline-block;" src="/img/taglogo/cncf/cncf.png" height="20" width="20" />
+                    
+                
+            
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+            
+
+            反向代理kube-apiserver的请求
+        </h2>
+        
+	
+        <div class="post-content-preview">
+	
+            本文会介绍在L7中转发下面两种方式的请求以及L4转发. 默认的使用证书的kubectl请求 使用token的kubectl请求 L4比较简单处理,
+       
+        </div>
+    </a>
+    <p class="post-meta">
+    Posted by 梁远鹏 2022-01-17 
+    </p>
 </div>
 <hr>
-<div class=post-preview>
-<a href=https://liangyuanpeng.github.io/post/fundation-cncf/deploy-full-ssl-etcd/>
-<h2 class=post-title>
-<img style=display:inline-block src=/img/taglogo/emoji_k8s_loft.gif height=20 width=20>
-<img style=display:inline-block src=/img/taglogo/cncf/cncf.png height=20 width=20>
-<img style=display:inline-block src=/img/taglogo/etcd.png height=20 width=20>
-部署一个完整带SSL的etcd
-</h2>
-<div class=post-content-preview>
-</div>
-</a>
-<p class=post-meta>
-Posted by 梁远鹏 2022-01-17
-</p>
+
+
+
+<div class="post-preview">
+    <a href="https://liangyuanpeng.github.io/post/fundation-cncf/deploy-full-ssl-etcd/">
+        <h2 class="post-title">
+
+            
+
+            
+                
+                    
+                    <img style="display:inline-block;" src="/img/taglogo/emoji_k8s_loft.gif" height="20" width="20" />
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                    <img style="display:inline-block;" src="/img/taglogo/cncf/cncf.png" height="20" width="20" />
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                    <img style="display:inline-block;" src="/img/taglogo/etcd.png" height="20" width="20" />
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+            
+
+            部署一个完整带SSL的etcd
+        </h2>
+        
+	
+        <div class="post-content-preview">
+	
+            
+       
+        </div>
+    </a>
+    <p class="post-meta">
+    Posted by 梁远鹏 2022-01-17 
+    </p>
 </div>
 <hr>
-<div class=post-preview>
-<a href=https://liangyuanpeng.github.io/post/cncf-contour/contour-v1.18.3-release/>
-<h2 class=post-title>
-<img style=display:inline-block src=/img/taglogo/emoji_k8s_loft.gif height=20 width=20>
-<img style=display:inline-block src=/img/taglogo/cncf/cncf.png height=20 width=20>
-<img style=display:inline-block src=/img/taglogo/contour.png height=20 width=20>
-Contour-v1.18.3发布
-</h2>
-<div class=post-content-preview>
-Contour-v1.18.3发布
-</div>
-</a>
-<p class=post-meta>
-Posted by 梁远鹏 2022-01-09
-</p>
+
+
+
+<div class="post-preview">
+    <a href="https://liangyuanpeng.github.io/post/cncf-contour/contour-v1.18.3-release/">
+        <h2 class="post-title">
+
+            
+
+            
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                    <img style="display:inline-block;" src="/img/taglogo/emoji_k8s_loft.gif" height="20" width="20" />
+                    
+                
+            
+                
+                    
+                
+                    
+                    <img style="display:inline-block;" src="/img/taglogo/cncf/cncf.png" height="20" width="20" />
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                    <img style="display:inline-block;" src="/img/taglogo/contour.png" height="20" width="20" />
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            
+
+            Contour-v1.18.3发布
+        </h2>
+        
+	
+        <div class="post-content-preview">
+	
+            Contour-v1.18.3发布
+            
+        
+        </div>
+    </a>
+    <p class="post-meta">
+    Posted by 梁远鹏 2022-01-09 
+    </p>
 </div>
 <hr>
-<div class=post-preview>
-<a href=https://liangyuanpeng.github.io/post/cncf-contour/contour-v1.20.0-beta.1-release/>
-<h2 class=post-title>
-<img style=display:inline-block src=/img/taglogo/emoji_k8s_loft.gif height=20 width=20>
-<img style=display:inline-block src=/img/taglogo/cncf/cncf.png height=20 width=20>
-<img style=display:inline-block src=/img/taglogo/contour.png height=20 width=20>
-Contour-v1.20.0-beta.1发布
-</h2>
-<div class=post-content-preview>
-Contour-v1.20.0-beta.1发布
-</div>
-</a>
-<p class=post-meta>
-Posted by 梁远鹏 2022-01-09
-</p>
+
+
+
+<div class="post-preview">
+    <a href="https://liangyuanpeng.github.io/post/cncf-contour/contour-v1.20.0-beta.1-release/">
+        <h2 class="post-title">
+
+            
+
+            
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                    <img style="display:inline-block;" src="/img/taglogo/emoji_k8s_loft.gif" height="20" width="20" />
+                    
+                
+            
+                
+                    
+                
+                    
+                    <img style="display:inline-block;" src="/img/taglogo/cncf/cncf.png" height="20" width="20" />
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                    <img style="display:inline-block;" src="/img/taglogo/contour.png" height="20" width="20" />
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            
+
+            Contour-v1.20.0-beta.1发布
+        </h2>
+        
+	
+        <div class="post-content-preview">
+	
+            Contour-v1.20.0-beta.1发布
+            
+        
+        </div>
+    </a>
+    <p class="post-meta">
+    Posted by 梁远鹏 2022-01-09 
+    </p>
 </div>
 <hr>
-<script type=text/javascript>function init(){const b=document.querySelectorAll('.post-title'),a=new Date;(a.getDay()===5||a.getDay()===1)&&(imgSrc="https://emoji.slack-edge.com/T09NY5SBT/partyblob/f8d50eb766418532.gif",a.getDay()===1&&(imgSrc="https://emoji.slack-edge.com/T08PSQ7BQ/twinsparrot/20649446b37d9d8c.gif"),b.forEach(b=>{!b.querySelector("img");const a=document.createElement('img');a.src=imgSrc,a.style.display="inline-block",a.height="20",a.width="20",b.appendChild(a)}))}console.log("inbit"),init()</script>
-<ul class=pager>
-<li class=previous>
-<a href=/tags/cncf/page/2/>&larr; Newer Posts</a>
-</li>
-<li class=next>
-<a href=/tags/cncf/page/4/>Older Posts &rarr;</a>
-</li>
+
+
+
+
+<script type="text/javascript">
+    function init(){
+       
+       const titleElements = document.querySelectorAll('.post-title');
+   
+       
+       const currentDate = new Date();
+
+       
+       if (currentDate.getDay() === 5 ||  currentDate.getDay() === 1) {
+        
+        imgSrc = "https://emoji.slack-edge.com/T09NY5SBT/partyblob/f8d50eb766418532.gif"
+        if(currentDate.getDay() === 1){
+            imgSrc = "https://emoji.slack-edge.com/T08PSQ7BQ/twinsparrot/20649446b37d9d8c.gif"   
+        }
+       
+        titleElements.forEach(titleElement => {
+            
+            if (!titleElement.querySelector("img")) {
+                
+            }
+            const imgElement = document.createElement('img');
+            imgElement.src = imgSrc;
+            imgElement.style.display = "inline-block";
+            imgElement.height="20"
+            imgElement.width="20"
+            titleElement.appendChild(imgElement);
+        });
+       }
+    }
+    console.log("inbit")
+    init()
+</script>
+            
+
+
+<ul class="pager">
+    
+    <li class="previous">
+        <a href="/tags/cncf/page/2/">&larr; Newer Posts</a>
+    </li>
+    
+    
+    <li class="next">
+        <a href="/tags/cncf/page/4/">Older Posts &rarr;</a>
+    </li>
+    
 </ul>
+
+
+       	</div>
+        
+<div class="
+    col-lg-3 col-lg-offset-0
+    col-md-3 col-md-offset-0
+    col-sm-12
+    col-xs-12
+    sidebar-container
+">
+
+    
+    <section class="visible-md visible-lg">
+        <hr><h5><a href="">ABOUT ME</a></h5>
+        <div class="short-about">
+            
+            <img src="https://liangyuanpeng.github.io/img/aboutme/hash-kube-rs-pulsar.png" />
+            
+            
+                <p>⎈⎈远鹏|CNCF粉丝|Pulsar爱好者|公众号:四颗咖啡豆|云原生追随者⎈⎈</p>
+            
+            <hr class="hr-slash bio-hr">
+            
+            扫码下面二维码加我微信
+            <img src="https://liangyuanpeng.github.io/img/aboutme/wechat-lan.png" />
+            
+            <hr class="hr-slash bio-hr">
+           
+           <ul class="list-inline"> 
+               
+               <li>
+                   <a href="https://liangyuanpeng.github.io/tags/cncf/index.xml" rel="alternate" type="application/rss+xml" title="Hi,I`m lan" >
+                       <span class="fa-stack fa-lg">
+                           <i class="fa fa-circle fa-stack-2x"></i>
+                           <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+                       </span>
+                   </a>
+               </li>
+               
+               
+               <li>
+                   <a target="_blank" href="https://github.com/liangyuanpeng">
+                       <span class="fa-stack fa-lg">
+                           <i class="fa fa-circle fa-stack-2x"></i>
+                           <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                       </span>
+                   </a>
+               </li>
+               
+               
+               <li>
+                   <a target="_blank" href="https://liangyuanpeng.github.io/img/aboutme/wechat-lan.png">
+                       <span class="fa-stack fa-lg">
+                           <i class="fa fa-circle fa-stack-2x"></i>
+                           <i class="fa fa-wechat fa-stack-1x fa-inverse"></i>
+                       </span>
+                   </a>
+               </li>
+               
+               
+               <li>
+                   <a href="https://twitter.com/lan31793328">
+                       <span class="fa-stack fa-lg">
+                           <i class="fa fa-circle fa-stack-2x"></i>
+                           <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                       </span>
+                   </a>
+               </li>
+               
+               
+               <li>
+                   <a target="_blank" href="https://www.zhihu.com/people/liangyuanpeng">
+                       <span class="fa-stack fa-lg">
+                           <i class="fa fa-circle fa-stack-2x"></i>
+                           <i class="fa  fa-stack-1x fa-inverse">知</i>
+                       </span>
+                   </a>
+               </li>
+               
+               
+               <li>
+                   <a target="_blank" href="https://weibo.com/u/1908782280">
+                       <span class="fa-stack fa-lg">
+                           <i class="fa fa-circle fa-stack-2x"></i>
+                           <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                       </span>
+                   </a>
+               </li>
+               
+               
+               
+              
+               
+                </ul>
+            </div>
+    </section>
+
+     
+     
+     <section>
+         <hr class="hidden-sm hidden-xs">
+         <h5>FEATURED TAGS</h5>
+         <div class="tags">
+              
+             
+                 
+             
+                 
+             
+                 
+             
+                 
+             
+                 
+             
+                 
+             
+                 
+             
+                 
+             
+                 
+             
+                 
+             
+                 
+                     <a href="/tags/blog" title="blog">
+                         blog
+                     </a>
+                 
+             
+                 
+                     <a href="/tags/bookkeeper" title="bookkeeper">
+                         bookkeeper
+                     </a>
+                 
+             
+                 
+             
+                 
+             
+                 
+                     <a href="/tags/cdf" title="cdf">
+                         cdf
+                     </a>
+                 
+             
+                 
+             
+                 
+                     <a href="/tags/chatgpt" title="chatgpt">
+                         chatgpt
+                     </a>
+                 
+             
+                 
+                     <a href="/tags/chirpstack" title="chirpstack">
+                         chirpstack
+                     </a>
+                 
+             
+                 
+             
+                 
+                     <a href="/tags/ci/cd" title="ci/cd">
+                         ci/cd
+                     </a>
+                 
+             
+                 
+             
+                 
+             
+                 
+             
+                 
+                     <a href="/tags/cloudnative" title="cloudnative">
+                         cloudnative
+                     </a>
+                 
+             
+                 
+                     <a href="/tags/cncf" title="cncf">
+                         cncf
+                     </a>
+                 
+             
+                 
+             
+                 
+                     <a href="/tags/contour" title="contour">
+                         contour
+                     </a>
+                 
+             
+                 
+             
+                 
+                     <a href="/tags/devops" title="devops">
+                         devops
+                     </a>
+                 
+             
+                 
+             
+                 
+                     <a href="/tags/docker" title="docker">
+                         docker
+                     </a>
+                 
+             
+                 
+                     <a href="/tags/docker-compose" title="docker-compose">
+                         docker-compose
+                     </a>
+                 
+             
+                 
+             
+                 
+             
+                 
+             
+                 
+             
+                 
+             
+                 
+                     <a href="/tags/envoy" title="envoy">
+                         envoy
+                     </a>
+                 
+             
+                 
+             
+                 
+             
+                 
+             
+                 
+                     <a href="/tags/fluentd" title="fluentd">
+                         fluentd
+                     </a>
+                 
+             
+                 
+                     <a href="/tags/foundation" title="foundation">
+                         foundation
+                     </a>
+                 
+             
+                 
+             
+                 
+             
+                 
+             
+                 
+             
+                 
+             
+                 
+                     <a href="/tags/golang" title="golang">
+                         golang
+                     </a>
+                 
+             
+                 
+             
+                 
+             
+                 
+                     <a href="/tags/helm" title="helm">
+                         helm
+                     </a>
+                 
+             
+                 
+             
+                 
+                     <a href="/tags/hugo" title="hugo">
+                         hugo
+                     </a>
+                 
+             
+                 
+                     <a href="/tags/image" title="image">
+                         image
+                     </a>
+                 
+             
+                 
+             
+                 
+                     <a href="/tags/iot" title="iot">
+                         iot
+                     </a>
+                 
+             
+                 
+             
+                 
+             
+                 
+             
+                 
+             
+                 
+                     <a href="/tags/k8s" title="k8s">
+                         k8s
+                     </a>
+                 
+             
+                 
+             
+                 
+             
+                 
+             
+                 
+             
+                 
+             
+                 
+                     <a href="/tags/kind" title="kind">
+                         kind
+                     </a>
+                 
+             
+                 
+             
+                 
+             
+                 
+             
+                 
+             
+                 
+             
+                 
+                     <a href="/tags/kubernetes" title="kubernetes">
+                         kubernetes
+                     </a>
+                 
+             
+                 
+                     <a href="/tags/kubesphere" title="kubesphere">
+                         kubesphere
+                     </a>
+                 
+             
+                 
+             
+                 
+             
+                 
+             
+                 
+             
+                 
+             
+                 
+                     <a href="/tags/lorawan" title="lorawan">
+                         lorawan
+                     </a>
+                 
+             
+                 
+             
+                 
+                     <a href="/tags/metrics" title="metrics">
+                         metrics
+                     </a>
+                 
+             
+                 
+             
+                 
+             
+                 
+                     <a href="/tags/middleware" title="middleware">
+                         middleware
+                     </a>
+                 
+             
+                 
+             
+                 
+                     <a href="/tags/monitor" title="monitor">
+                         monitor
+                     </a>
+                 
+             
+                 
+                     <a href="/tags/mq" title="mq">
+                         mq
+                     </a>
+                 
+             
+                 
+             
+                 
+                     <a href="/tags/nginx" title="nginx">
+                         nginx
+                     </a>
+                 
+             
+                 
+             
+                 
+             
+                 
+             
+                 
+             
+                 
+             
+                 
+             
+                 
+                     <a href="/tags/ops" title="ops">
+                         ops
+                     </a>
+                 
+             
+                 
+             
+                 
+             
+                 
+                     <a href="/tags/prometheus" title="prometheus">
+                         prometheus
+                     </a>
+                 
+             
+                 
+                     <a href="/tags/pulsar" title="pulsar">
+                         pulsar
+                     </a>
+                 
+             
+                 
+             
+                 
+             
+                 
+                     <a href="/tags/rpc" title="rpc">
+                         rpc
+                     </a>
+                 
+             
+                 
+                     <a href="/tags/rust" title="rust">
+                         rust
+                     </a>
+                 
+             
+                 
+                     <a href="/tags/sofa" title="sofa">
+                         sofa
+                     </a>
+                 
+             
+                 
+                     <a href="/tags/sofastack" title="sofastack">
+                         sofastack
+                     </a>
+                 
+             
+                 
+                     <a href="/tags/springboot" title="springboot">
+                         springboot
+                     </a>
+                 
+             
+                 
+             
+                 
+                     <a href="/tags/tech" title="tech">
+                         tech
+                     </a>
+                 
+             
+                 
+             
+                 
+             
+                 
+             
+                 
+             
+                 
+             
+                 
+             
+                 
+             
+                 
+             
+                 
+             
+                 
+                     <a href="/tags/%E5%8D%9A%E5%AE%A2" title="博客">
+                         博客
+                     </a>
+                 
+             
+                 
+             
+                 
+             
+                 
+             
+                 
+             
+                 
+             
+                 
+             
+                 
+             
+                 
+             
+                 
+             
+                 
+                     <a href="/tags/%E7%BF%BB%E8%AF%91" title="翻译">
+                         翻译
+                     </a>
+                 
+             
+                 
+             
+                 
+             
+                 
+             
+                 
+             
+         </div>
+     </section>
+     
+
+
+   
+   
+   
+    
+   <hr>
+   <h5>BOOKMARKS</h5>
+   <ul class="list-inline">
+   
+           <li><a target="_blank" href="http://www.servicemesh.cn">ServiceMesh中文网</a></li>
+       
+           <li><a target="_blank" href="https://servicemesh.gitbooks.io/awesome-servicemesh">Awesome Service Mesh</a></li>
+       
+           <li><a target="_blank" href="https://keda.liangyuanpeng.com">KEDA中文化进行中</a></li>
+       
+   </ul>
 </div>
-<div class="col-lg-3 col-lg-offset-0
-col-md-3 col-md-offset-0
-col-sm-12
-col-xs-12
-sidebar-container">
-<section class="visible-md visible-lg">
-<hr><h5><a href>ABOUT ME</a></h5>
-<div class=short-about>
-<img src=https://liangyuanpeng.github.io/img/aboutme/hash-kube-rs-pulsar.png>
-<p>⎈⎈远鹏|CNCF粉丝|Pulsar爱好者|公众号:四颗咖啡豆|云原生追随者⎈⎈</p>
-<hr class="hr-slash bio-hr">
-扫码下面二维码加我微信
-<img src=https://liangyuanpeng.github.io/img/aboutme/wechat-lan.png>
-<hr class="hr-slash bio-hr">
-<ul class=list-inline>
-<li>
-<a href=https://liangyuanpeng.github.io/tags/cncf/index.xml rel=alternate type=application/rss+xml title="Hi,I`m lan">
-<span class="fa-stack fa-lg">
-<i class="fa fa-circle fa-stack-2x"></i>
-<i class="fa fa-rss fa-stack-1x fa-inverse"></i>
-</span>
-</a>
-</li>
-<li>
-<a target=_blank href=https://github.com/liangyuanpeng>
-<span class="fa-stack fa-lg">
-<i class="fa fa-circle fa-stack-2x"></i>
-<i class="fa fa-github fa-stack-1x fa-inverse"></i>
-</span>
-</a>
-</li>
-<li>
-<a target=_blank href=https://liangyuanpeng.github.io/img/aboutme/wechat-lan.png>
-<span class="fa-stack fa-lg">
-<i class="fa fa-circle fa-stack-2x"></i>
-<i class="fa fa-wechat fa-stack-1x fa-inverse"></i>
-</span>
-</a>
-</li>
-<li>
-<a href=https://twitter.com/lan31793328>
-<span class="fa-stack fa-lg">
-<i class="fa fa-circle fa-stack-2x"></i>
-<i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
-</span>
-</a>
-</li>
-<li>
-<a target=_blank href=https://www.zhihu.com/people/liangyuanpeng>
-<span class="fa-stack fa-lg">
-<i class="fa fa-circle fa-stack-2x"></i>
-<i class="fa fa-stack-1x fa-inverse">知</i>
-</span>
-</a>
-</li>
-<li>
-<a target=_blank href=https://weibo.com/u/1908782280>
-<span class="fa-stack fa-lg">
-<i class="fa fa-circle fa-stack-2x"></i>
-<i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
-</span>
-</a>
-</li>
-</ul>
+
+	</div>
 </div>
-</section>
-<section>
-<hr class="hidden-sm hidden-xs">
-<h5>FEATURED TAGS</h5>
-<div class=tags>
-<a href=/tags/blog title=blog>
-blog
-</a>
-<a href=/tags/bookkeeper title=bookkeeper>
-bookkeeper
-</a>
-<a href=/tags/cdf title=cdf>
-cdf
-</a>
-<a href=/tags/chatgpt title=chatgpt>
-chatgpt
-</a>
-<a href=/tags/chirpstack title=chirpstack>
-chirpstack
-</a>
-<a href=/tags/ci/cd title=ci/cd>
-ci/cd
-</a>
-<a href=/tags/cloudnative title=cloudnative>
-cloudnative
-</a>
-<a href=/tags/cncf title=cncf>
-cncf
-</a>
-<a href=/tags/contour title=contour>
-contour
-</a>
-<a href=/tags/devops title=devops>
-devops
-</a>
-<a href=/tags/docker title=docker>
-docker
-</a>
-<a href=/tags/docker-compose title=docker-compose>
-docker-compose
-</a>
-<a href=/tags/envoy title=envoy>
-envoy
-</a>
-<a href=/tags/fluentd title=fluentd>
-fluentd
-</a>
-<a href=/tags/foundation title=foundation>
-foundation
-</a>
-<a href=/tags/golang title=golang>
-golang
-</a>
-<a href=/tags/helm title=helm>
-helm
-</a>
-<a href=/tags/hugo title=hugo>
-hugo
-</a>
-<a href=/tags/image title=image>
-image
-</a>
-<a href=/tags/iot title=iot>
-iot
-</a>
-<a href=/tags/k8s title=k8s>
-k8s
-</a>
-<a href=/tags/kind title=kind>
-kind
-</a>
-<a href=/tags/kubernetes title=kubernetes>
-kubernetes
-</a>
-<a href=/tags/kubesphere title=kubesphere>
-kubesphere
-</a>
-<a href=/tags/lorawan title=lorawan>
-lorawan
-</a>
-<a href=/tags/metrics title=metrics>
-metrics
-</a>
-<a href=/tags/middleware title=middleware>
-middleware
-</a>
-<a href=/tags/monitor title=monitor>
-monitor
-</a>
-<a href=/tags/mq title=mq>
-mq
-</a>
-<a href=/tags/nginx title=nginx>
-nginx
-</a>
-<a href=/tags/ops title=ops>
-ops
-</a>
-<a href=/tags/prometheus title=prometheus>
-prometheus
-</a>
-<a href=/tags/pulsar title=pulsar>
-pulsar
-</a>
-<a href=/tags/rpc title=rpc>
-rpc
-</a>
-<a href=/tags/rust title=rust>
-rust
-</a>
-<a href=/tags/sofa title=sofa>
-sofa
-</a>
-<a href=/tags/sofastack title=sofastack>
-sofastack
-</a>
-<a href=/tags/springboot title=springboot>
-springboot
-</a>
-<a href=/tags/tech title=tech>
-tech
-</a>
-<a href=/tags/%E7%BF%BB%E8%AF%91 title=翻译>
-翻译
-</a>
-</div>
-</section>
-<hr>
-<h5>BOOKMARKS</h5>
-<ul class=list-inline>
-<li><a target=_blank href=http://www.servicemesh.cn>ServiceMesh中文网</a></li>
-<li><a target=_blank href=https://servicemesh.gitbooks.io/awesome-servicemesh>Awesome Service Mesh</a></li>
-<li><a target=_blank href=https://keda.liangyuanpeng.com>KEDA中文化进行中</a></li>
-</ul>
-</div>
-</div>
-</div>
+
+
+
+
+
 <footer>
-<div class=container>
-<div class=row>
-<div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-<ul class="list-inline text-center">
-<li>
-<a href=https://liangyuanpeng.github.io/tags/cncf/index.xml rel=alternate type=application/rss+xml title="Hi,I`m lan">
-<span class="fa-stack fa-lg">
-<i class="fa fa-circle fa-stack-2x"></i>
-<i class="fa fa-rss fa-stack-1x fa-inverse"></i>
-</span>
-</a>
-</li>
-<li>
-<a target=_blank href=https://github.com/liangyuanpeng>
-<span class="fa-stack fa-lg">
-<i class="fa fa-circle fa-stack-2x"></i>
-<i class="fa fa-github fa-stack-1x fa-inverse"></i>
-</span>
-</a>
-</li>
-<li>
-<a target=_blank href=https://liangyuanpeng.github.io/img/aboutme/wechat-lan.png>
-<span class="fa-stack fa-lg">
-<i class="fa fa-circle fa-stack-2x"></i>
-<i class="fa fa-wechat fa-stack-1x fa-inverse"></i>
-</span>
-</a>
-</li>
-<li>
-<a href=mailto:liangyuanpengem@163.com>
-<span class="fa-stack fa-lg">
-<i class="fa fa-circle fa-stack-2x"></i>
-<i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
-</span>
-</a>
-</li>
-<li>
-<a href=https://twitter.com/lan31793328>
-<span class="fa-stack fa-lg">
-<i class="fa fa-circle fa-stack-2x"></i>
-<i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
-</span>
-</a>
-</li>
-<li>
-<a target=_blank href=https://www.zhihu.com/people/liangyuanpeng>
-<span class="fa-stack fa-lg">
-<i class="fa fa-circle fa-stack-2x"></i>
-<i class="fa fa-stack-1x fa-inverse">知</i>
-</span>
-</a>
-</li>
-<li>
-<a target=_blank href=https://weibo.com/u/1908782280>
-<span class="fa-stack fa-lg">
-<i class="fa fa-circle fa-stack-2x"></i>
-<i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
-</span>
-</a>
-</li>
-</ul>
-<p class="copyright text-muted">
-Copyright &copy; Hi,I`m lan , 2023
-<br>
-<a href=https://themes.gohugo.io/hugo-theme-cleanwhite>CleanWhite Hugo Theme</a> by <a href=https://zhaohuabing.com>Huabing</a> |
-<iframe style=margin-left:2px;margin-bottom:-5px frameborder=0 scrolling=0 width=100px height=20px src="https://ghbtns.com/github-btn.html?user=zhaohuabing&repo=hugo-theme-cleanwhite&type=star&count=true"></iframe>
-</p>
-</div>
-</div>
-</div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                   
+                   <li>
+                       <a href="https://liangyuanpeng.github.io/tags/cncf/index.xml" rel="alternate" type="application/rss+xml" title="Hi,I`m lan" >
+                           <span class="fa-stack fa-lg">
+                               <i class="fa fa-circle fa-stack-2x"></i>
+                               <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+                           </span>
+                       </a>
+                   </li>
+                   
+                    
+                    <li>
+                        <a target="_blank" href="https://github.com/liangyuanpeng">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                   
+                   
+                    
+                    <li>
+                        <a target="_blank" href="https://liangyuanpeng.github.io/img/aboutme/wechat-lan.png">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-wechat fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li>
+                        <a href="mailto:liangyuanpengem@163.com">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+		    
+
+                    
+                    <li>
+                        <a href="https://twitter.com/lan31793328">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li>
+                        <a target="_blank" href="https://www.zhihu.com/people/liangyuanpeng">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa  fa-stack-1x fa-inverse">知</i>
+                            </span>
+                        </a>
+                    </li>
+		    
+                    
+                    <li>
+                        <a target="_blank" href="https://weibo.com/u/1908782280">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+		    
+
+                    
+
+		    
+                    
+                </ul>
+		<p class="copyright text-muted">
+                    Copyright &copy; Hi,I`m lan , 2023
+                    <br>
+                    <a href="https://themes.gohugo.io/hugo-theme-cleanwhite">CleanWhite Hugo Theme</a> by <a href="https://zhaohuabing.com">Huabing</a> |
+                    <iframe
+                        style="margin-left: 2px; margin-bottom:-5px;"
+                        frameborder="0" scrolling="0" width="100px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=zhaohuabing&repo=hugo-theme-cleanwhite&type=star&count=true" >
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
 </footer>
-<script>function loadAsync(f,b){var c=document,d='script',a=c.createElement(d),e=c.getElementsByTagName(d)[0];a.src=f,b&&a.addEventListener('load',function(a){b(null,a)},!1),e.parentNode.insertBefore(a,e)}</script>
-<script>function async(f,b){var c=document,d='script',a=c.createElement(d),e=c.getElementsByTagName(d)[0];a.src=f,b&&a.addEventListener('load',function(a){b(null,a)},!1),e.parentNode.insertBefore(a,e)}</script>
-<script>$('#tag_cloud').length!==0&&async("/js/jquery.tagcloud.js",function(){$.fn.tagcloud.defaults={color:{start:'#bbbbee',end:'#0085a1'}},$('#tag_cloud a').tagcloud()})</script>
-<script type=text/javascript>function generateCatalog(a){_containerSelector='div.post-container';var h=$(_containerSelector),c,d,e,f,g,b;return c=h.find('h1,h2,h3,h4,h5,h6'),$(a).html(''),c.each(function(){d=$(this).prop('tagName').toLowerCase(),g="#"+$(this).prop('id'),e=$(this).text(),b=$('<a href="'+g+'" rel="nofollow">'+e+'</a>'),f=$('<li class="'+d+'_nav"></li>').append(b),$(a).append(f)}),!0}generateCatalog(".catalog-body"),$(".catalog-toggle").click(function(a){a.preventDefault(),$('.side-catalog').toggleClass("fold")}),loadAsync("/js/jquery.nav.js",function(){$('.catalog-body').onePageNav({currentClass:"active",changeHash:!1,easing:"swing",filter:"",scrollSpeed:700,scrollOffset:0,scrollThreshold:.2,begin:null,end:null,scrollChange:null,padding:80})})</script>
-<script>async("https://cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.js",function(){var a=document.querySelector("nav");a&&FastClick.attach(a)})</script>
-<script>var _baId='fad9c137f8ce239f9b323d36c871f8e6',_hmt=_hmt||[];(function(){var a=document.createElement("script"),b;a.src="//hm.baidu.com/hm.js?"+_baId,b=document.getElementsByTagName("script")[0],b.parentNode.insertBefore(a,b)})()</script>
+
+
+
+<script>
+    function loadAsync(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+
+
+
+
+
+<script>
+    
+    if($('#tag_cloud').length !== 0){
+        async("/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+
+
+
+<script type="text/javascript">
+
+    
+    
+
+    function generateCatalog(selector) {
+
+        
+        
+        
+        
+            _containerSelector = 'div.post-container'
+        
+
+        
+        var P = $(_containerSelector), a, n, t, l, i, c;
+        a = P.find('h1,h2,h3,h4,h5,h6');
+
+        
+        $(selector).html('')
+
+        
+        a.each(function () {
+            n = $(this).prop('tagName').toLowerCase();
+            i = "#" + $(this).prop('id');
+            t = $(this).text();
+            c = $('<a href="' + i + '" rel="nofollow">' + t + '</a>');
+            l = $('<li class="' + n + '_nav"></li>').append(c);
+            $(selector).append(l);
+        });
+        return true;
+    }
+
+    generateCatalog(".catalog-body");
+
+    
+    $(".catalog-toggle").click((function (e) {
+        e.preventDefault();
+        $('.side-catalog').toggleClass("fold")
+    }))
+
+    
+
+
+    loadAsync("\/js\/jquery.nav.js", function () {
+        $('.catalog-body').onePageNav({
+            currentClass: "active",
+            changeHash: !1,
+            easing: "swing",
+            filter: "",
+            scrollSpeed: 700,
+            scrollOffset: 0,
+            scrollThreshold: .2,
+            begin: null,
+            end: null,
+            scrollChange: null,
+            padding: 80
+        });
+    });
+</script>
+
+
+
+
+<script>
+    async("https://cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+
+
+
+
+
+<script>
+    
+    var _baId = 'fad9c137f8ce239f9b323d36c871f8e6';
+
+    
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?" + _baId;
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+
+
+
+
+
+
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-RTTRHGYFWL"></script>
-<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date),gtag('config','G-RTTRHGYFWL')</script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-RTTRHGYFWL');
+</script>
+
+
+
 </body>
 </html>

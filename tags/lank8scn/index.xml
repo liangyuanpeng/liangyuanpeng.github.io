@@ -1,1 +1,29 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>lank8scn on Hi,I`m lan</title><link>https://liangyuanpeng.github.io/tags/lank8scn/</link><description>Recent content in lank8scn on Hi,I`m lan</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Tue, 05 Apr 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://liangyuanpeng.github.io/tags/lank8scn/index.xml" rel="self" type="application/rss+xml"/><item><title>lank8s.cn服务</title><link>https://liangyuanpeng.github.io/post/cncf-kubernetes/service-lank8s.cn/</link><pubDate>Mon, 15 Nov 2021 00:00:00 +0000</pubDate><guid>https://liangyuanpeng.github.io/post/cncf-kubernetes/service-lank8s.cn/</guid><description>Hi there 👋 国内安装K8S基本镜像站&amp;mdash;&amp;gt; lank8s.cn 欢迎使用，有问题/建议都可以加我微信交流，在博客底部可以找到我的微信联系方式 :) lank</description></item><item><title>部署一个webhook,轻松解决gcr.io</title><link>https://liangyuanpeng.github.io/post/cncf-kubernetes/resolve-gcr.io-with-webhook-of-repalcer/</link><pubDate>Tue, 05 Apr 2022 00:00:00 +0000</pubDate><guid>https://liangyuanpeng.github.io/post/cncf-kubernetes/resolve-gcr.io-with-webhook-of-repalcer/</guid><description>前言 lank8s.cn 已经正常运营几年了，目前可以看到每天都有人在使用 gcr.lank8s.cn 来拉取 gcr.io 的镜像,避免了墙带来的困扰,不过当需要拉取的不同的镜像多了之后可能会显得有些</description></item></channel></rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>lank8scn on Hi,I`m lan</title>
+    <link>https://liangyuanpeng.github.io/tags/lank8scn/</link>
+    <description>Recent content in lank8scn on Hi,I`m lan</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 05 Apr 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://liangyuanpeng.github.io/tags/lank8scn/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>lank8s.cn服务</title>
+      <link>https://liangyuanpeng.github.io/post/cncf-kubernetes/service-lank8s.cn/</link>
+      <pubDate>Mon, 15 Nov 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://liangyuanpeng.github.io/post/cncf-kubernetes/service-lank8s.cn/</guid>
+      <description>Hi there 👋 国内安装K8S基本镜像站&amp;mdash;&amp;gt; lank8s.cn 欢迎使用，有问题/建议都可以加我微信交流，在博客底部可以找到我的微信联系方式 :) lank</description>
+    </item>
+    
+    <item>
+      <title>部署一个webhook,轻松解决gcr.io</title>
+      <link>https://liangyuanpeng.github.io/post/cncf-kubernetes/resolve-gcr.io-with-webhook-of-repalcer/</link>
+      <pubDate>Tue, 05 Apr 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://liangyuanpeng.github.io/post/cncf-kubernetes/resolve-gcr.io-with-webhook-of-repalcer/</guid>
+      <description>前言 lank8s.cn 已经正常运营几年了，目前可以看到每天都有人在使用 gcr.lank8s.cn 来拉取 gcr.io 的镜像,避免了墙带来的困扰,不过当需要拉取的不同的镜像多了之后可能会显得有些</description>
+    </item>
+    
+  </channel>
+</rss>

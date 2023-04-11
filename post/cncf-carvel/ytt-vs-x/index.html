@@ -1,187 +1,412 @@
-<!doctype html><html lang=en-us>
+<!DOCTYPE html>
+<html lang="en-us">
 <head><head>
-<meta name=google-site-verification content="9vIieCe-Qpd78QOmBl63rGtIVbhY6sYyuxX3j8XWBA4">
-<meta name=baidu-site-verification content="LRrmH41lz7">
-<meta charset=utf-8>
-<meta http-equiv=x-ua-compatible content="IE=edge">
-<meta name=google-site-verification content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
-<meta name=viewport content="width=device-width,initial-scale=1">
-<meta name=baidu-site-verification content="HGLXRsUXC4">
-<meta name=baidu-site-verification content="code-ANZvlnN0Xr">
-<meta name=description content="lan，工程师⎈,远鹏|CNCF粉丝|Pulsar爱好者|公众号:四颗咖啡豆|云原生追随者">
-<meta name=keyword content="liangyuanpeng|LanLiang|OpenYurt|Knative|Pulsar|Prometheus|Halo||边缘计算kubernetes|Docker|CloudNative|Golang|Rust|Istio|微服务">
-<link rel="shortcut icon" href=https://res.cloudinary.com/lyp/image/upload/v1679636162/hash-kube-rs-pulsar.png>
-<meta property="og:image" content="https://liangyuanpeng.github.io/img/banner-pexels.jpg">
-<meta name=twitter:image content="https://liangyuanpeng.github.io/img/banner-pexels.jpg">
-<title>ytt与各类yaml相关工具对比-远鹏的博客 | liangyuanpeng's Blog</title>
-<link rel=canonical href=https://liangyuanpeng.github.io/post/cncf-carvel/ytt-vs-x/>
-<link rel=stylesheet href=https://liangyuanpeng.github.io/css/bootstrap.min.css>
-<link rel=stylesheet href=https://liangyuanpeng.github.io/css/hux-blog.min.css>
-<link rel=stylesheet href=https://liangyuanpeng.github.io/css/syntax.css>
-<link href=//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css rel=stylesheet type=text/css>
-<script src=https://liangyuanpeng.github.io/js/jquery.min.js></script>
-<script src=https://liangyuanpeng.github.io/js/bootstrap.min.js></script>
-<script src=https://liangyuanpeng.github.io/js/hux-blog.min.js></script>
-<script defer src=https://static.cloudflareinsights.com/beacon.min.js data-cf-beacon='{"token": "f73bc0092aeb491d89984c0eb5a87ac2"}'></script>
+    <meta name="google-site-verification" content="9vIieCe-Qpd78QOmBl63rGtIVbhY6sYyuxX3j8XWBA4" />
+    <meta name="baidu-site-verification" content="LRrmH41lz7" />
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <meta name="baidu-site-verification" content="HGLXRsUXC4" />
+
+    
+    <meta name="baidu-site-verification" content="code-ANZvlnN0Xr" />
+
+    
+    <meta name="description" content="lan，工程师⎈,远鹏|CNCF粉丝|Pulsar爱好者|公众号:四颗咖啡豆|云原生追随者">
+    
+    <meta name="keyword"  content="liangyuanpeng|LanLiang|OpenYurt|Knative|Pulsar|Prometheus|Halo||边缘计算kubernetes|Docker|CloudNative|Golang|Rust|Istio|微服务">
+
+    
+    <link rel="shortcut icon" href="https://res.cloudinary.com/lyp/image/upload/v1679636162/hash-kube-rs-pulsar.png">
+    
+
+    
+    <meta property="og:image" content="https://liangyuanpeng.github.io/img/banner-pexels.jpg" />
+    <meta name="twitter:image" content="https://liangyuanpeng.github.io/img/banner-pexels.jpg" />
+
+    <title>ytt与各类yaml相关工具对比-远鹏的博客 | liangyuanpeng&#39;s Blog</title>
+
+    <link rel="canonical" href="https://liangyuanpeng.github.io/post/cncf-carvel/ytt-vs-x/">
+
+    
+
+    
+    <link rel="stylesheet" href='https://liangyuanpeng.github.io/css/bootstrap.min.css'>
+
+    
+    <link rel="stylesheet" href="https://liangyuanpeng.github.io/css/hux-blog.min.css">
+
+    
+    <link rel="stylesheet" href="https://liangyuanpeng.github.io/css/syntax.css">
+
+    
+    <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    
+    
+    <script src="https://liangyuanpeng.github.io/js/jquery.min.js"></script>
+
+    
+    <script src="https://liangyuanpeng.github.io/js/bootstrap.min.js"></script>
+
+    
+    <script src="https://liangyuanpeng.github.io/js/hux-blog.min.js"></script>
+
+    
+    <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "f73bc0092aeb491d89984c0eb5a87ac2"}'></script>
 </head>
+
 </head>
+
 <nav class="navbar navbar-default navbar-custom navbar-fixed-top">
-<div class=container-fluid>
-<div class="navbar-header page-scroll">
-<button type=button class=navbar-toggle>
-<span class=sr-only>Toggle navigation</span>
-<span class=icon-bar></span>
-<span class=icon-bar></span>
-<span class=icon-bar></span>
-</button>
-<a class=navbar-brand href=https://liangyuanpeng.github.io/>Hi,I`m lan</a>
-</div>
-<div id=huxblog_navbar>
-<div class=navbar-collapse>
-<ul class="nav navbar-nav navbar-right">
-<li>
-<a href=https://liangyuanpeng.github.io/>Home</a>
-</li>
-<li>
-<a href=https://liangyuanpeng.github.io/categories/cloudnative>cloudnative</a>
-</li>
-<li>
-<a href=https://liangyuanpeng.github.io/categories/devops>devops</a>
-</li>
-<li>
-<a href=https://liangyuanpeng.github.io/categories/iot>iot</a>
-</li>
-<li>
-<a href=https://liangyuanpeng.github.io/categories/kubernetes>kubernetes</a>
-</li>
-<li>
-<a href=https://liangyuanpeng.github.io/categories/tech>tech</a>
-</li>
-<li>
-<a href=https://liangyuanpeng.github.io/search/>SEARCH <img src=https://liangyuanpeng.github.io/img/search.png height=15 style=cursor:pointer></a>
-</li>
-</ul>
-</div>
-</div>
-</div>
+    <div class="container-fluid">
+        
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="https://liangyuanpeng.github.io/">Hi,I`m lan</a>
+        </div>
+
+        
+        
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="https://liangyuanpeng.github.io/">Home</a>
+                    </li>
+                    
+                    <li>
+                        <a href="https://liangyuanpeng.github.io/categories/cloudnative">cloudnative</a>
+                    </li>
+                    
+                    <li>
+                        <a href="https://liangyuanpeng.github.io/categories/devops">devops</a>
+                    </li>
+                    
+                    <li>
+                        <a href="https://liangyuanpeng.github.io/categories/iot">iot</a>
+                    </li>
+                    
+                    <li>
+                        <a href="https://liangyuanpeng.github.io/categories/kubernetes">kubernetes</a>
+                    </li>
+                    
+                    <li>
+                        <a href="https://liangyuanpeng.github.io/categories/tech">tech</a>
+                    </li>
+                    
+
+                    
+		            <li>
+                        <a href="https://liangyuanpeng.github.io/search/">SEARCH <img src="https://liangyuanpeng.github.io/img/search.png" height="15" style="cursor: pointer;"></a>
+		            </li>
+                    
+                </ul>
+            </div>
+        </div>
+        
+    </div>
+    
 </nav>
-<script>var $body=document.body,$toggle=document.querySelector('.navbar-toggle'),$navbar=document.querySelector('#huxblog_navbar'),$collapse=document.querySelector('.navbar-collapse');$toggle.addEventListener('click',handleMagic);function handleMagic(a){$navbar.className.indexOf('in')>0?($navbar.className=" ",setTimeout(function(){$navbar.className.indexOf('in')<0&&($collapse.style.height="0px")},400)):($collapse.style.height="auto",$navbar.className+=" in")}</script>
-<style type=text/css>header.intro-header{background-image:url(https://liangyuanpeng.github.io/img/banner-pexels.jpg)}</style>
-<header class=intro-header>
-<div class=container>
-<div class=row>
-<div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-<div class=post-heading>
-<div class=tags>
-<a class=tag href=/tags/carvel title=carvel>
-carvel
-<img style=display:inline-block src=https://emoji.slack-edge.com/T08PSQ7BQ/carvel/ee636ccbfbd00fd1.png height=20 width=20>
-</a>
-<a class=tag href=/tags/cncf title=cncf>
-cncf
-<img style=display:inline-block src=/img/taglogo/cncf.png height=20 width=20>
-</a>
-<a class=tag href=/tags/ytt title=ytt>
-ytt
-</a>
-<br>
-</div>
-<h1>ytt与各类yaml相关工具对比</h1>
-<h2 class=subheading></h2>
-<span class=meta>Posted by 梁远鹏 on 2023-02-25
-<span id=busuanzi_container_page_pv>|<span id=busuanzi_value_page_pv></span><span>
-<span id=/post/cncf-carvel/ytt-vs-x/ class="leancloud_visitors meta_data_item" data-flag-title>
-<span class=post-meta-item-icon>
-<span class="octicon octicon-eye"></span>
+<script>
+    
+    
+    
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        
+            $navbar.className = " ";
+            
+            setTimeout(function(){
+                
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+
+
+<style type="text/css">
+    header.intro-header{
+        background-image: url('https://liangyuanpeng.github.io/img/banner-pexels.jpg')
+    }
+</style>
+
+<header class="intro-header" >
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                       
+                       <a class="tag" href="/tags/carvel" title="carvel">
+                           carvel
+                           
+                           
+                           
+                           
+                           
+                           
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            <img style="display:inline-block;" src="https://emoji.slack-edge.com/T08PSQ7BQ/carvel/ee636ccbfbd00fd1.png" height="20" width="20" />
+                            
+                            
+                            
+                            
+                            
+                            
+
+                            
+                            
+                            
+
+                            
+                            
+                            
+
+                            
+                            
+                            
+
+                            
+                            
+                            
+                            
+                            
+
+                            
+                        </a>
+                        
+                       <a class="tag" href="/tags/cncf" title="cncf">
+                           cncf
+                           
+                           
+                           
+                           
+                           
+                           
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            <img style="display:inline-block;" src="/img/taglogo/cncf.png" height="20" width="20" />
+                            
+                            
+                            
+                            
+                            
+
+                            
+                            
+                            
+
+                            
+                            
+                            
+
+                            
+                            
+                            
+
+                            
+                            
+                            
+                            
+                            
+
+                            
+                        </a>
+                        
+                       <a class="tag" href="/tags/ytt" title="ytt">
+                           ytt
+                           
+                           
+                           
+                           
+                           
+                           
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+
+                            
+                            
+                            
+
+                            
+                            
+                            
+
+                            
+                            
+                            
+
+                            
+                            
+                            
+                            
+                            
+
+                            
+                        </a>
+                        
+                        <br/>
+                    </div>
+                    <h1>ytt与各类yaml相关工具对比</h1>
+                    <h2 class="subheading"></h2>
+                    <span  class="meta">Posted by 梁远鹏 on 2023-02-25
+                        
+                        <span id="busuanzi_container_page_pv">|<span id="busuanzi_value_page_pv"></span><span>
+                            <span id="/post/cncf-carvel/ytt-vs-x/" class="leancloud_visitors meta_data_item" data-flag-title="">
+    <span class="post-meta-item-icon">
+      <span class="octicon octicon-eye"></span> 
+    </span>
+    <i class="fa fa-eye"></i>
+    <span class="old-visitors-count" style="display: none;"></span>
+    <span class="leancloud-visitors-count"></span>
 </span>
-<i class="fa fa-eye"></i>
-<span class=old-visitors-count style=display:none></span>
-<span class=leancloud-visitors-count></span>
-</span>
-阅读 </span></span>|<span class=post-date>共1720字</span>，阅读约<span class=more-meta> 4 分钟</span>
-</span>
-</div>
-</div>
-</div>
-</div>
+
+
+
+
+
+
+                            阅读 </span></span>|<span class="post-date">共1720字</span>，阅读约<span class="more-meta"> 4 分钟</span>
+                        
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
 </header>
+
+
+
+
 <article>
-<div class=container>
-<div class=row>
-<div class="col-lg-8 col-lg-offset-2
-col-md-10 col-md-offset-1
-post-container">
-<header>
-<h2>TOC</h2>
-</header>
-<nav id=TableOfContents>
-<ul>
-<li><a href=#以下是一些更加详细的区别>以下是一些更加详细的区别:</a>
-<ul>
-<li><a href=#ytt-overlays覆盖>ytt overlays(覆盖)</a></li>
-<li><a href=#ytt-对于缺少映射键等问题更加明确避免了许多不必要的早期拼写错误>ytt 对于缺少映射键等问题更加明确(避免了许多不必要的早期拼写错误)</a></li>
-<li><a href=#ytt-允许定义变量>ytt 允许定义变量</a></li>
-<li><a href=#ytt-具有从各种输入包括命令行参数环境变量以及文件将数据注入到-overlays-的能力>ytt 具有从各种输入(包括命令行参数、环境变量以及文件)将数据注入到 overlays 的能力</a></li>
-</ul>
-</li>
-</ul>
-<ul>
-<li><a href=#ytt-vs-cue>ytt vs cue</a></li>
-<li><a href=#ytt-vs-蚂蚁金服kcl>ytt vs 蚂蚁金服KCL</a></li>
-<li><a href=#最后的说明>最后的说明</a></li>
-</ul>
+    <div class="container">
+        <div class="row">
+            
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+		
+                <header>
+                <h2>TOC</h2>
+                </header>
+                <nav id="TableOfContents">
+  <ul>
+    <li><a href="#以下是一些更加详细的区别">以下是一些更加详细的区别:</a>
+      <ul>
+        <li><a href="#ytt-overlays覆盖">ytt overlays(覆盖)</a></li>
+        <li><a href="#ytt-对于缺少映射键等问题更加明确避免了许多不必要的早期拼写错误">ytt 对于缺少映射键等问题更加明确(避免了许多不必要的早期拼写错误)</a></li>
+        <li><a href="#ytt-允许定义变量">ytt 允许定义变量</a></li>
+        <li><a href="#ytt-具有从各种输入包括命令行参数环境变量以及文件将数据注入到-overlays-的能力">ytt 具有从各种输入(包括命令行参数、环境变量以及文件)将数据注入到 overlays 的能力</a></li>
+      </ul>
+    </li>
+  </ul>
+
+  <ul>
+    <li><a href="#ytt-vs-cue">ytt vs cue</a></li>
+    <li><a href="#ytt-vs-蚂蚁金服kcl">ytt vs 蚂蚁金服KCL</a></li>
+    <li><a href="#最后的说明">最后的说明</a></li>
+  </ul>
 </nav>
-<h1 id=前言>前言</h1>
+		
+
+		<h1 id="前言">前言</h1>
 <p>ytt 是 CNCF 项目 carvel 中的一个命令行工具,来看看 ytt 与业内其他 yaml 相关工具的对比情况.</p>
-<h1 id=ytt-vs-go-texttemplate-或其他的一些文本模板工具>ytt vs Go text/template (或其他的一些文本模板工具)</h1>
+<h1 id="ytt-vs-go-texttemplate-或其他的一些文本模板工具">ytt vs Go text/template (或其他的一些文本模板工具)</h1>
 <ul>
-<li><a href=https://golang.org/pkg/text/template/>Go模板</a></li>
-<li><a href=https://jinja.palletsprojects.com/en/3.1.x/>Jinja</a></li>
+<li><a href="https://golang.org/pkg/text/template/">Go模板</a></li>
+<li><a href="https://jinja.palletsprojects.com/en/3.1.x/">Jinja</a></li>
 </ul>
 <p>大多数通用模板工具不理解他们正在模板化的内容,认为它只是普通文本,也就是说所有内容都是文本,没有特别处理的地方.</p>
 <p>而 ytt 操作 yaml 结构,因此消除了文本模板工具常见的典型转义和格式化问题.此外呢, ytt 提供了一种非常简单的方法,可以让结构以一种更加可读的方式被重用,这可以通过一些文本模板工具来实现.</p>
-<h1 id=ytt-vs-jsonnet>ytt vs jsonnet</h1>
+<h1 id="ytt-vs-jsonnet">ytt vs jsonnet</h1>
 <ul>
-<li><a href=https://jsonnet.org/>Jsonnet</a></li>
+<li><a href="https://jsonnet.org/">Jsonnet</a></li>
 </ul>
 <p>ytt 在概念上非常接近 jsonnet,两者都是对数据结构而不是文本来进行操作,因此可以提供更好的方法来构造、组合以及重用结构. Jsonnet 引入了一种自定义的语言来帮助执行结构操作,另一方面就是 ytt 构建在类似 python (Starlark) 的语言之上,我们认为更大的社区会更熟悉这种语言.</p>
 <p>我们还相信,使用 ytt 从普通的 yaml 过度到模板化 yaml 是非常容易和自然的.</p>
-<h1 id=ytt-vs-dhall>ytt vs Dhall</h1>
+<h1 id="ytt-vs-dhall">ytt vs Dhall</h1>
 <ul>
-<li><a href=https://dhall-lang.org/>Dhall</a></li>
+<li><a href="https://dhall-lang.org/">Dhall</a></li>
 </ul>
-<p>Dhall 语言是一种配置语言,可以输出 yaml 和 json,它的优点之一是能够提供"封闭"并且安全的脚本环境,甚至可以抵御恶意模板. ytt 可通过在模板上下文中公开小 API 来实现相同的目标(并且建立在 Starlark 社区的伟大工作之上). 例如无法进行网络调用,无法读取文件系统,目前甚至无法获取时间.</p>
-<h1 id=ytt-vs-kustomize-and-cf-bosh-ops-files>ytt vs Kustomize (and CF BOSH ops files)</h1>
+<p>Dhall 语言是一种配置语言,可以输出 yaml 和 json,它的优点之一是能够提供&quot;封闭&quot;并且安全的脚本环境,甚至可以抵御恶意模板. ytt 可通过在模板上下文中公开小 API 来实现相同的目标(并且建立在 Starlark 社区的伟大工作之上). 例如无法进行网络调用,无法读取文件系统,目前甚至无法获取时间.</p>
+<h1 id="ytt-vs-kustomize-and-cf-bosh-ops-files">ytt vs Kustomize (and CF BOSH ops files)</h1>
 <ul>
-<li><a href=https://kubernetes.io/blog/2018/05/29/introducing-kustomize-template-free-configuration-customization-for-kubernetes/>Kustomize</a></li>
-<li><a href=https://bosh.io/docs/cli-ops-files/>CF Bosh ops文件</a></li>
+<li><a href="https://kubernetes.io/blog/2018/05/29/introducing-kustomize-template-free-configuration-customization-for-kubernetes/">Kustomize</a></li>
+<li><a href="https://bosh.io/docs/cli-ops-files/">CF Bosh ops文件</a></li>
 </ul>
-<p>配置定制工具的独特之处在于他们不支持模板,而是建立在"基本"配置之上的, ytt 通过"叠加"功能提供了自己的配置定制化.与其他工具不同, ytt 中的叠加操作(删除、替换、合并)模拟了基本配置的结构.例如在 Kustomize 中,要删除一个特定的映射键,就必须使用和正常结构截然不同的 json 补丁语法.另一方面是 ytt 使用了能够注释 yaml 结构的能力,因此它可以标记应该删除的映射键.总而言之,我们认为 ytt 的方法是更加优越的.</p>
-<h2 id=以下是一些更加详细的区别>以下是一些更加详细的区别:</h2>
-<h3 id=ytt-overlays覆盖>ytt overlays(覆盖)</h3>
+<p>配置定制工具的独特之处在于他们不支持模板,而是建立在&quot;基本&quot;配置之上的, ytt 通过&quot;叠加&quot;功能提供了自己的配置定制化.与其他工具不同, ytt 中的叠加操作(删除、替换、合并)模拟了基本配置的结构.例如在 Kustomize 中,要删除一个特定的映射键,就必须使用和正常结构截然不同的 json 补丁语法.另一方面是 ytt 使用了能够注释 yaml 结构的能力,因此它可以标记应该删除的映射键.总而言之,我们认为 ytt 的方法是更加优越的.</p>
+<h2 id="以下是一些更加详细的区别">以下是一些更加详细的区别:</h2>
+<h3 id="ytt-overlays覆盖">ytt overlays(覆盖)</h3>
 <ul>
 <li>它们不是 kubernetes 特有的,因此涵盖了 kustomize 无法处理的各种类型配置.</li>
 <li>以一种一致的风格覆盖所有 CURD 操作,而 kustomize 需要不同的语法来进行不同类型的修改(SMP vs jsonPath,等等).</li>
 <li>不关心原生物种,crd或其他东西,因为他们是通用的.</li>
 </ul>
 <p>ytt 不仅仅是一个覆盖工具,它支持叠加和模板.我们看到配置编写分为两类:配置作者和配置使用者.模板可以更好的支持配置作者,而配置使用者通常需要的不仅仅是模板的输入.overlays 提供了其余部分.拥有一个跨模板和overlays 能力一致的工具是非常强大的.</p>
-<h3 id=ytt-对于缺少映射键等问题更加明确避免了许多不必要的早期拼写错误>ytt 对于缺少映射键等问题更加明确(避免了许多不必要的早期拼写错误)</h3>
-<h3 id=ytt-允许定义变量>ytt 允许定义变量</h3>
-<h3 id=ytt-具有从各种输入包括命令行参数环境变量以及文件将数据注入到-overlays-的能力>ytt 具有从各种输入(包括命令行参数、环境变量以及文件)将数据注入到 overlays 的能力</h3>
-<h1 id=ytt-vs-orchestration-tools-pulumi--helm>ytt vs Orchestration Tools (Pulumi / HELM)</h1>
+<h3 id="ytt-对于缺少映射键等问题更加明确避免了许多不必要的早期拼写错误">ytt 对于缺少映射键等问题更加明确(避免了许多不必要的早期拼写错误)</h3>
+<h3 id="ytt-允许定义变量">ytt 允许定义变量</h3>
+<h3 id="ytt-具有从各种输入包括命令行参数环境变量以及文件将数据注入到-overlays-的能力">ytt 具有从各种输入(包括命令行参数、环境变量以及文件)将数据注入到 overlays 的能力</h3>
+<h1 id="ytt-vs-orchestration-tools-pulumi--helm">ytt vs Orchestration Tools (Pulumi / HELM)</h1>
 <ul>
-<li><a href=https://www.pulumi.com/>Pulumi</a></li>
-<li><a href=https://helm.sh/>HELM</a></li>
+<li><a href="https://www.pulumi.com/">Pulumi</a></li>
+<li><a href="https://helm.sh/">HELM</a></li>
 </ul>
 <p>像 Pulumi 和 HELM 这样的编排工具已经将配置管理和工作流管理结合到同一个工具中了.这有利有弊, ytt 专门设计为只关注配置管理.不过对于 yaml 内容的输出可以与 Helm、Pulumi以及其他工具一起使用.</p>
-<h1 id=ytt-vs-plain-rubypythonetc>ytt vs plain Ruby/Python/etc</h1>
+<h1 id="ytt-vs-plain-rubypythonetc">ytt vs plain Ruby/Python/etc</h1>
 <p>ytt 的主要优势:</p>
 <p>提供了对结构(映射、列表等)进行操作的简便方法.当然也可以使用常规语言进行数据操作.然而这不是该语言优化的目的,特别是当数据嵌套非常多的时候,会导致非常冗余以及可读性较差的代码.</p>
 <p>提供了一种简便而且安全的方式来执行模板,而不用担心模板代码可能是恶意的内容.用户可以 Dockerize(Docker化/容器化) 常规语言模板的执行,但这会带来相当严重的依赖.</p>
 <p>提供了一种简单的方法来自定义任何部分的配置来做覆盖操作,如果没有参数化所有内容或引入额外的工具(例如 Bosh ops文件),使用常规语言是不可能做到这一点的.</p>
-<h1 id=最后>最后</h1>
+<h1 id="最后">最后</h1>
 <p>在我看来其实可以加多两个对比:</p>
-<h2 id=ytt-vs-cue>ytt vs cue</h2>
+<h2 id="ytt-vs-cue">ytt vs cue</h2>
 <p>对于 cue 来说它的一大杀器就是可以基于 k8s yaml资源来生成 cue,然后可以做修改生成的 cue 来生成一些其他用途的 k8s yaml语言.</p>
 <p>目前来看 ytt 也是拥有类似的能力,并且 ytt 的整体技术栈提供更多应用相关的能力,例如:</p>
 <ul>
@@ -189,168 +414,460 @@ post-container">
 <li>负责 kubernetes 持续交付以及包管理的能力的 kapp-controller</li>
 </ul>
 <p>还有其他负责相对应能力的工具,这里只是简单介绍其中的两个.而这些能力对于 cue 来说都是不具备的.</p>
-<h2 id=ytt-vs-蚂蚁金服kcl>ytt vs 蚂蚁金服KCL</h2>
-<p>从设计理念上来看其实 ytt 和 KCL 才可能是同一层次的,都是希望让 yaml 配置可编程化,拥有更多的可扩展性以及可重用性.</p>
-<h2 id=最后的说明>最后的说明</h2>
-<p>本文内容来自官方说明 <a href=https://carvel.dev/ytt/docs/v0.44.0/ytt-vs-x/>ytt-vs-x</a>,后续有可能会进行更新.</p>
-<h2>微信公众号</h2>
+<h2 id="ytt-vs-蚂蚁金服kcl">ytt vs 蚂蚁金服KCL</h2>
+<p>从设计理念上来看其实 ytt 和  KCL 才可能是同一层次的,都是希望让 yaml 配置可编程化,拥有更多的可扩展性以及可重用性.</p>
+<h2 id="最后的说明">最后的说明</h2>
+<p>本文内容来自官方说明 <a href="https://carvel.dev/ytt/docs/v0.44.0/ytt-vs-x/">ytt-vs-x</a>,后续有可能会进行更新.</p>
+
+
+        <h2>微信公众号</h2>
 <p>扫描下面的二维码关注我们的微信公众号,第一时间查看最新内容。同时也可以关注我的Github,看看我都在了解什么技术,在页面底部可以找到我的Github。</p>
-<img src=/img/qrcode_for_sikekafeidou.jpg alt=wechat-qrcode>
-<div style="padding:10px 0;margin:20px auto;width:100%;font-size:16px;text-align:center">
-<button class="btn btn-danger" id=rewardButton disable=enable onclick="var qr=document.getElementById('QR');qr.style.display==='none'?qr.style.display='block':qr.style.display='none'">
-<span>「来都来了」赞赏</span></button>
-<div id=QR style=display:none>
-<div id=wechat style=display:inline-block>
-<p>如果本文对你有帮助的话欢迎通过微信或支付宝对我进行赞助,强烈建议你在支付的备注上填上你的 githubID 或你的昵称,让我知道我该感谢谁!!! </br></br>
-赞助金额设置为固定金额:8元. </br>
-8元赠与我,发发发反馈给你,2023祝你收入翻番一路发到底:)</p>
-<a class=fancybox rel=group>
-<img id=wechat_qr src=/img/wechat-zhifubao.png alt=Pay></a>
+<img  src="/img/qrcode_for_sikekafeidou.jpg" alt="wechat-qrcode">
+
+        <div style="padding: 10px 0; margin: 20px auto; width: 100%; font-size:16px; text-align: center;">
+    <button class="btn btn-danger"  id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+        <span>「来都来了」赞赏</span></button>
+    <div  id="QR" style="display: none;">
+        <div id="wechat" style="display: inline-block">
+            <p>如果本文对你有帮助的话欢迎通过微信或支付宝对我进行赞助,强烈建议你在支付的备注上填上你的 githubID 或你的昵称,让我知道我该感谢谁!!! </br></br>
+                赞助金额设置为固定金额:8元. </br> 
+                8元赠与我,发发发反馈给你,2023祝你收入翻番一路发到底:)</p>
+            <a class="fancybox" rel="group">
+                <img id="wechat_qr" src="/img/wechat-zhifubao.png" alt="Pay"></a>
+        </div>
+    </div>
 </div>
-</div>
-</div>
-<hr>
-<ul class=pager>
-<li class=previous>
-<a href=/post/cncf-k8s/pull-gcr-k8s-image-with-lank8s/ data-toggle=tooltip data-placement=top title=国内环境拉取gcr和k8s镜像>&larr; 国内环境拉取gcr和k8s镜像</a>
-</li>
-<li class=next>
-<a href=/post/cncf-kubernetes/flomesh-ingress-quickstart/ data-toggle=tooltip data-placement=top title=flomesh-ingress浅试>flomesh-ingress浅试 &rarr;</a>
-</li>
-</ul>
-<script src=https://utteranc.es/client.js repo=liangyuanpeng/liangyuanpeng.github.io issue-term=title theme=github-light crossorigin=anonymous async></script>
-</div>
-<div class="col-lg-2 col-lg-offset-0
-visible-lg-block
-sidebar-container
-catalog-container">
-扫码下面二维码加我微信 :)
-<img src=https://liangyuanpeng.github.io/img/aboutme/wechat-lan.png>
-</div>
-<div class="col-lg-8 col-lg-offset-2
-col-md-10 col-md-offset-1
-sidebar-container">
-<br>
+
+        
+
+                <hr>
+
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/post/cncf-k8s/pull-gcr-k8s-image-with-lank8s/" data-toggle="tooltip" data-placement="top" title="国内环境拉取gcr和k8s镜像">&larr; 国内环境拉取gcr和k8s镜像</a>
+                    </li>
+                    
+                    
+                    <li class="next">
+                        <a href="/post/cncf-kubernetes/flomesh-ingress-quickstart/" data-toggle="tooltip" data-placement="top" title="flomesh-ingress浅试">flomesh-ingress浅试 &rarr;</a>
+                    </li>
+                    
+                </ul>
+
+            
+<script src="https://utteranc.es/client.js"
+repo="liangyuanpeng/liangyuanpeng.github.io"
+issue-term="title"
+theme="github-light"
+crossorigin="anonymous"
+async>
+</script>
+
+
+
+            </div>
+
+            
+
+            <div class="
+                col-lg-2 col-lg-offset-0
+                visible-lg-block
+                sidebar-container
+                catalog-container">
+                
+                扫码下面二维码加我微信 :)
+                <img src="https://liangyuanpeng.github.io/img/aboutme/wechat-lan.png" />
+                
+            </div> 
+
+            
+
+            
+            
+            
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                
+                
+<br/>
 <h5>开源项目推荐</h5>
-<style type=text/css>.pinned-repos{max-width:300px;margin:0 auto}.repo-card{display:flex;flex-direction:column;padding:16px;border:1px solid #e1e4e8;border-radius:6px;background-color:#fff}.repo-card:hover{box-shadow:0 1px 3px rgba(36,41,46,8%)}.repo-card h2{margin-top:0;font-size:20px;font-weight:200;color:#0366d6}.repo-card p{margin:8px 0 16px;font-size:14px;color:#586069}.repo-card-stats{display:flex;flex-wrap:wrap;align-items:center}.repo-card-stats span{font-size:12px;color:#586069;margin-right:16px}.repo-card-stats strong{font-weight:200;color:#24292e}</style>
-<ul class="margin-bottom: 25px;pinned-repo-list">
-<li>
-<div class=repo-card>
-<div class=repo-card-details>
-<h2><a href=https://github.com/liangyuanpeng/replacer>replacer</a></h2>
-<p>K8S webhook的参考实现|Replace container image of kubernetes mutate webhook.</p>
-<div class=repo-card-stats>
-<span>Language: <strong>Golang</strong></span>
-<span>Forks: <strong>*</strong></span>
-<span>Stars: <strong>*</strong></span>
-<span>Updated: <strong>Nov 20, 2021</strong></span>
-</div>
-</div>
-</div>
-</li>
-</ul>
-</div>
-<div class="col-lg- col-lg-offset-2
-col-md-10 col-md-offset-1">
-<section>
-<hr class="hidden-sm hidden-xs">
+
+<style type="text/css">
+.pinned-repos {
+  max-width: 300px;
+  margin: 0 auto;
+}
+
+.repo-card {
+  display: flex;
+  flex-direction: column;
+  padding: 16px;
+  border: 1px solid #e1e4e8;
+  border-radius: 6px;
+  background-color: #fff;
+}
+
+.repo-card:hover {
+  box-shadow: 0 1px 3px rgba(36,41,46,.08);
+}
+
+.repo-card h2 {
+  margin-top: 0;
+  font-size: 20px;
+  font-weight: 200;
+  color: #0366d6;
+}
+
+.repo-card p {
+  margin: 8px 0 16px;
+  font-size: 14px;
+  color: #586069;
+}
+
+.repo-card-stats {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;  
+}
+
+.repo-card-stats span {
+  font-size: 12px;
+  color: #586069;
+  margin-right: 16px;
+}
+
+.repo-card-stats strong {
+  font-weight: 200;
+  color: #24292e;
+}
+</style>
+
+    
+    <ul class="margin-bottom: 25px;pinned-repo-list">
+      <li>
+        <div class="repo-card">
+          <div class="repo-card-details">
+            <h2><a href="https://github.com/liangyuanpeng/replacer">replacer</a></h2>
+            <p>K8S webhook的参考实现|Replace container image of kubernetes mutate webhook.</p>
+            <div class="repo-card-stats">
+              <span>Language: <strong>Golang</strong></span>
+              <span>Forks: <strong>*</strong></span>
+              <span>Stars: <strong>*</strong></span>
+              <span>Updated: <strong>Nov 20, 2021</strong></span>
+            </div>
+          </div>
+        </div>
+      </li>
+    </ul>
+
+            </div>
+
+            
+            
+            <div class="
+            col-lg- col-lg-offset-2
+            col-md-10 col-md-offset-1
+            ">
+            <section>
+                <hr class="hidden-sm hidden-xs">
+                
+
 <h2>相关文章</h2>
-<ul style=margin-bottom:25px>
-<li><a href=/post/cncf-k8s/pull-gcr-k8s-image-with-lank8s/>国内环境拉取gcr和k8s镜像</a></li>
-<li><a href=/post/cncf-envoy/k8s-app-dev-with-envoy/>基于Envoy搭建K8S应用开发环境</a></li>
-<li><a href=/post/cncf-kubernetes/compile-kubernetes/>编译kubernetes组件</a></li>
-<li><a href=/post/cncf-envoy/ennoy-faq/>[长期更新]envoy常用</a></li>
-<li><a href=/post/cncf-k8s/frozen-for-k8s-gcr-io/>[长期更新]k8s组件常用参数</a></li>
-<li><a href=/post/cncf-k8s/frozen-for-k8s-gcr-io/>k8s.gcr.io注册表完全冻结</a></li>
-<li><a href=/post/cncf-harbor/registry-mirrors-of-harbor/>harbor镜像代理</a></li>
-<li><a href=/post/cncf-zot/new-container-image-registry-of-zot-from-cncf/>新的容器镜像仓库选择</a></li>
-<li><a href=/post/cncf-containerd/registry-mirrors-for-containerd/>为containerd配置仓库镜像</a></li>
-<li><a href=/post/cncf-k8s/k8s-validating-admission-policy-with-crdparam-lua/>K8S内置准入校验CRD参数配合lua起飞</a></li>
+<ul style="margin-bottom: 25px;">
+    
+    <li><a href="/post/cncf-k8s/pull-gcr-k8s-image-with-lank8s/">国内环境拉取gcr和k8s镜像</a></li>
+    
+    <li><a href="/post/cncf-envoy/k8s-app-dev-with-envoy/">基于Envoy搭建K8S应用开发环境</a></li>
+    
+    <li><a href="/post/cncf-kubernetes/compile-kubernetes/">编译kubernetes组件</a></li>
+    
+    <li><a href="/post/cncf-envoy/ennoy-faq/">[长期更新]envoy常用</a></li>
+    
+    <li><a href="/post/cncf-k8s/frozen-for-k8s-gcr-io/">[长期更新]k8s组件常用参数</a></li>
+    
+    <li><a href="/post/cncf-k8s/frozen-for-k8s-gcr-io/">k8s.gcr.io注册表完全冻结</a></li>
+    
+    <li><a href="/post/cncf-harbor/registry-mirrors-of-harbor/">harbor镜像代理</a></li>
+    
+    <li><a href="/post/cncf-zot/new-container-image-registry-of-zot-from-cncf/">新的容器镜像仓库选择</a></li>
+    
+    <li><a href="/post/cncf-containerd/registry-mirrors-for-containerd/">为containerd配置仓库镜像</a></li>
+    
+    <li><a href="/post/cncf-k8s/k8s-validating-admission-policy-with-crdparam-lua/">K8S内置准入校验CRD参数配合lua起飞</a></li>
+    
 </ul>
-</section>
-</div>
-</div>
-</div>
+
+            </section>
+            </div>
+            
+
+            
+
+
+        </div>
+    </div>
 </article>
+
+
+
+
+
+
 <footer>
-<div class=container>
-<div class=row>
-<div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-<ul class="list-inline text-center">
-<li>
-<a href rel=alternate type=application/rss+xml title="Hi,I`m lan">
-<span class="fa-stack fa-lg">
-<i class="fa fa-circle fa-stack-2x"></i>
-<i class="fa fa-rss fa-stack-1x fa-inverse"></i>
-</span>
-</a>
-</li>
-<li>
-<a target=_blank href=https://github.com/liangyuanpeng>
-<span class="fa-stack fa-lg">
-<i class="fa fa-circle fa-stack-2x"></i>
-<i class="fa fa-github fa-stack-1x fa-inverse"></i>
-</span>
-</a>
-</li>
-<li>
-<a target=_blank href=https://liangyuanpeng.github.io/img/aboutme/wechat-lan.png>
-<span class="fa-stack fa-lg">
-<i class="fa fa-circle fa-stack-2x"></i>
-<i class="fa fa-wechat fa-stack-1x fa-inverse"></i>
-</span>
-</a>
-</li>
-<li>
-<a href=mailto:liangyuanpengem@163.com>
-<span class="fa-stack fa-lg">
-<i class="fa fa-circle fa-stack-2x"></i>
-<i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
-</span>
-</a>
-</li>
-<li>
-<a href=https://twitter.com/lan31793328>
-<span class="fa-stack fa-lg">
-<i class="fa fa-circle fa-stack-2x"></i>
-<i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
-</span>
-</a>
-</li>
-<li>
-<a target=_blank href=https://www.zhihu.com/people/liangyuanpeng>
-<span class="fa-stack fa-lg">
-<i class="fa fa-circle fa-stack-2x"></i>
-<i class="fa fa-stack-1x fa-inverse">知</i>
-</span>
-</a>
-</li>
-<li>
-<a target=_blank href=https://weibo.com/u/1908782280>
-<span class="fa-stack fa-lg">
-<i class="fa fa-circle fa-stack-2x"></i>
-<i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
-</span>
-</a>
-</li>
-</ul>
-<p class="copyright text-muted">
-Copyright &copy; Hi,I`m lan , 2023
-<br>
-<a href=https://themes.gohugo.io/hugo-theme-cleanwhite>CleanWhite Hugo Theme</a> by <a href=https://zhaohuabing.com>Huabing</a> |
-<iframe style=margin-left:2px;margin-bottom:-5px frameborder=0 scrolling=0 width=100px height=20px src="https://ghbtns.com/github-btn.html?user=zhaohuabing&repo=hugo-theme-cleanwhite&type=star&count=true"></iframe>
-</p>
-</div>
-</div>
-</div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                   
+                   <li>
+                       <a href="" rel="alternate" type="application/rss+xml" title="Hi,I`m lan" >
+                           <span class="fa-stack fa-lg">
+                               <i class="fa fa-circle fa-stack-2x"></i>
+                               <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+                           </span>
+                       </a>
+                   </li>
+                   
+                    
+                    <li>
+                        <a target="_blank" href="https://github.com/liangyuanpeng">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                   
+                   
+                    
+                    <li>
+                        <a target="_blank" href="https://liangyuanpeng.github.io/img/aboutme/wechat-lan.png">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-wechat fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li>
+                        <a href="mailto:liangyuanpengem@163.com">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+		    
+
+                    
+                    <li>
+                        <a href="https://twitter.com/lan31793328">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li>
+                        <a target="_blank" href="https://www.zhihu.com/people/liangyuanpeng">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa  fa-stack-1x fa-inverse">知</i>
+                            </span>
+                        </a>
+                    </li>
+		    
+                    
+                    <li>
+                        <a target="_blank" href="https://weibo.com/u/1908782280">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+		    
+
+                    
+
+		    
+                    
+                </ul>
+		<p class="copyright text-muted">
+                    Copyright &copy; Hi,I`m lan , 2023
+                    <br>
+                    <a href="https://themes.gohugo.io/hugo-theme-cleanwhite">CleanWhite Hugo Theme</a> by <a href="https://zhaohuabing.com">Huabing</a> |
+                    <iframe
+                        style="margin-left: 2px; margin-bottom:-5px;"
+                        frameborder="0" scrolling="0" width="100px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=zhaohuabing&repo=hugo-theme-cleanwhite&type=star&count=true" >
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
 </footer>
-<script>function loadAsync(f,b){var c=document,d='script',a=c.createElement(d),e=c.getElementsByTagName(d)[0];a.src=f,b&&a.addEventListener('load',function(a){b(null,a)},!1),e.parentNode.insertBefore(a,e)}</script>
-<script>function async(f,b){var c=document,d='script',a=c.createElement(d),e=c.getElementsByTagName(d)[0];a.src=f,b&&a.addEventListener('load',function(a){b(null,a)},!1),e.parentNode.insertBefore(a,e)}</script>
-<script>$('#tag_cloud').length!==0&&async("/js/jquery.tagcloud.js",function(){$.fn.tagcloud.defaults={color:{start:'#bbbbee',end:'#0085a1'}},$('#tag_cloud a').tagcloud()})</script>
-<script type=text/javascript>function generateCatalog(a){_containerSelector='div.post-container';var h=$(_containerSelector),c,d,e,f,g,b;return c=h.find('h1,h2,h3,h4,h5,h6'),$(a).html(''),c.each(function(){d=$(this).prop('tagName').toLowerCase(),g="#"+$(this).prop('id'),e=$(this).text(),b=$('<a href="'+g+'" rel="nofollow">'+e+'</a>'),f=$('<li class="'+d+'_nav"></li>').append(b),$(a).append(f)}),!0}generateCatalog(".catalog-body"),$(".catalog-toggle").click(function(a){a.preventDefault(),$('.side-catalog').toggleClass("fold")}),loadAsync("/js/jquery.nav.js",function(){$('.catalog-body').onePageNav({currentClass:"active",changeHash:!1,easing:"swing",filter:"",scrollSpeed:700,scrollOffset:0,scrollThreshold:.2,begin:null,end:null,scrollChange:null,padding:80})})</script>
-<script>async("https://cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.js",function(){var a=document.querySelector("nav");a&&FastClick.attach(a)})</script>
-<script>var _baId='fad9c137f8ce239f9b323d36c871f8e6',_hmt=_hmt||[];(function(){var a=document.createElement("script"),b;a.src="//hm.baidu.com/hm.js?"+_baId,b=document.getElementsByTagName("script")[0],b.parentNode.insertBefore(a,b)})()</script>
+
+
+
+<script>
+    function loadAsync(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+
+
+
+
+
+<script>
+    
+    if($('#tag_cloud').length !== 0){
+        async("/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+
+
+
+<script type="text/javascript">
+
+    
+    
+
+    function generateCatalog(selector) {
+
+        
+        
+        
+        
+            _containerSelector = 'div.post-container'
+        
+
+        
+        var P = $(_containerSelector), a, n, t, l, i, c;
+        a = P.find('h1,h2,h3,h4,h5,h6');
+
+        
+        $(selector).html('')
+
+        
+        a.each(function () {
+            n = $(this).prop('tagName').toLowerCase();
+            i = "#" + $(this).prop('id');
+            t = $(this).text();
+            c = $('<a href="' + i + '" rel="nofollow">' + t + '</a>');
+            l = $('<li class="' + n + '_nav"></li>').append(c);
+            $(selector).append(l);
+        });
+        return true;
+    }
+
+    generateCatalog(".catalog-body");
+
+    
+    $(".catalog-toggle").click((function (e) {
+        e.preventDefault();
+        $('.side-catalog').toggleClass("fold")
+    }))
+
+    
+
+
+    loadAsync("\/js\/jquery.nav.js", function () {
+        $('.catalog-body').onePageNav({
+            currentClass: "active",
+            changeHash: !1,
+            easing: "swing",
+            filter: "",
+            scrollSpeed: 700,
+            scrollOffset: 0,
+            scrollThreshold: .2,
+            begin: null,
+            end: null,
+            scrollChange: null,
+            padding: 80
+        });
+    });
+</script>
+
+
+
+
+<script>
+    async("https://cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+
+
+
+
+
+<script>
+    
+    var _baId = 'fad9c137f8ce239f9b323d36c871f8e6';
+
+    
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?" + _baId;
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+
+
+
+
+
+
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-RTTRHGYFWL"></script>
-<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date),gtag('config','G-RTTRHGYFWL')</script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-RTTRHGYFWL');
+</script>
+
+
+
 </body>
 </html>

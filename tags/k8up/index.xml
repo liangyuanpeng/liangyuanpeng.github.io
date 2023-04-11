@@ -1,1 +1,20 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>k8up on Hi,I`m lan</title><link>https://liangyuanpeng.github.io/tags/k8up/</link><description>Recent content in k8up on Hi,I`m lan</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Wed, 29 Mar 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://liangyuanpeng.github.io/tags/k8up/index.xml" rel="self" type="application/rss+xml"/><item><title>基于k8up备份PVC到S3存储</title><link>https://liangyuanpeng.github.io/post/cncf-k8up/backup-pvc-to-s3-with-k8up/</link><pubDate>Wed, 29 Mar 2023 00:00:00 +0000</pubDate><guid>https://liangyuanpeng.github.io/post/cncf-k8up/backup-pvc-to-s3-with-k8up/</guid><description>前言 k8up 目前是 CNCF sanbox 项目,基于 restic 来做数据备份到 S3 以及将数据从 S3 恢复到 PVC 中. 可以一次性备份也可以定时备份,普通备份是通过一个 job 挂载 PVC 来备份数据,也</description></item></channel></rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>k8up on Hi,I`m lan</title>
+    <link>https://liangyuanpeng.github.io/tags/k8up/</link>
+    <description>Recent content in k8up on Hi,I`m lan</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 29 Mar 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://liangyuanpeng.github.io/tags/k8up/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>基于k8up备份PVC到S3存储</title>
+      <link>https://liangyuanpeng.github.io/post/cncf-k8up/backup-pvc-to-s3-with-k8up/</link>
+      <pubDate>Wed, 29 Mar 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://liangyuanpeng.github.io/post/cncf-k8up/backup-pvc-to-s3-with-k8up/</guid>
+      <description>前言 k8up 目前是 CNCF sanbox 项目,基于 restic 来做数据备份到 S3 以及将数据从 S3 恢复到 PVC 中. 可以一次性备份也可以定时备份,普通备份是通过一个 job 挂载 PVC 来备份数据,也</description>
+    </item>
+    
+  </channel>
+</rss>

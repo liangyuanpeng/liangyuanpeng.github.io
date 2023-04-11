@@ -1,1 +1,20 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>ballerina on Hi,I`m lan</title><link>https://liangyuanpeng.github.io/tags/ballerina/</link><description>Recent content in ballerina on Hi,I`m lan</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Wed, 01 Jan 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://liangyuanpeng.github.io/tags/ballerina/index.xml" rel="self" type="application/rss+xml"/><item><title>云原生编程语言ballerina:hello-world</title><link>https://liangyuanpeng.github.io/post/ballerina-hello-world/</link><pubDate>Wed, 01 Jan 2020 00:00:00 +0000</pubDate><guid>https://liangyuanpeng.github.io/post/ballerina-hello-world/</guid><description>前言 Ballerina是一款完全开源的编译时强类型语言,愿景是让云原生时代的程序员轻松编写出想要的的软件. 开源地址:https://gith</description></item></channel></rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>ballerina on Hi,I`m lan</title>
+    <link>https://liangyuanpeng.github.io/tags/ballerina/</link>
+    <description>Recent content in ballerina on Hi,I`m lan</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 01 Jan 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://liangyuanpeng.github.io/tags/ballerina/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>云原生编程语言ballerina:hello-world</title>
+      <link>https://liangyuanpeng.github.io/post/ballerina-hello-world/</link>
+      <pubDate>Wed, 01 Jan 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://liangyuanpeng.github.io/post/ballerina-hello-world/</guid>
+      <description>前言 Ballerina是一款完全开源的编译时强类型语言,愿景是让云原生时代的程序员轻松编写出想要的的软件. 开源地址:https://gith</description>
+    </item>
+    
+  </channel>
+</rss>

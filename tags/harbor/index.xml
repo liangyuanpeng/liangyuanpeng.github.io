@@ -1,1 +1,20 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>harbor on Hi,I`m lan</title><link>https://liangyuanpeng.github.io/tags/harbor/</link><description>Recent content in harbor on Hi,I`m lan</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Thu, 09 Feb 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://liangyuanpeng.github.io/tags/harbor/index.xml" rel="self" type="application/rss+xml"/><item><title>harbor镜像代理</title><link>https://liangyuanpeng.github.io/post/cncf-harbor/registry-mirrors-of-harbor/</link><pubDate>Thu, 09 Feb 2023 00:00:00 +0000</pubDate><guid>https://liangyuanpeng.github.io/post/cncf-harbor/registry-mirrors-of-harbor/</guid><description>前言 关于 lank8s.cn 关于 lank8s.cn 可以通过 lank8s.cn服务 或 Lank8s Github组织 了解更多.</description></item></channel></rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>harbor on Hi,I`m lan</title>
+    <link>https://liangyuanpeng.github.io/tags/harbor/</link>
+    <description>Recent content in harbor on Hi,I`m lan</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Thu, 09 Feb 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://liangyuanpeng.github.io/tags/harbor/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>harbor镜像代理</title>
+      <link>https://liangyuanpeng.github.io/post/cncf-harbor/registry-mirrors-of-harbor/</link>
+      <pubDate>Thu, 09 Feb 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://liangyuanpeng.github.io/post/cncf-harbor/registry-mirrors-of-harbor/</guid>
+      <description>前言 关于 lank8s.cn 关于 lank8s.cn 可以通过 lank8s.cn服务 或 Lank8s Github组织 了解更多.</description>
+    </item>
+    
+  </channel>
+</rss>

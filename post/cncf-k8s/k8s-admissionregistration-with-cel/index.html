@@ -1,132 +1,438 @@
-<!doctype html><html lang=en-us>
+<!DOCTYPE html>
+<html lang="en-us">
 <head><head>
-<meta name=google-site-verification content="9vIieCe-Qpd78QOmBl63rGtIVbhY6sYyuxX3j8XWBA4">
-<meta name=baidu-site-verification content="LRrmH41lz7">
-<meta charset=utf-8>
-<meta http-equiv=x-ua-compatible content="IE=edge">
-<meta name=google-site-verification content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
-<meta name=viewport content="width=device-width,initial-scale=1">
-<meta name=baidu-site-verification content="HGLXRsUXC4">
-<meta name=baidu-site-verification content="code-ANZvlnN0Xr">
-<meta name=description content="lan，工程师⎈,远鹏|CNCF粉丝|Pulsar爱好者|公众号:四颗咖啡豆|云原生追随者">
-<meta name=keyword content="liangyuanpeng|LanLiang|OpenYurt|Knative|Pulsar|Prometheus|Halo||边缘计算kubernetes|Docker|CloudNative|Golang|Rust|Istio|微服务">
-<link rel="shortcut icon" href=https://res.cloudinary.com/lyp/image/upload/v1679636162/hash-kube-rs-pulsar.png>
-<meta property="og:image" content="https://liangyuanpeng.github.io/img/banner-pexels.jpg">
-<meta name=twitter:image content="https://liangyuanpeng.github.io/img/banner-pexels.jpg">
-<title>用cel表达式来实现k8s准入校验-远鹏的博客 | liangyuanpeng's Blog</title>
-<link rel=canonical href=https://liangyuanpeng.github.io/post/cncf-k8s/k8s-admissionregistration-with-cel/>
-<link rel=stylesheet href=https://liangyuanpeng.github.io/css/bootstrap.min.css>
-<link rel=stylesheet href=https://liangyuanpeng.github.io/css/hux-blog.min.css>
-<link rel=stylesheet href=https://liangyuanpeng.github.io/css/syntax.css>
-<link href=//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css rel=stylesheet type=text/css>
-<script src=https://liangyuanpeng.github.io/js/jquery.min.js></script>
-<script src=https://liangyuanpeng.github.io/js/bootstrap.min.js></script>
-<script src=https://liangyuanpeng.github.io/js/hux-blog.min.js></script>
-<script defer src=https://static.cloudflareinsights.com/beacon.min.js data-cf-beacon='{"token": "f73bc0092aeb491d89984c0eb5a87ac2"}'></script>
+    <meta name="google-site-verification" content="9vIieCe-Qpd78QOmBl63rGtIVbhY6sYyuxX3j8XWBA4" />
+    <meta name="baidu-site-verification" content="LRrmH41lz7" />
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <meta name="baidu-site-verification" content="HGLXRsUXC4" />
+
+    
+    <meta name="baidu-site-verification" content="code-ANZvlnN0Xr" />
+
+    
+    <meta name="description" content="lan，工程师⎈,远鹏|CNCF粉丝|Pulsar爱好者|公众号:四颗咖啡豆|云原生追随者">
+    
+    <meta name="keyword"  content="liangyuanpeng|LanLiang|OpenYurt|Knative|Pulsar|Prometheus|Halo||边缘计算kubernetes|Docker|CloudNative|Golang|Rust|Istio|微服务">
+
+    
+    <link rel="shortcut icon" href="https://res.cloudinary.com/lyp/image/upload/v1679636162/hash-kube-rs-pulsar.png">
+    
+
+    
+    <meta property="og:image" content="https://liangyuanpeng.github.io/img/banner-pexels.jpg" />
+    <meta name="twitter:image" content="https://liangyuanpeng.github.io/img/banner-pexels.jpg" />
+
+    <title>用cel表达式来实现k8s准入校验-远鹏的博客 | liangyuanpeng&#39;s Blog</title>
+
+    <link rel="canonical" href="https://liangyuanpeng.github.io/post/cncf-k8s/k8s-admissionregistration-with-cel/">
+
+    
+
+    
+    <link rel="stylesheet" href='https://liangyuanpeng.github.io/css/bootstrap.min.css'>
+
+    
+    <link rel="stylesheet" href="https://liangyuanpeng.github.io/css/hux-blog.min.css">
+
+    
+    <link rel="stylesheet" href="https://liangyuanpeng.github.io/css/syntax.css">
+
+    
+    <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    
+    
+    <script src="https://liangyuanpeng.github.io/js/jquery.min.js"></script>
+
+    
+    <script src="https://liangyuanpeng.github.io/js/bootstrap.min.js"></script>
+
+    
+    <script src="https://liangyuanpeng.github.io/js/hux-blog.min.js"></script>
+
+    
+    <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "f73bc0092aeb491d89984c0eb5a87ac2"}'></script>
 </head>
+
 </head>
+
 <nav class="navbar navbar-default navbar-custom navbar-fixed-top">
-<div class=container-fluid>
-<div class="navbar-header page-scroll">
-<button type=button class=navbar-toggle>
-<span class=sr-only>Toggle navigation</span>
-<span class=icon-bar></span>
-<span class=icon-bar></span>
-<span class=icon-bar></span>
-</button>
-<a class=navbar-brand href=https://liangyuanpeng.github.io/>Hi,I`m lan</a>
-</div>
-<div id=huxblog_navbar>
-<div class=navbar-collapse>
-<ul class="nav navbar-nav navbar-right">
-<li>
-<a href=https://liangyuanpeng.github.io/>Home</a>
-</li>
-<li>
-<a href=https://liangyuanpeng.github.io/categories/cloudnative>cloudnative</a>
-</li>
-<li>
-<a href=https://liangyuanpeng.github.io/categories/devops>devops</a>
-</li>
-<li>
-<a href=https://liangyuanpeng.github.io/categories/iot>iot</a>
-</li>
-<li>
-<a href=https://liangyuanpeng.github.io/categories/kubernetes>kubernetes</a>
-</li>
-<li>
-<a href=https://liangyuanpeng.github.io/categories/tech>tech</a>
-</li>
-<li>
-<a href=https://liangyuanpeng.github.io/search/>SEARCH <img src=https://liangyuanpeng.github.io/img/search.png height=15 style=cursor:pointer></a>
-</li>
-</ul>
-</div>
-</div>
-</div>
+    <div class="container-fluid">
+        
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="https://liangyuanpeng.github.io/">Hi,I`m lan</a>
+        </div>
+
+        
+        
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="https://liangyuanpeng.github.io/">Home</a>
+                    </li>
+                    
+                    <li>
+                        <a href="https://liangyuanpeng.github.io/categories/cloudnative">cloudnative</a>
+                    </li>
+                    
+                    <li>
+                        <a href="https://liangyuanpeng.github.io/categories/devops">devops</a>
+                    </li>
+                    
+                    <li>
+                        <a href="https://liangyuanpeng.github.io/categories/iot">iot</a>
+                    </li>
+                    
+                    <li>
+                        <a href="https://liangyuanpeng.github.io/categories/kubernetes">kubernetes</a>
+                    </li>
+                    
+                    <li>
+                        <a href="https://liangyuanpeng.github.io/categories/tech">tech</a>
+                    </li>
+                    
+
+                    
+		            <li>
+                        <a href="https://liangyuanpeng.github.io/search/">SEARCH <img src="https://liangyuanpeng.github.io/img/search.png" height="15" style="cursor: pointer;"></a>
+		            </li>
+                    
+                </ul>
+            </div>
+        </div>
+        
+    </div>
+    
 </nav>
-<script>var $body=document.body,$toggle=document.querySelector('.navbar-toggle'),$navbar=document.querySelector('#huxblog_navbar'),$collapse=document.querySelector('.navbar-collapse');$toggle.addEventListener('click',handleMagic);function handleMagic(a){$navbar.className.indexOf('in')>0?($navbar.className=" ",setTimeout(function(){$navbar.className.indexOf('in')<0&&($collapse.style.height="0px")},400)):($collapse.style.height="auto",$navbar.className+=" in")}</script>
-<style type=text/css>header.intro-header{background-image:url(https://liangyuanpeng.github.io/img/banner-pexels.jpg)}</style>
-<header class=intro-header>
-<div class=container>
-<div class=row>
-<div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-<div class=post-heading>
-<div class=tags>
-<a class=tag href=/tags/k8s title=k8s>
-k8s
-</a>
-<a class=tag href=/tags/cncf title=cncf>
-cncf
-<img style=display:inline-block src=/img/taglogo/cncf.png height=20 width=20>
-</a>
-<a class=tag href=/tags/k8s-1.26 title=k8s-1.26>
-k8s-1.26
-</a>
-<a class=tag href=/tags/kubernetes title=kubernetes>
-kubernetes
-<img style=display:inline-block src=/img/taglogo/emoji_k8s_loft.gif height=20 width=20>
-</a>
-<a class=tag href=/tags/kind title=kind>
-kind
-<img style=display:inline-block src=/img/taglogo/kind.png height=20 width=20>
-</a>
-<br>
-</div>
-<h1>用cel表达式来实现k8s准入校验</h1>
-<h2 class=subheading></h2>
-<span class=meta>Posted by 梁远鹏 on 2023-01-09
-<span id=busuanzi_container_page_pv>|<span id=busuanzi_value_page_pv></span><span>
-<span id=/post/cncf-k8s/k8s-admissionregistration-with-cel/ class="leancloud_visitors meta_data_item" data-flag-title>
-<span class=post-meta-item-icon>
-<span class="octicon octicon-eye"></span>
+<script>
+    
+    
+    
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        
+            $navbar.className = " ";
+            
+            setTimeout(function(){
+                
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+
+
+<style type="text/css">
+    header.intro-header{
+        background-image: url('https://liangyuanpeng.github.io/img/banner-pexels.jpg')
+    }
+</style>
+
+<header class="intro-header" >
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                       
+                       <a class="tag" href="/tags/k8s" title="k8s">
+                           k8s
+                           
+                           
+                           
+                           
+                           
+                           
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+
+                            
+                            
+                            
+
+                            
+                            
+                            
+
+                            
+                            
+                            
+
+                            
+                            
+                            
+                            
+                            
+
+                            
+                        </a>
+                        
+                       <a class="tag" href="/tags/cncf" title="cncf">
+                           cncf
+                           
+                           
+                           
+                           
+                           
+                           
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            <img style="display:inline-block;" src="/img/taglogo/cncf.png" height="20" width="20" />
+                            
+                            
+                            
+                            
+                            
+
+                            
+                            
+                            
+
+                            
+                            
+                            
+
+                            
+                            
+                            
+
+                            
+                            
+                            
+                            
+                            
+
+                            
+                        </a>
+                        
+                       <a class="tag" href="/tags/k8s-1.26" title="k8s-1.26">
+                           k8s-1.26
+                           
+                           
+                           
+                           
+                           
+                           
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+
+                            
+                            
+                            
+
+                            
+                            
+                            
+
+                            
+                            
+                            
+
+                            
+                            
+                            
+                            
+                            
+
+                            
+                        </a>
+                        
+                       <a class="tag" href="/tags/kubernetes" title="kubernetes">
+                           kubernetes
+                           
+                           
+                           
+                           <img style="display:inline-block;" src="/img/taglogo/emoji_k8s_loft.gif" height="20" width="20" />
+                           
+                           
+                           
+                           
+                           
+                           
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+
+                            
+                            
+                            
+
+                            
+                            
+                            
+
+                            
+                            
+                            
+
+                            
+                            
+                            
+                            
+                            
+
+                            
+                        </a>
+                        
+                       <a class="tag" href="/tags/kind" title="kind">
+                           kind
+                           
+                           
+                           
+                           
+                           <img style="display:inline-block;" src="/img/taglogo/kind.png" height="20" width="20" />
+                           
+                           
+                           
+                           
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+
+                            
+                            
+                            
+
+                            
+                            
+                            
+
+                            
+                            
+                            
+
+                            
+                            
+                            
+                            
+                            
+
+                            
+                        </a>
+                        
+                        <br/>
+                    </div>
+                    <h1>用cel表达式来实现k8s准入校验</h1>
+                    <h2 class="subheading"></h2>
+                    <span  class="meta">Posted by 梁远鹏 on 2023-01-09
+                        
+                        <span id="busuanzi_container_page_pv">|<span id="busuanzi_value_page_pv"></span><span>
+                            <span id="/post/cncf-k8s/k8s-admissionregistration-with-cel/" class="leancloud_visitors meta_data_item" data-flag-title="">
+    <span class="post-meta-item-icon">
+      <span class="octicon octicon-eye"></span> 
+    </span>
+    <i class="fa fa-eye"></i>
+    <span class="old-visitors-count" style="display: none;"></span>
+    <span class="leancloud-visitors-count"></span>
 </span>
-<i class="fa fa-eye"></i>
-<span class=old-visitors-count style=display:none></span>
-<span class=leancloud-visitors-count></span>
-</span>
-阅读 </span></span>|<span class=post-date>共2062字</span>，阅读约<span class=more-meta> 5 分钟</span>
-</span>
-</div>
-</div>
-</div>
-</div>
+
+
+
+
+
+
+                            阅读 </span></span>|<span class="post-date">共2062字</span>，阅读约<span class="more-meta"> 5 分钟</span>
+                        
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
 </header>
+
+
+
+
 <article>
-<div class=container>
-<div class=row>
-<div class="col-lg-8 col-lg-offset-2
-col-md-10 col-md-offset-1
-post-container">
-<header>
-<h2>TOC</h2>
-</header>
-<nav id=TableOfContents>
-<ul>
-<li><a href=#资源文件>资源文件</a></li>
-</ul>
+    <div class="container">
+        <div class="row">
+            
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+		
+                <header>
+                <h2>TOC</h2>
+                </header>
+                <nav id="TableOfContents">
+  <ul>
+    <li><a href="#资源文件">资源文件</a></li>
+  </ul>
 </nav>
-<h1 id=前言>前言</h1>
+		
+
+		<h1 id="前言">前言</h1>
 <p>在 K8S 1.26 版本以前,达到 K8S 准入校验策略效果的方式有两种：</p>
 <ol>
 <li>自己实现 K8S webook</li>
@@ -134,379 +440,671 @@ post-container">
 </ol>
 <p>这些都是 K8S 非默认的内容,K8S 只负责将流量转发到对应的 webhook,具体是怎样一个逻辑判断是在外部处理的.而现在 K8S 支持了一种内置的准入校验方式，使用 CEL 表达式来完成 webhook 的校验逻辑，在一定程度上替代了外部 webhook.</p>
 <p>一些常见的比较简单的校验内容可以直接使用 CEL 表达式来完成,比如比如校验当前 Deployment 副本数,校验当前资源使用的镜像是否是内网地址的镜像等等,如果校验失败则拦截操作并且返回错误提示内容.</p>
-<h2 id=资源文件>资源文件</h2>
+<h2 id="资源文件">资源文件</h2>
 <p>本文使用到的资源文件在部署到 K8S 集群中时均已在线文件方式使用,例如 <code>kubectl apply -f https://xxxxx</code>,但同时都会将内容贴出来,方便对文件内容的直接查看效果.</p>
-<h1 id=准备环境>准备环境</h1>
-<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell>wget https://github.com/kubernetes-sigs/kind/releases/download/v0.17.0/kind-linux-amd64
+<h1 id="准备环境">准备环境</h1>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">wget https://github.com/kubernetes-sigs/kind/releases/download/v0.17.0/kind-linux-amd64
 wget https://storage.googleapis.com/kubernetes-release/release/v1.26.0/bin/linux/amd64/kubectl
-mv kind-linux-amd64 kind <span style=color:#f92672>&amp;&amp;</span> chmod +x kind <span style=color:#f92672>&amp;&amp;</span> mv kind /usr/local/bin
-chmod +x kubectl <span style=color:#f92672>&amp;&amp;</span> mv kubectl /usr/local/bin
+mv kind-linux-amd64 kind <span style="color:#f92672">&amp;&amp;</span> chmod +x kind <span style="color:#f92672">&amp;&amp;</span> mv kind /usr/local/bin
+chmod +x kubectl <span style="color:#f92672">&amp;&amp;</span> mv kubectl /usr/local/bin
 cp /usr/local/bin/kubectl /usr/local/bin/k
 </code></pre></div><p>注意这个版本的 kind 创建集群时需要指定 1.26的 image,否则默认会使用 1.25.3 版本.</p>
 <p>另一个注意点是需要开启 ValidatingAdmissionPolicy 这个功能以及开启 admissionregistration.k8s.io/v1alpha1 API.</p>
 <p>kind 配置文件 <code>kind.yaml</code> 如下:</p>
-<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml><span style=color:#f92672>kind</span>: <span style=color:#ae81ff>Cluster</span>
-<span style=color:#f92672>apiVersion</span>: <span style=color:#ae81ff>kind.x-k8s.io/v1alpha4</span>
-<span style=color:#f92672>featureGates</span>:
-  <span style=color:#f92672>&#34;ValidatingAdmissionPolicy&#34;: </span><span style=color:#66d9ef>true</span>
-<span style=color:#f92672>runtimeConfig</span>:
-  <span style=color:#f92672>&#34;api/alpha&#34;: </span><span style=color:#e6db74>&#34;true&#34;</span>
-<span style=color:#f92672>containerdConfigPatches</span>:
-- <span style=color:#ae81ff>|-  </span>
-  [<span style=color:#ae81ff>plugins.&#34;io.containerd.grpc.v1.cri&#34;.registry.mirrors.&#34;gcr.io&#34;]  </span>
-    <span style=color:#ae81ff>endpoint = [&#34;https://gcr.lank8s.cn&#34;]</span>
-  [<span style=color:#ae81ff>plugins.&#34;io.containerd.grpc.v1.cri&#34;.registry.mirrors.&#34;k8s.gcr.io&#34;]  </span>
-    <span style=color:#ae81ff>endpoint = [&#34;https://k8s.lank8s.cn&#34;]</span>
-  [<span style=color:#ae81ff>plugins.&#34;io.containerd.grpc.v1.cri&#34;.registry.mirrors.&#34;registry.k8s.io&#34;]  </span>
-    <span style=color:#ae81ff>endpoint = [&#34;https://registry.lank8s.cn&#34;]</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#f92672">kind</span>: <span style="color:#ae81ff">Cluster</span>
+<span style="color:#f92672">apiVersion</span>: <span style="color:#ae81ff">kind.x-k8s.io/v1alpha4</span>
+<span style="color:#f92672">featureGates</span>:
+  <span style="color:#f92672">&#34;ValidatingAdmissionPolicy&#34;: </span><span style="color:#66d9ef">true</span>
+<span style="color:#f92672">runtimeConfig</span>:
+  <span style="color:#f92672">&#34;api/alpha&#34;: </span><span style="color:#e6db74">&#34;true&#34;</span>
+<span style="color:#f92672">containerdConfigPatches</span>:
+- <span style="color:#ae81ff">|-  </span>
+  [<span style="color:#ae81ff">plugins.&#34;io.containerd.grpc.v1.cri&#34;.registry.mirrors.&#34;gcr.io&#34;]  </span>
+    <span style="color:#ae81ff">endpoint = [&#34;https://gcr.lank8s.cn&#34;]</span>
+  [<span style="color:#ae81ff">plugins.&#34;io.containerd.grpc.v1.cri&#34;.registry.mirrors.&#34;k8s.gcr.io&#34;]  </span>
+    <span style="color:#ae81ff">endpoint = [&#34;https://k8s.lank8s.cn&#34;]</span>
+  [<span style="color:#ae81ff">plugins.&#34;io.containerd.grpc.v1.cri&#34;.registry.mirrors.&#34;registry.k8s.io&#34;]  </span>
+    <span style="color:#ae81ff">endpoint = [&#34;https://registry.lank8s.cn&#34;]</span>
 </code></pre></div><p>通过 Kind 创建一个集群.</p>
-<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell>kind create cluster  --config kind.yaml --image kindest/node:v1.26.0@sha256:691e24bd2417609db7e589e1a479b902d2e209892a10ce375fab60a8407c7352
-kubectl label namespace   default  environment<span style=color:#f92672>=</span>test
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">kind create cluster  --config kind.yaml --image kindest/node:v1.26.0@sha256:691e24bd2417609db7e589e1a479b902d2e209892a10ce375fab60a8407c7352
+kubectl label namespace   default  environment<span style="color:#f92672">=</span>test
 </code></pre></div><p>研究环境已经准备好了,接下来开始做示例演示.</p>
-<h1 id=示例>示例</h1>
+<h1 id="示例">示例</h1>
 <p>例如希望限制一个 Deployment 的最大副本数,如果是自己开发 webhook,那么你至少需要编写代码,测试代码,部署 webhook.而对于使用<code>OPA</code>或<code>kyverno</code>,你至少需要了解对应的语法使用.</p>
 <p>现在呢,你只需要添加一个带有 CEL 表达式的 K8S 配置就能够做到这样的效果.</p>
 <p><code>vap.yaml</code></p>
-<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml><span style=color:#f92672>apiVersion</span>: <span style=color:#ae81ff>admissionregistration.k8s.io/v1alpha1</span>
-<span style=color:#f92672>kind</span>: <span style=color:#ae81ff>ValidatingAdmissionPolicy</span>
-<span style=color:#f92672>metadata</span>:
-  <span style=color:#f92672>name</span>: <span style=color:#e6db74>&#34;demo-policy.lank8s.local&#34;</span>
-<span style=color:#f92672>spec</span>:
-  <span style=color:#f92672>matchConstraints</span>:
-    <span style=color:#f92672>resourceRules</span>:
-    - <span style=color:#f92672>apiGroups</span>:   [<span style=color:#e6db74>&#34;apps&#34;</span>]
-      <span style=color:#f92672>apiVersions</span>: [<span style=color:#e6db74>&#34;v1&#34;</span>]
-      <span style=color:#f92672>operations</span>:  [<span style=color:#e6db74>&#34;CREATE&#34;</span>, <span style=color:#e6db74>&#34;UPDATE&#34;</span>]
-      <span style=color:#f92672>resources</span>:   [<span style=color:#e6db74>&#34;deployments&#34;</span>]
-  <span style=color:#f92672>validations</span>:
-    - <span style=color:#f92672>expression</span>: <span style=color:#e6db74>&#34;object.spec.replicas &lt;= 5&#34;</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#f92672">apiVersion</span>: <span style="color:#ae81ff">admissionregistration.k8s.io/v1alpha1</span>
+<span style="color:#f92672">kind</span>: <span style="color:#ae81ff">ValidatingAdmissionPolicy</span>
+<span style="color:#f92672">metadata</span>:
+  <span style="color:#f92672">name</span>: <span style="color:#e6db74">&#34;demo-policy.lank8s.local&#34;</span>
+<span style="color:#f92672">spec</span>:
+  <span style="color:#f92672">matchConstraints</span>:
+    <span style="color:#f92672">resourceRules</span>:
+    - <span style="color:#f92672">apiGroups</span>:   [<span style="color:#e6db74">&#34;apps&#34;</span>]
+      <span style="color:#f92672">apiVersions</span>: [<span style="color:#e6db74">&#34;v1&#34;</span>]
+      <span style="color:#f92672">operations</span>:  [<span style="color:#e6db74">&#34;CREATE&#34;</span>, <span style="color:#e6db74">&#34;UPDATE&#34;</span>]
+      <span style="color:#f92672">resources</span>:   [<span style="color:#e6db74">&#34;deployments&#34;</span>]
+  <span style="color:#f92672">validations</span>:
+    - <span style="color:#f92672">expression</span>: <span style="color:#e6db74">&#34;object.spec.replicas &lt;= 5&#34;</span>
 </code></pre></div><p>这个策略配置看着也非常的直观,匹配 apps/v1 版本的 Deployment 资源的 create 和 update 操作,并且只有当副本数<code>&lt;=5</code>的情况下才能操作成功.</p>
 <p>上述是策略的配置,还需要一个<code>ValidatingAdmissionPolicyBinding</code>资源表示上述策略的校验范围.</p>
 <p><code>vapb.yaml</code></p>
-<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml><span style=color:#f92672>apiVersion</span>: <span style=color:#ae81ff>admissionregistration.k8s.io/v1alpha1</span>
-<span style=color:#f92672>kind</span>: <span style=color:#ae81ff>ValidatingAdmissionPolicyBinding</span>
-<span style=color:#f92672>metadata</span>:
-  <span style=color:#f92672>name</span>: <span style=color:#e6db74>&#34;demo-binding-test.lank8s.local&#34;</span>
-<span style=color:#f92672>spec</span>:
-  <span style=color:#f92672>policyName</span>: <span style=color:#e6db74>&#34;demo-policy.lank8s.local&#34;</span>
-  <span style=color:#f92672>matchResources</span>:
-    <span style=color:#f92672>namespaceSelector</span>:
-      <span style=color:#f92672>matchExpressions</span>:
-      - <span style=color:#f92672>key</span>: <span style=color:#ae81ff>environment</span>
-        <span style=color:#f92672>operator</span>: <span style=color:#ae81ff>In</span>
-        <span style=color:#f92672>values</span>: [<span style=color:#e6db74>&#34;test&#34;</span>]
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#f92672">apiVersion</span>: <span style="color:#ae81ff">admissionregistration.k8s.io/v1alpha1</span>
+<span style="color:#f92672">kind</span>: <span style="color:#ae81ff">ValidatingAdmissionPolicyBinding</span>
+<span style="color:#f92672">metadata</span>:
+  <span style="color:#f92672">name</span>: <span style="color:#e6db74">&#34;demo-binding-test.lank8s.local&#34;</span>
+<span style="color:#f92672">spec</span>:
+  <span style="color:#f92672">policyName</span>: <span style="color:#e6db74">&#34;demo-policy.lank8s.local&#34;</span>
+  <span style="color:#f92672">matchResources</span>:
+    <span style="color:#f92672">namespaceSelector</span>:
+      <span style="color:#f92672">matchExpressions</span>:
+      - <span style="color:#f92672">key</span>: <span style="color:#ae81ff">environment</span>
+        <span style="color:#f92672">operator</span>: <span style="color:#ae81ff">In</span>
+        <span style="color:#f92672">values</span>: [<span style="color:#e6db74">&#34;test&#34;</span>]
 </code></pre></div><p>应用上述资源:</p>
-<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell>kubectl apply -f https://liangyuanpeng.com/files/k8s-admissionregistration-with-cel/vap.yaml
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">kubectl apply -f https://liangyuanpeng.com/files/k8s-admissionregistration-with-cel/vap.yaml
 kubectl apply -f https://liangyuanpeng.com/files/k8s-admissionregistration-with-cel/vapb.yaml
 </code></pre></div><p>上述示例配置表示,将校验策略应用到含有<code>environment=test</code>标签的 namespace 下,也就是在这些匹配的 namespace 下的所有 apps/v1 版本的 deployment 资源都会被校验副本数是否<code>&lt;=5</code>.</p>
 <p>创建好策略后接下来部署一个 Deployment 试试.</p>
 <p><code>envoy.yaml</code></p>
-<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml><span style=color:#f92672>apiVersion</span>: <span style=color:#ae81ff>apps/v1</span>
-<span style=color:#f92672>kind</span>: <span style=color:#ae81ff>Deployment</span>
-<span style=color:#f92672>metadata</span>:
-  <span style=color:#f92672>name</span>: <span style=color:#ae81ff>envoy</span>
-  <span style=color:#f92672>labels</span>:
-    <span style=color:#f92672>app</span>: <span style=color:#ae81ff>envoy</span>
-<span style=color:#f92672>spec</span>:
-  <span style=color:#f92672>selector</span>:
-    <span style=color:#f92672>matchLabels</span>:
-      <span style=color:#f92672>app</span>: <span style=color:#ae81ff>envoy</span>
-  <span style=color:#f92672>replicas</span>: <span style=color:#ae81ff>6</span>
-  <span style=color:#f92672>template</span>:
-    <span style=color:#f92672>metadata</span>:
-      <span style=color:#f92672>labels</span>:
-        <span style=color:#f92672>app</span>: <span style=color:#ae81ff>envoy</span>
-    <span style=color:#f92672>spec</span>:
-      <span style=color:#f92672>containers</span>:
-        - <span style=color:#f92672>name</span>: <span style=color:#ae81ff>envoy</span>
-          <span style=color:#f92672>image</span>: <span style=color:#ae81ff>envoyproxy/envoy:v1.25.1</span>
-          <span style=color:#f92672>imagePullPolicy</span>: <span style=color:#ae81ff>IfNotPresent</span>
-          <span style=color:#f92672>ports</span>:
-            - <span style=color:#f92672>name</span>: <span style=color:#ae81ff>envoy</span>
-              <span style=color:#f92672>protocol</span>: <span style=color:#ae81ff>TCP</span>
-              <span style=color:#f92672>containerPort</span>: <span style=color:#ae81ff>10000</span>
-            - <span style=color:#f92672>name</span>: <span style=color:#ae81ff>admin</span>
-              <span style=color:#f92672>containerPort</span>: <span style=color:#ae81ff>9901</span>
-          <span style=color:#f92672>command</span>: 
-            - <span style=color:#ae81ff>/bin/sh</span>
-            - -<span style=color:#ae81ff>c</span>
-            - <span style=color:#ae81ff>envoy -c /etc/envoy/envoy.yaml</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#f92672">apiVersion</span>: <span style="color:#ae81ff">apps/v1</span>
+<span style="color:#f92672">kind</span>: <span style="color:#ae81ff">Deployment</span>
+<span style="color:#f92672">metadata</span>:
+  <span style="color:#f92672">name</span>: <span style="color:#ae81ff">envoy</span>
+  <span style="color:#f92672">labels</span>:
+    <span style="color:#f92672">app</span>: <span style="color:#ae81ff">envoy</span>
+<span style="color:#f92672">spec</span>:
+  <span style="color:#f92672">selector</span>:
+    <span style="color:#f92672">matchLabels</span>:
+      <span style="color:#f92672">app</span>: <span style="color:#ae81ff">envoy</span>
+  <span style="color:#f92672">replicas</span>: <span style="color:#ae81ff">6</span>
+  <span style="color:#f92672">template</span>:
+    <span style="color:#f92672">metadata</span>:
+      <span style="color:#f92672">labels</span>:
+        <span style="color:#f92672">app</span>: <span style="color:#ae81ff">envoy</span>
+    <span style="color:#f92672">spec</span>:
+      <span style="color:#f92672">containers</span>:
+        - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">envoy</span>
+          <span style="color:#f92672">image</span>: <span style="color:#ae81ff">envoyproxy/envoy:v1.25.1</span>
+          <span style="color:#f92672">imagePullPolicy</span>: <span style="color:#ae81ff">IfNotPresent</span>
+          <span style="color:#f92672">ports</span>:
+            - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">envoy</span>
+              <span style="color:#f92672">protocol</span>: <span style="color:#ae81ff">TCP</span>
+              <span style="color:#f92672">containerPort</span>: <span style="color:#ae81ff">10000</span>
+            - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">admin</span>
+              <span style="color:#f92672">containerPort</span>: <span style="color:#ae81ff">9901</span>
+          <span style="color:#f92672">command</span>: 
+            - <span style="color:#ae81ff">/bin/sh</span>
+            - -<span style="color:#ae81ff">c</span>
+            - <span style="color:#ae81ff">envoy -c /etc/envoy/envoy.yaml</span>
 </code></pre></div><p>部署 deployment 资源:</p>
-<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell>kubectl apply -f https://liangyuanpeng.com/files/k8s-admissionregistration-with-cel/envoy.yaml
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">kubectl apply -f https://liangyuanpeng.com/files/k8s-admissionregistration-with-cel/envoy.yaml
 </code></pre></div><p>应用上述配置后会 apply 失败:</p>
-<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell>The deployments <span style=color:#e6db74>&#34;envoy&#34;</span> is invalid: : ValidatingAdmissionPolicy <span style=color:#e6db74>&#39;demo-policy.lank8s.local&#39;</span> with binding <span style=color:#e6db74>&#39;demo-binding-test.lank8s.local&#39;</span> denied request: failed expression: object.spec.replicas &lt;<span style=color:#f92672>=</span> <span style=color:#ae81ff>5</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">The deployments <span style="color:#e6db74">&#34;envoy&#34;</span> is invalid: : ValidatingAdmissionPolicy <span style="color:#e6db74">&#39;demo-policy.lank8s.local&#39;</span> with binding <span style="color:#e6db74">&#39;demo-binding-test.lank8s.local&#39;</span> denied request: failed expression: object.spec.replicas &lt;<span style="color:#f92672">=</span> <span style="color:#ae81ff">5</span>
 </code></pre></div><p>可以从提示中看到,apply envoy 这个 deployment 的时候失败了,导致失败的策略是 <code>object.spec.replicas &lt;= 5</code></p>
 <p>我们还可以做到更强大的效果，将 CEL 表达式中的校验条件的校验值作为参数传递进来，比如将另一个CRD的资源字段作为最大副本数的值.</p>
-<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml><span style=color:#f92672>apiVersion</span>: <span style=color:#ae81ff>admissionregistration.k8s.io/v1alpha1</span>
-<span style=color:#f92672>kind</span>: <span style=color:#ae81ff>ValidatingAdmissionPolicy</span>
-<span style=color:#f92672>metadata</span>:
-  <span style=color:#f92672>name</span>: <span style=color:#e6db74>&#34;demo-policy.lank8s.local&#34;</span>
-<span style=color:#f92672>spec</span>:
-  <span style=color:#f92672>paramKind</span>:
-    <span style=color:#f92672>apiVersion</span>: <span style=color:#ae81ff>rules.lank8s.local/v1</span> <span style=color:#75715e># 需要有一个这样的CRD资源</span>
-    <span style=color:#f92672>kind</span>: <span style=color:#ae81ff>ReplicaLimit</span>
-  <span style=color:#f92672>matchConstraints</span>:
-    <span style=color:#f92672>resourceRules</span>:
-    - <span style=color:#f92672>apiGroups</span>:   [<span style=color:#e6db74>&#34;apps&#34;</span>]
-      <span style=color:#f92672>apiVersions</span>: [<span style=color:#e6db74>&#34;v1&#34;</span>]
-      <span style=color:#f92672>operations</span>:  [<span style=color:#e6db74>&#34;CREATE&#34;</span>, <span style=color:#e6db74>&#34;UPDATE&#34;</span>]
-      <span style=color:#f92672>resources</span>:   [<span style=color:#e6db74>&#34;deployments&#34;</span>]
-  <span style=color:#f92672>validations</span>:
-    - <span style=color:#f92672>expression</span>: <span style=color:#e6db74>&#34;object.spec.replicas &lt;= params.maxReplicas&#34;</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#f92672">apiVersion</span>: <span style="color:#ae81ff">admissionregistration.k8s.io/v1alpha1</span>
+<span style="color:#f92672">kind</span>: <span style="color:#ae81ff">ValidatingAdmissionPolicy</span>
+<span style="color:#f92672">metadata</span>:
+  <span style="color:#f92672">name</span>: <span style="color:#e6db74">&#34;demo-policy.lank8s.local&#34;</span>
+<span style="color:#f92672">spec</span>:
+  <span style="color:#f92672">paramKind</span>:
+    <span style="color:#f92672">apiVersion</span>: <span style="color:#ae81ff">rules.lank8s.local/v1</span> <span style="color:#75715e"># 需要有一个这样的CRD资源</span>
+    <span style="color:#f92672">kind</span>: <span style="color:#ae81ff">ReplicaLimit</span>
+  <span style="color:#f92672">matchConstraints</span>:
+    <span style="color:#f92672">resourceRules</span>:
+    - <span style="color:#f92672">apiGroups</span>:   [<span style="color:#e6db74">&#34;apps&#34;</span>]
+      <span style="color:#f92672">apiVersions</span>: [<span style="color:#e6db74">&#34;v1&#34;</span>]
+      <span style="color:#f92672">operations</span>:  [<span style="color:#e6db74">&#34;CREATE&#34;</span>, <span style="color:#e6db74">&#34;UPDATE&#34;</span>]
+      <span style="color:#f92672">resources</span>:   [<span style="color:#e6db74">&#34;deployments&#34;</span>]
+  <span style="color:#f92672">validations</span>:
+    - <span style="color:#f92672">expression</span>: <span style="color:#e6db74">&#34;object.spec.replicas &lt;= params.maxReplicas&#34;</span>
 </code></pre></div><p>从上述配置中可以看到,最大副本数从<code>5</code>变成了CRD资源的<code>maxReplicas</code>字段,从而让这个策略更加的灵活.</p>
 <p>然后我们再定义一个策略绑定,并且应用到一个不同的条件(也就是说,一个策略能够被多个策略绑定所应用):</p>
-<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml><span style=color:#f92672>apiVersion</span>: <span style=color:#ae81ff>admissionregistration.k8s.io/v1alpha1</span>
-<span style=color:#f92672>kind</span>: <span style=color:#ae81ff>ValidatingAdmissionPolicyBinding</span>
-<span style=color:#f92672>metadata</span>:
-  <span style=color:#f92672>name</span>: <span style=color:#e6db74>&#34;demo-binding-production.lank8s.local&#34;</span>
-<span style=color:#f92672>spec</span>:
-  <span style=color:#f92672>policy</span>: <span style=color:#e6db74>&#34;demo-policy.lank8s.local&#34;</span>
-  <span style=color:#f92672>paramsRef</span>:
-    <span style=color:#f92672>name</span>: <span style=color:#e6db74>&#34;demo-params-production.lank8s.local&#34;</span>
-  <span style=color:#f92672>matchResources</span>:
-    <span style=color:#f92672>namespaceSelector</span>:
-    - <span style=color:#f92672>key</span>: <span style=color:#ae81ff>environment,</span>
-      <span style=color:#f92672>operator</span>: <span style=color:#ae81ff>In,</span>
-      <span style=color:#f92672>values</span>: [<span style=color:#e6db74>&#34;production&#34;</span>]
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#f92672">apiVersion</span>: <span style="color:#ae81ff">admissionregistration.k8s.io/v1alpha1</span>
+<span style="color:#f92672">kind</span>: <span style="color:#ae81ff">ValidatingAdmissionPolicyBinding</span>
+<span style="color:#f92672">metadata</span>:
+  <span style="color:#f92672">name</span>: <span style="color:#e6db74">&#34;demo-binding-production.lank8s.local&#34;</span>
+<span style="color:#f92672">spec</span>:
+  <span style="color:#f92672">policy</span>: <span style="color:#e6db74">&#34;demo-policy.lank8s.local&#34;</span>
+  <span style="color:#f92672">paramsRef</span>:
+    <span style="color:#f92672">name</span>: <span style="color:#e6db74">&#34;demo-params-production.lank8s.local&#34;</span>
+  <span style="color:#f92672">matchResources</span>:
+    <span style="color:#f92672">namespaceSelector</span>:
+    - <span style="color:#f92672">key</span>: <span style="color:#ae81ff">environment,</span>
+      <span style="color:#f92672">operator</span>: <span style="color:#ae81ff">In,</span>
+      <span style="color:#f92672">values</span>: [<span style="color:#e6db74">&#34;production&#34;</span>]
 ---
-<span style=color:#f92672>apiVersion</span>: <span style=color:#ae81ff>rules.lank8s.local/v1</span>
-<span style=color:#f92672>kind</span>: <span style=color:#ae81ff>ReplicaLimit</span>
-<span style=color:#f92672>metadata</span>:
-  <span style=color:#f92672>name</span>: <span style=color:#e6db74>&#34;demo-params-production.lank8s.local&#34;</span>
-<span style=color:#f92672>maxReplicas</span>: <span style=color:#ae81ff>100</span>
+<span style="color:#f92672">apiVersion</span>: <span style="color:#ae81ff">rules.lank8s.local/v1</span>
+<span style="color:#f92672">kind</span>: <span style="color:#ae81ff">ReplicaLimit</span>
+<span style="color:#f92672">metadata</span>:
+  <span style="color:#f92672">name</span>: <span style="color:#e6db74">&#34;demo-params-production.lank8s.local&#34;</span>
+<span style="color:#f92672">maxReplicas</span>: <span style="color:#ae81ff">100</span>
 </code></pre></div><p>上述配置我们为<code>environment=production</code>的 namespace 应用了 Deployment 资源最大副本数为100的策略限制,然后我们还可以再写一份配置,将最大副本数应用到另一个环境,例如:</p>
-<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml><span style=color:#f92672>apiVersion</span>: <span style=color:#ae81ff>admissionregistration.k8s.io/v1alpha1</span>
-<span style=color:#f92672>kind</span>: <span style=color:#ae81ff>ValidatingAdmissionPolicyBinding</span>
-<span style=color:#f92672>metadata</span>:
-  <span style=color:#f92672>name</span>: <span style=color:#e6db74>&#34;demo-binding-dev.lank8s.local&#34;</span>
-<span style=color:#f92672>spec</span>:
-  <span style=color:#f92672>policy</span>: <span style=color:#e6db74>&#34;demo-policy.lank8s.local&#34;</span>
-  <span style=color:#f92672>paramsRef</span>:
-    <span style=color:#f92672>name</span>: <span style=color:#e6db74>&#34;demo-params-dev.lank8s.local&#34;</span>
-  <span style=color:#f92672>matchResources</span>:
-    <span style=color:#f92672>namespaceSelector</span>:
-    - <span style=color:#f92672>key</span>: <span style=color:#ae81ff>environment,</span>
-      <span style=color:#f92672>operator</span>: <span style=color:#ae81ff>In,</span>
-      <span style=color:#f92672>values</span>: [<span style=color:#e6db74>&#34;dev&#34;</span>]
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#f92672">apiVersion</span>: <span style="color:#ae81ff">admissionregistration.k8s.io/v1alpha1</span>
+<span style="color:#f92672">kind</span>: <span style="color:#ae81ff">ValidatingAdmissionPolicyBinding</span>
+<span style="color:#f92672">metadata</span>:
+  <span style="color:#f92672">name</span>: <span style="color:#e6db74">&#34;demo-binding-dev.lank8s.local&#34;</span>
+<span style="color:#f92672">spec</span>:
+  <span style="color:#f92672">policy</span>: <span style="color:#e6db74">&#34;demo-policy.lank8s.local&#34;</span>
+  <span style="color:#f92672">paramsRef</span>:
+    <span style="color:#f92672">name</span>: <span style="color:#e6db74">&#34;demo-params-dev.lank8s.local&#34;</span>
+  <span style="color:#f92672">matchResources</span>:
+    <span style="color:#f92672">namespaceSelector</span>:
+    - <span style="color:#f92672">key</span>: <span style="color:#ae81ff">environment,</span>
+      <span style="color:#f92672">operator</span>: <span style="color:#ae81ff">In,</span>
+      <span style="color:#f92672">values</span>: [<span style="color:#e6db74">&#34;dev&#34;</span>]
 ---
-<span style=color:#f92672>apiVersion</span>: <span style=color:#ae81ff>rules.lank8s.local/v1</span>
-<span style=color:#f92672>kind</span>: <span style=color:#ae81ff>ReplicaLimit</span>
-<span style=color:#f92672>metadata</span>:
-  <span style=color:#f92672>name</span>: <span style=color:#e6db74>&#34;demo-params-dev.lank8s.local&#34;</span>
-<span style=color:#f92672>maxReplicas</span>: <span style=color:#ae81ff>2</span>
+<span style="color:#f92672">apiVersion</span>: <span style="color:#ae81ff">rules.lank8s.local/v1</span>
+<span style="color:#f92672">kind</span>: <span style="color:#ae81ff">ReplicaLimit</span>
+<span style="color:#f92672">metadata</span>:
+  <span style="color:#f92672">name</span>: <span style="color:#e6db74">&#34;demo-params-dev.lank8s.local&#34;</span>
+<span style="color:#f92672">maxReplicas</span>: <span style="color:#ae81ff">2</span>
 </code></pre></div><p>为<code>environment=dev</code>的 namespace 的资源限制了 Deployment 资源最大副本数为2.</p>
 <p>上述示例需要当前 K8S 集群中有 ReplicaLimit 这个资源,因此这个示例只是作为效果理解,没有提供相对应的资源文件来演示效果,如果你有的兴趣的话可以自己创建一个 ReplicaLimit 资源来做研究.</p>
 <p>下面实践一下这个参数化策略的效果,将 ReplicaLimit 资源改为使用当前 K8S 集群中已有的 Deployment 资源.</p>
 <p>重新为 default namespace 赋予标签</p>
-<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell>kubectl label namespace default environment<span style=color:#f92672>=</span>production --overwrite
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">kubectl label namespace default environment<span style="color:#f92672">=</span>production --overwrite
 </code></pre></div><p><code>vap-crd.yaml</code></p>
-<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml><span style=color:#f92672>apiVersion</span>: <span style=color:#ae81ff>admissionregistration.k8s.io/v1alpha1</span>
-<span style=color:#f92672>kind</span>: <span style=color:#ae81ff>ValidatingAdmissionPolicy</span>
-<span style=color:#f92672>metadata</span>:
-  <span style=color:#f92672>name</span>: <span style=color:#ae81ff>lank8s.local</span>
-<span style=color:#f92672>spec</span>:
-  <span style=color:#f92672>paramKind</span>:
-    <span style=color:#f92672>apiVersion</span>: <span style=color:#ae81ff>apps/v1</span>
-    <span style=color:#f92672>kind</span>: <span style=color:#ae81ff>Deployment</span>
-  <span style=color:#f92672>matchConstraints</span>:
-    <span style=color:#f92672>resourceRules</span>:
-    - <span style=color:#f92672>apiGroups</span>:   [<span style=color:#e6db74>&#34;apps&#34;</span>]
-      <span style=color:#f92672>apiVersions</span>: [<span style=color:#e6db74>&#34;v1&#34;</span>]
-      <span style=color:#f92672>operations</span>:  [<span style=color:#e6db74>&#34;CREATE&#34;</span>, <span style=color:#e6db74>&#34;UPDATE&#34;</span>]
-      <span style=color:#f92672>resources</span>:   [<span style=color:#e6db74>&#34;deployments&#34;</span>]
-  <span style=color:#f92672>validations</span>:
-    - <span style=color:#f92672>expression</span>: <span style=color:#e6db74>&#34;object.spec.replicas &lt;= params.spec.replicas&#34;</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#f92672">apiVersion</span>: <span style="color:#ae81ff">admissionregistration.k8s.io/v1alpha1</span>
+<span style="color:#f92672">kind</span>: <span style="color:#ae81ff">ValidatingAdmissionPolicy</span>
+<span style="color:#f92672">metadata</span>:
+  <span style="color:#f92672">name</span>: <span style="color:#ae81ff">lank8s.local</span>
+<span style="color:#f92672">spec</span>:
+  <span style="color:#f92672">paramKind</span>:
+    <span style="color:#f92672">apiVersion</span>: <span style="color:#ae81ff">apps/v1</span>
+    <span style="color:#f92672">kind</span>: <span style="color:#ae81ff">Deployment</span>
+  <span style="color:#f92672">matchConstraints</span>:
+    <span style="color:#f92672">resourceRules</span>:
+    - <span style="color:#f92672">apiGroups</span>:   [<span style="color:#e6db74">&#34;apps&#34;</span>]
+      <span style="color:#f92672">apiVersions</span>: [<span style="color:#e6db74">&#34;v1&#34;</span>]
+      <span style="color:#f92672">operations</span>:  [<span style="color:#e6db74">&#34;CREATE&#34;</span>, <span style="color:#e6db74">&#34;UPDATE&#34;</span>]
+      <span style="color:#f92672">resources</span>:   [<span style="color:#e6db74">&#34;deployments&#34;</span>]
+  <span style="color:#f92672">validations</span>:
+    - <span style="color:#f92672">expression</span>: <span style="color:#e6db74">&#34;object.spec.replicas &lt;= params.spec.replicas&#34;</span>
 </code></pre></div><p><code>vapb-crd.yaml</code></p>
-<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml><span style=color:#f92672>apiVersion</span>: <span style=color:#ae81ff>admissionregistration.k8s.io/v1alpha1</span>
-<span style=color:#f92672>kind</span>: <span style=color:#ae81ff>ValidatingAdmissionPolicyBinding</span>
-<span style=color:#f92672>metadata</span>:
-  <span style=color:#f92672>name</span>: <span style=color:#ae81ff>lank8s.local</span>
-<span style=color:#f92672>spec</span>:
-  <span style=color:#f92672>policyName</span>: <span style=color:#ae81ff>lank8s.local</span>
-  <span style=color:#f92672>paramRef</span>:
-    <span style=color:#f92672>name</span>: <span style=color:#e6db74>&#34;coredns&#34;</span>
-    <span style=color:#f92672>namespace</span>: <span style=color:#ae81ff>kube-system</span>
-  <span style=color:#f92672>matchResources</span>:
-    <span style=color:#f92672>namespaceSelector</span>:
-      <span style=color:#f92672>matchExpressions</span>:
-      - <span style=color:#f92672>key</span>: <span style=color:#ae81ff>environment</span>
-        <span style=color:#f92672>operator</span>: <span style=color:#ae81ff>In</span>
-        <span style=color:#f92672>values</span>: [<span style=color:#e6db74>&#34;production&#34;</span>]
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#f92672">apiVersion</span>: <span style="color:#ae81ff">admissionregistration.k8s.io/v1alpha1</span>
+<span style="color:#f92672">kind</span>: <span style="color:#ae81ff">ValidatingAdmissionPolicyBinding</span>
+<span style="color:#f92672">metadata</span>:
+  <span style="color:#f92672">name</span>: <span style="color:#ae81ff">lank8s.local</span>
+<span style="color:#f92672">spec</span>:
+  <span style="color:#f92672">policyName</span>: <span style="color:#ae81ff">lank8s.local</span>
+  <span style="color:#f92672">paramRef</span>:
+    <span style="color:#f92672">name</span>: <span style="color:#e6db74">&#34;coredns&#34;</span>
+    <span style="color:#f92672">namespace</span>: <span style="color:#ae81ff">kube-system</span>
+  <span style="color:#f92672">matchResources</span>:
+    <span style="color:#f92672">namespaceSelector</span>:
+      <span style="color:#f92672">matchExpressions</span>:
+      - <span style="color:#f92672">key</span>: <span style="color:#ae81ff">environment</span>
+        <span style="color:#f92672">operator</span>: <span style="color:#ae81ff">In</span>
+        <span style="color:#f92672">values</span>: [<span style="color:#e6db74">&#34;production&#34;</span>]
 </code></pre></div><p>可以看到上述配置中直接使用 kube-system 这个 namespace 下的 coredns 这个 Deployment 资源的副本数作为校验条件的值.</p>
 <p>如果应用部署在带有标签<code>environment=production</code>的 namespace,那么 Deployment 资源的副本数必须不能超过 kube-system namespace 下 coredns 这个 Deployment 的副本数.</p>
 <p>上述资源应用:</p>
-<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell>kubectl apply -f https://liangyuanpeng.com/files/k8s-admissionregistration-with-cel/vap-crd.yaml
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">kubectl apply -f https://liangyuanpeng.com/files/k8s-admissionregistration-with-cel/vap-crd.yaml
 kubectl apply -f https://liangyuanpeng.com/files/k8s-admissionregistration-with-cel/vapb-crd.yaml
 kubectl apply -f https://liangyuanpeng.com/files/k8s-admissionregistration-with-cel/envoy.yaml
 </code></pre></div><p>报错内容:</p>
-<pre tabindex=0><code>The deployments &quot;envoy&quot; is invalid: : ValidatingAdmissionPolicy 'lank8s.local' with binding 'lank8s.local' denied request: failed expression: object.spec.replicas &lt;= params.spec.replicas
+<pre tabindex="0"><code>The deployments &quot;envoy&quot; is invalid: : ValidatingAdmissionPolicy 'lank8s.local' with binding 'lank8s.local' denied request: failed expression: object.spec.replicas &lt;= params.spec.replicas
 </code></pre><p>这里的提示如果将 <code>params.spec.replicas</code> 的值也显示出来就更友好了.也许后续的 K8S 版本当中会支持.</p>
-<h1 id=总结>总结</h1>
+<h1 id="总结">总结</h1>
 <p>K8S 有了内置的 CEL 策略机制后对于一些简单的需求已经能够达到满足,可以看到使用起来也是非常方便的.</p>
 <p>本文只演示了策略拦截成功的效果,对于进一步验证效果你可以修改一下 envoy deployment 资源的副本数来观察资源通过策略验证的效果.</p>
-<h1 id=敬请期待>敬请期待</h1>
+<h1 id="敬请期待">敬请期待</h1>
 <p>我将会开源一个 CRD 用于配合 ValidatingAdmissionPolicy 做更为灵活的准入校验，参考前面的 CRD 字段作为参数传递到策略中，目前这个字段是不变的或者说是 CRD 逻辑相关的变更，但如果这个字段能够以更灵活的方式将逻辑以脚本的方式处理 K8S API 数据最终得到一个值是不是更妙呢?</p>
-<p>你可以先想象一下如果希望用 ValidatingAdmissionPolicy 做到限制一个 namespace 下 pod 的数量的话需要怎么做?</p>
-<h1 id=参考资料>参考资料</h1>
-<p>官方博客 <a href=https://kubernetes.io/blog/2022/12/20/validating-admission-policies-alpha/>https://kubernetes.io/blog/2022/12/20/validating-admission-policies-alpha/</a></p>
-<h2>微信公众号</h2>
+<p>你可以先想象一下如果希望用  ValidatingAdmissionPolicy 做到限制一个 namespace 下 pod 的数量的话需要怎么做?</p>
+<h1 id="参考资料">参考资料</h1>
+<p>官方博客 <a href="https://kubernetes.io/blog/2022/12/20/validating-admission-policies-alpha/">https://kubernetes.io/blog/2022/12/20/validating-admission-policies-alpha/</a></p>
+
+
+        <h2>微信公众号</h2>
 <p>扫描下面的二维码关注我们的微信公众号,第一时间查看最新内容。同时也可以关注我的Github,看看我都在了解什么技术,在页面底部可以找到我的Github。</p>
-<img src=/img/qrcode_for_sikekafeidou.jpg alt=wechat-qrcode>
-<div style="padding:10px 0;margin:20px auto;width:100%;font-size:16px;text-align:center">
-<button class="btn btn-danger" id=rewardButton disable=enable onclick="var qr=document.getElementById('QR');qr.style.display==='none'?qr.style.display='block':qr.style.display='none'">
-<span>「来都来了」赞赏</span></button>
-<div id=QR style=display:none>
-<div id=wechat style=display:inline-block>
-<p>如果本文对你有帮助的话欢迎通过微信或支付宝对我进行赞助,强烈建议你在支付的备注上填上你的 githubID 或你的昵称,让我知道我该感谢谁!!! </br></br>
-赞助金额设置为固定金额:8元. </br>
-8元赠与我,发发发反馈给你,2023祝你收入翻番一路发到底:)</p>
-<a class=fancybox rel=group>
-<img id=wechat_qr src=/img/wechat-zhifubao.png alt=Pay></a>
+<img  src="/img/qrcode_for_sikekafeidou.jpg" alt="wechat-qrcode">
+
+        <div style="padding: 10px 0; margin: 20px auto; width: 100%; font-size:16px; text-align: center;">
+    <button class="btn btn-danger"  id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+        <span>「来都来了」赞赏</span></button>
+    <div  id="QR" style="display: none;">
+        <div id="wechat" style="display: inline-block">
+            <p>如果本文对你有帮助的话欢迎通过微信或支付宝对我进行赞助,强烈建议你在支付的备注上填上你的 githubID 或你的昵称,让我知道我该感谢谁!!! </br></br>
+                赞助金额设置为固定金额:8元. </br> 
+                8元赠与我,发发发反馈给你,2023祝你收入翻番一路发到底:)</p>
+            <a class="fancybox" rel="group">
+                <img id="wechat_qr" src="/img/wechat-zhifubao.png" alt="Pay"></a>
+        </div>
+    </div>
 </div>
-</div>
-</div>
-<hr>
-<ul class=pager>
-<li class=previous>
-<a href=/post/apache-pulsar/deploy-pulsar/ data-toggle=tooltip data-placement=top title="部署去ZK后的Apache Pulsar">&larr; 部署去ZK后的Apache Pulsar</a>
-</li>
-<li class=next>
-<a href=/post/cncf-k8s/k8s-validating-admission-policy-with-crdparam-lua/ data-toggle=tooltip data-placement=top title=K8S内置准入校验CRD参数配合lua起飞>K8S内置准入校验CRD参数配合lua起飞 &rarr;</a>
-</li>
-</ul>
-<script src=https://utteranc.es/client.js repo=liangyuanpeng/liangyuanpeng.github.io issue-term=title theme=github-light crossorigin=anonymous async></script>
-</div>
-<div class="col-lg-2 col-lg-offset-0
-visible-lg-block
-sidebar-container
-catalog-container">
-扫码下面二维码加我微信 :)
-<img src=https://liangyuanpeng.github.io/img/aboutme/wechat-lan.png>
-</div>
-<div class="col-lg-8 col-lg-offset-2
-col-md-10 col-md-offset-1
-sidebar-container">
-<br>
+
+        
+
+                <hr>
+
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/post/apache-pulsar/deploy-pulsar/" data-toggle="tooltip" data-placement="top" title="部署去ZK后的Apache Pulsar">&larr; 部署去ZK后的Apache Pulsar</a>
+                    </li>
+                    
+                    
+                    <li class="next">
+                        <a href="/post/cncf-k8s/k8s-validating-admission-policy-with-crdparam-lua/" data-toggle="tooltip" data-placement="top" title="K8S内置准入校验CRD参数配合lua起飞">K8S内置准入校验CRD参数配合lua起飞 &rarr;</a>
+                    </li>
+                    
+                </ul>
+
+            
+<script src="https://utteranc.es/client.js"
+repo="liangyuanpeng/liangyuanpeng.github.io"
+issue-term="title"
+theme="github-light"
+crossorigin="anonymous"
+async>
+</script>
+
+
+
+            </div>
+
+            
+
+            <div class="
+                col-lg-2 col-lg-offset-0
+                visible-lg-block
+                sidebar-container
+                catalog-container">
+                
+                扫码下面二维码加我微信 :)
+                <img src="https://liangyuanpeng.github.io/img/aboutme/wechat-lan.png" />
+                
+            </div> 
+
+            
+
+            
+            
+            
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                
+                
+<br/>
 <h5>开源项目推荐</h5>
-<style type=text/css>.pinned-repos{max-width:300px;margin:0 auto}.repo-card{display:flex;flex-direction:column;padding:16px;border:1px solid #e1e4e8;border-radius:6px;background-color:#fff}.repo-card:hover{box-shadow:0 1px 3px rgba(36,41,46,8%)}.repo-card h2{margin-top:0;font-size:20px;font-weight:200;color:#0366d6}.repo-card p{margin:8px 0 16px;font-size:14px;color:#586069}.repo-card-stats{display:flex;flex-wrap:wrap;align-items:center}.repo-card-stats span{font-size:12px;color:#586069;margin-right:16px}.repo-card-stats strong{font-weight:200;color:#24292e}</style>
-<ul class="margin-bottom: 25px;pinned-repo-list">
-<li>
-<div class=repo-card>
-<div class=repo-card-details>
-<h2><a href=https://github.com/liangyuanpeng/replacer>replacer</a></h2>
-<p>K8S webhook的参考实现|Replace container image of kubernetes mutate webhook.</p>
-<div class=repo-card-stats>
-<span>Language: <strong>Golang</strong></span>
-<span>Forks: <strong>*</strong></span>
-<span>Stars: <strong>*</strong></span>
-<span>Updated: <strong>Nov 20, 2021</strong></span>
-</div>
-</div>
-</div>
-</li>
-</ul>
-</div>
-<div class="col-lg- col-lg-offset-2
-col-md-10 col-md-offset-1">
-<section>
-<hr class="hidden-sm hidden-xs">
+
+<style type="text/css">
+.pinned-repos {
+  max-width: 300px;
+  margin: 0 auto;
+}
+
+.repo-card {
+  display: flex;
+  flex-direction: column;
+  padding: 16px;
+  border: 1px solid #e1e4e8;
+  border-radius: 6px;
+  background-color: #fff;
+}
+
+.repo-card:hover {
+  box-shadow: 0 1px 3px rgba(36,41,46,.08);
+}
+
+.repo-card h2 {
+  margin-top: 0;
+  font-size: 20px;
+  font-weight: 200;
+  color: #0366d6;
+}
+
+.repo-card p {
+  margin: 8px 0 16px;
+  font-size: 14px;
+  color: #586069;
+}
+
+.repo-card-stats {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;  
+}
+
+.repo-card-stats span {
+  font-size: 12px;
+  color: #586069;
+  margin-right: 16px;
+}
+
+.repo-card-stats strong {
+  font-weight: 200;
+  color: #24292e;
+}
+</style>
+
+    
+    <ul class="margin-bottom: 25px;pinned-repo-list">
+      <li>
+        <div class="repo-card">
+          <div class="repo-card-details">
+            <h2><a href="https://github.com/liangyuanpeng/replacer">replacer</a></h2>
+            <p>K8S webhook的参考实现|Replace container image of kubernetes mutate webhook.</p>
+            <div class="repo-card-stats">
+              <span>Language: <strong>Golang</strong></span>
+              <span>Forks: <strong>*</strong></span>
+              <span>Stars: <strong>*</strong></span>
+              <span>Updated: <strong>Nov 20, 2021</strong></span>
+            </div>
+          </div>
+        </div>
+      </li>
+    </ul>
+
+            </div>
+
+            
+            
+            <div class="
+            col-lg- col-lg-offset-2
+            col-md-10 col-md-offset-1
+            ">
+            <section>
+                <hr class="hidden-sm hidden-xs">
+                
+
 <h2>相关文章</h2>
-<ul style=margin-bottom:25px>
-<li><a href=/post/fundation-cncf/rust-project-in-cncf/>cncf基金会中的rust项目</a></li>
-<li><a href=/post/cncf-kubernetes/dev-webhook-for-kubernetes/>k8s-webhook开发技巧</a></li>
-<li><a href=/post/cncf-kubernetes/deploy-lank8s-webhook-for-k8s.gcr.io/>部署在线的lank8s webhook之后,不再为k8s.gcr.io/gcr.io镜像苦恼</a></li>
-<li><a href=/post/cncf-kubernetes/deploy-metrics-server-for-kubectl-top/>部署metrics-server,把kubectl top用起来</a></li>
-<li><a href=/post/cncf-longhorn/k8s-deploy-longhorn/>kubernetes部署longhorn</a></li>
-<li><a href=/post/cncf-prometheus/kubernetes-deploy-kube-prometheus/>kubernetes部署kube-prometheus</a></li>
-<li><a href=/post/cncf-envoy/envoy-file-xds-with-reload-configmap/>将热更新configmap作为Envoy的XDS服务</a></li>
-<li><a href=/post/fundation-cncf/k8s-cd-argo-deploy/>k8s部署云原生CD引擎Argo</a></li>
-<li><a href=/post/cncf-kubernetes/kubernetes-qa/>kubernetes常见问题</a></li>
-<li><a href=/post/cncf-kubernetes/proxy-kube-apiserver/>反向代理kube-apiserver的请求</a></li>
+<ul style="margin-bottom: 25px;">
+    
+    <li><a href="/post/fundation-cncf/rust-project-in-cncf/">cncf基金会中的rust项目</a></li>
+    
+    <li><a href="/post/cncf-kubernetes/dev-webhook-for-kubernetes/">k8s-webhook开发技巧</a></li>
+    
+    <li><a href="/post/cncf-kubernetes/deploy-lank8s-webhook-for-k8s.gcr.io/">部署在线的lank8s webhook之后,不再为k8s.gcr.io/gcr.io镜像苦恼</a></li>
+    
+    <li><a href="/post/cncf-kubernetes/deploy-metrics-server-for-kubectl-top/">部署metrics-server,把kubectl top用起来</a></li>
+    
+    <li><a href="/post/cncf-longhorn/k8s-deploy-longhorn/">kubernetes部署longhorn</a></li>
+    
+    <li><a href="/post/cncf-prometheus/kubernetes-deploy-kube-prometheus/">kubernetes部署kube-prometheus</a></li>
+    
+    <li><a href="/post/cncf-envoy/envoy-file-xds-with-reload-configmap/">将热更新configmap作为Envoy的XDS服务</a></li>
+    
+    <li><a href="/post/fundation-cncf/k8s-cd-argo-deploy/">k8s部署云原生CD引擎Argo</a></li>
+    
+    <li><a href="/post/cncf-kubernetes/kubernetes-qa/">kubernetes常见问题</a></li>
+    
+    <li><a href="/post/cncf-kubernetes/proxy-kube-apiserver/">反向代理kube-apiserver的请求</a></li>
+    
 </ul>
-</section>
-</div>
-</div>
-</div>
+
+            </section>
+            </div>
+            
+
+            
+
+
+        </div>
+    </div>
 </article>
+
+
+
+
+
+
 <footer>
-<div class=container>
-<div class=row>
-<div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-<ul class="list-inline text-center">
-<li>
-<a href rel=alternate type=application/rss+xml title="Hi,I`m lan">
-<span class="fa-stack fa-lg">
-<i class="fa fa-circle fa-stack-2x"></i>
-<i class="fa fa-rss fa-stack-1x fa-inverse"></i>
-</span>
-</a>
-</li>
-<li>
-<a target=_blank href=https://github.com/liangyuanpeng>
-<span class="fa-stack fa-lg">
-<i class="fa fa-circle fa-stack-2x"></i>
-<i class="fa fa-github fa-stack-1x fa-inverse"></i>
-</span>
-</a>
-</li>
-<li>
-<a target=_blank href=https://liangyuanpeng.github.io/img/aboutme/wechat-lan.png>
-<span class="fa-stack fa-lg">
-<i class="fa fa-circle fa-stack-2x"></i>
-<i class="fa fa-wechat fa-stack-1x fa-inverse"></i>
-</span>
-</a>
-</li>
-<li>
-<a href=mailto:liangyuanpengem@163.com>
-<span class="fa-stack fa-lg">
-<i class="fa fa-circle fa-stack-2x"></i>
-<i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
-</span>
-</a>
-</li>
-<li>
-<a href=https://twitter.com/lan31793328>
-<span class="fa-stack fa-lg">
-<i class="fa fa-circle fa-stack-2x"></i>
-<i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
-</span>
-</a>
-</li>
-<li>
-<a target=_blank href=https://www.zhihu.com/people/liangyuanpeng>
-<span class="fa-stack fa-lg">
-<i class="fa fa-circle fa-stack-2x"></i>
-<i class="fa fa-stack-1x fa-inverse">知</i>
-</span>
-</a>
-</li>
-<li>
-<a target=_blank href=https://weibo.com/u/1908782280>
-<span class="fa-stack fa-lg">
-<i class="fa fa-circle fa-stack-2x"></i>
-<i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
-</span>
-</a>
-</li>
-</ul>
-<p class="copyright text-muted">
-Copyright &copy; Hi,I`m lan , 2023
-<br>
-<a href=https://themes.gohugo.io/hugo-theme-cleanwhite>CleanWhite Hugo Theme</a> by <a href=https://zhaohuabing.com>Huabing</a> |
-<iframe style=margin-left:2px;margin-bottom:-5px frameborder=0 scrolling=0 width=100px height=20px src="https://ghbtns.com/github-btn.html?user=zhaohuabing&repo=hugo-theme-cleanwhite&type=star&count=true"></iframe>
-</p>
-</div>
-</div>
-</div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                   
+                   <li>
+                       <a href="" rel="alternate" type="application/rss+xml" title="Hi,I`m lan" >
+                           <span class="fa-stack fa-lg">
+                               <i class="fa fa-circle fa-stack-2x"></i>
+                               <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+                           </span>
+                       </a>
+                   </li>
+                   
+                    
+                    <li>
+                        <a target="_blank" href="https://github.com/liangyuanpeng">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                   
+                   
+                    
+                    <li>
+                        <a target="_blank" href="https://liangyuanpeng.github.io/img/aboutme/wechat-lan.png">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-wechat fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li>
+                        <a href="mailto:liangyuanpengem@163.com">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+		    
+
+                    
+                    <li>
+                        <a href="https://twitter.com/lan31793328">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li>
+                        <a target="_blank" href="https://www.zhihu.com/people/liangyuanpeng">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa  fa-stack-1x fa-inverse">知</i>
+                            </span>
+                        </a>
+                    </li>
+		    
+                    
+                    <li>
+                        <a target="_blank" href="https://weibo.com/u/1908782280">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+		    
+
+                    
+
+		    
+                    
+                </ul>
+		<p class="copyright text-muted">
+                    Copyright &copy; Hi,I`m lan , 2023
+                    <br>
+                    <a href="https://themes.gohugo.io/hugo-theme-cleanwhite">CleanWhite Hugo Theme</a> by <a href="https://zhaohuabing.com">Huabing</a> |
+                    <iframe
+                        style="margin-left: 2px; margin-bottom:-5px;"
+                        frameborder="0" scrolling="0" width="100px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=zhaohuabing&repo=hugo-theme-cleanwhite&type=star&count=true" >
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
 </footer>
-<script>function loadAsync(f,b){var c=document,d='script',a=c.createElement(d),e=c.getElementsByTagName(d)[0];a.src=f,b&&a.addEventListener('load',function(a){b(null,a)},!1),e.parentNode.insertBefore(a,e)}</script>
-<script>function async(f,b){var c=document,d='script',a=c.createElement(d),e=c.getElementsByTagName(d)[0];a.src=f,b&&a.addEventListener('load',function(a){b(null,a)},!1),e.parentNode.insertBefore(a,e)}</script>
-<script>$('#tag_cloud').length!==0&&async("/js/jquery.tagcloud.js",function(){$.fn.tagcloud.defaults={color:{start:'#bbbbee',end:'#0085a1'}},$('#tag_cloud a').tagcloud()})</script>
-<script type=text/javascript>function generateCatalog(a){_containerSelector='div.post-container';var h=$(_containerSelector),c,d,e,f,g,b;return c=h.find('h1,h2,h3,h4,h5,h6'),$(a).html(''),c.each(function(){d=$(this).prop('tagName').toLowerCase(),g="#"+$(this).prop('id'),e=$(this).text(),b=$('<a href="'+g+'" rel="nofollow">'+e+'</a>'),f=$('<li class="'+d+'_nav"></li>').append(b),$(a).append(f)}),!0}generateCatalog(".catalog-body"),$(".catalog-toggle").click(function(a){a.preventDefault(),$('.side-catalog').toggleClass("fold")}),loadAsync("/js/jquery.nav.js",function(){$('.catalog-body').onePageNav({currentClass:"active",changeHash:!1,easing:"swing",filter:"",scrollSpeed:700,scrollOffset:0,scrollThreshold:.2,begin:null,end:null,scrollChange:null,padding:80})})</script>
-<script>async("https://cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.js",function(){var a=document.querySelector("nav");a&&FastClick.attach(a)})</script>
-<script>var _baId='fad9c137f8ce239f9b323d36c871f8e6',_hmt=_hmt||[];(function(){var a=document.createElement("script"),b;a.src="//hm.baidu.com/hm.js?"+_baId,b=document.getElementsByTagName("script")[0],b.parentNode.insertBefore(a,b)})()</script>
+
+
+
+<script>
+    function loadAsync(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+
+
+
+
+
+<script>
+    
+    if($('#tag_cloud').length !== 0){
+        async("/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+
+
+
+<script type="text/javascript">
+
+    
+    
+
+    function generateCatalog(selector) {
+
+        
+        
+        
+        
+            _containerSelector = 'div.post-container'
+        
+
+        
+        var P = $(_containerSelector), a, n, t, l, i, c;
+        a = P.find('h1,h2,h3,h4,h5,h6');
+
+        
+        $(selector).html('')
+
+        
+        a.each(function () {
+            n = $(this).prop('tagName').toLowerCase();
+            i = "#" + $(this).prop('id');
+            t = $(this).text();
+            c = $('<a href="' + i + '" rel="nofollow">' + t + '</a>');
+            l = $('<li class="' + n + '_nav"></li>').append(c);
+            $(selector).append(l);
+        });
+        return true;
+    }
+
+    generateCatalog(".catalog-body");
+
+    
+    $(".catalog-toggle").click((function (e) {
+        e.preventDefault();
+        $('.side-catalog').toggleClass("fold")
+    }))
+
+    
+
+
+    loadAsync("\/js\/jquery.nav.js", function () {
+        $('.catalog-body').onePageNav({
+            currentClass: "active",
+            changeHash: !1,
+            easing: "swing",
+            filter: "",
+            scrollSpeed: 700,
+            scrollOffset: 0,
+            scrollThreshold: .2,
+            begin: null,
+            end: null,
+            scrollChange: null,
+            padding: 80
+        });
+    });
+</script>
+
+
+
+
+<script>
+    async("https://cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+
+
+
+
+
+<script>
+    
+    var _baId = 'fad9c137f8ce239f9b323d36c871f8e6';
+
+    
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?" + _baId;
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+
+
+
+
+
+
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-RTTRHGYFWL"></script>
-<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date),gtag('config','G-RTTRHGYFWL')</script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-RTTRHGYFWL');
+</script>
+
+
+
 </body>
 </html>

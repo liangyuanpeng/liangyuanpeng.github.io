@@ -1,310 +1,772 @@
-<!doctype html><html lang=en-us>
+<!DOCTYPE html>
+<html lang="en-us">
 <head><head>
-<meta name=google-site-verification content="9vIieCe-Qpd78QOmBl63rGtIVbhY6sYyuxX3j8XWBA4">
-<meta name=baidu-site-verification content="LRrmH41lz7">
-<meta charset=utf-8>
-<meta http-equiv=x-ua-compatible content="IE=edge">
-<meta name=google-site-verification content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
-<meta name=viewport content="width=device-width,initial-scale=1">
-<meta name=baidu-site-verification content="HGLXRsUXC4">
-<meta name=baidu-site-verification content="code-ANZvlnN0Xr">
-<meta name=description content="lan，工程师⎈,远鹏|CNCF粉丝|Pulsar爱好者|公众号:四颗咖啡豆|云原生追随者">
-<meta name=keyword content="liangyuanpeng|LanLiang|OpenYurt|Knative|Pulsar|Prometheus|Halo||边缘计算kubernetes|Docker|CloudNative|Golang|Rust|Istio|微服务">
-<link rel="shortcut icon" href=https://res.cloudinary.com/lyp/image/upload/v1679636162/hash-kube-rs-pulsar.png>
-<meta property="og:image" content="https://res.cloudinary.com/lyp/image/upload/v1544363190/hugo/blog.github.io/19375a83fc004035fb1102a4551f2287.jpg">
-<meta name=twitter:image content="https://res.cloudinary.com/lyp/image/upload/v1544363190/hugo/blog.github.io/19375a83fc004035fb1102a4551f2287.jpg">
-<title>微信小程序接口自动化的实现方案-远鹏的博客 | liangyuanpeng's Blog</title>
-<link rel=canonical href=https://liangyuanpeng.github.io/post/automation-test-wechat-api/>
-<link rel=stylesheet href=https://liangyuanpeng.github.io/css/bootstrap.min.css>
-<link rel=stylesheet href=https://liangyuanpeng.github.io/css/hux-blog.min.css>
-<link rel=stylesheet href=https://liangyuanpeng.github.io/css/syntax.css>
-<link href=//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css rel=stylesheet type=text/css>
-<script src=https://liangyuanpeng.github.io/js/jquery.min.js></script>
-<script src=https://liangyuanpeng.github.io/js/bootstrap.min.js></script>
-<script src=https://liangyuanpeng.github.io/js/hux-blog.min.js></script>
-<script defer src=https://static.cloudflareinsights.com/beacon.min.js data-cf-beacon='{"token": "f73bc0092aeb491d89984c0eb5a87ac2"}'></script>
+    <meta name="google-site-verification" content="9vIieCe-Qpd78QOmBl63rGtIVbhY6sYyuxX3j8XWBA4" />
+    <meta name="baidu-site-verification" content="LRrmH41lz7" />
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <meta name="baidu-site-verification" content="HGLXRsUXC4" />
+
+    
+    <meta name="baidu-site-verification" content="code-ANZvlnN0Xr" />
+
+    
+    <meta name="description" content="lan，工程师⎈,远鹏|CNCF粉丝|Pulsar爱好者|公众号:四颗咖啡豆|云原生追随者">
+    
+    <meta name="keyword"  content="liangyuanpeng|LanLiang|OpenYurt|Knative|Pulsar|Prometheus|Halo||边缘计算kubernetes|Docker|CloudNative|Golang|Rust|Istio|微服务">
+
+    
+    <link rel="shortcut icon" href="https://res.cloudinary.com/lyp/image/upload/v1679636162/hash-kube-rs-pulsar.png">
+    
+
+    
+    <meta property="og:image" content="https://res.cloudinary.com/lyp/image/upload/v1544363190/hugo/blog.github.io/19375a83fc004035fb1102a4551f2287.jpg" />
+    <meta name="twitter:image" content="https://res.cloudinary.com/lyp/image/upload/v1544363190/hugo/blog.github.io/19375a83fc004035fb1102a4551f2287.jpg" />
+
+    <title>微信小程序接口自动化的实现方案-远鹏的博客 | liangyuanpeng&#39;s Blog</title>
+
+    <link rel="canonical" href="https://liangyuanpeng.github.io/post/automation-test-wechat-api/">
+
+    
+
+    
+    <link rel="stylesheet" href='https://liangyuanpeng.github.io/css/bootstrap.min.css'>
+
+    
+    <link rel="stylesheet" href="https://liangyuanpeng.github.io/css/hux-blog.min.css">
+
+    
+    <link rel="stylesheet" href="https://liangyuanpeng.github.io/css/syntax.css">
+
+    
+    <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    
+    
+    <script src="https://liangyuanpeng.github.io/js/jquery.min.js"></script>
+
+    
+    <script src="https://liangyuanpeng.github.io/js/bootstrap.min.js"></script>
+
+    
+    <script src="https://liangyuanpeng.github.io/js/hux-blog.min.js"></script>
+
+    
+    <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "f73bc0092aeb491d89984c0eb5a87ac2"}'></script>
 </head>
+
 </head>
+
 <nav class="navbar navbar-default navbar-custom navbar-fixed-top">
-<div class=container-fluid>
-<div class="navbar-header page-scroll">
-<button type=button class=navbar-toggle>
-<span class=sr-only>Toggle navigation</span>
-<span class=icon-bar></span>
-<span class=icon-bar></span>
-<span class=icon-bar></span>
-</button>
-<a class=navbar-brand href=https://liangyuanpeng.github.io/>Hi,I`m lan</a>
-</div>
-<div id=huxblog_navbar>
-<div class=navbar-collapse>
-<ul class="nav navbar-nav navbar-right">
-<li>
-<a href=https://liangyuanpeng.github.io/>Home</a>
-</li>
-<li>
-<a href=https://liangyuanpeng.github.io/categories/cloudnative>cloudnative</a>
-</li>
-<li>
-<a href=https://liangyuanpeng.github.io/categories/devops>devops</a>
-</li>
-<li>
-<a href=https://liangyuanpeng.github.io/categories/iot>iot</a>
-</li>
-<li>
-<a href=https://liangyuanpeng.github.io/categories/kubernetes>kubernetes</a>
-</li>
-<li>
-<a href=https://liangyuanpeng.github.io/categories/tech>tech</a>
-</li>
-<li>
-<a href=https://liangyuanpeng.github.io/search/>SEARCH <img src=https://liangyuanpeng.github.io/img/search.png height=15 style=cursor:pointer></a>
-</li>
-</ul>
-</div>
-</div>
-</div>
+    <div class="container-fluid">
+        
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="https://liangyuanpeng.github.io/">Hi,I`m lan</a>
+        </div>
+
+        
+        
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="https://liangyuanpeng.github.io/">Home</a>
+                    </li>
+                    
+                    <li>
+                        <a href="https://liangyuanpeng.github.io/categories/cloudnative">cloudnative</a>
+                    </li>
+                    
+                    <li>
+                        <a href="https://liangyuanpeng.github.io/categories/devops">devops</a>
+                    </li>
+                    
+                    <li>
+                        <a href="https://liangyuanpeng.github.io/categories/iot">iot</a>
+                    </li>
+                    
+                    <li>
+                        <a href="https://liangyuanpeng.github.io/categories/kubernetes">kubernetes</a>
+                    </li>
+                    
+                    <li>
+                        <a href="https://liangyuanpeng.github.io/categories/tech">tech</a>
+                    </li>
+                    
+
+                    
+		            <li>
+                        <a href="https://liangyuanpeng.github.io/search/">SEARCH <img src="https://liangyuanpeng.github.io/img/search.png" height="15" style="cursor: pointer;"></a>
+		            </li>
+                    
+                </ul>
+            </div>
+        </div>
+        
+    </div>
+    
 </nav>
-<script>var $body=document.body,$toggle=document.querySelector('.navbar-toggle'),$navbar=document.querySelector('#huxblog_navbar'),$collapse=document.querySelector('.navbar-collapse');$toggle.addEventListener('click',handleMagic);function handleMagic(a){$navbar.className.indexOf('in')>0?($navbar.className=" ",setTimeout(function(){$navbar.className.indexOf('in')<0&&($collapse.style.height="0px")},400)):($collapse.style.height="auto",$navbar.className+=" in")}</script>
-<style type=text/css>header.intro-header{background-image:url(https://res.cloudinary.com/lyp/image/upload/v1544363190/hugo/blog.github.io/19375a83fc004035fb1102a4551f2287.jpg)}</style>
-<header class=intro-header>
-<div class=container>
-<div class=row>
-<div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-<div class=post-heading>
-<div class=tags>
-<a class=tag href=/tags/%E8%87%AA%E5%8A%A8%E5%8C%96 title=自动化>
-自动化
-</a>
-<a class=tag href=/tags/%E5%B0%8F%E7%A8%8B%E5%BA%8F title=小程序>
-小程序
-</a>
-<br>
-</div>
-<h1>微信小程序接口自动化的实现方案</h1>
-<h2 class=subheading></h2>
-<span class=meta>Posted by 想造火箭的螺丝工 on 2021-04-13
-<span id=busuanzi_container_page_pv>|<span id=busuanzi_value_page_pv></span><span>
-<span id=/post/automation-test-wechat-api/ class="leancloud_visitors meta_data_item" data-flag-title>
-<span class=post-meta-item-icon>
-<span class="octicon octicon-eye"></span>
+<script>
+    
+    
+    
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        
+            $navbar.className = " ";
+            
+            setTimeout(function(){
+                
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+
+
+<style type="text/css">
+    header.intro-header{
+        background-image: url('https://res.cloudinary.com/lyp/image/upload/v1544363190/hugo/blog.github.io/19375a83fc004035fb1102a4551f2287.jpg')
+    }
+</style>
+
+<header class="intro-header" >
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                       
+                       <a class="tag" href="/tags/%E8%87%AA%E5%8A%A8%E5%8C%96" title="自动化">
+                           自动化
+                           
+                           
+                           
+                           
+                           
+                           
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+
+                            
+                            
+                            
+
+                            
+                            
+                            
+
+                            
+                            
+                            
+
+                            
+                            
+                            
+                            
+                            
+
+                            
+                        </a>
+                        
+                       <a class="tag" href="/tags/%E5%B0%8F%E7%A8%8B%E5%BA%8F" title="小程序">
+                           小程序
+                           
+                           
+                           
+                           
+                           
+                           
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+
+                            
+                            
+                            
+
+                            
+                            
+                            
+
+                            
+                            
+                            
+
+                            
+                            
+                            
+                            
+                            
+
+                            
+                        </a>
+                        
+                        <br/>
+                    </div>
+                    <h1>微信小程序接口自动化的实现方案</h1>
+                    <h2 class="subheading"></h2>
+                    <span  class="meta">Posted by 想造火箭的螺丝工 on 2021-04-13
+                        
+                        <span id="busuanzi_container_page_pv">|<span id="busuanzi_value_page_pv"></span><span>
+                            <span id="/post/automation-test-wechat-api/" class="leancloud_visitors meta_data_item" data-flag-title="">
+    <span class="post-meta-item-icon">
+      <span class="octicon octicon-eye"></span> 
+    </span>
+    <i class="fa fa-eye"></i>
+    <span class="old-visitors-count" style="display: none;"></span>
+    <span class="leancloud-visitors-count"></span>
 </span>
-<i class="fa fa-eye"></i>
-<span class=old-visitors-count style=display:none></span>
-<span class=leancloud-visitors-count></span>
-</span>
-阅读 </span></span>|<span class=post-date>共1250字</span>，阅读约<span class=more-meta> 3 分钟</span>
-</span>
-</div>
-</div>
-</div>
-</div>
+
+
+
+
+
+
+                            阅读 </span></span>|<span class="post-date">共1250字</span>，阅读约<span class="more-meta"> 3 分钟</span>
+                        
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
 </header>
+
+
+
+
 <article>
-<div class=container>
-<div class=row>
-<div class="col-lg-8 col-lg-offset-2
-col-md-10 col-md-offset-1
-post-container">
-<header>
-<h2>TOC</h2>
-</header>
-<nav id=TableOfContents>
-<ul>
-<li>
-<ul>
-<li><a href=#背景>背景</a></li>
-<li><a href=#微信小程序接口自动化的问题>微信小程序接口自动化的问题</a></li>
-<li><a href=#环境准备>环境准备</a></li>
-<li><a href=#原理>原理</a></li>
-<li><a href=#实现>实现</a></li>
-<li><a href=#注意点>注意点</a></li>
-<li><a href=#总结>总结</a></li>
-<li><a href=#转载文章>转载文章</a></li>
-</ul>
-</li>
-</ul>
+    <div class="container">
+        <div class="row">
+            
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+		
+                <header>
+                <h2>TOC</h2>
+                </header>
+                <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#背景">背景</a></li>
+        <li><a href="#微信小程序接口自动化的问题">微信小程序接口自动化的问题</a></li>
+        <li><a href="#环境准备">环境准备</a></li>
+        <li><a href="#原理">原理</a></li>
+        <li><a href="#实现">实现</a></li>
+        <li><a href="#注意点">注意点</a></li>
+        <li><a href="#总结">总结</a></li>
+        <li><a href="#转载文章">转载文章</a></li>
+      </ul>
+    </li>
+  </ul>
 </nav>
-<h3 id=背景>背景</h3>
-<p>前几天在社区看到有人问微信小程序怎么进行接口自动化<a href=https://testerhome.com/topics/28217>https://testerhome.com/topics/28217</a>，所以想把自己如何进行微信小程序接口自动化的方法分享下。</p>
-<h3 id=微信小程序接口自动化的问题>微信小程序接口自动化的问题</h3>
-<p><a href=https://developers.weixin.qq.com/miniprogram/dev/framework/open-ability/login.html>https://developers.weixin.qq.com/miniprogram/dev/framework/open-ability/login.html</a>这是微信小程序的登陆流程，小程序登陆需要在小程序内部调用wx.login()的方法拿到code，然后去请求服务获取到token，后续的接口才能请求。所以接口自动化的问题在于如何获取code去进行去获取token。</p>
-<h3 id=环境准备>环境准备</h3>
+		
+
+		<h3 id="背景">背景</h3>
+<p>前几天在社区看到有人问微信小程序怎么进行接口自动化<a href="https://testerhome.com/topics/28217">https://testerhome.com/topics/28217</a>，所以想把自己如何进行微信小程序接口自动化的方法分享下。</p>
+<h3 id="微信小程序接口自动化的问题">微信小程序接口自动化的问题</h3>
+<p><a href="https://developers.weixin.qq.com/miniprogram/dev/framework/open-ability/login.html">https://developers.weixin.qq.com/miniprogram/dev/framework/open-ability/login.html</a>这是微信小程序的登陆流程，小程序登陆需要在小程序内部调用wx.login()的方法拿到code，然后去请求服务获取到token，后续的接口才能请求。所以接口自动化的问题在于如何获取code去进行去获取token。</p>
+<h3 id="环境准备">环境准备</h3>
 <ol>
 <li>一台windows或者mac电脑</li>
 <li>微信开发者工具</li>
 <li>一个微信号以及小程序开发者权限</li>
 <li>小程序的代码</li>
 </ol>
-<h3 id=原理>原理</h3>
+<h3 id="原理">原理</h3>
 <ul>
-<li>Python使用<a href=https://git.weixin.qq.com/minitest/minium-doc/tree/master/minium/Python/dist>minium</a>,JS使用<a href=https://developers.weixin.qq.com/miniprogram/dev/devtools/auto/quick-start.html>miniprogram-automator</a>,这是微信官方提供的UI自动化测试的工具，它们的原理都是调起微信开发者工具，然后会对外提供了一个自动化测试的端口，然后它们的API应该都是和这个端口进行通信。</li>
+<li>Python使用<a href="https://git.weixin.qq.com/minitest/minium-doc/tree/master/minium/Python/dist">minium</a>,JS使用<a href="https://developers.weixin.qq.com/miniprogram/dev/devtools/auto/quick-start.html">miniprogram-automator</a>,这是微信官方提供的UI自动化测试的工具，它们的原理都是调起微信开发者工具，然后会对外提供了一个自动化测试的端口，然后它们的API应该都是和这个端口进行通信。</li>
 <li>我是用的miniprogram-automator，以下都是以miniprogram-automator进行说明，然后就可以使用miniProgram.callWxMethod的方法调用wx.login()这个方法获取到code，这就是获取code的方法
-<img src=/uploads/photo/2021/60640ee2-7bac-489b-9e4c-ed048fffc81d.png!large alt></li>
+<img src="/uploads/photo/2021/60640ee2-7bac-489b-9e4c-ed048fffc81d.png!large" alt=""></li>
 </ul>
-<h3 id=实现>实现</h3>
+<h3 id="实现">实现</h3>
 <ul>
 <li>我是写了一个服务，对外暴露了一个接口，http://127.0.0.1:3000/wxlogin?appid=xxxxxxxxxxxx, 该接口需要传一个参数是小程序的appid，然后有一个config.js 去配置appid和小程序的绝对项目路径（注意：一个小程序获取的code是无法在另一个小程序去进行登陆的，code应该是和appid是有关联的）</li>
 <li>通过该appid找到小程序项目路径，调用automator.launch()方法，启动微信开发者工具，然后调用 miniProgram.callWxMethod()去调用wx.login()这个方法获取到code，最后把code从我提供的接口返回
-<img src=/uploads/photo/2021/6322b5e9-c88c-425e-a161-2702c1650da4.png!large alt></li>
+<img src="/uploads/photo/2021/6322b5e9-c88c-425e-a161-2702c1650da4.png!large" alt=""></li>
 <li>每个小程序要请求任意接口时候都需要先调用我提供的接口获取code登陆后再进行后续的请求操作</li>
 </ul>
-<h3 id=注意点>注意点</h3>
+<h3 id="注意点">注意点</h3>
 <ul>
 <li>不要并发请求自己提供的接口！不要并发请求自己提供的接口！不要并发请求自己提供的接口！因为这个方案是需要调起微信开发者工具，所以如果并发调起的话，会把微信开发者工具搞奔溃，我一开始就是10多个小程序同时调用自己的接口，然后把微信开发者工具弄崩了，所以关于微信小程序的接口用例我都是串行请求的</li>
 <li>http://127.0.0.1:3000/wxlogin?appid=xxxxxxxxxxxx 这个接口因为需要调用微信开发者工具，然后再获取code，所以响应速度会比较慢</li>
 <li>微信开发者工具需要提前登陆</li>
 <li>无法在linux部署，因为微信开发者工具没有linux版本</li>
 </ul>
-<h3 id=总结>总结</h3>
+<h3 id="总结">总结</h3>
 <p>该方法已经在公司落地，并且已实现了10多个微信小程序的生产巡检工作。维护工作就是需要注意微信开发者工具的账号需要保持登陆，如果自动退出了，就扫码登陆下就可以。</p>
-<h3 id=转载文章>转载文章</h3>
-<p>原文章来自: <a href=https://testerhome.com/topics/28244>https://testerhome.com/topics/28244</a></p>
-<h2>微信公众号</h2>
+<h3 id="转载文章">转载文章</h3>
+<p>原文章来自: <a href="https://testerhome.com/topics/28244">https://testerhome.com/topics/28244</a></p>
+
+
+        <h2>微信公众号</h2>
 <p>扫描下面的二维码关注我们的微信公众号,第一时间查看最新内容。同时也可以关注我的Github,看看我都在了解什么技术,在页面底部可以找到我的Github。</p>
-<img src=/img/qrcode_for_sikekafeidou.jpg alt=wechat-qrcode>
-<div style="padding:10px 0;margin:20px auto;width:100%;font-size:16px;text-align:center">
-<button class="btn btn-danger" id=rewardButton disable=enable onclick="var qr=document.getElementById('QR');qr.style.display==='none'?qr.style.display='block':qr.style.display='none'">
-<span>「来都来了」赞赏</span></button>
-<div id=QR style=display:none>
-<div id=wechat style=display:inline-block>
-<p>如果本文对你有帮助的话欢迎通过微信或支付宝对我进行赞助,强烈建议你在支付的备注上填上你的 githubID 或你的昵称,让我知道我该感谢谁!!! </br></br>
-赞助金额设置为固定金额:8元. </br>
-8元赠与我,发发发反馈给你,2023祝你收入翻番一路发到底:)</p>
-<a class=fancybox rel=group>
-<img id=wechat_qr src=/img/wechat-zhifubao.png alt=Pay></a>
+<img  src="/img/qrcode_for_sikekafeidou.jpg" alt="wechat-qrcode">
+
+        <div style="padding: 10px 0; margin: 20px auto; width: 100%; font-size:16px; text-align: center;">
+    <button class="btn btn-danger"  id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+        <span>「来都来了」赞赏</span></button>
+    <div  id="QR" style="display: none;">
+        <div id="wechat" style="display: inline-block">
+            <p>如果本文对你有帮助的话欢迎通过微信或支付宝对我进行赞助,强烈建议你在支付的备注上填上你的 githubID 或你的昵称,让我知道我该感谢谁!!! </br></br>
+                赞助金额设置为固定金额:8元. </br> 
+                8元赠与我,发发发反馈给你,2023祝你收入翻番一路发到底:)</p>
+            <a class="fancybox" rel="group">
+                <img id="wechat_qr" src="/img/wechat-zhifubao.png" alt="Pay"></a>
+        </div>
+    </div>
 </div>
-</div>
-</div>
-<hr>
-<ul class=pager>
-<li class=previous>
-<a href=/post/swagger-api-offline/ data-toggle=tooltip data-placement=top title=离线运行swagger文档>&larr; 离线运行swagger文档</a>
-</li>
-<li class=next>
-<a href=/post/java_daed_lock_healthcheck/ data-toggle=tooltip data-placement=top title=让java程序主动监测死锁>让java程序主动监测死锁 &rarr;</a>
-</li>
-</ul>
-<script src=https://utteranc.es/client.js repo=liangyuanpeng/liangyuanpeng.github.io issue-term=title theme=github-light crossorigin=anonymous async></script>
-</div>
-<div class="col-lg-2 col-lg-offset-0
-visible-lg-block
-sidebar-container
-catalog-container">
-扫码下面二维码加我微信 :)
-<img src=https://liangyuanpeng.github.io/img/aboutme/wechat-lan.png>
-</div>
-<div class="col-lg-8 col-lg-offset-2
-col-md-10 col-md-offset-1
-sidebar-container">
-<br>
+
+        
+
+                <hr>
+
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/post/swagger-api-offline/" data-toggle="tooltip" data-placement="top" title="离线运行swagger文档">&larr; 离线运行swagger文档</a>
+                    </li>
+                    
+                    
+                    <li class="next">
+                        <a href="/post/java_daed_lock_healthcheck/" data-toggle="tooltip" data-placement="top" title="让java程序主动监测死锁">让java程序主动监测死锁 &rarr;</a>
+                    </li>
+                    
+                </ul>
+
+            
+<script src="https://utteranc.es/client.js"
+repo="liangyuanpeng/liangyuanpeng.github.io"
+issue-term="title"
+theme="github-light"
+crossorigin="anonymous"
+async>
+</script>
+
+
+
+            </div>
+
+            
+
+            <div class="
+                col-lg-2 col-lg-offset-0
+                visible-lg-block
+                sidebar-container
+                catalog-container">
+                
+                扫码下面二维码加我微信 :)
+                <img src="https://liangyuanpeng.github.io/img/aboutme/wechat-lan.png" />
+                
+            </div> 
+
+            
+
+            
+            
+            
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                
+                
+<br/>
 <h5>开源项目推荐</h5>
-<style type=text/css>.pinned-repos{max-width:300px;margin:0 auto}.repo-card{display:flex;flex-direction:column;padding:16px;border:1px solid #e1e4e8;border-radius:6px;background-color:#fff}.repo-card:hover{box-shadow:0 1px 3px rgba(36,41,46,8%)}.repo-card h2{margin-top:0;font-size:20px;font-weight:200;color:#0366d6}.repo-card p{margin:8px 0 16px;font-size:14px;color:#586069}.repo-card-stats{display:flex;flex-wrap:wrap;align-items:center}.repo-card-stats span{font-size:12px;color:#586069;margin-right:16px}.repo-card-stats strong{font-weight:200;color:#24292e}</style>
-<ul class="margin-bottom: 25px;pinned-repo-list">
-<li>
-<div class=repo-card>
-<div class=repo-card-details>
-<h2><a href=https://github.com/liangyuanpeng/replacer>replacer</a></h2>
-<p>K8S webhook的参考实现|Replace container image of kubernetes mutate webhook.</p>
-<div class=repo-card-stats>
-<span>Language: <strong>Golang</strong></span>
-<span>Forks: <strong>*</strong></span>
-<span>Stars: <strong>*</strong></span>
-<span>Updated: <strong>Nov 20, 2021</strong></span>
-</div>
-</div>
-</div>
-</li>
-</ul>
-</div>
-<div class="col-lg- col-lg-offset-2
-col-md-10 col-md-offset-1">
-<section>
-<hr class="hidden-sm hidden-xs">
-</section>
-</div>
-</div>
-</div>
+
+<style type="text/css">
+.pinned-repos {
+  max-width: 300px;
+  margin: 0 auto;
+}
+
+.repo-card {
+  display: flex;
+  flex-direction: column;
+  padding: 16px;
+  border: 1px solid #e1e4e8;
+  border-radius: 6px;
+  background-color: #fff;
+}
+
+.repo-card:hover {
+  box-shadow: 0 1px 3px rgba(36,41,46,.08);
+}
+
+.repo-card h2 {
+  margin-top: 0;
+  font-size: 20px;
+  font-weight: 200;
+  color: #0366d6;
+}
+
+.repo-card p {
+  margin: 8px 0 16px;
+  font-size: 14px;
+  color: #586069;
+}
+
+.repo-card-stats {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;  
+}
+
+.repo-card-stats span {
+  font-size: 12px;
+  color: #586069;
+  margin-right: 16px;
+}
+
+.repo-card-stats strong {
+  font-weight: 200;
+  color: #24292e;
+}
+</style>
+
+    
+    <ul class="margin-bottom: 25px;pinned-repo-list">
+      <li>
+        <div class="repo-card">
+          <div class="repo-card-details">
+            <h2><a href="https://github.com/liangyuanpeng/replacer">replacer</a></h2>
+            <p>K8S webhook的参考实现|Replace container image of kubernetes mutate webhook.</p>
+            <div class="repo-card-stats">
+              <span>Language: <strong>Golang</strong></span>
+              <span>Forks: <strong>*</strong></span>
+              <span>Stars: <strong>*</strong></span>
+              <span>Updated: <strong>Nov 20, 2021</strong></span>
+            </div>
+          </div>
+        </div>
+      </li>
+    </ul>
+
+            </div>
+
+            
+            
+            <div class="
+            col-lg- col-lg-offset-2
+            col-md-10 col-md-offset-1
+            ">
+            <section>
+                <hr class="hidden-sm hidden-xs">
+                
+
+            </section>
+            </div>
+            
+
+            
+
+
+        </div>
+    </div>
 </article>
+
+
+
+
+
+
 <footer>
-<div class=container>
-<div class=row>
-<div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-<ul class="list-inline text-center">
-<li>
-<a href rel=alternate type=application/rss+xml title="Hi,I`m lan">
-<span class="fa-stack fa-lg">
-<i class="fa fa-circle fa-stack-2x"></i>
-<i class="fa fa-rss fa-stack-1x fa-inverse"></i>
-</span>
-</a>
-</li>
-<li>
-<a target=_blank href=https://github.com/liangyuanpeng>
-<span class="fa-stack fa-lg">
-<i class="fa fa-circle fa-stack-2x"></i>
-<i class="fa fa-github fa-stack-1x fa-inverse"></i>
-</span>
-</a>
-</li>
-<li>
-<a target=_blank href=https://liangyuanpeng.github.io/img/aboutme/wechat-lan.png>
-<span class="fa-stack fa-lg">
-<i class="fa fa-circle fa-stack-2x"></i>
-<i class="fa fa-wechat fa-stack-1x fa-inverse"></i>
-</span>
-</a>
-</li>
-<li>
-<a href=mailto:liangyuanpengem@163.com>
-<span class="fa-stack fa-lg">
-<i class="fa fa-circle fa-stack-2x"></i>
-<i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
-</span>
-</a>
-</li>
-<li>
-<a href=https://twitter.com/lan31793328>
-<span class="fa-stack fa-lg">
-<i class="fa fa-circle fa-stack-2x"></i>
-<i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
-</span>
-</a>
-</li>
-<li>
-<a target=_blank href=https://www.zhihu.com/people/liangyuanpeng>
-<span class="fa-stack fa-lg">
-<i class="fa fa-circle fa-stack-2x"></i>
-<i class="fa fa-stack-1x fa-inverse">知</i>
-</span>
-</a>
-</li>
-<li>
-<a target=_blank href=https://weibo.com/u/1908782280>
-<span class="fa-stack fa-lg">
-<i class="fa fa-circle fa-stack-2x"></i>
-<i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
-</span>
-</a>
-</li>
-</ul>
-<p class="copyright text-muted">
-Copyright &copy; Hi,I`m lan , 2021
-<br>
-<a href=https://themes.gohugo.io/hugo-theme-cleanwhite>CleanWhite Hugo Theme</a> by <a href=https://zhaohuabing.com>Huabing</a> |
-<iframe style=margin-left:2px;margin-bottom:-5px frameborder=0 scrolling=0 width=100px height=20px src="https://ghbtns.com/github-btn.html?user=zhaohuabing&repo=hugo-theme-cleanwhite&type=star&count=true"></iframe>
-</p>
-</div>
-</div>
-</div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                   
+                   <li>
+                       <a href="" rel="alternate" type="application/rss+xml" title="Hi,I`m lan" >
+                           <span class="fa-stack fa-lg">
+                               <i class="fa fa-circle fa-stack-2x"></i>
+                               <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+                           </span>
+                       </a>
+                   </li>
+                   
+                    
+                    <li>
+                        <a target="_blank" href="https://github.com/liangyuanpeng">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                   
+                   
+                    
+                    <li>
+                        <a target="_blank" href="https://liangyuanpeng.github.io/img/aboutme/wechat-lan.png">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-wechat fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li>
+                        <a href="mailto:liangyuanpengem@163.com">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+		    
+
+                    
+                    <li>
+                        <a href="https://twitter.com/lan31793328">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li>
+                        <a target="_blank" href="https://www.zhihu.com/people/liangyuanpeng">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa  fa-stack-1x fa-inverse">知</i>
+                            </span>
+                        </a>
+                    </li>
+		    
+                    
+                    <li>
+                        <a target="_blank" href="https://weibo.com/u/1908782280">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+		    
+
+                    
+
+		    
+                    
+                </ul>
+		<p class="copyright text-muted">
+                    Copyright &copy; Hi,I`m lan , 2021
+                    <br>
+                    <a href="https://themes.gohugo.io/hugo-theme-cleanwhite">CleanWhite Hugo Theme</a> by <a href="https://zhaohuabing.com">Huabing</a> |
+                    <iframe
+                        style="margin-left: 2px; margin-bottom:-5px;"
+                        frameborder="0" scrolling="0" width="100px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=zhaohuabing&repo=hugo-theme-cleanwhite&type=star&count=true" >
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
 </footer>
-<script>function loadAsync(f,b){var c=document,d='script',a=c.createElement(d),e=c.getElementsByTagName(d)[0];a.src=f,b&&a.addEventListener('load',function(a){b(null,a)},!1),e.parentNode.insertBefore(a,e)}</script>
-<script>function async(f,b){var c=document,d='script',a=c.createElement(d),e=c.getElementsByTagName(d)[0];a.src=f,b&&a.addEventListener('load',function(a){b(null,a)},!1),e.parentNode.insertBefore(a,e)}</script>
-<script>$('#tag_cloud').length!==0&&async("/js/jquery.tagcloud.js",function(){$.fn.tagcloud.defaults={color:{start:'#bbbbee',end:'#0085a1'}},$('#tag_cloud a').tagcloud()})</script>
-<script type=text/javascript>function generateCatalog(a){_containerSelector='div.post-container';var h=$(_containerSelector),c,d,e,f,g,b;return c=h.find('h1,h2,h3,h4,h5,h6'),$(a).html(''),c.each(function(){d=$(this).prop('tagName').toLowerCase(),g="#"+$(this).prop('id'),e=$(this).text(),b=$('<a href="'+g+'" rel="nofollow">'+e+'</a>'),f=$('<li class="'+d+'_nav"></li>').append(b),$(a).append(f)}),!0}generateCatalog(".catalog-body"),$(".catalog-toggle").click(function(a){a.preventDefault(),$('.side-catalog').toggleClass("fold")}),loadAsync("/js/jquery.nav.js",function(){$('.catalog-body').onePageNav({currentClass:"active",changeHash:!1,easing:"swing",filter:"",scrollSpeed:700,scrollOffset:0,scrollThreshold:.2,begin:null,end:null,scrollChange:null,padding:80})})</script>
-<script>async("https://cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.js",function(){var a=document.querySelector("nav");a&&FastClick.attach(a)})</script>
-<script>var _baId='fad9c137f8ce239f9b323d36c871f8e6',_hmt=_hmt||[];(function(){var a=document.createElement("script"),b;a.src="//hm.baidu.com/hm.js?"+_baId,b=document.getElementsByTagName("script")[0],b.parentNode.insertBefore(a,b)})()</script>
+
+
+
+<script>
+    function loadAsync(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+
+
+
+
+
+<script>
+    
+    if($('#tag_cloud').length !== 0){
+        async("/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+
+
+
+<script type="text/javascript">
+
+    
+    
+
+    function generateCatalog(selector) {
+
+        
+        
+        
+        
+            _containerSelector = 'div.post-container'
+        
+
+        
+        var P = $(_containerSelector), a, n, t, l, i, c;
+        a = P.find('h1,h2,h3,h4,h5,h6');
+
+        
+        $(selector).html('')
+
+        
+        a.each(function () {
+            n = $(this).prop('tagName').toLowerCase();
+            i = "#" + $(this).prop('id');
+            t = $(this).text();
+            c = $('<a href="' + i + '" rel="nofollow">' + t + '</a>');
+            l = $('<li class="' + n + '_nav"></li>').append(c);
+            $(selector).append(l);
+        });
+        return true;
+    }
+
+    generateCatalog(".catalog-body");
+
+    
+    $(".catalog-toggle").click((function (e) {
+        e.preventDefault();
+        $('.side-catalog').toggleClass("fold")
+    }))
+
+    
+
+
+    loadAsync("\/js\/jquery.nav.js", function () {
+        $('.catalog-body').onePageNav({
+            currentClass: "active",
+            changeHash: !1,
+            easing: "swing",
+            filter: "",
+            scrollSpeed: 700,
+            scrollOffset: 0,
+            scrollThreshold: .2,
+            begin: null,
+            end: null,
+            scrollChange: null,
+            padding: 80
+        });
+    });
+</script>
+
+
+
+
+<script>
+    async("https://cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+
+
+
+
+
+<script>
+    
+    var _baId = 'fad9c137f8ce239f9b323d36c871f8e6';
+
+    
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?" + _baId;
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+
+
+
+
+
+
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-RTTRHGYFWL"></script>
-<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date),gtag('config','G-RTTRHGYFWL')</script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-RTTRHGYFWL');
+</script>
+
+
+
 </body>
 </html>
