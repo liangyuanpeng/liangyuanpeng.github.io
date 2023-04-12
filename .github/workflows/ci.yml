@@ -33,12 +33,7 @@ jobs:
 
       - name: print
         run: |
-          cd scripts/
-          echo "${{ toJSON(github.event) }}" > event.json
-          rm -f issueci.sh
-          oras pull ghcr.io/liangyuanpeng/blog:issuecish
-          chmod +x ./issueci.sh  
-          ./issueci.sh  
+          echo "${{ toJSON(github.event) }}"
 
       - name: Build Hugo
         run: |
