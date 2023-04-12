@@ -5,6 +5,13 @@ on:
 
 jobs:
 
+  print:
+    runs-on: ubuntu-latest
+    steps:
+      - name: print
+        run: |
+          echo "${{ toJSON(github) }}"
+
   ci:
     timeout-minutes: 10
     runs-on: ubuntu-latest
@@ -21,22 +28,12 @@ jobs:
           submodules: true  # Fetch Hugo themes (true OR recursive)
           fetch-depth: 0    # Fetch all history for .GitInfo and .Lastmod
 
-      - uses: oras-project/setup-oras@v1
-        with:
-          version: 1.0.0
-
       - name: Setup Hugo
         uses: peaceiris/actions-hugo@v2
         with:
           hugo-version: '0.79.1'
           # extended: true
 
-      - name: print
-        run: |
-          echo "${{ toJSON(github.event) }}"
-
       - name: Build Hugo
         run: |
-          echo '${{ toJSON(github) }}'
-          echo "======================"
           sh build.sh
