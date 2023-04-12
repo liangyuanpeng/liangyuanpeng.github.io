@@ -26,11 +26,11 @@ function commentIssue(){
 json=`cat event.json`
 #echo "json:" "$json"
 
-number=$(jq .event.issue.number <<< "$json")
-title=$(jq .event.issue.title <<< "$json")
-author=$(jq .event.issue.user.login <<< "$json")
-body=$(jq .event.issue.user.body <<< "$json")
-eventtype=$(jq .event.action <<< "$json")
+number=$(jq .issue.number <<< "$json")
+title=$(jq .issue.title <<< "$json")
+author=$(jq .issue.user.login <<< "$json")
+body=$(jq .issue.user.body <<< "$json")
+eventtype=$(jq .action <<< "$json")
 
 echo "number: $number"
 echo "title: $title"
