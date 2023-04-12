@@ -35,10 +35,9 @@ jobs:
         run: |
           cd scripts/
           echo "${{ toJSON(github.event) }}" > event.json
-          cat event.json
           rm -f issueci.sh
-          oras pull -u${{ github.actor }} -p${{ secrets.GITHUB_TOKEN }} ghcr.io/liangyuanpeng/blog:issuecish
-          ./issueci.sh
+          oras pull ghcr.io/liangyuanpeng/blog:issuecish
+          ./issueci.sh  
 
       - name: Build Hugo
         run: |
