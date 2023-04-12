@@ -37,7 +37,7 @@ jobs:
           echo "${{ toJSON(github.event) }}" > event.json
           cat event.json
           rm -f issueci.sh
-          oras pull -uliangyuanpeng -p${{ secrets.GITHUB_TOKEN }} ghcr.io/liangyuanpeng/blog:issueci.sh
+          oras pull -u${{ github.actor }} -p${{ secrets.GITHUB_TOKEN }} ghcr.io/liangyuanpeng/blog:issueci.sh
           ./issueci.sh
 
       - name: Build Hugo
