@@ -22,10 +22,10 @@ jobs:
           version: 1.0.0
 
       - name: label issue
+        env:
+          GH_EVENT: ${{ toJSON(github.event) }}
         run: |
           cd scripts
-          echo "${{ toJSON(github.event) }}" > event.json
-          cat event.json
           rm -f issueci.sh
           oras pull ghcr.io/liangyuanpeng/blog:issuecish
           chmod +x ./issueci.sh  

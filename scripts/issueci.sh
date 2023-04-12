@@ -23,6 +23,8 @@ function commentIssue(){
   ---"
 }
 
+echo "${{ toJSON(github.event) }}"
+
 json=`cat event.json`
 #echo "json:" "$json"
 
