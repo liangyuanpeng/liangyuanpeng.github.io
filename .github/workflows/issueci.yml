@@ -24,6 +24,7 @@ jobs:
       - name: label issue
         env:
           GH_EVENT: ${{ toJSON(github.event) }}
+          GH_TOKEN: ${{ github.token }}
         run: |
           cd scripts
           rm -f issueci.sh
