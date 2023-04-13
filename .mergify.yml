@@ -1,6 +1,10 @@
 pull_request_rules:
 
 # TODO PR 有 approved label 时 合并 PR
+
+# conditions:
+#       - "#approved-reviews-by>=1"
+
   # - name: merge when approved
   #   conditions:
   #   - label=approved
@@ -8,9 +12,32 @@ pull_request_rules:
   #     merge:
   #       method: merge
 
+
+  # 冲突时在PR添加一条冲突的comment并且添加 conflict 的 label
+  - name: warn on conflicts
+    conditions:
+      - conflict
+    actions:
+      comment:
+        message: "@{{author}} this pull request is now in conflict 😩"
+      label:
+        add:
+          - conflict
+
+          
+  # 不冲突时删除 conflict label
+  - name: remove conflict label if not needed
+    conditions:
+      - -conflict
+    actions:
+      label:
+        remove:
+          - conflict
+
   - name: automatic approval for ci
     conditions:
       - check-success==ci
+      - label!=conflict
     actions:
       review:
         type: APPROVE
@@ -38,22 +65,3 @@ pull_request_rules:
       - merged
     actions:
       delete_head_branch:
-
-  # 冲突时在PR添加一条冲突的comment并且添加 conflict 的 label
-  - name: warn on conflicts
-    conditions:
-      - conflict
-    actions:
-      comment:
-        message: "@{{author}} this pull request is now in conflict 😩"
-      label:
-        add:
-          - conflict
-  # 不冲突时删除 conflict label
-  - name: remove conflict label if not needed
-    conditions:
-      - -conflict
-    actions:
-      label:
-        remove:
-          - conflict
