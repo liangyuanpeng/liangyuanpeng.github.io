@@ -9,7 +9,7 @@ author:     "梁远鹏"
 image: "/img/banner/743a4e9227e1f14cb24a1eb6db29e183.jpg"
 published: true
 tags:
-    - Hugo
+    - hugo
     - Blog
 categories: 
     - TECH

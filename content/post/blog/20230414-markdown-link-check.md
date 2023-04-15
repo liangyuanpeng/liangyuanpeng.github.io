@@ -10,7 +10,7 @@ image: "/img/banner/tolgahang_The_sky_suddenly_darkened_and_lightning_struck_wit
 published: true
 wipnote: true
 tags: 
-    - Hugo
+    - hugo
     - 博客
     - Blog
 categories: 

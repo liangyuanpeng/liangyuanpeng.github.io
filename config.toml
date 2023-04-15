@@ -188,9 +188,20 @@ vars = ["title", "summary", "date", "publishdate", "expirydate", "permalink"]
 params = ["categories", "tags"] 
 
 
-## 配置 utteranc评论,教程参考 https://utteranc.es/
+## 配置 utteranc 评论,教程参考 https://utteranc.es/
 [params.utteranc]
-  enable = true
-  repo = "liangyuanpeng/liangyuanpeng.github.io" ##换成自己得
+  enable = false
+  repo = "liangyuanpeng/liangyuanpeng.github.io" ##换成自己的
   issueTerm = "title"
   theme = "github-light"
+
+
+## 配置 giscus 评论,教程参考 https://utteranc.es/
+[params.giscus]
+  enable = true
+  repo = "liangyuanpeng/liangyuanpeng.github.io" ##换成自己的
+  repoid = "MDEwOlJlcG9zaXRvcnkxNDkwMDQ2OTM="
+  category = "comments"
+  categoryid = "DIC_kwDOCOGhlc4CVwo2"
+  mapping = "title"
+  theme = "light"
