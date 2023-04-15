@@ -7,7 +7,8 @@ on:
 jobs:
 
   deploy:
-    runs-on: ubuntu-18.04
+    timeout-minutes: 10
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
         with:
@@ -30,10 +31,10 @@ jobs:
               hugo --minify
               docker version
               echo -e "[site] \n${{ secrets.server }} ansible_ssh_user=${{ secrets.username }} ansible_ssh_pass='${{ secrets.password }}'" > ./hostfile
-              docker run -v $PWD/hostfile:/tmp/hostfile -e ANSIBLE_HOST_KEY_CHECKING=false --rm registry.cn-shenzhen.aliyuncs.com/lan-k8s/ubuntu:ansible ansible -i /tmp/hostfile site  -m shell -a "mkdir -p /usr/local/kafeidou/blog/liangyuanpeng.github.io"
+              docker run -v $PWD/hostfile:/tmp/hostfile -e ANSIBLE_HOST_KEY_CHECKING=false --rm registry.cn-hongkong.aliyuncs.com/lan-k8s/ubuntu:ansible ansible -i /tmp/hostfile site  -m shell -a "mkdir -p /usr/local/kafeidou/blog/liangyuanpeng.github.io"
               tar -cvf public.tar public
               mv public.tar public
-              docker run -v $PWD/hostfile:/tmp/hostfile -v $PWD/public:/tmp/public -e ANSIBLE_HOST_KEY_CHECKING=false --rm registry.cn-shenzhen.aliyuncs.com/lan-k8s/ubuntu:ansible ansible  -i /tmp/hostfile site -m copy -a "src=/tmp/public/public.tar dest=/usr/local/kafeidou/blog/liangyuanpeng.github.io"
-              docker run -v $PWD/hostfile:/tmp/hostfile -e ANSIBLE_HOST_KEY_CHECKING=false --rm registry.cn-shenzhen.aliyuncs.com/lan-k8s/ubuntu:ansible ansible -i /tmp/hostfile site  -m shell -a "cd /usr/local/kafeidou/blog/liangyuanpeng.github.io && tar -xvf public.tar"
+              docker run -v $PWD/hostfile:/tmp/hostfile -v $PWD/public:/tmp/public -e ANSIBLE_HOST_KEY_CHECKING=false --rm registry.cn-hongkong.aliyuncs.com/lan-k8s/ubuntu:ansible ansible  -i /tmp/hostfile site -m copy -a "src=/tmp/public/public.tar dest=/usr/local/kafeidou/blog/liangyuanpeng.github.io"
+              docker run -v $PWD/hostfile:/tmp/hostfile -e ANSIBLE_HOST_KEY_CHECKING=false --rm registry.cn-hongkong.aliyuncs.com/lan-k8s/ubuntu:ansible ansible -i /tmp/hostfile site  -m shell -a "cd /usr/local/kafeidou/blog/liangyuanpeng.github.io && tar -xvf public.tar"
               rm -f hostfile
               rm -f public/public.tar

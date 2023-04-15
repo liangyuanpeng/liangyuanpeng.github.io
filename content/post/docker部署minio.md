@@ -6,7 +6,7 @@ subtitle:   ""
 description: "MinIO是Apache V2许可下的100％开源的对象存储服务器，兼容S3。具有高可用高性能且云原生"  
 date:       2020-01-16
 author:     "梁远鹏"
-image: "https://res.cloudinary.com/lyp/image/upload/v1543506262/hugo/blog.github.io/apache-rocketMQ-introduction/7046d2bf0d97278682129887309cc1a6.jpg"
+image: "img/banner-pexels.jpg"
 published: true
 tags: 
     - 存储
