@@ -158,88 +158,132 @@
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                 <div class="post-heading">
                     <div class="tags">
+                        
+
                        
                        <a class="tag" href="/tags/%E5%8D%9A%E5%AE%A2" title="博客">
-                           博客
-                           
-                           
-                           
-                           
-                           
-                           
+                        博客
                             
+                                
                             
+                                
                             
+                                
                             
+                                
                             
+                                
                             
+                                
                             
+                                
                             
+                                
                             
+                                
                             
+                                
                             
+                                
                             
-
+                                
                             
+                                
                             
+                                
                             
-
+                                
                             
+                                
                             
+                                
                             
-
+                                
                             
+                                
                             
+                                
                             
-
+                                
                             
+                                
                             
+                                
                             
+                                
                             
+                                
                             
-
+                                
+                            
+                                
+                            
+                                
+                            
+                                
                             
                         </a>
                         
                        <a class="tag" href="/tags/hugo" title="hugo">
-                           hugo
-                           
-                           
-                           
-                           
-                           
-                           
+                        hugo
                             
+                                
                             
+                                
                             
+                                
                             
+                                
                             
+                                
                             
+                                
                             
+                                
                             
+                                
                             
+                                
                             
+                                
                             
+                                
                             
-
+                                
                             
+                                
                             
+                                
                             
-
+                                
                             
+                                
                             
+                                
                             
-
+                                
                             
+                                
                             
+                                
                             
-
+                                
                             
+                                
                             
+                                
                             
+                                
                             
+                                
                             
-
+                                
+                            
+                                
+                            
+                                
+                            
+                                
                             
                         </a>
                         
@@ -264,7 +308,7 @@
 
 
 
-                            阅读 </span></span>|<span class="post-date">共1308字</span>，阅读约<span class="more-meta"> 3 分钟</span>
+                            阅读 </span></span>|<span class="post-date">共1267字</span>，阅读约<span class="more-meta"> 3 分钟</span>
                         
                     </span>
                 </div>
@@ -310,7 +354,7 @@
 <h2 id="好处">好处</h2>
 <p>作为一个 github app 运行，只需要点击几下就能应用上</p>
 <h2 id="安装起来">安装起来!</h2>
-<p>首先打开 在 github marketplace 中找到 imgbot,传送门:https://github.com/marketplace/imgbot</p>
+<p>首先打开 在 github marketplace 中找到 imgbot,<a href="https://github.com/marketplace/imgbot">传送门</a></p>
 <p><img src="/img/blog/imgbot/setup.png" alt=""></p>
 <p><img src="/img/blog/imgbot/install.png" alt=""></p>
 <p>然后会跳转到 github 登录授权页面,选择性地添加你的博客仓库</p>
@@ -331,11 +375,11 @@
 </ul>
 <p>一个参考信息:我的博客使用的是默认的配置,因为这已经足够我的需求.</p>
 <h1 id="自动化合并imgbot的pr">自动化合并imgbot的PR</h1>
-<p>在有了 imgbot 这个图片优化神器,如果把时间线拉长就会知道总是需要手动去合并 imgbot 的PR.</p>
+<p>在有了 imgbot 这个图片优化神器,如果把时间线拉长就会知道总是需要手动去合并 imgbot 的 PR.</p>
 <p>那么很自然的就会想到把这个过程自动化.</p>
 <p>这里列出两个方案:</p>
 <ol>
-<li>直接用 github action 来做,判断作者是 imgbot 即用 gh 命令把这个PR合并.简单粗暴.</li>
+<li>直接用 github action 来做,判断作者是 imgbot 即用 gh 命令把这个 PR 合并.简单粗暴.</li>
 <li>使用 Mergify,更强大的自动化 PR 合并方案</li>
 </ol>
 <p>Mergify 是另一个 github app,专注于自动化合并 PR 这件事情上,我的 repo 使用的是 Mergify 这个方案.因为我不仅仅是需要自动化合并 imgbot 的 PR,我自己的 PR 或其他人的 PR 也需要有一个比较好的方案,比如当 PR 有 <code>approved</code> 标签时合并这个 PR.</p>
@@ -394,13 +438,24 @@
                 </ul>
 
             
-<script src="https://utteranc.es/client.js"
-repo="liangyuanpeng/liangyuanpeng.github.io"
-issue-term="title"
-theme="github-light"
-crossorigin="anonymous"
-async>
+
+
+<script src="https://giscus.app/client.js"
+        data-repo="liangyuanpeng/liangyuanpeng.github.io"
+        data-repo-id="MDEwOlJlcG9zaXRvcnkxNDkwMDQ2OTM="
+        data-category=""
+        data-category-id="DIC_kwDOCOGhlc4CVwo2"
+        data-mapping="title"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="top"
+        data-theme="light"
+        data-lang="zh-CN"
+        crossorigin="anonymous"
+        async>
 </script>
+
 
 
 
@@ -517,11 +572,17 @@ async>
 <h2>相关文章</h2>
 <ul style="margin-bottom: 25px;">
     
+    <li><a href="/hugo-comment/">给hugo博客添加评论功能</a></li>
+    
     <li><a href="/cloudflare-deploy-hugo-site/">使用Cloudflare pages部署静态博客</a></li>
+    
+    <li><a href="/auto-build-algolia-index/">自动构建algolia索引</a></li>
+    
+    <li><a href="/hugo-slug-url/">Hugo博客SEO优化-URL和标题区分开</a></li>
     
     <li><a href="/deploy-halo/">部署Halo博客</a></li>
     
-    <li><a href="/hugo-comment/">给hugo博客添加评论功能</a></li>
+    <li><a href="/addons-word-count-hugo/">给hugo博客添加字数统计和阅读需要xx分钟的功能</a></li>
     
     <li><a href="/note-ci-repo/">CI过程中拉取仓库的注意点</a></li>
     

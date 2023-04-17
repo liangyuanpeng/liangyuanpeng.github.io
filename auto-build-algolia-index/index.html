@@ -14,7 +14,7 @@
     <meta name="baidu-site-verification" content="code-ANZvlnN0Xr" />
 
     
-    <meta name="description" content="lan，工程师⎈,远鹏|CNCF粉丝|Pulsar爱好者|公众号:四颗咖啡豆|云原生追随者">
+    <meta name="description" content="本文将提供一个机遇 Github Action 自动化构建 algolia 索引的解决方案.  ">
     
     <meta name="keyword"  content="liangyuanpeng|LanLiang|OpenYurt|Knative|Pulsar|Prometheus|Halo||边缘计算kubernetes|Docker|CloudNative|Golang|Rust|Istio|微服务">
 
@@ -158,214 +158,384 @@
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                 <div class="post-heading">
                     <div class="tags">
+                        
+
                        
                        <a class="tag" href="/tags/algolia" title="Algolia">
-                           Algolia
-                           
-                           
-                           
-                           
-                           
-                           
+                        Algolia
                             
+                                
                             
+                                
                             
+                                
                             
+                                
                             
+                                
                             
+                                
                             
+                                
                             
+                                
                             
+                                
                             
+                                
                             
+                                
                             
-
+                                
                             
+                                
                             
+                                
                             
-
+                                
                             
+                                
                             
+                                
                             
-
+                                
                             
+                                
                             
+                                
                             
-
+                                
                             
+                                
                             
+                                
                             
+                                
                             
+                                
                             
-
+                                
+                            
+                                
+                            
+                                
+                            
+                                
                             
                         </a>
                         
                        <a class="tag" href="/tags/ci/cd" title="CI/CD">
-                           CI/CD
-                           
-                           
-                           
-                           
-                           
-                           
+                        CI/CD
                             
+                                
                             
+                                
                             
+                                
                             
+                                
                             
+                                
                             
+                                
                             
+                                
                             
+                                
                             
+                                
                             
+                                
                             
+                                
                             
-
+                                
                             
+                                
                             
+                                
                             
-
+                                
                             
+                                
                             
+                                
                             
-
+                                
                             
+                                
                             
+                                
                             
-
+                                
                             
+                                
                             
+                                
                             
+                                
                             
+                                
                             
-
+                                
+                            
+                                
+                            
+                                
+                            
+                                
                             
                         </a>
                         
                        <a class="tag" href="/tags/blog" title="Blog">
-                           Blog
-                           
-                           
-                           
-                           
-                           
-                           
+                        Blog
                             
+                                
                             
+                                
                             
+                                
                             
+                                
                             
+                                
                             
+                                
                             
+                                
                             
+                                
                             
+                                
                             
+                                
                             
+                                
                             
-
+                                
                             
+                                
                             
+                                
                             
-
+                                
                             
+                                
                             
+                                
                             
-
+                                
                             
+                                
                             
+                                
                             
-
+                                
                             
+                                
                             
+                                
                             
+                                
                             
+                                
                             
-
+                                
+                            
+                                
+                            
+                                
+                            
+                                
                             
                         </a>
                         
                        <a class="tag" href="/tags/github" title="github">
-                           github
-                           
-                           
-                           
-                           
-                           
-                           
+                        github
                             
+                                
                             
+                                
                             
+                                
                             
+                                
                             
+                                
                             
+                                
                             
+                                
                             
+                                
                             
+                                
                             
+                                
                             
+                                
                             
-
+                                
                             
+                                
                             
+                                
                             
-
+                                
                             
+                                
                             
+                                
                             
-
+                                
                             
+                                
                             
+                                
                             
-
+                                
                             
+                                
                             
+                                
                             
+                                
                             
+                                
                             
-
+                                
+                            
+                                
+                            
+                                
+                            
+                                
                             
                         </a>
                         
                        <a class="tag" href="/tags/githubaction" title="githubaction">
-                           githubaction
-                           
-                           
-                           
-                           
-                           
-                           
+                        githubaction
                             
+                                
                             
+                                
                             
+                                
                             
+                                
                             
+                                
                             
+                                
                             
+                                
                             
+                                
                             
+                                
                             
+                                
                             
+                                
                             
-
+                                
                             
+                                
                             
+                                
                             
-
+                                
                             
+                                
                             
+                                
                             
-
+                                
                             
+                                
                             
+                                
                             
-
+                                
                             
+                                
                             
+                                
                             
+                                
                             
+                                
                             
-
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                        </a>
+                        
+                       <a class="tag" href="/tags/hugo" title="hugo">
+                        hugo
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
                             
                         </a>
                         
@@ -485,13 +655,24 @@
                 </ul>
 
             
-<script src="https://utteranc.es/client.js"
-repo="liangyuanpeng/liangyuanpeng.github.io"
-issue-term="title"
-theme="github-light"
-crossorigin="anonymous"
-async>
+
+
+<script src="https://giscus.app/client.js"
+        data-repo="liangyuanpeng/liangyuanpeng.github.io"
+        data-repo-id="MDEwOlJlcG9zaXRvcnkxNDkwMDQ2OTM="
+        data-category=""
+        data-category-id="DIC_kwDOCOGhlc4CVwo2"
+        data-mapping="title"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="top"
+        data-theme="light"
+        data-lang="zh-CN"
+        crossorigin="anonymous"
+        async>
 </script>
+
 
 
 
@@ -619,6 +800,10 @@ async>
     <li><a href="/remote-deploy-of-jenkins-for-linux-application/">Jenkins远程部署Linux服务器</a></li>
     
     <li><a href="/remote-deploy-of-jenkins-for-linux-application/">Jenkins远程部署Linux服务器</a></li>
+    
+    <li><a href="/note-ci-repo/">CI过程中拉取仓库的注意点</a></li>
+    
+    <li><a href="/note-ci-repo/">CI过程中拉取仓库的注意点</a></li>
     
 </ul>
 
