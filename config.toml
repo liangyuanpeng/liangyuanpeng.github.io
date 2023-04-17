@@ -22,6 +22,9 @@ home = ["HTML", "RSS", "Algolia"]
 #  priority = 0.5
    
 
+[permalinks]
+    post = "/:slug"
+
 [params]
   domain = "https://liangyuanpeng.com"
  # header_image = "img/home-bg-jeep.jpg"

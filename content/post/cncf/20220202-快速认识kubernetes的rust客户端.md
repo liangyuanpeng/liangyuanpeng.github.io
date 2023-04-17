@@ -6,7 +6,7 @@ subtitle:   ""
 description: ""
 date:       2022-02-02
 author:     "梁远鹏"
-image: "[img/post-bg-2015.jpg](https://res.cloudinary.com/lyp/image/upload/v1581729516/hugo/blog.github.io/avian-beak-bird-blur-416117.jpg)"
+image: "img/banner-pexels.jpg"
 published: true
 tags:
     - rust 

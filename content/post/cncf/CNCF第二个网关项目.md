@@ -6,7 +6,7 @@ subtitle:   ""
 description: ""  
 date:       2021-04-4-14
 author:     "梁远鹏"
-image: "https://res.cloudinary.com/lyp/image/upload/v1612746030/hugo/blog.github.io/pexels-eva-elijas-5949232.jpg"
+image: "img/banner-pexels.jpg"
 published: true
 tags: 
     - kubesphere
