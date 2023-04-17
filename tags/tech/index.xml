@@ -9,127 +9,127 @@
     <lastBuildDate>Sat, 01 Apr 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://liangyuanpeng.github.io/tags/tech/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>lank8s.cn服务</title>
-      <link>https://liangyuanpeng.github.io/post/cncf-kubernetes/service-lank8s.cn/</link>
+      <link>https://liangyuanpeng.github.io/service-lank8s.cn/</link>
       <pubDate>Mon, 15 Nov 2021 00:00:00 +0000</pubDate>
       
-      <guid>https://liangyuanpeng.github.io/post/cncf-kubernetes/service-lank8s.cn/</guid>
+      <guid>https://liangyuanpeng.github.io/service-lank8s.cn/</guid>
       <description>Hi there 👋 国内安装K8S基本镜像站&amp;mdash;&amp;gt; lank8s.cn 欢迎使用，有问题/建议都可以加我微信交流，在博客底部可以找到我的微信联系方式 :) lank</description>
     </item>
     
     <item>
       <title>将你的yaml文件迁移到helm</title>
-      <link>https://liangyuanpeng.github.io/post/cncf-kubernetes/migrate-your-manifest-yaml-files-into-helm-chart/</link>
+      <link>https://liangyuanpeng.github.io/migrate-your-manifest-yaml-files-into-helm-chart/</link>
       <pubDate>Sat, 01 Apr 2023 00:00:00 +0000</pubDate>
       
-      <guid>https://liangyuanpeng.github.io/post/cncf-kubernetes/migrate-your-manifest-yaml-files-into-helm-chart/</guid>
+      <guid>https://liangyuanpeng.github.io/migrate-your-manifest-yaml-files-into-helm-chart/</guid>
       <description>在这篇博客文章中，我们将学习如何将现有的清单 yaml 文件转换为Helm Charts。 清单文件 Kubernetes 清单文件是描述 K8s 对象期望状态的YAML文件，例如 po</description>
     </item>
     
     <item>
       <title>部署一个webhook,轻松解决gcr.io</title>
-      <link>https://liangyuanpeng.github.io/post/cncf-kubernetes/resolve-gcr.io-with-webhook-of-repalcer/</link>
+      <link>https://liangyuanpeng.github.io/resolve-gcr.io-with-webhook-of-repalcer/</link>
       <pubDate>Tue, 05 Apr 2022 00:00:00 +0000</pubDate>
       
-      <guid>https://liangyuanpeng.github.io/post/cncf-kubernetes/resolve-gcr.io-with-webhook-of-repalcer/</guid>
+      <guid>https://liangyuanpeng.github.io/resolve-gcr.io-with-webhook-of-repalcer/</guid>
       <description>前言 lank8s.cn 已经正常运营几年了，目前可以看到每天都有人在使用 gcr.lank8s.cn 来拉取 gcr.io 的镜像,避免了墙带来的困扰,不过当需要拉取的不同的镜像多了之后可能会显得有些</description>
     </item>
     
     <item>
       <title>Contour-v1.18.3发布</title>
-      <link>https://liangyuanpeng.github.io/post/cncf-contour/contour-v1.18.3-release/</link>
+      <link>https://liangyuanpeng.github.io/contour-v1.18.3-release/</link>
       <pubDate>Sun, 09 Jan 2022 00:00:00 +0000</pubDate>
       
-      <guid>https://liangyuanpeng.github.io/post/cncf-contour/contour-v1.18.3-release/</guid>
+      <guid>https://liangyuanpeng.github.io/contour-v1.18.3-release/</guid>
       <description>前言 我们很高兴发布发布我们用于kubernetes集群七层反响代理Contour的1.18.3版本. Contour是什么 Contour是基于</description>
     </item>
     
     <item>
       <title>Contour-v1.20.0-beta.1发布</title>
-      <link>https://liangyuanpeng.github.io/post/cncf-contour/contour-v1.20.0-beta.1-release/</link>
+      <link>https://liangyuanpeng.github.io/contour-v1.20.0-beta.1-release/</link>
       <pubDate>Sun, 09 Jan 2022 00:00:00 +0000</pubDate>
       
-      <guid>https://liangyuanpeng.github.io/post/cncf-contour/contour-v1.20.0-beta.1-release/</guid>
+      <guid>https://liangyuanpeng.github.io/contour-v1.20.0-beta.1-release/</guid>
       <description>前言 我们很高兴发布发布我们用于kubernetes集群七层反响代理Contour的v1.20.0版本. Contour是什么 Contour是基</description>
     </item>
     
     <item>
       <title>Contour-v1.20.0-beta.1发布</title>
-      <link>https://liangyuanpeng.github.io/post/cncf-contour/contour-v1.20.0-beta.1-release/</link>
+      <link>https://liangyuanpeng.github.io/contour-v1.20.0-beta.1-release/</link>
       <pubDate>Sun, 09 Jan 2022 00:00:00 +0000</pubDate>
       
-      <guid>https://liangyuanpeng.github.io/post/cncf-contour/contour-v1.20.0-beta.1-release/</guid>
+      <guid>https://liangyuanpeng.github.io/contour-v1.20.0-beta.1-release/</guid>
       <description>前言 我们很高兴推出 Contour 的 v1.24.0 版本,这是我们针对 kubernetes 集群的第7层 HTTP 反向代理. 主要更新 修复了重复 HTTPProxy include condition的处理 重复的 include condition 现在能够被正确识</description>
     </item>
     
     <item>
       <title>helm部署chaosmesh</title>
-      <link>https://liangyuanpeng.github.io/post/cncf-kubernetes/deploy-chaosmesh-with-helm/</link>
+      <link>https://liangyuanpeng.github.io/deploy-chaosmesh-with-helm/</link>
       <pubDate>Thu, 25 Nov 2021 00:00:00 +0000</pubDate>
       
-      <guid>https://liangyuanpeng.github.io/post/cncf-kubernetes/deploy-chaosmesh-with-helm/</guid>
+      <guid>https://liangyuanpeng.github.io/deploy-chaosmesh-with-helm/</guid>
       <description>helm repo add chaos-mesh https://charts.chaos-mesh.org helm install chaos-mesh chaos-mesh/chaos-mesh -n=chaos-testing --version 2.0.4 lan@lan:~$ k get po -n chaos-testing NAME READY STATUS RESTARTS AGE chaos-controller-manager-5f7c8c4569-prc5s 0/1 ContainerCreating 0 40s chaos-daemon-bz859 0/1 ContainerCreating 0 40s chaos-dashboard-5f7b6b9b6b-ml22l 0/1 ContainerCreating 0 40s 最后的最后 本文其实就是按照官方文档操作了一边,就让chaosme</description>
     </item>
     
     <item>
       <title>主动推送metrics到prometheus</title>
-      <link>https://liangyuanpeng.github.io/post/cncf-prometheus/push-metrics-to-prometheus/</link>
+      <link>https://liangyuanpeng.github.io/push-metrics-to-prometheus/</link>
       <pubDate>Thu, 25 Nov 2021 00:00:00 +0000</pubDate>
       
-      <guid>https://liangyuanpeng.github.io/post/cncf-prometheus/push-metrics-to-prometheus/</guid>
+      <guid>https://liangyuanpeng.github.io/push-metrics-to-prometheus/</guid>
       <description>前言 一般情况下应用程序配合prometheus收集应用程序的metrics是需要应用程序暴露metrics来让prometheus主动收集信</description>
     </item>
     
     <item>
       <title>k8s-webhook开发技巧</title>
-      <link>https://liangyuanpeng.github.io/post/cncf-kubernetes/dev-webhook-for-kubernetes/</link>
+      <link>https://liangyuanpeng.github.io/dev-webhook-for-kubernetes/</link>
       <pubDate>Wed, 24 Nov 2021 00:00:00 +0000</pubDate>
       
-      <guid>https://liangyuanpeng.github.io/post/cncf-kubernetes/dev-webhook-for-kubernetes/</guid>
+      <guid>https://liangyuanpeng.github.io/dev-webhook-for-kubernetes/</guid>
       <description>什么是kubernetes webhook 痛点 网上很多文章都是说写了kubernetes webhook代码后编译丢到k8s里面去测试,但是这样就非常消耗时</description>
     </item>
     
     <item>
       <title>部署在线的lank8s webhook之后,不再为k8s.gcr.io/gcr.io镜像苦恼</title>
-      <link>https://liangyuanpeng.github.io/post/cncf-kubernetes/deploy-lank8s-webhook-for-k8s.gcr.io/</link>
+      <link>https://liangyuanpeng.github.io/deploy-lank8s-webhook-for-k8s.gcr.io/</link>
       <pubDate>Sat, 20 Nov 2021 00:00:00 +0000</pubDate>
       
-      <guid>https://liangyuanpeng.github.io/post/cncf-kubernetes/deploy-lank8s-webhook-for-k8s.gcr.io/</guid>
+      <guid>https://liangyuanpeng.github.io/deploy-lank8s-webhook-for-k8s.gcr.io/</guid>
       <description>什么是lank8s webhook 前提: 使用这项在线服务需要保证kubernetes所在的机器是联网状态. lank8s webhook是一项在线的webook服务,唯</description>
     </item>
     
     <item>
       <title>部署metrics-server,把kubectl top用起来</title>
-      <link>https://liangyuanpeng.github.io/post/cncf-kubernetes/deploy-metrics-server-for-kubectl-top/</link>
+      <link>https://liangyuanpeng.github.io/deploy-metrics-server-for-kubectl-top/</link>
       <pubDate>Mon, 15 Nov 2021 00:00:00 +0000</pubDate>
       
-      <guid>https://liangyuanpeng.github.io/post/cncf-kubernetes/deploy-metrics-server-for-kubectl-top/</guid>
+      <guid>https://liangyuanpeng.github.io/deploy-metrics-server-for-kubectl-top/</guid>
       <description>在部署metrics-server之前使用kubectl top 部署metrics-server yaml部署 yaml文件如下: apiVersion: v1 kind: ServiceAccount metadata: labels: k8s-app: metrics-server name: metrics-server</description>
     </item>
     
     <item>
       <title>Contour-v1.9.0发布</title>
-      <link>https://liangyuanpeng.github.io/post/cncf-contour/contour-v1.9.0-release/</link>
+      <link>https://liangyuanpeng.github.io/contour-v1.9.0-release/</link>
       <pubDate>Sun, 31 Oct 2021 00:00:00 +0000</pubDate>
       
-      <guid>https://liangyuanpeng.github.io/post/cncf-contour/contour-v1.9.0-release/</guid>
+      <guid>https://liangyuanpeng.github.io/contour-v1.9.0-release/</guid>
       <description>前言 Contour继续添加新功能以帮助你更好的管理集群入口,在我们最新的版本Contour1.9.0中包含了支持外部认证服务(extauth</description>
     </item>
     
     <item>
       <title>Contour-v1.19.1发布</title>
-      <link>https://liangyuanpeng.github.io/post/cncf-contour/contour-v1.19.1-release/</link>
+      <link>https://liangyuanpeng.github.io/contour-v1.19.1-release/</link>
       <pubDate>Wed, 27 Oct 2021 00:00:00 +0000</pubDate>
       
-      <guid>https://liangyuanpeng.github.io/post/cncf-contour/contour-v1.19.1-release/</guid>
+      <guid>https://liangyuanpeng.github.io/contour-v1.19.1-release/</guid>
       <description>前言 我们很高兴发布发布我们用于kubernetes集群七层反响代理Contour的1.19.1版本. Contour是什么 Contour是基于</description>
     </item>
     
     <item>
       <title>使用kubekey快速部署kubernetes</title>
-      <link>https://liangyuanpeng.github.io/post/cncf-kubernetes/deploy-kubernetes-with-kubekey/</link>
+      <link>https://liangyuanpeng.github.io/deploy-kubernetes-with-kubekey/</link>
       <pubDate>Mon, 25 Oct 2021 00:00:00 +0000</pubDate>
       
-      <guid>https://liangyuanpeng.github.io/post/cncf-kubernetes/deploy-kubernetes-with-kubekey/</guid>
+      <guid>https://liangyuanpeng.github.io/deploy-kubernetes-with-kubekey/</guid>
       <description>前言 Kubekey 是青云研发并开源的一款快速部署 kubernetes 的工具,并且它也是下一代安装kubesphere的工具,使用 kubekey 你可以很轻松的就部署一套 kubernetes/kubespher 环境,我的体验</description>
     </item>
     

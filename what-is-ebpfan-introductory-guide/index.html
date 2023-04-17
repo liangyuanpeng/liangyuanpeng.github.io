@@ -1,0 +1,911 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head><head>
+    <meta name="google-site-verification" content="9vIieCe-Qpd78QOmBl63rGtIVbhY6sYyuxX3j8XWBA4" />
+    <meta name="baidu-site-verification" content="LRrmH41lz7" />
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <meta name="baidu-site-verification" content="HGLXRsUXC4" />
+
+    
+    <meta name="baidu-site-verification" content="code-ANZvlnN0Xr" />
+
+    
+    <meta name="description" content="有时需要修改操作系统的核心，例如创建更多的灵活性或允许在操作系统上运行自定义代码。尽管这是可能的，但它可能会导致一些不必要的问题，如安全风险、性能问题或甚至操作系统的损坏。假设您修改了操作系统的核心函数，一切都运行正常">
+    
+    <meta name="keyword"  content="liangyuanpeng|LanLiang|OpenYurt|Knative|Pulsar|Prometheus|Halo||边缘计算kubernetes|Docker|CloudNative|Golang|Rust|Istio|微服务">
+
+    
+    <link rel="shortcut icon" href="/img/aboutme/hash-kube-rs-pulsar.png">
+    
+
+    
+    <meta property="og:image" content="https://liangyuanpeng.github.io/img/banner-pexels.jpg" />
+    <meta name="twitter:image" content="https://liangyuanpeng.github.io/img/banner-pexels.jpg" />
+
+    <title>epbf入门指南-远鹏的博客 | liangyuanpeng&#39;s Blog</title>
+
+    <link rel="canonical" href="https://liangyuanpeng.github.io/what-is-ebpfan-introductory-guide/">
+
+    
+
+    
+    <link rel="stylesheet" href='https://liangyuanpeng.github.io/css/bootstrap.min.css'>
+
+    
+    <link rel="stylesheet" href="https://liangyuanpeng.github.io/css/hux-blog.min.css">
+
+    
+    <link rel="stylesheet" href="https://liangyuanpeng.github.io/css/syntax.css">
+
+    
+    <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    
+    
+    <script src="https://liangyuanpeng.github.io/js/jquery.min.js"></script>
+
+    
+    <script src="https://liangyuanpeng.github.io/js/bootstrap.min.js"></script>
+
+    
+    <script src="https://liangyuanpeng.github.io/js/hux-blog.min.js"></script>
+
+    
+    <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "f73bc0092aeb491d89984c0eb5a87ac2"}'></script>
+</head>
+
+</head>
+
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="https://liangyuanpeng.github.io/">Hi,I`m lan</a>
+        </div>
+
+        
+        
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="https://liangyuanpeng.github.io/">Home</a>
+                    </li>
+                    
+                    <li>
+                        <a href="https://liangyuanpeng.github.io/categories/cloudnative">cloudnative</a>
+                    </li>
+                    
+                    <li>
+                        <a href="https://liangyuanpeng.github.io/categories/devops">devops</a>
+                    </li>
+                    
+                    <li>
+                        <a href="https://liangyuanpeng.github.io/categories/iot">iot</a>
+                    </li>
+                    
+                    <li>
+                        <a href="https://liangyuanpeng.github.io/categories/kubernetes">kubernetes</a>
+                    </li>
+                    
+                    <li>
+                        <a href="https://liangyuanpeng.github.io/categories/tech">tech</a>
+                    </li>
+                    
+
+                    
+		            <li>
+                        <a href="https://liangyuanpeng.github.io/search/">SEARCH <img src="https://liangyuanpeng.github.io/img/search.png" height="15" style="cursor: pointer;"></a>
+		            </li>
+                    
+                </ul>
+            </div>
+        </div>
+        
+    </div>
+    
+</nav>
+<script>
+    
+    
+    
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        
+            $navbar.className = " ";
+            
+            setTimeout(function(){
+                
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+
+
+<style type="text/css">
+    header.intro-header{
+        background-image: url('https://liangyuanpeng.github.io/img/banner-pexels.jpg')
+    }
+</style>
+
+<header class="intro-header" >
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                       
+                       <a class="tag" href="/tags/ebpf" title="ebpf">
+                           ebpf
+                           
+                           
+                           
+                           
+                           
+                           
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+
+                            
+                            
+                            
+
+                            
+                            
+                            
+
+                            
+                            
+                            
+
+                            
+                            
+                            
+                            
+                            
+
+                            
+                        </a>
+                        
+                       <a class="tag" href="/tags/cloudnative" title="cloudnative">
+                           cloudnative
+                           
+                           
+                           
+                           
+                           
+                           
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+
+                            
+                            
+                            
+
+                            
+                            
+                            
+
+                            
+                            
+                            
+
+                            
+                            
+                            
+                            
+                            
+
+                            
+                        </a>
+                        
+                       <a class="tag" href="/tags/%E7%BF%BB%E8%AF%91" title="翻译">
+                           翻译
+                           
+                           
+                           
+                           
+                           
+                           
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+
+                            
+                            
+                            
+
+                            
+                            
+                            
+
+                            
+                            
+                            
+
+                            
+                            
+                            
+                            
+                            
+
+                            
+                        </a>
+                        
+                       <a class="tag" href="/tags/chatgpt" title="chatgpt">
+                           chatgpt
+                           
+                           
+                           
+                           
+                           
+                           
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+
+                            
+                            
+                            
+
+                            
+                            
+                            
+
+                            
+                            
+                            
+
+                            
+                            
+                            
+                            
+                            
+
+                            
+                        </a>
+                        
+                        <br/>
+                    </div>
+                    <h1>epbf入门指南</h1>
+                    <h2 class="subheading">有时需要修改操作系统的核心，例如创建更多的灵活性或允许在操作系统上运行自定义代码。</h2>
+                    <span  class="meta">Posted by 梁远鹏 on 2023-04-01
+                        
+                        <span id="busuanzi_container_page_pv">|<span id="busuanzi_value_page_pv"></span><span>
+                            <span id="/what-is-ebpfan-introductory-guide/" class="leancloud_visitors meta_data_item" data-flag-title="">
+    <span class="post-meta-item-icon">
+      <span class="octicon octicon-eye"></span> 
+    </span>
+    <i class="fa fa-eye"></i>
+    <span class="old-visitors-count" style="display: none;"></span>
+    <span class="leancloud-visitors-count"></span>
+</span>
+
+
+
+
+
+
+                            阅读 </span></span>|<span class="post-date">共2867字</span>，阅读约<span class="more-meta"> 6 分钟</span>
+                        
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+
+
+<article>
+    <div class="container">
+        <div class="row">
+            
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+		
+                <header>
+                <h2>TOC</h2>
+                </header>
+                <nav id="TableOfContents"></nav>
+		
+
+		<blockquote>
+<p>该文章是由 Suleiman Abubakar Sadeeq 撰写的。Suleiman Abubakar Sadeeq 是一位有抱负的 React 开发人员，正在学习并帮助构建企业应用程序。在空闲时间，他会踢足球，观看足球比赛并喜欢玩视频游戏。</p>
+</blockquote>
+<blockquote>
+<p>译者: <a href="https://github.com/liangyuanpeng">梁远鹏</a></p>
+</blockquote>
+<p><img src="/img/ebpf/banner-what-is-ebpf.png" alt=""></p>
+<h1 id="什么是ebpf一个入门指南">什么是eBPF？一个入门指南</h1>
+<p>作者：社区 / 2023年3月14日 / 开发人员
+本文由 Suleiman Abubakar Sadeeq 撰写。向下滚动以查看作者的个人简介。</p>
+<h1 id="什么是ebpf">什么是eBPF？</h1>
+<p>有时需要修改操作系统的核心，例如创建更多的灵活性或允许在操作系统上运行自定义代码。尽管这是可能的，但它可能会导致一些不必要的问题，如安全风险、性能问题或甚至操作系统的损坏。假设您修改了操作系统的核心函数，一切都运行正常。</p>
+<p>现在问题在于，操作系统会定期更新，发布新的补丁和版本。在这种情况下，新版本可能会删除您的修改所依赖的某个函数或功能，这将使您的操作系统受到损害。为了避免这种情况，您可以使用一种可以影响操作系统核心而不实际修改它的工具。在本文中，我们将讨论 eBPF，它是什么，它是如何工作的，它的优缺点以及它可以帮助的一些方法。</p>
+<p>让我们首先定义一下eBPF。</p>
+<h1 id="什么是ebpf-1">什么是eBPF?</h1>
+<p>扩展伯克利数据包过滤器（eBPF）是一种技术，可以创建一个沙箱环境，允许字节码程序在操作系统内核的核心中运行，使用其资源而不实际修改或更改内核的默认行为。eBPF 起源于 Linux 内核，旨在防止不必要的数据包从内核空间传输到用户空间。</p>
+<p>网站类比是描述 eBPF 与内核关系的好方法。例如，假设您有一个由纯HTML制作的网站，我们都知道HTML是一种静态标记语言，这意味着您的网站将没有任何灵活性或可编程性。因此，您认为“添加一些灵活性可能对用户有所帮助”。然后，您决定添加 JavaScript，这将为网站带来可编程性和灵活性。现在，与 HTML 类似，Linux 内核不太可定制。即使可能，它可能会留下太多的错误甚至会导致内核崩溃。因此，eBPF 在这里扮演了与 JavaScript 相似的角色，用于操作系统内核。</p>
+<h1 id="ebpf如何工作">eBPF如何工作？</h1>
+<p>您通常会编写某种语言的程序，比如 C ++，以执行内核中的事件。此程序可能会访问文件或操作网络流量。  eBPF 从用户空间访问此程序并将其编译为字节码，这是在 eBPF 中执行程序的标准方式。然后，它将字节码程序附加到指定的钩子并加载到内核中。</p>
+<p>但在程序在eBPF流中执行之前，它必须经过验证器。验证器在字节码上运行一组安全性和保障检查，以确保它在内核上运行时是安全的，如果存在不安全的代码，则终止程序的执行。在所有验证器检查通过后，eBPF 立即使用其内置的即时编译器（JIT）将字节码程序编译为本地代码。然后，它将其绑定到内核中的指定位置以等待事件的发生。事件发生后，eBPF 将结果数据写入映射中，在其中存储和共享程序中的状态与用户空间。</p>
+<p>让我们稍微详细地看看这些在eBPF中如何工作。</p>
+<h1 id="hooks钩子">Hooks（钩子）</h1>
+<p>由于 eBPF 是基于事件驱动的，程序只有在应用程序触发钩子时才会执行。这样就可以对数据进行操作。eBPF 中可用的预定义钩子包括系统调用、跟踪点、网络事件、Kprobes 和 uprobes。</p>
+<p><img src="/img/ebpf/kernel-functionality.png" alt=""></p>
+<h1 id="helper-calls">Helper calls</h1>
+<p>为了访问内核功能，如内存，eBPF 使用帮助程序函数。这些函数被保留下来，以为 eBPF 程序提供一种访问和修改内核函数的方式。在 eBPF 将程序附加到钩子后，为了使钩子执行程序，它依赖于帮助程序调用来执行访问内核的任务，就像 API 一样。帮助程序调用通常执行的任务包括网络数据包操作、生成随机数、访问数据和时间、访问套接字数据、执行尾调用等。</p>
+<h1 id="verifier">Verifier</h1>
+<p>这是 eBPF 采取的一步，以确保程序加载和执行的完全安全性。在这一点上，eBPF 程序经过一系列条件检查，以强制执行遵循的合规性和安全策略，在验证失败的情况下，它会终止执行。eBPF 程序经过的一些验证检查包括以下内容：</p>
+<p>它确保加载程序到内核的进程具有该特权。
+它检查程序具有有限的执行期限，以防止其持续运行并导致内核损坏。
+它检查代码是否对内核有任何有害影响。</p>
+<h1 id="just-in-time-jit">Just-In-Time (JIT)</h1>
+<p>JIT 将字节码程序编译为本机机器代码，以增强 eBPF 程序在内核中的执行速度。</p>
+<h1 id="map">Map</h1>
+<p>eBPF 程序可以通过映射将信息从内核共享到用户空间。映射有助于将检索到的统计报告或数据存储和共享到不同的数据结构集，包括数组、哈希表、堆栈跟踪和环形缓冲区。</p>
+<h1 id="ebpf-可以用在哪些领域呢">eBPF 可以用在哪些领域呢？</h1>
+<ul>
+<li>资源管理：您可以使用 eBPF 监控和管理系统资源的使用情况，例如内存、输入和输出磁盘，以确保在整个系统中适当地管理资源。</li>
+<li>网络：网络是 eBPF 的主要应用之一。您可以使用它创建自定义数据包过滤器，根据数据包的内容、IP 地址或协议类型来过滤网络数据包。通过这个自定义过滤器，您可以增强您的网络安全，改善流量或负载平衡。</li>
+<li>安全：您可以利用 eBPF 实现运行时安全策略。使用 eBPF 可以创建用于实时监控和控制应用程序行为的策略，以防止应用程序执行未经授权的操作，例如进行系统调用、执行恶意代码和桥接访问策略。这有助于提高应用程序的性能和效率，可以确保您对应用程序的安全性具有控制权。</li>
+<li>可观察性和调试：您可以利用 eBPF 创建自定义跟踪系统，以帮助识别运行时可能不容易跟踪或识别的复杂问题。您可以使用它来尽早修复程序中的错误和问题，以提高性能和稳定性。</li>
+</ul>
+<p>现在我们来讨论一些使用 eBPF 的优缺点。</p>
+<h1 id="优点">优点：</h1>
+<ul>
+<li>
+<p>可以放心地通过 eBPF 运行任何程序，因为它运行在沙盒环境中，以安全的方式进行验证和执行。这可以确保没有任何代码会影响内核，并为程序提供安全的运行环境。</p>
+</li>
+<li>
+<p>使用 eBPF 不需要进一步定制内核模块以与内核进行交互或影响内核本身。这是编写与内核交互的程序的更可靠和灵活的方式。</p>
+</li>
+<li>
+<p>eBPF 已经证明是技术巨头处理内核操作的首选技术。例如，Meta 在网络负载平衡中使用 eBPF 来处理 Katran，其他使用 eBPF 的产品包括 Cilium、Falco 等。</p>
+</li>
+</ul>
+<h1 id="缺点">缺点：</h1>
+<ul>
+<li>
+<p>由于 eBPF 在程序执行中强制执行安全性和验证，如果您的目标是希望程序执行更灵活并掌握更多的控制权，则可能不是最佳选择。</p>
+</li>
+<li>
+<p>在应用大量 IP 地址的网络策略时，最好使用像 Iptables 这样的本地基准测试工具，而不是使用 eBPF，因为后者可能导致高 CPU 使用率。</p>
+</li>
+</ul>
+<h1 id="ebpf的替代方案">eBPF的替代方案</h1>
+<p>以下是几个与 eBPF 类似的技术的简要概述：</p>
+<ol>
+<li>
+<p>Iptables：这是用于 Linux 的网络地址转换（NAT）和数据包过滤工具。</p>
+</li>
+<li>
+<p>SystemTap：这是一个开源工具，为开发人员提供了一个命令行界面和脚本语言，使他们能够从 Linux 系统中收集数据，有助于诊断和解决问题。</p>
+</li>
+<li>
+<p>LTTng：Linux Trace Toolkit Next Generation 是一个跟踪框架，为开发人员提供了一种追踪系统活动的方法，以优化和改进其性能。它也是开源的。</p>
+</li>
+</ol>
+<h1 id="你是否需要ebpf">你是否需要eBPF？</h1>
+<p>正如我们之前提到的，对于某些用例，如当您想要以更灵活的方式运行程序在内核中时，eBPF可能不是您的最佳选择。在这种情况下，更好的做法可能是创建自己的内核模块。但是，在需要从内核中提取一些指标而不改变或破坏内核本身的情况下，eBPF 毫无疑问在这种用例中是最好的选择。</p>
+<p><img src="/img/ebpf/ebpf-guide.png" alt=""></p>
+<h1 id="结论">结论</h1>
+<p>在本文中，我们讨论了什么是eBPF，它如何工作，它的一些核心组件以及eBPF的优缺点。希望本文能够给您对eBPF的初步了解。如需进一步阅读，您可以参考eBPF的官方文档。</p>
+<h1 id="作者简介">作者简介</h1>
+<p>本文是由Suleiman Abubakar Sadeeq撰写的。Suleiman Abubakar Sadeeq是一名有抱负的React开发人员，正在学习和帮助构建企业应用程序。在业余时间，他喜欢踢足球，观看足球比赛和玩视频游戏。</p>
+<h1 id="原文">原文</h1>
+<p><a href="https://www.influxdata.com/blog/what-is-ebpf-introductory-guide/">https://www.influxdata.com/blog/what-is-ebpf-introductory-guide/</a></p>
+
+
+        <h2>微信公众号</h2>
+<p>扫描下面的二维码关注我们的微信公众号,第一时间查看最新内容。同时也可以关注我的Github,看看我都在了解什么技术,在页面底部可以找到我的Github。</p>
+<img  src="/img/qrcode_for_sikekafeidou.jpg" alt="wechat-qrcode">
+
+        <div style="padding: 10px 0; margin: 20px auto; width: 100%; font-size:16px; text-align: center;">
+    <button class="btn btn-danger"  id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+        <span>「来都来了」赞赏</span></button>
+    <div  id="QR" style="display: none;">
+        <div id="wechat" style="display: inline-block">
+            <p>如果本文对你有帮助的话欢迎通过微信或支付宝对我进行赞助,强烈建议你在支付的备注上填上你的 githubID 或你的昵称,让我知道我该感谢谁!!! </br></br>
+                赞助金额设置为固定金额:8元. </br> 
+                8元赠与我,发发发反馈给你,2023祝你收入翻番一路发到底:)</p>
+            <a class="fancybox" rel="group">
+                <img id="wechat_qr" src="/img/wechat-zhifubao.png" alt="Pay"></a>
+        </div>
+    </div>
+</div>
+
+        
+
+                <hr>
+
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/migrate-your-manifest-yaml-files-into-helm-chart/" data-toggle="tooltip" data-placement="top" title="将你的yaml文件迁移到helm">&larr; 将你的yaml文件迁移到helm</a>
+                    </li>
+                    
+                    
+                    <li class="next">
+                        <a href="/opci-registry-for-opa-policy/" data-toggle="tooltip" data-placement="top" title="使用容器镜像仓库存储OPA策略">使用容器镜像仓库存储OPA策略 &rarr;</a>
+                    </li>
+                    
+                </ul>
+
+            
+<script src="https://utteranc.es/client.js"
+repo="liangyuanpeng/liangyuanpeng.github.io"
+issue-term="title"
+theme="github-light"
+crossorigin="anonymous"
+async>
+</script>
+
+
+
+            </div>
+
+            
+
+            <div class="
+                col-lg-2 col-lg-offset-0
+                visible-lg-block
+                sidebar-container
+                catalog-container">
+                
+                扫码下面二维码加我微信 :)
+                <img src="https://liangyuanpeng.github.io/img/aboutme/wechat-lan.png" />
+                
+            </div> 
+
+            
+
+            
+            
+            
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                
+                
+<br/>
+<h5>开源项目推荐</h5>
+
+<style type="text/css">
+.pinned-repos {
+  max-width: 300px;
+  margin: 0 auto;
+}
+
+.repo-card {
+  display: flex;
+  flex-direction: column;
+  padding: 16px;
+  border: 1px solid #e1e4e8;
+  border-radius: 6px;
+  background-color: #fff;
+}
+
+.repo-card:hover {
+  box-shadow: 0 1px 3px rgba(36,41,46,.08);
+}
+
+.repo-card h2 {
+  margin-top: 0;
+  font-size: 20px;
+  font-weight: 200;
+  color: #0366d6;
+}
+
+.repo-card p {
+  margin: 8px 0 16px;
+  font-size: 14px;
+  color: #586069;
+}
+
+.repo-card-stats {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;  
+}
+
+.repo-card-stats span {
+  font-size: 12px;
+  color: #586069;
+  margin-right: 16px;
+}
+
+.repo-card-stats strong {
+  font-weight: 200;
+  color: #24292e;
+}
+</style>
+
+    
+    <ul class="margin-bottom: 25px;pinned-repo-list">
+      <li>
+        <div class="repo-card">
+          <div class="repo-card-details">
+            <h2><a href="https://github.com/liangyuanpeng/replacer">replacer</a></h2>
+            <p>K8S webhook的参考实现|Replace container image of kubernetes mutate webhook.</p>
+            <div class="repo-card-stats">
+              <span>Language: <strong>Golang</strong></span>
+              <span>Forks: <strong>*</strong></span>
+              <span>Stars: <strong>*</strong></span>
+              <span>Updated: <strong>Nov 20, 2021</strong></span>
+            </div>
+          </div>
+        </div>
+      </li>
+    </ul>
+
+            </div>
+
+            
+            
+            <div class="
+            col-lg- col-lg-offset-2
+            col-md-10 col-md-offset-1
+            ">
+            <section>
+                <hr class="hidden-sm hidden-xs">
+                
+
+<h2>相关文章</h2>
+<ul style="margin-bottom: 25px;">
+    
+    <li><a href="/migrate-your-manifest-yaml-files-into-helm-chart/">将你的yaml文件迁移到helm</a></li>
+    
+    <li><a href="/from-zero-to-kubernets-subproject-lead/">从零到 Kubernetes 子项目负责人</a></li>
+    
+    <li><a href="/importance-of-open-source-in-high-compliance-organizations/">开源在高度合规组织中的重要性</a></li>
+    
+    <li><a href="/dev-desktop-with-webtop/">基于webtop容器的可视化桌面,浏览器就能打开桌面!</a></li>
+    
+    <li><a href="/kubernetes-hpa-custom-metrics-for-effective-cpu-memory-scaling/">Kubernetes HPA:定制指标实现有效的CPU和内存扩展</a></li>
+    
+    <li><a href="/k8s-multi-tenancy-guide/">Kubernetes多租户–最佳实践指南</a></li>
+    
+    <li><a href="/kubernetes-deploy-kube-prometheus/">kubernetes部署kube-prometheus</a></li>
+    
+</ul>
+
+            </section>
+            </div>
+            
+
+            
+
+
+        </div>
+    </div>
+</article>
+
+
+
+
+
+
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                   
+                   <li>
+                       <a href="" rel="alternate" type="application/rss+xml" title="Hi,I`m lan" >
+                           <span class="fa-stack fa-lg">
+                               <i class="fa fa-circle fa-stack-2x"></i>
+                               <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+                           </span>
+                       </a>
+                   </li>
+                   
+                    
+                    <li>
+                        <a target="_blank" href="https://github.com/liangyuanpeng">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                   
+                   
+                    
+                    <li>
+                        <a target="_blank" href="https://liangyuanpeng.github.io/img/aboutme/wechat-lan.png">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-wechat fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li>
+                        <a href="mailto:liangyuanpengem@163.com">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+		    
+
+                    
+                    <li>
+                        <a href="https://twitter.com/lan31793328">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li>
+                        <a target="_blank" href="https://www.zhihu.com/people/liangyuanpeng">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa  fa-stack-1x fa-inverse">知</i>
+                            </span>
+                        </a>
+                    </li>
+		    
+                    
+                    <li>
+                        <a target="_blank" href="https://weibo.com/u/1908782280">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+		    
+
+                    
+
+		    
+                    
+                </ul>
+		<p class="copyright text-muted">
+                    Copyright &copy; Hi,I`m lan , 2023
+                    <br>
+                    <a href="https://themes.gohugo.io/hugo-theme-cleanwhite">CleanWhite Hugo Theme</a> by <a href="https://zhaohuabing.com">Huabing</a> |
+                    <iframe
+                        style="margin-left: 2px; margin-bottom:-5px;"
+                        frameborder="0" scrolling="0" width="100px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=zhaohuabing&repo=hugo-theme-cleanwhite&type=star&count=true" >
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+
+<script>
+    function loadAsync(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+
+
+
+
+
+<script>
+    
+    if($('#tag_cloud').length !== 0){
+        async("/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+
+
+
+<script type="text/javascript">
+
+    
+    
+
+    function generateCatalog(selector) {
+
+        
+        
+        
+        
+            _containerSelector = 'div.post-container'
+        
+
+        
+        var P = $(_containerSelector), a, n, t, l, i, c;
+        a = P.find('h1,h2,h3,h4,h5,h6');
+
+        
+        $(selector).html('')
+
+        
+        a.each(function () {
+            n = $(this).prop('tagName').toLowerCase();
+            i = "#" + $(this).prop('id');
+            t = $(this).text();
+            c = $('<a href="' + i + '" rel="nofollow">' + t + '</a>');
+            l = $('<li class="' + n + '_nav"></li>').append(c);
+            $(selector).append(l);
+        });
+        return true;
+    }
+
+    generateCatalog(".catalog-body");
+
+    
+    $(".catalog-toggle").click((function (e) {
+        e.preventDefault();
+        $('.side-catalog').toggleClass("fold")
+    }))
+
+    
+
+
+    loadAsync("\/js\/jquery.nav.js", function () {
+        $('.catalog-body').onePageNav({
+            currentClass: "active",
+            changeHash: !1,
+            easing: "swing",
+            filter: "",
+            scrollSpeed: 700,
+            scrollOffset: 0,
+            scrollThreshold: .2,
+            begin: null,
+            end: null,
+            scrollChange: null,
+            padding: 80
+        });
+    });
+</script>
+
+
+
+
+<script>
+    async("https://cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+
+
+
+
+
+<script>
+    
+    var _baId = 'fad9c137f8ce239f9b323d36c871f8e6';
+
+    
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?" + _baId;
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+
+
+
+
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-RTTRHGYFWL"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-RTTRHGYFWL');
+</script>
+
+
+
+</body>
+</html>

@@ -9,55 +9,55 @@
     <lastBuildDate>Mon, 20 Feb 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://liangyuanpeng.github.io/tags/envoy/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>常用网关都是如何配置缓存请求的</title>
-      <link>https://liangyuanpeng.github.io/post/how-to-config-for-cache-from-gateway/</link>
+      <link>https://liangyuanpeng.github.io/how-to-config-for-cache-from-gateway/</link>
       <pubDate>Mon, 20 Feb 2023 00:00:00 +0000</pubDate>
       
-      <guid>https://liangyuanpeng.github.io/post/how-to-config-for-cache-from-gateway/</guid>
+      <guid>https://liangyuanpeng.github.io/how-to-config-for-cache-from-gateway/</guid>
       <description>前言 Envoy 由于 envoy cache 遵循 http cache 规范,因此规定缓存的 API 需要返回cache-control的 header,并且 value 需要标识缓存的时间,例如缓存 10min max-age=600. envoy.yaml static_resources: listeners: -</description>
     </item>
     
     <item>
       <title>基于Envoy搭建K8S应用开发环境</title>
-      <link>https://liangyuanpeng.github.io/post/cncf-envoy/k8s-app-dev-with-envoy/</link>
+      <link>https://liangyuanpeng.github.io/k8s-app-dev-with-envoy/</link>
       <pubDate>Sun, 19 Feb 2023 00:00:00 +0000</pubDate>
       
-      <guid>https://liangyuanpeng.github.io/post/cncf-envoy/k8s-app-dev-with-envoy/</guid>
+      <guid>https://liangyuanpeng.github.io/k8s-app-dev-with-envoy/</guid>
       <description>主要思想 主要思想是在 K8S 集群中部署一个 Envoy 服务,然后将请求以 L4/L7 的方式代理请求. 例如搭建 webhook 的开发环境时是做 L7 代理,搭建 kube-apiserver 时是做 L4 代理.</description>
     </item>
     
     <item>
       <title>[长期更新]envoy常用</title>
-      <link>https://liangyuanpeng.github.io/post/cncf-envoy/ennoy-faq/</link>
+      <link>https://liangyuanpeng.github.io/ennoy-faq/</link>
       <pubDate>Thu, 16 Feb 2023 00:00:00 +0000</pubDate>
       
-      <guid>https://liangyuanpeng.github.io/post/cncf-envoy/ennoy-faq/</guid>
+      <guid>https://liangyuanpeng.github.io/ennoy-faq/</guid>
       <description>说明 本文主要收集常见场景下 Envoy 的配置以及遇到的一些常见问题,欢迎对本文进行投稿你认为好的场景配置或问题. 权重分流 基于权重做灰度发布. - match: prefix: / route:</description>
     </item>
     
     <item>
       <title>用GO开发Envoy wasm filter</title>
-      <link>https://liangyuanpeng.github.io/post/cncf-envoy/ennoy-wasm-filter-with-go/</link>
+      <link>https://liangyuanpeng.github.io/ennoy-wasm-filter-with-go/</link>
       <pubDate>Sun, 20 Mar 2022 00:00:00 +0000</pubDate>
       
-      <guid>https://liangyuanpeng.github.io/post/cncf-envoy/ennoy-wasm-filter-with-go/</guid>
+      <guid>https://liangyuanpeng.github.io/ennoy-wasm-filter-with-go/</guid>
       <description>目标 总结</description>
     </item>
     
     <item>
       <title>用Rust开发Envoy wasm filter</title>
-      <link>https://liangyuanpeng.github.io/post/cncf-envoy/ennoy-wasm-filter-with-rust/</link>
+      <link>https://liangyuanpeng.github.io/ennoy-wasm-filter-with-rust/</link>
       <pubDate>Sun, 20 Mar 2022 00:00:00 +0000</pubDate>
       
-      <guid>https://liangyuanpeng.github.io/post/cncf-envoy/ennoy-wasm-filter-with-rust/</guid>
+      <guid>https://liangyuanpeng.github.io/ennoy-wasm-filter-with-rust/</guid>
       <description>目标 用WASM filter实现WWW-Authenticate认证,并且支持配置域名白名单和URL白名单. 了解envoy-wasm-rust</description>
     </item>
     
     <item>
       <title>将热更新configmap作为Envoy的XDS服务</title>
-      <link>https://liangyuanpeng.github.io/post/cncf-envoy/envoy-file-xds-with-reload-configmap/</link>
+      <link>https://liangyuanpeng.github.io/envoy-file-xds-with-reload-configmap/</link>
       <pubDate>Sat, 22 Jan 2022 00:00:00 +0000</pubDate>
       
-      <guid>https://liangyuanpeng.github.io/post/cncf-envoy/envoy-file-xds-with-reload-configmap/</guid>
+      <guid>https://liangyuanpeng.github.io/envoy-file-xds-with-reload-configmap/</guid>
       <description>前言 由于实验基于kubernetes,因此你首先需要有一个kubernetes环境,这里推荐使用 Kind 命令来搭建.见用kind搭建k8s集群环境</description>
     </item>
     

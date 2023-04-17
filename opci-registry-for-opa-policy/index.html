@@ -1,0 +1,1024 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head><head>
+    <meta name="google-site-verification" content="9vIieCe-Qpd78QOmBl63rGtIVbhY6sYyuxX3j8XWBA4" />
+    <meta name="baidu-site-verification" content="LRrmH41lz7" />
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <meta name="baidu-site-verification" content="HGLXRsUXC4" />
+
+    
+    <meta name="baidu-site-verification" content="code-ANZvlnN0Xr" />
+
+    
+    <meta name="description" content="lan，工程师⎈,远鹏|CNCF粉丝|Pulsar爱好者|公众号:四颗咖啡豆|云原生追随者">
+    
+    <meta name="keyword"  content="liangyuanpeng|LanLiang|OpenYurt|Knative|Pulsar|Prometheus|Halo||边缘计算kubernetes|Docker|CloudNative|Golang|Rust|Istio|微服务">
+
+    
+    <link rel="shortcut icon" href="/img/aboutme/hash-kube-rs-pulsar.png">
+    
+
+    
+    <meta property="og:image" content="https://liangyuanpeng.github.io/img/banner/viglomir_minimalistic_picture_of_a_lonely_alien_tower_in_a_alie_4b60a721-9932-41e8-9eb9-35fa1be0ab91.png" />
+    <meta name="twitter:image" content="https://liangyuanpeng.github.io/img/banner/viglomir_minimalistic_picture_of_a_lonely_alien_tower_in_a_alie_4b60a721-9932-41e8-9eb9-35fa1be0ab91.png" />
+
+    <title>使用容器镜像仓库存储OPA策略-远鹏的博客 | liangyuanpeng&#39;s Blog</title>
+
+    <link rel="canonical" href="https://liangyuanpeng.github.io/opci-registry-for-opa-policy/">
+
+    
+
+    
+    <link rel="stylesheet" href='https://liangyuanpeng.github.io/css/bootstrap.min.css'>
+
+    
+    <link rel="stylesheet" href="https://liangyuanpeng.github.io/css/hux-blog.min.css">
+
+    
+    <link rel="stylesheet" href="https://liangyuanpeng.github.io/css/syntax.css">
+
+    
+    <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    
+    
+    <script src="https://liangyuanpeng.github.io/js/jquery.min.js"></script>
+
+    
+    <script src="https://liangyuanpeng.github.io/js/bootstrap.min.js"></script>
+
+    
+    <script src="https://liangyuanpeng.github.io/js/hux-blog.min.js"></script>
+
+    
+    <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "f73bc0092aeb491d89984c0eb5a87ac2"}'></script>
+</head>
+
+</head>
+
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="https://liangyuanpeng.github.io/">Hi,I`m lan</a>
+        </div>
+
+        
+        
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="https://liangyuanpeng.github.io/">Home</a>
+                    </li>
+                    
+                    <li>
+                        <a href="https://liangyuanpeng.github.io/categories/cloudnative">cloudnative</a>
+                    </li>
+                    
+                    <li>
+                        <a href="https://liangyuanpeng.github.io/categories/devops">devops</a>
+                    </li>
+                    
+                    <li>
+                        <a href="https://liangyuanpeng.github.io/categories/iot">iot</a>
+                    </li>
+                    
+                    <li>
+                        <a href="https://liangyuanpeng.github.io/categories/kubernetes">kubernetes</a>
+                    </li>
+                    
+                    <li>
+                        <a href="https://liangyuanpeng.github.io/categories/tech">tech</a>
+                    </li>
+                    
+
+                    
+		            <li>
+                        <a href="https://liangyuanpeng.github.io/search/">SEARCH <img src="https://liangyuanpeng.github.io/img/search.png" height="15" style="cursor: pointer;"></a>
+		            </li>
+                    
+                </ul>
+            </div>
+        </div>
+        
+    </div>
+    
+</nav>
+<script>
+    
+    
+    
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        
+            $navbar.className = " ";
+            
+            setTimeout(function(){
+                
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+
+
+<style type="text/css">
+    header.intro-header{
+        background-image: url('https://liangyuanpeng.github.io/img/banner/viglomir_minimalistic_picture_of_a_lonely_alien_tower_in_a_alie_4b60a721-9932-41e8-9eb9-35fa1be0ab91.png')
+    }
+</style>
+
+<header class="intro-header" >
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                       
+                       <a class="tag" href="/tags/cncf" title="cncf">
+                           cncf
+                           
+                           
+                           
+                           
+                           
+                           
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            <img style="display:inline-block;" src="/img/taglogo/cncf.png" height="20" width="20" />
+                            
+                            
+                            
+                            
+                            
+
+                            
+                            
+                            
+
+                            
+                            
+                            
+
+                            
+                            
+                            
+
+                            
+                            
+                            
+                            
+                            
+
+                            
+                        </a>
+                        
+                       <a class="tag" href="/tags/opa" title="opa">
+                           opa
+                           
+                           
+                           
+                           
+                           
+                           
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+
+                            
+                            
+                            
+
+                            
+                            
+                            
+
+                            
+                            
+                            
+
+                            
+                            
+                            <img  src="https://emoji.slack-edge.com/T08PSQ7BQ/opa/07d01fba74e3a6b7.png" style="display:inline-block;" height="20" width="20" />
+                            
+                            
+                            
+                            
+
+                            
+                        </a>
+                        
+                       <a class="tag" href="/tags/opcr" title="opcr">
+                           opcr
+                           
+                           
+                           
+                           
+                           
+                           
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+
+                            
+                            
+                            
+
+                            
+                            
+                            
+
+                            
+                            
+                            
+
+                            
+                            
+                            
+                            
+                            
+
+                            
+                        </a>
+                        
+                       <a class="tag" href="/tags/oras" title="oras">
+                           oras
+                           
+                           
+                           
+                           
+                           
+                           
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+
+                            
+                            
+                            
+
+                            
+                            
+                            
+
+                            
+                            
+                            
+
+                            
+                            
+                            
+                            
+                            
+
+                            
+                        </a>
+                        
+                        <br/>
+                    </div>
+                    <h1>使用容器镜像仓库存储OPA策略</h1>
+                    <h2 class="subheading"></h2>
+                    <span  class="meta">Posted by 梁远鹏 on 2023-04-05
+                        
+                        <span id="busuanzi_container_page_pv">|<span id="busuanzi_value_page_pv"></span><span>
+                            <span id="/opci-registry-for-opa-policy/" class="leancloud_visitors meta_data_item" data-flag-title="">
+    <span class="post-meta-item-icon">
+      <span class="octicon octicon-eye"></span> 
+    </span>
+    <i class="fa fa-eye"></i>
+    <span class="old-visitors-count" style="display: none;"></span>
+    <span class="leancloud-visitors-count"></span>
+</span>
+
+
+
+
+
+
+                            阅读 </span></span>|<span class="post-date">共1776字</span>，阅读约<span class="more-meta"> 4 分钟</span>
+                        
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+
+
+<article>
+    <div class="container">
+        <div class="row">
+            
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+		
+                <header>
+                <h2>TOC</h2>
+                </header>
+                <nav id="TableOfContents">
+  <ul>
+    <li><a href="#开始尝试">开始尝试</a></li>
+  </ul>
+</nav>
+		
+
+		<h1 id="heading"></h1>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#f92672">services</span>:
+  <span style="color:#f92672">ghcr-registry</span>:
+    <span style="color:#f92672">url</span>: <span style="color:#ae81ff">https://ghcr.io</span>
+    <span style="color:#f92672">type</span>: <span style="color:#ae81ff">oci</span>
+    <span style="color:#75715e"># credentials:</span>
+    <span style="color:#75715e">#   bearer:</span>
+    <span style="color:#75715e">#     scheme: &#34;Bearer&#34;</span>
+    <span style="color:#75715e">#     token: &#34;你的token&#34;</span>
+
+<span style="color:#f92672">bundles</span>:
+  <span style="color:#f92672">authz</span>:
+    <span style="color:#f92672">service</span>: <span style="color:#ae81ff">ghcr-registry</span>
+    <span style="color:#f92672">resource</span>: <span style="color:#ae81ff">ghcr.io/liangyuanpeng/policy-hello:1.0.0</span>
+    <span style="color:#f92672">persist</span>: <span style="color:#66d9ef">true</span>
+    <span style="color:#f92672">polling</span>:
+      <span style="color:#f92672">min_delay_seconds</span>: <span style="color:#ae81ff">30</span>
+      <span style="color:#f92672">max_delay_seconds</span>: <span style="color:#ae81ff">120</span>
+</code></pre></div><p>注意,OPA 只会去 OCI 镜像仓库下载这三种格式的内容:</p>
+<pre tabindex="0"><code>application/vnd.oci.image.layer.v1.tar+gzip
+application/vnd.oci.image.manifest.v1+json
+application/vnd.oci.image.config.v1+json
+</code></pre><p>添加下面文件:</p>
+<p>.manifest</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json">{
+    <span style="color:#f92672">&#34;roots&#34;</span>: [<span style="color:#e6db74">&#34;policies&#34;</span>],
+    <span style="color:#f92672">&#34;metadata&#34;</span>: {
+      <span style="color:#f92672">&#34;required_builtins&#34;</span>: {
+          <span style="color:#f92672">&#34;builtin1&#34;</span>: [
+          ],
+      }
+    }
+}
+</code></pre></div><p>data.json</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json">{}
+</code></pre></div><p>policies/hello.rego</p>
+<pre tabindex="0"><code class="language-rego" data-lang="rego">package policies.play
+
+default hello = false
+
+hello {
+    m := input.message
+    m == &quot;world&quot;
+}
+</code></pre><p>config.json</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json">{}
+</code></pre></div><p>使用以下命令构建策略.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">opa build src
+</code></pre></div><p>构建好策略后,使用 oras 命令推送到容器镜像仓库,这里使用的是 ghcr.io</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"> oras push -u你的账号 -p你的token或密码 ghcr.io/<span style="color:#f92672">{</span>你的账号<span style="color:#f92672">}</span>/policy-hello:1.0.0 --config config.json:application/vnd.oci.image.config.v1+json bundle.tar.gz:application/vnd.oci.image.layer.v1.tar+gzip
+</code></pre></div><p>先使用以下命令来尝试看看 OPA 是否能从 OCI registry 下载策略并且正常使用其中的内容:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">lan@lan:~/work/lanactions/lanactions/oparun$ opa run -c configuration.yaml 
+<span style="color:#f92672">{</span><span style="color:#e6db74">&#34;level&#34;</span>:<span style="color:#e6db74">&#34;error&#34;</span>,<span style="color:#e6db74">&#34;msg&#34;</span>:<span style="color:#e6db74">&#34;Failed to load bundle from disk: bundle read failed: archive read failed: EOF&#34;</span>,<span style="color:#e6db74">&#34;name&#34;</span>:<span style="color:#e6db74">&#34;authz&#34;</span>,<span style="color:#e6db74">&#34;plugin&#34;</span>:<span style="color:#e6db74">&#34;bundle&#34;</span>,<span style="color:#e6db74">&#34;time&#34;</span>:<span style="color:#e6db74">&#34;2023-04-05T08:36:14Z&#34;</span><span style="color:#f92672">}</span>
+<span style="color:#f92672">{</span><span style="color:#e6db74">&#34;level&#34;</span>:<span style="color:#e6db74">&#34;info&#34;</span>,<span style="color:#e6db74">&#34;msg&#34;</span>:<span style="color:#e6db74">&#34;Starting bundle loader.&#34;</span>,<span style="color:#e6db74">&#34;name&#34;</span>:<span style="color:#e6db74">&#34;authz&#34;</span>,<span style="color:#e6db74">&#34;plugin&#34;</span>:<span style="color:#e6db74">&#34;bundle&#34;</span>,<span style="color:#e6db74">&#34;time&#34;</span>:<span style="color:#e6db74">&#34;2023-04-05T08:36:14Z&#34;</span><span style="color:#f92672">}</span>
+OPA 0.51.0 <span style="color:#f92672">(</span>commit 1f52ea1908181bf2ffa4a742f87f4838f1403728, built at 2023-03-31T13:44:46Z<span style="color:#f92672">)</span>
+
+Run <span style="color:#e6db74">&#39;help&#39;</span> to see a list of commands and check <span style="color:#66d9ef">for</span> updates.
+
+&gt; <span style="color:#f92672">{</span><span style="color:#e6db74">&#34;level&#34;</span>:<span style="color:#e6db74">&#34;info&#34;</span>,<span style="color:#e6db74">&#34;msg&#34;</span>:<span style="color:#e6db74">&#34;Bundle loaded and activated successfully. Etag updated to 653156df2068ed4c8f6bef67c515883d5331b291f1449160abef39a35163a1cd.&#34;</span>,<span style="color:#e6db74">&#34;name&#34;</span>:<span style="color:#e6db74">&#34;authz&#34;</span>,<span style="color:#e6db74">&#34;plugin&#34;</span>:<span style="color:#e6db74">&#34;bundle&#34;</span>,<span style="color:#e6db74">&#34;time&#34;</span>:<span style="color:#e6db74">&#34;2023-04-05T08:36:14Z&#34;</span><span style="color:#f92672">}</span>
+&gt; data
+<span style="color:#f92672">{</span>
+ <span style="color:#e6db74">&#34;policies&#34;</span>: <span style="color:#f92672">{</span>
+   <span style="color:#e6db74">&#34;play&#34;</span>: <span style="color:#f92672">{</span>
+     <span style="color:#e6db74">&#34;hello&#34;</span>: false
+   <span style="color:#f92672">}</span>
+ <span style="color:#f92672">}</span>
+<span style="color:#f92672">}</span>
+</code></pre></div><p>可以看到 OPA 启动后从 OC registry 下载了策略,然后输入<code>data</code>可以看到正是上述构建好的策略内容.</p>
+<p>现在让我们来尝试一下使用这种方式的情况下能否为数据正常执行策略:</p>
+<p>首先退出刚才的程序,我这里使用 Ctrl+D ,然后使用以下命令启动 OPA server:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">opa run --server --set default_decision<span style="color:#f92672">=</span>policies -c configuration.yaml
+</code></pre></div><p>这时我们打开另一个窗口来请求数据:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">lan@lan:~/work/lanactions/lanactions$ curl localhost:8181 -i -d <span style="color:#e6db74">&#39;{ &#34;message&#34;:&#34;world&#34;}&#39;</span> -H <span style="color:#e6db74">&#39;Content-Type:application/json&#39;</span>
+.HTTP/1.1 <span style="color:#ae81ff">200</span> OK
+Content-Type: application/json
+Date: Wed, <span style="color:#ae81ff">05</span> Apr <span style="color:#ae81ff">2023</span> 08:40:08 GMT
+Content-Length: <span style="color:#ae81ff">24</span>
+
+<span style="color:#f92672">{</span><span style="color:#e6db74">&#34;play&#34;</span>:<span style="color:#f92672">{</span><span style="color:#e6db74">&#34;hello&#34;</span>:true<span style="color:#f92672">}}</span>
+lan@lan:~/work/lanactions/lanactions$ curl localhost:8181 -i -d <span style="color:#e6db74">&#39;{ &#34;message&#34;:&#34;world2&#34;}&#39;</span> -H <span style="color:#e6db74">&#39;Content-Type:application/json&#39;</span>
+HTTP/1.1 <span style="color:#ae81ff">200</span> OK
+Content-Type: application/json
+Date: Wed, <span style="color:#ae81ff">05</span> Apr <span style="color:#ae81ff">2023</span> 08:40:14 GMT
+Content-Length: <span style="color:#ae81ff">25</span>
+
+<span style="color:#f92672">{</span><span style="color:#e6db74">&#34;play&#34;</span>:<span style="color:#f92672">{</span><span style="color:#e6db74">&#34;hello&#34;</span>:false<span style="color:#f92672">}}</span>
+</code></pre></div><p>可以看到,内容完全符合策略的执行情况: 只有当 <code>message=world</code> 时, 策略才会返回 <code>hello=true</code></p>
+<h1 id="opcr项目">OPCR项目</h1>
+<p>可以看到我们在将 OPA 策略推到容器镜像仓库时需要做两步:</p>
+<ol>
+<li>使用 OPA 命令打包策略</li>
+<li>使用 oras 命令推送策略到容器镜像仓库</li>
+</ol>
+<p>而有一个 CNCF sandbox 项目专门为了处理 &ldquo;OPA 策略镜像&rdquo;,这个项目就是 OPCR.你可以用这个工具就向操作普通容器镜像一样操作 OPA 策略镜像.</p>
+<p>同时 OPCR 还提供了 github action 用于构建和推送 OPA 策略镜像产物.</p>
+<p>从这个链接下载 OPCR 的命令行工具:https://github.com/opcr-io/policy/releases/download/v0.2.0/policy0.2.0_linux_x86_64.zip</p>
+<p>本文使用的是一个较早的 0.2.0 版本,当你看到这篇文章时 OPCR 可能更新了很多内容,因此你可以打开<a href="https://github.com/opcr-io/policy">OPCR仓库</a>查看最新发布的版本是哪一个,下载最新版本来食用,但我推荐你首先在本文的基础上基于 0.2.0 版本浅尝一下,因为版本更新意味着可能不兼容,也许新版本的命令不适用于本文后续的命令操作.</p>
+<p>如果你发现了,欢迎你在下方评论区说明一下,对我或者对其他阅读本文的同学都是非常有帮助的,提前感谢你:)</p>
+<h2 id="开始尝试">开始尝试</h2>
+<p>首先 opcr 命令行有个 template 的概念,目的是创建一个新项目的时候生成一些通用的内容,默认情况下有 两个 CI 的模板和一个 policy 的模板.</p>
+<p>下面我使用 policy 的模板生成了一个 opcr 项目.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">lan@lan:~/repo/git/liangyuanpeng.github.io/tmp$ policy templates list
+
+Fetching templates 
+
+  NAME             KIND    DESCRIPTION                    
+  github           cicd    GitHub policy CI/CD template.  
+  gitlab           cicd    GitLab policy CI/CD template.  
+  policy-template  policy  Minimal policy template.       
+lan@lan:~/repo/git/liangyuanpeng.github.io/tmp$ policy templates apply policy-template
+
+Processing template <span style="color:#e6db74">&#39;policy-template&#39;</span> 
+
+Generating files .
+
+The template <span style="color:#e6db74">&#39;policy-template&#39;</span> was created successfully.
+lan@lan:~/repo/git/liangyuanpeng.github.io/tmp$ tree .
+.
+├── README.md
+└── src
+    └── policies
+        └── hello-rego.rego
+
+<span style="color:#ae81ff">2</span> directories, <span style="color:#ae81ff">2</span> files
+
+</code></pre></div><p>可以看到生成的内容也很简单,就一个 README.md 描述文件以及一个 hello 的 opa 策略文件.</p>
+<p>接下来体验一下使用 policy 命令完成前面的流程:将 OPA 策略打包成容器并且推送到容器注册中心.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">lan@lan:~/repo/git/liangyuanpeng.github.io/tmp$ policy  build . -t ghcr.io/liangyuanpeng/policy-hello:1.0.1
+
+Created new image.
+digest: sha256:1786513bf6de470983dad0ca37da6d1e9f0301f974586643dd275e00f820818b
+
+Tagging image.
+reference: ghcr.io/liangyuanpeng/policy-hello:1.0.1
+lan@lan:~/repo/git/liangyuanpeng.github.io/tmp$ policy  push ghcr.io/liangyuanpeng/policy-hello:1.0.1
+
+Resolved ref <span style="color:#f92672">[</span>ghcr.io/liangyuanpeng/policy-hello:1.0.1<span style="color:#f92672">]</span>.
+digest: sha256:1786513bf6de470983dad0ca37da6d1e9f0301f974586643dd275e00f820818b
+
+Pushed ref <span style="color:#f92672">[</span>ghcr.io/liangyuanpeng/policy-hello:1.0.1<span style="color:#f92672">]</span>.
+digest: sha256:1786513bf6de470983dad0ca37da6d1e9f0301f974586643dd275e00f820818b
+</code></pre></div><p>从上述内容可以看到首先构建策略,然后将策略 push 到容器镜像仓库.</p>
+<p>相对于前面需要分开使用两个命令行工具并且命令需要特别配置参数,使用 opcr 的 policy 工具行就显得轻松很多.</p>
+<p>可以简单的理解为 policy 命令行就是将 opa 命令行和 oras 命令的一些内容整合到了一起,形成了一个新的专注于 opa 策略容器化的命令行工具.</p>
+<p>同样的,既然有 push 自然会有 pull,下面是一个将 opa 策略从容器镜像中下载到本地的,同时使用 polcy save 命令将策略从容器镜像中导出到本地文件系统.</p>
+<p>见下面的命令行执行内容:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">lan@lan:~/repo/git/liangyuanpeng.github.io/tmp$ policy pull ghcr.io/liangyuanpeng/policy-hello:1.0.0
+
+Pulling.
+ref: ghcr.io/liangyuanpeng/policy-hello:1.0.0
+
+Pulled ref <span style="color:#f92672">[</span>ghcr.io/liangyuanpeng/policy-hello:1.0.0<span style="color:#f92672">]</span>.
+digest: sha256:4d89484b74914fb3aad47dc603dd51926375a384ebc956491eeb885317e55f86
+lan@lan:~/repo/git/liangyuanpeng.github.io/tmp$ policy save ghcr.io/liangyuanpeng/policy-hello:1.0.0
+
+Resolved ref <span style="color:#f92672">[</span>ghcr.io/liangyuanpeng/policy-hello:1.0.0<span style="color:#f92672">]</span>.
+digest: sha256:653156df2068ed4c8f6bef67c515883d5331b291f1449160abef39a35163a1cd
+lan@lan:~/repo/git/liangyuanpeng.github.io/tmp$ ls
+bundle.tar.gz  README.md  src
+</code></pre></div><p>可以通过 policy images 命令来查看本地的 opa 策略镜像:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">lan@lan:~$ policy images 
+
+  REPOSITORY                  TAG    IMAGE ID      CREATED               SIZE  
+  liangyuanpeng/policy-hello  1.0.1  1786513bf6de  2023-04-17T01:53:42Z  766B  
+  liangyuanpeng/policy-hello  1.0.0  4d89484b7491  2023-04-05T08:16:30Z  538B 
+</code></pre></div><p>有一个注意的点是,opcr 下载后的镜像使用 docker 命令是看不到的,这是因为 opcr 将镜像存在到了单独的<code>~/.policy</code>目录下,在本文示例中对应到绝对目录就是<code>/home/lan/.policy</code>.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">lan@lan:~$ ls /home/lan/.policy/
+config.json  default-domain.cfg  policies-root
+</code></pre></div><p>会有三部分内容:</p>
+<ul>
+<li>config.json  存放认证相关内容</li>
+<li>default-domain.cfg  默认情况下的容器镜像中心,在本文中它是 <code>ghcr.io</code></li>
+<li>policies-root 目录,存放策略镜像内容.</li>
+</ul>
+<h1 id="最后">最后</h1>
+<p>在 OCI 盛行的今天,将 artifact 存储到容器镜像内已经不是一件罕见的事情了,例如:</p>
+<ul>
+<li>helm 早已支持将 OCI 注册中心存放 helm chart</li>
+<li>cosign 将签名写入到容器镜像内</li>
+<li>tekton 将 task/pipeline 打包成容器镜像</li>
+<li>&hellip;</li>
+</ul>
+<p>甚至 OCI 规范推出了 1.1 版本,因此来规范处理非容器应用环境下容器镜像的使用情况.</p>
+<p>这对使用者来说也是一件好事,不必去了解每一种软件对应的工件中心,减少了学习成本.</p>
+
+
+        <h2>微信公众号</h2>
+<p>扫描下面的二维码关注我们的微信公众号,第一时间查看最新内容。同时也可以关注我的Github,看看我都在了解什么技术,在页面底部可以找到我的Github。</p>
+<img  src="/img/qrcode_for_sikekafeidou.jpg" alt="wechat-qrcode">
+
+        <div style="padding: 10px 0; margin: 20px auto; width: 100%; font-size:16px; text-align: center;">
+    <button class="btn btn-danger"  id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+        <span>「来都来了」赞赏</span></button>
+    <div  id="QR" style="display: none;">
+        <div id="wechat" style="display: inline-block">
+            <p>如果本文对你有帮助的话欢迎通过微信或支付宝对我进行赞助,强烈建议你在支付的备注上填上你的 githubID 或你的昵称,让我知道我该感谢谁!!! </br></br>
+                赞助金额设置为固定金额:8元. </br> 
+                8元赠与我,发发发反馈给你,2023祝你收入翻番一路发到底:)</p>
+            <a class="fancybox" rel="group">
+                <img id="wechat_qr" src="/img/wechat-zhifubao.png" alt="Pay"></a>
+        </div>
+    </div>
+</div>
+
+        
+
+                <hr>
+
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/what-is-ebpfan-introductory-guide/" data-toggle="tooltip" data-placement="top" title="epbf入门指南">&larr; epbf入门指南</a>
+                    </li>
+                    
+                    
+                    <li class="next">
+                        <a href="/do-not-totally-believe-github-action/" data-toggle="tooltip" data-placement="top" title="不要完全相信GithubAction">不要完全相信GithubAction &rarr;</a>
+                    </li>
+                    
+                </ul>
+
+            
+<script src="https://utteranc.es/client.js"
+repo="liangyuanpeng/liangyuanpeng.github.io"
+issue-term="title"
+theme="github-light"
+crossorigin="anonymous"
+async>
+</script>
+
+
+
+            </div>
+
+            
+
+            <div class="
+                col-lg-2 col-lg-offset-0
+                visible-lg-block
+                sidebar-container
+                catalog-container">
+                
+                扫码下面二维码加我微信 :)
+                <img src="https://liangyuanpeng.github.io/img/aboutme/wechat-lan.png" />
+                
+            </div> 
+
+            
+
+            
+            
+            
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                
+                
+<br/>
+<h5>开源项目推荐</h5>
+
+<style type="text/css">
+.pinned-repos {
+  max-width: 300px;
+  margin: 0 auto;
+}
+
+.repo-card {
+  display: flex;
+  flex-direction: column;
+  padding: 16px;
+  border: 1px solid #e1e4e8;
+  border-radius: 6px;
+  background-color: #fff;
+}
+
+.repo-card:hover {
+  box-shadow: 0 1px 3px rgba(36,41,46,.08);
+}
+
+.repo-card h2 {
+  margin-top: 0;
+  font-size: 20px;
+  font-weight: 200;
+  color: #0366d6;
+}
+
+.repo-card p {
+  margin: 8px 0 16px;
+  font-size: 14px;
+  color: #586069;
+}
+
+.repo-card-stats {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;  
+}
+
+.repo-card-stats span {
+  font-size: 12px;
+  color: #586069;
+  margin-right: 16px;
+}
+
+.repo-card-stats strong {
+  font-weight: 200;
+  color: #24292e;
+}
+</style>
+
+    
+    <ul class="margin-bottom: 25px;pinned-repo-list">
+      <li>
+        <div class="repo-card">
+          <div class="repo-card-details">
+            <h2><a href="https://github.com/liangyuanpeng/replacer">replacer</a></h2>
+            <p>K8S webhook的参考实现|Replace container image of kubernetes mutate webhook.</p>
+            <div class="repo-card-stats">
+              <span>Language: <strong>Golang</strong></span>
+              <span>Forks: <strong>*</strong></span>
+              <span>Stars: <strong>*</strong></span>
+              <span>Updated: <strong>Nov 20, 2021</strong></span>
+            </div>
+          </div>
+        </div>
+      </li>
+    </ul>
+
+            </div>
+
+            
+            
+            <div class="
+            col-lg- col-lg-offset-2
+            col-md-10 col-md-offset-1
+            ">
+            <section>
+                <hr class="hidden-sm hidden-xs">
+                
+
+<h2>相关文章</h2>
+<ul style="margin-bottom: 25px;">
+    
+    <li><a href="/quick-start-open-policy-agent/">快速入门OPA</a></li>
+    
+    <li><a href="/migrate-your-manifest-yaml-files-into-helm-chart/">将你的yaml文件迁移到helm</a></li>
+    
+    <li><a href="/from-zero-to-kubernets-subproject-lead/">从零到 Kubernetes 子项目负责人</a></li>
+    
+    <li><a href="/backup-pvc-to-s3-with-k8up/">基于k8up备份PVC到S3存储</a></li>
+    
+    <li><a href="/kubernetes-hpa-custom-metrics-for-effective-cpu-memory-scaling/">Kubernetes HPA:定制指标实现有效的CPU和内存扩展</a></li>
+    
+    <li><a href="/keda-helmchart-release-with-v2.10.1/">keda-helmchart发布v2.10.1</a></li>
+    
+    <li><a href="/run-k8s-with-kind/">用kind搭建k8s集群环境</a></li>
+    
+    <li><a href="/ytt-vs-x/">ytt与各类yaml相关工具对比</a></li>
+    
+    <li><a href="/pull-gcr-k8s-image-with-lank8s/">国内环境拉取gcr和k8s镜像</a></li>
+    
+    <li><a href="/k8s-app-dev-with-envoy/">基于Envoy搭建K8S应用开发环境</a></li>
+    
+</ul>
+
+            </section>
+            </div>
+            
+
+            
+
+
+        </div>
+    </div>
+</article>
+
+
+
+
+
+
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                   
+                   <li>
+                       <a href="" rel="alternate" type="application/rss+xml" title="Hi,I`m lan" >
+                           <span class="fa-stack fa-lg">
+                               <i class="fa fa-circle fa-stack-2x"></i>
+                               <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+                           </span>
+                       </a>
+                   </li>
+                   
+                    
+                    <li>
+                        <a target="_blank" href="https://github.com/liangyuanpeng">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                   
+                   
+                    
+                    <li>
+                        <a target="_blank" href="https://liangyuanpeng.github.io/img/aboutme/wechat-lan.png">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-wechat fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li>
+                        <a href="mailto:liangyuanpengem@163.com">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+		    
+
+                    
+                    <li>
+                        <a href="https://twitter.com/lan31793328">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li>
+                        <a target="_blank" href="https://www.zhihu.com/people/liangyuanpeng">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa  fa-stack-1x fa-inverse">知</i>
+                            </span>
+                        </a>
+                    </li>
+		    
+                    
+                    <li>
+                        <a target="_blank" href="https://weibo.com/u/1908782280">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+		    
+
+                    
+
+		    
+                    
+                </ul>
+		<p class="copyright text-muted">
+                    Copyright &copy; Hi,I`m lan , 2023
+                    <br>
+                    <a href="https://themes.gohugo.io/hugo-theme-cleanwhite">CleanWhite Hugo Theme</a> by <a href="https://zhaohuabing.com">Huabing</a> |
+                    <iframe
+                        style="margin-left: 2px; margin-bottom:-5px;"
+                        frameborder="0" scrolling="0" width="100px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=zhaohuabing&repo=hugo-theme-cleanwhite&type=star&count=true" >
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+
+<script>
+    function loadAsync(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+
+
+
+
+
+<script>
+    
+    if($('#tag_cloud').length !== 0){
+        async("/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+
+
+
+<script type="text/javascript">
+
+    
+    
+
+    function generateCatalog(selector) {
+
+        
+        
+        
+        
+            _containerSelector = 'div.post-container'
+        
+
+        
+        var P = $(_containerSelector), a, n, t, l, i, c;
+        a = P.find('h1,h2,h3,h4,h5,h6');
+
+        
+        $(selector).html('')
+
+        
+        a.each(function () {
+            n = $(this).prop('tagName').toLowerCase();
+            i = "#" + $(this).prop('id');
+            t = $(this).text();
+            c = $('<a href="' + i + '" rel="nofollow">' + t + '</a>');
+            l = $('<li class="' + n + '_nav"></li>').append(c);
+            $(selector).append(l);
+        });
+        return true;
+    }
+
+    generateCatalog(".catalog-body");
+
+    
+    $(".catalog-toggle").click((function (e) {
+        e.preventDefault();
+        $('.side-catalog').toggleClass("fold")
+    }))
+
+    
+
+
+    loadAsync("\/js\/jquery.nav.js", function () {
+        $('.catalog-body').onePageNav({
+            currentClass: "active",
+            changeHash: !1,
+            easing: "swing",
+            filter: "",
+            scrollSpeed: 700,
+            scrollOffset: 0,
+            scrollThreshold: .2,
+            begin: null,
+            end: null,
+            scrollChange: null,
+            padding: 80
+        });
+    });
+</script>
+
+
+
+
+<script>
+    async("https://cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+
+
+
+
+
+<script>
+    
+    var _baId = 'fad9c137f8ce239f9b323d36c871f8e6';
+
+    
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?" + _baId;
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+
+
+
+
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-RTTRHGYFWL"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-RTTRHGYFWL');
+</script>
+
+
+
+</body>
+</html>

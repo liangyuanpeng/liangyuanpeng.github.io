@@ -9,10 +9,10 @@
     <lastBuildDate>Sun, 08 Mar 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://liangyuanpeng.github.io/tags/micrometer/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>微服务监控:SpringBoot-Micrometer-Influx</title>
-      <link>https://liangyuanpeng.github.io/post/springboot-micrometer-influx/</link>
+      <link>https://liangyuanpeng.github.io/springboot-micrometer-influx/</link>
       <pubDate>Sun, 08 Mar 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://liangyuanpeng.github.io/post/springboot-micrometer-influx/</guid>
+      <guid>https://liangyuanpeng.github.io/springboot-micrometer-influx/</guid>
       <description>前言 聊到微服务监控,首先需要考虑的一个技术选型问题就是使用推数据还是使用拉数据的方式进行数据的收集,这个问题这里不进行具体讲解.本文使用mi</description>
     </item>
     

@@ -1,0 +1,1038 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head><head>
+    <meta name="google-site-verification" content="9vIieCe-Qpd78QOmBl63rGtIVbhY6sYyuxX3j8XWBA4" />
+    <meta name="baidu-site-verification" content="LRrmH41lz7" />
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <meta name="baidu-site-verification" content="HGLXRsUXC4" />
+
+    
+    <meta name="baidu-site-verification" content="code-ANZvlnN0Xr" />
+
+    
+    <meta name="description" content="RPC框架作为分布式技术的基石，在分布式和微服务环境下，扮演着非常重要的角色。 在蚂蚁金服的分布式技术体系下，我们大量的技术产品（非网关类产品），都需要在内网，进行节点间通信。底层通信框架，已经在蚂蚁自研的 SOFABolt 中的进行了实践，SOFABolt 提供了优秀的通信协议与通信框架，在 SOFABolt 的基础上，我们研发了自己的 RPC 框架，提供了负载均衡，流量转发，链路追踪，链路数据透传，故障剔除等基础能力。">
+    
+    <meta name="keyword"  content="liangyuanpeng|LanLiang|OpenYurt|Knative|Pulsar|Prometheus|Halo||边缘计算kubernetes|Docker|CloudNative|Golang|Rust|Istio|微服务">
+
+    
+    <link rel="shortcut icon" href="/img/aboutme/hash-kube-rs-pulsar.png">
+    
+
+    
+    <meta property="og:image" content="https://res.cloudinary.com/lyp/image/upload/v1543506262/hugo/blog.github.io/apache-rocketMQ-introduction/7046d2bf0d97278682129887309cc1a6.jpg" />
+    <meta name="twitter:image" content="https://res.cloudinary.com/lyp/image/upload/v1543506262/hugo/blog.github.io/apache-rocketMQ-introduction/7046d2bf0d97278682129887309cc1a6.jpg" />
+
+    <title>转|SOFARPC框架之总体设计与扩展机制-远鹏的博客 | liangyuanpeng&#39;s Blog</title>
+
+    <link rel="canonical" href="https://liangyuanpeng.github.io/sofarpc-design/">
+
+    
+
+    
+    <link rel="stylesheet" href='https://liangyuanpeng.github.io/css/bootstrap.min.css'>
+
+    
+    <link rel="stylesheet" href="https://liangyuanpeng.github.io/css/hux-blog.min.css">
+
+    
+    <link rel="stylesheet" href="https://liangyuanpeng.github.io/css/syntax.css">
+
+    
+    <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    
+    
+    <script src="https://liangyuanpeng.github.io/js/jquery.min.js"></script>
+
+    
+    <script src="https://liangyuanpeng.github.io/js/bootstrap.min.js"></script>
+
+    
+    <script src="https://liangyuanpeng.github.io/js/hux-blog.min.js"></script>
+
+    
+    <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "f73bc0092aeb491d89984c0eb5a87ac2"}'></script>
+</head>
+
+</head>
+
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="https://liangyuanpeng.github.io/">Hi,I`m lan</a>
+        </div>
+
+        
+        
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="https://liangyuanpeng.github.io/">Home</a>
+                    </li>
+                    
+                    <li>
+                        <a href="https://liangyuanpeng.github.io/categories/cloudnative">cloudnative</a>
+                    </li>
+                    
+                    <li>
+                        <a href="https://liangyuanpeng.github.io/categories/devops">devops</a>
+                    </li>
+                    
+                    <li>
+                        <a href="https://liangyuanpeng.github.io/categories/iot">iot</a>
+                    </li>
+                    
+                    <li>
+                        <a href="https://liangyuanpeng.github.io/categories/kubernetes">kubernetes</a>
+                    </li>
+                    
+                    <li>
+                        <a href="https://liangyuanpeng.github.io/categories/tech">tech</a>
+                    </li>
+                    
+
+                    
+		            <li>
+                        <a href="https://liangyuanpeng.github.io/search/">SEARCH <img src="https://liangyuanpeng.github.io/img/search.png" height="15" style="cursor: pointer;"></a>
+		            </li>
+                    
+                </ul>
+            </div>
+        </div>
+        
+    </div>
+    
+</nav>
+<script>
+    
+    
+    
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        
+            $navbar.className = " ";
+            
+            setTimeout(function(){
+                
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+
+
+<style type="text/css">
+    header.intro-header{
+        background-image: url('https://res.cloudinary.com/lyp/image/upload/v1543506262/hugo/blog.github.io/apache-rocketMQ-introduction/7046d2bf0d97278682129887309cc1a6.jpg')
+    }
+</style>
+
+<header class="intro-header" >
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                       
+                       <a class="tag" href="/tags/rpc" title="rpc">
+                           rpc
+                           
+                           
+                           
+                           
+                           
+                           
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+
+                            
+                            
+                            
+
+                            
+                            
+                            
+
+                            
+                            
+                            
+
+                            
+                            
+                            
+                            
+                            
+
+                            
+                        </a>
+                        
+                       <a class="tag" href="/tags/sofa" title="sofa">
+                           sofa
+                           
+                           
+                           
+                           
+                           
+                           
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+
+                            
+                            
+                            
+
+                            
+                            
+                            
+
+                            
+                            
+                            
+
+                            
+                            
+                            
+                            
+                            
+
+                            
+                        </a>
+                        
+                       <a class="tag" href="/tags/sofastack" title="sofastack">
+                           sofastack
+                           
+                           
+                           
+                           
+                           
+                           
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+
+                            
+                            
+                            
+
+                            
+                            
+                            
+
+                            
+                            
+                            
+
+                            
+                            
+                            
+                            
+                            
+
+                            
+                        </a>
+                        
+                       <a class="tag" href="/tags/middleware" title="Middleware">
+                           Middleware
+                           
+                           
+                           
+                           
+                           
+                           
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+
+                            
+                            
+                            
+
+                            
+                            
+                            
+
+                            
+                            
+                            
+
+                            
+                            
+                            
+                            
+                            
+
+                            
+                        </a>
+                        
+                        <br/>
+                    </div>
+                    <h1>转|SOFARPC框架之总体设计与扩展机制</h1>
+                    <h2 class="subheading"></h2>
+                    <span  class="meta">Posted by 梁远鹏 on 2018-12-05
+                        
+                        <span id="busuanzi_container_page_pv">|<span id="busuanzi_value_page_pv"></span><span>
+                            <span id="/sofarpc-design/" class="leancloud_visitors meta_data_item" data-flag-title="">
+    <span class="post-meta-item-icon">
+      <span class="octicon octicon-eye"></span> 
+    </span>
+    <i class="fa fa-eye"></i>
+    <span class="old-visitors-count" style="display: none;"></span>
+    <span class="leancloud-visitors-count"></span>
+</span>
+
+
+
+
+
+
+                            阅读 </span></span>|<span class="post-date">共2642字</span>，阅读约<span class="more-meta"> 6 分钟</span>
+                        
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+
+
+<article>
+    <div class="container">
+        <div class="row">
+            
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+		
+                <header>
+                <h2>TOC</h2>
+                </header>
+                <nav id="TableOfContents">
+  <ul>
+    <li><a href="#前言">前言</a></li>
+    <li><a href="#rpc-是什么">RPC 是什么</a></li>
+    <li><a href="#通用-rpc-框架原理">通用 RPC 框架原理</a></li>
+    <li><a href="#sofarpc-框架设计">SOFARPC 框架设计</a>
+      <ul>
+        <li><a href="#sofarpc-roadmap">SOFARPC RoadMap</a></li>
+        <li><a href="#sofarpc-结构设计">SOFARPC 结构设计</a></li>
+        <li><a href="#客户端调用流程">客户端调用流程</a></li>
+        <li><a href="#服务端处理流程">服务端处理流程</a></li>
+      </ul>
+    </li>
+    <li><a href="#可扩展的机制">可扩展的机制</a></li>
+    <li><a href="#总结">总结</a></li>
+  </ul>
+</nav>
+		
+
+		<h2 id="前言">前言</h2>
+<p>RPC 框架作为分布式技术的基石，在分布式和微服务环境下，扮演着非常重要的角色。</p>
+<p>在蚂蚁金服的分布式技术体系下，我们大量的技术产品（非网关类产品），都需要在内网，进行节点间通信。底层通信框架，已经在蚂蚁自研的 SOFABolt 中的进行了实践，SOFABolt 提供了优秀的通信协议与通信框架，在 SOFABolt 的基础上，我们研发了自己的 RPC 框架，提供了负载均衡，流量转发，链路追踪，链路数据透传，故障剔除等基础能力。</p>
+<p>本文将从以下几个方面介绍目前已经开源的 SOFARPC 框架。</p>
+<p>1.RPC 是什么<br>
+2.通用 RPC 框架原理<br>
+3.SOFARPC 框架设计<br>
+4.SOFARPC 扩展机制</p>
+<h2 id="rpc-是什么">RPC 是什么</h2>
+<p>RPC 这个概念术语在上世纪 80 年代由 <a href="https://en.wikipedia.org/wiki/Bruce_Jay_Nelson">Bruce Jay Nelson</a> 提出，在 Nelson 的论文 <a href="http://birrell.org/andrew/papers/ImplementingRPC.pdf">&lsquo;Implementing Remote Procedure Calls&rsquo;</a>中他提到了几点：</p>
+<pre tabindex="0"><code>1. 简单：RPC 概念的语义清晰，简单，方便建立分布式计算。 
+2. 高效：在使用方看来，十分简单而且高效。
+3. 通用：通用，适用于各种不同的远程通信调用。 
+</code></pre><p>这里面Nelson提出了一个 RPC框架应该包含的几个部分。</p>
+<pre tabindex="0"><code>1. User
+2. User-stub
+3. RPC-Runtime
+4. Server-stub
+5. Server
+</code></pre><p>如下图示，为了和现在我们通用的术语一致，我将 User 改成 Client 了</p>
+<p><img src="https://res.cloudinary.com/lyp/image/upload/v1544018620/hugo/blog.github.io/sofa-rpc/1533126860674-81625d5d-7bf4-4c68-b887-8b2bc0e03577.png" alt="为了和现在我们通用的术语一致，我将 User 改成 Client 了"></p>
+<p>当 Client 想发起一个远程调用时，实际是通过本地调用 Client-stub，而 Client-stub 负责将调用的接口、方法和参数通过约定的协议规范进行编码并通过本地的 RPC-Runtime 实例传输到远端的实例。远端 RPC-Runtime 实例收到请求后交给 Server-stub 进行解码后发起本地端调用，在 Java中可以认为就是反射调用,调用结果再返回给 Client 端。</p>
+<p>从上文可以看到，一个典型的 RPC 调用过程还是相对简单的。但是实际上，一个真正的 RPC 框架要做的远不止这些。</p>
+<h2 id="通用-rpc-框架原理">通用 RPC 框架原理</h2>
+<p>相信对 RPC 框架有过一定了解，或者使用过 RPC 产品的同学，在看到了图上之后，会产生几个疑问</p>
+<ol>
+<li>Stub 怎么出现？</li>
+<li>怎么打包参数？</li>
+<li>怎么传输？</li>
+<li>怎么知道目标地址?</li>
+<li>怎么发布一个 RPC 服务?</li>
+</ol>
+<p>在解释这些问题之前，这里我画了一张目前通用的 RPC 框架的一个流程图：</p>
+<p><img src="https://res.cloudinary.com/lyp/image/upload/v1544018887/hugo/blog.github.io/sofa-rpc/1533126903076-3c13dde4-a8d1-4307-a543-0d5d11cb1602.png" alt=""></p>
+<p>其中</p>
+<ol>
+<li>创建代理解决了 Stub 的问题。</li>
+<li>序列化和网络协议编码解决了打包的问题。</li>
+<li>服务发现与路由寻址解决了如何知道目标地址的问题。</li>
+<li>如何发布一个服务，Registry 来解决。</li>
+<li>Bolt，Netty 等解决了网络传输的问题。</li>
+</ol>
+<p>当然 SOFARPC 的功能不止这些,在解决了这些问题之后，根据业务的需求和实际的线上情况，我们也开发了熔断,限流,故障剔除,数据透传等能力，下面我会来介绍 SOFARPC 的框架设计。</p>
+<h2 id="sofarpc-框架设计">SOFARPC 框架设计</h2>
+<h3 id="sofarpc-roadmap">SOFARPC RoadMap</h3>
+<p>首先介绍下目前 SOFARPC 的现状和一些正在做的事情<br>
+<img src="https://res.cloudinary.com/lyp/image/upload/v1544018662/hugo/blog.github.io/sofa-rpc/1533125859357-61bdcd77-c8cb-4049-b1b9-3c1622ea2249.png" alt=""></p>
+<p>欢迎对相关功能和 feature 有兴趣的同学，一起参与开发~</p>
+<h3 id="sofarpc-结构设计">SOFARPC 结构设计</h3>
+<p>原理大家清楚之后，为了方便大家尽快上手开发使用，我先从目前的 RPC 框架结构来简单介绍</p>
+<p><img src="https://res.cloudinary.com/lyp/image/upload/v1544018693/hugo/blog.github.io/sofa-rpc/1533125873287-2d6cb058-aa5d-4bb3-819b-9cefc8880153.png" alt=""></p>
+<p>其中 core和 core-impl 是核心的功能，包含 API 和一些扩展机制，extension-impl 中，则包含了不同的实现和扩展，比如对 http，rest，对 metrics，以及其他注册中心的集成和扩展。</p>
+<p>如 bootstrap 中对协议的支持，remoting 中对网络传输的支持，registry 中对注册中心的支持等。</p>
+<p>在此基础上，由于 RPC 框架涉及服务端和客户端，我会结合 SOFARPC 的处理流程，详细介绍下客户端和服务端的处理。</p>
+<h3 id="客户端调用流程">客户端调用流程</h3>
+<p><img src="https://res.cloudinary.com/lyp/image/upload/v1544018927/hugo/blog.github.io/sofa-rpc/1533123875347-74b6a14e-0c0d-410a-bb89-e9c7e3046802.png" alt=""></p>
+<p>当使用方对服务进行了引用配置之后:</p>
+<ol>
+<li>RPC 生成 Proxy，作为用户可以操作的入口。</li>
+<li>向服务中心订阅这个 RPC 的地址信息。</li>
+<li>使用方发起调用，经过路由，负载均衡，各类 Filter 发起调用。</li>
+</ol>
+<h3 id="服务端处理流程">服务端处理流程</h3>
+<p><img src="https://res.cloudinary.com/lyp/image/upload/v1544018958/hugo/blog.github.io/sofa-rpc/1533123881349-42414252-711d-4448-8f97-346ab23dc06b.png" alt=""></p>
+<p>在服务端看来,通过 TCP 监听端口后：</p>
+<ol>
+<li>接到 RPC 请求后，进行解码和反序列化。</li>
+<li>选择线程池，进行分发。</li>
+<li>经过 Filter，进行反射调用。</li>
+<li>将结果序列化，编码,进行写回。</li>
+</ol>
+<h2 id="可扩展的机制">可扩展的机制</h2>
+<p>从上面的流程中，可以看到，每个部分基本都有多种实现可选，这得益于RPC的扩展机制。</p>
+<p>为了对 RPC 各个环节的都有充足的可扩展性，提供 SPI 的能力，所以内部的实现和第三方实现都是绝对平等的。</p>
+<p>相比原生 SPI，我们实现了更强大的功能</p>
+<ol>
+<li>按需加载</li>
+<li>可以有别名</li>
+<li>可以有优先级进行排序和覆盖</li>
+<li>可以控制是否单例</li>
+<li>可以在某些场景下使用编码</li>
+<li>可以指定扩展配置位置</li>
+<li>可以排斥其他扩展点</li>
+</ol>
+<p>我们实现了一套自己的 SPI 机制。整个流程如下：<br>
+<img src="https://res.cloudinary.com/lyp/image/upload/v1544019485/hugo/blog.github.io/sofa-rpc/1533125074589-43358c6b-6609-4fff-bc94-745336f6a442_1.png" alt=""></p>
+<p>在启动加载阶段，RPC 会根据对应的配置，加载需要调用方法<br>
+<code>ExtensionLoader(Class&lt;T&gt; interfaceClass, ExtensionLoaderListener&lt;T&gt; listener)</code></p>
+<p>逻辑如下：</p>
+<ol>
+<li>首先读取<code>rpc-config-default.json</code>和<code>rpc-config.json</code>，找到扩展描述文件存放的文件夹：<code>extension.load.path</code>属性。</li>
+<li>找到接口类对应的扩展描述文件的文件名（默认就是接口名，也可以自己指定）。</li>
+<li>循环加载这个文件下的扩展描述文件，按行读取。（同一个接口的同一个别名对应唯一的一个实现类，可以重复，允许覆盖。）</li>
+<li>保存扩展实现类的alias和实现类的对应关系。</li>
+<li>如果 ExtensionLoaderListener 不为空，则通知 Listener。</li>
+</ol>
+<p>最终，将会构造出各个不同的 Filter，Invoker 等等。</p>
+<p>其中我们首先设计了一个扩展，代表这个类或者接口是可扩展的，默认单例、不需要编码</p>
+<pre tabindex="0"><code>@Documented
+@Retention(RetentionPolicy.RUNTIME)
+@Target({ ElementType.TYPE })
+public @interface Extensible {
+
+    /**
+     * 指定自定义扩展文件名称，默认就是全类名
+     *
+     * @return 自定义扩展文件名称
+     */
+    String file() default &quot;&quot;;
+
+    /**
+     * 扩展类是否使用单例，默认使用
+     *
+     * @return 是否使用单例
+     */
+    boolean singleton() default true;
+
+    /**
+     * 扩展类是否需要编码，默认不需要
+     *
+     * @return 是否需要编码
+     */
+    boolean coded() default false;
+}
+</code></pre><p>同时，针对具体的扩展实现，定义一个扩展注解</p>
+<pre tabindex="0"><code>@Documented
+@Retention(RetentionPolicy.RUNTIME)
+@Target({ ElementType.TYPE })
+public @interface Extension {
+    /**
+     * 扩展点名字
+     *
+     * @return 扩展点名字
+     */
+    String value();
+
+    /**
+     * 扩展点编码，默认不需要，当接口需要编码的时候需要
+     *
+     * @return 扩展点编码
+     * @see Extensible#coded()
+     */
+    byte code() default -1;
+
+    /**
+     * 优先级排序，默认不需要，大的优先级高
+     *
+     * @return 排序
+     */
+    int order() default 0;
+
+    /**
+     * 是否覆盖其它低{@link #order()}的同名扩展
+     *
+     * @return 是否覆盖其它低排序的同名扩展
+     * @since 5.2.0
+     */
+    boolean override() default false;
+
+    /**
+     * 排斥其它扩展，可以排斥掉其它低{@link #order()}的扩展
+     *
+     * @return 排斥其它扩展
+     * @since 5.2.0
+     */
+    String[] rejection() default {};
+}
+</code></pre><p>通过核心类ExtensionLoader的加载过程。完成对扩展的加载：<br>
+<img src="https://res.cloudinary.com/lyp/image/upload/v1544019091/hugo/blog.github.io/sofa-rpc/1533123901334-640ed6a1-5f0f-47aa-9b34-cc4036830e6a.png" alt=""></p>
+<p>当我们或者其他使用者想要实现一个自己的扩展点的时候，只需要按照如下的步骤即可开始</p>
+<ol>
+<li>指定扩展点</li>
+</ol>
+<pre tabindex="0"><code>@Extensible(singleton = false)
+public abstract class Client {
+}
+</code></pre><ol start="2">
+<li>指定扩展实现类</li>
+</ol>
+<pre tabindex="0"><code>@Extension(&quot;failover&quot;)
+public class FailoverClient extends AbstractClient {
+}
+</code></pre><ol start="3">
+<li>扩展描述文件<br>
+<code>META-INF/services/sofa-rpc/com.aliapy.sofa.rpc.client.Client</code></li>
+</ol>
+<pre tabindex="0"><code>failover=com.aliapy.sofa.rpc.client.FailoverClient
+</code></pre><p>当这些准备完成后，直接调用即可</p>
+<pre tabindex="0"><code>Client failoverClient = ExtensionLoaderFactory.getExtensionLoader(Client.class).getExtension(&quot;failover&quot;);
+</code></pre><p>基于这套扩展加载机制，我们可以实现自定义扩展点，实现 SOFARPC 内部及第三方的自由扩展。</p>
+<h2 id="总结">总结</h2>
+<p>本文作为《剖析 | SOFARPC 框架》第一篇，主要还是希望大家对 RPC 框架有一个认识和了解，之后，我们会逐步详细介绍每部分的代码设计和实现，预计会按照如下的目录进行：</p>
+<ol>
+<li>SOFARPC 同步异步实现剖析</li>
+<li>SOFARPC 线程模型剖析</li>
+<li>SOFARPC 连接管理与心跳剖析</li>
+<li>SOFARPC 单机故障剔除剖析</li>
+<li>SOFARPC 路由实现剖析</li>
+<li>SOFARPC 序列化比较</li>
+<li>SOFARPC 注解支持剖析</li>
+<li>SOFARPC 优雅关闭剖析</li>
+<li>SOFARPC 链路追踪剖析</li>
+<li>SOFARPC 数据透传剖析</li>
+<li>SOFARPC 跨语言支持剖析</li>
+<li>SOFARPC 泛化调用实现剖析</li>
+</ol>
+<p>以上有对某个主题特别感兴趣的同学，可以留言讨论，我们会适当根据大家的反馈调整文章的顺序，谢谢大家关注 SOFA ，关注 SOFARPC，我们会一直与大家一起成长的。</p>
+<hr>
+<p>文章转自<a href="http://www.sofastack.tech/post/brb090">【剖析 | SOFARPC 框架】之总体设计与扩展机制</a></p>
+
+
+        <h2>微信公众号</h2>
+<p>扫描下面的二维码关注我们的微信公众号,第一时间查看最新内容。同时也可以关注我的Github,看看我都在了解什么技术,在页面底部可以找到我的Github。</p>
+<img  src="/img/qrcode_for_sikekafeidou.jpg" alt="wechat-qrcode">
+
+        <div style="padding: 10px 0; margin: 20px auto; width: 100%; font-size:16px; text-align: center;">
+    <button class="btn btn-danger"  id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+        <span>「来都来了」赞赏</span></button>
+    <div  id="QR" style="display: none;">
+        <div id="wechat" style="display: inline-block">
+            <p>如果本文对你有帮助的话欢迎通过微信或支付宝对我进行赞助,强烈建议你在支付的备注上填上你的 githubID 或你的昵称,让我知道我该感谢谁!!! </br></br>
+                赞助金额设置为固定金额:8元. </br> 
+                8元赠与我,发发发反馈给你,2023祝你收入翻番一路发到底:)</p>
+            <a class="fancybox" rel="group">
+                <img id="wechat_qr" src="/img/wechat-zhifubao.png" alt="Pay"></a>
+        </div>
+    </div>
+</div>
+
+        
+
+                <hr>
+
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/deploy-apache-rocketmq/" data-toggle="tooltip" data-placement="top" title="Apache RocketMQ单机部署">&larr; Apache RocketMQ单机部署</a>
+                    </li>
+                    
+                    
+                    <li class="next">
+                        <a href="/sofarpc-trace/" data-toggle="tooltip" data-placement="top" title="转|SOFARPC链路追踪剖析">转|SOFARPC链路追踪剖析 &rarr;</a>
+                    </li>
+                    
+                </ul>
+
+            
+<script src="https://utteranc.es/client.js"
+repo="liangyuanpeng/liangyuanpeng.github.io"
+issue-term="title"
+theme="github-light"
+crossorigin="anonymous"
+async>
+</script>
+
+
+
+            </div>
+
+            
+
+            <div class="
+                col-lg-2 col-lg-offset-0
+                visible-lg-block
+                sidebar-container
+                catalog-container">
+                
+                扫码下面二维码加我微信 :)
+                <img src="https://liangyuanpeng.github.io/img/aboutme/wechat-lan.png" />
+                
+            </div> 
+
+            
+
+            
+            
+            
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                
+                
+<br/>
+<h5>开源项目推荐</h5>
+
+<style type="text/css">
+.pinned-repos {
+  max-width: 300px;
+  margin: 0 auto;
+}
+
+.repo-card {
+  display: flex;
+  flex-direction: column;
+  padding: 16px;
+  border: 1px solid #e1e4e8;
+  border-radius: 6px;
+  background-color: #fff;
+}
+
+.repo-card:hover {
+  box-shadow: 0 1px 3px rgba(36,41,46,.08);
+}
+
+.repo-card h2 {
+  margin-top: 0;
+  font-size: 20px;
+  font-weight: 200;
+  color: #0366d6;
+}
+
+.repo-card p {
+  margin: 8px 0 16px;
+  font-size: 14px;
+  color: #586069;
+}
+
+.repo-card-stats {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;  
+}
+
+.repo-card-stats span {
+  font-size: 12px;
+  color: #586069;
+  margin-right: 16px;
+}
+
+.repo-card-stats strong {
+  font-weight: 200;
+  color: #24292e;
+}
+</style>
+
+    
+    <ul class="margin-bottom: 25px;pinned-repo-list">
+      <li>
+        <div class="repo-card">
+          <div class="repo-card-details">
+            <h2><a href="https://github.com/liangyuanpeng/replacer">replacer</a></h2>
+            <p>K8S webhook的参考实现|Replace container image of kubernetes mutate webhook.</p>
+            <div class="repo-card-stats">
+              <span>Language: <strong>Golang</strong></span>
+              <span>Forks: <strong>*</strong></span>
+              <span>Stars: <strong>*</strong></span>
+              <span>Updated: <strong>Nov 20, 2021</strong></span>
+            </div>
+          </div>
+        </div>
+      </li>
+    </ul>
+
+            </div>
+
+            
+            
+            <div class="
+            col-lg- col-lg-offset-2
+            col-md-10 col-md-offset-1
+            ">
+            <section>
+                <hr class="hidden-sm hidden-xs">
+                
+
+<h2>相关文章</h2>
+<ul style="margin-bottom: 25px;">
+    
+    <li><a href="/deploy-apache-rocketmq/">Apache RocketMQ单机部署</a></li>
+    
+</ul>
+
+            </section>
+            </div>
+            
+
+            
+
+
+        </div>
+    </div>
+</article>
+
+
+
+
+
+
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                   
+                   <li>
+                       <a href="" rel="alternate" type="application/rss+xml" title="Hi,I`m lan" >
+                           <span class="fa-stack fa-lg">
+                               <i class="fa fa-circle fa-stack-2x"></i>
+                               <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+                           </span>
+                       </a>
+                   </li>
+                   
+                    
+                    <li>
+                        <a target="_blank" href="https://github.com/liangyuanpeng">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                   
+                   
+                    
+                    <li>
+                        <a target="_blank" href="https://liangyuanpeng.github.io/img/aboutme/wechat-lan.png">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-wechat fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li>
+                        <a href="mailto:liangyuanpengem@163.com">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+		    
+
+                    
+                    <li>
+                        <a href="https://twitter.com/lan31793328">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li>
+                        <a target="_blank" href="https://www.zhihu.com/people/liangyuanpeng">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa  fa-stack-1x fa-inverse">知</i>
+                            </span>
+                        </a>
+                    </li>
+		    
+                    
+                    <li>
+                        <a target="_blank" href="https://weibo.com/u/1908782280">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+		    
+
+                    
+
+		    
+                    
+                </ul>
+		<p class="copyright text-muted">
+                    Copyright &copy; Hi,I`m lan , 2018
+                    <br>
+                    <a href="https://themes.gohugo.io/hugo-theme-cleanwhite">CleanWhite Hugo Theme</a> by <a href="https://zhaohuabing.com">Huabing</a> |
+                    <iframe
+                        style="margin-left: 2px; margin-bottom:-5px;"
+                        frameborder="0" scrolling="0" width="100px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=zhaohuabing&repo=hugo-theme-cleanwhite&type=star&count=true" >
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+
+<script>
+    function loadAsync(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+
+
+
+
+
+<script>
+    
+    if($('#tag_cloud').length !== 0){
+        async("/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+
+
+
+<script type="text/javascript">
+
+    
+    
+
+    function generateCatalog(selector) {
+
+        
+        
+        
+        
+            _containerSelector = 'div.post-container'
+        
+
+        
+        var P = $(_containerSelector), a, n, t, l, i, c;
+        a = P.find('h1,h2,h3,h4,h5,h6');
+
+        
+        $(selector).html('')
+
+        
+        a.each(function () {
+            n = $(this).prop('tagName').toLowerCase();
+            i = "#" + $(this).prop('id');
+            t = $(this).text();
+            c = $('<a href="' + i + '" rel="nofollow">' + t + '</a>');
+            l = $('<li class="' + n + '_nav"></li>').append(c);
+            $(selector).append(l);
+        });
+        return true;
+    }
+
+    generateCatalog(".catalog-body");
+
+    
+    $(".catalog-toggle").click((function (e) {
+        e.preventDefault();
+        $('.side-catalog').toggleClass("fold")
+    }))
+
+    
+
+
+    loadAsync("\/js\/jquery.nav.js", function () {
+        $('.catalog-body').onePageNav({
+            currentClass: "active",
+            changeHash: !1,
+            easing: "swing",
+            filter: "",
+            scrollSpeed: 700,
+            scrollOffset: 0,
+            scrollThreshold: .2,
+            begin: null,
+            end: null,
+            scrollChange: null,
+            padding: 80
+        });
+    });
+</script>
+
+
+
+
+<script>
+    async("https://cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+
+
+
+
+
+<script>
+    
+    var _baId = 'fad9c137f8ce239f9b323d36c871f8e6';
+
+    
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?" + _baId;
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+
+
+
+
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-RTTRHGYFWL"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-RTTRHGYFWL');
+</script>
+
+
+
+</body>
+</html>

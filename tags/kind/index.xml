@@ -9,37 +9,37 @@
     <lastBuildDate>Sun, 12 Mar 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://liangyuanpeng.github.io/tags/kind/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>lank8s.cn服务</title>
-      <link>https://liangyuanpeng.github.io/post/cncf-kubernetes/service-lank8s.cn/</link>
+      <link>https://liangyuanpeng.github.io/service-lank8s.cn/</link>
       <pubDate>Mon, 15 Nov 2021 00:00:00 +0000</pubDate>
       
-      <guid>https://liangyuanpeng.github.io/post/cncf-kubernetes/service-lank8s.cn/</guid>
+      <guid>https://liangyuanpeng.github.io/service-lank8s.cn/</guid>
       <description>Hi there 👋 国内安装K8S基本镜像站&amp;mdash;&amp;gt; lank8s.cn 欢迎使用，有问题/建议都可以加我微信交流，在博客底部可以找到我的微信联系方式 :) lank</description>
     </item>
     
     <item>
       <title>用kind搭建k8s集群环境</title>
-      <link>https://liangyuanpeng.github.io/post/cncf-kubernetes/run-k8s-with-kind/</link>
+      <link>https://liangyuanpeng.github.io/run-k8s-with-kind/</link>
       <pubDate>Sun, 12 Mar 2023 00:00:00 +0000</pubDate>
       
-      <guid>https://liangyuanpeng.github.io/post/cncf-kubernetes/run-k8s-with-kind/</guid>
+      <guid>https://liangyuanpeng.github.io/run-k8s-with-kind/</guid>
       <description>前言 由于各类基于 kubernetes 的云原生实验或测试的前提都是需要一个 kubernetes 环境,而在写博客时总是需要提及使用 kind 来搭建 kubernetes 环境. 因此这里单独写一篇文章来介绍如何用</description>
     </item>
     
     <item>
       <title>为containerd配置仓库镜像</title>
-      <link>https://liangyuanpeng.github.io/post/cncf-containerd/registry-mirrors-for-containerd/</link>
+      <link>https://liangyuanpeng.github.io/registry-mirrors-for-containerd/</link>
       <pubDate>Thu, 12 Jan 2023 00:00:00 +0000</pubDate>
       
-      <guid>https://liangyuanpeng.github.io/post/cncf-containerd/registry-mirrors-for-containerd/</guid>
+      <guid>https://liangyuanpeng.github.io/registry-mirrors-for-containerd/</guid>
       <description>前言 containerd 的仓库镜像功能是很有用的功能,特别是国内无法访问 gcr.io 和 k8s.gcr.io 以及 registry.k8s.io 这些镜像仓库的情况下. K3S 和 Kind 都提供了比较简单的方式来为内置的 containerd 配置仓库镜像</description>
     </item>
     
     <item>
       <title>用cel表达式来实现k8s准入校验</title>
-      <link>https://liangyuanpeng.github.io/post/cncf-k8s/k8s-admissionregistration-with-cel/</link>
+      <link>https://liangyuanpeng.github.io/k8s-admissionregistration-with-cel/</link>
       <pubDate>Mon, 09 Jan 2023 00:00:00 +0000</pubDate>
       
-      <guid>https://liangyuanpeng.github.io/post/cncf-k8s/k8s-admissionregistration-with-cel/</guid>
+      <guid>https://liangyuanpeng.github.io/k8s-admissionregistration-with-cel/</guid>
       <description>前言 在 K8S 1.26 版本以前,达到 K8S 准入校验策略效果的方式有两种： 自己实现 K8S webook 直接使用 CNCF 项目中以 K8S 策略展开的项目,例如OPA、kyverno. 这些都是</description>
     </item>
     

@@ -1,0 +1,946 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head><head>
+    <meta name="google-site-verification" content="9vIieCe-Qpd78QOmBl63rGtIVbhY6sYyuxX3j8XWBA4" />
+    <meta name="baidu-site-verification" content="LRrmH41lz7" />
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <meta name="baidu-site-verification" content="HGLXRsUXC4" />
+
+    
+    <meta name="baidu-site-verification" content="code-ANZvlnN0Xr" />
+
+    
+    <meta name="description" content="lan，工程师⎈,远鹏|CNCF粉丝|Pulsar爱好者|公众号:四颗咖啡豆|云原生追随者">
+    
+    <meta name="keyword"  content="liangyuanpeng|LanLiang|OpenYurt|Knative|Pulsar|Prometheus|Halo||边缘计算kubernetes|Docker|CloudNative|Golang|Rust|Istio|微服务">
+
+    
+    <link rel="shortcut icon" href="/img/aboutme/hash-kube-rs-pulsar.png">
+    
+
+    
+    <meta property="og:image" content="https://liangyuanpeng.github.io/img/banner-pexels.jpg" />
+    <meta name="twitter:image" content="https://liangyuanpeng.github.io/img/banner-pexels.jpg" />
+
+    <title>新的容器镜像仓库选择-远鹏的博客 | liangyuanpeng&#39;s Blog</title>
+
+    <link rel="canonical" href="https://liangyuanpeng.github.io/new-container-image-registry-of-zot-from-cncf/">
+
+    
+
+    
+    <link rel="stylesheet" href='https://liangyuanpeng.github.io/css/bootstrap.min.css'>
+
+    
+    <link rel="stylesheet" href="https://liangyuanpeng.github.io/css/hux-blog.min.css">
+
+    
+    <link rel="stylesheet" href="https://liangyuanpeng.github.io/css/syntax.css">
+
+    
+    <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    
+    
+    <script src="https://liangyuanpeng.github.io/js/jquery.min.js"></script>
+
+    
+    <script src="https://liangyuanpeng.github.io/js/bootstrap.min.js"></script>
+
+    
+    <script src="https://liangyuanpeng.github.io/js/hux-blog.min.js"></script>
+
+    
+    <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "f73bc0092aeb491d89984c0eb5a87ac2"}'></script>
+</head>
+
+</head>
+
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="https://liangyuanpeng.github.io/">Hi,I`m lan</a>
+        </div>
+
+        
+        
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="https://liangyuanpeng.github.io/">Home</a>
+                    </li>
+                    
+                    <li>
+                        <a href="https://liangyuanpeng.github.io/categories/cloudnative">cloudnative</a>
+                    </li>
+                    
+                    <li>
+                        <a href="https://liangyuanpeng.github.io/categories/devops">devops</a>
+                    </li>
+                    
+                    <li>
+                        <a href="https://liangyuanpeng.github.io/categories/iot">iot</a>
+                    </li>
+                    
+                    <li>
+                        <a href="https://liangyuanpeng.github.io/categories/kubernetes">kubernetes</a>
+                    </li>
+                    
+                    <li>
+                        <a href="https://liangyuanpeng.github.io/categories/tech">tech</a>
+                    </li>
+                    
+
+                    
+		            <li>
+                        <a href="https://liangyuanpeng.github.io/search/">SEARCH <img src="https://liangyuanpeng.github.io/img/search.png" height="15" style="cursor: pointer;"></a>
+		            </li>
+                    
+                </ul>
+            </div>
+        </div>
+        
+    </div>
+    
+</nav>
+<script>
+    
+    
+    
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        
+            $navbar.className = " ";
+            
+            setTimeout(function(){
+                
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+
+
+<style type="text/css">
+    header.intro-header{
+        background-image: url('https://liangyuanpeng.github.io/img/banner-pexels.jpg')
+    }
+</style>
+
+<header class="intro-header" >
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                       
+                       <a class="tag" href="/tags/zot" title="zot">
+                           zot
+                           
+                           
+                           
+                           
+                           
+                           
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+
+                            
+                            
+                            
+
+                            
+                            
+                            
+
+                            
+                            
+                            
+
+                            
+                            
+                            
+                            
+                            
+
+                            
+                        </a>
+                        
+                       <a class="tag" href="/tags/cncf" title="cncf">
+                           cncf
+                           
+                           
+                           
+                           
+                           
+                           
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            <img style="display:inline-block;" src="/img/taglogo/cncf.png" height="20" width="20" />
+                            
+                            
+                            
+                            
+                            
+
+                            
+                            
+                            
+
+                            
+                            
+                            
+
+                            
+                            
+                            
+
+                            
+                            
+                            
+                            
+                            
+
+                            
+                        </a>
+                        
+                        <br/>
+                    </div>
+                    <h1>新的容器镜像仓库选择</h1>
+                    <h2 class="subheading"></h2>
+                    <span  class="meta">Posted by 梁远鹏 on 2023-01-18
+                        
+                        <span id="busuanzi_container_page_pv">|<span id="busuanzi_value_page_pv"></span><span>
+                            <span id="/new-container-image-registry-of-zot-from-cncf/" class="leancloud_visitors meta_data_item" data-flag-title="">
+    <span class="post-meta-item-icon">
+      <span class="octicon octicon-eye"></span> 
+    </span>
+    <i class="fa fa-eye"></i>
+    <span class="old-visitors-count" style="display: none;"></span>
+    <span class="leancloud-visitors-count"></span>
+</span>
+
+
+
+
+
+
+                            阅读 </span></span>|<span class="post-date">共1506字</span>，阅读约<span class="more-meta"> 4 分钟</span>
+                        
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+
+
+<article>
+    <div class="container">
+        <div class="row">
+            
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+		
+                <header>
+                <h2>TOC</h2>
+                </header>
+                <nav id="TableOfContents">
+  <ul>
+    <li><a href="#kubernetes">Kubernetes</a>
+      <ul>
+        <li><a href="#前提">前提</a></li>
+        <li><a href="#开始部署">开始部署</a></li>
+      </ul>
+    </li>
+  </ul>
+
+  <ul>
+    <li><a href="#客户端">客户端</a></li>
+    <li><a href="#服务器端">服务器端</a></li>
+    <li><a href="#实战">实战</a></li>
+  </ul>
+
+  <ul>
+    <li><a href="#lank8s">lank8s</a></li>
+    <li><a href="#kind-local-registry">kind local registry</a></li>
+    <li><a href="#初体验">初体验</a>
+      <ul>
+        <li><a href="#用户不友好">用户不友好</a></li>
+        <li><a href="#无法直接使用-docker-push">无法直接使用 docker push</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+		
+
+		<h1 id="简介">简介</h1>
+<p>Zot 是思科开源的遵循 OCI 规范的容器镜像仓库,目前捐赠给了 CNCF,是 Sandbox 级别项目.</p>
+<p>本文主要讲述作为镜像代理仓库下的应用场景.</p>
+<h1 id="部署">部署</h1>
+<h2 id="kubernetes">Kubernetes</h2>
+<h3 id="前提">前提</h3>
+<ul>
+<li>helm</li>
+<li>kubernetes cluster</li>
+</ul>
+<p>这里使用 kind 来创建一个研究用的 K8S 单节点集群.</p>
+<p>TODO
+提供在线的配置文件</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#f92672">kind</span>: <span style="color:#ae81ff">Cluster</span>
+<span style="color:#f92672">apiVersion</span>: <span style="color:#ae81ff">kind.x-k8s.io/v1alpha4</span>
+<span style="color:#f92672">networking</span>:
+  <span style="color:#f92672">apiServerAddress</span>: <span style="color:#e6db74">&#34;0.0.0.0&#34;</span>
+  <span style="color:#f92672">apiServerPort</span>: <span style="color:#ae81ff">6443</span>
+<span style="color:#f92672">containerdConfigPatches</span>:
+- |-<span style="color:#e6db74">
+</span><span style="color:#e6db74">  [plugins.&#34;io.containerd.grpc.v1.cri&#34;.registry.mirrors.&#34;gcr.io&#34;]
+</span><span style="color:#e6db74">    endpoint = [&#34;https://gcr.lank8s.cn&#34;]
+</span><span style="color:#e6db74">  [plugins.&#34;io.containerd.grpc.v1.cri&#34;.registry.mirrors.&#34;registry.k8s.io&#34;]
+</span><span style="color:#e6db74">    endpoint = [&#34;https://registry.lank8s.cn&#34;]</span>  
+<span style="color:#f92672">nodes</span>:
+- <span style="color:#f92672">role</span>: <span style="color:#ae81ff">control-plane</span>
+  <span style="color:#f92672">extraMounts</span>:
+  - <span style="color:#f92672">hostPath</span>: <span style="color:#ae81ff">/var/log/tmp</span>
+    <span style="color:#f92672">containerPath</span>: <span style="color:#ae81ff">/var/log</span>
+  <span style="color:#f92672">extraPortMappings</span>:
+  - <span style="color:#f92672">containerPort</span>: <span style="color:#ae81ff">5000</span>
+    <span style="color:#f92672">hostPort</span>: <span style="color:#ae81ff">31150</span>
+    <span style="color:#f92672">listenAddress</span>: <span style="color:#e6db74">&#34;0.0.0.0&#34;</span>
+</code></pre></div><h3 id="开始部署">开始部署</h3>
+<p>原本是想使用官方的 helm chart 来部署 zot,但是官方 helm 还处于比较早期的阶段,因此这里自己写了一个 yaml 文件来部署 zot.</p>
+<p>TODO
+配置固定的 nodePort 端口号,用于测试访问.</p>
+<h1 id="开启认证">开启认证</h1>
+<p>默认情况下,所有用户都可以做任何操作,包括 读取/创建/更新/删除,在镜像代理仓库的场景下,这显然是不合理的,匿名用户只需要具备读权限即可.而管理员则具备其他权限,例如删除操作.</p>
+<p>到目前为止 Zot 几种认证:</p>
+<h2 id="客户端">客户端</h2>
+<ul>
+<li>TLS 证书认证 (basic TLS 和 mTLS)</li>
+<li>HTTP basic 认证</li>
+<li>HTTP bearer 认证</li>
+</ul>
+<h2 id="服务器端">服务器端</h2>
+<ul>
+<li>LDAP</li>
+<li>httpasswd</li>
+</ul>
+<p>当同时配置了 LDAP 和 httpasswd 时,优先使用 LDAP 认证，如果 LDAP 服务不可用时,回退到 httpasswd 认证机制.</p>
+<h2 id="实战">实战</h2>
+<p>本文使用 HTTP basic 认证作为演示效果.</p>
+<p>首先需要在 zot 的配置文件中开启 httpasswd 方式的认证:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json"><span style="color:#960050;background-color:#1e0010">...</span>
+<span style="color:#e6db74">&#34;http&#34;</span><span style="color:#960050;background-color:#1e0010">:</span> {
+<span style="color:#960050;background-color:#1e0010">...</span>
+<span style="color:#f92672">&#34;auth&#34;</span>: {
+            <span style="color:#f92672">&#34;htpasswd&#34;</span>: {
+              <span style="color:#f92672">&#34;path&#34;</span>: <span style="color:#e6db74">&#34;/tmp/htpasswd&#34;</span>
+            }
+        }
+}
+<span style="color:#960050;background-color:#1e0010">...</span>
+</code></pre></div><p>先创建一个管理员用户, 账号和密码都是 <code>admin</code></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">htpasswd -bc /tmp/htpasswd admin admin
+</code></pre></div><p>首先拉取一下镜像,
+docker pull localhost:10015/kube-proxy:v1.26.0</p>
+<p>尝试用匿名用户来删除镜像:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">curl -X DELETE http://localhost:10015/v2/kube-proxy/manifests/v1.26.0
+</code></pre></div><p>可以看到会提示没权限,添加用户密码后再尝试一次:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">echo -n admin:admin | base64
+curl -X DELETE -H <span style="color:#e6db74">&#34;Authorization: Basic: &#34;</span> http://localhost:10015/v2/kube-proxy/manifests/v1.26.0
+
+</code></pre></div><p>可以看到,请求返回成功了,检查一下镜像数据是否还在:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"></code></pre></div><p>这时候已经没有镜像数据了,从 Zot 的日志中也可以看到相关删除操作的提示:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"></code></pre></div><h1 id="扩展">扩展</h1>
+<p>&ldquo;extensions&rdquo;: {
+&ldquo;metrics&rdquo;: {},
+&ldquo;sync&rdquo;: {},
+&ldquo;search&rdquo;: {},
+&ldquo;scrub&rdquo;: {},
+&ldquo;lint&rdquo;: {}
+}</p>
+<h1 id="实际案例">实际案例</h1>
+<h2 id="lank8s">lank8s</h2>
+<p>目前 lank8s 服务已经从 distribution 仓库切换到了 Zot 镜像仓库.对于 lank8s 来说,Zot 的一个比较大的吸引力是可以对多个容器镜像仓库代理,在 Distribution 的 repo 中早有人提了这个功能 issue,但是一直没有人来实现这部分内容.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json">{
+    <span style="color:#f92672">&#34;extensions&#34;</span>: {
+        <span style="color:#f92672">&#34;scrub&#34;</span>: {
+            <span style="color:#f92672">&#34;enable&#34;</span>: <span style="color:#66d9ef">true</span>,
+            <span style="color:#f92672">&#34;interval&#34;</span>: <span style="color:#e6db74">&#34;3h&#34;</span>
+        },
+        <span style="color:#f92672">&#34;sync&#34;</span>: {
+            <span style="color:#f92672">&#34;enable&#34;</span>: <span style="color:#66d9ef">true</span>,
+            <span style="color:#f92672">&#34;registries&#34;</span>: [
+                {
+                    <span style="color:#f92672">&#34;urls&#34;</span>: [
+                        <span style="color:#e6db74">&#34;https://gcr.lank8s.cn&#34;</span>
+                    ],
+                    <span style="color:#f92672">&#34;onDemand&#34;</span>: <span style="color:#66d9ef">true</span>,
+                    <span style="color:#f92672">&#34;tlsVerify&#34;</span>: <span style="color:#66d9ef">true</span>,
+                    <span style="color:#f92672">&#34;maxRetries&#34;</span>: <span style="color:#ae81ff">2</span>,
+                    <span style="color:#f92672">&#34;retryDelay&#34;</span>: <span style="color:#e6db74">&#34;5m&#34;</span>,
+                    <span style="color:#f92672">&#34;content&#34;</span>: [
+                    {
+                        <span style="color:#f92672">&#34;prefix&#34;</span>: <span style="color:#e6db74">&#34;/google-containers/*&#34;</span>
+                    }]
+                },
+                {
+                    <span style="color:#f92672">&#34;urls&#34;</span>: [
+                        <span style="color:#e6db74">&#34;https://registry.lank8s.cn&#34;</span>
+                    ],
+                    <span style="color:#f92672">&#34;onDemand&#34;</span>: <span style="color:#66d9ef">true</span>,
+                    <span style="color:#f92672">&#34;tlsVerify&#34;</span>: <span style="color:#66d9ef">true</span>,
+                    <span style="color:#f92672">&#34;maxRetries&#34;</span>: <span style="color:#ae81ff">2</span>,
+                    <span style="color:#f92672">&#34;retryDelay&#34;</span>: <span style="color:#e6db74">&#34;5m&#34;</span>
+                }
+            ]
+        }
+    }
+}
+</code></pre></div><p>上面的配置示例是当拉取镜像时(例如 kube-proxy:v1.26.0)如果 Zot 本地没有镜像信息则会同时从上游<code>registry.lank8s.cn</code>,
+拉取,为什么没有从另一个上游<code>gcr.lank8s.cn</code>拉取镜像呢?是因为在字段<code>content</code>中配置了<code>prefix</code>,只有前缀为 <code>google-containers</code> 的容器镜像才会从上游 <code>gcr.lank8s.cn</code> 拉取镜像.</p>
+<h2 id="kind-local-registry">kind local registry</h2>
+<p>目前我在使用 kind 创建 k8s 集群做一些实验时,也是使用了 zot 作为实验时拉取到的容器镜像的持久化管理,避免每次用 kind 创建一个新的 k8s 测试集群环境时总是要拉取一次镜像.</p>
+<p>可以看看<a href="https://liangyuanpeng.com/post/cncf-containerd/registry-mirrors-for-containerd/#kind">为containerd配置仓库镜像</a>这篇文章中关于这部分的内容.</p>
+<p>官方文档:
+<a href="https://kind.sigs.k8s.io/docs/user/local-registry/">https://kind.sigs.k8s.io/docs/user/local-registry/</a></p>
+<h2 id="初体验">初体验</h2>
+<h3 id="用户不友好">用户不友好</h3>
+<p>下面列出几个不太友好的地方.</p>
+<ul>
+<li>
+<p>当从上游同步镜像时是阻塞整个镜像下载过程的,需要等待 Zot 将镜像从上游整个下载到本地之后,才会让客户端继续镜像的下载.而 Distribution 是分步同步的,因此可以很快的给到客户端响应,用户体验会相对较好.(目前每次都会从上游下载镜像,相当于重复下载了,<a href="https://github.com/project-zot/zot/issues/1208">相关 issue 在这里</a> )</p>
+</li>
+<li>
+<p>作为镜像代理模式工作时不支持S3存储.</p>
+</li>
+<li>
+<p>同步多个上游镜像源时无法分开存储,例如上游 1 的数据存储在路径 A,上游 2 的数据存储在路径 B. 有一个subpath的功能,不过这个针对的是 namespace 级别的.</p>
+</li>
+</ul>
+<h3 id="无法直接使用-docker-push">无法直接使用 docker push</h3>
+<p>当然这不代表有问题,因为 Zot 项目的设计原则就是 OCI 镜像仓库,不实现任何供应商相关的协议,当然也包括 Docker.</p>
+<p>使用 skopeo 来将镜像 push 到 zot 当中.</p>
+<p>从下面的命令来看,可以看到 docker push时会失败.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">oem@lan:~$ docker push localhost:10014/kube-proxy:v1.26.1
+The push refers to repository <span style="color:#f92672">[</span>localhost:10014/kube-proxy<span style="color:#f92672">]</span>
+524ce886e20a: Pushed 
+8342c4e13d7f: Layer already exists 
+manifest invalid: manifest invalid
+</code></pre></div><p>接下来使用 skopeo 来推送镜像到本地的 zot 镜像仓库,这里直接使用 skopeo copy 命令,会先下载镜像,然后 push 到 zot,推送过程很顺利.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">oem@lan:~$ docker run --rm quay.io/skopeo/stable copy docker://registry.lank8s.cn/kube-proxy:v1.26.0 docker://192.168.31.13:10014/kube-proxy:v1.26.0 --insecure-policy  --dest-tls-verify<span style="color:#f92672">=</span>false
+Getting image source signatures
+Copying blob sha256:7b2002b165df1a6be480139f99889c43327387546e29a86ea16824b777da12e4
+Copying blob sha256:33905e809db95cdd940d3db7fc8f1486243bf738f5cd712b8f62b105be60dad6
+Copying config sha256:556768f31eb1d6673ce1d1fc0ace1e814fc40eee9923275ba3a82635159afc69
+Writing manifest to image destination
+Writing manifest to image destination
+Copying config sha256:a8401234c2d642ee82eb5ef43e29ecf86cbd194fb986721865222965904a4a41
+Writing manifest to image destination
+Storing signatures
+</code></pre></div><h1 id="总结">总结</h1>
+<p>总体来说 Zot 在轻量级要求的场景下还是很不错的,例如目前 lank8scn 服务使用 Zot 来同步上游 <code>gcr.io</code> 和 <code>registry.k8s.io</code> 部分镜像.</p>
+
+
+        <h2>微信公众号</h2>
+<p>扫描下面的二维码关注我们的微信公众号,第一时间查看最新内容。同时也可以关注我的Github,看看我都在了解什么技术,在页面底部可以找到我的Github。</p>
+<img  src="/img/qrcode_for_sikekafeidou.jpg" alt="wechat-qrcode">
+
+        <div style="padding: 10px 0; margin: 20px auto; width: 100%; font-size:16px; text-align: center;">
+    <button class="btn btn-danger"  id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+        <span>「来都来了」赞赏</span></button>
+    <div  id="QR" style="display: none;">
+        <div id="wechat" style="display: inline-block">
+            <p>如果本文对你有帮助的话欢迎通过微信或支付宝对我进行赞助,强烈建议你在支付的备注上填上你的 githubID 或你的昵称,让我知道我该感谢谁!!! </br></br>
+                赞助金额设置为固定金额:8元. </br> 
+                8元赠与我,发发发反馈给你,2023祝你收入翻番一路发到底:)</p>
+            <a class="fancybox" rel="group">
+                <img id="wechat_qr" src="/img/wechat-zhifubao.png" alt="Pay"></a>
+        </div>
+    </div>
+</div>
+
+        
+        <h2>温馨提示</h2>
+
+<p>本文还在持续创作中,如果你对本文主题感兴趣可以加我微信好友进行催更,博客下方可以找到我的微信联系方式 :)</p>
+        
+
+                <hr>
+
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/registry-mirrors-for-containerd/" data-toggle="tooltip" data-placement="top" title="为containerd配置仓库镜像">&larr; 为containerd配置仓库镜像</a>
+                    </li>
+                    
+                    
+                    <li class="next">
+                        <a href="/registry-mirrors-of-harbor/" data-toggle="tooltip" data-placement="top" title="harbor镜像代理">harbor镜像代理 &rarr;</a>
+                    </li>
+                    
+                </ul>
+
+            
+<script src="https://utteranc.es/client.js"
+repo="liangyuanpeng/liangyuanpeng.github.io"
+issue-term="title"
+theme="github-light"
+crossorigin="anonymous"
+async>
+</script>
+
+
+
+            </div>
+
+            
+
+            <div class="
+                col-lg-2 col-lg-offset-0
+                visible-lg-block
+                sidebar-container
+                catalog-container">
+                
+                扫码下面二维码加我微信 :)
+                <img src="https://liangyuanpeng.github.io/img/aboutme/wechat-lan.png" />
+                
+            </div> 
+
+            
+
+            
+            
+            
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                
+                
+<br/>
+<h5>开源项目推荐</h5>
+
+<style type="text/css">
+.pinned-repos {
+  max-width: 300px;
+  margin: 0 auto;
+}
+
+.repo-card {
+  display: flex;
+  flex-direction: column;
+  padding: 16px;
+  border: 1px solid #e1e4e8;
+  border-radius: 6px;
+  background-color: #fff;
+}
+
+.repo-card:hover {
+  box-shadow: 0 1px 3px rgba(36,41,46,.08);
+}
+
+.repo-card h2 {
+  margin-top: 0;
+  font-size: 20px;
+  font-weight: 200;
+  color: #0366d6;
+}
+
+.repo-card p {
+  margin: 8px 0 16px;
+  font-size: 14px;
+  color: #586069;
+}
+
+.repo-card-stats {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;  
+}
+
+.repo-card-stats span {
+  font-size: 12px;
+  color: #586069;
+  margin-right: 16px;
+}
+
+.repo-card-stats strong {
+  font-weight: 200;
+  color: #24292e;
+}
+</style>
+
+    
+    <ul class="margin-bottom: 25px;pinned-repo-list">
+      <li>
+        <div class="repo-card">
+          <div class="repo-card-details">
+            <h2><a href="https://github.com/liangyuanpeng/replacer">replacer</a></h2>
+            <p>K8S webhook的参考实现|Replace container image of kubernetes mutate webhook.</p>
+            <div class="repo-card-stats">
+              <span>Language: <strong>Golang</strong></span>
+              <span>Forks: <strong>*</strong></span>
+              <span>Stars: <strong>*</strong></span>
+              <span>Updated: <strong>Nov 20, 2021</strong></span>
+            </div>
+          </div>
+        </div>
+      </li>
+    </ul>
+
+            </div>
+
+            
+            
+            <div class="
+            col-lg- col-lg-offset-2
+            col-md-10 col-md-offset-1
+            ">
+            <section>
+                <hr class="hidden-sm hidden-xs">
+                
+
+<h2>相关文章</h2>
+<ul style="margin-bottom: 25px;">
+    
+    <li><a href="/registry-mirrors-for-containerd/">为containerd配置仓库镜像</a></li>
+    
+    <li><a href="/k8s-validating-admission-policy-with-crdparam-lua/">K8S内置准入校验CRD参数配合lua起飞</a></li>
+    
+    <li><a href="/k8s-admissionregistration-with-cel/">用cel表达式来实现k8s准入校验</a></li>
+    
+    <li><a href="/ennoy-wasm-filter-with-go/">用GO开发Envoy wasm filter</a></li>
+    
+    <li><a href="/ennoy-wasm-filter-with-rust/">用Rust开发Envoy wasm filter</a></li>
+    
+    <li><a href="/open-tracing-project-archive/">CNCF批准OpenTracing项目归档</a></li>
+    
+    <li><a href="/quick-start-kubernetes-client-rust/">快速认识kubernetes的rust客户端</a></li>
+    
+    <li><a href="/rust-project-in-cncf/">cncf基金会中的rust项目</a></li>
+    
+    <li><a href="/envoy-file-xds-with-reload-configmap/">将热更新configmap作为Envoy的XDS服务</a></li>
+    
+    <li><a href="/k8s-cd-argo-deploy/">k8s部署云原生CD引擎Argo</a></li>
+    
+</ul>
+
+            </section>
+            </div>
+            
+
+            
+
+
+        </div>
+    </div>
+</article>
+
+
+
+
+
+
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                   
+                   <li>
+                       <a href="" rel="alternate" type="application/rss+xml" title="Hi,I`m lan" >
+                           <span class="fa-stack fa-lg">
+                               <i class="fa fa-circle fa-stack-2x"></i>
+                               <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+                           </span>
+                       </a>
+                   </li>
+                   
+                    
+                    <li>
+                        <a target="_blank" href="https://github.com/liangyuanpeng">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                   
+                   
+                    
+                    <li>
+                        <a target="_blank" href="https://liangyuanpeng.github.io/img/aboutme/wechat-lan.png">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-wechat fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li>
+                        <a href="mailto:liangyuanpengem@163.com">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+		    
+
+                    
+                    <li>
+                        <a href="https://twitter.com/lan31793328">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li>
+                        <a target="_blank" href="https://www.zhihu.com/people/liangyuanpeng">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa  fa-stack-1x fa-inverse">知</i>
+                            </span>
+                        </a>
+                    </li>
+		    
+                    
+                    <li>
+                        <a target="_blank" href="https://weibo.com/u/1908782280">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+		    
+
+                    
+
+		    
+                    
+                </ul>
+		<p class="copyright text-muted">
+                    Copyright &copy; Hi,I`m lan , 2023
+                    <br>
+                    <a href="https://themes.gohugo.io/hugo-theme-cleanwhite">CleanWhite Hugo Theme</a> by <a href="https://zhaohuabing.com">Huabing</a> |
+                    <iframe
+                        style="margin-left: 2px; margin-bottom:-5px;"
+                        frameborder="0" scrolling="0" width="100px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=zhaohuabing&repo=hugo-theme-cleanwhite&type=star&count=true" >
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+
+<script>
+    function loadAsync(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+
+
+
+
+
+<script>
+    
+    if($('#tag_cloud').length !== 0){
+        async("/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+
+
+
+<script type="text/javascript">
+
+    
+    
+
+    function generateCatalog(selector) {
+
+        
+        
+        
+        
+            _containerSelector = 'div.post-container'
+        
+
+        
+        var P = $(_containerSelector), a, n, t, l, i, c;
+        a = P.find('h1,h2,h3,h4,h5,h6');
+
+        
+        $(selector).html('')
+
+        
+        a.each(function () {
+            n = $(this).prop('tagName').toLowerCase();
+            i = "#" + $(this).prop('id');
+            t = $(this).text();
+            c = $('<a href="' + i + '" rel="nofollow">' + t + '</a>');
+            l = $('<li class="' + n + '_nav"></li>').append(c);
+            $(selector).append(l);
+        });
+        return true;
+    }
+
+    generateCatalog(".catalog-body");
+
+    
+    $(".catalog-toggle").click((function (e) {
+        e.preventDefault();
+        $('.side-catalog').toggleClass("fold")
+    }))
+
+    
+
+
+    loadAsync("\/js\/jquery.nav.js", function () {
+        $('.catalog-body').onePageNav({
+            currentClass: "active",
+            changeHash: !1,
+            easing: "swing",
+            filter: "",
+            scrollSpeed: 700,
+            scrollOffset: 0,
+            scrollThreshold: .2,
+            begin: null,
+            end: null,
+            scrollChange: null,
+            padding: 80
+        });
+    });
+</script>
+
+
+
+
+<script>
+    async("https://cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+
+
+
+
+
+<script>
+    
+    var _baId = 'fad9c137f8ce239f9b323d36c871f8e6';
+
+    
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?" + _baId;
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+
+
+
+
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-RTTRHGYFWL"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-RTTRHGYFWL');
+</script>
+
+
+
+</body>
+</html>

@@ -9,10 +9,10 @@
     <lastBuildDate>Tue, 23 Mar 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://liangyuanpeng.github.io/tags/php/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>centos安装php8.0</title>
-      <link>https://liangyuanpeng.github.io/post/centos-install-php/</link>
+      <link>https://liangyuanpeng.github.io/centos-install-php/</link>
       <pubDate>Tue, 23 Mar 2021 00:00:00 +0000</pubDate>
       
-      <guid>https://liangyuanpeng.github.io/post/centos-install-php/</guid>
+      <guid>https://liangyuanpeng.github.io/centos-install-php/</guid>
       <description>动机 之前一直没有接触PHP的经验,需要安装PHP是由于要搭建Flarum论坛,找了一圈,类似这种论坛的实现都是PHP做的,虽然PHP是世界上</description>
     </item>
     

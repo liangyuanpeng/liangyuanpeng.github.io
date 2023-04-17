@@ -9,29 +9,38 @@
     <lastBuildDate>Sat, 01 Apr 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://liangyuanpeng.github.io/tags/chatgpt/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>epbf入门指南</title>
-      <link>https://liangyuanpeng.github.io/post/ebpf/what-is-ebpfan-introductory-guide/</link>
+      <link>https://liangyuanpeng.github.io/what-is-ebpfan-introductory-guide/</link>
       <pubDate>Sat, 01 Apr 2023 00:00:00 +0000</pubDate>
       
-      <guid>https://liangyuanpeng.github.io/post/ebpf/what-is-ebpfan-introductory-guide/</guid>
+      <guid>https://liangyuanpeng.github.io/what-is-ebpfan-introductory-guide/</guid>
       <description>该文章是由 Suleiman Abubakar Sadeeq 撰写的。Suleiman Abubakar Sadeeq 是一位有抱负的 React 开发人员，正在学习并帮助构建企业应用程序。在空闲时间，他会踢足球，观看足球比赛并</description>
     </item>
     
     <item>
       <title>将你的yaml文件迁移到helm</title>
-      <link>https://liangyuanpeng.github.io/post/cncf-kubernetes/migrate-your-manifest-yaml-files-into-helm-chart/</link>
+      <link>https://liangyuanpeng.github.io/migrate-your-manifest-yaml-files-into-helm-chart/</link>
       <pubDate>Sat, 01 Apr 2023 00:00:00 +0000</pubDate>
       
-      <guid>https://liangyuanpeng.github.io/post/cncf-kubernetes/migrate-your-manifest-yaml-files-into-helm-chart/</guid>
+      <guid>https://liangyuanpeng.github.io/migrate-your-manifest-yaml-files-into-helm-chart/</guid>
       <description>在这篇博客文章中，我们将学习如何将现有的清单 yaml 文件转换为Helm Charts。 清单文件 Kubernetes 清单文件是描述 K8s 对象期望状态的YAML文件，例如 po</description>
     </item>
     
     <item>
       <title>从零到 Kubernetes 子项目负责人</title>
-      <link>https://liangyuanpeng.github.io/post/cncf-kubernetes/from-zero-to-kubernets-subproject-lead/</link>
+      <link>https://liangyuanpeng.github.io/from-zero-to-kubernets-subproject-lead/</link>
       <pubDate>Thu, 30 Mar 2023 00:00:00 +0000</pubDate>
       
-      <guid>https://liangyuanpeng.github.io/post/cncf-kubernetes/from-zero-to-kubernets-subproject-lead/</guid>
+      <guid>https://liangyuanpeng.github.io/from-zero-to-kubernets-subproject-lead/</guid>
       <description>作者 Ala Dewberry (VMware) 译者 梁远鹏 与 chatGPT 加入任何开源社区都可能让人望而生畏，尤其是像 Kubernetes 这样的大型社区。我写这篇文章是为了分享我的经验，并鼓励其他人加入其中。</description>
+    </item>
+    
+    <item>
+      <title>开源在高度合规组织中的重要性</title>
+      <link>https://liangyuanpeng.github.io/importance-of-open-source-in-high-compliance-organizations/</link>
+      <pubDate>Wed, 08 Mar 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://liangyuanpeng.github.io/importance-of-open-source-in-high-compliance-organizations/</guid>
+      <description>作者 Matheus Paes Pereira、Garima Bajpai 和 Moïse Kameni 开源技术越来越受欢迎,尤其是在航空、银行、医疗保健、能源和国防等监管严格的行业.由于采用</description>
     </item>
     
   </channel>

@@ -9,10 +9,10 @@
     <lastBuildDate>Thu, 11 Mar 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://liangyuanpeng.github.io/tags/%E9%92%89%E9%92%89/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>prometheus-alertmanager监控告警系统对接钉钉</title>
-      <link>https://liangyuanpeng.github.io/post/cncf-prometheus/prometheus-alertmanager-monitoring-dingtalk/</link>
+      <link>https://liangyuanpeng.github.io/prometheus-alertmanager-monitoring-dingtalk/</link>
       <pubDate>Thu, 11 Mar 2021 00:00:00 +0000</pubDate>
       
-      <guid>https://liangyuanpeng.github.io/post/cncf-prometheus/prometheus-alertmanager-monitoring-dingtalk/</guid>
+      <guid>https://liangyuanpeng.github.io/prometheus-alertmanager-monitoring-dingtalk/</guid>
       <description>前言 本文将会讲解alertmanager对接钉钉,并且会演示通过修改metrics值来触发alertmanager进行告警并且展示告警以及告</description>
     </item>
     

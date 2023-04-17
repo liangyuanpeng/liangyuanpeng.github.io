@@ -1,0 +1,1088 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head><head>
+    <meta name="google-site-verification" content="9vIieCe-Qpd78QOmBl63rGtIVbhY6sYyuxX3j8XWBA4" />
+    <meta name="baidu-site-verification" content="LRrmH41lz7" />
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <meta name="baidu-site-verification" content="HGLXRsUXC4" />
+
+    
+    <meta name="baidu-site-verification" content="code-ANZvlnN0Xr" />
+
+    
+    <meta name="description" content="国内registry.k8s.io基本镜像站,kubernetes!">
+    
+    <meta name="keyword"  content="liangyuanpeng|LanLiang|OpenYurt|Knative|Pulsar|Prometheus|Halo||边缘计算kubernetes|Docker|CloudNative|Golang|Rust|Istio|微服务">
+
+    
+    <link rel="shortcut icon" href="/img/aboutme/hash-kube-rs-pulsar.png">
+    
+
+    
+    <meta property="og:image" content="https://liangyuanpeng.github.io/img/banner-pexels.jpg" />
+    <meta name="twitter:image" content="https://liangyuanpeng.github.io/img/banner-pexels.jpg" />
+
+    <title>lank8s.cn服务-远鹏的博客 | liangyuanpeng&#39;s Blog</title>
+
+    <link rel="canonical" href="https://liangyuanpeng.github.io/service-lank8s.cn/">
+
+    
+
+    
+    <link rel="stylesheet" href='https://liangyuanpeng.github.io/css/bootstrap.min.css'>
+
+    
+    <link rel="stylesheet" href="https://liangyuanpeng.github.io/css/hux-blog.min.css">
+
+    
+    <link rel="stylesheet" href="https://liangyuanpeng.github.io/css/syntax.css">
+
+    
+    <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    
+    
+    <script src="https://liangyuanpeng.github.io/js/jquery.min.js"></script>
+
+    
+    <script src="https://liangyuanpeng.github.io/js/bootstrap.min.js"></script>
+
+    
+    <script src="https://liangyuanpeng.github.io/js/hux-blog.min.js"></script>
+
+    
+    <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "f73bc0092aeb491d89984c0eb5a87ac2"}'></script>
+</head>
+
+</head>
+
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="https://liangyuanpeng.github.io/">Hi,I`m lan</a>
+        </div>
+
+        
+        
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="https://liangyuanpeng.github.io/">Home</a>
+                    </li>
+                    
+                    <li>
+                        <a href="https://liangyuanpeng.github.io/categories/cloudnative">cloudnative</a>
+                    </li>
+                    
+                    <li>
+                        <a href="https://liangyuanpeng.github.io/categories/devops">devops</a>
+                    </li>
+                    
+                    <li>
+                        <a href="https://liangyuanpeng.github.io/categories/iot">iot</a>
+                    </li>
+                    
+                    <li>
+                        <a href="https://liangyuanpeng.github.io/categories/kubernetes">kubernetes</a>
+                    </li>
+                    
+                    <li>
+                        <a href="https://liangyuanpeng.github.io/categories/tech">tech</a>
+                    </li>
+                    
+
+                    
+		            <li>
+                        <a href="https://liangyuanpeng.github.io/search/">SEARCH <img src="https://liangyuanpeng.github.io/img/search.png" height="15" style="cursor: pointer;"></a>
+		            </li>
+                    
+                </ul>
+            </div>
+        </div>
+        
+    </div>
+    
+</nav>
+<script>
+    
+    
+    
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        
+            $navbar.className = " ";
+            
+            setTimeout(function(){
+                
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+
+
+<style type="text/css">
+    header.intro-header{
+        background-image: url('https://liangyuanpeng.github.io/img/banner-pexels.jpg')
+    }
+</style>
+
+<header class="intro-header" >
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                       
+                       <a class="tag" href="/tags/lank8scn" title="lank8scn">
+                           lank8scn
+                           
+                           
+                           
+                           
+                           
+                           
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+
+                            
+                            
+                            
+
+                            
+                            
+                            
+
+                            
+                            
+                            
+
+                            
+                            
+                            
+                            
+                            
+
+                            
+                        </a>
+                        
+                       <a class="tag" href="/tags/tech" title="tech">
+                           tech
+                           
+                           
+                           
+                           
+                           
+                           
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+
+                            
+                            
+                            
+
+                            
+                            
+                            
+
+                            
+                            
+                            
+
+                            
+                            
+                            
+                            
+                            
+
+                            
+                        </a>
+                        
+                       <a class="tag" href="/tags/kubernetes" title="kubernetes">
+                           kubernetes
+                           
+                           
+                           
+                           <img style="display:inline-block;" src="/img/taglogo/emoji_k8s_loft.gif" height="20" width="20" />
+                           
+                           
+                           
+                           
+                           
+                           
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+
+                            
+                            
+                            
+
+                            
+                            
+                            
+
+                            
+                            
+                            
+
+                            
+                            
+                            
+                            
+                            
+
+                            
+                        </a>
+                        
+                       <a class="tag" href="/tags/knative" title="knative">
+                           knative
+                           
+                           
+                           
+                           
+                           
+                           
+                            
+                            <img style="display:inline-block;" src="https://emoji.slack-edge.com/T08PSQ7BQ/knative/2459593cc135179b.png" height="20" width="20" />
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+
+                            
+                            
+                            
+
+                            
+                            
+                            
+
+                            
+                            
+                            
+
+                            
+                            
+                            
+                            
+                            
+
+                            
+                        </a>
+                        
+                       <a class="tag" href="/tags/tekton" title="tekton">
+                           tekton
+                           
+                           
+                           
+                           
+                           
+                           
+                            <img style="display:inline-block;" src="https://emoji.slack-edge.com/TJ45YV83X/tekton/ecf8f8166682861b.png" height="20" width="20" />
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+
+                            
+                            
+                            
+
+                            
+                            
+                            
+
+                            
+                            
+                            
+
+                            
+                            
+                            
+                            
+                            
+
+                            
+                        </a>
+                        
+                       <a class="tag" href="/tags/kind" title="kind">
+                           kind
+                           
+                           
+                           
+                           
+                           <img style="display:inline-block;" src="/img/taglogo/kind.png" height="20" width="20" />
+                           
+                           
+                           
+                           
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+
+                            
+                            
+                            
+
+                            
+                            
+                            
+
+                            
+                            
+                            
+
+                            
+                            
+                            
+                            
+                            
+
+                            
+                        </a>
+                        
+                       <a class="tag" href="/tags/distroless" title="distroless">
+                           distroless
+                           
+                           
+                           
+                           
+                           
+                           
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+
+                            
+                            
+                            
+
+                            
+                            
+                            
+
+                            
+                            
+                            
+
+                            
+                            
+                            
+                            
+                            
+
+                            
+                        </a>
+                        
+                        <br/>
+                    </div>
+                    <h1>lank8s.cn服务</h1>
+                    <h2 class="subheading"></h2>
+                    <span  class="meta">Posted by 梁远鹏 on 2021-11-15
+                        
+                        <span id="busuanzi_container_page_pv">|<span id="busuanzi_value_page_pv"></span><span>
+                            <span id="/service-lank8s.cn/" class="leancloud_visitors meta_data_item" data-flag-title="">
+    <span class="post-meta-item-icon">
+      <span class="octicon octicon-eye"></span> 
+    </span>
+    <i class="fa fa-eye"></i>
+    <span class="old-visitors-count" style="display: none;"></span>
+    <span class="leancloud-visitors-count"></span>
+</span>
+
+
+
+
+
+
+                            阅读 </span></span>|<span class="post-date">共2075字</span>，阅读约<span class="more-meta"> 5 分钟</span>
+                        
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+
+
+<article>
+    <div class="container">
+        <div class="row">
+            
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+		
+                <header>
+                <h2>TOC</h2>
+                </header>
+                <nav id="TableOfContents">
+  <ul>
+    <li><a href="#仓库镜像对应">仓库镜像对应</a></li>
+    <li><a href="#使用">使用</a></li>
+  </ul>
+</nav>
+		
+
+		<p>Hi there 👋</p>
+<blockquote>
+<p>国内安装K8S基本镜像站&mdash;&gt; lank8s.cn</p>
+</blockquote>
+<p>欢迎使用，有问题/建议都可以加我微信交流，在博客底部可以找到我的微信联系方式 :)</p>
+<p><code>lank8s.cn</code>的使命是希望国内能够更低门槛的学习 Kubernetes 技术!</p>
+<p>在微软的镜像代理节点还可用的时候,<code>azk8s.cn</code>一直是一个很好的选择,但是2020年上半年微软不再对外提供azk8s服务,只对微软云的国内服务器提供服务,非常的遗憾。</p>
+<p>在这样一个背景下我创立了 <code>lank8s.cn</code>,目前只提供搭建K8S所需要的最基本的镜像,希望国内技术人在学习K8S之初能够很好的进行一个 Kubernetes 的 Hello World!</p>
+<p>使用的方式也非常简单,如果使用了 kubeadm 来进行搭建K8S集群,只需要一行命令就可以快速开始：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">kubeadm init --image-repository<span style="color:#f92672">=</span>lank8s.cn --kubernetes-version<span style="color:#f92672">=</span>v1.17.4 --pod-network-cidr<span style="color:#f92672">=</span>10.244.0.0/16 --service-cidr<span style="color:#f92672">=</span>10.96.0.0/12 --ignore-preflight-errors<span style="color:#f92672">=</span>Swap 
+</code></pre></div><p>其中使用 image-repository 参数指定镜像的仓库为<code>lank8s.cn</code>即可.</p>
+<p>上述例子是部署一个 1.17.4 版本的 K8S ,如需其他版本可自行修改.</p>
+<h1 id="lank8scn和registryaliyuncscomgoogle_containers的区别">lank8s.cn和registry.aliyuncs.com/google_containers的区别</h1>
+<p>registry.aliyuncs.com/google_containers 是定时同步kubernetes的镜像到阿里镜像仓库服务的,但只是K8S组件的镜像,可以看下和 lank8s.cn 的对比:</p>
+<table>
+<thead>
+<tr>
+<th>k8s组件镜像</th>
+<th style="text-align:center">k8s.gcr.io其他镜像</th>
+<th style="text-align:center">及时性</th>
+<th style="text-align:center">容易记</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>registry.aliyuncs.com/google_containers</td>
+<td style="text-align:center">支持</td>
+<td style="text-align:center">不支持</td>
+<td style="text-align:center">定时,存在时间差</td>
+<td style="text-align:center">容易记</td>
+</tr>
+<tr>
+<td>lank8s.cn</td>
+<td style="text-align:center">支持</td>
+<td style="text-align:center">支持</td>
+<td style="text-align:center">直接从 registry.k8s.io 拉取,不存在时间差</td>
+<td style="text-align:center">容易记,短域名</td>
+</tr>
+</tbody>
+</table>
+<h1 id="技术使人懒惰">技术使人懒惰</h1>
+<p>我们知道,不管使用哪一种方式,我们都少不了的步骤时再部署一些 <code>registry.k8s.io</code> 的资源时需要在部署前将 <code>registry.k8s.io</code> 的镜像修改为国内某个地方(例如 <code>lank8s.cn</code>),这样的事情做得多了也会显得繁琐.</p>
+<p><del>因此我们即将推出一个k8s mutating webhook, 这个webhook的唯一作用就是在创建或更新资源(例如Deployment,Statefulset)将<code>k8s.gcr.io</code>修改为<code>lank8s.cn</code>.后续也会支持参数化,例如支持配置将<code>registry.aliyuncs.com/google_containers</code>修改为<code>lank8s.cn</code></del></p>
+<p>你可以为 containerd 配置仓库镜像,这样当你拉取 registry.k8s.io 的镜像时，不再需要去手动为每个镜像修改地址,可以直接使用到 lank8scn 服务. 参考<a href="https://liangyuanpeng.com/post/cncf-containerd/registry-mirrors-for-containerd/">文章:为containerd配置仓库镜像</a></p>
+<h1 id="服务说明">服务说明</h1>
+<h2 id="仓库镜像对应">仓库镜像对应</h2>
+<table>
+<thead>
+<tr>
+<th>原始仓库</th>
+<th style="text-align:center">lank8s服务</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>registry.k8s.io</td>
+<td style="text-align:center">registry.lank8s.cn</td>
+</tr>
+<tr>
+<td>registry.k8s.io</td>
+<td style="text-align:center">lank8s.cn</td>
+</tr>
+<tr>
+<td>gcr.io</td>
+<td style="text-align:center">gcr.lank8s.cn</td>
+</tr>
+</tbody>
+</table>
+<h2 id="使用">使用</h2>
+<p>由于维护 <code>lank8s.cn</code> 存在一定的经济压力(服务器费用,域名费用,带宽费用等),因此 <code>lank8s.cn</code> 保证可用性,但不保证绝佳的镜像下载速度.</p>
+<p>这样的原因是越来越多人使用 <code>lank8s.cn</code>,镜像下载速度会变慢,而提升服务器配置/带宽是解决这类问题的方法.如果有对 <code>lank8s.cn</code> 的赞助将把所有赞助都使用在 <code>lank8s.cn</code> 服务的优化上.</p>
+<h1 id="安全性">安全性</h1>
+<p>由于 lank8s.cn 是一个镜像服务,那么必然会存在一个安全性的问题,如何保证拉取到的容器镜像与上游(gcr.io 等地址)的容器镜像是相同的呢?</p>
+<p>可以看看官方文章:<a href="https://kubernetes.io/zh-cn/docs/tasks/administer-cluster/verify-signed-artifacts/">验证已签名容器镜像</a></p>
+<p>从文章中了解到,kubernetes 1.24以及之后版本的内容都可以使用 cosign 来校验 kubernetes 组件的数据完整性.</p>
+<p>这里给出一个简单的校验容器镜像的示例:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">COSIGN_EXPERIMENTAL<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span> cosign verify registry.lank8s.cn/kube-apiserver-amd64:v1.24.0
+</code></pre></div><p>校验 kube-apiserver 1.24 版本的镜像.</p>
+<p>注意:你从哪里下载的镜像就从哪里校验镜像,例如如果你的镜像地址是 <code>abc.com/kube-apiserver-amd64:v1.24.0</code>,那么你的校验命令应该是:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">COSIGN_EXPERIMENTAL<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span> cosign verify abc.com/kube-apiserver-amd64:v1.24.0
+</code></pre></div><h1 id="k8slank8scn-将被淘汰">k8s.lank8s.cn 将被淘汰</h1>
+<p>官方镜像 <code>k8s.gcr.io</code> 使用 <code>registry.k8s.io</code> 替代,而 lank8s 服务也会跟随上游,将 <code>k8s.lank8s.cn</code> 淘汰,请使用 <code>registry.k8s.io</code> 的镜像服务 <code>registry.lank8s.cn</code>.</p>
+<h1 id="应用场景">应用场景</h1>
+<p>除了拉取 K8S 官方组件镜像之外,典型的应用场景有以下几个:</p>
+<ul>
+<li>tekton 镜像,使用 gcr.lank8s.cn/tekton-releases 来拉取 gcr.io/tekton-releases 下的镜像</li>
+<li>knative 镜像, 使用 gcr.lank8s.cn/knative-releases 来拉取 gcr.io/knative-releases 下的镜像</li>
+<li>ml-pipeline 镜像,使用 gcr.lank8s.cn/ml-pipeline 来拉取 gcr.io/ml-pipeline 下的镜像</li>
+<li>kubernetes 的 CI 镜像,使用gcr.lank8s.cn/k8s-staging-ci-images 来拉取 gcr.io/k8s-staging-ci-images 下的镜像</li>
+<li>使用 gcr.lank8s.cn/google_samples 来拉取 gcr.io/google_samples 下的镜像</li>
+<li>使用 gcr.lank8s.cn/distroless 来拉取 gcr.io/distroless 下的镜像</li>
+<li>使用 gcr.lank8s.cn/etcd-development 来拉取 gcr.io/etcd-development 下的镜像</li>
+<li>使用 gcr.lank8s.cn/k8s-staging-sig-auth 来拉取 gcr.io/k8s-staging-sig-auth 下的镜像</li>
+</ul>
+<h1 id="可能的付费服务">可能的付费服务</h1>
+<p>为什么是可能呢?</p>
+<p>因为在服务器压力承受范围内的话<code>gcr.lank8s.cn</code>、<code>lank8s.cn</code>、<code>registry.lank8s.cn</code>、<code>k8s.lank8s.cn</code> 都会免费提供服务,但使用的人越来越多之后服务器承受不了太多人共同使用时<code>gcr.lank8s.cn</code>(<code>lank8s.cn</code>/<code>registry.lank8s.cn</code>依然是免费服务)将会作为付费服务推出.经过多次决策,最终定价为15一年.有意者请加我微信,谢谢!</p>
+<p>由于本意不是为了赚钱,因此即使是收费也会采取比较宽容的策略,比如付费用户在登录了 <code>lank8s.cn</code> (拉取镜像时带有正确的认证信息)后其所在 IP 都可以免费(无需登录)拉取镜像.</p>
+<p>也就是一个局域网内,只要有一个节点登录了 <code>lank8s.cn</code>,那么其他节点都可以直接使用服务.</p>
+<p>在服务免费期间成为了付费用户的人员将会额外赠送一年使用时间.</p>
+<p><img src="https://res.cloudinary.com/lyp/image/upload/v1614786289/weixin.jpg" alt="weixin"></p>
+<h1 id="额外的免费服务">额外的免费服务</h1>
+<ul>
+<li>proxy.lank8s.cn/googleapis/oauth2/v3/certs 代理 <a href="https://www.googleapis.com/oauth2/v3/certs">https://www.googleapis.com/oauth2/v3/certs</a></li>
+<li>proxy.lank8s.cn/gh/avatars/  代理  <a href="https://avatars.githubusercontent.com/">https://avatars.githubusercontent.com/</a></li>
+</ul>
+<p>例如 原地址为 <a href="https://avatars.githubusercontent.com/u/19399934?v=4">https://avatars.githubusercontent.com/u/19399934?v=4</a> 替换为 <a href="https://proxy.lank8s.cn/gh/avatars/u/19399934?v=4">https://proxy.lank8s.cn/gh/avatars/u/19399934?v=4</a></p>
+<p>注意 目前这些服务都始于我个人的需要,随时会关闭,如何对你有帮助欢迎评论在此博客留下你的评论,某个服务达到足够热度会考虑长期维护.</p>
+<h1 id="额外付费服务">额外付费服务</h1>
+<p>为 us-central1-docker.pkg.dev 提供镜像服务,8元3个月. 加我微信与我联系:)</p>
+<p>映射关系:</p>
+<p>us-central1-docker.pkg.dev &mdash;&gt; us-central1-docker.pkgdev.lank8s.cn</p>
+<p>镜像案例:</p>
+<ul>
+<li><a href="https://docs.robusta.dev">https://docs.robusta.dev</a>  kubernetes的可观测性监控方案</li>
+</ul>
+<h1 id="接受赞助">接受赞助</h1>
+<p>为了提供更好的服务,<code>lank8s.cn</code>服务接受赞助,我承诺所有赞助都只会用于优化<code>lank8s.cn</code>服务.点击本文下方的赞助按钮开始赞助:)</p>
+
+
+        <h2>微信公众号</h2>
+<p>扫描下面的二维码关注我们的微信公众号,第一时间查看最新内容。同时也可以关注我的Github,看看我都在了解什么技术,在页面底部可以找到我的Github。</p>
+<img  src="/img/qrcode_for_sikekafeidou.jpg" alt="wechat-qrcode">
+
+        <div style="padding: 10px 0; margin: 20px auto; width: 100%; font-size:16px; text-align: center;">
+    <button class="btn btn-danger"  id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+        <span>「来都来了」赞赏</span></button>
+    <div  id="QR" style="display: none;">
+        <div id="wechat" style="display: inline-block">
+            <p>如果本文对你有帮助的话欢迎通过微信或支付宝对我进行赞助,强烈建议你在支付的备注上填上你的 githubID 或你的昵称,让我知道我该感谢谁!!! </br></br>
+                赞助金额设置为固定金额:8元. </br> 
+                8元赠与我,发发发反馈给你,2023祝你收入翻番一路发到底:)</p>
+            <a class="fancybox" rel="group">
+                <img id="wechat_qr" src="/img/wechat-zhifubao.png" alt="Pay"></a>
+        </div>
+    </div>
+</div>
+
+        
+
+                <hr>
+
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/run-k8s-with-kind/" data-toggle="tooltip" data-placement="top" title="用kind搭建k8s集群环境">&larr; 用kind搭建k8s集群环境</a>
+                    </li>
+                    
+                    
+                </ul>
+
+            
+<script src="https://utteranc.es/client.js"
+repo="liangyuanpeng/liangyuanpeng.github.io"
+issue-term="title"
+theme="github-light"
+crossorigin="anonymous"
+async>
+</script>
+
+
+
+            </div>
+
+            
+
+            <div class="
+                col-lg-2 col-lg-offset-0
+                visible-lg-block
+                sidebar-container
+                catalog-container">
+                
+                扫码下面二维码加我微信 :)
+                <img src="https://liangyuanpeng.github.io/img/aboutme/wechat-lan.png" />
+                
+            </div> 
+
+            
+
+            
+            
+            
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                
+                
+<br/>
+<h5>开源项目推荐</h5>
+
+<style type="text/css">
+.pinned-repos {
+  max-width: 300px;
+  margin: 0 auto;
+}
+
+.repo-card {
+  display: flex;
+  flex-direction: column;
+  padding: 16px;
+  border: 1px solid #e1e4e8;
+  border-radius: 6px;
+  background-color: #fff;
+}
+
+.repo-card:hover {
+  box-shadow: 0 1px 3px rgba(36,41,46,.08);
+}
+
+.repo-card h2 {
+  margin-top: 0;
+  font-size: 20px;
+  font-weight: 200;
+  color: #0366d6;
+}
+
+.repo-card p {
+  margin: 8px 0 16px;
+  font-size: 14px;
+  color: #586069;
+}
+
+.repo-card-stats {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;  
+}
+
+.repo-card-stats span {
+  font-size: 12px;
+  color: #586069;
+  margin-right: 16px;
+}
+
+.repo-card-stats strong {
+  font-weight: 200;
+  color: #24292e;
+}
+</style>
+
+    
+    <ul class="margin-bottom: 25px;pinned-repo-list">
+      <li>
+        <div class="repo-card">
+          <div class="repo-card-details">
+            <h2><a href="https://github.com/liangyuanpeng/replacer">replacer</a></h2>
+            <p>K8S webhook的参考实现|Replace container image of kubernetes mutate webhook.</p>
+            <div class="repo-card-stats">
+              <span>Language: <strong>Golang</strong></span>
+              <span>Forks: <strong>*</strong></span>
+              <span>Stars: <strong>*</strong></span>
+              <span>Updated: <strong>Nov 20, 2021</strong></span>
+            </div>
+          </div>
+        </div>
+      </li>
+    </ul>
+
+            </div>
+
+            
+            
+            <div class="
+            col-lg- col-lg-offset-2
+            col-md-10 col-md-offset-1
+            ">
+            <section>
+                <hr class="hidden-sm hidden-xs">
+                
+
+<h2>相关文章</h2>
+<ul style="margin-bottom: 25px;">
+    
+    <li><a href="/deploy-metrics-server-for-kubectl-top/">部署metrics-server,把kubectl top用起来</a></li>
+    
+    <li><a href="/contour-v1.9.0-release/">Contour-v1.9.0发布</a></li>
+    
+    <li><a href="/contour-v1.19.1-release/">Contour-v1.19.1发布</a></li>
+    
+    <li><a href="/deploy-kubernetes-with-kubekey/">使用kubekey快速部署kubernetes</a></li>
+    
+    <li><a href="/cdf-new-project-shipwright/">CDF(持续交付基金会)欢迎基于k8s构建容器镜像的框架Shipwright作为新的孵化项目</a></li>
+    
+    <li><a href="/k8s-multi-tenancy-guide/">Kubernetes多租户–最佳实践指南</a></li>
+    
+    <li><a href="/k8s-deploy-longhorn/">kubernetes部署longhorn</a></li>
+    
+    <li><a href="/kubernetes-deploy-kube-prometheus/">kubernetes部署kube-prometheus</a></li>
+    
+    <li><a href="/openkruise-column/">OpenKruise专栏介绍</a></li>
+    
+    <li><a href="/kubeadm-deploy-kubernetes-lank8scn/">kubeadm配合短域名lank8s.cn部署kubernetes</a></li>
+    
+</ul>
+
+            </section>
+            </div>
+            
+
+            
+
+
+        </div>
+    </div>
+</article>
+
+
+
+
+
+
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                   
+                   <li>
+                       <a href="" rel="alternate" type="application/rss+xml" title="Hi,I`m lan" >
+                           <span class="fa-stack fa-lg">
+                               <i class="fa fa-circle fa-stack-2x"></i>
+                               <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+                           </span>
+                       </a>
+                   </li>
+                   
+                    
+                    <li>
+                        <a target="_blank" href="https://github.com/liangyuanpeng">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                   
+                   
+                    
+                    <li>
+                        <a target="_blank" href="https://liangyuanpeng.github.io/img/aboutme/wechat-lan.png">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-wechat fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li>
+                        <a href="mailto:liangyuanpengem@163.com">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+		    
+
+                    
+                    <li>
+                        <a href="https://twitter.com/lan31793328">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li>
+                        <a target="_blank" href="https://www.zhihu.com/people/liangyuanpeng">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa  fa-stack-1x fa-inverse">知</i>
+                            </span>
+                        </a>
+                    </li>
+		    
+                    
+                    <li>
+                        <a target="_blank" href="https://weibo.com/u/1908782280">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+		    
+
+                    
+
+		    
+                    
+                </ul>
+		<p class="copyright text-muted">
+                    Copyright &copy; Hi,I`m lan , 2021
+                    <br>
+                    <a href="https://themes.gohugo.io/hugo-theme-cleanwhite">CleanWhite Hugo Theme</a> by <a href="https://zhaohuabing.com">Huabing</a> |
+                    <iframe
+                        style="margin-left: 2px; margin-bottom:-5px;"
+                        frameborder="0" scrolling="0" width="100px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=zhaohuabing&repo=hugo-theme-cleanwhite&type=star&count=true" >
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+
+<script>
+    function loadAsync(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+
+
+
+
+
+<script>
+    
+    if($('#tag_cloud').length !== 0){
+        async("/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+
+
+
+<script type="text/javascript">
+
+    
+    
+
+    function generateCatalog(selector) {
+
+        
+        
+        
+        
+            _containerSelector = 'div.post-container'
+        
+
+        
+        var P = $(_containerSelector), a, n, t, l, i, c;
+        a = P.find('h1,h2,h3,h4,h5,h6');
+
+        
+        $(selector).html('')
+
+        
+        a.each(function () {
+            n = $(this).prop('tagName').toLowerCase();
+            i = "#" + $(this).prop('id');
+            t = $(this).text();
+            c = $('<a href="' + i + '" rel="nofollow">' + t + '</a>');
+            l = $('<li class="' + n + '_nav"></li>').append(c);
+            $(selector).append(l);
+        });
+        return true;
+    }
+
+    generateCatalog(".catalog-body");
+
+    
+    $(".catalog-toggle").click((function (e) {
+        e.preventDefault();
+        $('.side-catalog').toggleClass("fold")
+    }))
+
+    
+
+
+    loadAsync("\/js\/jquery.nav.js", function () {
+        $('.catalog-body').onePageNav({
+            currentClass: "active",
+            changeHash: !1,
+            easing: "swing",
+            filter: "",
+            scrollSpeed: 700,
+            scrollOffset: 0,
+            scrollThreshold: .2,
+            begin: null,
+            end: null,
+            scrollChange: null,
+            padding: 80
+        });
+    });
+</script>
+
+
+
+
+<script>
+    async("https://cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+
+
+
+
+
+<script>
+    
+    var _baId = 'fad9c137f8ce239f9b323d36c871f8e6';
+
+    
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?" + _baId;
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+
+
+
+
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-RTTRHGYFWL"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-RTTRHGYFWL');
+</script>
+
+
+
+</body>
+</html>

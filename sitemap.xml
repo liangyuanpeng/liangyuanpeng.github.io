@@ -2,12 +2,12 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/post/cncf-kubernetes/service-lank8s.cn/</loc>
+    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/service-lank8s.cn/</loc>
     <lastmod>2021-11-15T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/post/cncf-kubernetes/run-k8s-with-kind/</loc>
+    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/run-k8s-with-kind/</loc>
     <lastmod>2023-03-12T00:00:00+00:00</lastmod>
   </url>
   
@@ -22,7 +22,7 @@
   </url>
   
   <url>
-    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/post/20230413-git%E9%97%AE%E9%A2%98%E7%94%A8%E6%B3%95%E6%B1%87%E6%80%BB/</loc>
+    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/git-qa/</loc>
     <lastmod>2023-04-13T00:00:00+00:00</lastmod>
   </url>
   
@@ -52,7 +52,7 @@
   </url>
   
   <url>
-    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/post/blog/add-imgbot-for-your-blog-image/</loc>
+    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/add-imgbot-for-your-blog-image/</loc>
     <lastmod>2023-04-11T00:00:00+00:00</lastmod>
   </url>
   
@@ -67,8 +67,38 @@
   </url>
   
   <url>
-    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/post/do-not-totally-believe-github-action/</loc>
+    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/do-not-totally-believe-github-action/</loc>
     <lastmod>2023-04-06T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/categories/cloudnative/</loc>
+    <lastmod>2023-04-05T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/tags/cncf/</loc>
+    <lastmod>2023-04-05T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/tags/opa/</loc>
+    <lastmod>2023-04-05T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/tags/opcr/</loc>
+    <lastmod>2023-04-05T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/tags/oras/</loc>
+    <lastmod>2023-04-05T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/opci-registry-for-opa-policy/</loc>
+    <lastmod>2023-04-05T00:00:00+00:00</lastmod>
   </url>
   
   <url>
@@ -82,22 +112,12 @@
   </url>
   
   <url>
-    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/categories/cloudnative/</loc>
-    <lastmod>2023-04-01T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/tags/cncf/</loc>
-    <lastmod>2023-04-01T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
     <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/tags/ebpf/</loc>
     <lastmod>2023-04-01T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/post/ebpf/what-is-ebpfan-introductory-guide/</loc>
+    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/what-is-ebpfan-introductory-guide/</loc>
     <lastmod>2023-04-01T00:00:00+00:00</lastmod>
   </url>
   
@@ -122,7 +142,7 @@
   </url>
   
   <url>
-    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/post/cncf-kubernetes/migrate-your-manifest-yaml-files-into-helm-chart/</loc>
+    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/migrate-your-manifest-yaml-files-into-helm-chart/</loc>
     <lastmod>2023-04-01T00:00:00+00:00</lastmod>
   </url>
   
@@ -137,7 +157,7 @@
   </url>
   
   <url>
-    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/post/cncf-kubernetes/from-zero-to-kubernets-subproject-lead/</loc>
+    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/from-zero-to-kubernets-subproject-lead/</loc>
     <lastmod>2023-03-30T00:00:00+00:00</lastmod>
   </url>
   
@@ -147,7 +167,7 @@
   </url>
   
   <url>
-    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/post/cncf-k8up/backup-pvc-to-s3-with-k8up/</loc>
+    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/backup-pvc-to-s3-with-k8up/</loc>
     <lastmod>2023-03-29T00:00:00+00:00</lastmod>
   </url>
   
@@ -162,7 +182,7 @@
   </url>
   
   <url>
-    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/post/cloudnative/dev-desktop-with-webtop/</loc>
+    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/dev-desktop-with-webtop/</loc>
     <lastmod>2023-03-28T00:00:00+00:00</lastmod>
   </url>
   
@@ -172,7 +192,7 @@
   </url>
   
   <url>
-    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/post/cncf-kubernetes/kubernetes-hpa-custom-metrics-for-effective-cpu-memory-scaling/</loc>
+    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/kubernetes-hpa-custom-metrics-for-effective-cpu-memory-scaling/</loc>
     <lastmod>2023-03-27T00:00:00+00:00</lastmod>
   </url>
   
@@ -202,7 +222,7 @@
   </url>
   
   <url>
-    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/post/fundation-cd/jfrog-grants-open-source-pyrsia-to-cd-foundation/</loc>
+    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/jfrog-grants-open-source-pyrsia-to-cd-foundation/</loc>
     <lastmod>2023-03-24T00:00:00+00:00</lastmod>
   </url>
   
@@ -212,7 +232,7 @@
   </url>
   
   <url>
-    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/post/cncf-keda/keda-helmchart-release-with-v2.10.1/</loc>
+    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/keda-helmchart-release-with-v2.10.1/</loc>
     <lastmod>2023-03-14T00:00:00+00:00</lastmod>
   </url>
   
@@ -227,7 +247,7 @@
   </url>
   
   <url>
-    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/post/cdf/importance-of-open-source-in-high-compliance-organizations/</loc>
+    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/importance-of-open-source-in-high-compliance-organizations/</loc>
     <lastmod>2023-03-08T00:00:00+00:00</lastmod>
   </url>
   
@@ -237,7 +257,7 @@
   </url>
   
   <url>
-    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/post/cncf-kubernetes/flomesh-ingress-quickstart/</loc>
+    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/flomesh-ingress-quickstart/</loc>
     <lastmod>2023-03-03T00:00:00+00:00</lastmod>
   </url>
   
@@ -262,12 +282,12 @@
   </url>
   
   <url>
-    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/post/cncf-carvel/ytt-vs-x/</loc>
+    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/ytt-vs-x/</loc>
     <lastmod>2023-02-25T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/post/cncf-k8s/pull-gcr-k8s-image-with-lank8s/</loc>
+    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/pull-gcr-k8s-image-with-lank8s/</loc>
     <lastmod>2023-02-22T00:00:00+00:00</lastmod>
   </url>
   
@@ -292,7 +312,7 @@
   </url>
   
   <url>
-    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/post/how-to-config-for-cache-from-gateway/</loc>
+    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/how-to-config-for-cache-from-gateway/</loc>
     <lastmod>2023-02-20T00:00:00+00:00</lastmod>
   </url>
   
@@ -302,27 +322,27 @@
   </url>
   
   <url>
-    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/post/cncf-envoy/k8s-app-dev-with-envoy/</loc>
+    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/k8s-app-dev-with-envoy/</loc>
     <lastmod>2023-02-19T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/post/cncf-kubernetes/compile-kubernetes/</loc>
+    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/compile-kubernetes/</loc>
     <lastmod>2023-02-19T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/post/cncf-envoy/ennoy-faq/</loc>
+    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/ennoy-faq/</loc>
     <lastmod>2023-02-16T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/post/cncf-k8s/frozen-for-k8s-gcr-io/</loc>
+    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/frozen-for-k8s-gcr-io/</loc>
     <lastmod>2023-02-16T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/post/cncf-k8s/frozen-for-k8s-gcr-io/</loc>
+    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/frozen-for-k8s-gcr-io/</loc>
     <lastmod>2023-02-11T00:00:00+00:00</lastmod>
   </url>
   
@@ -332,7 +352,7 @@
   </url>
   
   <url>
-    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/post/cncf-harbor/registry-mirrors-of-harbor/</loc>
+    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/registry-mirrors-of-harbor/</loc>
     <lastmod>2023-02-09T00:00:00+00:00</lastmod>
   </url>
   
@@ -342,7 +362,7 @@
   </url>
   
   <url>
-    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/post/cncf-zot/new-container-image-registry-of-zot-from-cncf/</loc>
+    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/new-container-image-registry-of-zot-from-cncf/</loc>
     <lastmod>2023-01-18T00:00:00+00:00</lastmod>
   </url>
   
@@ -352,7 +372,7 @@
   </url>
   
   <url>
-    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/post/cncf-containerd/registry-mirrors-for-containerd/</loc>
+    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/registry-mirrors-for-containerd/</loc>
     <lastmod>2023-01-12T00:00:00+00:00</lastmod>
   </url>
   
@@ -362,12 +382,12 @@
   </url>
   
   <url>
-    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/post/cncf-k8s/k8s-validating-admission-policy-with-crdparam-lua/</loc>
+    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/k8s-validating-admission-policy-with-crdparam-lua/</loc>
     <lastmod>2023-01-11T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/post/cncf-k8s/k8s-admissionregistration-with-cel/</loc>
+    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/k8s-admissionregistration-with-cel/</loc>
     <lastmod>2023-01-09T00:00:00+00:00</lastmod>
   </url>
   
@@ -377,7 +397,7 @@
   </url>
   
   <url>
-    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/post/apache-pulsar/deploy-pulsar/</loc>
+    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/deploy-pulsar/</loc>
     <lastmod>2022-06-06T00:00:00+00:00</lastmod>
   </url>
   
@@ -387,7 +407,7 @@
   </url>
   
   <url>
-    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/post/cncf-kubernetes/resolve-gcr.io-with-webhook-of-repalcer/</loc>
+    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/resolve-gcr.io-with-webhook-of-repalcer/</loc>
     <lastmod>2022-04-05T00:00:00+00:00</lastmod>
   </url>
   
@@ -397,17 +417,17 @@
   </url>
   
   <url>
-    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/post/cncf-envoy/ennoy-wasm-filter-with-go/</loc>
+    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/ennoy-wasm-filter-with-go/</loc>
     <lastmod>2022-03-20T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/post/cncf-envoy/ennoy-wasm-filter-with-rust/</loc>
+    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/ennoy-wasm-filter-with-rust/</loc>
     <lastmod>2022-03-20T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/post/fundation-cncf/open-tracing-project-archive/</loc>
+    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/open-tracing-project-archive/</loc>
     <lastmod>2022-02-04T00:00:00+00:00</lastmod>
   </url>
   
@@ -417,22 +437,27 @@
   </url>
   
   <url>
-    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/post/fundation-rust/container-for-rust-application/</loc>
+    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/tags/kube-rs/</loc>
     <lastmod>2022-02-02T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/post/fundation-rust/quick-start-kubernetes-client-rust/</loc>
+    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/container-for-rust-application/</loc>
     <lastmod>2022-02-02T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/post/fundation-rust/rust-exception-qa/</loc>
+    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/quick-start-kubernetes-client-rust/</loc>
+    <lastmod>2022-02-02T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/rust-exception-qa/</loc>
     <lastmod>2022-01-31T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/post/fundation-cncf/rust-project-in-cncf/</loc>
+    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/rust-project-in-cncf/</loc>
     <lastmod>2022-01-22T00:00:00+00:00</lastmod>
   </url>
   
@@ -442,7 +467,7 @@
   </url>
   
   <url>
-    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/post/cncf-envoy/envoy-file-xds-with-reload-configmap/</loc>
+    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/envoy-file-xds-with-reload-configmap/</loc>
     <lastmod>2022-01-22T00:00:00+00:00</lastmod>
   </url>
   
@@ -462,12 +487,12 @@
   </url>
   
   <url>
-    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/post/fundation-cncf/k8s-cd-argo-deploy/</loc>
+    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/k8s-cd-argo-deploy/</loc>
     <lastmod>2022-01-20T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/post/cncf-kubernetes/kubernetes-qa/</loc>
+    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/kubernetes-qa/</loc>
     <lastmod>2022-01-18T00:00:00+00:00</lastmod>
   </url>
   
@@ -477,12 +502,12 @@
   </url>
   
   <url>
-    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/post/cncf-kubernetes/proxy-kube-apiserver/</loc>
+    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/proxy-kube-apiserver/</loc>
     <lastmod>2022-01-17T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/post/fundation-cncf/deploy-full-ssl-etcd/</loc>
+    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/deploy-full-ssl-etcd/</loc>
     <lastmod>2022-01-17T00:00:00+00:00</lastmod>
   </url>
   
@@ -492,17 +517,17 @@
   </url>
   
   <url>
-    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/post/cncf-contour/contour-v1.18.3-release/</loc>
+    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/contour-v1.18.3-release/</loc>
     <lastmod>2022-01-09T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/post/cncf-contour/contour-v1.20.0-beta.1-release/</loc>
+    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/contour-v1.20.0-beta.1-release/</loc>
     <lastmod>2022-01-09T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/post/cncf-contour/contour-v1.20.0-beta.1-release/</loc>
+    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/contour-v1.20.0-beta.1-release/</loc>
     <lastmod>2022-01-09T00:00:00+00:00</lastmod>
   </url>
   
@@ -517,7 +542,7 @@
   </url>
   
   <url>
-    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/post/fundation-cncf/quick-start-openebs/</loc>
+    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/quick-start-openebs/</loc>
     <lastmod>2022-01-02T00:00:00+00:00</lastmod>
   </url>
   
@@ -532,7 +557,7 @@
   </url>
   
   <url>
-    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/post/apache-bookkeeper/simple-deploy-for-apache-bookkeeper/</loc>
+    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/simple-deploy-for-apache-bookkeeper/</loc>
     <lastmod>2021-12-26T00:00:00+00:00</lastmod>
   </url>
   
@@ -542,12 +567,12 @@
   </url>
   
   <url>
-    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/post/apache-flink/flink-exception-qa/</loc>
+    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/flink-exception-qa/</loc>
     <lastmod>2021-12-23T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/post/cncf-litmuschaos/litmus-chaos-incubation-coming/</loc>
+    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/litmus-chaos-incubation-coming/</loc>
     <lastmod>2021-12-23T00:00:00+00:00</lastmod>
   </url>
   
@@ -557,7 +582,7 @@
   </url>
   
   <url>
-    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/post/cncf-openelb/openelb-cncf-sanbox/</loc>
+    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/openelb-cncf-sanbox/</loc>
     <lastmod>2021-12-23T00:00:00+00:00</lastmod>
   </url>
   
@@ -577,32 +602,27 @@
   </url>
   
   <url>
-    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/post/lorawan/welcome-contribute-chirpstack-application-syncer/</loc>
+    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/welcome-contribute-chirpstack-application-syncer/</loc>
     <lastmod>2021-12-21T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/post/apache-bookkeeper/apache-bookkeeper-env-for-dev/</loc>
+    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/apache-bookkeeper-env-for-dev/</loc>
     <lastmod>2021-12-19T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/tags/open-policy-agent/</loc>
+    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/quick-start-open-policy-agent/</loc>
     <lastmod>2021-12-19T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/post/cncf-opa/quick-start-open-policy-agent/</loc>
-    <lastmod>2021-12-19T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/post/apache-bookkeeper/bk-client-go-readme/</loc>
+    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/bk-client-go-readme/</loc>
     <lastmod>2021-12-18T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/post/apache-bookkeeper/bookkeeper-rs-readme/</loc>
+    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/bookkeeper-rs-readme/</loc>
     <lastmod>2021-12-18T00:00:00+00:00</lastmod>
   </url>
   
@@ -612,22 +632,22 @@
   </url>
   
   <url>
-    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/post/cncf-kubernetes/deploy-chaosmesh-with-helm/</loc>
+    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/deploy-chaosmesh-with-helm/</loc>
     <lastmod>2021-11-25T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/post/cncf-prometheus/push-metrics-to-prometheus/</loc>
+    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/push-metrics-to-prometheus/</loc>
     <lastmod>2021-11-25T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/post/cncf-kubernetes/dev-webhook-for-kubernetes/</loc>
+    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/dev-webhook-for-kubernetes/</loc>
     <lastmod>2021-11-24T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/post/cncf-kubernetes/deploy-lank8s-webhook-for-k8s.gcr.io/</loc>
+    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/deploy-lank8s-webhook-for-k8s.gcr.io/</loc>
     <lastmod>2021-11-20T00:00:00+00:00</lastmod>
   </url>
   
@@ -647,17 +667,17 @@
   </url>
   
   <url>
-    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/post/cncf-kubernetes/deploy-metrics-server-for-kubectl-top/</loc>
+    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/deploy-metrics-server-for-kubectl-top/</loc>
     <lastmod>2021-11-15T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/post/cncf-contour/contour-v1.9.0-release/</loc>
+    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/contour-v1.9.0-release/</loc>
     <lastmod>2021-10-31T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/post/cncf-contour/contour-v1.19.1-release/</loc>
+    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/contour-v1.19.1-release/</loc>
     <lastmod>2021-10-27T00:00:00+00:00</lastmod>
   </url>
   
@@ -667,7 +687,7 @@
   </url>
   
   <url>
-    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/post/cncf-kubernetes/deploy-kubernetes-with-kubekey/</loc>
+    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/deploy-kubernetes-with-kubekey/</loc>
     <lastmod>2021-10-25T00:00:00+00:00</lastmod>
   </url>
   
@@ -677,7 +697,7 @@
   </url>
   
   <url>
-    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/post/cncf-longhorn/deploy-new-longhorn-lank8s.cn/</loc>
+    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/deploy-new-longhorn-lank8s.cn/</loc>
     <lastmod>2021-10-23T00:00:00+00:00</lastmod>
   </url>
   
@@ -687,42 +707,42 @@
   </url>
   
   <url>
-    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/post/cncf-contour/kubesphere-gateway-with-contour/</loc>
+    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/kubesphere-gateway-with-contour/</loc>
     <lastmod>2021-10-16T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/post/cncf-contour/join-contour-docs-wg/</loc>
+    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/join-contour-docs-wg/</loc>
     <lastmod>2021-10-10T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/post/cncf-contour/announcing-contour-v1.13.0/</loc>
+    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/announcing-contour-v1.13.0/</loc>
     <lastmod>2021-10-09T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/post/fundation-rust/introducing-mark-rousskov/</loc>
+    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/introducing-mark-rousskov/</loc>
     <lastmod>2021-09-24T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/post/fundation-rust/introducing-tyler-mandry/</loc>
+    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/introducing-tyler-mandry/</loc>
     <lastmod>2021-09-23T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/post/fundation-rust/introducing-bobby-holley/</loc>
+    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/introducing-bobby-holley/</loc>
     <lastmod>2021-09-22T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/post/fundation-cd/cdf-new-project-shipwright/</loc>
+    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/cdf-new-project-shipwright/</loc>
     <lastmod>2021-08-04T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/post/cncf-contour/contour-replease-log/</loc>
+    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/contour-replease-log/</loc>
     <lastmod>2021-07-28T00:00:00+00:00</lastmod>
   </url>
   
@@ -747,17 +767,17 @@
   </url>
   
   <url>
-    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/post/cncf-prometheus/prometheus-v2.28.1-update/</loc>
+    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/prometheus-v2.28.1-update/</loc>
     <lastmod>2021-07-27T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/post/apache-pulsar/deploy-pulsar/</loc>
+    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/deploy-pulsar/</loc>
     <lastmod>2021-05-22T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/post/fundation-rust/introducing-shane-miller/</loc>
+    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/introducing-shane-miller/</loc>
     <lastmod>2021-04-18T00:00:00+00:00</lastmod>
   </url>
   
@@ -767,12 +787,12 @@
   </url>
   
   <url>
-    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/post/cncf-kubernetes/k8s-multi-tenancy-guide/</loc>
+    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/k8s-multi-tenancy-guide/</loc>
     <lastmod>2021-04-14T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/post/java_daed_lock_healthcheck/</loc>
+    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/java_daed_lock_healthcheck/</loc>
     <lastmod>2021-04-14T00:00:00+00:00</lastmod>
   </url>
   
@@ -787,12 +807,12 @@
   </url>
   
   <url>
-    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/post/automation-test-wechat-api/</loc>
+    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/automation-test-wechat-api/</loc>
     <lastmod>2021-04-13T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/post/swagger-api-offline/</loc>
+    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/swagger-api-offline/</loc>
     <lastmod>2021-04-13T00:00:00+00:00</lastmod>
   </url>
   
@@ -802,12 +822,12 @@
   </url>
   
   <url>
-    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/post/cncf-longhorn/k8s-deploy-longhorn/</loc>
+    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/k8s-deploy-longhorn/</loc>
     <lastmod>2021-04-09T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/post/cncf-prometheus/prometheus-replease-log/</loc>
+    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/prometheus-replease-log/</loc>
     <lastmod>2021-04-07T00:00:00+00:00</lastmod>
   </url>
   
@@ -817,7 +837,7 @@
   </url>
   
   <url>
-    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/post/springboot-clear-unuse-metrics/</loc>
+    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/springboot-clear-unuse-metrics/</loc>
     <lastmod>2021-04-07T00:00:00+00:00</lastmod>
   </url>
   
@@ -827,17 +847,17 @@
   </url>
   
   <url>
-    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/post/cncf-prometheus/kubernetes-deploy-kube-prometheus/</loc>
+    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/kubernetes-deploy-kube-prometheus/</loc>
     <lastmod>2021-04-06T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/post/cncf-prometheus/prometheus-release-v2.26rc.0/</loc>
+    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/prometheus-release-v2.26rc.0/</loc>
     <lastmod>2021-03-25T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/post/centos-install-php/</loc>
+    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/centos-install-php/</loc>
     <lastmod>2021-03-23T00:00:00+00:00</lastmod>
   </url>
   
@@ -852,7 +872,7 @@
   </url>
   
   <url>
-    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/post/cncf-prometheus/prometheus-coredns-sd/</loc>
+    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/prometheus-coredns-sd/</loc>
     <lastmod>2021-03-23T00:00:00+00:00</lastmod>
   </url>
   
@@ -867,17 +887,17 @@
   </url>
   
   <url>
-    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/post/blog/cloudflare-deploy-hugo-site/</loc>
+    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/cloudflare-deploy-hugo-site/</loc>
     <lastmod>2021-03-22T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/post/cncf-prometheus/prometheusyxs-pre-prod/</loc>
+    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/prometheusyxs-pre-prod/</loc>
     <lastmod>2021-03-18T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/post/cncf-prometheus/prometheus-v2.25-feature/</loc>
+    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/prometheus-v2.25-feature/</loc>
     <lastmod>2021-03-17T00:00:00+00:00</lastmod>
   </url>
   
@@ -892,7 +912,7 @@
   </url>
   
   <url>
-    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/post/fundation-apache/first-asf-board-member/</loc>
+    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/first-asf-board-member/</loc>
     <lastmod>2021-03-12T00:00:00+00:00</lastmod>
   </url>
   
@@ -902,7 +922,7 @@
   </url>
   
   <url>
-    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/post/cncf-prometheus/springboot-support-prometheus/</loc>
+    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/springboot-support-prometheus/</loc>
     <lastmod>2021-03-12T00:00:00+00:00</lastmod>
   </url>
   
@@ -912,7 +932,7 @@
   </url>
   
   <url>
-    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/post/blog/auto-build-algolia-index/</loc>
+    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/auto-build-algolia-index/</loc>
     <lastmod>2021-03-12T00:00:00+00:00</lastmod>
   </url>
   
@@ -932,17 +952,17 @@
   </url>
   
   <url>
-    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/post/blog/hugo-slug-url/</loc>
+    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/hugo-slug-url/</loc>
     <lastmod>2021-03-11T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/post/cncf-prometheus/prometheus-alertmanager-monitoring-dingtalk/</loc>
+    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/prometheus-alertmanager-monitoring-dingtalk/</loc>
     <lastmod>2021-03-11T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/post/cncf-prometheus/prometheus-alertmanager-monitoring-quickstart/</loc>
+    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/prometheus-alertmanager-monitoring-quickstart/</loc>
     <lastmod>2021-03-11T00:00:00+00:00</lastmod>
   </url>
   
@@ -957,7 +977,7 @@
   </url>
   
   <url>
-    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/post/lorawan/chirpstack-custom-js-encodec/</loc>
+    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/chirpstack-custom-js-encodec/</loc>
     <lastmod>2021-03-06T00:00:00+00:00</lastmod>
   </url>
   
@@ -977,7 +997,7 @@
   </url>
   
   <url>
-    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/post/blog/deploy-halo/</loc>
+    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/deploy-halo/</loc>
     <lastmod>2021-02-26T00:00:00+00:00</lastmod>
   </url>
   
@@ -987,7 +1007,7 @@
   </url>
   
   <url>
-    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/post/blog/hugo-comment/</loc>
+    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/hugo-comment/</loc>
     <lastmod>2021-02-17T00:00:00+00:00</lastmod>
   </url>
   
@@ -997,12 +1017,12 @@
   </url>
   
   <url>
-    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/post/blog/addons-word-count-hugo/</loc>
+    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/addons-word-count-hugo/</loc>
     <lastmod>2021-02-16T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/post/ant-design-deleted-404/</loc>
+    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/ant-design-deleted-404/</loc>
     <lastmod>2021-02-15T00:00:00+00:00</lastmod>
   </url>
   
@@ -1017,7 +1037,7 @@
   </url>
   
   <url>
-    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/post/virtualbox-imported-old-vm-system/</loc>
+    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/virtualbox-imported-old-vm-system/</loc>
     <lastmod>2021-02-08T00:00:00+00:00</lastmod>
   </url>
   
@@ -1032,7 +1052,7 @@
   </url>
   
   <url>
-    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/post/cncf-kubernetes/kubeadm-deploy-kubernetes-lank8scn/</loc>
+    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/kubeadm-deploy-kubernetes-lank8scn/</loc>
     <lastmod>2021-02-07T00:00:00+00:00</lastmod>
   </url>
   
@@ -1047,17 +1067,17 @@
   </url>
   
   <url>
-    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/post/cncf-openkruise/openkruise-column/</loc>
+    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/openkruise-column/</loc>
     <lastmod>2021-02-07T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/post/lorawan/first-lorawan-gateway-device/</loc>
+    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/first-lorawan-gateway-device/</loc>
     <lastmod>2021-02-05T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/post/cncf-kubernetes/use-helm-deploy-chirpstack-kubernetes/</loc>
+    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/use-helm-deploy-chirpstack-kubernetes/</loc>
     <lastmod>2021-01-30T00:00:00+00:00</lastmod>
   </url>
   
@@ -1067,7 +1087,7 @@
   </url>
   
   <url>
-    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/post/cncf-kubernetes/k8s-client-go-source-2/</loc>
+    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/k8s-client-go-source-2/</loc>
     <lastmod>2021-01-23T00:00:00+00:00</lastmod>
   </url>
   
@@ -1077,7 +1097,7 @@
   </url>
   
   <url>
-    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/post/lorawan/docker-compose-deploy-chirpstack/</loc>
+    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/docker-compose-deploy-chirpstack/</loc>
     <lastmod>2021-01-17T00:00:00+00:00</lastmod>
   </url>
   
@@ -1092,12 +1112,12 @@
   </url>
   
   <url>
-    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/post/springboot-micrometer-influx/</loc>
+    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/springboot-micrometer-influx/</loc>
     <lastmod>2020-03-08T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/post/blog/blog-list-todo/</loc>
+    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/blog-list-todo/</loc>
     <lastmod>2020-03-07T00:00:00+00:00</lastmod>
   </url>
   
@@ -1117,7 +1137,7 @@
   </url>
   
   <url>
-    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/post/jib-springboot-docker-maven/</loc>
+    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/jib-springboot-docker-maven/</loc>
     <lastmod>2020-02-18T00:00:00+00:00</lastmod>
   </url>
   
@@ -1132,7 +1152,7 @@
   </url>
   
   <url>
-    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/post/elasticsearch-fluentd-kafka/</loc>
+    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/elasticsearch-fluentd-kafka/</loc>
     <lastmod>2020-02-17T00:00:00+00:00</lastmod>
   </url>
   
@@ -1152,7 +1172,7 @@
   </url>
   
   <url>
-    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/post/logstash-logdriver-docker/</loc>
+    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/logstash-logdriver-docker/</loc>
     <lastmod>2020-02-16T00:00:00+00:00</lastmod>
   </url>
   
@@ -1167,17 +1187,17 @@
   </url>
   
   <url>
-    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/post/cncf-fluentd/fluentd-logdrive-docker/</loc>
+    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/fluentd-logdrive-docker/</loc>
     <lastmod>2020-02-15T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/post/cncf-fluentd/fluentd-plugin-kafka/</loc>
+    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/fluentd-plugin-kafka/</loc>
     <lastmod>2020-02-15T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/post/cncf-fluentd/fluentd-quickstart/</loc>
+    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/fluentd-quickstart/</loc>
     <lastmod>2020-02-14T00:00:00+00:00</lastmod>
   </url>
   
@@ -1187,7 +1207,7 @@
   </url>
   
   <url>
-    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/post/fundation-apache/docker-compose-deploy-kafka/</loc>
+    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/docker-compose-deploy-kafka/</loc>
     <lastmod>2020-02-14T00:00:00+00:00</lastmod>
   </url>
   
@@ -1202,7 +1222,7 @@
   </url>
   
   <url>
-    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/post/deploy-command/</loc>
+    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/deploy-command/</loc>
     <lastmod>2020-02-09T00:00:00+00:00</lastmod>
   </url>
   
@@ -1212,12 +1232,12 @@
   </url>
   
   <url>
-    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/post/deploy-docker-swarm-monitoring/</loc>
+    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/deploy-docker-swarm-monitoring/</loc>
     <lastmod>2020-02-09T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/post/deploy-minio/</loc>
+    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/deploy-minio/</loc>
     <lastmod>2020-01-16T00:00:00+00:00</lastmod>
   </url>
   
@@ -1237,7 +1257,7 @@
   </url>
   
   <url>
-    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/post/ballerina-hello-world/</loc>
+    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/ballerina-hello-world/</loc>
     <lastmod>2020-01-01T00:00:00+00:00</lastmod>
   </url>
   
@@ -1252,7 +1272,12 @@
   </url>
   
   <url>
-    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/post/remote-deploy-of-jenkins-for-linux-application/</loc>
+    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/remote-deploy-of-jenkins-for-linux-application/</loc>
+    <lastmod>2019-01-13T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/remote-deploy-of-jenkins-for-linux-application/</loc>
     <lastmod>2019-01-13T00:00:00+00:00</lastmod>
   </url>
   
@@ -1282,7 +1307,12 @@
   </url>
   
   <url>
-    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/post/deploy-react-app/</loc>
+    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/deploy-react-app/</loc>
+    <lastmod>2019-01-06T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/deploy-react-app/</loc>
     <lastmod>2019-01-06T00:00:00+00:00</lastmod>
   </url>
   
@@ -1302,37 +1332,37 @@
   </url>
   
   <url>
-    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/post/sofastack/sofarpc-right-down/</loc>
+    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/sofarpc-right-down/</loc>
     <lastmod>2018-12-12T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/post/sofastack/sofarpc-generic-invoke/</loc>
+    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/sofarpc-generic-invoke/</loc>
     <lastmod>2018-12-12T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/post/sofastack/sofarpc-serializer/</loc>
+    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/sofarpc-serializer/</loc>
     <lastmod>2018-12-11T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/post/sofastack/sofarpc-annotation/</loc>
+    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/sofarpc-annotation/</loc>
     <lastmod>2018-12-11T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/post/sofastack/sofarpc-mult-language/</loc>
+    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/sofarpc-mult-language/</loc>
     <lastmod>2018-12-11T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/post/sofastack/sofarpc-route-impl/</loc>
+    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/sofarpc-route-impl/</loc>
     <lastmod>2018-12-11T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/post/sofastack/sofarpc-heartbeat-connect/</loc>
+    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/sofarpc-heartbeat-connect/</loc>
     <lastmod>2018-12-10T00:00:00+00:00</lastmod>
   </url>
   
@@ -1342,37 +1372,42 @@
   </url>
   
   <url>
-    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/post/qmq-design/</loc>
+    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/qmq-design/</loc>
     <lastmod>2018-12-09T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/post/sofastack/sofarpc-sync-async/</loc>
+    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/sofarpc-sync-async/</loc>
     <lastmod>2018-12-09T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/post/sofastack/sofarpc-modle/</loc>
+    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/sofarpc-modle/</loc>
     <lastmod>2018-12-09T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/post/awesome-messagequeue/</loc>
+    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/awesome-messagequeue/</loc>
     <lastmod>2018-12-08T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/post/sofastack/sofarpc-trace/</loc>
+    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/awesome-messagequeue/</loc>
     <lastmod>2018-12-08T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/post/sofastack/sofarpc-design/</loc>
+    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/sofarpc-trace/</loc>
+    <lastmod>2018-12-08T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/sofarpc-design/</loc>
     <lastmod>2018-12-05T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/post/fundation-apache/deploy-apache-rocketmq/</loc>
+    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/deploy-apache-rocketmq/</loc>
     <lastmod>2018-11-27T00:00:00+00:00</lastmod>
   </url>
   
@@ -1387,7 +1422,12 @@
   </url>
   
   <url>
-    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/post/note-ci-repo/</loc>
+    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/note-ci-repo/</loc>
+    <lastmod>2018-09-22T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/note-ci-repo/</loc>
     <lastmod>2018-09-22T00:00:00+00:00</lastmod>
   </url>
   
@@ -1397,7 +1437,7 @@
   </url>
   
   <url>
-    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/post/script-for-init-vm-package-with-ansible/</loc>
+    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/script-for-init-vm-package-with-ansible/</loc>
     <lastmod>2012-01-28T00:00:00+00:00</lastmod>
   </url>
   
@@ -1418,7 +1458,7 @@
   </url>
   
   <url>
-    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/post/fundation-cncf/cncf-emissary-ingress/</loc>
+    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/cncf-emissary-ingress/</loc>
   </url>
   
   <url>

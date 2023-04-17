@@ -9,10 +9,10 @@
     <lastBuildDate>Fri, 03 Mar 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://liangyuanpeng.github.io/tags/fsm/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>flomesh-ingress浅试</title>
-      <link>https://liangyuanpeng.github.io/post/cncf-kubernetes/flomesh-ingress-quickstart/</link>
+      <link>https://liangyuanpeng.github.io/flomesh-ingress-quickstart/</link>
       <pubDate>Fri, 03 Mar 2023 00:00:00 +0000</pubDate>
       
-      <guid>https://liangyuanpeng.github.io/post/cncf-kubernetes/flomesh-ingress-quickstart/</guid>
+      <guid>https://liangyuanpeng.github.io/flomesh-ingress-quickstart/</guid>
       <description>前提 在开始之前,你需要以下前提准备. 对于本文来说使用的 K8S 环境是基于 Kind 来搭建的,因此将 Kind 命令写在前提内,但是如果你使用了其他工具搭建 K8S 或已经有</description>
     </item>
     

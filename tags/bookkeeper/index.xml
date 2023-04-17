@@ -9,37 +9,37 @@
     <lastBuildDate>Sun, 26 Dec 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://liangyuanpeng.github.io/tags/bookkeeper/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>简单部署Apache-Bookkeeper</title>
-      <link>https://liangyuanpeng.github.io/post/apache-bookkeeper/simple-deploy-for-apache-bookkeeper/</link>
+      <link>https://liangyuanpeng.github.io/simple-deploy-for-apache-bookkeeper/</link>
       <pubDate>Sun, 26 Dec 2021 00:00:00 +0000</pubDate>
       
-      <guid>https://liangyuanpeng.github.io/post/apache-bookkeeper/simple-deploy-for-apache-bookkeeper/</guid>
+      <guid>https://liangyuanpeng.github.io/simple-deploy-for-apache-bookkeeper/</guid>
       <description>前言 开始部署 由于apache bookkeeper(本文后续简称为BK)需要使用元数据服务中心,当前支持zookeeper和etcd,本文将会</description>
     </item>
     
     <item>
       <title>Apache-Bookkeeper开发环境搭建</title>
-      <link>https://liangyuanpeng.github.io/post/apache-bookkeeper/apache-bookkeeper-env-for-dev/</link>
+      <link>https://liangyuanpeng.github.io/apache-bookkeeper-env-for-dev/</link>
       <pubDate>Sun, 19 Dec 2021 00:00:00 +0000</pubDate>
       
-      <guid>https://liangyuanpeng.github.io/post/apache-bookkeeper/apache-bookkeeper-env-for-dev/</guid>
+      <guid>https://liangyuanpeng.github.io/apache-bookkeeper-env-for-dev/</guid>
       <description>打包BK mvn package -DsipTests=true 顺利的话就成功的打包好了. [INFO] Apache BookKeeper :: Tests :: Backward Compatibility :: Test upgrade between yahoo custom version and current SUCCESS [ 0.373 s] [INFO] Apache BookKeeper :: Tests :: Backward Compatibility :: Test Bouncy Castle Provider load non FIPS version SUCCESS [ 0.484 s] [INFO] Apache BookKeeper :: Tests :: Integration ..........</description>
     </item>
     
     <item>
       <title>GO上手项目值得你拥有:Bookkeeper客户端</title>
-      <link>https://liangyuanpeng.github.io/post/apache-bookkeeper/bk-client-go-readme/</link>
+      <link>https://liangyuanpeng.github.io/bk-client-go-readme/</link>
       <pubDate>Sat, 18 Dec 2021 00:00:00 +0000</pubDate>
       
-      <guid>https://liangyuanpeng.github.io/post/apache-bookkeeper/bk-client-go-readme/</guid>
+      <guid>https://liangyuanpeng.github.io/bk-client-go-readme/</guid>
       <description>什么是apache bookkeeper 一句话介绍&amp;mdash;&amp;gt;Apache BookKeeper 是企业级存储系统，旨在保证高持久性、一致性与低延迟。 目前广泛应用在Apac</description>
     </item>
     
     <item>
       <title>Rust上手项目值得你拥有:Bookkeeper客户端</title>
-      <link>https://liangyuanpeng.github.io/post/apache-bookkeeper/bookkeeper-rs-readme/</link>
+      <link>https://liangyuanpeng.github.io/bookkeeper-rs-readme/</link>
       <pubDate>Sat, 18 Dec 2021 00:00:00 +0000</pubDate>
       
-      <guid>https://liangyuanpeng.github.io/post/apache-bookkeeper/bookkeeper-rs-readme/</guid>
+      <guid>https://liangyuanpeng.github.io/bookkeeper-rs-readme/</guid>
       <description>什么是apache bookkeeper 一句话介绍&amp;mdash;&amp;gt;Apache BookKeeper 是企业级存储系统，旨在保证高持久性、一致性与低延迟。 目前广泛应用在Apac</description>
     </item>
     

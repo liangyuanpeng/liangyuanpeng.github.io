@@ -9,10 +9,10 @@
     <lastBuildDate>Mon, 08 Feb 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://liangyuanpeng.github.io/tags/%E8%99%9A%E6%8B%9F%E6%9C%BA/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>VirtualbBox导入旧版本虚拟机系统</title>
-      <link>https://liangyuanpeng.github.io/post/virtualbox-imported-old-vm-system/</link>
+      <link>https://liangyuanpeng.github.io/virtualbox-imported-old-vm-system/</link>
       <pubDate>Mon, 08 Feb 2021 00:00:00 +0000</pubDate>
       
-      <guid>https://liangyuanpeng.github.io/post/virtualbox-imported-old-vm-system/</guid>
+      <guid>https://liangyuanpeng.github.io/virtualbox-imported-old-vm-system/</guid>
       <description>动机 由于VirtualBox自动更新了导致打开了VirtualBox后之前的虚拟机都没显示出来了，需要重新找回之前的虚拟机。 更新后的Virt</description>
     </item>
     

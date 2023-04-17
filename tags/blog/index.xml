@@ -9,55 +9,55 @@
     <lastBuildDate>Mon, 22 Mar 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://liangyuanpeng.github.io/tags/blog/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>使用Cloudflare pages部署静态博客</title>
-      <link>https://liangyuanpeng.github.io/post/blog/cloudflare-deploy-hugo-site/</link>
+      <link>https://liangyuanpeng.github.io/cloudflare-deploy-hugo-site/</link>
       <pubDate>Mon, 22 Mar 2021 00:00:00 +0000</pubDate>
       
-      <guid>https://liangyuanpeng.github.io/post/blog/cloudflare-deploy-hugo-site/</guid>
+      <guid>https://liangyuanpeng.github.io/cloudflare-deploy-hugo-site/</guid>
       <description>什么是Cloudflare Cloudflare是一家美国公司 为什么转到Cloudflare pages 记得我第一次听说 Cloudflare 时是在技术群看到其他人聊 CDN 时看</description>
     </item>
     
     <item>
       <title>自动构建algolia索引</title>
-      <link>https://liangyuanpeng.github.io/post/blog/auto-build-algolia-index/</link>
+      <link>https://liangyuanpeng.github.io/auto-build-algolia-index/</link>
       <pubDate>Fri, 12 Mar 2021 00:00:00 +0000</pubDate>
       
-      <guid>https://liangyuanpeng.github.io/post/blog/auto-build-algolia-index/</guid>
+      <guid>https://liangyuanpeng.github.io/auto-build-algolia-index/</guid>
       <description>前言 相信来到这里的朋友都已经知道 algolia 是什么了, algolia 在静态博客领域作为搜索解决方案已经非常主流了,而每次写完博客/文章后都需要自己手动生成索引并上</description>
     </item>
     
     <item>
       <title>Hugo博客SEO优化-URL和标题区分开</title>
-      <link>https://liangyuanpeng.github.io/post/blog/hugo-slug-url/</link>
+      <link>https://liangyuanpeng.github.io/hugo-slug-url/</link>
       <pubDate>Thu, 11 Mar 2021 00:00:00 +0000</pubDate>
       
-      <guid>https://liangyuanpeng.github.io/post/blog/hugo-slug-url/</guid>
+      <guid>https://liangyuanpeng.github.io/hugo-slug-url/</guid>
       <description>前言 Hugo博客默认情况下你的md文件是什么名字那么在网站上点击对应博客时URL就显示什么,但是我们将URL复制发给别人时中文就会显示一串看</description>
     </item>
     
     <item>
       <title>给hugo博客添加评论功能</title>
-      <link>https://liangyuanpeng.github.io/post/blog/hugo-comment/</link>
+      <link>https://liangyuanpeng.github.io/hugo-comment/</link>
       <pubDate>Wed, 17 Feb 2021 00:00:00 +0000</pubDate>
       
-      <guid>https://liangyuanpeng.github.io/post/blog/hugo-comment/</guid>
+      <guid>https://liangyuanpeng.github.io/hugo-comment/</guid>
       <description>缘由 静态博客不像动态博客一样想要什么功能就写个代码实现，但是折腾一番还是可以满足日常需求的。本文主要讲述使用utterances给静态博客实</description>
     </item>
     
     <item>
       <title>给hugo博客添加字数统计和阅读需要xx分钟的功能</title>
-      <link>https://liangyuanpeng.github.io/post/blog/addons-word-count-hugo/</link>
+      <link>https://liangyuanpeng.github.io/addons-word-count-hugo/</link>
       <pubDate>Tue, 16 Feb 2021 00:00:00 +0000</pubDate>
       
-      <guid>https://liangyuanpeng.github.io/post/blog/addons-word-count-hugo/</guid>
+      <guid>https://liangyuanpeng.github.io/addons-word-count-hugo/</guid>
       <description>缘由 在看别人博客时经常在文章标题下面见到有共xx字,阅读约xx分钟的字眼，这个功能在hugo中本身就已经自带了，开启这个功能即可。 修改博客页</description>
     </item>
     
     <item>
       <title>blog-list记录</title>
-      <link>https://liangyuanpeng.github.io/post/blog/blog-list-todo/</link>
+      <link>https://liangyuanpeng.github.io/blog-list-todo/</link>
       <pubDate>Sat, 07 Mar 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://liangyuanpeng.github.io/post/blog/blog-list-todo/</guid>
+      <guid>https://liangyuanpeng.github.io/blog-list-todo/</guid>
       <description>记录Blog发布计划以及执行进度 微服务监控:Micrometer InfluxDb 添加-&amp;gt;2020-03-07 22:23:08 [ ] 微服务监控:Micrometer prometheus</description>
     </item>
     

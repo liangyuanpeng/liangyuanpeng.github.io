@@ -9,28 +9,28 @@
     <lastBuildDate>Fri, 24 Mar 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://liangyuanpeng.github.io/tags/cdf/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>JFrog 向 CD 基金会授予开源 Pyrsia</title>
-      <link>https://liangyuanpeng.github.io/post/fundation-cd/jfrog-grants-open-source-pyrsia-to-cd-foundation/</link>
+      <link>https://liangyuanpeng.github.io/jfrog-grants-open-source-pyrsia-to-cd-foundation/</link>
       <pubDate>Fri, 24 Mar 2023 00:00:00 +0000</pubDate>
       
-      <guid>https://liangyuanpeng.github.io/post/fundation-cd/jfrog-grants-open-source-pyrsia-to-cd-foundation/</guid>
+      <guid>https://liangyuanpeng.github.io/jfrog-grants-open-source-pyrsia-to-cd-foundation/</guid>
       <description>一项社区倡议旨在为 Pyrsia 分散式包网络提供公正和透明的治理模型，聚集了 Docker、DeployHub、Oracle 等公司。 Pyrsia 是一个开源软件社区倡</description>
     </item>
     
     <item>
       <title>开源在高度合规组织中的重要性</title>
-      <link>https://liangyuanpeng.github.io/post/cdf/importance-of-open-source-in-high-compliance-organizations/</link>
+      <link>https://liangyuanpeng.github.io/importance-of-open-source-in-high-compliance-organizations/</link>
       <pubDate>Wed, 08 Mar 2023 00:00:00 +0000</pubDate>
       
-      <guid>https://liangyuanpeng.github.io/post/cdf/importance-of-open-source-in-high-compliance-organizations/</guid>
+      <guid>https://liangyuanpeng.github.io/importance-of-open-source-in-high-compliance-organizations/</guid>
       <description>作者 Matheus Paes Pereira、Garima Bajpai 和 Moïse Kameni 开源技术越来越受欢迎,尤其是在航空、银行、医疗保健、能源和国防等监管严格的行业.由于采用</description>
     </item>
     
     <item>
       <title>CDF(持续交付基金会)欢迎基于k8s构建容器镜像的框架Shipwright作为新的孵化项目</title>
-      <link>https://liangyuanpeng.github.io/post/fundation-cd/cdf-new-project-shipwright/</link>
+      <link>https://liangyuanpeng.github.io/cdf-new-project-shipwright/</link>
       <pubDate>Wed, 04 Aug 2021 00:00:00 +0000</pubDate>
       
-      <guid>https://liangyuanpeng.github.io/post/fundation-cd/cdf-new-project-shipwright/</guid>
+      <guid>https://liangyuanpeng.github.io/cdf-new-project-shipwright/</guid>
       <description>说明: 本文将使用CDF作为持续交付基金会简称. 基于 Tekton 构建容器镜像的简单方法 旧金山,2021年8月3日&amp;mdash;CDF是一个开源软件基金会</description>
     </item>
     

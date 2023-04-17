@@ -9,10 +9,10 @@
     <lastBuildDate>Sun, 09 Feb 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://liangyuanpeng.github.io/tags/note/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>docker常用命令集合</title>
-      <link>https://liangyuanpeng.github.io/post/deploy-command/</link>
+      <link>https://liangyuanpeng.github.io/deploy-command/</link>
       <pubDate>Sun, 09 Feb 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://liangyuanpeng.github.io/post/deploy-command/</guid>
+      <guid>https://liangyuanpeng.github.io/deploy-command/</guid>
       <description>停止一台机器上的所有容器 docker stop `docker ps -qa` 根据特定关键字删除镜像 docker rmi `docker images | grep NAME` 本文有新内容时将持续更新</description>
     </item>
     

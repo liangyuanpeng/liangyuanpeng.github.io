@@ -9,10 +9,10 @@
     <lastBuildDate>Sun, 09 Feb 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://liangyuanpeng.github.io/tags/docker-swarm/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>部署docker swarm集群监控</title>
-      <link>https://liangyuanpeng.github.io/post/deploy-docker-swarm-monitoring/</link>
+      <link>https://liangyuanpeng.github.io/deploy-docker-swarm-monitoring/</link>
       <pubDate>Sun, 09 Feb 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://liangyuanpeng.github.io/post/deploy-docker-swarm-monitoring/</guid>
+      <guid>https://liangyuanpeng.github.io/deploy-docker-swarm-monitoring/</guid>
       <description>前提 Docker 前言 现在Docker Swarm已经彻底输给了K8S,但是现在K8S依然很复杂，上手难度较Docker Swarm高，如果是小规模团队且需</description>
     </item>
     

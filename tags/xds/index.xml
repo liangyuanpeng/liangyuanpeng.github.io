@@ -9,10 +9,10 @@
     <lastBuildDate>Sat, 22 Jan 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://liangyuanpeng.github.io/tags/xds/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>将热更新configmap作为Envoy的XDS服务</title>
-      <link>https://liangyuanpeng.github.io/post/cncf-envoy/envoy-file-xds-with-reload-configmap/</link>
+      <link>https://liangyuanpeng.github.io/envoy-file-xds-with-reload-configmap/</link>
       <pubDate>Sat, 22 Jan 2022 00:00:00 +0000</pubDate>
       
-      <guid>https://liangyuanpeng.github.io/post/cncf-envoy/envoy-file-xds-with-reload-configmap/</guid>
+      <guid>https://liangyuanpeng.github.io/envoy-file-xds-with-reload-configmap/</guid>
       <description>前言 由于实验基于kubernetes,因此你首先需要有一个kubernetes环境,这里推荐使用 Kind 命令来搭建.见用kind搭建k8s集群环境</description>
     </item>
     

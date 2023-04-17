@@ -1,0 +1,893 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head><head>
+    <meta name="google-site-verification" content="9vIieCe-Qpd78QOmBl63rGtIVbhY6sYyuxX3j8XWBA4" />
+    <meta name="baidu-site-verification" content="LRrmH41lz7" />
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <meta name="baidu-site-verification" content="HGLXRsUXC4" />
+
+    
+    <meta name="baidu-site-verification" content="code-ANZvlnN0Xr" />
+
+    
+    <meta name="description" content="随着Kubernetes的使用范围不断扩大，Kubernetes多租户成为越来越多的组织感兴趣的话题。但是，由于Kubernetes本身并不是多租户系统，因此正确实现多租户会带来一些挑战">
+    
+    <meta name="keyword"  content="liangyuanpeng|LanLiang|OpenYurt|Knative|Pulsar|Prometheus|Halo||边缘计算kubernetes|Docker|CloudNative|Golang|Rust|Istio|微服务">
+
+    
+    <link rel="shortcut icon" href="/img/aboutme/hash-kube-rs-pulsar.png">
+    
+
+    
+    <meta property="og:image" content="https://liangyuanpeng.github.io/img/banner-pexels.jpg" />
+    <meta name="twitter:image" content="https://liangyuanpeng.github.io/img/banner-pexels.jpg" />
+
+    <title>Kubernetes多租户–最佳实践指南-远鹏的博客 | liangyuanpeng&#39;s Blog</title>
+
+    <link rel="canonical" href="https://liangyuanpeng.github.io/k8s-multi-tenancy-guide/">
+
+    
+
+    
+    <link rel="stylesheet" href='https://liangyuanpeng.github.io/css/bootstrap.min.css'>
+
+    
+    <link rel="stylesheet" href="https://liangyuanpeng.github.io/css/hux-blog.min.css">
+
+    
+    <link rel="stylesheet" href="https://liangyuanpeng.github.io/css/syntax.css">
+
+    
+    <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    
+    
+    <script src="https://liangyuanpeng.github.io/js/jquery.min.js"></script>
+
+    
+    <script src="https://liangyuanpeng.github.io/js/bootstrap.min.js"></script>
+
+    
+    <script src="https://liangyuanpeng.github.io/js/hux-blog.min.js"></script>
+
+    
+    <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "f73bc0092aeb491d89984c0eb5a87ac2"}'></script>
+</head>
+
+</head>
+
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="https://liangyuanpeng.github.io/">Hi,I`m lan</a>
+        </div>
+
+        
+        
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="https://liangyuanpeng.github.io/">Home</a>
+                    </li>
+                    
+                    <li>
+                        <a href="https://liangyuanpeng.github.io/categories/cloudnative">cloudnative</a>
+                    </li>
+                    
+                    <li>
+                        <a href="https://liangyuanpeng.github.io/categories/devops">devops</a>
+                    </li>
+                    
+                    <li>
+                        <a href="https://liangyuanpeng.github.io/categories/iot">iot</a>
+                    </li>
+                    
+                    <li>
+                        <a href="https://liangyuanpeng.github.io/categories/kubernetes">kubernetes</a>
+                    </li>
+                    
+                    <li>
+                        <a href="https://liangyuanpeng.github.io/categories/tech">tech</a>
+                    </li>
+                    
+
+                    
+		            <li>
+                        <a href="https://liangyuanpeng.github.io/search/">SEARCH <img src="https://liangyuanpeng.github.io/img/search.png" height="15" style="cursor: pointer;"></a>
+		            </li>
+                    
+                </ul>
+            </div>
+        </div>
+        
+    </div>
+    
+</nav>
+<script>
+    
+    
+    
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        
+            $navbar.className = " ";
+            
+            setTimeout(function(){
+                
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+
+
+<style type="text/css">
+    header.intro-header{
+        background-image: url('https://liangyuanpeng.github.io/img/banner-pexels.jpg')
+    }
+</style>
+
+<header class="intro-header" >
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                       
+                       <a class="tag" href="/tags/kubernetes" title="kubernetes">
+                           kubernetes
+                           
+                           
+                           
+                           <img style="display:inline-block;" src="/img/taglogo/emoji_k8s_loft.gif" height="20" width="20" />
+                           
+                           
+                           
+                           
+                           
+                           
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+
+                            
+                            
+                            
+
+                            
+                            
+                            
+
+                            
+                            
+                            
+
+                            
+                            
+                            
+                            
+                            
+
+                            
+                        </a>
+                        
+                       <a class="tag" href="/tags/k8s" title="k8s">
+                           k8s
+                           
+                           
+                           
+                           
+                           
+                           
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+
+                            
+                            
+                            
+
+                            
+                            
+                            
+
+                            
+                            
+                            
+
+                            
+                            
+                            
+                            
+                            
+
+                            
+                        </a>
+                        
+                       <a class="tag" href="/tags/cloudnative" title="CloudNative">
+                           CloudNative
+                           
+                           
+                           
+                           
+                           
+                           
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+
+                            
+                            
+                            
+
+                            
+                            
+                            
+
+                            
+                            
+                            
+
+                            
+                            
+                            
+                            
+                            
+
+                            
+                        </a>
+                        
+                       <a class="tag" href="/tags/%E7%BF%BB%E8%AF%91" title="翻译">
+                           翻译
+                           
+                           
+                           
+                           
+                           
+                           
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+
+                            
+                            
+                            
+
+                            
+                            
+                            
+
+                            
+                            
+                            
+
+                            
+                            
+                            
+                            
+                            
+
+                            
+                        </a>
+                        
+                        <br/>
+                    </div>
+                    <h1>Kubernetes多租户–最佳实践指南</h1>
+                    <h2 class="subheading"></h2>
+                    <span  class="meta">Posted by 梁远鹏 on 2021-04-14
+                        
+                        <span id="busuanzi_container_page_pv">|<span id="busuanzi_value_page_pv"></span><span>
+                            <span id="/k8s-multi-tenancy-guide/" class="leancloud_visitors meta_data_item" data-flag-title="">
+    <span class="post-meta-item-icon">
+      <span class="octicon octicon-eye"></span> 
+    </span>
+    <i class="fa fa-eye"></i>
+    <span class="old-visitors-count" style="display: none;"></span>
+    <span class="leancloud-visitors-count"></span>
+</span>
+
+
+
+
+
+
+                            阅读 </span></span>|<span class="post-date">共3374字</span>，阅读约<span class="more-meta"> 7 分钟</span>
+                        
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+
+
+<article>
+    <div class="container">
+        <div class="row">
+            
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+		
+                <header>
+                <h2>TOC</h2>
+                </header>
+                <nav id="TableOfContents">
+  <ul>
+    <li><a href="#用户管理">用户管理</a></li>
+    <li><a href="#公平的资源共享">公平的资源共享</a></li>
+    <li><a href="#隔离">隔离</a></li>
+  </ul>
+
+  <ul>
+    <li><a href="#kiosk">kiosk</a></li>
+    <li><a href="#loft">Loft</a></li>
+  </ul>
+</nav>
+		
+
+		<h1 id="前言">前言</h1>
+<p>随着Kubernetes的使用范围不断扩大，Kubernetes多租户成为越来越多的组织感兴趣的话题。但是，由于Kubernetes本身并不是多租户系统，因此想要实现多租户会带来一些挑战。</p>
+<p>在本文中，我将描述这些挑战以及如何克服这些挑战，以及一些适用于Kubernetes多租户的有用工具。 在此之前，我将解释Kubernetes多租户实际上意味着什么，软多租户和硬多租户之间的区别是什么以及为什么这是当前如此重要的主题。</p>
+<h1 id="什么是kubernetes多租户">什么是kubernetes多租户</h1>
+<p>kubernetes的多租户意味着多个用户共享同一个集群和控制平面,工作负载或者应用.这和只有一个用户使用一整个集群正好相反.</p>
+<p>有几种类型不同的多租户方式,从软多租户到硬多租户.</p>
+<h1 id="软多租户">软多租户</h1>
+<p>软多租户是多租户的一种方式,这种方式没有严格的隔离不同的租户,工作负载或应用.因此这种方式适用于守信任和已知的租户(不会滥用资源的租户,例如同一个组织下的工程师)是一种合适的解决方案.用户之间的隔离主要专注于预防事故上,并且无法防止一个租户对另一个租户发起攻击.</p>
+<p>对于kubernetes而言,软多租户一般是某个租户简单的与kubernetes的namespace相关联.</p>
+<h1 id="硬多租户">硬多租户</h1>
+<p>硬性多租户可以做到更严格的租户隔离,可以防止恶意行为给其他租户造成负面影响.所以除了受信任的租户外,还能够用与不信任的租户,例如很多unconnected users和人员来自不同的组织.</p>
+<p>为了在kubernetes中实现硬多租户,你需要对namespace或<a href="https://loft.sh/blog/introduction-into-virtual-clusters-in-kubernetes/">virtual Clusters (vClusters)</a> 设置更多高级的配置项.</p>
+<h1 id="软多租户-vs-硬多租户">软多租户 VS 硬多租户</h1>
+<p>软多租户和硬多租户虽然听起来是截然不同的对立面,但实际上他们是同一目标的不同实现.甚至有人认为kubernetes中不可能做到完美的硬多租户,因为kubernetes的设计方式是一个集中的控制平面始终会被租户引入潜在的漏洞并且共享这些问题.</p>
+<p>通常硬多租户会被更看好(因为它可以更好的用于各种租户),而软多租户则更容易实现.</p>
+<h1 id="多租户kubernetes的局限性">多租户kubernetes的局限性</h1>
+<p>实现了多租户后你的kubernetes集群就会存在了一些限制.因为和单租户集群的用户相比,多租户中的租户在技术上会存在某些限制,例如基于namespace实现的多租户限制一个示例是租户无法使用CRD,无法安装使用了RBAC的helm chart或者更改集群的某些配置(例如kubernetes版本).</p>
+<p>使用虚拟集群(virtual clusters)可以减轻这些限制,因为租户可以访问vClusters中集群范围的设置和资源.和namespace方式相比,vClusters对租户来说更像是真实的集群,这就是为什么基于vClusters的多租户也是一种多租户的形式,相对来说这种方式更接近于单租户.</p>
+<h1 id="为什么要做kubernetes多租户">为什么要做kubernetes多租户</h1>
+<p>你可能会问为什么kubernetes多租户是有意义的,为什么不能只用很多单租户集群呢?</p>
+<p>理论上讲可以用很多单租户集群方式而不是共享的多租户集群.现在很多公司已经是这么操作了,例如为开发人员提供访问kubernetes的权限(单独的kubernetes开发环境集群).但是这种方式效率很低,而且成本也大,尤其是在大规模的情况下.</p>
+<p>当团队在使用kubernetes并且开放给更多的工程师使用的时候,很多团队就会意识到这一点:虽然在kubernetes一开始的测试试验阶段给每个租户/用户创建一个集群很简单而且成本不高,但是如果每个开发人员在项目后期都拥有一个自己的集群的话会成为一个巨大的问题.突然间kubernetes集群数量达到数十个、数百个甚至数千个,这些集群都需要开销(公有云提供商的集群开销到后期非常重要),并且需要有效的将这些资源管理起来不是一件简单的事情.</p>
+<p>在这个阶段下有一个多租户的系统的好处大于这个系统的复杂度,管理一个或几个K8S集群会变得很容易,共享集群在资源利用方面也会更加有效,减少了资源冗余.</p>
+<p>关于这部分详细内容可以参考我的文章,这篇文章主要比较了<a href="https://loft.sh/blog/individual_kubernetes_clusters_vs-_shared_kubernetes_clusters_for_development/">单集群和共享集群的的开发模式</a>.</p>
+<h1 id="kubernetes多租户系统实现的挑战">kubernetes多租户系统实现的挑战</h1>
+<p>kubernetes多租户系统实现会遇到下面三个挑战:</p>
+<h2 id="用户管理">用户管理</h2>
+<p>挑战:大部分公司已经为他们的工程师提供了用户管理系统.可以在Github、微软、谷歌或其他任何服务中.由于用户不应该在第二个地方或更多地方管理多次,所以你需要为你的kubernetes系统开启单点登录.</p>
+<p>解决方案: 使用CNCF沙箱项目dex,你可以为租户提供单点登录功能.Dex是一个提供了OIDC和OAuth2功能的程序,包含了LDAP和SAML在内的各种身份认证,因此可以在很多用户管理系统中使用.所以,dex是一个可以为kubernetes多租户系统很好的解决用户管理挑战的选项.</p>
+<h2 id="公平的资源共享">公平的资源共享</h2>
+<p>挑战:由于所有租户共享相同的基础资源,即网络和计算资源.第二个挑战是确保租户之间能够公平地共享可用资源.这一点很重要,因为你不会希望某个租户消耗了全部资源或者消耗了过多的资源(有意或无意)导致其他租户出现异常情况.所以需要保证所有的租户都有相对应的资源限制.</p>
+<p>解决方案:租户的资源使用能够通过kubernetes的Resource Quotas被kubernetes原生限制,由于如果为这些资源开启了限制用户必须指定CPU和内存限制,因此也可以用LimitRanges来设置一些智能的默认值.</p>
+<h2 id="隔离">隔离</h2>
+<p>挑战:第三个挑战是将不同的租户彼此隔离.这样可以防止租户之间相互干扰.如文章上所述,这个隔离的程度取决于你是使用硬租户还是软租户、系统是否只提供给受信任的租户使用以及系统是否能够免收平台系统本身程序的错误.</p>
+<p>解决方案:把kubernetes namespace作为租户的基本隔离处理,另外vClusters提供了比namespace更多的隔离,同时让租户拥有更多的灵活性.隔离租户的另一个考虑因素是网络流量:网络策略默认情况下应该已经配置了拒绝所有流量并且仅允许同一命名空间的流量,容器的公网流量还有DNS的请求流量.这让租户攻击或者干扰其他租户变得更加地困难.</p>
+<h1 id="可用的解决方案">可用的解决方案</h1>
+<p>已经存在的一些有用的解决方案去帮助你构建kubernetes多租户平台.除了前面提到的dex还有kiosk和loft.</p>
+<h2 id="kiosk">kiosk</h2>
+<p><a href="https://github.com/loft-sh/kiosk">kiosk</a>是开源的kubernetes多租户扩展,它被设计为任何kubernetes集群的轻量级、可插拔和可自定义的解决方案，以简单的方式解决了一些多租户的难题。包括用户账号分离，用户级别的资源消耗限制以及用于安全租户隔离和自助服务namespace初始化的namespace模版.kiosk虽然没有内置用户管理功能,但也是构建多租户系统非常好的方式.</p>
+<p>Even though kiosk has been released only a few months ago, it is already included in the EKS Best Practices Guide for multi-tenancy by AWS. You can find a detailed guide to set up kiosk with EKS here.</p>
+<h2 id="loft">Loft</h2>
+<p><a href="https://loft.sh/">Loft</a>是一个基于kiosk实现,提供全方位的多租户解决方案.Loft能够安装在任何kubernetes集群上,能够让租户按需创建namespace和虚拟集群(virtual Clusters).它关注用户管理(包括单点登录)和用户隔离,并且让集群管理员可以设置使用限制,因此文章上述提到的一些多租户问题都能够处理.Loft还提供了一些额外的功能,例如休眠模式,通过关闭没有使用的namespace和 virtual Clusters来降低云计算成本.</p>
+<p>Loft是一个有免费套餐的商业产品,同时也包含在<a href="https://aws.github.io/aws-eks-best-practices">EKS最佳实践多租户指南</a>(我看了一下,链接已经404,因此链接替换成EKS最佳实践首页)当中.虽然它最初专注于多租户开发案例,但也可以用在生产案例,例如<a href="https://loft.sh/use-cases/kubernetes-cluster-sharding">集群分片</a>或者是<a href="https://loft.sh/use-cases/cloud-native-managed-products">在共享集群里面运行产品的多个实例</a>.</p>
+<h1 id="总结">总结</h1>
+<p>随着kubernetes的采用率进一步向上发展和kubernetes单租户模型日益充满困难,kubernetes多租户已经成为了很多组织面临的挑战之一.</p>
+<p>在实现kubernetes的多租户时，你需要确认是否需要硬多租户或软多租户是否已经能够满足。但不管怎么说你需要解决三个主要问题:怎么样去管理用户/租户,怎么样限制资源的使用以及如何隔离资源.限制有几个工具例如dex,kiosk和loft能够帮助你更轻松地建立kubernetes多租户机制.</p>
+<p>本文翻译至<a href="https://loft.sh/blog/kubernetes-multi-tenancy-best-practices-guide/">kubernetes-multi-tenancy-best-practices-guide</a></p>
+
+
+        <h2>微信公众号</h2>
+<p>扫描下面的二维码关注我们的微信公众号,第一时间查看最新内容。同时也可以关注我的Github,看看我都在了解什么技术,在页面底部可以找到我的Github。</p>
+<img  src="/img/qrcode_for_sikekafeidou.jpg" alt="wechat-qrcode">
+
+        <div style="padding: 10px 0; margin: 20px auto; width: 100%; font-size:16px; text-align: center;">
+    <button class="btn btn-danger"  id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+        <span>「来都来了」赞赏</span></button>
+    <div  id="QR" style="display: none;">
+        <div id="wechat" style="display: inline-block">
+            <p>如果本文对你有帮助的话欢迎通过微信或支付宝对我进行赞助,强烈建议你在支付的备注上填上你的 githubID 或你的昵称,让我知道我该感谢谁!!! </br></br>
+                赞助金额设置为固定金额:8元. </br> 
+                8元赠与我,发发发反馈给你,2023祝你收入翻番一路发到底:)</p>
+            <a class="fancybox" rel="group">
+                <img id="wechat_qr" src="/img/wechat-zhifubao.png" alt="Pay"></a>
+        </div>
+    </div>
+</div>
+
+        
+
+                <hr>
+
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/java_daed_lock_healthcheck/" data-toggle="tooltip" data-placement="top" title="让java程序主动监测死锁">&larr; 让java程序主动监测死锁</a>
+                    </li>
+                    
+                    
+                    <li class="next">
+                        <a href="/introducing-shane-miller/" data-toggle="tooltip" data-placement="top" title="[了解Rust基金会]介绍Shane Miller">[了解Rust基金会]介绍Shane Miller &rarr;</a>
+                    </li>
+                    
+                </ul>
+
+            
+<script src="https://utteranc.es/client.js"
+repo="liangyuanpeng/liangyuanpeng.github.io"
+issue-term="title"
+theme="github-light"
+crossorigin="anonymous"
+async>
+</script>
+
+
+
+            </div>
+
+            
+
+            <div class="
+                col-lg-2 col-lg-offset-0
+                visible-lg-block
+                sidebar-container
+                catalog-container">
+                
+                扫码下面二维码加我微信 :)
+                <img src="https://liangyuanpeng.github.io/img/aboutme/wechat-lan.png" />
+                
+            </div> 
+
+            
+
+            
+            
+            
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                
+                
+<br/>
+<h5>开源项目推荐</h5>
+
+<style type="text/css">
+.pinned-repos {
+  max-width: 300px;
+  margin: 0 auto;
+}
+
+.repo-card {
+  display: flex;
+  flex-direction: column;
+  padding: 16px;
+  border: 1px solid #e1e4e8;
+  border-radius: 6px;
+  background-color: #fff;
+}
+
+.repo-card:hover {
+  box-shadow: 0 1px 3px rgba(36,41,46,.08);
+}
+
+.repo-card h2 {
+  margin-top: 0;
+  font-size: 20px;
+  font-weight: 200;
+  color: #0366d6;
+}
+
+.repo-card p {
+  margin: 8px 0 16px;
+  font-size: 14px;
+  color: #586069;
+}
+
+.repo-card-stats {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;  
+}
+
+.repo-card-stats span {
+  font-size: 12px;
+  color: #586069;
+  margin-right: 16px;
+}
+
+.repo-card-stats strong {
+  font-weight: 200;
+  color: #24292e;
+}
+</style>
+
+    
+    <ul class="margin-bottom: 25px;pinned-repo-list">
+      <li>
+        <div class="repo-card">
+          <div class="repo-card-details">
+            <h2><a href="https://github.com/liangyuanpeng/replacer">replacer</a></h2>
+            <p>K8S webhook的参考实现|Replace container image of kubernetes mutate webhook.</p>
+            <div class="repo-card-stats">
+              <span>Language: <strong>Golang</strong></span>
+              <span>Forks: <strong>*</strong></span>
+              <span>Stars: <strong>*</strong></span>
+              <span>Updated: <strong>Nov 20, 2021</strong></span>
+            </div>
+          </div>
+        </div>
+      </li>
+    </ul>
+
+            </div>
+
+            
+            
+            <div class="
+            col-lg- col-lg-offset-2
+            col-md-10 col-md-offset-1
+            ">
+            <section>
+                <hr class="hidden-sm hidden-xs">
+                
+
+<h2>相关文章</h2>
+<ul style="margin-bottom: 25px;">
+    
+    <li><a href="/k8s-deploy-longhorn/">kubernetes部署longhorn</a></li>
+    
+    <li><a href="/kubernetes-deploy-kube-prometheus/">kubernetes部署kube-prometheus</a></li>
+    
+    <li><a href="/openkruise-column/">OpenKruise专栏介绍</a></li>
+    
+    <li><a href="/kubeadm-deploy-kubernetes-lank8scn/">kubeadm配合短域名lank8s.cn部署kubernetes</a></li>
+    
+    <li><a href="/k8s-client-go-source-2/">k8s-client-go源码剖析(二)</a></li>
+    
+    <li><a href="/ballerina-hello-world/">云原生编程语言ballerina:hello-world</a></li>
+    
+    <li><a href="/prometheus-coredns-sd/">prometheus对接CoreDNS实现服务发现</a></li>
+    
+    <li><a href="/use-helm-deploy-chirpstack-kubernetes/">用helm chart将chripstack部署到kubernetes之上</a></li>
+    
+    <li><a href="/fluentd-logdrive-docker/">使用fluentd作为docker日志驱动收集日志</a></li>
+    
+    <li><a href="/fluentd-plugin-kafka/">制作带有kafka插件和es插件的fluentd镜像</a></li>
+    
+</ul>
+
+            </section>
+            </div>
+            
+
+            
+
+
+        </div>
+    </div>
+</article>
+
+
+
+
+
+
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                   
+                   <li>
+                       <a href="" rel="alternate" type="application/rss+xml" title="Hi,I`m lan" >
+                           <span class="fa-stack fa-lg">
+                               <i class="fa fa-circle fa-stack-2x"></i>
+                               <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+                           </span>
+                       </a>
+                   </li>
+                   
+                    
+                    <li>
+                        <a target="_blank" href="https://github.com/liangyuanpeng">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                   
+                   
+                    
+                    <li>
+                        <a target="_blank" href="https://liangyuanpeng.github.io/img/aboutme/wechat-lan.png">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-wechat fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li>
+                        <a href="mailto:liangyuanpengem@163.com">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+		    
+
+                    
+                    <li>
+                        <a href="https://twitter.com/lan31793328">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li>
+                        <a target="_blank" href="https://www.zhihu.com/people/liangyuanpeng">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa  fa-stack-1x fa-inverse">知</i>
+                            </span>
+                        </a>
+                    </li>
+		    
+                    
+                    <li>
+                        <a target="_blank" href="https://weibo.com/u/1908782280">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+		    
+
+                    
+
+		    
+                    
+                </ul>
+		<p class="copyright text-muted">
+                    Copyright &copy; Hi,I`m lan , 2021
+                    <br>
+                    <a href="https://themes.gohugo.io/hugo-theme-cleanwhite">CleanWhite Hugo Theme</a> by <a href="https://zhaohuabing.com">Huabing</a> |
+                    <iframe
+                        style="margin-left: 2px; margin-bottom:-5px;"
+                        frameborder="0" scrolling="0" width="100px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=zhaohuabing&repo=hugo-theme-cleanwhite&type=star&count=true" >
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+
+<script>
+    function loadAsync(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+
+
+
+
+
+<script>
+    
+    if($('#tag_cloud').length !== 0){
+        async("/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+
+
+
+<script type="text/javascript">
+
+    
+    
+
+    function generateCatalog(selector) {
+
+        
+        
+        
+        
+            _containerSelector = 'div.post-container'
+        
+
+        
+        var P = $(_containerSelector), a, n, t, l, i, c;
+        a = P.find('h1,h2,h3,h4,h5,h6');
+
+        
+        $(selector).html('')
+
+        
+        a.each(function () {
+            n = $(this).prop('tagName').toLowerCase();
+            i = "#" + $(this).prop('id');
+            t = $(this).text();
+            c = $('<a href="' + i + '" rel="nofollow">' + t + '</a>');
+            l = $('<li class="' + n + '_nav"></li>').append(c);
+            $(selector).append(l);
+        });
+        return true;
+    }
+
+    generateCatalog(".catalog-body");
+
+    
+    $(".catalog-toggle").click((function (e) {
+        e.preventDefault();
+        $('.side-catalog').toggleClass("fold")
+    }))
+
+    
+
+
+    loadAsync("\/js\/jquery.nav.js", function () {
+        $('.catalog-body').onePageNav({
+            currentClass: "active",
+            changeHash: !1,
+            easing: "swing",
+            filter: "",
+            scrollSpeed: 700,
+            scrollOffset: 0,
+            scrollThreshold: .2,
+            begin: null,
+            end: null,
+            scrollChange: null,
+            padding: 80
+        });
+    });
+</script>
+
+
+
+
+<script>
+    async("https://cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+
+
+
+
+
+<script>
+    
+    var _baId = 'fad9c137f8ce239f9b323d36c871f8e6';
+
+    
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?" + _baId;
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+
+
+
+
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-RTTRHGYFWL"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-RTTRHGYFWL');
+</script>
+
+
+
+</body>
+</html>
