@@ -11,7 +11,7 @@ published: false
 tags:
     - nginx
 categories: 
-    - CloudNative
+    - cloudnative
 ---  
 
 # 配置文件

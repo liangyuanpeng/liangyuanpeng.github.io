@@ -8,3 +8,5 @@ containerdConfigPatches:
     endpoint = ["https://k8s.lank8s.cn"]
   [plugins."io.containerd.grpc.v1.cri".registry.mirrors."registry.k8s.io"]
     endpoint = ["https://registry.lank8s.cn"]
+nodes:
+- role: control-plane

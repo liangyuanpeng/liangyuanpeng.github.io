@@ -6,7 +6,7 @@ subtitle:   ""
 description: ""
 date:       2021-03-11
 author:     "梁远鹏"
-image: "https://res.cloudinary.com/lyp/image/upload/v1544363191/hugo/blog.github.io/743a4e9227e1f14cb24a1eb6db29e183.jpg"
+image: "/img/banner/stargazing_1.jpeg"
 published: true
 tags:
     - prometheus
@@ -15,7 +15,7 @@ tags:
     - webhook
     - email
 categories: 
-    - CloudNative
+    - cloudnative
 ---  
 
 # 本文还在创作当中，将在这几天正式发布。  
@@ -79,4 +79,6 @@ receivers:
 
 其中IP填写为正确的webhook程序所在IP。
 
-# 注意：本文还处于持续创作当中。
+# 注意
+
+本文还处于持续创作当中。

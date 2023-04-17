@@ -5,9 +5,24 @@ on:
 
 jobs:
 
-  ci:
-    runs-on: ubuntu-18.04
+  print:
+    runs-on: ubuntu-latest
     steps:
+      - name: print
+        run: |
+          echo "${{ toJSON(github) }}"
+
+  ci:
+    timeout-minutes: 10
+    runs-on: ubuntu-latest
+    steps:
+      # - name: Trigger dynamic workflow
+      #   run: |
+      #     curl -X POST -u ${{ github.actor }}:${{ secrets.GITHUB_TOKEN }} \
+      #       -H "Accept: application/vnd.github.v3+json" \
+      #       -d '{ "ref": "source", "inputs": { "github_token": "${{ secrets.GITHUB_TOKEN }}", "workflow": "name: Dynamic Job\n  on:\n    workflow_dispatch:\n  jobs:\n    job1:\n      runs-on: ubuntu-latest\n      steps:\n        - run: echo Hello" } }' \
+      #       https://api.github.com/repos/${{ github.repository }}/dispatches
+
       - uses: actions/checkout@v3
         with:
           submodules: true  # Fetch Hugo themes (true OR recursive)
@@ -20,4 +35,5 @@ jobs:
           # extended: true
 
       - name: Build Hugo
-        run: hugo --minify && ls public
+        run: |
+          sh build.sh

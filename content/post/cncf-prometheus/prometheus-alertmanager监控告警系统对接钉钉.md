@@ -6,7 +6,7 @@ subtitle:   ""
 description: ""
 date:       2021-03-11
 author:     "梁远鹏"
-image: "https://res.cloudinary.com/lyp/image/upload/v1544363191/hugo/blog.github.io/743a4e9227e1f14cb24a1eb6db29e183.jpg"
+image: "/img/banner/stargazing_1.jpeg"
 published: true
 tags:
     - prometheus
@@ -14,22 +14,21 @@ tags:
     - alertmanager
     - 钉钉
 categories: 
-    - CloudNative
+    - cloudnative
 ---
 
-# 本文还在创作当中，将在这几天正式发布。  
 
 # 前言
 
 本文将会讲解alertmanager对接钉钉,并且会演示通过修改metrics值来触发alertmanager进行告警并且展示告警以及告警恢复的情况。  
 
-在此之前你可以先查看一下本文的上一篇文章-->[prometheus-alertmanager监控告警系统快速开始](https://liangyuanpeng.com/post/prometheus-alertmanager-monitoring-quickstart/)  
+在此之前你可以先查看一下本文的上一篇文章-->[prometheus-alertmanager监控告警系统快速开始](https://liangyuanpeng.com/post/cncf-prometheus/prometheus-alertmanager-monitoring-quickstart/)  
 
 docker-compose配置以及相关配置文件最终都会贴出来。 
 
 AlertManager本身不支持钉钉通知，实现的方式是使用一个实现了钉钉通知API的webhook程序，AlertManager将告警发送到webhook程序，webhook程序再将内容转换成钉钉通知需要的格式发送到钉钉API。  
 
-本文阅读前提: 阅读了博文[prometheus-alertmanager监控告警系统快速开始](https://liangyuanpeng.com/post/prometheus-alertmanager-monitoring-quickstart/)
+本文阅读前提: 阅读了博文[prometheus-alertmanager监控告警系统快速开始](https://liangyuanpeng.com/post/cncf-prometheus/prometheus-alertmanager-monitoring-quickstart/)
 
 # 支持钉钉的webhook程序
 
@@ -63,7 +62,7 @@ targets:
 
 # 配置AlertManager将告警发送到webhook  
 
-如果你已经看了[prometheus-alertmanager监控告警系统快速开始](https://liangyuanpeng.com/post/prometheus-alertmanager-monitoring-quickstart/)那么应该知道新增一个webhook告警是多么容易的事情。  
+如果你已经看了[prometheus-alertmanager监控告警系统快速开始](https://liangyuanpeng.com/post/cncf-prometheus/prometheus-alertmanager-monitoring-quickstart/)那么应该知道新增一个webhook告警是多么容易的事情。  
 
 首先找到你的AlertManager配置文件,找到`receivers`的部分,添加以下配置:  
 
@@ -89,7 +88,7 @@ route:
 
 接下来演示一下alertmanager触发告警通知钉钉的情况。使用镜像`registry.cn-shenzhen.aliyuncs.com/lan-k8s/lanapp:v0.0.1`  
 
-这是一个SpringBoot程序,更多细节可以在页面[prometheus-alertmanager监控告警系统快速开始](https://liangyuanpeng.com/post/prometheus-alertmanager-monitoring-quickstart/)找到XXXX部分查看程序的介绍。  
+这是一个SpringBoot程序,更多细节可以在页面[prometheus-alertmanager监控告警系统快速开始](https://liangyuanpeng.com/post/cncf-prometheus/prometheus-alertmanager-monitoring-quickstart/)找到XXXX部分查看程序的介绍。  
 
 ## 告警通知  
 
@@ -120,4 +119,6 @@ curl http://192.168.3.169:8094/index/metrics/5
 并且本文是使用`docker-compose`部署Prometheus和`AlertManager`的,在kubernetes部署下是否又有更方便的配置,应该也是我接下来会在博客当中想要写的内容.
 
 
-# 注意：本文还处于持续创作当中。
+# 注意
+
+本文还处于持续创作当中。

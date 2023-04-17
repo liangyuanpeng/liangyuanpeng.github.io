@@ -6,14 +6,16 @@ subtitle:   ""
 description: "用helm chart将chripstack部署到kubernetes之上。"  
 date:       2021-01-30
 author:     "梁远鹏"
-image: "https://res.cloudinary.com/lyp/image/upload/v1543506262/hugo/blog.github.io/apache-rocketMQ-introduction/7046d2bf0d97278682129887309cc1a6.jpg"
+image: "img/banner-pexels.jpg"
 published: true
 tags: 
-    - Docker
+    - docker
     - lorawan
     - iot
     - chirpstack
     - kubernetes
+    - cncf
+    - helm
 categories: 
     - kubernetes
 ---

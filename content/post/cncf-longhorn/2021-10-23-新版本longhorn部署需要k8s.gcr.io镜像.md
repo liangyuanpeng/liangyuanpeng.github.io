@@ -16,11 +16,11 @@ categories: [ kubernetes ]
 
 # 前言  
 
-在之前，longhorn的部署是不涉及k8s.gcr.io的镜像的,但是在现在新版本当中,csi相关的镜像都是直接使用k8s.gcr.io中的镜像.
+在之前，longhorn 的部署是不涉及 k8s.gcr.io 的镜像的,但是在现在新版本当中,csi 相关的镜像都是直接使用 k8s.gcr.io 中的镜像.
 
 # 淡定  
 
-不要慌,这时候可以使用短域名镜像代理`lank8s.cn`来代替k8s.gcr.io.只需要将k8s.gcr.io修改为`lank8s.cn`就可以了，其他都不变.
+不要慌,这时候可以使用短域名镜像代理`lank8s.cn`来代替 k8s.gcr.io.只需要将 k8s.gcr.io 修改为`lank8s.cn`就可以了，其他都不变.
 
 # 前提  
 

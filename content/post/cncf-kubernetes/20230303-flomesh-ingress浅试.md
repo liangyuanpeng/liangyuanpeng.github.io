@@ -6,12 +6,13 @@ subtitle:   ""
 description: ""  
 date:       2023-03-03
 author:     "梁远鹏"
-image: "https://res.cloudinary.com/lyp/image/upload/v1543506262/hugo/blog.github.io/apache-rocketMQ-introduction/7046d2bf0d97278682129887309cc1a6.jpg"
+image: "img/banner-pexels.jpg"
 published: true
 tags: 
     - flomesh
     - fsm
     - kubernetes
+    - pipy
 categories: 
     - kubernetes
 ---
@@ -54,6 +55,9 @@ containerdConfigPatches:
 
 # 部署  
 
+## 部署K8S集群
+
+[用kind搭建k8s集群环境](https://liangyuanpeng.com/post/cncf-kubernetes/run-k8s-with-kind/)
 
 ## 部署fsm
 
@@ -190,7 +194,8 @@ NAME                                CLASS   HOSTS       ADDRESS   PORTS   AGE
 ingress.networking.k8s.io/httpbin   pipy    lan.local             80      11h
 ```
 
-正常来说你会看到上述三个内容:
+正常来说你会看到上述三个内容:  
+
 - 3 个准备就绪的 httpbin 的 pod
 - 一个带有 80 端口号的 httpbin svc
 - 一个匹配 lan.local 域名并且匹配端口号 80 的一个 ingress
@@ -205,7 +210,8 @@ fsm-manager-9c7665764-8wcvv         1/1     Running   1 (75m ago)   14h
 fsm-repo-89cb68547-kv94n            1/1     Running   1 (75m ago)   14h
 ```  
 
-正常来说你会看到以下准备就绪的 pod (只检查了 pod 资源):
+正常来说你会看到以下准备就绪的 pod (只检查了 pod 资源):  
+
 - fsm-ingress-pipy
 - fsm-manager
 - fsm-repo

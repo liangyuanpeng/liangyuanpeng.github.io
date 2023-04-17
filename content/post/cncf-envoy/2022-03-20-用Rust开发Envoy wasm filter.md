@@ -6,13 +6,15 @@ subtitle:   ""
 description: ""
 date:       2022-03-20
 author:     "梁远鹏"
-image: "img/post-bg-2015.jpg"
+image: "img/banner-pexels.jpg"
 published: true
+wipnote: true
 tags:
     - envoy 
     - cncf
     - rust
-categories: [ CloudNative ]
+categories: 
+    - cloudnative
 ---
 
 # 
@@ -114,7 +116,3 @@ impl Default for SampleHttpFilterConfig {
 目前 https://github.com/tetratelabs/envoy-wasm-rust-sdk 不再维护,将尝试从 https://github.com/proxy-wasm/proxy-wasm-rust-sdk 开始示例。
 
 到目前为止,我们使用Rust开发了一个支持参数配置的envoy wasm filter.
-
-# 注意 
-
-本文还在持续创作当中,这几天会完成创作.
