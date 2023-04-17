@@ -11,6 +11,7 @@ function labelIssue(){
   # params:
   # issuenumber labels
   # "comments,utterances"
+  echo "begin label issue :"$1 "to:"$2
   gh issue edit $1 -R liangyuanpeng/liangyuanpeng.github.io --add-label $2
 }
 
@@ -23,14 +24,16 @@ function commentIssue(){
   ---"
 }
 
+echo $GH_EVENT > event.json
+
 json=`cat event.json`
 #echo "json:" "$json"
 
 number=$(jq .issue.number <<< "$json")
-title=$(jq .issue.title <<< "$json")
-author=$(jq .issue.user.login <<< "$json")
+title=$(cat event.json |jq .issue.title | sed 's/\"//g')
+author=$(cat event.json | jq .issue.user.login | sed 's/\"//g')
 body=$(jq .issue.user.body <<< "$json")
-eventtype=$(jq .action <<< "$json")
+eventtype=$(cat event.json | jq .action | sed 's/\"//g')
 
 echo "number: $number"
 echo "title: $title"
