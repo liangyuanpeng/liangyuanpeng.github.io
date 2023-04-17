@@ -3,7 +3,7 @@ layout:     post
 slug:   "auto-build-algolia-index"
 title:      "自动构建algolia索引"
 subtitle:   ""
-description: ""
+description: "本文将提供一个机遇 Github Action 自动化构建 algolia 索引的解决方案.  "
 date:       2021-03-12
 author:     "梁远鹏"
 image: "/img/banner/tolgahang_The_sky_suddenly_darkened_and_lightning_struck_with_t_87bfe445-a272-486a-9961-5f424dcca429.png"
@@ -14,6 +14,7 @@ tags:
     - Blog
     - github
     - githubaction
+    - hugo
 categories: 
     - cloudnative
 ---
