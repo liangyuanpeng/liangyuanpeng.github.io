@@ -9,10 +9,10 @@
     <lastBuildDate>Thu, 30 Mar 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://liangyuanpeng.github.io/tags/k8s-sigs/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>从零到 Kubernetes 子项目负责人</title>
-      <link>https://liangyuanpeng.github.io/from-zero-to-kubernets-subproject-lead/</link>
+      <link>https://liangyuanpeng.github.io/post/from-zero-to-kubernets-subproject-lead/</link>
       <pubDate>Thu, 30 Mar 2023 00:00:00 +0000</pubDate>
       
-      <guid>https://liangyuanpeng.github.io/from-zero-to-kubernets-subproject-lead/</guid>
+      <guid>https://liangyuanpeng.github.io/post/from-zero-to-kubernets-subproject-lead/</guid>
       <description>作者 Ala Dewberry (VMware) 译者 梁远鹏 与 chatGPT 加入任何开源社区都可能让人望而生畏，尤其是像 Kubernetes 这样的大型社区。我写这篇文章是为了分享我的经验，并鼓励其他人加入其中。</description>
     </item>
     

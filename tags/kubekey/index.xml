@@ -9,10 +9,10 @@
     <lastBuildDate>Mon, 25 Oct 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://liangyuanpeng.github.io/tags/kubekey/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>使用kubekey快速部署kubernetes</title>
-      <link>https://liangyuanpeng.github.io/deploy-kubernetes-with-kubekey/</link>
+      <link>https://liangyuanpeng.github.io/post/deploy-kubernetes-with-kubekey/</link>
       <pubDate>Mon, 25 Oct 2021 00:00:00 +0000</pubDate>
       
-      <guid>https://liangyuanpeng.github.io/deploy-kubernetes-with-kubekey/</guid>
+      <guid>https://liangyuanpeng.github.io/post/deploy-kubernetes-with-kubekey/</guid>
       <description>前言 Kubekey 是青云研发并开源的一款快速部署 kubernetes 的工具,并且它也是下一代安装kubesphere的工具,使用 kubekey 你可以很轻松的就部署一套 kubernetes/kubespher 环境,我的体验</description>
     </item>
     

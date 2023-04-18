@@ -9,10 +9,10 @@
     <lastBuildDate>Thu, 12 Jan 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://liangyuanpeng.github.io/tags/containerd/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>为containerd配置仓库镜像</title>
-      <link>https://liangyuanpeng.github.io/registry-mirrors-for-containerd/</link>
+      <link>https://liangyuanpeng.github.io/post/registry-mirrors-for-containerd/</link>
       <pubDate>Thu, 12 Jan 2023 00:00:00 +0000</pubDate>
       
-      <guid>https://liangyuanpeng.github.io/registry-mirrors-for-containerd/</guid>
+      <guid>https://liangyuanpeng.github.io/post/registry-mirrors-for-containerd/</guid>
       <description>前言 containerd 的仓库镜像功能是很有用的功能,特别是国内无法访问 gcr.io 和 k8s.gcr.io 以及 registry.k8s.io 这些镜像仓库的情况下. K3S 和 Kind 都提供了比较简单的方式来为内置的 containerd 配置仓库镜像</description>
     </item>
     

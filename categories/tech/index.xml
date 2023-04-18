@@ -9,541 +9,541 @@
     <lastBuildDate>Mon, 17 Apr 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://liangyuanpeng.github.io/categories/tech/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>基于giscus打造博客评论系统</title>
-      <link>https://liangyuanpeng.github.io/add-comments-with-giscus/</link>
+      <link>https://liangyuanpeng.github.io/post/add-comments-with-giscus/</link>
       <pubDate>Mon, 17 Apr 2023 00:00:00 +0000</pubDate>
       
-      <guid>https://liangyuanpeng.github.io/add-comments-with-giscus/</guid>
+      <guid>https://liangyuanpeng.github.io/post/add-comments-with-giscus/</guid>
       <description>缘由 giscus 与 utterances 评论不同, utterances 直接使用了 github api,因此不需要一个单独的服务,而由于 github discussion 需要使用 graphQL API 访问并且需要 token,因此 giscus 使用 Typescript 实现了一个服务</description>
     </item>
     
     <item>
-      <title>markdown-link-check-github-action</title>
-      <link>https://liangyuanpeng.github.io/markdown-link-check-github-action/</link>
+      <title>为你的博客开启markdown链接检查</title>
+      <link>https://liangyuanpeng.github.io/post/markdown-link-check-github-action/</link>
       <pubDate>Fri, 14 Apr 2023 00:00:00 +0000</pubDate>
       
-      <guid>https://liangyuanpeng.github.io/markdown-link-check-github-action/</guid>
-      <description>缘由</description>
+      <guid>https://liangyuanpeng.github.io/post/markdown-link-check-github-action/</guid>
+      <description>缘由 偶然间看到了 github-action-markdown-link-check 这个 github action,想了一下确实挺有用的,当你的博客不断的更新以后,以前有一些文章内引用的链接可能已经是失效了,那么当读者</description>
     </item>
     
     <item>
-      <title>git-qa</title>
-      <link>https://liangyuanpeng.github.io/git-qa/</link>
+      <title>记录git常见问题QA</title>
+      <link>https://liangyuanpeng.github.io/post/git-qa/</link>
       <pubDate>Thu, 13 Apr 2023 00:00:00 +0000</pubDate>
       
-      <guid>https://liangyuanpeng.github.io/git-qa/</guid>
+      <guid>https://liangyuanpeng.github.io/post/git-qa/</guid>
       <description>前言 本文长期更新,欢迎投稿:) 问题QA First, rewinding head to replay your work on top of it...Fast-forwarded text to main. 这个是我在处理 Contour 这个PR时出现的问题,流程是这样的: 我根据 Contour 的主分支 checkout 了一</description>
     </item>
     
     <item>
       <title>为你的博客添加imgbot优化图片</title>
-      <link>https://liangyuanpeng.github.io/add-imgbot-for-your-blog-image/</link>
+      <link>https://liangyuanpeng.github.io/post/add-imgbot-for-your-blog-image/</link>
       <pubDate>Tue, 11 Apr 2023 00:00:00 +0000</pubDate>
       
-      <guid>https://liangyuanpeng.github.io/add-imgbot-for-your-blog-image/</guid>
+      <guid>https://liangyuanpeng.github.io/post/add-imgbot-for-your-blog-image/</guid>
       <description>前言 博客中使用图片是一件很常见的事情,那么图片优化你是怎么做的呢? 我假设我计划做这件事情那么我可能会这样执行: 寻找可以优化图片的工具,保证优</description>
     </item>
     
     <item>
       <title>不要完全相信GithubAction</title>
-      <link>https://liangyuanpeng.github.io/do-not-totally-believe-github-action/</link>
+      <link>https://liangyuanpeng.github.io/post/do-not-totally-believe-github-action/</link>
       <pubDate>Thu, 06 Apr 2023 00:00:00 +0000</pubDate>
       
-      <guid>https://liangyuanpeng.github.io/do-not-totally-believe-github-action/</guid>
+      <guid>https://liangyuanpeng.github.io/post/do-not-totally-believe-github-action/</guid>
       <description>长话短说 突然我的博客项目的 github action 一直处于一个排队的状态,以至于我无法更新博客的 algolia 索引,虽然对我的影响其实微乎其微,但我确实不太喜欢这种感觉,我</description>
     </item>
     
     <item>
       <title>JFrog 向 CD 基金会授予开源 Pyrsia</title>
-      <link>https://liangyuanpeng.github.io/jfrog-grants-open-source-pyrsia-to-cd-foundation/</link>
+      <link>https://liangyuanpeng.github.io/post/jfrog-grants-open-source-pyrsia-to-cd-foundation/</link>
       <pubDate>Fri, 24 Mar 2023 00:00:00 +0000</pubDate>
       
-      <guid>https://liangyuanpeng.github.io/jfrog-grants-open-source-pyrsia-to-cd-foundation/</guid>
+      <guid>https://liangyuanpeng.github.io/post/jfrog-grants-open-source-pyrsia-to-cd-foundation/</guid>
       <description>一项社区倡议旨在为 Pyrsia 分散式包网络提供公正和透明的治理模型，聚集了 Docker、DeployHub、Oracle 等公司。 Pyrsia 是一个开源软件社区倡</description>
     </item>
     
     <item>
       <title>常用网关都是如何配置缓存请求的</title>
-      <link>https://liangyuanpeng.github.io/how-to-config-for-cache-from-gateway/</link>
+      <link>https://liangyuanpeng.github.io/post/how-to-config-for-cache-from-gateway/</link>
       <pubDate>Mon, 20 Feb 2023 00:00:00 +0000</pubDate>
       
-      <guid>https://liangyuanpeng.github.io/how-to-config-for-cache-from-gateway/</guid>
+      <guid>https://liangyuanpeng.github.io/post/how-to-config-for-cache-from-gateway/</guid>
       <description>前言 Envoy 由于 envoy cache 遵循 http cache 规范,因此规定缓存的 API 需要返回cache-control的 header,并且 value 需要标识缓存的时间,例如缓存 10min max-age=600. envoy.yaml static_resources: listeners: -</description>
     </item>
     
     <item>
       <title>部署去ZK后的Apache Pulsar</title>
-      <link>https://liangyuanpeng.github.io/deploy-pulsar/</link>
+      <link>https://liangyuanpeng.github.io/post/deploy-pulsar/</link>
       <pubDate>Mon, 06 Jun 2022 00:00:00 +0000</pubDate>
       
-      <guid>https://liangyuanpeng.github.io/deploy-pulsar/</guid>
+      <guid>https://liangyuanpeng.github.io/post/deploy-pulsar/</guid>
       <description>前言 本文基本上是按照官方文档来实践的,非常简单. 首先要明确我们需要做的几件事情： 生成 token 并且配置 pulsar broker 开启 Token 认证. 配置 pulsar broker 开启自身需要用到的客户</description>
     </item>
     
     <item>
       <title>CNCF批准OpenTracing项目归档</title>
-      <link>https://liangyuanpeng.github.io/open-tracing-project-archive/</link>
+      <link>https://liangyuanpeng.github.io/post/open-tracing-project-archive/</link>
       <pubDate>Fri, 04 Feb 2022 00:00:00 +0000</pubDate>
       
-      <guid>https://liangyuanpeng.github.io/open-tracing-project-archive/</guid>
+      <guid>https://liangyuanpeng.github.io/post/open-tracing-project-archive/</guid>
       <description>OpenTracing归档 自从OpenTracing合并到OpenTelemetry项目后,维护者的意愿是将OpenTracing项目归档,</description>
     </item>
     
     <item>
       <title>Rust应用容器化</title>
-      <link>https://liangyuanpeng.github.io/container-for-rust-application/</link>
+      <link>https://liangyuanpeng.github.io/post/container-for-rust-application/</link>
       <pubDate>Wed, 02 Feb 2022 00:00:00 +0000</pubDate>
       
-      <guid>https://liangyuanpeng.github.io/container-for-rust-application/</guid>
+      <guid>https://liangyuanpeng.github.io/post/container-for-rust-application/</guid>
       <description>本文打包的rust应用是基于actix-web开发的包含expose metrics的web应用. Rust应用容器化的几种方式 编写Docker</description>
     </item>
     
     <item>
       <title>Rust常见问题</title>
-      <link>https://liangyuanpeng.github.io/rust-exception-qa/</link>
+      <link>https://liangyuanpeng.github.io/post/rust-exception-qa/</link>
       <pubDate>Mon, 31 Jan 2022 00:00:00 +0000</pubDate>
       
-      <guid>https://liangyuanpeng.github.io/rust-exception-qa/</guid>
+      <guid>https://liangyuanpeng.github.io/post/rust-exception-qa/</guid>
       <description>声明 由于我不是 Rust 专家,因此只是将使用/研究 Rust 时遇到的问题分享出来,如有不对之处麻烦提示或帮忙纠正一下,感谢! 常见问题 feature edition2021 is required this Cargo does not support nightly features, but</description>
     </item>
     
     <item>
       <title>简单部署Apache-Bookkeeper</title>
-      <link>https://liangyuanpeng.github.io/simple-deploy-for-apache-bookkeeper/</link>
+      <link>https://liangyuanpeng.github.io/post/simple-deploy-for-apache-bookkeeper/</link>
       <pubDate>Sun, 26 Dec 2021 00:00:00 +0000</pubDate>
       
-      <guid>https://liangyuanpeng.github.io/simple-deploy-for-apache-bookkeeper/</guid>
+      <guid>https://liangyuanpeng.github.io/post/simple-deploy-for-apache-bookkeeper/</guid>
       <description>前言 开始部署 由于apache bookkeeper(本文后续简称为BK)需要使用元数据服务中心,当前支持zookeeper和etcd,本文将会</description>
     </item>
     
     <item>
       <title>Flink常见问题</title>
-      <link>https://liangyuanpeng.github.io/flink-exception-qa/</link>
+      <link>https://liangyuanpeng.github.io/post/flink-exception-qa/</link>
       <pubDate>Thu, 23 Dec 2021 00:00:00 +0000</pubDate>
       
-      <guid>https://liangyuanpeng.github.io/flink-exception-qa/</guid>
+      <guid>https://liangyuanpeng.github.io/post/flink-exception-qa/</guid>
       <description>声明 由于我不是Flink专家,因此只是将使用/研究Flink时遇到的问题分享出来,如有不对之处麻烦提示或帮忙纠正一下,感谢! 常见异常 This type (GenericType&amp;lt;java.util.Map&amp;gt;) cannot</description>
     </item>
     
     <item>
       <title>欢迎参与chirpstack应用同步器的贡献</title>
-      <link>https://liangyuanpeng.github.io/welcome-contribute-chirpstack-application-syncer/</link>
+      <link>https://liangyuanpeng.github.io/post/welcome-contribute-chirpstack-application-syncer/</link>
       <pubDate>Tue, 21 Dec 2021 00:00:00 +0000</pubDate>
       
-      <guid>https://liangyuanpeng.github.io/welcome-contribute-chirpstack-application-syncer/</guid>
+      <guid>https://liangyuanpeng.github.io/post/welcome-contribute-chirpstack-application-syncer/</guid>
       <description>chirpstack-application-syncer 在两个chirpstack服务器之间同步你的chirpstack application数据,目前还处于初步实现阶段,预期效果会是下面这样:</description>
     </item>
     
     <item>
       <title>Apache-Bookkeeper开发环境搭建</title>
-      <link>https://liangyuanpeng.github.io/apache-bookkeeper-env-for-dev/</link>
+      <link>https://liangyuanpeng.github.io/post/apache-bookkeeper-env-for-dev/</link>
       <pubDate>Sun, 19 Dec 2021 00:00:00 +0000</pubDate>
       
-      <guid>https://liangyuanpeng.github.io/apache-bookkeeper-env-for-dev/</guid>
+      <guid>https://liangyuanpeng.github.io/post/apache-bookkeeper-env-for-dev/</guid>
       <description>打包BK mvn package -DsipTests=true 顺利的话就成功的打包好了. [INFO] Apache BookKeeper :: Tests :: Backward Compatibility :: Test upgrade between yahoo custom version and current SUCCESS [ 0.373 s] [INFO] Apache BookKeeper :: Tests :: Backward Compatibility :: Test Bouncy Castle Provider load non FIPS version SUCCESS [ 0.484 s] [INFO] Apache BookKeeper :: Tests :: Integration ..........</description>
     </item>
     
     <item>
       <title>GO上手项目值得你拥有:Bookkeeper客户端</title>
-      <link>https://liangyuanpeng.github.io/bk-client-go-readme/</link>
+      <link>https://liangyuanpeng.github.io/post/bk-client-go-readme/</link>
       <pubDate>Sat, 18 Dec 2021 00:00:00 +0000</pubDate>
       
-      <guid>https://liangyuanpeng.github.io/bk-client-go-readme/</guid>
+      <guid>https://liangyuanpeng.github.io/post/bk-client-go-readme/</guid>
       <description>什么是apache bookkeeper 一句话介绍&amp;mdash;&amp;gt;Apache BookKeeper 是企业级存储系统，旨在保证高持久性、一致性与低延迟。 目前广泛应用在Apac</description>
     </item>
     
     <item>
       <title>Rust上手项目值得你拥有:Bookkeeper客户端</title>
-      <link>https://liangyuanpeng.github.io/bookkeeper-rs-readme/</link>
+      <link>https://liangyuanpeng.github.io/post/bookkeeper-rs-readme/</link>
       <pubDate>Sat, 18 Dec 2021 00:00:00 +0000</pubDate>
       
-      <guid>https://liangyuanpeng.github.io/bookkeeper-rs-readme/</guid>
+      <guid>https://liangyuanpeng.github.io/post/bookkeeper-rs-readme/</guid>
       <description>什么是apache bookkeeper 一句话介绍&amp;mdash;&amp;gt;Apache BookKeeper 是企业级存储系统，旨在保证高持久性、一致性与低延迟。 目前广泛应用在Apac</description>
     </item>
     
     <item>
       <title>[了解Rust基金会]介绍Mark Rousskov</title>
-      <link>https://liangyuanpeng.github.io/introducing-mark-rousskov/</link>
+      <link>https://liangyuanpeng.github.io/post/introducing-mark-rousskov/</link>
       <pubDate>Fri, 24 Sep 2021 00:00:00 +0000</pubDate>
       
-      <guid>https://liangyuanpeng.github.io/introducing-mark-rousskov/</guid>
+      <guid>https://liangyuanpeng.github.io/post/introducing-mark-rousskov/</guid>
       <description>注意 本文还在持续翻译中. 在接下来的五个星期中，我们将会运行一个名叫&amp;quot;了解董事会&amp;quot;系列，发布来自Rust基金会董事会每个成</description>
     </item>
     
     <item>
       <title>[了解Rust基金会]介绍Tyler Mandry</title>
-      <link>https://liangyuanpeng.github.io/introducing-tyler-mandry/</link>
+      <link>https://liangyuanpeng.github.io/post/introducing-tyler-mandry/</link>
       <pubDate>Thu, 23 Sep 2021 00:00:00 +0000</pubDate>
       
-      <guid>https://liangyuanpeng.github.io/introducing-tyler-mandry/</guid>
+      <guid>https://liangyuanpeng.github.io/post/introducing-tyler-mandry/</guid>
       <description>注意 本文还在持续翻译中. 在接下来的五个星期中，我们将会运行一个名叫&amp;quot;了解董事会&amp;quot;系列，发布来自Rust基金会董事会每个成</description>
     </item>
     
     <item>
       <title>[了解Rust基金会]介绍Bobby Holley</title>
-      <link>https://liangyuanpeng.github.io/introducing-bobby-holley/</link>
+      <link>https://liangyuanpeng.github.io/post/introducing-bobby-holley/</link>
       <pubDate>Wed, 22 Sep 2021 00:00:00 +0000</pubDate>
       
-      <guid>https://liangyuanpeng.github.io/introducing-bobby-holley/</guid>
+      <guid>https://liangyuanpeng.github.io/post/introducing-bobby-holley/</guid>
       <description>注意 本文还在持续翻译中. 在接下来的五个星期中，我们将会运行一个名叫&amp;quot;了解董事会&amp;quot;系列，发布来自Rust基金会董事会每个成</description>
     </item>
     
     <item>
       <title>CDF(持续交付基金会)欢迎基于k8s构建容器镜像的框架Shipwright作为新的孵化项目</title>
-      <link>https://liangyuanpeng.github.io/cdf-new-project-shipwright/</link>
+      <link>https://liangyuanpeng.github.io/post/cdf-new-project-shipwright/</link>
       <pubDate>Wed, 04 Aug 2021 00:00:00 +0000</pubDate>
       
-      <guid>https://liangyuanpeng.github.io/cdf-new-project-shipwright/</guid>
+      <guid>https://liangyuanpeng.github.io/post/cdf-new-project-shipwright/</guid>
       <description>说明: 本文将使用CDF作为持续交付基金会简称. 基于 Tekton 构建容器镜像的简单方法 旧金山,2021年8月3日&amp;mdash;CDF是一个开源软件基金会</description>
     </item>
     
     <item>
       <title>部署去ZK后的Apache Pulsar</title>
-      <link>https://liangyuanpeng.github.io/deploy-pulsar/</link>
+      <link>https://liangyuanpeng.github.io/post/deploy-pulsar/</link>
       <pubDate>Sat, 22 May 2021 00:00:00 +0000</pubDate>
       
-      <guid>https://liangyuanpeng.github.io/deploy-pulsar/</guid>
+      <guid>https://liangyuanpeng.github.io/post/deploy-pulsar/</guid>
       <description>前言 当我们在说元数据中心的时候我们在说什么 Bookkeeper 和 Pulsar Broker 都有各自的元数据中心,并且都有自己的元数据中心接口,默认都是ZK. 要实现Pulsar去Zo</description>
     </item>
     
     <item>
       <title>[了解Rust基金会]介绍Shane Miller</title>
-      <link>https://liangyuanpeng.github.io/introducing-shane-miller/</link>
+      <link>https://liangyuanpeng.github.io/post/introducing-shane-miller/</link>
       <pubDate>Sun, 18 Apr 2021 00:00:00 +0000</pubDate>
       
-      <guid>https://liangyuanpeng.github.io/introducing-shane-miller/</guid>
+      <guid>https://liangyuanpeng.github.io/post/introducing-shane-miller/</guid>
       <description>在接下来的五个星期中，我们将会运行一个名叫&amp;quot;了解董事会&amp;quot;系列，发布来自Rust基金会董事会每个成员的博客帖子，将他们介绍</description>
     </item>
     
     <item>
       <title>让java程序主动监测死锁</title>
-      <link>https://liangyuanpeng.github.io/java_daed_lock_healthcheck/</link>
+      <link>https://liangyuanpeng.github.io/post/java_daed_lock_healthcheck/</link>
       <pubDate>Wed, 14 Apr 2021 00:00:00 +0000</pubDate>
       
-      <guid>https://liangyuanpeng.github.io/java_daed_lock_healthcheck/</guid>
+      <guid>https://liangyuanpeng.github.io/post/java_daed_lock_healthcheck/</guid>
       <description>前言 SpringBoot2.x 引入了 Micrometer,重点支持了 tag,而 tag 是 prometheus 和 influxdb 这类新兴监控存储相关中间件天然特性. 而本文主要讲述检测程序中是否有死锁发生,</description>
     </item>
     
     <item>
       <title>微信小程序接口自动化的实现方案</title>
-      <link>https://liangyuanpeng.github.io/automation-test-wechat-api/</link>
+      <link>https://liangyuanpeng.github.io/post/automation-test-wechat-api/</link>
       <pubDate>Tue, 13 Apr 2021 00:00:00 +0000</pubDate>
       
-      <guid>https://liangyuanpeng.github.io/automation-test-wechat-api/</guid>
+      <guid>https://liangyuanpeng.github.io/post/automation-test-wechat-api/</guid>
       <description>背景 前几天在社区看到有人问微信小程序怎么进行接口自动化https://testerhome.com/topics/28217，所以想把自己如</description>
     </item>
     
     <item>
       <title>离线运行swagger文档</title>
-      <link>https://liangyuanpeng.github.io/swagger-api-offline/</link>
+      <link>https://liangyuanpeng.github.io/post/swagger-api-offline/</link>
       <pubDate>Tue, 13 Apr 2021 00:00:00 +0000</pubDate>
       
-      <guid>https://liangyuanpeng.github.io/swagger-api-offline/</guid>
+      <guid>https://liangyuanpeng.github.io/post/swagger-api-offline/</guid>
       <description>前言 在社区群看到有人希望能够将kubesphere的文档自己搭一个环境跑起来使用,我想了下这个需求应该是实际使用确实会碰到的,比如某些公司内</description>
     </item>
     
     <item>
       <title>centos安装php8.0</title>
-      <link>https://liangyuanpeng.github.io/centos-install-php/</link>
+      <link>https://liangyuanpeng.github.io/post/centos-install-php/</link>
       <pubDate>Tue, 23 Mar 2021 00:00:00 +0000</pubDate>
       
-      <guid>https://liangyuanpeng.github.io/centos-install-php/</guid>
+      <guid>https://liangyuanpeng.github.io/post/centos-install-php/</guid>
       <description>动机 之前一直没有接触PHP的经验,需要安装PHP是由于要搭建Flarum论坛,找了一圈,类似这种论坛的实现都是PHP做的,虽然PHP是世界上</description>
     </item>
     
     <item>
       <title>使用Cloudflare pages部署静态博客</title>
-      <link>https://liangyuanpeng.github.io/cloudflare-deploy-hugo-site/</link>
+      <link>https://liangyuanpeng.github.io/post/cloudflare-deploy-hugo-site/</link>
       <pubDate>Mon, 22 Mar 2021 00:00:00 +0000</pubDate>
       
-      <guid>https://liangyuanpeng.github.io/cloudflare-deploy-hugo-site/</guid>
+      <guid>https://liangyuanpeng.github.io/post/cloudflare-deploy-hugo-site/</guid>
       <description>什么是Cloudflare Cloudflare是一家美国公司 为什么转到Cloudflare pages 记得我第一次听说 Cloudflare 时是在技术群看到其他人聊 CDN 时看</description>
     </item>
     
     <item>
       <title>ASF第一位华人董事</title>
-      <link>https://liangyuanpeng.github.io/first-asf-board-member/</link>
+      <link>https://liangyuanpeng.github.io/post/first-asf-board-member/</link>
       <pubDate>Fri, 12 Mar 2021 00:00:00 +0000</pubDate>
       
-      <guid>https://liangyuanpeng.github.io/first-asf-board-member/</guid>
+      <guid>https://liangyuanpeng.github.io/post/first-asf-board-member/</guid>
       <description>前言 今天一早打开朋友圈就看到几条消息,都是在讲吴晟当选新一届Apache董事会成员,在一定程度上讲中国已经进入Apache核心并且还会一直展</description>
     </item>
     
     <item>
       <title>Hugo博客SEO优化-URL和标题区分开</title>
-      <link>https://liangyuanpeng.github.io/hugo-slug-url/</link>
+      <link>https://liangyuanpeng.github.io/post/hugo-slug-url/</link>
       <pubDate>Thu, 11 Mar 2021 00:00:00 +0000</pubDate>
       
-      <guid>https://liangyuanpeng.github.io/hugo-slug-url/</guid>
+      <guid>https://liangyuanpeng.github.io/post/hugo-slug-url/</guid>
       <description>前言 Hugo博客默认情况下你的md文件是什么名字那么在网站上点击对应博客时URL就显示什么,但是我们将URL复制发给别人时中文就会显示一串看</description>
     </item>
     
     <item>
       <title>部署Halo博客</title>
-      <link>https://liangyuanpeng.github.io/deploy-halo/</link>
+      <link>https://liangyuanpeng.github.io/post/deploy-halo/</link>
       <pubDate>Fri, 26 Feb 2021 00:00:00 +0000</pubDate>
       
-      <guid>https://liangyuanpeng.github.io/deploy-halo/</guid>
+      <guid>https://liangyuanpeng.github.io/post/deploy-halo/</guid>
       <description>前言 jar包部署 注意:jar包部署需要jdk11版本 Docker方式部署 docker方式部署很简单，一条命令即可。 docker run -it -d --name halo -p 8090:8090 -v ~/.halo:/root/.halo halohub/halo 其中</description>
     </item>
     
     <item>
       <title>给hugo博客添加评论功能</title>
-      <link>https://liangyuanpeng.github.io/hugo-comment/</link>
+      <link>https://liangyuanpeng.github.io/post/hugo-comment/</link>
       <pubDate>Wed, 17 Feb 2021 00:00:00 +0000</pubDate>
       
-      <guid>https://liangyuanpeng.github.io/hugo-comment/</guid>
+      <guid>https://liangyuanpeng.github.io/post/hugo-comment/</guid>
       <description>缘由 静态博客不像动态博客一样想要什么功能就写个代码实现，但是折腾一番还是可以满足日常需求的。本文主要讲述使用utterances给静态博客实</description>
     </item>
     
     <item>
       <title>给hugo博客添加字数统计和阅读需要xx分钟的功能</title>
-      <link>https://liangyuanpeng.github.io/addons-word-count-hugo/</link>
+      <link>https://liangyuanpeng.github.io/post/addons-word-count-hugo/</link>
       <pubDate>Tue, 16 Feb 2021 00:00:00 +0000</pubDate>
       
-      <guid>https://liangyuanpeng.github.io/addons-word-count-hugo/</guid>
+      <guid>https://liangyuanpeng.github.io/post/addons-word-count-hugo/</guid>
       <description>缘由 在看别人博客时经常在文章标题下面见到有共xx字,阅读约xx分钟的字眼，这个功能在hugo中本身就已经自带了，开启这个功能即可。 修改博客页</description>
     </item>
     
     <item>
       <title>Ant Design被删源码库!!404√</title>
-      <link>https://liangyuanpeng.github.io/ant-design-deleted-404/</link>
+      <link>https://liangyuanpeng.github.io/post/ant-design-deleted-404/</link>
       <pubDate>Mon, 15 Feb 2021 00:00:00 +0000</pubDate>
       
-      <guid>https://liangyuanpeng.github.io/ant-design-deleted-404/</guid>
+      <guid>https://liangyuanpeng.github.io/post/ant-design-deleted-404/</guid>
       <description>了解 Ant Design Ant-Design是蚂蚁金服基于React开源的一款企业级UI 设计语言和 React 组件库，深受人们喜爱。 最早消息 还在当前过年的时间点，A</description>
     </item>
     
     <item>
       <title>Elasticsearch&#43;Fluentd&#43;Kafka搭建分布式日志系统</title>
-      <link>https://liangyuanpeng.github.io/elasticsearch-fluentd-kafka/</link>
+      <link>https://liangyuanpeng.github.io/post/elasticsearch-fluentd-kafka/</link>
       <pubDate>Mon, 17 Feb 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://liangyuanpeng.github.io/elasticsearch-fluentd-kafka/</guid>
+      <guid>https://liangyuanpeng.github.io/post/elasticsearch-fluentd-kafka/</guid>
       <description>前言 由于logstash内存占用较大,灵活性相对没那么好,ELK正在被EFK逐步替代.其中本文所讲的EFK是Elasticsearch+Fl</description>
     </item>
     
     <item>
       <title>使用fluentd作为docker日志驱动收集日志</title>
-      <link>https://liangyuanpeng.github.io/fluentd-logdrive-docker/</link>
+      <link>https://liangyuanpeng.github.io/post/fluentd-logdrive-docker/</link>
       <pubDate>Sat, 15 Feb 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://liangyuanpeng.github.io/fluentd-logdrive-docker/</guid>
+      <guid>https://liangyuanpeng.github.io/post/fluentd-logdrive-docker/</guid>
       <description>前言 docker默认的日志驱动是json-file,每一个容器都会在本地生成一个/var/lib/docker/containers/con</description>
     </item>
     
     <item>
       <title>制作带有kafka插件和es插件的fluentd镜像</title>
-      <link>https://liangyuanpeng.github.io/fluentd-plugin-kafka/</link>
+      <link>https://liangyuanpeng.github.io/post/fluentd-plugin-kafka/</link>
       <pubDate>Sat, 15 Feb 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://liangyuanpeng.github.io/fluentd-plugin-kafka/</guid>
+      <guid>https://liangyuanpeng.github.io/post/fluentd-plugin-kafka/</guid>
       <description>前言 Fluentd是用于统一日志记录层的开源数据收集器,是继Kubernetes、Prometheus、Envoy 、CoreDNS 和cont</description>
     </item>
     
     <item>
       <title>fluentd语法入门</title>
-      <link>https://liangyuanpeng.github.io/fluentd-quickstart/</link>
+      <link>https://liangyuanpeng.github.io/post/fluentd-quickstart/</link>
       <pubDate>Fri, 14 Feb 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://liangyuanpeng.github.io/fluentd-quickstart/</guid>
+      <guid>https://liangyuanpeng.github.io/post/fluentd-quickstart/</guid>
       <description>前言 Fluentd是用于统一日志记录层的开源数据收集器,是继Kubernetes、Prometheus、Envoy 、CoreDNS 和cont</description>
     </item>
     
     <item>
       <title>利用docker和docker-compose部署单机kafka</title>
-      <link>https://liangyuanpeng.github.io/docker-compose-deploy-kafka/</link>
+      <link>https://liangyuanpeng.github.io/post/docker-compose-deploy-kafka/</link>
       <pubDate>Fri, 14 Feb 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://liangyuanpeng.github.io/docker-compose-deploy-kafka/</guid>
+      <guid>https://liangyuanpeng.github.io/post/docker-compose-deploy-kafka/</guid>
       <description>前提 docker docker-compose 其中docker-compose不是必须的,单单使用docker也是可以的,这里主要介绍docker和docker-compose两</description>
     </item>
     
     <item>
       <title>docker部署minio</title>
-      <link>https://liangyuanpeng.github.io/deploy-minio/</link>
+      <link>https://liangyuanpeng.github.io/post/deploy-minio/</link>
       <pubDate>Thu, 16 Jan 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://liangyuanpeng.github.io/deploy-minio/</guid>
+      <guid>https://liangyuanpeng.github.io/post/deploy-minio/</guid>
       <description>前提 docker docker部署 docker部署minio非常简单，只需要两条命令即可完成minio服务器的部署。 docker pull minio/minio docker run -p 9000:9000 minio/minio server /data 下面是两条命令的</description>
     </item>
     
     <item>
       <title>部署React应用</title>
-      <link>https://liangyuanpeng.github.io/deploy-react-app/</link>
+      <link>https://liangyuanpeng.github.io/post/deploy-react-app/</link>
       <pubDate>Sun, 06 Jan 2019 00:00:00 +0000</pubDate>
       
-      <guid>https://liangyuanpeng.github.io/deploy-react-app/</guid>
+      <guid>https://liangyuanpeng.github.io/post/deploy-react-app/</guid>
       <description>前言 前后端分离已经是大趋势，服务器端只需要关注自己的接口逻辑实现，而不需要关注前端的页面跳转，这一部分交由前端处理。常见的就是React应用</description>
     </item>
     
     <item>
       <title>部署React应用</title>
-      <link>https://liangyuanpeng.github.io/deploy-react-app/</link>
+      <link>https://liangyuanpeng.github.io/post/deploy-react-app/</link>
       <pubDate>Sun, 06 Jan 2019 00:00:00 +0000</pubDate>
       
-      <guid>https://liangyuanpeng.github.io/deploy-react-app/</guid>
+      <guid>https://liangyuanpeng.github.io/post/deploy-react-app/</guid>
       <description>前言 前后端分离已经是大趋势，服务器端只需要关注自己的接口逻辑实现，而不需要关注前端的页面跳转，这一部分交由前端处理。常见的就是React应用</description>
     </item>
     
     <item>
       <title>转|SOFARPC优雅关闭剖析</title>
-      <link>https://liangyuanpeng.github.io/sofarpc-right-down/</link>
+      <link>https://liangyuanpeng.github.io/post/sofarpc-right-down/</link>
       <pubDate>Wed, 12 Dec 2018 00:00:00 +0000</pubDate>
       
-      <guid>https://liangyuanpeng.github.io/sofarpc-right-down/</guid>
+      <guid>https://liangyuanpeng.github.io/post/sofarpc-right-down/</guid>
       <description>前言 众所周知，在微服务架构下面，当应用需要进行新功能升级发布，或者异常关闭重启的时候，我们会对应用的进程进行关闭，而在关闭之前，我们希望做一</description>
     </item>
     
     <item>
       <title>转|SOFARPC泛化调用实现剖析</title>
-      <link>https://liangyuanpeng.github.io/sofarpc-generic-invoke/</link>
+      <link>https://liangyuanpeng.github.io/post/sofarpc-generic-invoke/</link>
       <pubDate>Wed, 12 Dec 2018 00:00:00 +0000</pubDate>
       
-      <guid>https://liangyuanpeng.github.io/sofarpc-generic-invoke/</guid>
+      <guid>https://liangyuanpeng.github.io/post/sofarpc-generic-invoke/</guid>
       <description>SOFA Scalable Open Financial Architecture是蚂蚁金服自主研发的金融级分布式中间件，包含了构建金融级云原生架构所需的各个组件，是在金融场景里锤炼出来的最</description>
     </item>
     
     <item>
       <title>转|SOFARPC序列化比较</title>
-      <link>https://liangyuanpeng.github.io/sofarpc-serializer/</link>
+      <link>https://liangyuanpeng.github.io/post/sofarpc-serializer/</link>
       <pubDate>Tue, 11 Dec 2018 00:00:00 +0000</pubDate>
       
-      <guid>https://liangyuanpeng.github.io/sofarpc-serializer/</guid>
+      <guid>https://liangyuanpeng.github.io/post/sofarpc-serializer/</guid>
       <description>前言 在应用服务化架构中，RPC 框架是非常重要的基础组件。而在 RPC 框架当中，序列化（以及反序列化）又是必不可少的一环。 因为序列化的性能对整体框架</description>
     </item>
     
     <item>
       <title>转|SOFARPC注解支持剖析</title>
-      <link>https://liangyuanpeng.github.io/sofarpc-annotation/</link>
+      <link>https://liangyuanpeng.github.io/post/sofarpc-annotation/</link>
       <pubDate>Tue, 11 Dec 2018 00:00:00 +0000</pubDate>
       
-      <guid>https://liangyuanpeng.github.io/sofarpc-annotation/</guid>
+      <guid>https://liangyuanpeng.github.io/post/sofarpc-annotation/</guid>
       <description>1、前言 在SOFABoot 环境下，SOFARPC 提供三种方式给开发人员发布和引用 RPC 服务： XML 方式（配置） Annotation 方式（注解） 编程 API 方式（动态 编程 API 方</description>
     </item>
     
     <item>
       <title>转|SOFARPC跨语言支持剖析</title>
-      <link>https://liangyuanpeng.github.io/sofarpc-mult-language/</link>
+      <link>https://liangyuanpeng.github.io/post/sofarpc-mult-language/</link>
       <pubDate>Tue, 11 Dec 2018 00:00:00 +0000</pubDate>
       
-      <guid>https://liangyuanpeng.github.io/sofarpc-mult-language/</guid>
+      <guid>https://liangyuanpeng.github.io/post/sofarpc-mult-language/</guid>
       <description>前言 随着 TIOBE 10月份的编程语言排行 的发布，C++重回第三的位置，新兴的 Swift 和 Go 表现出强劲的上升趋势。 与此同时，虽然目前 Java 的领头位置尚未出现有力挑</description>
     </item>
     
     <item>
       <title>转|SOFARPC路由实现剖析</title>
-      <link>https://liangyuanpeng.github.io/sofarpc-route-impl/</link>
+      <link>https://liangyuanpeng.github.io/post/sofarpc-route-impl/</link>
       <pubDate>Tue, 11 Dec 2018 00:00:00 +0000</pubDate>
       
-      <guid>https://liangyuanpeng.github.io/sofarpc-route-impl/</guid>
+      <guid>https://liangyuanpeng.github.io/post/sofarpc-route-impl/</guid>
       <description>前言 RPC 框架需要创造一种调用远程服务如同调用本地般的体验，因此在实现一个基于 RPC 框架的微服务架构的系统时，服务消费者（客户端）往往只需要知道服务</description>
     </item>
     
     <item>
       <title>转|SOFARPC连接管理与心跳剖析</title>
-      <link>https://liangyuanpeng.github.io/sofarpc-heartbeat-connect/</link>
+      <link>https://liangyuanpeng.github.io/post/sofarpc-heartbeat-connect/</link>
       <pubDate>Mon, 10 Dec 2018 00:00:00 +0000</pubDate>
       
-      <guid>https://liangyuanpeng.github.io/sofarpc-heartbeat-connect/</guid>
+      <guid>https://liangyuanpeng.github.io/post/sofarpc-heartbeat-connect/</guid>
       <description>前言 在 RPC 调用过程中，我们经常会和多个服务端进行远程调用，如果在每次调用的时候，都进行 TCP连接，会对 RPC的性能有比较大的影响，因此，实际的</description>
     </item>
     
     <item>
       <title>去哪儿网消息队列设计与实现</title>
-      <link>https://liangyuanpeng.github.io/qmq-design/</link>
+      <link>https://liangyuanpeng.github.io/post/qmq-design/</link>
       <pubDate>Sun, 09 Dec 2018 00:00:00 +0000</pubDate>
       
-      <guid>https://liangyuanpeng.github.io/qmq-design/</guid>
+      <guid>https://liangyuanpeng.github.io/post/qmq-design/</guid>
       <description>前言 去哪儿网近日在GitHub上开源了其内部广泛使用的消息队列 (内部代号 QMQ)，本文从去哪儿网使用消息队列所碰到的各种问题出发探讨去哪儿网</description>
     </item>
     
     <item>
       <title>转|SOFARPC同步异步实现剖析</title>
-      <link>https://liangyuanpeng.github.io/sofarpc-sync-async/</link>
+      <link>https://liangyuanpeng.github.io/post/sofarpc-sync-async/</link>
       <pubDate>Sun, 09 Dec 2018 00:00:00 +0000</pubDate>
       
-      <guid>https://liangyuanpeng.github.io/sofarpc-sync-async/</guid>
+      <guid>https://liangyuanpeng.github.io/post/sofarpc-sync-async/</guid>
       <description>前言 这一篇，我们为大家带来了开发过程中，最常接触到的同步异步调用解析。本文会介绍下同步异步的使用场景，以及 SOFARPC 中的代码实现机制，为了方便大家理</description>
     </item>
     
     <item>
       <title>转|SOFARPC线程模型剖析</title>
-      <link>https://liangyuanpeng.github.io/sofarpc-modle/</link>
+      <link>https://liangyuanpeng.github.io/post/sofarpc-modle/</link>
       <pubDate>Sun, 09 Dec 2018 00:00:00 +0000</pubDate>
       
-      <guid>https://liangyuanpeng.github.io/sofarpc-modle/</guid>
+      <guid>https://liangyuanpeng.github.io/post/sofarpc-modle/</guid>
       <description>前言 上一篇，我们介绍了 SOFARPC 同步异步的实现，本文我们将会介绍 SOFARPC 中的线程模型。 本文会从同步异步，阻塞非阻塞开始讲起，进而探讨常见的线程模型设计，之</description>
     </item>
     
     <item>
       <title>AWESOME消息队列</title>
-      <link>https://liangyuanpeng.github.io/awesome-messagequeue/</link>
+      <link>https://liangyuanpeng.github.io/post/awesome-messagequeue/</link>
       <pubDate>Sat, 08 Dec 2018 00:00:00 +0000</pubDate>
       
-      <guid>https://liangyuanpeng.github.io/awesome-messagequeue/</guid>
+      <guid>https://liangyuanpeng.github.io/post/awesome-messagequeue/</guid>
       <description>前言 消息队列是应用程序解耦通信的一个关键组件,本篇博文主要以列举开源消息队列为目的编写,并不展开具体内容讲解，没有开源的不在列举范围内。 mq</description>
     </item>
     
     <item>
       <title>AWESOME消息队列</title>
-      <link>https://liangyuanpeng.github.io/awesome-messagequeue/</link>
+      <link>https://liangyuanpeng.github.io/post/awesome-messagequeue/</link>
       <pubDate>Sat, 08 Dec 2018 00:00:00 +0000</pubDate>
       
-      <guid>https://liangyuanpeng.github.io/awesome-messagequeue/</guid>
+      <guid>https://liangyuanpeng.github.io/post/awesome-messagequeue/</guid>
       <description>前言 消息队列是应用程序解耦通信的一个关键组件,本篇博文主要以列举开源消息队列为目的编写,并不展开具体内容讲解，没有开源的不在列举范围内。 mq</description>
     </item>
     
     <item>
       <title>转|SOFARPC链路追踪剖析</title>
-      <link>https://liangyuanpeng.github.io/sofarpc-trace/</link>
+      <link>https://liangyuanpeng.github.io/post/sofarpc-trace/</link>
       <pubDate>Sat, 08 Dec 2018 00:00:00 +0000</pubDate>
       
-      <guid>https://liangyuanpeng.github.io/sofarpc-trace/</guid>
+      <guid>https://liangyuanpeng.github.io/post/sofarpc-trace/</guid>
       <description>一. 前言 微服务已经被广泛应用在工业界，微服务带来易于团队并行开发、独立部署、模块化管理等诸多优点。然而微服务将原单体拆分多个模块独立部署，各</description>
     </item>
     
     <item>
       <title>转|SOFARPC框架之总体设计与扩展机制</title>
-      <link>https://liangyuanpeng.github.io/sofarpc-design/</link>
+      <link>https://liangyuanpeng.github.io/post/sofarpc-design/</link>
       <pubDate>Wed, 05 Dec 2018 00:00:00 +0000</pubDate>
       
-      <guid>https://liangyuanpeng.github.io/sofarpc-design/</guid>
+      <guid>https://liangyuanpeng.github.io/post/sofarpc-design/</guid>
       <description>前言 RPC 框架作为分布式技术的基石，在分布式和微服务环境下，扮演着非常重要的角色。 在蚂蚁金服的分布式技术体系下，我们大量的技术产品（非网关类产品</description>
     </item>
     
     <item>
       <title>Apache RocketMQ单机部署</title>
-      <link>https://liangyuanpeng.github.io/deploy-apache-rocketmq/</link>
+      <link>https://liangyuanpeng.github.io/post/deploy-apache-rocketmq/</link>
       <pubDate>Tue, 27 Nov 2018 00:00:00 +0000</pubDate>
       
-      <guid>https://liangyuanpeng.github.io/deploy-apache-rocketmq/</guid>
+      <guid>https://liangyuanpeng.github.io/post/deploy-apache-rocketmq/</guid>
       <description>前言 这篇文章以4.3.0版本为标准进行讲述在linux下部署RocketMQ单机实例,在此之前需要已配置JAVA环境。 apache RocketMQ 是阿里巴巴在201</description>
     </item>
     
     <item>
       <title>CI过程中拉取仓库的注意点</title>
-      <link>https://liangyuanpeng.github.io/note-ci-repo/</link>
+      <link>https://liangyuanpeng.github.io/post/note-ci-repo/</link>
       <pubDate>Sat, 22 Sep 2018 00:00:00 +0000</pubDate>
       
-      <guid>https://liangyuanpeng.github.io/note-ci-repo/</guid>
+      <guid>https://liangyuanpeng.github.io/post/note-ci-repo/</guid>
       <description>前言 CI 过程中拉取仓库的注意点 备注：本文安装指南基于 Ubuntu 16.04，在 Centos 上某些安装步骤的命令可能需要稍作改动。 CI Hugo博客时子模块注意点 在 fork 了</description>
     </item>
     
     <item>
       <title>CI过程中拉取仓库的注意点</title>
-      <link>https://liangyuanpeng.github.io/note-ci-repo/</link>
+      <link>https://liangyuanpeng.github.io/post/note-ci-repo/</link>
       <pubDate>Sat, 22 Sep 2018 00:00:00 +0000</pubDate>
       
-      <guid>https://liangyuanpeng.github.io/note-ci-repo/</guid>
+      <guid>https://liangyuanpeng.github.io/post/note-ci-repo/</guid>
       <description>前言 CI 过程中拉取仓库的注意点 备注：本文安装指南基于 Ubuntu 16.04，在 Centos 上某些安装步骤的命令可能需要稍作改动。 CI Hugo博客时子模块注意点 在 fork 了</description>
     </item>
     
     <item>
       <title>批量操作虚拟机初始化安装软件</title>
-      <link>https://liangyuanpeng.github.io/script-for-init-vm-package-with-ansible/</link>
+      <link>https://liangyuanpeng.github.io/post/script-for-init-vm-package-with-ansible/</link>
       <pubDate>Sat, 28 Jan 2012 00:00:00 +0000</pubDate>
       
-      <guid>https://liangyuanpeng.github.io/script-for-init-vm-package-with-ansible/</guid>
+      <guid>https://liangyuanpeng.github.io/post/script-for-init-vm-package-with-ansible/</guid>
       <description>本文简单记录一下批量操作虚拟机时的一个安装软件的初始化操作. 想象一下,当需要在上百台虚拟机上安装相同的软件时,如果手工一台虚拟机一台虚拟机的</description>
     </item>
     

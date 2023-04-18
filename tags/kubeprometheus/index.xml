@@ -9,10 +9,10 @@
     <lastBuildDate>Tue, 06 Apr 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://liangyuanpeng.github.io/tags/kubeprometheus/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>kubernetes部署kube-prometheus</title>
-      <link>https://liangyuanpeng.github.io/kubernetes-deploy-kube-prometheus/</link>
+      <link>https://liangyuanpeng.github.io/post/kubernetes-deploy-kube-prometheus/</link>
       <pubDate>Tue, 06 Apr 2021 00:00:00 +0000</pubDate>
       
-      <guid>https://liangyuanpeng.github.io/kubernetes-deploy-kube-prometheus/</guid>
+      <guid>https://liangyuanpeng.github.io/post/kubernetes-deploy-kube-prometheus/</guid>
       <description>如何部署kube-prometheus 本文使用https://github.com/prometheus-operator/kube-pro</description>
     </item>
     

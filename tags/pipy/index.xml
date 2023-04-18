@@ -9,19 +9,19 @@
     <lastBuildDate>Fri, 03 Mar 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://liangyuanpeng.github.io/tags/pipy/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>flomesh-ingress浅试</title>
-      <link>https://liangyuanpeng.github.io/flomesh-ingress-quickstart/</link>
+      <link>https://liangyuanpeng.github.io/post/flomesh-ingress-quickstart/</link>
       <pubDate>Fri, 03 Mar 2023 00:00:00 +0000</pubDate>
       
-      <guid>https://liangyuanpeng.github.io/flomesh-ingress-quickstart/</guid>
+      <guid>https://liangyuanpeng.github.io/post/flomesh-ingress-quickstart/</guid>
       <description>前提 在开始之前,你需要以下前提准备. 对于本文来说使用的 K8S 环境是基于 Kind 来搭建的,因此将 Kind 命令写在前提内,但是如果你使用了其他工具搭建 K8S 或已经有</description>
     </item>
     
     <item>
       <title>常用网关都是如何配置缓存请求的</title>
-      <link>https://liangyuanpeng.github.io/how-to-config-for-cache-from-gateway/</link>
+      <link>https://liangyuanpeng.github.io/post/how-to-config-for-cache-from-gateway/</link>
       <pubDate>Mon, 20 Feb 2023 00:00:00 +0000</pubDate>
       
-      <guid>https://liangyuanpeng.github.io/how-to-config-for-cache-from-gateway/</guid>
+      <guid>https://liangyuanpeng.github.io/post/how-to-config-for-cache-from-gateway/</guid>
       <description>前言 Envoy 由于 envoy cache 遵循 http cache 规范,因此规定缓存的 API 需要返回cache-control的 header,并且 value 需要标识缓存的时间,例如缓存 10min max-age=600. envoy.yaml static_resources: listeners: -</description>
     </item>
     

@@ -9,10 +9,10 @@
     <lastBuildDate>Mon, 22 Mar 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://liangyuanpeng.github.io/tags/cloudflare/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>使用Cloudflare pages部署静态博客</title>
-      <link>https://liangyuanpeng.github.io/cloudflare-deploy-hugo-site/</link>
+      <link>https://liangyuanpeng.github.io/post/cloudflare-deploy-hugo-site/</link>
       <pubDate>Mon, 22 Mar 2021 00:00:00 +0000</pubDate>
       
-      <guid>https://liangyuanpeng.github.io/cloudflare-deploy-hugo-site/</guid>
+      <guid>https://liangyuanpeng.github.io/post/cloudflare-deploy-hugo-site/</guid>
       <description>什么是Cloudflare Cloudflare是一家美国公司 为什么转到Cloudflare pages 记得我第一次听说 Cloudflare 时是在技术群看到其他人聊 CDN 时看</description>
     </item>
     

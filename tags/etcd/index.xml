@@ -9,19 +9,19 @@
     <lastBuildDate>Mon, 17 Jan 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://liangyuanpeng.github.io/tags/etcd/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>部署一个完整带SSL的etcd</title>
-      <link>https://liangyuanpeng.github.io/deploy-full-ssl-etcd/</link>
+      <link>https://liangyuanpeng.github.io/post/deploy-full-ssl-etcd/</link>
       <pubDate>Mon, 17 Jan 2022 00:00:00 +0000</pubDate>
       
-      <guid>https://liangyuanpeng.github.io/deploy-full-ssl-etcd/</guid>
+      <guid>https://liangyuanpeng.github.io/post/deploy-full-ssl-etcd/</guid>
       <description></description>
     </item>
     
     <item>
       <title>prometheus对接CoreDNS实现服务发现</title>
-      <link>https://liangyuanpeng.github.io/prometheus-coredns-sd/</link>
+      <link>https://liangyuanpeng.github.io/post/prometheus-coredns-sd/</link>
       <pubDate>Tue, 23 Mar 2021 00:00:00 +0000</pubDate>
       
-      <guid>https://liangyuanpeng.github.io/prometheus-coredns-sd/</guid>
+      <guid>https://liangyuanpeng.github.io/post/prometheus-coredns-sd/</guid>
       <description>启动etcd [root@localhost etcd-v3.2.32-linux-amd64]# ./etcd --listen-peer-urls=&amp;#34;http://0.0.0.0:2380&amp;#34; --listen-client-urls=&amp;#34;http://0.0.0.0:2379&amp;#34; --advertise-client-urls=&amp;#34;http://0.0.0.0:2379&amp;#34; 2021-04-07 16:03:31.438164 W | pkg/flags: unrecognized environment variable ETCD_VER=v3.2.32 2021-04-07 16:03:31.438308 I | etcdmain: etcd Version: 3.2.32 2021-04-07 16:03:31.438321 I | etcdmain: Git SHA: 7dc07f2a9 2021-04-07 16:03:31.438331 I | etcdmain: Go Version: go1.12.17 coredns配置文件 liangyuanpeng.com { etcd { path /skydns endpoint http://192.168.3.181:2379 } prometheus cache loadbalance } .</description>
     </item>
     

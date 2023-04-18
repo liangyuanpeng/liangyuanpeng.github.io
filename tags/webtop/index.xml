@@ -9,10 +9,10 @@
     <lastBuildDate>Tue, 28 Mar 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://liangyuanpeng.github.io/tags/webtop/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>基于webtop容器的可视化桌面,浏览器就能打开桌面!</title>
-      <link>https://liangyuanpeng.github.io/dev-desktop-with-webtop/</link>
+      <link>https://liangyuanpeng.github.io/post/dev-desktop-with-webtop/</link>
       <pubDate>Tue, 28 Mar 2023 00:00:00 +0000</pubDate>
       
-      <guid>https://liangyuanpeng.github.io/dev-desktop-with-webtop/</guid>
+      <guid>https://liangyuanpeng.github.io/post/dev-desktop-with-webtop/</guid>
       <description>前言 前段时间研究过基于容器来搭建一个可视化的 Linux 开发环境,主要是为了研究 java 开发的 Apache Pulsar 和 Apache Bookkeeper 两个项目的源码,如果是非 JVM 类的语言可以基于 openvscode 来搞一个</description>
     </item>
     
