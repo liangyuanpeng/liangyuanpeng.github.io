@@ -1,13 +1,5 @@
 pull_request_rules:
 
-# TODO PR 有 approved label 时 合并 PR
-  # - name: merge when approved
-  #   conditions:
-  #   - label=approved
-  #   actions:
-  #     merge:
-  #       method: merge
-
   - name: automatic approval for ci
     conditions:
       - check-success==ci
@@ -18,26 +10,15 @@ pull_request_rules:
 
   - name: automatic approval for imgbot pull requests
     conditions:
-      - author=imgbot
+      - author=imgbot[bot]
     actions:
       review:
         type: APPROVE
         message: Automatically approving imgbot
+      label:
+        add:
+          - approved
 
-  # 如果是 imgbot 提交的 PR 自动合并
-  - name: Automatic merge for imgbot
-    conditions:
-      - author=imgbot
-    actions:
-      merge:
-        method: merge
-
-  # PR合并时自动删除branch
-  - name: delete head branch after merge
-    conditions:
-      - merged
-    actions:
-      delete_head_branch:
 
   # 冲突时在PR添加一条冲突的comment并且添加 conflict 的 label
   - name: warn on conflicts
@@ -57,3 +38,25 @@ pull_request_rules:
       label:
         remove:
           - conflict
+
+  - name: merge when approved
+    conditions:
+    - label=approved
+    actions:
+      merge:
+        method: merge
+
+  # 如果是 imgbot 提交的 PR 自动合并
+  # - name: Automatic merge for imgbot
+  #   conditions:
+  #     - author=imgbot[bot]
+  #   actions:
+  #     merge:
+  #       method: merge
+
+  # PR合并时自动删除branch
+  - name: delete head branch after merge
+    conditions:
+      - merged
+    actions:
+      delete_head_branch:

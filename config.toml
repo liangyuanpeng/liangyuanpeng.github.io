@@ -23,7 +23,7 @@ home = ["HTML", "RSS", "Algolia"]
    
 
 [permalinks]
-    post = "/:slug"
+    post = "/post/:slug"
 
 [params]
   domain = "https://liangyuanpeng.com"
