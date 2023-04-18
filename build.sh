@@ -1,4 +1,4 @@
-#/bin/sh
+#!/bin/bash
 
 # cd content/files
 # tar -czf k8s-admissionregistration-with-cel.tar.gz k8s-admissionregistration-with-cel
@@ -34,7 +34,7 @@ if [ $BASEURL ];then
     sed 's/#baseurl/baseurl/g' config.toml -i
      echo "==============end update baseurl=============="
 else
-	echo "ORACLE IS NOT EXISTS"
+	echo "BASEURL IS NOT EXISTS"
 fi
 
 if [ $ORASDOWNLOAD ];then
