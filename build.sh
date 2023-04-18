@@ -44,9 +44,7 @@ if [ $ORASDOWNLOAD ];then
     mv ./oras static/ && cd static
     pwd
     nohup ./oras pull ghcr.io/liangyuanpeng/files:kind &
-    nohup ./oras pull ghcr.io/liangyuanpeng/files:envoy &
     nohup ./oras pull ghcr.io/liangyuanpeng/files:pack &
-    nohup ./oras pull ghcr.io/liangyuanpeng/files:opa &
     ./oras pull ghcr.io/liangyuanpeng/files:krew
     cd ..
 fi
