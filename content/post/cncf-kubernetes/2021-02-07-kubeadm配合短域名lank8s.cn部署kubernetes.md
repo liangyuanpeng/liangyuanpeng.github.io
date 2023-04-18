@@ -237,4 +237,4 @@ Commercial support is available at
 
 到目前为止就用 kubeadm 使用国内网络轻松部署起一个 kubernetes 了,`lank8s.cn`是我个人在维护的一个`k8s.gcr.io`镜像的代理,还有一个`gcr.lank8s.cn`可以代替`gcr.io`来拉取镜像.  
 
-详情可以看看[lank8s.cn服务](https://liangyuanpeng.com/post/cncf-kubernetes/service-lank8s.cn)
+详情可以看看[lank8s.cn服务](https://liangyuanpeng.com/post/service-lank8s.cn)

@@ -26,10 +26,13 @@
 # https://github.com/kubernetes-sigs/krew/releases/download/v0.4.3/krew-darwin_arm64.tar.gz
 # ls
 
+
 if [ $BASEURL ];then
+    echo "==============begin update baseurl=============="
 	echo "BASEURL = $BASEURL"
     sed "s/#{baseurl}/$BASEURL/g" config.toml -i
     sed 's/#baseurl/baseurl/g' config.toml -i
+     echo "==============end update baseurl=============="
 else
 	echo "ORACLE IS NOT EXISTS"
 fi
@@ -41,11 +44,8 @@ if [ $ORASDOWNLOAD ];then
     mv ./oras static/ && cd static
     pwd
     nohup ./oras pull ghcr.io/liangyuanpeng/files:kind &
-    ./oras pull ghcr.io/liangyuanpeng/files:krew
-
-    nohup ./oras pull ghcr.io/liangyuanpeng/files:envoy &
     nohup ./oras pull ghcr.io/liangyuanpeng/files:pack &
-    nohup ./oras pull ghcr.io/liangyuanpeng/files:opa &
+    ./oras pull ghcr.io/liangyuanpeng/files:krew
     cd ..
 fi
 
