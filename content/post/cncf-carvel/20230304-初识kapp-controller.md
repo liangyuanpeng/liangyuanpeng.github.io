@@ -27,11 +27,11 @@ categories: [ kubernetes ]
 # 部署 
 
 ```shell
-kapp deploy -a kc -f https://github.com/vmware-tanzu/carvel-kapp-controller/releases/latest/download/release.yml
+kubectl apply -f https://github.com/carvel-dev/kapp-controller/releases/latest/download/release.yml
 ```
 
 ```shell
-kapp deploy -a default-ns-rbac -f https://raw.githubusercontent.com/vmware-tanzu/carvel-kapp-controller/develop/examples/rbac/default-ns.yml
+kapp deploy -a default-ns-rbac -f https://raw.githubusercontent.com/carvel-dev/kapp-controller/develop/examples/rbac/default-ns.yml
 ```
 
 simple-app.yaml
