@@ -497,7 +497,7 @@
 
 
 
-                            阅读 </span></span>|<span class="post-date">共1291字</span>，阅读约<span class="more-meta"> 3 分钟</span>
+                            阅读 </span></span>|<span class="post-date">共1289字</span>，阅读约<span class="more-meta"> 3 分钟</span>
                         
                     </span>
                 </div>
@@ -537,10 +537,9 @@
 
 		<h1 id="缘由">缘由</h1>
 <p>giscus 与 utterances 评论不同, utterances 直接使用了 github api,因此不需要一个单独的服务,而由于 github discussion 需要使用 graphQL API 访问并且需要 token,因此 giscus 使用 Typescript 实现了一个服务,前端通过 RestAPI 访问 giscus 服务器,如果此时没有用户 token,那么giscus 会使用应用程序的 giscus 的token,从而解决在用户没有登录 github 的情况下无法查看评论的问题.</p>
-<p>TODO 查看network看到 giscus 似乎依然有访问 github 的 api <code>https://api.github.com/graphql</code>,实际写操作依然是直接访问 github api 的.</p>
-<p>去 giscus 添加了<a href="https://github.com/giscus/giscus/issues/1000">一条 issue</a></p>
 <p>这也是我去 utterances <a href="https://github.com/utterance/utterances/issues/648">提了一个issue</a>,咨询能否为查询数据所使用的地址 api.github.com 配置为我自己的另一个地址.</p>
 <p>本意是我希望添加一个代理层,如果请求没有 Token,那么使用我配置的 Token,从而解决用户没有登录 github 时看不到评论的问题.</p>
+<p>不过 giscus 只是在读评论的时候做了一个中转,而当触发评论或给文章添加表情时依然是请求到 <code>api.github.com</code>.</p>
 <h1 id="安装-giscus">安装 giscus</h1>
 <p>由于 giscus 是一个 github app,因此安装 giscus 只需要在页面上点几下就可以完成了.</p>
 <h2 id="仓库开启discussion功能">仓库开启discussion功能</h2>
@@ -563,16 +562,16 @@
 <p>添加以下内容:</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript">{{ <span style="color:#66d9ef">if</span> .<span style="color:#a6e22e">Site</span>.<span style="color:#a6e22e">Params</span>.<span style="color:#a6e22e">giscus</span>.<span style="color:#a6e22e">enable</span> }}
 <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">script</span> <span style="color:#a6e22e">src</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;https://giscus.app/client.js&#34;</span>
-        <span style="color:#a6e22e">data</span><span style="color:#f92672">-</span><span style="color:#a6e22e">repo</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;[在此输入仓库]&#34;</span>
-        <span style="color:#a6e22e">data</span><span style="color:#f92672">-</span><span style="color:#a6e22e">repo</span><span style="color:#f92672">-</span><span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;[在此输入仓库 ID]&#34;</span>
-        <span style="color:#a6e22e">data</span><span style="color:#f92672">-</span><span style="color:#a6e22e">category</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;[在此输入分类名]&#34;</span>
-        <span style="color:#a6e22e">data</span><span style="color:#f92672">-</span><span style="color:#a6e22e">category</span><span style="color:#f92672">-</span><span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;[在此输入分类 ID]&#34;</span>
-        <span style="color:#a6e22e">data</span><span style="color:#f92672">-</span><span style="color:#a6e22e">mapping</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;pathname&#34;</span>
+        <span style="color:#a6e22e">data</span><span style="color:#f92672">-</span><span style="color:#a6e22e">repo</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;{{ .Site.Params.giscus.repo }}&#34;</span>
+        <span style="color:#a6e22e">data</span><span style="color:#f92672">-</span><span style="color:#a6e22e">repo</span><span style="color:#f92672">-</span><span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;{{ .Site.Params.giscus.repoid }}&#34;</span>
+        <span style="color:#a6e22e">data</span><span style="color:#f92672">-</span><span style="color:#a6e22e">category</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;{{ .Site.Params.utteranc.category }}&#34;</span>
+        <span style="color:#a6e22e">data</span><span style="color:#f92672">-</span><span style="color:#a6e22e">category</span><span style="color:#f92672">-</span><span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;{{ .Site.Params.giscus.categoryid }}&#34;</span>
+        <span style="color:#a6e22e">data</span><span style="color:#f92672">-</span><span style="color:#a6e22e">mapping</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;{{ .Site.Params.giscus.mapping }}&#34;</span>
         <span style="color:#a6e22e">data</span><span style="color:#f92672">-</span><span style="color:#a6e22e">strict</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;0&#34;</span>
         <span style="color:#a6e22e">data</span><span style="color:#f92672">-</span><span style="color:#a6e22e">reactions</span><span style="color:#f92672">-</span><span style="color:#a6e22e">enabled</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;1&#34;</span>
         <span style="color:#a6e22e">data</span><span style="color:#f92672">-</span><span style="color:#a6e22e">emit</span><span style="color:#f92672">-</span><span style="color:#a6e22e">metadata</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;0&#34;</span>
-        <span style="color:#a6e22e">data</span><span style="color:#f92672">-</span><span style="color:#a6e22e">input</span><span style="color:#f92672">-</span><span style="color:#a6e22e">position</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;bottom&#34;</span>
-        <span style="color:#a6e22e">data</span><span style="color:#f92672">-</span><span style="color:#a6e22e">theme</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;preferred_color_scheme&#34;</span>
+        <span style="color:#a6e22e">data</span><span style="color:#f92672">-</span><span style="color:#a6e22e">input</span><span style="color:#f92672">-</span><span style="color:#a6e22e">position</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;top&#34;</span>
+        <span style="color:#a6e22e">data</span><span style="color:#f92672">-</span><span style="color:#a6e22e">theme</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;{{ .Site.Params.giscus.theme }}&#34;</span>
         <span style="color:#a6e22e">data</span><span style="color:#f92672">-</span><span style="color:#a6e22e">lang</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;zh-CN&#34;</span>
         <span style="color:#a6e22e">crossorigin</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;anonymous&#34;</span>
         <span style="color:#66d9ef">async</span><span style="color:#f92672">&gt;</span>
@@ -588,6 +587,18 @@
 ...
 </code></pre><p>可以看到,上述的示例是添加到文章内容的后面,因此你也可以找到对应的部分,将评论嵌入进来.</p>
 <ol start="3">
+<li>在你博客仓库的配置文件中将以上需要配置的内容填上,我这里是<code>config.toml</code>,可以在 <code>giscus.app</code> 的页面上填写表单,然后下方的 javascript 部分会自动更新成你填写的内容,填写完成后将需要动态配置的内容填写的 config.toml 对应位置就可以了,可以参考我的配置内容:</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-toml" data-lang="toml">[<span style="color:#a6e22e">params</span>.<span style="color:#a6e22e">giscus</span>]
+  <span style="color:#a6e22e">enable</span> = <span style="color:#66d9ef">true</span>
+  <span style="color:#a6e22e">repo</span> = <span style="color:#e6db74">&#34;liangyuanpeng/liangyuanpeng.github.io&#34;</span>
+  <span style="color:#a6e22e">repoid</span> = <span style="color:#e6db74">&#34;xxx=&#34;</span>
+  <span style="color:#a6e22e">category</span> = <span style="color:#e6db74">&#34;comments&#34;</span>
+  <span style="color:#a6e22e">categoryid</span> = <span style="color:#e6db74">&#34;xxx&#34;</span>
+  <span style="color:#a6e22e">mapping</span> = <span style="color:#e6db74">&#34;title&#34;</span>
+  <span style="color:#a6e22e">theme</span> = <span style="color:#e6db74">&#34;light&#34;</span>
+</code></pre></div><p><img src="/img/blog/comments/write-config.png" alt="write-config"></p>
+<ol>
 <li>打开文章页面看看效果!</li>
 </ol>
 <p>这时候你已经将评论添加到页面上显示了,随便打开一篇你的文章,拉到你设置评论的地方,本文示例是文章内容的后面,然后你就可以看到你的 giscus 评论了!!!</p>
