@@ -1,9 +1,11 @@
-name: discussionaction
+name: comments
 
 on:
   discussion_comment:
     types: [created]
   discussion:
+    types: [created]
+  issue_comment:
     types: [created]
 
 jobs:

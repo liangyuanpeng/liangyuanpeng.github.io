@@ -1,2 +1,4 @@
 #!/bin/bash
-echo "github discussion event"
+echo "github events"
+
+echo $GH_EVENT
