@@ -1,0 +1,17 @@
+name: labelaction
+
+on:
+  issue_comment:
+
+jobs:
+
+  add_label:
+    if: github.event.issue.login == 'liangyuanpeng'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions-ecosystem/action-add-labels@v1
+        if: ${{ startsWith(github.event.comment.body, '/approved') }}
+        with:
+          labels: approved
+          github_token: ${{ secrets.TOKEN }}
