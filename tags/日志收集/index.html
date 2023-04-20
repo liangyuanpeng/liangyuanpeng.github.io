@@ -42,8 +42,7 @@
     <link rel="stylesheet" href="https://liangyuanpeng.github.io/css/syntax.css">
 
     
-    <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-    
+    <link href="/css/font-awesome.min.css" rel="stylesheet" type="text/css">
     
     <script src="https://liangyuanpeng.github.io/js/jquery.min.js"></script>
 
@@ -54,7 +53,7 @@
     <script src="https://liangyuanpeng.github.io/js/hux-blog.min.js"></script>
 
     
-    <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "f73bc0092aeb491d89984c0eb5a87ac2"}'></script>
+    <script defer src='/js/cf-beacon.min.js' data-cf-beacon='{"token": "f73bc0092aeb491d89984c0eb5a87ac2"}'></script>
 </head>
 
 </head>
@@ -1706,14 +1705,11 @@
 
 
 <script>
-    async("https://cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.js", function(){
+    async("/js/fastclick-1.0.6.js", function(){
         var $nav = document.querySelector("nav");
         if($nav) FastClick.attach($nav);
     })
 </script>
-
-
-
 
 
 
