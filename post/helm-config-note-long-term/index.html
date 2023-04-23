@@ -14,7 +14,7 @@
     <meta name="baidu-site-verification" content="code-ANZvlnN0Xr" />
 
     
-    <meta name="description" content="kubecon china 2023将在上海举办.">
+    <meta name="description" content="helm常见问题以及配置记录,欢迎投稿.">
     
     <meta name="keyword"  content="liangyuanpeng|LanLiang|OpenYurt|Knative|Pulsar|Prometheus|Halo||边缘计算kubernetes|Docker|CloudNative|Golang|Rust|Istio|微服务">
 
@@ -23,12 +23,12 @@
     
 
     
-    <meta property="og:image" content="https://liangyuanpeng.github.io/img/banner/53ca87e2-9ad8-475f-8781-6c51d4a55aeb.png" />
-    <meta name="twitter:image" content="https://liangyuanpeng.github.io/img/banner/53ca87e2-9ad8-475f-8781-6c51d4a55aeb.png" />
+    <meta property="og:image" content="https://liangyuanpeng.github.io/img/banner-pexels.jpg" />
+    <meta name="twitter:image" content="https://liangyuanpeng.github.io/img/banner-pexels.jpg" />
 
-    <title>kubecon china 2023将在上海举办-远鹏的博客 | liangyuanpeng&#39;s Blog</title>
+    <title>[长期更新]helm常见问题以及配置记录-远鹏的博客 | liangyuanpeng&#39;s Blog</title>
 
-    <link rel="canonical" href="https://liangyuanpeng.github.io/post/kubecon-china-2023%E5%B0%86%E5%9C%A8%E4%B8%8A%E6%B5%B7%E4%B8%BE%E5%8A%9E/">
+    <link rel="canonical" href="https://liangyuanpeng.github.io/post/helm-config-note-long-term/">
 
     
 
@@ -151,7 +151,7 @@
 
 <style type="text/css">
     header.intro-header{
-        background-image: url('https://liangyuanpeng.github.io/img/banner/53ca87e2-9ad8-475f-8781-6c51d4a55aeb.png')
+        background-image: url('https://liangyuanpeng.github.io/img/banner-pexels.jpg')
     }
 </style>
 
@@ -164,71 +164,6 @@
                         
 
                        
-                       <a class="tag" href="/tags/kubernetes" title="kubernetes">
-                        kubernetes
-                            
-                                
-                                <img style="display:inline-block;" src="/img/taglogo/emoji_k8s_loft.gif" height="20" width="20" />
-                                
-                            
-                                
-                            
-                                
-                            
-                                
-                            
-                                
-                            
-                                
-                            
-                                
-                            
-                                
-                            
-                                
-                            
-                                
-                            
-                                
-                            
-                                
-                            
-                                
-                            
-                                
-                            
-                                
-                            
-                                
-                            
-                                
-                            
-                                
-                            
-                                
-                            
-                                
-                            
-                                
-                            
-                                
-                            
-                                
-                            
-                                
-                            
-                                
-                            
-                                
-                            
-                                
-                            
-                                
-                            
-                                
-                            
-                        </a>
-                        
                        <a class="tag" href="/tags/k8s" title="k8s">
                         k8s
                             
@@ -357,14 +292,79 @@
                             
                         </a>
                         
+                       <a class="tag" href="/tags/kubernetes" title="kubernetes">
+                        kubernetes
+                            
+                                
+                                <img style="display:inline-block;" src="/img/taglogo/emoji_k8s_loft.gif" height="20" width="20" />
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                        </a>
+                        
                         <br/>
                     </div>
-                    <h1>kubecon china 2023将在上海举办</h1>
+                    <h1>[长期更新]helm常见问题以及配置记录</h1>
                     <h2 class="subheading"></h2>
-                    <span  class="meta">Posted by 梁远鹏 on 2023-04-22
+                    <span  class="meta">Posted by 梁远鹏 on 2023-04-23
                         
                         <span id="busuanzi_container_page_pv">|<span id="busuanzi_value_page_pv"></span><span>
-                            <span id="/post/kubecon-china-2023%E5%B0%86%E5%9C%A8%E4%B8%8A%E6%B5%B7%E4%B8%BE%E5%8A%9E/" class="leancloud_visitors meta_data_item" data-flag-title="">
+                            <span id="/post/helm-config-note-long-term/" class="leancloud_visitors meta_data_item" data-flag-title="">
     <span class="post-meta-item-icon">
       <span class="octicon octicon-eye"></span> 
     </span>
@@ -378,7 +378,7 @@
 
 
 
-                            阅读 </span></span>|<span class="post-date">共142字</span>，阅读约<span class="more-meta"> 1 分钟</span>
+                            阅读 </span></span>|<span class="post-date">共55字</span>，阅读约<span class="more-meta"> 1 分钟</span>
                         
                     </span>
                 </div>
@@ -403,19 +403,17 @@
                 <header>
                 <h2>TOC</h2>
                 </header>
-                <nav id="TableOfContents"></nav>
+                <nav id="TableOfContents">
+  <ul>
+    <li><a href="#官方文档">官方文档</a></li>
+  </ul>
+</nav>
 		
 
-		<h1 id="heading"></h1>
-<p>在 欧洲 kubecon2023 的会场上宣布了 kubecon 2023 上海的举办日期,非常值得期待!</p>
-<p><img src="/img/blog/kubecon/kubecon2023shanghai.jpg" alt="china2023shanghai"></p>
-<p>同时在 <a href="https://www.lfasiallc.com/kubecon-cloudnativecon-open-source-summit-china/?_gl=1*1p1f4s3*_ga*Mjc4MzQ3MDU0LjE2ODEwMTkwMTU.*_ga_VWZ4V8CGRF*MTY4MjEzOTgyMy4xLjAuMTY4MjEzOTgyMy4wLjAuMA..">Linux 基金会 Events</a> 中也可以找到对应的公告:</p>
-<p><img src="/img/blog/kubecon/china2023shanghai.png" alt="china2023shanghai"></p>
-<h1 id="说两句">说两句</h1>
-<p>虽然从2019年/2020年以来一直都有关注 kubernetes 和 kubecon，但是从来都没有参加过 kubecon，这一次 kubecon 2023 上海的活动我现在就已经有出发的冲动了。</p>
-<!-- raw HTML omitted -->
-<!-- raw HTML omitted -->
-<p>先定一个小目标,然后希望一切顺利。<img src="/img/emoji/2763-fe0f.png" alt="2763-fe0f"></p>
+		<h1 id="说明">说明</h1>
+<p>本文主要收集常见场景下 helm 配置以及遇到的一些常见问题,欢迎对本文进行投稿你认为好的场景配置或问题.</p>
+<h2 id="官方文档">官方文档</h2>
+<p><a href="https://helm.sh/docs/">https://helm.sh/docs/</a></p>
 
 
         <h2>微信公众号</h2>
@@ -443,12 +441,12 @@
                 <ul class="pager">
                     
                     <li class="previous">
-                        <a href="/post/add-comments-with-giscus/" data-toggle="tooltip" data-placement="top" title="基于giscus打造博客评论系统">&larr; 基于giscus打造博客评论系统</a>
+                        <a href="/post/kubeadm-config-note-long-term/" data-toggle="tooltip" data-placement="top" title="[长期更新]kubeadm常见问题以及配置记录">&larr; [长期更新]kubeadm常见问题以及配置记录</a>
                     </li>
                     
                     
                     <li class="next">
-                        <a href="/post/kubeadm-config-note-long-term/" data-toggle="tooltip" data-placement="top" title="[长期更新]kubeadm常见问题以及配置记录">[长期更新]kubeadm常见问题以及配置记录 &rarr;</a>
+                        <a href="/post/run-k8s-with-kind/" data-toggle="tooltip" data-placement="top" title="用kind搭建k8s集群环境">用kind搭建k8s集群环境 &rarr;</a>
                     </li>
                     
                 </ul>
@@ -588,6 +586,10 @@
 <h2>相关文章</h2>
 <ul style="margin-bottom: 25px;">
     
+    <li><a href="/post/kubeadm-config-note-long-term/">[长期更新]kubeadm常见问题以及配置记录</a></li>
+    
+    <li><a href="/post/kubecon-china-2023%E5%B0%86%E5%9C%A8%E4%B8%8A%E6%B5%B7%E4%B8%BE%E5%8A%9E/">kubecon china 2023将在上海举办</a></li>
+    
     <li><a href="/post/migrate-your-manifest-yaml-files-into-helm-chart/">将你的yaml文件迁移到helm</a></li>
     
     <li><a href="/post/from-zero-to-kubernets-subproject-lead/">从零到 Kubernetes 子项目负责人</a></li>
@@ -603,10 +605,6 @@
     <li><a href="/post/k8s-component-config-note-long-term/">[长期更新]k8s组件常用参数</a></li>
     
     <li><a href="/post/frozen-for-k8s-gcr-io/">k8s.gcr.io注册表完全冻结</a></li>
-    
-    <li><a href="/post/k8s-validating-admission-policy-with-crdparam-lua/">K8S内置准入校验CRD参数配合lua起飞</a></li>
-    
-    <li><a href="/post/k8s-admissionregistration-with-cel/">用cel表达式来实现k8s准入校验</a></li>
     
 </ul>
 

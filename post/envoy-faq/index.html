@@ -28,7 +28,7 @@
 
     <title>[长期更新]envoy常用-远鹏的博客 | liangyuanpeng&#39;s Blog</title>
 
-    <link rel="canonical" href="https://liangyuanpeng.github.io/post/ennoy-faq/">
+    <link rel="canonical" href="https://liangyuanpeng.github.io/post/envoy-faq/">
 
     
 
@@ -301,7 +301,7 @@
                     <span  class="meta">Posted by 梁远鹏 on 2023-02-16
                         
                         <span id="busuanzi_container_page_pv">|<span id="busuanzi_value_page_pv"></span><span>
-                            <span id="/post/ennoy-faq/" class="leancloud_visitors meta_data_item" data-flag-title="">
+                            <span id="/post/envoy-faq/" class="leancloud_visitors meta_data_item" data-flag-title="">
     <span class="post-meta-item-icon">
       <span class="octicon octicon-eye"></span> 
     </span>
@@ -315,7 +315,7 @@
 
 
 
-                            阅读 </span></span>|<span class="post-date">共213字</span>，阅读约<span class="more-meta"> 1 分钟</span>
+                            阅读 </span></span>|<span class="post-date">共277字</span>，阅读约<span class="more-meta"> 1 分钟</span>
                         
                     </span>
                 </div>
@@ -340,12 +340,27 @@
                 <header>
                 <h2>TOC</h2>
                 </header>
-                <nav id="TableOfContents"></nav>
+                <nav id="TableOfContents">
+  <ul>
+    <li><a href="#官方文档">官方文档</a></li>
+  </ul>
+
+  <ul>
+    <li><a href="#权重分流">权重分流</a></li>
+    <li><a href="#header分流">header分流</a></li>
+  </ul>
+</nav>
 		
 
 		<h1 id="说明">说明</h1>
 <p>本文主要收集常见场景下 Envoy 的配置以及遇到的一些常见问题,欢迎对本文进行投稿你认为好的场景配置或问题.</p>
-<h1 id="权重分流">权重分流</h1>
+<h2 id="官方文档">官方文档</h2>
+<p><a href="https://www.envoyproxy.io/docs/envoy/v1.26.0/">https://www.envoyproxy.io/docs/envoy/v1.26.0/</a></p>
+<blockquote>
+<p>注意: 上述地址文档对应envoy版本是 v1.26.0,如果你希望查看其他版本则将 v1.26.0 修改为你希望的版本即可.</p>
+</blockquote>
+<h1 id="场景以及配置">场景以及配置</h1>
+<h2 id="权重分流">权重分流</h2>
 <p>基于权重做灰度发布.</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">- <span style="color:#f92672">match</span>:
     <span style="color:#f92672">prefix</span>: <span style="color:#ae81ff">/</span>
@@ -358,7 +373,7 @@
           <span style="color:#f92672">weight</span>: <span style="color:#ae81ff">50</span>
       <span style="color:#f92672">total_weight</span>: <span style="color:#ae81ff">100</span>
 </code></pre></div><p>上述配置部分表示匹配前缀为 <code>/</code> 的请求并且按照 <code>1:1</code> 的权重分流给 <code>lank8scn_v1</code> 和 <code>lank8scn_v2</code>.</p>
-<h1 id="header分流">header分流</h1>
+<h2 id="header分流">header分流</h2>
 <p>基于 header 做灰度发布.</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">                        - <span style="color:#f92672">match</span>:
                             <span style="color:#f92672">prefix</span>: <span style="color:#e6db74">&#34;/&#34;</span>
@@ -400,7 +415,7 @@
                 <ul class="pager">
                     
                     <li class="previous">
-                        <a href="/post/frozen-for-k8s-gcr-io/" data-toggle="tooltip" data-placement="top" title="[长期更新]k8s组件常用参数">&larr; [长期更新]k8s组件常用参数</a>
+                        <a href="/post/k8s-component-config-note-long-term/" data-toggle="tooltip" data-placement="top" title="[长期更新]k8s组件常用参数">&larr; [长期更新]k8s组件常用参数</a>
                     </li>
                     
                     
@@ -551,7 +566,7 @@
     
     <li><a href="/post/envoy-file-xds-with-reload-configmap/">将热更新configmap作为Envoy的XDS服务</a></li>
     
-    <li><a href="/post/frozen-for-k8s-gcr-io/">[长期更新]k8s组件常用参数</a></li>
+    <li><a href="/post/k8s-component-config-note-long-term/">[长期更新]k8s组件常用参数</a></li>
     
     <li><a href="/post/frozen-for-k8s-gcr-io/">k8s.gcr.io注册表完全冻结</a></li>
     

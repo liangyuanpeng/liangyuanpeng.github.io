@@ -26,7 +26,7 @@
     <meta property="og:image" content="https://liangyuanpeng.github.io/img/banner-pexels.jpg" />
     <meta name="twitter:image" content="https://liangyuanpeng.github.io/img/banner-pexels.jpg" />
 
-    <title>[长期更新]k8s组件常用参数-远鹏的博客 | liangyuanpeng&#39;s Blog</title>
+    <title>k8s.gcr.io注册表完全冻结-远鹏的博客 | liangyuanpeng&#39;s Blog</title>
 
     <link rel="canonical" href="https://liangyuanpeng.github.io/post/frozen-for-k8s-gcr-io/">
 
@@ -359,9 +359,9 @@
                         
                         <br/>
                     </div>
-                    <h1>[长期更新]k8s组件常用参数</h1>
+                    <h1>k8s.gcr.io注册表完全冻结</h1>
                     <h2 class="subheading"></h2>
-                    <span  class="meta">Posted by 梁远鹏 on 2023-02-16
+                    <span  class="meta">Posted by 梁远鹏 on 2023-02-11
                         
                         <span id="busuanzi_container_page_pv">|<span id="busuanzi_value_page_pv"></span><span>
                             <span id="/post/frozen-for-k8s-gcr-io/" class="leancloud_visitors meta_data_item" data-flag-title="">
@@ -378,7 +378,7 @@
 
 
 
-                            阅读 </span></span>|<span class="post-date">共53字</span>，阅读约<span class="more-meta"> 1 分钟</span>
+                            阅读 </span></span>|<span class="post-date">共278字</span>，阅读约<span class="more-meta"> 1 分钟</span>
                         
                     </span>
                 </div>
@@ -406,8 +406,25 @@
                 <nav id="TableOfContents"></nav>
 		
 
-		<h1 id="说明">说明</h1>
-<p>本文主要收集常见场景下 K8S 组件的配置以及遇到的一些常见问题,欢迎对本文进行投稿你认为好的场景配置或问题.</p>
+		<h1 id="前言">前言</h1>
+<p>k8s.gcr.io 这个注册表将会在 2023年4月3日完全冻结,新的注册表地址为 registry.k8s.io,在2022年11月28日官方就已经发布了一篇<a href="https://kubernetes.io/blog/2022/11/28/registry-k8s-io-faster-cheaper-ga/">关于 registry.k8s.io 的博客</a>来说明此事.并且截止到今天为止, registry.k8s.io 已经稳定运行了几个月.</p>
+<h1 id="需要做什么">需要做什么</h1>
+<p>通过以下命令来找到当前目前集群中使用的镜像,</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">kubectl get pods --all-namespaces -o jsonpath<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;{.items[*].spec.containers[*].image}&#34;</span> |<span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>tr -s <span style="color:#e6db74">&#39;[[:space:]]&#39;</span> <span style="color:#e6db74">&#39;\n&#39;</span> |<span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>sort |<span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>uniq -c
+</code></pre></div><p>然后你就可以找到目前还有哪些地方在使用 k8s.gcr.io 这个镜像仓库.</p>
+<p>不过对于国内用户来说,这可能影响不大,因为国内用户在使用镜像时很有可能本身就不是使用 <code>k8s.gcr.io</code> 的,毕竟国内无法直接访问到这个地址.</p>
+<h1 id="参考资料">参考资料</h1>
+<p>官方博客</p>
+<ul>
+<li><a href="https://kubernetes.io/blog/2022/11/28/registry-k8s-io-faster-cheaper-ga/">https://kubernetes.io/blog/2022/11/28/registry-k8s-io-faster-cheaper-ga/</a></li>
+<li><a href="https://kubernetes.io/blog/2023/02/06/k8s-gcr-io-freeze-announcement/">https://kubernetes.io/blog/2023/02/06/k8s-gcr-io-freeze-announcement/</a></li>
+</ul>
+<h1 id="最后">最后</h1>
+<p>国内访问 <code>gcr.io</code> <code>registry.k8s.io</code> 可以使用 <code>lank8s.cn</code> 镜像服务.</p>
+<p>详情请看 <a href="https://liangyuanpeng.com/post/service-lank8s.cn">lank8scn服务</a></p>
 
 
         <h2>微信公众号</h2>
@@ -435,12 +452,12 @@
                 <ul class="pager">
                     
                     <li class="previous">
-                        <a href="/post/frozen-for-k8s-gcr-io/" data-toggle="tooltip" data-placement="top" title="k8s.gcr.io注册表完全冻结">&larr; k8s.gcr.io注册表完全冻结</a>
+                        <a href="/post/registry-mirrors-of-harbor/" data-toggle="tooltip" data-placement="top" title="harbor镜像代理">&larr; harbor镜像代理</a>
                     </li>
                     
                     
                     <li class="next">
-                        <a href="/post/ennoy-faq/" data-toggle="tooltip" data-placement="top" title="[长期更新]envoy常用">[长期更新]envoy常用 &rarr;</a>
+                        <a href="/post/k8s-component-config-note-long-term/" data-toggle="tooltip" data-placement="top" title="[长期更新]k8s组件常用参数">[长期更新]k8s组件常用参数 &rarr;</a>
                     </li>
                     
                 </ul>
@@ -580,8 +597,6 @@
 <h2>相关文章</h2>
 <ul style="margin-bottom: 25px;">
     
-    <li><a href="/post/frozen-for-k8s-gcr-io/">k8s.gcr.io注册表完全冻结</a></li>
-    
     <li><a href="/post/k8s-validating-admission-policy-with-crdparam-lua/">K8S内置准入校验CRD参数配合lua起飞</a></li>
     
     <li><a href="/post/k8s-admissionregistration-with-cel/">用cel表达式来实现k8s准入校验</a></li>
@@ -599,6 +614,8 @@
     <li><a href="/post/kubernetes-deploy-kube-prometheus/">kubernetes部署kube-prometheus</a></li>
     
     <li><a href="/post/registry-mirrors-for-containerd/">为containerd配置仓库镜像</a></li>
+    
+    <li><a href="/post/envoy-file-xds-with-reload-configmap/">将热更新configmap作为Envoy的XDS服务</a></li>
     
 </ul>
 
