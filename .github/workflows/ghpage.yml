@@ -20,8 +20,10 @@ jobs:
           fetch-depth: 0    # Fetch all history for .GitInfo and .Lastmod
 
       - name: run
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          docker run -e $PWD:/work -e hugodir=/work -e GH_TOKEN:${{ secrets.GITHUB_TOKEN }}  --rm ghcr.io/liangyuanpeng/createissue-066b2157544e2b63ca2e4c02f5f44955:latest
+          docker run -v $PWD:/work -e hugodir=/work -e GH_TOKEN=$GH_TOKEN  --rm ghcr.io/liangyuanpeng/createissue-066b2157544e2b63ca2e4c02f5f44955:latest
 
   build_ghpages:
     runs-on: ubuntu-latest
