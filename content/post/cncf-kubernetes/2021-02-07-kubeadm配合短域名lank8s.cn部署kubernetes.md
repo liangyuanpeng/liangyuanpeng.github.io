@@ -6,13 +6,14 @@ subtitle:   ""
 description: "本文主要使用kubeadm快速部署一个单机的kubernetes,其中镜像仓库使用lank8s.cn,当然也可以使用其他地址,lank8s.cn主要优势是短域名,好记. "
 date:       2021-02-07
 author:     "梁远鹏"
-image: "https://res.cloudinary.com/lyp/image/upload/v1612709640/hugo/blog.github.io/pexels-taryn-elliott-4909166.jpg"
+image: "img/banner-pexels.jpg"
 published: true
 tags:
     - kubernetes
     - CloudNative
     - lank8s.cn
     - kubeadm
+    - cncf
 categories: 
     - kubernetes
 ---
@@ -23,7 +24,7 @@ categories:
 
 # 前提  
 
-本文内容不包括讲述docker安装,因此需要自行先安装好docker。  
+本文内容不包括讲述 docker 安装,因此需要自行先安装好 docker。  
 
 # 安装kubectl、kubelet、kubeadm  
 
@@ -59,7 +60,7 @@ yum install -y kubectl-${KUBE_VERSION} kubelet-${KUBE_VERSION} kubeadm-${KUBE_VE
 1. 关闭swap
 todo
 
-2. 开始kubeadm安装kubernetes  
+2. 开始 kubeadm 安装 kubernetes  
 
 ```
 kubeadm init --kubernetes-version=v1.18.6 --pod-network-cidr=10.244.0.0/16 --service-cidr=10.96.0.0/12 --image-repository=lank8s.cn
@@ -234,6 +235,6 @@ Commercial support is available at
 
 # 总结  
 
-到目前为止就用kubeadm使用国内网络轻松部署起一个kubernetes了,`lank8s.cn`是我个人在维护的一个`k8s.gcr.io`镜像的代理,还有一个`gcr.lank8s.cn`可以代替`gcr.io`来拉取镜像.  
+到目前为止就用 kubeadm 使用国内网络轻松部署起一个 kubernetes 了,`lank8s.cn`是我个人在维护的一个`k8s.gcr.io`镜像的代理,还有一个`gcr.lank8s.cn`可以代替`gcr.io`来拉取镜像.  
 
-详情可以看看[lank8s.cn服务](https://liangyuanpeng.com/post/cncf-kubernetes/service-lank8s.cn)
+详情可以看看[lank8s.cn服务](https://liangyuanpeng.com/post/service-lank8s.cn)

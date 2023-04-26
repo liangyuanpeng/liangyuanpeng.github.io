@@ -15,7 +15,7 @@ tags:
     - ops
     - metrics
 categories: 
-    - CloudNative
+    - cloudnative
 ---    
 
 # 本系列文章专注于prometheus版本发布中文说明  

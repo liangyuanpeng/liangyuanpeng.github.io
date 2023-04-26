@@ -1,0 +1,71 @@
+name: build
+
+on:
+  pull_request:
+
+jobs:
+
+  print:
+    runs-on: ubuntu-latest
+    steps:
+      - name: print
+        run: |
+          echo "${{ toJSON(github) }}"
+
+  ci:
+    timeout-minutes: 10
+    runs-on: ubuntu-latest
+    steps:
+      # - name: Trigger dynamic workflow
+      #   run: |
+      #     curl -X POST -u ${{ github.actor }}:${{ secrets.GITHUB_TOKEN }} \
+      #       -H "Accept: application/vnd.github.v3+json" \
+      #       -d '{ "ref": "source", "inputs": { "github_token": "${{ secrets.GITHUB_TOKEN }}", "workflow": "name: Dynamic Job\n  on:\n    workflow_dispatch:\n  jobs:\n    job1:\n      runs-on: ubuntu-latest\n      steps:\n        - run: echo Hello" } }' \
+      #       https://api.github.com/repos/${{ github.repository }}/dispatches
+
+      - uses: actions/checkout@v3
+        with:
+          submodules: true  # Fetch Hugo themes (true OR recursive)
+          fetch-depth: 0    # Fetch all history for .GitInfo and .Lastmod
+
+# https://github.com/gohugoio/hugo/releases/download/v0.79.1/hugo_0.79.1_Linux-64bit.tar.gz
+# https://github.com/gohugoio/hugo/releases/download/v0.79.1/hugo_0.79.1_Linux-64bit.deb
+      - name: Setup Hugo
+        uses: peaceiris/actions-hugo@v2
+        with:
+          hugo-version: '0.79.1'
+          extended: true
+
+      # - name: download hugo
+      #   run: |
+      #     wget https://github.com/gohugoio/hugo/releases/download/v0.79.1/hugo_0.79.1_Linux-64bit.tar.gz
+      #     tar -xf hugo_0.79.1_Linux-64bit.tar.gz
+      #     mv hugo /usr/local/bin/
+
+      - name: Build Hugo
+        run: |
+          sh build.sh
+
+      # - name: Upload artifact
+      #   uses: actions/upload-artifact@v3
+      #   with:
+      #     name: hugoblog
+      #     path: public
+
+      # - name: Build Hugo
+      #   run: |
+      #     rm -rf public
+
+      # - uses: actions/download-artifact@v3
+      #   id: download
+      #   with:
+      #     name: hugoblog
+      #     path: public
+
+      # - name: Build Hugo
+      #   run: |
+      #     ls
+      #     pwd
+      #     echo "downloadpath:" ${{steps.download.outputs.download-path}}
+      #     ls ${{steps.download.outputs.download-path}}
+      #     ls public

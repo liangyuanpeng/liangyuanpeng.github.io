@@ -13,7 +13,7 @@ tags:
     - gateway
     - contour
 categories: 
-    - CloudNative
+    - cloudnative
 ---    
 
 # helm部署  

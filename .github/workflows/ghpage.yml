@@ -1,0 +1,95 @@
+name: deploy ghpage
+
+on:
+  push:
+    branches: [ source ]
+  schedule:
+  - cron: "0 9 * * *"
+
+jobs:
+
+  create-comments:
+    timeout-minutes: 20
+    runs-on: ubuntu-latest
+    permissions:
+      discussions: write
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          submodules: true  # Fetch Hugo themes (true OR recursive)
+          fetch-depth: 0    # Fetch all history for .GitInfo and .Lastmod
+
+      - name: run
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          docker run -v $PWD:/work -e hugodir=/work -e GH_TOKEN=$GH_TOKEN  --rm ghcr.io/liangyuanpeng/createissue-066b2157544e2b63ca2e4c02f5f44955:latest
+
+  build_ghpages:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          submodules: true  # Fetch Hugo themes (true OR recursive)
+          fetch-depth: 0    # Fetch all history for .GitInfo and .Lastmod
+
+      - name: Setup Hugo
+        uses: peaceiris/actions-hugo@v2
+        with:
+          hugo-version: '0.90.0'
+          # extended: true
+
+      - name: Build Hugo
+        env:
+          BASEURL: liangyuanpeng.github.io
+        run: |
+          sh build.sh
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: hugoblog
+          path: public
+
+  deploy_ghpages:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    needs: 
+      - build_ghpages
+    steps:
+      - uses: actions/download-artifact@v3
+        id: download
+        with:
+          name: hugoblog
+          path: public
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./public
+          publish_branch: master
+      - name: print
+        run: |
+          ls
+          echo hello
+          echo "downloadpath:" ${{steps.download.outputs.download-path}}
+
+  update_algolia:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    needs:
+      - build_ghpages
+    steps:
+      - uses: actions/download-artifact@v3
+        id: download
+        with:
+          name: hugoblog
+          path: public
+      - name: Run container for atomic-algolia
+        run: docker run --rm -e ALGOLIA_ADMIN_KEY=${{ secrets.ALGOLIA_ADMIN_KEY }} -e ALGOLIA_INDEX_FILE=/public/algolia.json -e ALGOLIA_APP_ID=${{ secrets.ALGOLIA_APP_ID }} -e ALGOLIA_INDEX_NAME=${{ secrets.ALGOLIA_INDEX_NAME }} -v $PWD/public:/public registry.cn-hongkong.aliyuncs.com/lan-k8s/ubuntu:algolia atomic-algolia
+      - name: print
+        run: |
+          ls
+          echo hello
+          echo "downloadpath:" ${{steps.download.outputs.download-path}}

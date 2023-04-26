@@ -1,0 +1,41 @@
+name: Deploy site on server 
+
+on:
+  push:
+    branches: [ source_disable ]
+  
+
+jobs:
+
+  deploy:
+    timeout-minutes: 10
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          submodules: true  # Fetch Hugo themes (true OR recursive)
+          fetch-depth: 0    # Fetch all history for .GitInfo and .Lastmod
+
+      - name: Setup Hugo
+        uses: peaceiris/actions-hugo@v2
+        with:
+          hugo-version: '0.79.1'
+          # extended: true
+
+      - name: Build Hugo
+        run: hugo --minify && ls public
+
+      #将主站点liangyuanpeng.com的百度trackId替换成blog。liangyuanpeng.com站点的百度trackId
+      - name: Deploy from site blog on server
+        run: |
+              sed -i 's/fad9c137f8ce239f9b323d36c871f8e6/71126c746d53d10cdb4275496d9cc84b/g' config.toml
+              hugo --minify
+              docker version
+              echo -e "[site] \n${{ secrets.server }} ansible_ssh_user=${{ secrets.username }} ansible_ssh_pass='${{ secrets.password }}'" > ./hostfile
+              docker run -v $PWD/hostfile:/tmp/hostfile -e ANSIBLE_HOST_KEY_CHECKING=false --rm registry.cn-hongkong.aliyuncs.com/lan-k8s/ubuntu:ansible ansible -i /tmp/hostfile site  -m shell -a "mkdir -p /usr/local/kafeidou/blog/liangyuanpeng.github.io"
+              tar -cvf public.tar public
+              mv public.tar public
+              docker run -v $PWD/hostfile:/tmp/hostfile -v $PWD/public:/tmp/public -e ANSIBLE_HOST_KEY_CHECKING=false --rm registry.cn-hongkong.aliyuncs.com/lan-k8s/ubuntu:ansible ansible  -i /tmp/hostfile site -m copy -a "src=/tmp/public/public.tar dest=/usr/local/kafeidou/blog/liangyuanpeng.github.io"
+              docker run -v $PWD/hostfile:/tmp/hostfile -e ANSIBLE_HOST_KEY_CHECKING=false --rm registry.cn-hongkong.aliyuncs.com/lan-k8s/ubuntu:ansible ansible -i /tmp/hostfile site  -m shell -a "cd /usr/local/kafeidou/blog/liangyuanpeng.github.io && tar -xvf public.tar"
+              rm -f hostfile
+              rm -f public/public.tar

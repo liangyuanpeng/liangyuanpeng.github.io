@@ -16,11 +16,11 @@ categories: [ kubernetes ]
 
 # 前言  
 
-在之前，longhorn的部署是不涉及k8s.gcr.io的镜像的,但是在现在新版本当中,csi相关的镜像都是直接使用k8s.gcr.io中的镜像.
+在之前，longhorn 的部署是不涉及 k8s.gcr.io 的镜像的,但是在现在新版本当中,csi 相关的镜像都是直接使用 k8s.gcr.io 中的镜像.
 
 # 淡定  
 
-不要慌,这时候可以使用短域名镜像代理`lank8s.cn`来代替k8s.gcr.io.只需要将k8s.gcr.io修改为`lank8s.cn`就可以了，其他都不变.
+不要慌,这时候可以使用短域名镜像代理`lank8s.cn`来代替 k8s.gcr.io.只需要将 k8s.gcr.io 修改为`lank8s.cn`就可以了，其他都不变.
 
 # 前提  
 
@@ -177,3 +177,7 @@ longhorn-ui-75ccbd4695-c9rn6                1/1     Running   0          97s
 目前在线的webhook服务已经上线,只需要在k8s集群部署一个webhook配置,就可以使用在线webhook自动化的修改`gcr.lank8s.io`为`lank8s.cn`了,告别手动时代!  
 
 点击[在线的lank8s的webhook服务](https://liangyuanpeng.com/post/deploy-lank8s-webhook-for-k8s.gcr.io/)查看怎么使用.
+
+# 更新:看看国内如何拉取gcr.io和registry.k8s.io镜像的
+
+[传送门:国内环境拉取gcr和k8s镜像](https://liangyuanpeng.com/post/cncf-k8s/pull-gcr-k8s-image-with-lank8s/)

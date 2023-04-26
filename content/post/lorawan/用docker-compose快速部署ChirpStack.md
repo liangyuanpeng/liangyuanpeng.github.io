@@ -10,11 +10,11 @@ image: "https://res.cloudinary.com/lyp/image/upload/v1544363191/hugo/blog.github
 published: true
 tags:
     - ChirpStack
-    - Docker-compose 
+    - docker-compose 
     - IOT
-    - Docker
+    - docker
 categories: 
-    - CloudNative
+    - cloudnative
 ---
 
 # 前提

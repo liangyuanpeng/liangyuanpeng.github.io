@@ -6,8 +6,9 @@ subtitle:   ""
 description: ""
 date:       2022-01-17
 author:     "梁远鹏"
-image: "https://res.cloudinary.com/lyp/image/upload/v1635353670/hugo/banner/pexels-helena-lopes-2253275.jpg"
+image: "img/banner-pexels.jpg"
 published: true
+wipnote: true
 tags:
     - kubernetes 
     - cncf
@@ -26,4 +27,4 @@ L4比较简单处理,但是L7处理和平时处理不太一样,因为kubectl默�
 
 # 注意  
 
-本文还在持续创作当中,将会在[部署一个完整带SSL的etcd](https://liangyuanpeng.com/post/function-cncf/deploy-full-ssl-etcd)和[单独部署一个kube-apiserver](https://liangyuanpeng.com/post/cncf-kubernetes/deploy-kube-apiserver-only-with-etcd)后开始正式编写.
+本文还在持续创作当中,将会在[部署一个完整带SSL的etcd](https://liangyuanpeng.com/post/deploy-full-ssl-etcd)和[单独部署一个kube-apiserver](https://liangyuanpeng.com/post/cncf-kubernetes/deploy-kube-apiserver-only-with-etcd)后开始正式编写.
