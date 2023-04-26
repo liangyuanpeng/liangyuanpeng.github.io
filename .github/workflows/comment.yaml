@@ -1,0 +1,14 @@
+name: pull request comment
+on:
+  issue_comment:                                     
+    types: [created]
+jobs:
+
+  label_approved:
+    timeout-minutes: 10
+    runs-on: ubuntu-latest
+    if: contains(github.event.comment.body, '/approved')
+    steps:
+      - name: approved labal
+        run: |
+          echo "approved labal"

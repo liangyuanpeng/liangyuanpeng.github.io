@@ -5,7 +5,7 @@ subtitle:   "OpenKruise-clonseset!"
 description: " "
 date:       2021-02-07
 author:     "梁远鹏"
-image: "https://res.cloudinary.com/lyp/image/upload/v1612709829/hugo/blog.github.io/pexels-drew-williams-3483967.jpg"
+image: "img/banner-pexels.jpg"
 published: false
 tags:
     - kubernetes

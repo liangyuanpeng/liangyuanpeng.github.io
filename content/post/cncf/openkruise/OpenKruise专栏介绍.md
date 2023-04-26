@@ -6,7 +6,7 @@ subtitle:   "OpenKruise专栏介绍"
 description: " "
 date:       2021-02-07
 author:     "梁远鹏"
-image: "https://res.cloudinary.com/lyp/image/upload/v1612744351/hugo/blog.github.io/pexels-bruno-cervera-6032877.jpg"
+image: "img/banner-pexels.jpg"
 published: true
 tags:
     - kubernetes
