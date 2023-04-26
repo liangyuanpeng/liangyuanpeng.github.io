@@ -6,7 +6,7 @@
     <description>Recent content in k8s on Hi,I`m lan</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 23 Apr 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://liangyuanpeng.github.io/tags/k8s/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 26 Apr 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://liangyuanpeng.github.io/tags/k8s/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>用kind搭建k8s集群环境</title>
       <link>https://liangyuanpeng.github.io/post/run-k8s-with-kind/</link>
@@ -14,6 +14,15 @@
       
       <guid>https://liangyuanpeng.github.io/post/run-k8s-with-kind/</guid>
       <description>前言 由于各类基于 kubernetes 的云原生实验或测试的前提都是需要一个 kubernetes 环境,而在写博客时总是需要提及使用 kind 来搭建 kubernetes 环境. 因此这里单独写一篇文章来介绍如何用</description>
+    </item>
+    
+    <item>
+      <title>oras的日常使用</title>
+      <link>https://liangyuanpeng.github.io/post/usage-oras/</link>
+      <pubDate>Wed, 26 Apr 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://liangyuanpeng.github.io/post/usage-oras/</guid>
+      <description>这篇在讲什么 主要是记录我使用 oras 的一些使用场景。 由于已知 oras 是一个将任意内容存储为容器镜像的工具,因此不过多介绍 oras。 都有什么场景 存储工作区</description>
     </item>
     
     <item>

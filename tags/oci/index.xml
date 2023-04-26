@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>oci on Hi,I`m lan</title>
+    <link>https://liangyuanpeng.github.io/tags/oci/</link>
+    <description>Recent content in oci on Hi,I`m lan</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 26 Apr 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://liangyuanpeng.github.io/tags/oci/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>oras的日常使用</title>
+      <link>https://liangyuanpeng.github.io/post/usage-oras/</link>
+      <pubDate>Wed, 26 Apr 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://liangyuanpeng.github.io/post/usage-oras/</guid>
+      <description>这篇在讲什么 主要是记录我使用 oras 的一些使用场景。 由于已知 oras 是一个将任意内容存储为容器镜像的工具,因此不过多介绍 oras。 都有什么场景 存储工作区</description>
+    </item>
+    
+  </channel>
+</rss>
