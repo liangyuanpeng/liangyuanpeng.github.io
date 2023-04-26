@@ -2,8 +2,8 @@
 layout:     post 
 slug:      "hugo-slug-url"
 title:      "Hugo博客SEO优化-URL和标题区分开"
-subtitle:   "Hugo博客SEO优化-URL和标题区分开"
-description: " "
+subtitle:   ""
+description: "Hugo博客SEO优化-URL和标题区分开"
 date:       2021-03-11
 author:     "梁远鹏"
 image: "/img/banner/743a4e9227e1f14cb24a1eb6db29e183.jpg"

@@ -5,7 +5,7 @@ subtitle:   "部署轻论坛flarum"
 description: " "
 date:       2021-03-23
 author:     "梁远鹏"
-image: "https://res.cloudinary.com/lyp/image/upload/v1616498161/hugo/banner/pexels-ketut-subiyanto-4473276.jpg"
+image: "img/banner-pexels.jpg"
 published: false
 tags:
     - flarum

@@ -6,7 +6,7 @@ subtitle:   ""
 description: "由于logstash内存占用较大,灵活性相对没那么好,ELK正在被EFK逐步替代."  
 date:       2020-02-17
 author:     "梁远鹏"
-image: "https://res.cloudinary.com/lyp/image/upload/v1581932131/hugo/blog.github.io/you-got-this-lighted-signage-2740954.jpg"
+image: "img/banner-pexels.jpg"
 published: true
 tags: 
     - docker

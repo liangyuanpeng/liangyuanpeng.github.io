@@ -3,10 +3,10 @@ layout:     post
 slug:      "springboot-clear-unuse-metrics"
 title:      "清理SpringBoot应用无用的metrics指标"
 subtitle:   ""
-description: ""
+description: "清理SpringBoot应用无用的metrics指标"
 date:       2021-04-07
 author:     "梁远鹏"
-image: "https://res.cloudinary.com/lyp/image/upload/v1618109095/hugo/banner/pexels-mikael-blomkvist-6483585.jpg"
+image: "img/banner-pexels.jpg"
 published: true
 tags:
     - prometheus

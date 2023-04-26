@@ -6,7 +6,7 @@ subtitle:   ""
 description: "微服务监控:SpringBoot-Micrometer-Influx."  
 date:       2020-03-08
 author:     "梁远鹏"
-image: "https://res.cloudinary.com/lyp/image/upload/v1583638098/hugo/blog.github.io/abstract-art-blur-bright-373543.jpg"
+image: "img/banner-pexels.jpg"
 published: true
 tags: 
     - SpringBoot
