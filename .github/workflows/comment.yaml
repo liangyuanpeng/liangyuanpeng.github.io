@@ -7,8 +7,9 @@ jobs:
   label_approved:
     timeout-minutes: 10
     runs-on: ubuntu-latest
-    if: contains(github.event.comment.body, '/approved')
+    # if: contains(github.event.comment.body, '/approved')
     steps:
       - name: approved labal
+        if: contains(github.event.comment.body, '/approved')
         run: |
           echo "approved labal"
