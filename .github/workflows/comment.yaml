@@ -7,7 +7,7 @@ jobs:
   label_approved:
     timeout-minutes: 10
     runs-on: ubuntu-latest
-    # if: contains(github.event.comment.body, '/approved')
+    if: github.event.comment.user.login == 'liangyuanpeng'
     steps:
       - name: approved labal
         if: contains(github.event.comment.body, '/approved')
