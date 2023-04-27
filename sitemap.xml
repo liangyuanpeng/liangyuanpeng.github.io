@@ -12,6 +12,16 @@
   </url>
   
   <url>
+    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/tags/ansible/</loc>
+    <lastmod>2023-04-26T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/post/ansible-qa/</loc>
+    <lastmod>2023-04-26T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/categories/</loc>
     <lastmod>2023-04-26T00:00:00+00:00</lastmod>
   </url>
@@ -62,6 +72,11 @@
   </url>
   
   <url>
+    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/categories/tech/</loc>
+    <lastmod>2023-04-26T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/post/helm-config-note-long-term/</loc>
     <lastmod>2023-04-23T00:00:00+00:00</lastmod>
   </url>
@@ -103,11 +118,6 @@
   
   <url>
     <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/tags/hugo/</loc>
-    <lastmod>2023-04-17T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/categories/tech/</loc>
     <lastmod>2023-04-17T00:00:00+00:00</lastmod>
   </url>
   
@@ -1322,11 +1332,6 @@
   </url>
   
   <url>
-    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/post/remote-deploy-of-jenkins-for-linux-application/</loc>
-    <lastmod>2019-01-13T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
     <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/tags/linux/</loc>
     <lastmod>2019-01-13T00:00:00+00:00</lastmod>
   </url>
@@ -1348,11 +1353,6 @@
   
   <url>
     <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/tags/%E5%89%8D%E5%90%8E%E7%AB%AF%E5%88%86%E7%A6%BB/</loc>
-    <lastmod>2019-01-06T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/post/deploy-react-app/</loc>
     <lastmod>2019-01-06T00:00:00+00:00</lastmod>
   </url>
   
@@ -1437,11 +1437,6 @@
   </url>
   
   <url>
-    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/post/awesome-messagequeue/</loc>
-    <lastmod>2018-12-08T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
     <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/post/sofarpc-trace/</loc>
     <lastmod>2018-12-08T00:00:00+00:00</lastmod>
   </url>
@@ -1469,16 +1464,6 @@
   <url>
     <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/post/note-ci-repo/</loc>
     <lastmod>2018-09-22T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/post/note-ci-repo/</loc>
-    <lastmod>2018-09-22T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/tags/ansible/</loc>
-    <lastmod>2012-01-28T00:00:00+00:00</lastmod>
   </url>
   
   <url>

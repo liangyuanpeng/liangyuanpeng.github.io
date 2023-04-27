@@ -125,15 +125,6 @@
     </item>
     
     <item>
-      <title>AWESOME消息队列</title>
-      <link>https://liangyuanpeng.github.io/post/awesome-messagequeue/</link>
-      <pubDate>Sat, 08 Dec 2018 00:00:00 +0000</pubDate>
-      
-      <guid>https://liangyuanpeng.github.io/post/awesome-messagequeue/</guid>
-      <description>前言 消息队列是应用程序解耦通信的一个关键组件,本篇博文主要以列举开源消息队列为目的编写,并不展开具体内容讲解，没有开源的不在列举范围内。 mq</description>
-    </item>
-    
-    <item>
       <title>转|SOFARPC链路追踪剖析</title>
       <link>https://liangyuanpeng.github.io/post/sofarpc-trace/</link>
       <pubDate>Sat, 08 Dec 2018 00:00:00 +0000</pubDate>

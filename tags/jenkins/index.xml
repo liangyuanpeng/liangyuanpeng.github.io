@@ -16,14 +16,5 @@
       <description>前言 之前在 Jenkins 上也有一些使用经验了，但是都是使用团队配置好的 Jenkins，自己只需要管自己的项目以及执行构建即可，这一次自己尝试了一下配置 Jenkins</description>
     </item>
     
-    <item>
-      <title>Jenkins远程部署Linux服务器</title>
-      <link>https://liangyuanpeng.github.io/post/remote-deploy-of-jenkins-for-linux-application/</link>
-      <pubDate>Sun, 13 Jan 2019 00:00:00 +0000</pubDate>
-      
-      <guid>https://liangyuanpeng.github.io/post/remote-deploy-of-jenkins-for-linux-application/</guid>
-      <description>前言 之前在 Jenkins 上也有一些使用经验了，但是都是使用团队配置好的 Jenkins，自己只需要管自己的项目以及执行构建即可，这一次自己尝试了一下配置 Jenkins</description>
-    </item>
-    
   </channel>
 </rss>

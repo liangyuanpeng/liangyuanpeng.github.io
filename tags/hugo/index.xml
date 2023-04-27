@@ -88,14 +88,5 @@
       <description>前言 CI 过程中拉取仓库的注意点 备注：本文安装指南基于 Ubuntu 16.04，在 Centos 上某些安装步骤的命令可能需要稍作改动。 CI Hugo博客时子模块注意点 在 fork 了</description>
     </item>
     
-    <item>
-      <title>CI过程中拉取仓库的注意点</title>
-      <link>https://liangyuanpeng.github.io/post/note-ci-repo/</link>
-      <pubDate>Sat, 22 Sep 2018 00:00:00 +0000</pubDate>
-      
-      <guid>https://liangyuanpeng.github.io/post/note-ci-repo/</guid>
-      <description>前言 CI 过程中拉取仓库的注意点 备注：本文安装指南基于 Ubuntu 16.04，在 Centos 上某些安装步骤的命令可能需要稍作改动。 CI Hugo博客时子模块注意点 在 fork 了</description>
-    </item>
-    
   </channel>
 </rss>

@@ -6,7 +6,16 @@
     <description>Recent content in TECH on Hi,I`m lan</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 17 Apr 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://liangyuanpeng.github.io/categories/tech/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 26 Apr 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://liangyuanpeng.github.io/categories/tech/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>ansible问题用法汇总</title>
+      <link>https://liangyuanpeng.github.io/post/ansible-qa/</link>
+      <pubDate>Wed, 26 Apr 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://liangyuanpeng.github.io/post/ansible-qa/</guid>
+      <description>前言 本文长期更新,欢迎投稿:)</description>
+    </item>
+    
     <item>
       <title>基于giscus打造博客评论系统</title>
       <link>https://liangyuanpeng.github.io/post/add-comments-with-giscus/</link>
@@ -31,7 +40,7 @@
       <pubDate>Thu, 13 Apr 2023 00:00:00 +0000</pubDate>
       
       <guid>https://liangyuanpeng.github.io/post/git-qa/</guid>
-      <description>前言 本文长期更新,欢迎投稿:) 问题QA First, rewinding head to replay your work on top of it...Fast-forwarded text to main. 这个是我在处理 Contour 这个PR时出现的问题,流程是这样的: 我根据 Contour 的主分支 checkout 了一</description>
+      <description>前言 本文长期更新,欢迎投稿:) 问题QA rewinding head to replay your work on top of it&amp;hellip;Fast-forwarded text to main First, rewinding head to replay your work on top of it...Fast-forwarded text to main. 这个是我在处理 Contour 这个PR时出现的问题,流程是这样</description>
     </item>
     
     <item>
@@ -377,15 +386,6 @@
     </item>
     
     <item>
-      <title>部署React应用</title>
-      <link>https://liangyuanpeng.github.io/post/deploy-react-app/</link>
-      <pubDate>Sun, 06 Jan 2019 00:00:00 +0000</pubDate>
-      
-      <guid>https://liangyuanpeng.github.io/post/deploy-react-app/</guid>
-      <description>前言 前后端分离已经是大趋势，服务器端只需要关注自己的接口逻辑实现，而不需要关注前端的页面跳转，这一部分交由前端处理。常见的就是React应用</description>
-    </item>
-    
-    <item>
       <title>转|SOFARPC优雅关闭剖析</title>
       <link>https://liangyuanpeng.github.io/post/sofarpc-right-down/</link>
       <pubDate>Wed, 12 Dec 2018 00:00:00 +0000</pubDate>
@@ -485,15 +485,6 @@
     </item>
     
     <item>
-      <title>AWESOME消息队列</title>
-      <link>https://liangyuanpeng.github.io/post/awesome-messagequeue/</link>
-      <pubDate>Sat, 08 Dec 2018 00:00:00 +0000</pubDate>
-      
-      <guid>https://liangyuanpeng.github.io/post/awesome-messagequeue/</guid>
-      <description>前言 消息队列是应用程序解耦通信的一个关键组件,本篇博文主要以列举开源消息队列为目的编写,并不展开具体内容讲解，没有开源的不在列举范围内。 mq</description>
-    </item>
-    
-    <item>
       <title>转|SOFARPC链路追踪剖析</title>
       <link>https://liangyuanpeng.github.io/post/sofarpc-trace/</link>
       <pubDate>Sat, 08 Dec 2018 00:00:00 +0000</pubDate>
@@ -518,15 +509,6 @@
       
       <guid>https://liangyuanpeng.github.io/post/deploy-apache-rocketmq/</guid>
       <description>前言 这篇文章以4.3.0版本为标准进行讲述在linux下部署RocketMQ单机实例,在此之前需要已配置JAVA环境。 apache RocketMQ 是阿里巴巴在201</description>
-    </item>
-    
-    <item>
-      <title>CI过程中拉取仓库的注意点</title>
-      <link>https://liangyuanpeng.github.io/post/note-ci-repo/</link>
-      <pubDate>Sat, 22 Sep 2018 00:00:00 +0000</pubDate>
-      
-      <guid>https://liangyuanpeng.github.io/post/note-ci-repo/</guid>
-      <description>前言 CI 过程中拉取仓库的注意点 备注：本文安装指南基于 Ubuntu 16.04，在 Centos 上某些安装步骤的命令可能需要稍作改动。 CI Hugo博客时子模块注意点 在 fork 了</description>
     </item>
     
     <item>

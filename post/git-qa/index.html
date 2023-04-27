@@ -248,7 +248,7 @@
 
 
 
-                            阅读 </span></span>|<span class="post-date">共248字</span>，阅读约<span class="more-meta"> 1 分钟</span>
+                            阅读 </span></span>|<span class="post-date">共360字</span>，阅读约<span class="more-meta"> 1 分钟</span>
                         
                     </span>
                 </div>
@@ -273,12 +273,18 @@
                 <header>
                 <h2>TOC</h2>
                 </header>
-                <nav id="TableOfContents"></nav>
+                <nav id="TableOfContents">
+  <ul>
+    <li><a href="#rewinding-head-to-replay-your-work-on-top-of-itfast-forwarded-text-to-main">rewinding head to replay your work on top of it&hellip;Fast-forwarded text to main</a></li>
+    <li><a href="#使用远程分支覆盖本地分支">使用远程分支覆盖本地分支</a></li>
+  </ul>
+</nav>
 		
 
 		<h1 id="前言">前言</h1>
 <p>本文长期更新,欢迎投稿:)</p>
 <h1 id="问题qa">问题QA</h1>
+<h2 id="rewinding-head-to-replay-your-work-on-top-of-itfast-forwarded-text-to-main">rewinding head to replay your work on top of it&hellip;Fast-forwarded text to main</h2>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">First, rewinding head to replay your work on top of it...Fast-forwarded text to main.
 </code></pre></div><p>这个是我在处理 <a href="https://github.com/projectcontour/contour">Contour</a> <a href="https://github.com/projectcontour/contour/pull/5157">这个PR</a>时出现的问题,流程是这样的:</p>
 <ol>
@@ -290,7 +296,10 @@
 </ol>
 <p>原以为是出现了错误,但是似乎并没有造成什么影响.</p>
 <p>TODO: 根据《Pro Git》第96页 似乎有提到这个内容,翻一翻求证一下.</p>
-
+<h2 id="使用远程分支覆盖本地分支">使用远程分支覆盖本地分支</h2>
+<p>偶尔会弄脏了本地分支,需要用远程分支来覆盖本地的内容.当然还有另外的做法，那就是切换到另一个分支，然后将不想要的分支删除，再基于远程分支创建一个新的分支(如果需要)。</p>
+<pre tabindex="0"><code>git reset --hard origin/branchName
+</code></pre>
 
         <h2>微信公众号</h2>
 <p>扫描下面的二维码关注我们的微信公众号,第一时间查看最新内容。同时也可以关注我的Github,看看我都在了解什么技术,在页面底部可以找到我的Github。</p>
@@ -461,8 +470,6 @@
 
 <h2>相关文章</h2>
 <ul style="margin-bottom: 25px;">
-    
-    <li><a href="/post/note-ci-repo/">CI过程中拉取仓库的注意点</a></li>
     
     <li><a href="/post/note-ci-repo/">CI过程中拉取仓库的注意点</a></li>
     
