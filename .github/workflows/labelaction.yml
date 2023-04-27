@@ -6,7 +6,7 @@ on:
 jobs:
 
   add_label:
-    if: github.event.issue.login == 'liangyuanpeng'
+    if: github.event.comment.user.login == 'liangyuanpeng'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
