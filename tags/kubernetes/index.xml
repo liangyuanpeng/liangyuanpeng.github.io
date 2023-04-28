@@ -107,6 +107,15 @@
     </item>
     
     <item>
+      <title>Contour-1.24.0发布</title>
+      <link>https://liangyuanpeng.github.io/post/contour-1.24.0-release/</link>
+      <pubDate>Sun, 26 Feb 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://liangyuanpeng.github.io/post/contour-1.24.0-release/</guid>
+      <description>前言 我们很高兴推出 Contour 的 v1.24.0 版本,这是我们针对 kubernetes 集群的第7层 HTTP 反向代理. 主要更新 修复了重复 HTTPProxy include condition的处理 重复的 include condition 现在能够被正确识</description>
+    </item>
+    
+    <item>
       <title>国内环境拉取gcr和k8s镜像</title>
       <link>https://liangyuanpeng.github.io/post/pull-gcr-k8s-image-with-lank8s/</link>
       <pubDate>Wed, 22 Feb 2023 00:00:00 +0000</pubDate>
@@ -248,15 +257,6 @@
       
       <guid>https://liangyuanpeng.github.io/post/contour-v1.20.0-beta.1-release/</guid>
       <description>前言 我们很高兴发布发布我们用于kubernetes集群七层反响代理Contour的v1.20.0版本. Contour是什么 Contour是基</description>
-    </item>
-    
-    <item>
-      <title>Contour-v1.20.0-beta.1发布</title>
-      <link>https://liangyuanpeng.github.io/post/contour-v1.20.0-beta.1-release/</link>
-      <pubDate>Sun, 09 Jan 2022 00:00:00 +0000</pubDate>
-      
-      <guid>https://liangyuanpeng.github.io/post/contour-v1.20.0-beta.1-release/</guid>
-      <description>前言 我们很高兴推出 Contour 的 v1.24.0 版本,这是我们针对 kubernetes 集群的第7层 HTTP 反向代理. 主要更新 修复了重复 HTTPProxy include condition的处理 重复的 include condition 现在能够被正确识</description>
     </item>
     
     <item>

@@ -14,7 +14,7 @@
     <meta name="baidu-site-verification" content="code-ANZvlnN0Xr" />
 
     
-    <meta name="description" content="lan，工程师⎈,远鹏|CNCF粉丝|Pulsar爱好者|公众号:四颗咖啡豆|云原生追随者">
+    <meta name="description" content="Contour-1.24.0发布">
     
     <meta name="keyword"  content="liangyuanpeng|LanLiang|OpenYurt|Knative|Pulsar|Prometheus|Halo||边缘计算kubernetes|Docker|CloudNative|Golang|Rust|Istio|微服务">
 
@@ -23,12 +23,12 @@
     
 
     
-    <meta property="og:image" content="https://res.cloudinary.com/lyp/image/upload/v1543506262/hugo/blog.github.io/apache-rocketMQ-introduction/7046d2bf0d97278682129887309cc1a6.jpg" />
-    <meta name="twitter:image" content="https://res.cloudinary.com/lyp/image/upload/v1543506262/hugo/blog.github.io/apache-rocketMQ-introduction/7046d2bf0d97278682129887309cc1a6.jpg" />
+    <meta property="og:image" content="https://liangyuanpeng.github.io/img/banner-pexels.jpg" />
+    <meta name="twitter:image" content="https://liangyuanpeng.github.io/img/banner-pexels.jpg" />
 
-    <title>keda-helmchart发布v2.10.1-远鹏的博客 | liangyuanpeng&#39;s Blog</title>
+    <title>Contour-1.24.0发布-远鹏的博客 | liangyuanpeng&#39;s Blog</title>
 
-    <link rel="canonical" href="https://liangyuanpeng.github.io/post/keda-helmchart-release-with-v2.10.1/">
+    <link rel="canonical" href="https://liangyuanpeng.github.io/post/contour-1.24.0-release/">
 
     
 
@@ -151,7 +151,7 @@
 
 <style type="text/css">
     header.intro-header{
-        background-image: url('https://res.cloudinary.com/lyp/image/upload/v1543506262/hugo/blog.github.io/apache-rocketMQ-introduction/7046d2bf0d97278682129887309cc1a6.jpg')
+        background-image: url('https://liangyuanpeng.github.io/img/banner-pexels.jpg')
     }
 </style>
 
@@ -164,8 +164,8 @@
                         
 
                        
-                       <a class="tag" href="/tags/keda" title="keda">
-                        keda
+                       <a class="tag" href="/tags/tech" title="tech">
+                        tech
                             
                                 
                             
@@ -292,6 +292,71 @@
                             
                         </a>
                         
+                       <a class="tag" href="/tags/contour" title="contour">
+                        contour
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                                <img style="display:inline-block;" src="/img/taglogo/contour.png" height="20" width="20" />
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                        </a>
+                        
                        <a class="tag" href="/tags/kubernetes" title="kubernetes">
                         kubernetes
                             
@@ -359,12 +424,12 @@
                         
                         <br/>
                     </div>
-                    <h1>keda-helmchart发布v2.10.1</h1>
+                    <h1>Contour-1.24.0发布</h1>
                     <h2 class="subheading"></h2>
-                    <span  class="meta">Posted by 梁远鹏 on 2023-03-14
+                    <span  class="meta">Posted by 梁远鹏 on 2023-02-26
                         
                         <span id="busuanzi_container_page_pv">|<span id="busuanzi_value_page_pv"></span><span>
-                            <span id="/post/keda-helmchart-release-with-v2.10.1/" class="leancloud_visitors meta_data_item" data-flag-title="">
+                            <span id="/post/contour-1.24.0-release/" class="leancloud_visitors meta_data_item" data-flag-title="">
     <span class="post-meta-item-icon">
       <span class="octicon octicon-eye"></span> 
     </span>
@@ -378,7 +443,7 @@
 
 
 
-                            阅读 </span></span>|<span class="post-date">共234字</span>，阅读约<span class="more-meta"> 1 分钟</span>
+                            阅读 </span></span>|<span class="post-date">共1085字</span>，阅读约<span class="more-meta"> 3 分钟</span>
                         
                     </span>
                 </div>
@@ -405,36 +470,105 @@
                 </header>
                 <nav id="TableOfContents">
   <ul>
-    <li><a href="#bug修复修改">Bug修复/修改</a></li>
-    <li><a href="#重大变化">重大变化</a></li>
+    <li><a href="#修复了重复-httpproxy-include-condition的处理">修复了重复 HTTPProxy include condition的处理</a></li>
+    <li><a href="#添加对空前缀或者前缀路径匹配的警告">添加对空前缀或者前缀路径匹配/的警告</a></li>
+    <li><a href="#对包含和重复路由检测的更改">对包含和重复路由检测的更改</a></li>
+    <li><a href="#contour-支持-gateway-api-v060">Contour 支持 Gateway API v0.6.0</a></li>
+    <li><a href="#移除-shutdown-manager-sidecar容器的liveness-探针">移除 shutdown-manager sidecar容器的liveness 探针</a></li>
   </ul>
 </nav>
 		
 
-		<h1 id="keda-helm-chart-发布v2101">keda helm chart 发布v2.10.1</h1>
-<h1 id="长话短说">长话短说</h1>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">helm repo add kedacore https://kedacore.github.io/charts
-helm repo update
-helm install keda kedacore/keda --version 2.10.1 -n keda --create-namespace
-</code></pre></div><h1 id="新内容">新内容</h1>
+		<h1 id="前言">前言</h1>
+<p>我们很高兴推出 Contour 的 v1.24.0 版本,这是我们针对 kubernetes 集群的第7层 HTTP 反向代理.</p>
+<h1 id="主要更新">主要更新</h1>
+<h2 id="修复了重复-httpproxy-include-condition的处理">修复了重复 HTTPProxy include condition的处理</h2>
+<p>重复的 include condition 现在能够被正确识别, httpproxy 被标记状态为 IncludeError 和 reason 为 DuplicateMatchConditons.</p>
+<p>以前 HttPProxy 处理器只是逐个元素比较相邻的 include 和 condition,而不是作为一个整体在一起比较.</p>
+<p>此外,当识别出重复的 include condition 时,以前的行为是丢弃违规的 HTTPProxy 上所有的路由,包含有效路由.</p>
+<p>因此,任何引用的子 HTTPProxy 都会被标记为孤儿,即使它们能够被正确的包含(即使子 HTTPProxy 的配置是没问题的).有了这个更改后,所有有效的 include 和 Route 规则都会在数据面中处理和编程,这和以前的版本有所不同.</p>
+<p>如果一个 Include 和列表中位于它前面的 Include 具有完全相同的匹配条件,那么这个 Include 就会被认为是一个副本.</p>
+<p>只有被复制的 Include 引用但是没有被其他任何有效 Include 引用的子 HTTPProxy 会被标记为孤儿 HTTPProxy.</p>
+<h2 id="添加对空前缀或者前缀路径匹配的警告">添加对空前缀或者前缀路径匹配/的警告</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">---
+<span style="color:#f92672">apiVersion</span>: <span style="color:#ae81ff">projectcontour.io/v1</span>
+<span style="color:#f92672">kind</span>: <span style="color:#ae81ff">HTTPProxy</span>
+<span style="color:#f92672">metadata</span>:
+  <span style="color:#f92672">name</span>: <span style="color:#ae81ff">example</span>
+<span style="color:#f92672">spec</span>:
+  <span style="color:#f92672">virtualhost</span>:
+    <span style="color:#f92672">fqdn</span>: <span style="color:#ae81ff">foo-example.bar.com</span>
+  <span style="color:#f92672">includes</span>:
+  - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">example-child1</span>
+  - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">example-child2</span>
+---
+<span style="color:#f92672">apiVersion</span>: <span style="color:#ae81ff">projectcontour.io/v1</span>
+<span style="color:#f92672">kind</span>: <span style="color:#ae81ff">HTTPProxy</span>
+<span style="color:#f92672">metadata</span>:
+  <span style="color:#f92672">name</span>: <span style="color:#ae81ff">example-child1</span>
+<span style="color:#f92672">spec</span>:
+  <span style="color:#f92672">routes</span>:
+    - <span style="color:#f92672">conditions</span>:
+      - <span style="color:#f92672">prefix</span>: <span style="color:#ae81ff">/</span>
+      <span style="color:#f92672">services</span>:
+      - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">s1</span>
+        <span style="color:#f92672">port</span>: <span style="color:#ae81ff">80</span>
+---
+<span style="color:#f92672">apiVersion</span>: <span style="color:#ae81ff">projectcontour.io/v1</span>
+<span style="color:#f92672">kind</span>: <span style="color:#ae81ff">HTTPProxy</span>
+<span style="color:#f92672">metadata</span>:
+  <span style="color:#f92672">name</span>: <span style="color:#ae81ff">example-child2</span>
+<span style="color:#f92672">spec</span>:
+  <span style="color:#f92672">routes</span>:
+  - <span style="color:#f92672">conditions</span>:
+    - <span style="color:#f92672">prefix</span>: <span style="color:#ae81ff">/foo</span>
+    <span style="color:#f92672">services</span>:
+    - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">s2</span>
+      <span style="color:#f92672">port</span>: <span style="color:#ae81ff">80</span>
+</code></pre></div><h2 id="对包含和重复路由检测的更改">对包含和重复路由检测的更改</h2>
+<p>目前在 HTTPProxy include 条件树或单独的 HTTPProxy 中是没有检查重复路由条件的.这意味着您可以让 HTTPProxy 的路由列表后面列出的路由覆盖其他路由.</p>
+<p>如果您有一个基于 Include 条件和 Route 件生成重复路由的路由效果,也会发生同样的问题.</p>
+<p>如果您依赖于这种行为的话,那么在下一个版本中 Contour 将会进行更改.</p>
+<p>我们将会提交一份设计文档来解决这个问题,因为这是一个重大的行为更好,并且鼓励社区参与进来.
+当前的计划是完全验证重复路由匹配条件,因为它们是从 Include 和 Route 条件中生成出来的.
+可能会对 HTTPRoutes 上设置的状态条件进行更改,以改进对这种无效配置的提示.</p>
+<p><a href="https://github.com/sunjayBhatia">@sunjayBhatia</a></p>
 <ul>
-<li>提供了对<code>podLabels</code>在 webhook Deployment 中的配置 (<a href="https://github.com/kedacore/charts/pull/404/files">#404</a> 🎉 贡献者 <a href="https://github.com/pari-">@pari-</a>)</li>
-<li>为<code>cert-manager</code>证书配置支持时间的完整单位 ( <a href="https://github.com/kedacore/charts/pull/402">#402</a> 🎉 贡献者<a href="https://github.com/JorTurFer">JorTurFer</a>)</li>
+<li><a href="https://github.com/projectcontour/contour/pull/4931">https://github.com/projectcontour/contour/pull/4931</a></li>
+<li><a href="https://github.com/projectcontour/contour/pull/5017">https://github.com/projectcontour/contour/pull/5017</a></li>
 </ul>
-<h2 id="bug修复修改">Bug修复/修改</h2>
+<h2 id="contour-支持-gateway-api-v060">Contour 支持 Gateway API v0.6.0</h2>
+<p>有关于Gateway API具体信息,请查看 Gateway API 的发布说明.
+这个版本的API包含了一些与 Contour 用户相关的更改.</p>
+<p>ReferenceGrant 资源升级到 v1beta1,ReferencePolicy已经从API中移除.
+v1alpha2 版本的 GatewayClass、Gateway和HTTPRoute已弃用.
+为了保持一致性,各种资源的状态条件发生了重大变化:</p>
 <ul>
-<li>修复了环境变量<code>POD_NAMESPACE</code>没有添加到 deployment 的问题 (<a href="https://github.com/kedacore/charts/pull/405">#405</a> 🎉 贡献者 <a href="https://github.com/michemache">michemache</a>)</li>
-<li>强制执行  kubernetes v1.24 或更高版本,以至于和 <a href="https://keda.sh/docs/2.10/operate/cluster/#kubernetes-compatibility">KEDA集群兼容性</a>保持一致.</li>
+<li>已向 Gateway 和 Gateway Listener 添加了 Condition 的支持</li>
+<li>就绪条件被移动到扩展一致性,此时 Contour 不处理这个条件</li>
+<li>Scheduled condition 在 Gateway 中弃用</li>
 </ul>
-<h2 id="重大变化">重大变化</h2>
-<p>无.</p>
-<hr>
-<h1 id="新贡献者">新贡献者</h1>
+<p><a href="https://github.com/sunjayBhatia">@sunjayBhatia</a></p>
 <ul>
-<li><a href="https://github.com/pari-">pari-</a> 在为PR<a href="https://github.com/kedacore/charts/pull/404">#404</a>做出了他的第一个贡献.</li>
-<li><a href="https://github.com/michemache">michemache</a> 为PR<a href="https://github.com/kedacore/charts/pull/405">#405</a> 做出了他的第一个贡献.</li>
+<li><a href="https://github.com/projectcontour/contour/pull/4944">https://github.com/projectcontour/contour/pull/4944</a></li>
 </ul>
-<p>完整更新日志: <a href="https://github.com/kedacore/charts/compare/v2.10.0...v2.10.1">https://github.com/kedacore/charts/compare/v2.10.0...v2.10.1</a></p>
+<h2 id="移除-shutdown-manager-sidecar容器的liveness-探针">移除 shutdown-manager sidecar容器的liveness 探针</h2>
+<p><a href="https://github.com/skriss">@skriss</a></p>
+<ul>
+<li><a href="https://github.com/projectcontour/contour/pull/4967">https://github.com/projectcontour/contour/pull/4967</a></li>
+</ul>
+<h1 id="次要更新">次要更新</h1>
+<h1 id="其他更新">其他更新</h1>
+<h1 id="文档更新">文档更新</h1>
+<h1 id="弃用和移除通知">弃用和移除通知</h1>
+<h1 id="兼容的-kubernetes-版本">兼容的 kubernetes 版本</h1>
+<p>Contour v1.24.0 针对 kubernetes 1.24 到 1.26 进行了测试.</p>
+<h1 id="感谢社区">感谢社区</h1>
+<p>我们非常感谢所有社区的贡献,使 Contour 变得更好!在此版本中,特别感谢以下贡献者:</p>
+<h1 id="您是-contour-用户吗我们很想知道">您是 Contour 用户吗?我们很想知道!</h1>
+<p>如果您正在使用 Contour,并且希望将您的组织添加到我们的采用者列表中,请访问<a href="https://github.com/projectcontour/contour/blob/master/ADOPTERS.md">此页面</a>.如果您希望保持您的组织名称匿名,但仍然向我们反馈您对 Contour 的使用和场景,请在这个 <a href="https://github.com/projectcontour/contour/issues/1269">Github issue</a> 中留言.</p>
+<h1 id="发布说明地址">发布说明地址</h1>
+<p><a href="https://github.com/projectcontour/contour/releases/tag/v1.24.0">https://github.com/projectcontour/contour/releases/tag/v1.24.0</a></p>
 
 
         <h2>微信公众号</h2>
@@ -466,12 +600,12 @@ helm install keda kedacore/keda --version 2.10.1 -n keda --create-namespace
                 <ul class="pager">
                     
                     <li class="previous">
-                        <a href="/post/importance-of-open-source-in-high-compliance-organizations/" data-toggle="tooltip" data-placement="top" title="开源在高度合规组织中的重要性">&larr; 开源在高度合规组织中的重要性</a>
+                        <a href="/post/ytt-vs-x/" data-toggle="tooltip" data-placement="top" title="ytt与各类yaml相关工具对比">&larr; ytt与各类yaml相关工具对比</a>
                     </li>
                     
                     
                     <li class="next">
-                        <a href="/post/jfrog-grants-open-source-pyrsia-to-cd-foundation/" data-toggle="tooltip" data-placement="top" title="JFrog 向 CD 基金会授予开源 Pyrsia">JFrog 向 CD 基金会授予开源 Pyrsia &rarr;</a>
+                        <a href="/post/flomesh-ingress-quickstart/" data-toggle="tooltip" data-placement="top" title="flomesh-ingress浅试">flomesh-ingress浅试 &rarr;</a>
                     </li>
                     
                 </ul>
@@ -611,25 +745,25 @@ helm install keda kedacore/keda --version 2.10.1 -n keda --create-namespace
 <h2>相关文章</h2>
 <ul style="margin-bottom: 25px;">
     
-    <li><a href="/post/run-k8s-with-kind/">用kind搭建k8s集群环境</a></li>
+    <li><a href="/post/contour-v1.18.3-release/">Contour-v1.18.3发布</a></li>
     
-    <li><a href="/post/contour-1.24.0-release/">Contour-1.24.0发布</a></li>
+    <li><a href="/post/contour-v1.20.0-beta.1-release/">Contour-v1.20.0-beta.1发布</a></li>
+    
+    <li><a href="/post/contour-v1.9.0-release/">Contour-v1.9.0发布</a></li>
+    
+    <li><a href="/post/contour-v1.19.1-release/">Contour-v1.19.1发布</a></li>
+    
+    <li><a href="/post/deploy-chaosmesh-with-helm/">helm部署chaosmesh</a></li>
+    
+    <li><a href="/post/dev-webhook-for-kubernetes/">k8s-webhook开发技巧</a></li>
+    
+    <li><a href="/post/deploy-lank8s-webhook-for-k8s.gcr.io/">部署在线的lank8s webhook之后,不再为k8s.gcr.io/gcr.io镜像苦恼</a></li>
+    
+    <li><a href="/post/deploy-metrics-server-for-kubectl-top/">部署metrics-server,把kubectl top用起来</a></li>
     
     <li><a href="/post/pull-gcr-k8s-image-with-lank8s/">国内环境拉取gcr和k8s镜像</a></li>
     
     <li><a href="/post/compile-kubernetes/">编译kubernetes组件</a></li>
-    
-    <li><a href="/post/k8s-component-config-note-long-term/">[长期更新]k8s组件常用参数</a></li>
-    
-    <li><a href="/post/frozen-for-k8s-gcr-io/">k8s.gcr.io注册表完全冻结</a></li>
-    
-    <li><a href="/post/registry-mirrors-for-containerd/">为containerd配置仓库镜像</a></li>
-    
-    <li><a href="/post/k8s-validating-admission-policy-with-crdparam-lua/">K8S内置准入校验CRD参数配合lua起飞</a></li>
-    
-    <li><a href="/post/k8s-admissionregistration-with-cel/">用cel表达式来实现k8s准入校验</a></li>
-    
-    <li><a href="/post/rust-project-in-cncf/">cncf基金会中的rust项目</a></li>
     
 </ul>
 
