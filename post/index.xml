@@ -445,7 +445,7 @@
       <pubDate>Tue, 18 Jan 2022 00:00:00 +0000</pubDate>
       
       <guid>https://liangyuanpeng.github.io/post/kubernetes-qa/</guid>
-      <description>声明 本文会持续的更新,将在使用kubernetes过程中遇到的问题都收集起来.欢迎投稿加入你遇到的问题. 跨版本升级 service-account-issuer is a required flag, &amp;ndash;service-account-signing-key-file and &amp;ndash;service-account-issuer are required flags 版本</description>
+      <description>声明 本文会持续的更新,将在使用kubernetes过程中遇到的问题都收集起来.欢迎投稿加入你遇到的问题 :) 跨版本升级 service-account-issuer is a required flag, &amp;ndash;service-account-signing-key-file and &amp;ndash;service-account-issuer are required flags 版本</description>
     </item>
     
     <item>

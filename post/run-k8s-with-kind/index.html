@@ -110,6 +110,10 @@
                         <a href="https://liangyuanpeng.github.io/search/">SEARCH <img src="https://liangyuanpeng.github.io/img/search.png" height="15" style="cursor: pointer;"></a>
 		            </li>
                     
+
+		            <li>
+                        <a href="https://liangyuanpeng.github.io/about/">关于我 </a>
+		            </li>
                 </ul>
             </div>
         </div>
@@ -443,7 +447,7 @@
 
 
 
-                            阅读 </span></span>|<span class="post-date">共956字</span>，阅读约<span class="more-meta"> 2 分钟</span>
+                            阅读 </span></span>|<span class="post-date">共1068字</span>，阅读约<span class="more-meta"> 3 分钟</span>
                         
                     </span>
                 </div>
@@ -481,6 +485,7 @@
     <li><a href="#k8s-126-cel准入校验功能">k8s 1.26 CEL准入校验功能</a></li>
     <li><a href="#多节点">多节点</a></li>
     <li><a href="#k8s-kube-apiserver-端口映射">K8S kube-apiserver 端口映射</a></li>
+    <li><a href="#将event存储到单独的etcd服务">将event存储到单独的etcd服务</a></li>
     <li><a href="#没有lank8scn服务">没有lank8s.cn服务</a></li>
     <li><a href="#todo">TODO</a></li>
   </ul>
@@ -540,7 +545,26 @@ kube-system          etcd-flannel-control-plane                      1/1     Run
 <h2 id="k8s-kube-apiserver-端口映射">K8S kube-apiserver 端口映射</h2>
 <p>默认情况下使用 Kind 搭建的 kubernetes 环境只能在本机使用,这个配置文件映射了 kube-apiserver 端口,因此可以在机器A用 Kind 搭建环境,在机器B访问Kind 的  K8S.</p>
 <p><a href="https://liangyuanpeng.com/files/kind/v1alpha4/kind_port.yaml">https://liangyuanpeng.com/files/kind/v1alpha4/kind_port.yaml</a></p>
-<h2 id="没有lank8scn服务">没有lank8s.cn服务</h2>
+<h2 id="将event存储到单独的etcd服务">将event存储到单独的etcd服务</h2>
+<p>虽然使用 kind 时只有一个 etcd,但是不妨碍了解一下这个参数是如何使用的，或者你可以将参数值指向一个外部 etcd，作为实际效果验证。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">kind: Cluster
+apiVersion: kind.x-k8s.io/v1alpha4
+containerdConfigPatches:
+  - |-
+    <span style="color:#f92672">[</span>plugins.<span style="color:#e6db74">&#34;io.containerd.grpc.v1.cri&#34;</span>.registry.mirrors.<span style="color:#e6db74">&#34;gcr.io&#34;</span><span style="color:#f92672">]</span>
+      endpoint <span style="color:#f92672">=</span> <span style="color:#f92672">[</span><span style="color:#e6db74">&#34;https://gcr.lank8s.cn&#34;</span><span style="color:#f92672">]</span>
+    <span style="color:#f92672">[</span>plugins.<span style="color:#e6db74">&#34;io.containerd.grpc.v1.cri&#34;</span>.registry.mirrors.<span style="color:#e6db74">&#34;registry.k8s.io&#34;</span><span style="color:#f92672">]</span>
+      endpoint <span style="color:#f92672">=</span> <span style="color:#f92672">[</span><span style="color:#e6db74">&#34;https://registry.lank8s.cn&#34;</span><span style="color:#f92672">]</span>
+nodes:
+- role: control-plane
+  image: kindest/node:v1.26.0
+  kubeadmConfigPatches:
+  - |
+    kind: ClusterConfiguration
+    apiServer:
+      extraArgs:
+        etcd-servers-overrides: /events#https://127.0.0.1:2379
+</code></pre></div><h2 id="没有lank8scn服务">没有lank8s.cn服务</h2>
 <p><a href="https://liangyuanpeng.com/files/kind/v1alpha4/kind_nolank8s.yaml">https://liangyuanpeng.com/files/kind/v1alpha4/kind_nolank8s.yaml</a></p>
 <h2 id="todo">TODO</h2>
 <ul>

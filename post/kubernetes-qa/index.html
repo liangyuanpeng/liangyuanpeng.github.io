@@ -110,6 +110,10 @@
                         <a href="https://liangyuanpeng.github.io/search/">SEARCH <img src="https://liangyuanpeng.github.io/img/search.png" height="15" style="cursor: pointer;"></a>
 		            </li>
                     
+
+		            <li>
+                        <a href="https://liangyuanpeng.github.io/about/">关于我 </a>
+		            </li>
                 </ul>
             </div>
         </div>
@@ -315,7 +319,7 @@
 
 
 
-                            阅读 </span></span>|<span class="post-date">共368字</span>，阅读约<span class="more-meta"> 1 分钟</span>
+                            阅读 </span></span>|<span class="post-date">共460字</span>，阅读约<span class="more-meta"> 1 分钟</span>
                         
                     </span>
                 </div>
@@ -349,11 +353,15 @@
   <ul>
     <li><a href="#configmap内容更新后在pod中对应文件的修改时间没有变化">configmap内容更新后,在pod中对应文件的修改时间没有变化</a></li>
   </ul>
+
+  <ul>
+    <li><a href="#将单独的资源存储到单独的etcd服务内">将单独的资源存储到单独的etcd服务内</a></li>
+  </ul>
 </nav>
 		
 
 		<h1 id="声明">声明</h1>
-<p>本文会持续的更新,将在使用kubernetes过程中遇到的问题都收集起来.欢迎投稿加入你遇到的问题.</p>
+<p>本文会持续的更新,将在使用kubernetes过程中遇到的问题都收集起来.欢迎投稿加入你遇到的问题 :)</p>
 <h1 id="跨版本升级">跨版本升级</h1>
 <h2 id="service-account-issuer-is-a-required-flag---service-account-signing-key-file-and---service-account-issuer-are-required-flags">service-account-issuer is a required flag, &ndash;service-account-signing-key-file and &ndash;service-account-issuer are required flags</h2>
 <p>版本v1.19.16升级到v1.23.x,二进制kube-apiserver升级后启动失败,提示<code>service-account-issuer is a required flag, --service-account-signing-key-file and --service-account-issuer are required flags</code>,原因就是在新版本中添加了新参数而旧版本没有这个参数.</p>
@@ -365,7 +373,13 @@
 <h1 id="volume挂载问题">Volume挂载问题</h1>
 <h2 id="configmap内容更新后在pod中对应文件的修改时间没有变化">configmap内容更新后,在pod中对应文件的修改时间没有变化</h2>
 <p>这与configmap的更新机制有关</p>
-<h1 id="温馨提示">温馨提示</h1>
+<h1 id="性能优化">性能优化</h1>
+<h2 id="将单独的资源存储到单独的etcd服务内">将单独的资源存储到单独的etcd服务内</h2>
+<p>常见的是 将 event 内容存储到单独的 etcd 服务内, kube-apiserver 的 etcd-servers-overrides 参数支持将某个单独资源存储到特定的 etcd 服务内,下面是一个将 k8s event 存储到单独的 etcd 服务内的示例:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">...
+--etcd-servers-overrides<span style="color:#f92672">=</span>/events#https://127.0.0.1:2379
+...
+</code></pre></div><h1 id="温馨提示">温馨提示</h1>
 <p>本文持续更新</p>
 
 
