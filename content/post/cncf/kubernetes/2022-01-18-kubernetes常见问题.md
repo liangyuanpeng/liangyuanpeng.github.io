@@ -16,7 +16,7 @@ categories: [ kubernetes ]
 
 # 声明  
 
-本文会持续的更新,将在使用kubernetes过程中遇到的问题都收集起来.欢迎投稿加入你遇到的问题.
+本文会持续的更新,将在使用kubernetes过程中遇到的问题都收集起来.欢迎投稿加入你遇到的问题 :)
 
 # 跨版本升级
 
@@ -40,6 +40,18 @@ E0118 00:40:00.935698    8504 run.go:120] "command failed" err="invalid port val
 ## configmap内容更新后,在pod中对应文件的修改时间没有变化  
 
 这与configmap的更新机制有关
+
+# 性能优化
+
+## 将单独的资源存储到单独的etcd服务内
+
+常见的是 将 event 内容存储到单独的 etcd 服务内, kube-apiserver 的 etcd-servers-overrides 参数支持将某个单独资源存储到特定的 etcd 服务内,下面是一个将 k8s event 存储到单独的 etcd 服务内的示例:
+
+```shell
+...
+--etcd-servers-overrides=/events#https://127.0.0.1:2379
+...
+```
 
 # 温馨提示 
 
