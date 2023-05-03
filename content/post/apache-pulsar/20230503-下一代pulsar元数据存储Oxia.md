@@ -21,7 +21,7 @@ categories:
 
 # Oxia 是什么?
 
-简单来说呢 oxia 是一个基于 kubernetes 的可扩展的元数据存储和协调系统,设计的目标是为了成为Apache Pulsar 的关键组件,也就是元数据中心,取代Zookeeper/Etcd.  
+简单来说呢 oxia 是一个 streamnative 开源的基于 kubernetes 的可扩展的元数据存储和协调系统,设计的目标是为了成为Apache Pulsar 的关键组件,也就是元数据中心,取代Zookeeper/Etcd.  
 
 集群模式下依赖于 kubernetes,同时也提供 standalone 模式的启动方式,也就是可以脱离 kubernetes 直接单进程启动的方式。
 
