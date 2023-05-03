@@ -21,7 +21,7 @@ jobs:
 
       - name: run
         env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ secrets.BLOG_GHTOKEN }}
         run: |
           docker run -v $PWD:/work -e hugodir=/work -e GH_TOKEN=$GH_TOKEN  --rm ghcr.io/liangyuanpeng/createissue-066b2157544e2b63ca2e4c02f5f44955:latest
 
