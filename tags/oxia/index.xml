@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>oxia on Hi,I`m lan</title>
+    <link>https://liangyuanpeng.github.io/tags/oxia/</link>
+    <description>Recent content in oxia on Hi,I`m lan</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 03 May 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://liangyuanpeng.github.io/tags/oxia/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>下一代pulsar元数据存储Oxia</title>
+      <link>https://liangyuanpeng.github.io/post/oxia-is-next-pulsar-metadata/</link>
+      <pubDate>Wed, 03 May 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://liangyuanpeng.github.io/post/oxia-is-next-pulsar-metadata/</guid>
+      <description>Oxia 是什么? 简单来说呢 oxia 是一个基于 kubernetes 的可扩展的元数据存储和协调系统,设计的目标是为了成为Apache Pulsar 的关键组件,也就是元数据中心,取代Zoo</description>
+    </item>
+    
+  </channel>
+</rss>
