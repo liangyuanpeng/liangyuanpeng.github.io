@@ -35,7 +35,7 @@ categories:
 
 ## Chaos Mesh
 
-由于 Oxia 基于 kubernetes 实现,因此很容易就想到使用基于 kubernetes 的混沌工程来做测试,目前在 CNCF 项目列表中有 Chaosmesh 这三个项目是混沌工程的,而 Oxia 选择使用 Chaos Mesh.
+由于 Oxia 基于 kubernetes 实现,因此很容易就想到使用基于 kubernetes 的混沌工程来做测试,目前在 CNCF 项目列表中有 Chaosmesh、litmus、chaosblade 这三个项目是混沌工程的,而 Oxia 选择使用 Chaos Mesh.
 
 Oxia 使用了 Chaosmesh 来验证系统在注入故障后的正确性,以及针对注入故障后降级的性能是否合适.
 
