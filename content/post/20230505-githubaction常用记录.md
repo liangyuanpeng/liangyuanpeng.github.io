@@ -71,3 +71,6 @@ jobs:
 ```
 
 上述是一个简单的例子，传递 latest 参数并且将需要的 secrets 传递到重用的 github action。
+
+
+TODO output 以及和可重用 github action 的结合使用。
