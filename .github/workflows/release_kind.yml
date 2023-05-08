@@ -22,7 +22,11 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: |
           wget https://github.com/kubernetes-sigs/kind/releases/download/v0.18.0/kind-linux-amd64
-          mv kind-linux-amd64 kind 
+          mv kind-linux-amd64 /usr/local/bin/kind 
           ls
           pwd 
+          echo $GOPATH
+          mkdir -p $GOPATH/src/k8s.io
+          mv kubernetes $GOPATH/src/k8s.io
+          cd $GOPATH/src/k8s.io/kubernetes
           kind build node-image
