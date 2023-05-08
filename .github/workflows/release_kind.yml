@@ -1,4 +1,4 @@
-name: comments
+name: build_kind
 
 on:
   pull_request:
