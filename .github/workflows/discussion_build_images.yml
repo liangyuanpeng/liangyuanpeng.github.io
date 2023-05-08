@@ -1,4 +1,4 @@
-name: comments
+name: build_from_comments
 
 on:
   discussion_comment:
