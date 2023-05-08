@@ -15,6 +15,11 @@ jobs:
           repository: "kubernetes/kubernetes"
           fetch-depth: 1
           path: kubernetes
+          
+      - name: install Go
+        uses: actions/setup-go@v3
+        with:
+          go-version: 1.19.5
 
       - name: run build
         env:
