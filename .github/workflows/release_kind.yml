@@ -1,0 +1,25 @@
+name: comments
+
+on:
+  pull_request:
+
+jobs:
+
+  build_image_kind:
+    timeout-minutes: 10
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          submodules: true
+          fetch-depth: 0
+
+      - name: run build
+        env:
+          GH_EVENT: ${{ toJSON(github.event) }}
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          wget https://github.com/kubernetes-sigs/kind/releases/download/v0.18.0/kind-linux-amd64
+          mv kind-linux-amd64 kind 
+          pwd 
+          kind build node-image
