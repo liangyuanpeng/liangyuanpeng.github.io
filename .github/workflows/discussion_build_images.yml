@@ -10,10 +10,10 @@ jobs:
     timeout-minutes: 10
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-        with:
-          repository: "kubernetes/kubernetes"
-          fetch-depth: 1
+      # - uses: actions/checkout@v3
+      #   with:
+      #     repository: "kubernetes/kubernetes"
+      #     fetch-depth: 1
 
       - name: run discussion check
         env:
