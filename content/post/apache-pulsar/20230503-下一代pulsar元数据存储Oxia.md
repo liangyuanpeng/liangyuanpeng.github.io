@@ -21,7 +21,7 @@ categories:
 
 # Oxia 是什么?
 
-简单来说呢 oxia 是一个基于 kubernetes 的可扩展的元数据存储和协调系统,设计的目标是为了成为Apache Pulsar 的关键组件,也就是元数据中心,取代Zookeeper/Etcd.  
+简单来说呢 oxia 是一个 streamnative 开源的基于 kubernetes 的可扩展的元数据存储和协调系统,设计的目标是为了成为Apache Pulsar 的关键组件,也就是元数据中心,取代Zookeeper/Etcd.  
 
 集群模式下依赖于 kubernetes,同时也提供 standalone 模式的启动方式,也就是可以脱离 kubernetes 直接单进程启动的方式。
 
@@ -35,7 +35,7 @@ categories:
 
 ## Chaos Mesh
 
-由于 Oxia 基于 kubernetes 实现,因此很容易就想到使用基于 kubernetes 的混沌工程来做测试,目前在 CNCF 项目列表中有 Chaosmesh 这三个项目是混沌工程的,而 Oxia 选择使用 Chaos Mesh.
+由于 Oxia 基于 kubernetes 实现,因此很容易就想到使用基于 kubernetes 的混沌工程来做测试,目前在 CNCF 项目列表中有 Chaosmesh、litmus、chaosblade 这三个项目是混沌工程的,而 Oxia 选择使用 Chaos Mesh.
 
 Oxia 使用了 Chaosmesh 来验证系统在注入故障后的正确性,以及针对注入故障后降级的性能是否合适.
 
@@ -50,7 +50,7 @@ Oxia 使用了 Chaosmesh 来验证系统在注入故障后的正确性,以及针
 
 这里使用编译源码构建二进制的方式:
 
-```
+```shell
 git clone git@github.com:streamnative/oxia.git
 cd oxia
 make
@@ -108,4 +108,4 @@ May  3 09:39:39.380111 INF Stats - Total ops: 10001.3 ops/s - Failed ops:    0.0
 
 oxia 的设计目标是成为 apache pulsar 的关键组件之一，但就目前还说还在早期，oxia 本身还没有 GA 不谈，另一个重要的点是将组件应用到 apache pulsar 中还需要 java 客户端，而目前 oxia 还没有 java 客户端。
 
-但就oxia 的研发团队来看，oxia 还是很有前景的，由 apache pulsar 的 PMC 之一 merlimat 主导，并且设计目标就是为了 apache pulsar 而存在。
+但就 oxia 的研发团队来看，oxia 还是很有前景的，由 apache pulsar 的 PMC 之一 merlimat 主导，并且设计目标就是为了 apache pulsar 而存在，因此在设计上会将 pulsar 相关内容考虑进去，而不是一个偏通用的分布式元数据存储。

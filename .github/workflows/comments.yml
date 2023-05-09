@@ -1,0 +1,26 @@
+name: init blog comments
+
+on:
+  push:
+    branches: [ source ]
+  schedule:
+  - cron: "0 9 * * *"
+
+jobs:
+
+  init-blog-comments:
+    timeout-minutes: 20
+    runs-on: ubuntu-latest
+    # permissions:
+    #   discussions: write
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          submodules: true  # Fetch Hugo themes (true OR recursive)
+          fetch-depth: 0    # Fetch all history for .GitInfo and .Lastmod
+
+      - name: run
+        env:
+          GH_TOKEN: ${{ secrets.BLOG_GHTOKEN }}
+        run: |
+          docker run -v $PWD:/work -e hugodir=/work -e GH_TOKEN=$GH_TOKEN  --rm ghcr.io/liangyuanpeng/createissue-066b2157544e2b63ca2e4c02f5f44955:latest
