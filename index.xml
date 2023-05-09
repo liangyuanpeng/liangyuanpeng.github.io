@@ -6,7 +6,7 @@
     <description>Recent content on Hi,I`m lan</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 03 May 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://liangyuanpeng.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 05 May 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://liangyuanpeng.github.io/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>lank8s.cn服务</title>
       <link>https://liangyuanpeng.github.io/post/service-lank8s.cn/</link>
@@ -26,12 +26,57 @@
     </item>
     
     <item>
+      <title>githubaction常用记录</title>
+      <link>https://liangyuanpeng.github.io/post/helpful-github-action/</link>
+      <pubDate>Fri, 05 May 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://liangyuanpeng.github.io/post/helpful-github-action/</guid>
+      <description>前言 记录有用的 github action 知识，欢迎投稿:) 可重用的github action 这个应该是比较常见的，抽离共同的内容到一个 github action，传递参数执行不同的内容，</description>
+    </item>
+    
+    <item>
+      <title>[长期更新]golang问题列表</title>
+      <link>https://liangyuanpeng.github.io/post/question-list-of-golang/</link>
+      <pubDate>Thu, 04 May 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://liangyuanpeng.github.io/post/question-list-of-golang/</guid>
+      <description>说明 本文主要收集 golang 遇到的一些常见问题,欢迎对本文进行投稿你认为好的场景或问题.</description>
+    </item>
+    
+    <item>
+      <title>[长期更新]java问题列表</title>
+      <link>https://liangyuanpeng.github.io/post/question-list-of-java/</link>
+      <pubDate>Thu, 04 May 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://liangyuanpeng.github.io/post/question-list-of-java/</guid>
+      <description>说明 本文主要收集 java 遇到的一些常见问题,欢迎对本文进行投稿你认为好的场景或问题.</description>
+    </item>
+    
+    <item>
+      <title>[长期更新]kubernetes问题列表记录</title>
+      <link>https://liangyuanpeng.github.io/post/question-list-of-kubernetes/</link>
+      <pubDate>Thu, 04 May 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://liangyuanpeng.github.io/post/question-list-of-kubernetes/</guid>
+      <description>说明 本文主要收集常见场景下 kubernetes 遇到的一些常见问题,欢迎对本文进行投稿你认为好的场景或问题. 如何保证 sidecar 先于 app 容器销毁 通过信号方式 TODO 完善展开</description>
+    </item>
+    
+    <item>
+      <title>[长期更新]pulsar问题列表</title>
+      <link>https://liangyuanpeng.github.io/post/question-list-of-pulsar/</link>
+      <pubDate>Thu, 04 May 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://liangyuanpeng.github.io/post/question-list-of-pulsar/</guid>
+      <description>说明 本文主要收集 apache pulsar 遇到的一些常见问题,欢迎对本文进行投稿你认为好的场景或问题.</description>
+    </item>
+    
+    <item>
       <title>下一代pulsar元数据存储Oxia</title>
       <link>https://liangyuanpeng.github.io/post/oxia-is-next-pulsar-metadata/</link>
       <pubDate>Wed, 03 May 2023 00:00:00 +0000</pubDate>
       
       <guid>https://liangyuanpeng.github.io/post/oxia-is-next-pulsar-metadata/</guid>
-      <description>Oxia 是什么? 简单来说呢 oxia 是一个基于 kubernetes 的可扩展的元数据存储和协调系统,设计的目标是为了成为Apache Pulsar 的关键组件,也就是元数据中心,取代Zoo</description>
+      <description>Oxia 是什么? 简单来说呢 oxia 是一个 streamnative 开源的基于 kubernetes 的可扩展的元数据存储和协调系统,设计的目标是为了成为Apache Pulsar 的关键组件,也就是元数据中心,取</description>
     </item>
     
     <item>
@@ -1363,7 +1408,7 @@
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>https://liangyuanpeng.github.io/search/placeholder/</guid>
-      <description>asd</description>
+      <description></description>
     </item>
     
     <item>

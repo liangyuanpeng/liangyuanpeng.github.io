@@ -6,7 +6,16 @@
     <description>Recent content in golang on Hi,I`m lan</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 19 Feb 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://liangyuanpeng.github.io/tags/golang/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 04 May 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://liangyuanpeng.github.io/tags/golang/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>[长期更新]golang问题列表</title>
+      <link>https://liangyuanpeng.github.io/post/question-list-of-golang/</link>
+      <pubDate>Thu, 04 May 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://liangyuanpeng.github.io/post/question-list-of-golang/</guid>
+      <description>说明 本文主要收集 golang 遇到的一些常见问题,欢迎对本文进行投稿你认为好的场景或问题.</description>
+    </item>
+    
     <item>
       <title>编译kubernetes组件</title>
       <link>https://liangyuanpeng.github.io/post/compile-kubernetes/</link>

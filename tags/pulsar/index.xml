@@ -6,14 +6,23 @@
     <description>Recent content in pulsar on Hi,I`m lan</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 03 May 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://liangyuanpeng.github.io/tags/pulsar/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 04 May 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://liangyuanpeng.github.io/tags/pulsar/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>[长期更新]pulsar问题列表</title>
+      <link>https://liangyuanpeng.github.io/post/question-list-of-pulsar/</link>
+      <pubDate>Thu, 04 May 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://liangyuanpeng.github.io/post/question-list-of-pulsar/</guid>
+      <description>说明 本文主要收集 apache pulsar 遇到的一些常见问题,欢迎对本文进行投稿你认为好的场景或问题.</description>
+    </item>
+    
     <item>
       <title>下一代pulsar元数据存储Oxia</title>
       <link>https://liangyuanpeng.github.io/post/oxia-is-next-pulsar-metadata/</link>
       <pubDate>Wed, 03 May 2023 00:00:00 +0000</pubDate>
       
       <guid>https://liangyuanpeng.github.io/post/oxia-is-next-pulsar-metadata/</guid>
-      <description>Oxia 是什么? 简单来说呢 oxia 是一个基于 kubernetes 的可扩展的元数据存储和协调系统,设计的目标是为了成为Apache Pulsar 的关键组件,也就是元数据中心,取代Zoo</description>
+      <description>Oxia 是什么? 简单来说呢 oxia 是一个 streamnative 开源的基于 kubernetes 的可扩展的元数据存储和协调系统,设计的目标是为了成为Apache Pulsar 的关键组件,也就是元数据中心,取</description>
     </item>
     
     <item>

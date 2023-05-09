@@ -80,30 +80,8 @@
                         <a href="https://liangyuanpeng.github.io/">Home</a>
                     </li>
                     
-                    <li>
-                        <a href="https://liangyuanpeng.github.io/categories/cloudnative">cloudnative</a>
-                    </li>
                     
-                    <li>
-                        <a href="https://liangyuanpeng.github.io/categories/devops">devops</a>
-                    </li>
-                    
-                    <li>
-                        <a href="https://liangyuanpeng.github.io/categories/iot">iot</a>
-                    </li>
-                    
-                    <li>
-                        <a href="https://liangyuanpeng.github.io/categories/k8s">k8s</a>
-                    </li>
-                    
-                    <li>
-                        <a href="https://liangyuanpeng.github.io/categories/kubernetes">kubernetes</a>
-                    </li>
-                    
-                    <li>
-                        <a href="https://liangyuanpeng.github.io/categories/tech">tech</a>
-                    </li>
-                    
+                     
 
                     
 		            <li>
@@ -508,7 +486,7 @@
 
 
 
-                            阅读 </span></span>|<span class="post-date">共1045字</span>，阅读约<span class="more-meta"> 3 分钟</span>
+                            阅读 </span></span>|<span class="post-date">共1108字</span>，阅读约<span class="more-meta"> 3 分钟</span>
                         
                     </span>
                 </div>
@@ -550,14 +528,14 @@
 		
 
 		<h1 id="oxia-是什么">Oxia 是什么?</h1>
-<p>简单来说呢 oxia 是一个基于 kubernetes 的可扩展的元数据存储和协调系统,设计的目标是为了成为Apache Pulsar 的关键组件,也就是元数据中心,取代Zookeeper/Etcd.</p>
+<p>简单来说呢 oxia 是一个 streamnative 开源的基于 kubernetes 的可扩展的元数据存储和协调系统,设计的目标是为了成为Apache Pulsar 的关键组件,也就是元数据中心,取代Zookeeper/Etcd.</p>
 <p>集群模式下依赖于 kubernetes,同时也提供 standalone 模式的启动方式,也就是可以脱离 kubernetes 直接单进程启动的方式。</p>
 <h1 id="验证系统正确性">验证系统正确性</h1>
 <p>由于 Oxia 是希望作为 Apache Pulsar 的核心组件元数据中心存在,那么正确性是非常重要的,因此校验服务的分布式逻辑正确性是必须的,Oxia 使用三种方式来做测试:</p>
 <h2 id="tla">TLA</h2>
 <h2 id="maelstrom--jepsen-测试">Maelstrom / Jepsen 测试</h2>
 <h2 id="chaos-mesh">Chaos Mesh</h2>
-<p>由于 Oxia 基于 kubernetes 实现,因此很容易就想到使用基于 kubernetes 的混沌工程来做测试,目前在 CNCF 项目列表中有 Chaosmesh 这三个项目是混沌工程的,而 Oxia 选择使用 Chaos Mesh.</p>
+<p>由于 Oxia 基于 kubernetes 实现,因此很容易就想到使用基于 kubernetes 的混沌工程来做测试,目前在 CNCF 项目列表中有 Chaosmesh、litmus、chaosblade 这三个项目是混沌工程的,而 Oxia 选择使用 Chaos Mesh.</p>
 <p>Oxia 使用了 Chaosmesh 来验证系统在注入故障后的正确性,以及针对注入故障后降级的性能是否合适.</p>
 <h1 id="简单食用一下">简单食用一下!</h1>
 <h2 id="编译oxia">编译oxia</h2>
@@ -567,10 +545,10 @@
 <li>通过已经发布的 docker 容器镜像</li>
 </ul>
 <p>这里使用编译源码构建二进制的方式:</p>
-<pre tabindex="0"><code>git clone git@github.com:streamnative/oxia.git
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">git clone git@github.com:streamnative/oxia.git
 cd oxia
 make
-</code></pre><p>编译成功后<code>oxia</code>二进制文件会出现在<code>bin</code>目录下.</p>
+</code></pre></div><p>编译成功后<code>oxia</code>二进制文件会出现在<code>bin</code>目录下.</p>
 <h2 id="启动oxia服务">启动oxia服务</h2>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">lan@lan:~/oxia$ bin/oxia standalone
 May  <span style="color:#ae81ff">3</span> 09:35:38.181877 INF Starting Oxia standalone config<span style="color:#f92672">={</span><span style="color:#e6db74">&#34;DataDir&#34;</span>:<span style="color:#e6db74">&#34;./data/db&#34;</span>,<span style="color:#e6db74">&#34;InMemory&#34;</span>:false,<span style="color:#e6db74">&#34;InternalServiceAddr&#34;</span>:<span style="color:#e6db74">&#34;&#34;</span>,<span style="color:#e6db74">&#34;MetricsServiceAddr&#34;</span>:<span style="color:#e6db74">&#34;0.0.0.0:8080&#34;</span>,<span style="color:#e6db74">&#34;NotificationsRetentionTime&#34;</span>:3600000000000,<span style="color:#e6db74">&#34;NumShards&#34;</span>:1,<span style="color:#e6db74">&#34;PublicServiceAddr&#34;</span>:<span style="color:#e6db74">&#34;0.0.0.0:6648&#34;</span>,<span style="color:#e6db74">&#34;WalDir&#34;</span>:<span style="color:#e6db74">&#34;./data/wal&#34;</span>,<span style="color:#e6db74">&#34;WalRetentionTime&#34;</span>:3600000000000<span style="color:#f92672">}</span>
@@ -603,7 +581,7 @@ May  <span style="color:#ae81ff">3</span> 09:39:39.380111 INF Stats - Total ops:
 <h1 id="最后说两句">最后说两句</h1>
 <p>上述只是简单的试用了一下 oxia 单机版,oxia 还提供了通过 helm 和 operator 的方式部署在 kubernetes 之上,后续有可能会在本文更新这部分内容。</p>
 <p>oxia 的设计目标是成为 apache pulsar 的关键组件之一，但就目前还说还在早期，oxia 本身还没有 GA 不谈，另一个重要的点是将组件应用到 apache pulsar 中还需要 java 客户端，而目前 oxia 还没有 java 客户端。</p>
-<p>但就oxia 的研发团队来看，oxia 还是很有前景的，由 apache pulsar 的 PMC 之一 merlimat 主导，并且设计目标就是为了 apache pulsar 而存在。</p>
+<p>但就 oxia 的研发团队来看，oxia 还是很有前景的，由 apache pulsar 的 PMC 之一 merlimat 主导，并且设计目标就是为了 apache pulsar 而存在，因此在设计上会将 pulsar 相关内容考虑进去，而不是一个偏通用的分布式元数据存储。</p>
 
 
         <h2>微信公众号</h2>
@@ -640,7 +618,7 @@ May  <span style="color:#ae81ff">3</span> 09:39:39.380111 INF Stats - Total ops:
                     
                     
                     <li class="next">
-                        <a href="/post/run-k8s-with-kind/" data-toggle="tooltip" data-placement="top" title="用kind搭建k8s集群环境">用kind搭建k8s集群环境 &rarr;</a>
+                        <a href="/post/question-list-of-pulsar/" data-toggle="tooltip" data-placement="top" title="[长期更新]pulsar问题列表">[长期更新]pulsar问题列表 &rarr;</a>
                     </li>
                     
                 </ul>
