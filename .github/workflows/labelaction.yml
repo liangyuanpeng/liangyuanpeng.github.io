@@ -2,10 +2,13 @@ name: labelaction
 
 on:
   issue_comment:
+  issues:
+    types: opened
 
 jobs:
 
   add_label:
+    # TODO only work for PR
     if: github.event.comment.user.login == 'liangyuanpeng'
     runs-on: ubuntu-latest
     steps:
