@@ -6,7 +6,16 @@
     <description>Recent content in pulsar on Hi,I`m lan</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 04 May 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://liangyuanpeng.github.io/tags/pulsar/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 08 May 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://liangyuanpeng.github.io/tags/pulsar/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>pulsar源码系列</title>
+      <link>https://liangyuanpeng.github.io/post/list-of-source-with-pulsar/</link>
+      <pubDate>Mon, 08 May 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://liangyuanpeng.github.io/post/list-of-source-with-pulsar/</guid>
+      <description>说明 之前研究过一些 pulsar 源码，无奈时间问题都中断了，这里列出一些研究入口给希望研究 pulsar 源码的同学。 对于交流持非常欢迎态度！可以微信联系我也可以在下</description>
+    </item>
+    
     <item>
       <title>[长期更新]pulsar问题列表</title>
       <link>https://liangyuanpeng.github.io/post/question-list-of-pulsar/</link>
@@ -58,7 +67,7 @@
       <pubDate>Sat, 22 May 2021 00:00:00 +0000</pubDate>
       
       <guid>https://liangyuanpeng.github.io/post/deploy-pulsar/</guid>
-      <description>前言 当我们在说元数据中心的时候我们在说什么 Bookkeeper 和 Pulsar Broker 都有各自的元数据中心,并且都有自己的元数据中心接口,默认都是ZK. 要实现Pulsar去Zo</description>
+      <description>前言 记录我的终端更新笔记 :( 当我们在说元数据中心的时候我们在说什么 Bookkeeper 和 Pulsar Broker 都有各自的元数据中心,并且都有自己的元数据中心接口,默认都是ZK. 要</description>
     </item>
     
     <item>

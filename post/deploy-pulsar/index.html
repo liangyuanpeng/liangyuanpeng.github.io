@@ -295,7 +295,7 @@
 
 
 
-                            阅读 </span></span>|<span class="post-date">共887字</span>，阅读约<span class="more-meta"> 2 分钟</span>
+                            阅读 </span></span>|<span class="post-date">共841字</span>，阅读约<span class="more-meta"> 2 分钟</span>
                         
                     </span>
                 </div>
@@ -329,6 +329,7 @@
 		
 
 		<h1 id="前言">前言</h1>
+<p>记录我的终端更新笔记 :(</p>
 <h1 id="当我们在说元数据中心的时候我们在说什么">当我们在说元数据中心的时候我们在说什么</h1>
 <p>Bookkeeper 和 Pulsar Broker 都有各自的元数据中心,并且都有自己的元数据中心接口,默认都是ZK.</p>
 <p>要实现Pulsar去Zookeeper化的话意味着Pulsar Broker和Bookkeeper都需要拥有这样的能力. Bookkeeper 本身有etcd 元数据中心接口的实现,但是Pulsar Broker也实现了BK的元数据中心接口,我们这里讨论的 Bookkeeper 对接etcd 也是使用 Pulsar Broker 自身实现的 Bookkeeper 元数据接口.而不是 Bookkeeper 自带的 etcd 元数据接口实现.</p>
@@ -373,8 +374,7 @@ pulsar-consumer-77f96bbf9d-bwspx   1/1     Running     <span style="color:#ae81f
 pulsar-init-gs5f4                  0/1     Completed   <span style="color:#ae81ff">0</span>          2m38s
 pulsar-producer-9b46f7455-ndtsq    1/1     Running     <span style="color:#ae81ff">1</span>          2m37s
 pulsarctl-0                        1/1     Running     <span style="color:#ae81ff">0</span>          2m38s
-</code></pre></div><p>其中有些镜像是使用的 <code>ghcr.io</code> 仓库,如果访问不了或者实在太慢了,可以把 <code>ghcr.io</code> 替换为 <code>ghcr.lank8s.cn</code> ,这是我在维护的一个 <code>ghcr.io</code> 镜像仓库的代理仓库.</p>
-<p>假设这时候所有的Pod都已经启动在Running了,我们可以看一下pulsar-client consumer这个pod,他会不断的消费pulsar topic的消息,正常的话可以看到不断的有日志打印出来.</p>
+</code></pre></div><p>假设这时候所有的Pod都已经启动在Running了,我们可以看一下pulsar-client consumer这个pod,他会不断的消费pulsar topic的消息,正常的话可以看到不断的有日志打印出来.</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ kubectl logs -f pulsar-consumer-77f96bbf9d-bwspx
 ...
 2022/05/22 11:11:55 consume message: topic is persistent://public/default/lan-partition-0 , topic key is : and payload is :hello 

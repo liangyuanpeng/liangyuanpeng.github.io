@@ -14,7 +14,7 @@
     <meta name="baidu-site-verification" content="code-ANZvlnN0Xr" />
 
     
-    <meta name="description" content="lan，工程师⎈,远鹏|CNCF粉丝|Pulsar爱好者|公众号:四颗咖啡豆|云原生追随者">
+    <meta name="description" content="pulsar源码系列,欢迎投稿.">
     
     <meta name="keyword"  content="liangyuanpeng|LanLiang|OpenYurt|Knative|Pulsar|Prometheus|Halo||边缘计算kubernetes|Docker|CloudNative|Golang|Rust|Istio|微服务">
 
@@ -23,12 +23,12 @@
     
 
     
-    <meta property="og:image" content="https://liangyuanpeng.github.io/img/banner/Chinese_mythology_theme_dragon_and_army_magnificent_scenery__c7a68137-62c6-4f33-b5dd-b39934ca86cd.png" />
-    <meta name="twitter:image" content="https://liangyuanpeng.github.io/img/banner/Chinese_mythology_theme_dragon_and_army_magnificent_scenery__c7a68137-62c6-4f33-b5dd-b39934ca86cd.png" />
+    <meta property="og:image" content="https://liangyuanpeng.github.io/img/banner-pexels.jpg" />
+    <meta name="twitter:image" content="https://liangyuanpeng.github.io/img/banner-pexels.jpg" />
 
-    <title>githubaction常用记录-远鹏的博客 | liangyuanpeng&#39;s Blog</title>
+    <title>pulsar源码系列-远鹏的博客 | liangyuanpeng&#39;s Blog</title>
 
-    <link rel="canonical" href="https://liangyuanpeng.github.io/post/helpful-github-action/">
+    <link rel="canonical" href="https://liangyuanpeng.github.io/post/list-of-source-with-pulsar/">
 
     
 
@@ -133,7 +133,7 @@
 
 <style type="text/css">
     header.intro-header{
-        background-image: url('https://liangyuanpeng.github.io/img/banner/Chinese_mythology_theme_dragon_and_army_magnificent_scenery__c7a68137-62c6-4f33-b5dd-b39934ca86cd.png')
+        background-image: url('https://liangyuanpeng.github.io/img/banner-pexels.jpg')
     }
 </style>
 
@@ -146,8 +146,8 @@
                         
 
                        
-                       <a class="tag" href="/tags/ghaction" title="ghaction">
-                        ghaction
+                       <a class="tag" href="/tags/pulsar" title="pulsar">
+                        pulsar
                             
                                 
                             
@@ -181,6 +181,8 @@
                             
                                 
                             
+                                
+                                <img style="display:inline-block;" src="/img/taglogo/pulsar.png" height="20" width="20" />
                                 
                             
                                 
@@ -209,8 +211,8 @@
                             
                         </a>
                         
-                       <a class="tag" href="/tags/ci" title="ci">
-                        ci
+                       <a class="tag" href="/tags/apache" title="apache">
+                        apache
                             
                                 
                             
@@ -274,12 +276,12 @@
                         
                         <br/>
                     </div>
-                    <h1>githubaction常用记录</h1>
+                    <h1>pulsar源码系列</h1>
                     <h2 class="subheading"></h2>
-                    <span  class="meta">Posted by 梁远鹏 on 2023-05-05
+                    <span  class="meta">Posted by 梁远鹏 on 2023-05-08
                         
                         <span id="busuanzi_container_page_pv">|<span id="busuanzi_value_page_pv"></span><span>
-                            <span id="/post/helpful-github-action/" class="leancloud_visitors meta_data_item" data-flag-title="">
+                            <span id="/post/list-of-source-with-pulsar/" class="leancloud_visitors meta_data_item" data-flag-title="">
     <span class="post-meta-item-icon">
       <span class="octicon octicon-eye"></span> 
     </span>
@@ -293,7 +295,7 @@
 
 
 
-                            阅读 </span></span>|<span class="post-date">共378字</span>，阅读约<span class="more-meta"> 1 分钟</span>
+                            阅读 </span></span>|<span class="post-date">共437字</span>，阅读约<span class="more-meta"> 1 分钟</span>
                         
                     </span>
                 </div>
@@ -320,54 +322,43 @@
                 </header>
                 <nav id="TableOfContents">
   <ul>
-    <li><a href="#可重用的github-action">可重用的github action</a>
-      <ul>
-        <li><a href="#被调用方">被调用方</a></li>
-        <li><a href="#调用方">调用方</a></li>
-      </ul>
-    </li>
+    <li><a href="#客户端">客户端</a></li>
+    <li><a href="#服务器端">服务器端</a></li>
   </ul>
 </nav>
 		
 
-		<h1 id="前言">前言</h1>
-<p>记录有用的 github action 知识，欢迎投稿:)</p>
-<h2 id="可重用的github-action">可重用的github action</h2>
-<p>这个应该是比较常见的，抽离共同的内容到一个 github action，传递参数执行不同的内容，比较常规的是构建特定版本镜像和构建 latest 版本镜像。</p>
-<p>主要分为两部分：</p>
-<h3 id="被调用方">被调用方</h3>
-<p>被调用自然就是重用的 github action，只需要声明是 workflow_call 就可以了,这样就能够被直接应用到 github action当中,另一个相似的是 workflow_dispatch，能够以 API 的方式调用 github action。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">...
-<span style="color:#f92672">on</span>:
-  <span style="color:#f92672">workflow_call</span>:
-    <span style="color:#f92672">inputs</span>:
-      <span style="color:#f92672">tag</span>:
-        <span style="color:#f92672">description</span>: <span style="color:#e6db74">&#39;image tag&#39;</span>
-        <span style="color:#f92672">required</span>: <span style="color:#66d9ef">true</span>
-        <span style="color:#f92672">type</span>: <span style="color:#ae81ff">string</span>
-    <span style="color:#f92672">secrets</span>:
-      <span style="color:#f92672">DOCKERHUB_USER_NAME</span>:
-        <span style="color:#f92672">description</span>: <span style="color:#e6db74">&#39;DOCKERHUB_USER_NAME&#39;</span>
-        <span style="color:#f92672">required</span>: <span style="color:#66d9ef">true</span>
-      <span style="color:#f92672">DOCKERHUB_TOKEN</span>:
-        <span style="color:#f92672">description</span>: <span style="color:#e6db74">&#39;DOCKERHUB_TOKEN&#39;</span>
-        <span style="color:#f92672">required</span>: <span style="color:#66d9ef">true</span>
-...
-</code></pre></div><p>上述是一个简单的示例，当被另一个 github action  调用时，必须提供一个 tag 传参 以及 DOCKERHUB_USER_NAME 和 DOCKERHUB_TOKEN 的 secret，用于构建特定版本的镜像以及 push 镜像。</p>
-<h3 id="调用方">调用方</h3>
-<p>调用时比较简单，直接使用 uses 关键字就可以了:</p>
-<pre tabindex="0"><code>...
-jobs:
-  call_karmada_release_latest:
-      uses: {owner}/{repo}/.github/workflows/karmada_release.yaml@main
-      with:
-        tag: latest
-      secrets:
-        DOCKERHUB_USER_NAME: ${{ secrets.DOCKERHUB_USER_NAME }}
-        DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
-...
-</code></pre><p>上述是一个简单的例子，传递 latest 参数并且将需要的 secrets 传递到重用的 github action。</p>
-<p>TODO output 以及和可重用 github action 的结合使用。</p>
+		<h1 id="说明">说明</h1>
+<p>之前研究过一些 pulsar 源码，无奈时间问题都中断了，这里列出一些研究入口给希望研究 pulsar 源码的同学。</p>
+<p>对于交流持非常欢迎态度！可以微信联系我也可以在下方添加评论:)</p>
+<h1 id="源码研究入口">源码研究入口</h1>
+<h2 id="客户端">客户端</h2>
+<ul>
+<li><input disabled="" type="checkbox"> pulsar 客户端发送消息到服务器的过程都做了些什么</li>
+<li><input disabled="" type="checkbox"> pulsar 客户端是如何接收到新消息的</li>
+<li><input disabled="" type="checkbox"> pulsar 客户端对 batch 消息是怎么处理的</li>
+<li><input disabled="" type="checkbox"> pulsar 客户端是如何处理消息分块的</li>
+<li><input disabled="" type="checkbox"> pulsar 客户端如何处理 key_share 订阅模式的</li>
+</ul>
+<h2 id="服务器端">服务器端</h2>
+<ul>
+<li><input disabled="" type="checkbox"> broker 启动都做了些什么事情</li>
+<li><input disabled="" type="checkbox"> broker 如何处理消息分块的</li>
+<li><input disabled="" type="checkbox"> broker 如何处理 batch 消息的</li>
+<li><input disabled="" type="checkbox"> broker 如何处理 key_share 订阅模式的</li>
+<li><input disabled="" type="checkbox"> broker 是如何淘汰数据的(过期,保留数据逻辑)</li>
+<li><input disabled="" type="checkbox"> broker 中的 topic bundle 是什么</li>
+<li><input disabled="" type="checkbox"> broker 是如何分配 topic 的 bundle 的</li>
+<li><input disabled="" type="checkbox"> pulsar 元数据到底存了些什么</li>
+</ul>
+<h1 id="说点什么">说点什么</h1>
+<p>坐标深圳,对组织 pulsar 活动有兴趣,有相同兴趣的可以联系我:)</p>
+<p>如果你对于 pulsar 源码的学习目标比较迷茫那么我可以为你暂定一个我认为很不错的目标:</p>
+<ul>
+<li>以演讲这个技术主题为目标,深度理解 pulsar broker 是如何分配 topic 的 bundle 的.</li>
+<li>以演讲这个技术主题为目标,深度理解 pulsar 元数据到底存了些什么.</li>
+</ul>
+<p>当你理解足够深入时可以真正的去完成这个目标,即作为演讲嘉宾参加一次 pulsar 会议分享,收获的内容将超乎你的所料!</p>
 
 
         <h2>微信公众号</h2>
@@ -389,22 +380,18 @@ jobs:
 </div>
 
         
-        <h2>温馨提示</h2>
-
-<p>本文还在持续创作中,如果你对本文主题感兴趣可以加我微信好友进行催更,博客下方可以找到我的微信联系方式 :)</p>
-        
 
                 <hr>
 
                 <ul class="pager">
                     
                     <li class="previous">
-                        <a href="/post/question-list-of-golang/" data-toggle="tooltip" data-placement="top" title="[长期更新]golang问题列表">&larr; [长期更新]golang问题列表</a>
+                        <a href="/post/helpful-github-action/" data-toggle="tooltip" data-placement="top" title="githubaction常用记录">&larr; githubaction常用记录</a>
                     </li>
                     
                     
                     <li class="next">
-                        <a href="/post/list-of-source-with-pulsar/" data-toggle="tooltip" data-placement="top" title="pulsar源码系列">pulsar源码系列 &rarr;</a>
+                        <a href="/post/run-k8s-with-kind/" data-toggle="tooltip" data-placement="top" title="用kind搭建k8s集群环境">用kind搭建k8s集群环境 &rarr;</a>
                     </li>
                     
                 </ul>
@@ -540,6 +527,29 @@ jobs:
             <section>
                 <hr class="hidden-sm hidden-xs">
                 
+
+<h2>相关文章</h2>
+<ul style="margin-bottom: 25px;">
+    
+    <li><a href="/post/question-list-of-pulsar/">[长期更新]pulsar问题列表</a></li>
+    
+    <li><a href="/post/oxia-is-next-pulsar-metadata/">下一代pulsar元数据存储Oxia</a></li>
+    
+    <li><a href="/post/deploy-pulsar/">部署去ZK后的Apache Pulsar</a></li>
+    
+    <li><a href="/post/bk-client-go-readme/">GO上手项目值得你拥有:Bookkeeper客户端</a></li>
+    
+    <li><a href="/post/bookkeeper-rs-readme/">Rust上手项目值得你拥有:Bookkeeper客户端</a></li>
+    
+    <li><a href="/post/deploy-pulsar/">部署去ZK后的Apache Pulsar</a></li>
+    
+    <li><a href="/post/first-asf-board-member/">ASF第一位华人董事</a></li>
+    
+    <li><a href="/post/awesome-messagequeue/">AWESOME消息队列</a></li>
+    
+    <li><a href="/post/deploy-apache-rocketmq/">Apache RocketMQ单机部署</a></li>
+    
+</ul>
 
             </section>
             </div>
