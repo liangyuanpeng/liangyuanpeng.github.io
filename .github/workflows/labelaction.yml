@@ -14,4 +14,3 @@ jobs:
         if: ${{ startsWith(github.event.comment.body, '/approved') }}
         with:
           labels: approved
-          github_token: ${{ secrets.TOKEN }}

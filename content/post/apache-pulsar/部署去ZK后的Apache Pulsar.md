@@ -16,7 +16,9 @@ categories:
     - TECH
 ---
 
-# 前言
+# 前言  
+
+记录我的终端更新笔记 :(
 
 # 当我们在说元数据中心的时候我们在说什么  
 
@@ -82,7 +84,6 @@ pulsar-producer-9b46f7455-ndtsq    1/1     Running     1          2m37s
 pulsarctl-0                        1/1     Running     0          2m38s
 ```  
 
-其中有些镜像是使用的 `ghcr.io` 仓库,如果访问不了或者实在太慢了,可以把 `ghcr.io` 替换为 `ghcr.lank8s.cn` ,这是我在维护的一个 `ghcr.io` 镜像仓库的代理仓库.  
 
 假设这时候所有的Pod都已经启动在Running了,我们可以看一下pulsar-client consumer这个pod,他会不断的消费pulsar topic的消息,正常的话可以看到不断的有日志打印出来.
 
