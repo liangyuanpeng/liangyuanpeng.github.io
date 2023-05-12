@@ -1,8 +1,10 @@
 name: build_from_comments
 
 on:
-  discussion_comment:
-    types: [created]
+  # discussion_comment:
+  #   types: [created]
+  push:
+    branches: [ disable ]
 
 jobs:
 
