@@ -6,7 +6,16 @@
     <description>Recent content in TECH on Hi,I`m lan</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 05 May 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://liangyuanpeng.github.io/categories/tech/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 16 May 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://liangyuanpeng.github.io/categories/tech/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>那些让我疑惑的CNCF项目</title>
+      <link>https://liangyuanpeng.github.io/post/confuse-with-me-from-cncf-projects/</link>
+      <pubDate>Tue, 16 May 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://liangyuanpeng.github.io/post/confuse-with-me-from-cncf-projects/</guid>
+      <description>那些让我疑惑的CNCF项目 CNCF 在我心中一直是信仰一样的存在，只要是 CNCF 项目我就会开始对它感兴趣，但是随着 CNCF 项目的增多，一些让我疑惑的项目也随之而</description>
+    </item>
+    
     <item>
       <title>githubaction常用记录</title>
       <link>https://liangyuanpeng.github.io/post/helpful-github-action/</link>
