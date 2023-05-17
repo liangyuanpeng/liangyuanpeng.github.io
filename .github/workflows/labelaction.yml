@@ -19,7 +19,7 @@ jobs:
           labels: approved
 
   add_label_from_issue:
-    if: github.event.comment.user.login == 'liangyuanpeng'
+    if: github.event.issue.user.login == 'liangyuanpeng'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
