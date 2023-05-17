@@ -17,3 +17,13 @@ jobs:
         if: ${{ startsWith(github.event.comment.body, '/approved') }}
         with:
           labels: approved
+
+  add_label_from_issue:
+    if: github.event.comment.user.login == 'liangyuanpeng'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions-ecosystem/action-add-labels@v1
+        if: ${{ startsWith(github.event.issue.body, '/approved') }}
+        with:
+          labels: approved

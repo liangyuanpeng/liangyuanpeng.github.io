@@ -23,6 +23,8 @@ jobs:
           GH_EVENT: ${{ toJSON(github.event) }}
           GH_TOKEN: ${{ github.token }}
           COMMENT: ${{ github.event.comment.body }}
+          COMMENT_URL: ${{ github.event.comment.html_url }}
+          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
         run: |
           oras pull ghcr.io/liangyuanpeng/files:reposh
           cat repo.sh
