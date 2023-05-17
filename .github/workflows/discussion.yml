@@ -14,11 +14,6 @@ jobs:
     timeout-minutes: 10
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-        with:
-          submodules: true
-          fetch-depth: 0
-
       - uses: oras-project/setup-oras@v1
         with:
           version: 1.0.0
@@ -27,8 +22,8 @@ jobs:
         env:
           GH_EVENT: ${{ toJSON(github.event) }}
           GH_TOKEN: ${{ github.token }}
+          COMMENT: ${{ github.event.comment.body }}
         run: |
-          cd scripts
           oras pull ghcr.io/liangyuanpeng/files:reposh
           cat repo.sh
           chmod +x ./repo.sh
