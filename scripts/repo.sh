@@ -43,6 +43,19 @@ done <<< "$COMMENT"
 function sendMessageToSlackWebhook(){
 
   DISCUSSION_TITLE=$(echo $GH_EVENT | jq .discussion.title | sed 's/\"//g' )
+
+  if [ -z "$DISCUSSION_TITLE" ];then
+      echo "Have not DISCUSSION_TITLE ,exit..."
+      exit 0
+  fi
+
+  if [[ "$DISCUSSION_TITLE" == "null" ]]; then
+      echo "DISCUSSION_TITLE match null"
+      exit 0
+    fi
+
+  echo $DISCUSSION_TITLE
+
   DISCUSSION_URL=$(echo $GH_EVENT | jq .discussion.html_url | sed 's/\"//g' )
   DISCUSSION_BODY=$(echo $GH_EVENT | jq .discussion.body  | sed 's/\"//g')
   COMMENT_USER=$(echo $GH_EVENT | jq .comment.user.login  | sed 's/\"//g')
