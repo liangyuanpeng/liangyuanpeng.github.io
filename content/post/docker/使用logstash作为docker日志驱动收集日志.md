@@ -6,7 +6,7 @@ subtitle:   ""
 description: "logstash是一个开源的日志统一处理数据收集器,属于ELK中的L,在日志收集领域应用广泛."  
 date:       2020-02-16
 author:     "梁远鹏"
-image: "img/banner-pexels.jpg"
+image: "/img/banner-pexels.jpg"
 published: true
 tags: 
     - docker

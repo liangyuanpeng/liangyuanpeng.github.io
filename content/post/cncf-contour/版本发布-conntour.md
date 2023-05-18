@@ -6,7 +6,7 @@ subtitle:   ""
 description: ""
 date:       2021-07-28
 author:     "梁远鹏"
-image: "img/banner-pexels.jpg"
+image: "/img/banner-pexels.jpg"
 published: true
 tags:
     - cncf

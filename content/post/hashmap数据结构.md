@@ -5,7 +5,7 @@ subtitle:   ""
 description: "从名字上看就知道HashMap是基于Hash算法实现的一种map，一般称之为散列表(hash table)"
 date:       2019-01-02
 author:     "梁远鹏"
-image: "img/banner-pexels.jpg"
+image: "/img/banner-pexels.jpg"
 published: false
 tags:
     - HashMap

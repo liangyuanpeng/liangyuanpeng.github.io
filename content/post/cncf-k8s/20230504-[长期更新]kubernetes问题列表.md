@@ -6,7 +6,7 @@ subtitle:   ""
 description: "kubernetes问题列表记录,欢迎投稿."
 date:       2023-05-04
 author:     "梁远鹏"
-image: "img/banner-pexels.jpg"
+image: "/img/banner-pexels.jpg"
 published: true
 tags:
     - k8s

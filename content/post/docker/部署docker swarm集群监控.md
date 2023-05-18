@@ -6,7 +6,7 @@ subtitle:   ""
 description: "docker swarm在容器编排的战争中已经输给了K8S，但是在小规模团队或人力有限的情况下，使用docker swarm进行容器编排还是不错的。"
 date:       2020-02-09
 author:     "梁远鹏"
-image: "img/banner-pexels.jpg"
+image: "/img/banner-pexels.jpg"
 published: true
 tags:
     - docker

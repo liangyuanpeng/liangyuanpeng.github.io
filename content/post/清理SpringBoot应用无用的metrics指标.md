@@ -6,7 +6,7 @@ subtitle:   ""
 description: "清理SpringBoot应用无用的metrics指标"
 date:       2021-04-07
 author:     "梁远鹏"
-image: "img/banner-pexels.jpg"
+image: "/img/banner-pexels.jpg"
 published: true
 tags:
     - prometheus

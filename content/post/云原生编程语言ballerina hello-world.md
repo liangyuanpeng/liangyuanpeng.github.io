@@ -6,7 +6,7 @@ subtitle:   ""
 description: "随着云原生的发展,业务规模的壮大,yml的维护会越来越复杂,这时候提高效能的工具或语言就应运而生了,ballerina便是其一."
 date:       2020-01-01
 author:     "梁远鹏"
-image: "img/banner-pexels.jpg"
+image: "/img/banner-pexels.jpg"
 published: true
 tags:
     - CloudNative

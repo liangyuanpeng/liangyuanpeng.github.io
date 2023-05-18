@@ -6,7 +6,7 @@ subtitle:   ""
 description: ""
 date:       2023-04-03
 author:     "梁远鹏"
-image: "img/banner-pexels.jpg"
+image: "/img/banner-pexels.jpg"
 published: false
 tags:
     - fluxcd 
