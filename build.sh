@@ -50,6 +50,9 @@ if [ $ORASDOWNLOAD ];then
 fi
 
 cat config.toml
+
+hugo --version
+
 hugo
 
 echo "======================read env begin======================="
