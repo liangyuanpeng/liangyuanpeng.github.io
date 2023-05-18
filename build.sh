@@ -51,7 +51,7 @@ fi
 
 cat config.toml
 
-hugo --version
+hugo version
 
 hugo
 
