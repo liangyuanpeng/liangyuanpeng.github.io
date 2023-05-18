@@ -6,7 +6,7 @@ subtitle:   ""
 description: ""
 date:       2023-03-27
 author:     "梁远鹏"
-image: "img/banner-pexels.jpg"
+image: "/img/banner-pexels.jpg"
 published: true
 tags:
     - kubernetes 

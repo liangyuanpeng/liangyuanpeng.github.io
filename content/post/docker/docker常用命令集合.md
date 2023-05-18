@@ -6,7 +6,7 @@ subtitle:   ""
 description: "记录docker常用命令"
 date:       2020-02-09
 author:     "梁远鹏"
-image: "img/banner-pexels.jpg"
+image: "/img/banner-pexels.jpg"
 published: true
 tags:
     - docker

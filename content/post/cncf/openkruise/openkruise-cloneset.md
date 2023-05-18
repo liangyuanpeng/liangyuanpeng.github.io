@@ -5,7 +5,7 @@ subtitle:   "OpenKruise-clonseset!"
 description: " "
 date:       2021-02-07
 author:     "梁远鹏"
-image: "img/banner-pexels.jpg"
+image: "/img/banner-pexels.jpg"
 published: false
 tags:
     - kubernetes

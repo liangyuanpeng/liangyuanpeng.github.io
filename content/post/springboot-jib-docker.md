@@ -6,7 +6,7 @@ subtitle:   ""
 description: "构建java的docker镜像,用jib,简单粗暴.."  
 date:       2020-02-18
 author:     "梁远鹏"
-image: "img/banner-pexels.jpg"
+image: "/img/banner-pexels.jpg"
 published: true
 tags: 
     - docker
