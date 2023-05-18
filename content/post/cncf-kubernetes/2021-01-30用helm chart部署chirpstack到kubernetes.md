@@ -6,7 +6,7 @@ subtitle:   ""
 description: "用helm chart将chripstack部署到kubernetes之上。"  
 date:       2021-01-30
 author:     "梁远鹏"
-image: "img/banner-pexels.jpg"
+image: "/img/banner-pexels.jpg"
 published: true
 tags: 
     - docker

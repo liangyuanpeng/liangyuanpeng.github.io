@@ -6,7 +6,7 @@ subtitle:   ""
 description: ""
 date:       2021-03-11
 author:     "梁远鹏"
-image: "img/banner-pexels.jpg"
+image: "/img/banner-pexels.jpg"
 published: false
 tags:
     - Blog

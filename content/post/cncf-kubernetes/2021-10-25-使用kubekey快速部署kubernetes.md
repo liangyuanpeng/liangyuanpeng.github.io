@@ -6,7 +6,7 @@ subtitle:   ""
 description: "使用kubekey快速部署kubernetes."
 date:       2021-10-25
 author:     "梁远鹏"
-image: "img/banner-pexels.jpg"
+image: "/img/banner-pexels.jpg"
 published: true
 tags:
     - tech

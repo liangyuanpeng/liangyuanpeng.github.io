@@ -6,7 +6,7 @@ subtitle:   ""
 description: "[暂无干货,快到碗里来]bookeeper源码系列,欢迎投稿."
 date:       2023-05-12
 author:     "梁远鹏"
-image: "img/banner-pexels.jpg"
+image: "/img/banner-pexels.jpg"
 published: true
 tags:
     - bookeeper

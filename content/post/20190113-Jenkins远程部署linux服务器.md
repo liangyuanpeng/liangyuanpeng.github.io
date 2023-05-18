@@ -6,7 +6,7 @@ subtitle:   ""
 description: "发展到一定程度后自动化部署会成为必不可少的一部分，目前Jenkins是插件丰富且最流行的工具。"
 date:       2019-01-13
 author:     "梁远鹏"
-image: "img/banner-pexels.jpg"
+image: "/img/banner-pexels.jpg"
 published: true
 tags:
     - Jenkins
