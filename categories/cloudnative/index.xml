@@ -6,7 +6,16 @@
     <description>Recent content in cloudnative on Hi,I`m lan</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 12 May 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://liangyuanpeng.github.io/categories/cloudnative/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 22 May 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://liangyuanpeng.github.io/categories/cloudnative/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>[长期更新]etcd问题列表</title>
+      <link>https://liangyuanpeng.github.io/post/question-list-of-etcd/</link>
+      <pubDate>Mon, 22 May 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://liangyuanpeng.github.io/post/question-list-of-etcd/</guid>
+      <description>说明 本文主要收集 etcd 遇到的一些常见问题,欢迎对本文进行投稿你认为好的场景或问题.</description>
+    </item>
+    
     <item>
       <title>bookeeper源码系列</title>
       <link>https://liangyuanpeng.github.io/post/list-of-source-with-bookeeper/</link>

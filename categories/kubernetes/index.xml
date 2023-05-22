@@ -179,15 +179,6 @@
     </item>
     
     <item>
-      <title>部署一个完整带SSL的etcd</title>
-      <link>https://liangyuanpeng.github.io/post/deploy-full-ssl-etcd/</link>
-      <pubDate>Mon, 17 Jan 2022 00:00:00 +0000</pubDate>
-      
-      <guid>https://liangyuanpeng.github.io/post/deploy-full-ssl-etcd/</guid>
-      <description></description>
-    </item>
-    
-    <item>
       <title>Contour-v1.18.3发布</title>
       <link>https://liangyuanpeng.github.io/post/contour-v1.18.3-release/</link>
       <pubDate>Sun, 09 Jan 2022 00:00:00 +0000</pubDate>
