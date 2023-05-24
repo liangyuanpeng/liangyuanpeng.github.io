@@ -14,9 +14,9 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - uses: actions-ecosystem/action-add-labels@v1
-        if: ${{ startsWith(github.event.comment.body, '/approved') }}
+        if: ${{ startsWith(github.event.comment.body, '/approve') }}
         with:
-          labels: approved
+          labels: approve
 
   add_label_from_issue:
     if: github.event.issue.user.login == 'liangyuanpeng'
@@ -24,6 +24,6 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - uses: actions-ecosystem/action-add-labels@v1
-        if: ${{ startsWith(github.event.issue.body, '/approved') }}
+        if: ${{ startsWith(github.event.issue.body, '/approve') }}
         with:
-          labels: approved
+          labels: approve
