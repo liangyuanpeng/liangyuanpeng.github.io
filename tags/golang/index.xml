@@ -6,16 +6,7 @@
     <description>Recent content in golang on Hi,I`m lan</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 04 May 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://liangyuanpeng.github.io/tags/golang/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>[长期更新]golang问题列表</title>
-      <link>https://liangyuanpeng.github.io/post/question-list-of-golang/</link>
-      <pubDate>Thu, 04 May 2023 00:00:00 +0000</pubDate>
-      
-      <guid>https://liangyuanpeng.github.io/post/question-list-of-golang/</guid>
-      <description>说明 本文主要收集 golang 遇到的一些常见问题,欢迎对本文进行投稿你认为好的场景或问题.</description>
-    </item>
-    
+    <lastBuildDate>Sun, 19 Feb 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://liangyuanpeng.github.io/tags/golang/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>编译kubernetes组件</title>
       <link>https://liangyuanpeng.github.io/post/compile-kubernetes/</link>
@@ -59,6 +50,15 @@
       
       <guid>https://liangyuanpeng.github.io/post/deploy-kubernetes-with-kubekey/</guid>
       <description>前言 Kubekey 是青云研发并开源的一款快速部署 kubernetes 的工具,并且它也是下一代安装kubesphere的工具,使用 kubekey 你可以很轻松的就部署一套 kubernetes/kubespher 环境,我的体验</description>
+    </item>
+    
+    <item>
+      <title>[长期更新]golang问题列表</title>
+      <link>https://liangyuanpeng.github.io/post/question-list-of-golang/</link>
+      <pubDate>Tue, 04 May 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://liangyuanpeng.github.io/post/question-list-of-golang/</guid>
+      <description>说明 本文主要收集 golang 遇到的一些常见问题,欢迎对本文进行投稿你认为好的场景或问题.</description>
     </item>
     
     <item>

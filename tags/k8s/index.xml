@@ -35,15 +35,6 @@
     </item>
     
     <item>
-      <title>[长期更新]helm常见问题以及配置记录</title>
-      <link>https://liangyuanpeng.github.io/post/helm-config-note-long-term/</link>
-      <pubDate>Sun, 23 Apr 2023 00:00:00 +0000</pubDate>
-      
-      <guid>https://liangyuanpeng.github.io/post/helm-config-note-long-term/</guid>
-      <description>说明 本文主要收集常见场景下 helm 配置以及遇到的一些常见问题,欢迎对本文进行投稿你认为好的场景配置或问题. 官方文档 https://helm.sh/docs/</description>
-    </item>
-    
-    <item>
       <title>[长期更新]kubeadm常见问题以及配置记录</title>
       <link>https://liangyuanpeng.github.io/post/kubeadm-config-note-long-term/</link>
       <pubDate>Sun, 23 Apr 2023 00:00:00 +0000</pubDate>
@@ -176,6 +167,15 @@
       
       <guid>https://liangyuanpeng.github.io/post/deploy-metrics-server-for-kubectl-top/</guid>
       <description>在部署metrics-server之前使用kubectl top 部署metrics-server yaml部署 yaml文件如下: apiVersion: v1 kind: ServiceAccount metadata: labels: k8s-app: metrics-server name: metrics-server</description>
+    </item>
+    
+    <item>
+      <title>[长期更新]helm常见问题以及配置记录</title>
+      <link>https://liangyuanpeng.github.io/post/helm-config-note-long-term/</link>
+      <pubDate>Fri, 23 Apr 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://liangyuanpeng.github.io/post/helm-config-note-long-term/</guid>
+      <description>说明 本文主要收集常见场景下 helm 配置以及遇到的一些常见问题,欢迎对本文进行投稿你认为好的场景配置或问题. 官方文档 https://helm.sh/docs/</description>
     </item>
     
     <item>

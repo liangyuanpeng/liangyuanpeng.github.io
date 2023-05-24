@@ -6,7 +6,7 @@
     <description>Recent content in cncf on Hi,I`m lan</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 22 May 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://liangyuanpeng.github.io/tags/cncf/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 16 May 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://liangyuanpeng.github.io/tags/cncf/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>用kind搭建k8s集群环境</title>
       <link>https://liangyuanpeng.github.io/post/run-k8s-with-kind/</link>
@@ -14,15 +14,6 @@
       
       <guid>https://liangyuanpeng.github.io/post/run-k8s-with-kind/</guid>
       <description>前言 由于各类基于 kubernetes 的云原生实验或测试的前提都是需要一个 kubernetes 环境,而在写博客时总是需要提及使用 kind 来搭建 kubernetes 环境. 因此这里单独写一篇文章来介绍如何用</description>
-    </item>
-    
-    <item>
-      <title>[长期更新]etcd问题列表</title>
-      <link>https://liangyuanpeng.github.io/post/question-list-of-etcd/</link>
-      <pubDate>Mon, 22 May 2023 00:00:00 +0000</pubDate>
-      
-      <guid>https://liangyuanpeng.github.io/post/question-list-of-etcd/</guid>
-      <description>说明 本文主要收集 etcd 遇到的一些常见问题,欢迎对本文进行投稿你认为好的场景或问题.</description>
     </item>
     
     <item>
@@ -50,15 +41,6 @@
       
       <guid>https://liangyuanpeng.github.io/post/usage-oras/</guid>
       <description>这篇在讲什么 主要是记录我使用 oras 的一些使用场景。 由于已知 oras 是一个将任意内容存储为容器镜像的工具,因此不过多介绍 oras。 都有什么场景 存储工作区</description>
-    </item>
-    
-    <item>
-      <title>[长期更新]helm常见问题以及配置记录</title>
-      <link>https://liangyuanpeng.github.io/post/helm-config-note-long-term/</link>
-      <pubDate>Sun, 23 Apr 2023 00:00:00 +0000</pubDate>
-      
-      <guid>https://liangyuanpeng.github.io/post/helm-config-note-long-term/</guid>
-      <description>说明 本文主要收集常见场景下 helm 配置以及遇到的一些常见问题,欢迎对本文进行投稿你认为好的场景配置或问题. 官方文档 https://helm.sh/docs/</description>
     </item>
     
     <item>
@@ -500,6 +482,24 @@
       
       <guid>https://liangyuanpeng.github.io/post/prometheus-v2.28.1-update/</guid>
       <description>前言 Prometheus作为第二个从CNCF毕业的顶级项目,其成熟程度是毋庸置疑的,甚至推出了另一个CNCF项目OpenMetrics,希望</description>
+    </item>
+    
+    <item>
+      <title>[长期更新]etcd问题列表</title>
+      <link>https://liangyuanpeng.github.io/post/question-list-of-etcd/</link>
+      <pubDate>Sat, 22 May 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://liangyuanpeng.github.io/post/question-list-of-etcd/</guid>
+      <description>说明 本文主要收集 etcd 遇到的一些常见问题,欢迎对本文进行投稿你认为好的场景或问题.</description>
+    </item>
+    
+    <item>
+      <title>[长期更新]helm常见问题以及配置记录</title>
+      <link>https://liangyuanpeng.github.io/post/helm-config-note-long-term/</link>
+      <pubDate>Fri, 23 Apr 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://liangyuanpeng.github.io/post/helm-config-note-long-term/</guid>
+      <description>说明 本文主要收集常见场景下 helm 配置以及遇到的一些常见问题,欢迎对本文进行投稿你认为好的场景配置或问题. 官方文档 https://helm.sh/docs/</description>
     </item>
     
     <item>

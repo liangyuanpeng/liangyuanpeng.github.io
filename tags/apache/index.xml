@@ -6,16 +6,7 @@
     <description>Recent content in apache on Hi,I`m lan</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 12 May 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://liangyuanpeng.github.io/tags/apache/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>bookeeper源码系列</title>
-      <link>https://liangyuanpeng.github.io/post/list-of-source-with-bookeeper/</link>
-      <pubDate>Fri, 12 May 2023 00:00:00 +0000</pubDate>
-      
-      <guid>https://liangyuanpeng.github.io/post/list-of-source-with-bookeeper/</guid>
-      <description>说明 之前研究过一些 bookeeper 源码，无奈时间问题都中断了，这里列出一些研究入口给希望研究 bookeeper 源码的同学。 对于交流持非常欢迎态度！可以微信联系我也可以在下</description>
-    </item>
-    
+    <lastBuildDate>Mon, 08 May 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://liangyuanpeng.github.io/tags/apache/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>pulsar源码系列</title>
       <link>https://liangyuanpeng.github.io/post/list-of-source-with-pulsar/</link>
@@ -26,9 +17,54 @@
     </item>
     
     <item>
+      <title>简单部署Apache-Bookkeeper</title>
+      <link>https://liangyuanpeng.github.io/post/simple-deploy-for-apache-bookkeeper/</link>
+      <pubDate>Sun, 26 Dec 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://liangyuanpeng.github.io/post/simple-deploy-for-apache-bookkeeper/</guid>
+      <description>前言 开始部署 由于apache bookkeeper(本文后续简称为BK)需要使用元数据服务中心,当前支持zookeeper和etcd,本文将会</description>
+    </item>
+    
+    <item>
+      <title>Apache-Bookkeeper开发环境搭建</title>
+      <link>https://liangyuanpeng.github.io/post/apache-bookkeeper-env-for-dev/</link>
+      <pubDate>Sun, 19 Dec 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://liangyuanpeng.github.io/post/apache-bookkeeper-env-for-dev/</guid>
+      <description>打包BK mvn package -DsipTests=true 顺利的话就成功的打包好了. [INFO] Apache BookKeeper :: Tests :: Backward Compatibility :: Test upgrade between yahoo custom version and current SUCCESS [ 0.373 s] [INFO] Apache BookKeeper :: Tests :: Backward Compatibility :: Test Bouncy Castle Provider load non FIPS version SUCCESS [ 0.484 s] [INFO] Apache BookKeeper :: Tests :: Integration ..........</description>
+    </item>
+    
+    <item>
+      <title>GO上手项目值得你拥有:Bookkeeper客户端</title>
+      <link>https://liangyuanpeng.github.io/post/bk-client-go-readme/</link>
+      <pubDate>Sat, 18 Dec 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://liangyuanpeng.github.io/post/bk-client-go-readme/</guid>
+      <description>什么是apache bookkeeper 一句话介绍&amp;mdash;&amp;gt;Apache BookKeeper 是企业级存储系统，旨在保证高持久性、一致性与低延迟。 目前广泛应用在Apac</description>
+    </item>
+    
+    <item>
+      <title>Rust上手项目值得你拥有:Bookkeeper客户端</title>
+      <link>https://liangyuanpeng.github.io/post/bookkeeper-rs-readme/</link>
+      <pubDate>Sat, 18 Dec 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://liangyuanpeng.github.io/post/bookkeeper-rs-readme/</guid>
+      <description>什么是apache bookkeeper 一句话介绍&amp;mdash;&amp;gt;Apache BookKeeper 是企业级存储系统，旨在保证高持久性、一致性与低延迟。 目前广泛应用在Apac</description>
+    </item>
+    
+    <item>
+      <title>bookeeper源码系列</title>
+      <link>https://liangyuanpeng.github.io/post/list-of-source-with-bookeeper/</link>
+      <pubDate>Wed, 12 May 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://liangyuanpeng.github.io/post/list-of-source-with-bookeeper/</guid>
+      <description>说明 之前研究过一些 bookeeper 源码，无奈时间问题都中断了，这里列出一些研究入口给希望研究 bookeeper 源码的同学。 对于交流持非常欢迎态度！可以微信联系我也可以在下</description>
+    </item>
+    
+    <item>
       <title>[长期更新]pulsar问题列表</title>
       <link>https://liangyuanpeng.github.io/post/question-list-of-pulsar/</link>
-      <pubDate>Thu, 04 May 2023 00:00:00 +0000</pubDate>
+      <pubDate>Tue, 04 May 2021 00:00:00 +0000</pubDate>
       
       <guid>https://liangyuanpeng.github.io/post/question-list-of-pulsar/</guid>
       <description>说明 本文主要收集 apache pulsar 遇到的一些常见问题,欢迎对本文进行投稿你认为好的场景或问题.</description>

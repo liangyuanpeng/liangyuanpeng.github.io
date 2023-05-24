@@ -6,7 +6,7 @@
     <description>Recent content on Hi,I`m lan</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 22 May 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://liangyuanpeng.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 16 May 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://liangyuanpeng.github.io/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>lank8s.cn服务</title>
       <link>https://liangyuanpeng.github.io/post/service-lank8s.cn/</link>
@@ -26,30 +26,12 @@
     </item>
     
     <item>
-      <title>[长期更新]etcd问题列表</title>
-      <link>https://liangyuanpeng.github.io/post/question-list-of-etcd/</link>
-      <pubDate>Mon, 22 May 2023 00:00:00 +0000</pubDate>
-      
-      <guid>https://liangyuanpeng.github.io/post/question-list-of-etcd/</guid>
-      <description>说明 本文主要收集 etcd 遇到的一些常见问题,欢迎对本文进行投稿你认为好的场景或问题.</description>
-    </item>
-    
-    <item>
       <title>那些让我疑惑的CNCF项目</title>
       <link>https://liangyuanpeng.github.io/post/confuse-with-me-from-cncf-projects/</link>
       <pubDate>Tue, 16 May 2023 00:00:00 +0000</pubDate>
       
       <guid>https://liangyuanpeng.github.io/post/confuse-with-me-from-cncf-projects/</guid>
       <description>那些让我疑惑的CNCF项目 CNCF 在我心中一直是信仰一样的存在，只要是 CNCF 项目我就会开始对它感兴趣，但是随着 CNCF 项目的增多，一些让我疑惑的项目也随之而</description>
-    </item>
-    
-    <item>
-      <title>bookeeper源码系列</title>
-      <link>https://liangyuanpeng.github.io/post/list-of-source-with-bookeeper/</link>
-      <pubDate>Fri, 12 May 2023 00:00:00 +0000</pubDate>
-      
-      <guid>https://liangyuanpeng.github.io/post/list-of-source-with-bookeeper/</guid>
-      <description>说明 之前研究过一些 bookeeper 源码，无奈时间问题都中断了，这里列出一些研究入口给希望研究 bookeeper 源码的同学。 对于交流持非常欢迎态度！可以微信联系我也可以在下</description>
     </item>
     
     <item>
@@ -71,24 +53,6 @@
     </item>
     
     <item>
-      <title>[长期更新]golang问题列表</title>
-      <link>https://liangyuanpeng.github.io/post/question-list-of-golang/</link>
-      <pubDate>Thu, 04 May 2023 00:00:00 +0000</pubDate>
-      
-      <guid>https://liangyuanpeng.github.io/post/question-list-of-golang/</guid>
-      <description>说明 本文主要收集 golang 遇到的一些常见问题,欢迎对本文进行投稿你认为好的场景或问题.</description>
-    </item>
-    
-    <item>
-      <title>[长期更新]java问题列表</title>
-      <link>https://liangyuanpeng.github.io/post/question-list-of-java/</link>
-      <pubDate>Thu, 04 May 2023 00:00:00 +0000</pubDate>
-      
-      <guid>https://liangyuanpeng.github.io/post/question-list-of-java/</guid>
-      <description>说明 本文主要收集 java 遇到的一些常见问题,欢迎对本文进行投稿你认为好的场景或问题.</description>
-    </item>
-    
-    <item>
       <title>[长期更新]kubernetes问题列表记录</title>
       <link>https://liangyuanpeng.github.io/post/question-list-of-kubernetes/</link>
       <pubDate>Thu, 04 May 2023 00:00:00 +0000</pubDate>
@@ -98,30 +62,12 @@
     </item>
     
     <item>
-      <title>[长期更新]pulsar问题列表</title>
-      <link>https://liangyuanpeng.github.io/post/question-list-of-pulsar/</link>
-      <pubDate>Thu, 04 May 2023 00:00:00 +0000</pubDate>
-      
-      <guid>https://liangyuanpeng.github.io/post/question-list-of-pulsar/</guid>
-      <description>说明 本文主要收集 apache pulsar 遇到的一些常见问题,欢迎对本文进行投稿你认为好的场景或问题.</description>
-    </item>
-    
-    <item>
       <title>下一代pulsar元数据存储Oxia</title>
       <link>https://liangyuanpeng.github.io/post/oxia-is-next-pulsar-metadata/</link>
       <pubDate>Wed, 03 May 2023 00:00:00 +0000</pubDate>
       
       <guid>https://liangyuanpeng.github.io/post/oxia-is-next-pulsar-metadata/</guid>
       <description>Oxia 是什么? 简单来说呢 oxia 是一个 streamnative 开源的基于 kubernetes 的可扩展的元数据存储和协调系统,设计的目标是为了成为Apache Pulsar 的关键组件,也就是元数据中心,取</description>
-    </item>
-    
-    <item>
-      <title>ansible问题用法汇总</title>
-      <link>https://liangyuanpeng.github.io/post/ansible-qa/</link>
-      <pubDate>Wed, 26 Apr 2023 00:00:00 +0000</pubDate>
-      
-      <guid>https://liangyuanpeng.github.io/post/ansible-qa/</guid>
-      <description>前言 本文长期更新,欢迎投稿:)</description>
     </item>
     
     <item>
@@ -140,15 +86,6 @@
       
       <guid>https://liangyuanpeng.github.io/about/</guid>
       <description>关于我 Hi，我是梁远鹏,云原生开源爱好者. pulsar 贡献者 tekton &amp;amp; shipwright 贡献者 karmada 贡献者 短暂的 CDF 中文本地化 sigs 成员 (目前该 sigs 已经归档) 关注 CNCF 项目,kuberne</description>
-    </item>
-    
-    <item>
-      <title>[长期更新]helm常见问题以及配置记录</title>
-      <link>https://liangyuanpeng.github.io/post/helm-config-note-long-term/</link>
-      <pubDate>Sun, 23 Apr 2023 00:00:00 +0000</pubDate>
-      
-      <guid>https://liangyuanpeng.github.io/post/helm-config-note-long-term/</guid>
-      <description>说明 本文主要收集常见场景下 helm 配置以及遇到的一些常见问题,欢迎对本文进行投稿你认为好的场景配置或问题. 官方文档 https://helm.sh/docs/</description>
     </item>
     
     <item>
@@ -827,12 +764,75 @@
     </item>
     
     <item>
+      <title>[长期更新]etcd问题列表</title>
+      <link>https://liangyuanpeng.github.io/post/question-list-of-etcd/</link>
+      <pubDate>Sat, 22 May 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://liangyuanpeng.github.io/post/question-list-of-etcd/</guid>
+      <description>说明 本文主要收集 etcd 遇到的一些常见问题,欢迎对本文进行投稿你认为好的场景或问题.</description>
+    </item>
+    
+    <item>
       <title>部署去ZK后的Apache Pulsar</title>
       <link>https://liangyuanpeng.github.io/post/deploy-pulsar/</link>
       <pubDate>Sat, 22 May 2021 00:00:00 +0000</pubDate>
       
       <guid>https://liangyuanpeng.github.io/post/deploy-pulsar/</guid>
       <description>前言 记录我的终端更新笔记 :( 当我们在说元数据中心的时候我们在说什么 Bookkeeper 和 Pulsar Broker 都有各自的元数据中心,并且都有自己的元数据中心接口,默认都是ZK. 要</description>
+    </item>
+    
+    <item>
+      <title>bookeeper源码系列</title>
+      <link>https://liangyuanpeng.github.io/post/list-of-source-with-bookeeper/</link>
+      <pubDate>Wed, 12 May 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://liangyuanpeng.github.io/post/list-of-source-with-bookeeper/</guid>
+      <description>说明 之前研究过一些 bookeeper 源码，无奈时间问题都中断了，这里列出一些研究入口给希望研究 bookeeper 源码的同学。 对于交流持非常欢迎态度！可以微信联系我也可以在下</description>
+    </item>
+    
+    <item>
+      <title>[长期更新]golang问题列表</title>
+      <link>https://liangyuanpeng.github.io/post/question-list-of-golang/</link>
+      <pubDate>Tue, 04 May 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://liangyuanpeng.github.io/post/question-list-of-golang/</guid>
+      <description>说明 本文主要收集 golang 遇到的一些常见问题,欢迎对本文进行投稿你认为好的场景或问题.</description>
+    </item>
+    
+    <item>
+      <title>[长期更新]java问题列表</title>
+      <link>https://liangyuanpeng.github.io/post/question-list-of-java/</link>
+      <pubDate>Tue, 04 May 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://liangyuanpeng.github.io/post/question-list-of-java/</guid>
+      <description>说明 本文主要收集 java 遇到的一些常见问题,欢迎对本文进行投稿你认为好的场景或问题.</description>
+    </item>
+    
+    <item>
+      <title>[长期更新]pulsar问题列表</title>
+      <link>https://liangyuanpeng.github.io/post/question-list-of-pulsar/</link>
+      <pubDate>Tue, 04 May 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://liangyuanpeng.github.io/post/question-list-of-pulsar/</guid>
+      <description>说明 本文主要收集 apache pulsar 遇到的一些常见问题,欢迎对本文进行投稿你认为好的场景或问题.</description>
+    </item>
+    
+    <item>
+      <title>ansible问题用法汇总</title>
+      <link>https://liangyuanpeng.github.io/post/ansible-qa/</link>
+      <pubDate>Mon, 26 Apr 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://liangyuanpeng.github.io/post/ansible-qa/</guid>
+      <description>前言 本文长期更新,欢迎投稿:)</description>
+    </item>
+    
+    <item>
+      <title>[长期更新]helm常见问题以及配置记录</title>
+      <link>https://liangyuanpeng.github.io/post/helm-config-note-long-term/</link>
+      <pubDate>Fri, 23 Apr 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://liangyuanpeng.github.io/post/helm-config-note-long-term/</guid>
+      <description>说明 本文主要收集常见场景下 helm 配置以及遇到的一些常见问题,欢迎对本文进行投稿你认为好的场景配置或问题. 官方文档 https://helm.sh/docs/</description>
     </item>
     
     <item>

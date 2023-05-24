@@ -35,15 +35,6 @@
     </item>
     
     <item>
-      <title>ansible问题用法汇总</title>
-      <link>https://liangyuanpeng.github.io/post/ansible-qa/</link>
-      <pubDate>Wed, 26 Apr 2023 00:00:00 +0000</pubDate>
-      
-      <guid>https://liangyuanpeng.github.io/post/ansible-qa/</guid>
-      <description>前言 本文长期更新,欢迎投稿:)</description>
-    </item>
-    
-    <item>
       <title>基于giscus打造博客评论系统</title>
       <link>https://liangyuanpeng.github.io/post/add-comments-with-giscus/</link>
       <pubDate>Mon, 17 Apr 2023 00:00:00 +0000</pubDate>
@@ -239,6 +230,15 @@
       
       <guid>https://liangyuanpeng.github.io/post/deploy-pulsar/</guid>
       <description>前言 记录我的终端更新笔记 :( 当我们在说元数据中心的时候我们在说什么 Bookkeeper 和 Pulsar Broker 都有各自的元数据中心,并且都有自己的元数据中心接口,默认都是ZK. 要</description>
+    </item>
+    
+    <item>
+      <title>ansible问题用法汇总</title>
+      <link>https://liangyuanpeng.github.io/post/ansible-qa/</link>
+      <pubDate>Mon, 26 Apr 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://liangyuanpeng.github.io/post/ansible-qa/</guid>
+      <description>前言 本文长期更新,欢迎投稿:)</description>
     </item>
     
     <item>

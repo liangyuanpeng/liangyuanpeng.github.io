@@ -17,15 +17,6 @@
     </item>
     
     <item>
-      <title>[长期更新]pulsar问题列表</title>
-      <link>https://liangyuanpeng.github.io/post/question-list-of-pulsar/</link>
-      <pubDate>Thu, 04 May 2023 00:00:00 +0000</pubDate>
-      
-      <guid>https://liangyuanpeng.github.io/post/question-list-of-pulsar/</guid>
-      <description>说明 本文主要收集 apache pulsar 遇到的一些常见问题,欢迎对本文进行投稿你认为好的场景或问题.</description>
-    </item>
-    
-    <item>
       <title>下一代pulsar元数据存储Oxia</title>
       <link>https://liangyuanpeng.github.io/post/oxia-is-next-pulsar-metadata/</link>
       <pubDate>Wed, 03 May 2023 00:00:00 +0000</pubDate>
@@ -68,6 +59,15 @@
       
       <guid>https://liangyuanpeng.github.io/post/deploy-pulsar/</guid>
       <description>前言 记录我的终端更新笔记 :( 当我们在说元数据中心的时候我们在说什么 Bookkeeper 和 Pulsar Broker 都有各自的元数据中心,并且都有自己的元数据中心接口,默认都是ZK. 要</description>
+    </item>
+    
+    <item>
+      <title>[长期更新]pulsar问题列表</title>
+      <link>https://liangyuanpeng.github.io/post/question-list-of-pulsar/</link>
+      <pubDate>Tue, 04 May 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://liangyuanpeng.github.io/post/question-list-of-pulsar/</guid>
+      <description>说明 本文主要收集 apache pulsar 遇到的一些常见问题,欢迎对本文进行投稿你认为好的场景或问题.</description>
     </item>
     
     <item>
