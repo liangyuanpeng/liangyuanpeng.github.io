@@ -25,6 +25,8 @@ shipwright 的核心价值观是 简单性，灵活性以及安全性。
 
 shipwright 的安全性始于构建策略API中内置的透明的 pod 安全上下文？特权容器和root容器， shipwright 本身发布的镜像使用cosign签名并且社区使用 trivy 来检测镜像漏洞。
 
+https://shipwright.io/blog/2022/10/25/bringing-shipwright-to-beta-and-beyond/
+
 # 关系
 
 一个 BuildRun 对应一个 TaskRun
