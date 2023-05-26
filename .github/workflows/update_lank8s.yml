@@ -1,0 +1,20 @@
+name: deploy ghpage
+
+on:
+  push:
+    branches: [ source ]
+  schedule:
+  - cron: "0 9 * * *"
+
+jobs:
+
+  update:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          submodules: true  # Fetch Hugo themes (true OR recursive)
+          fetch-depth: 0    # Fetch all history for .GitInfo and .Lastmod
+
+#todo clone lank8s/lank8s  and write README
