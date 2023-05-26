@@ -47,7 +47,7 @@ if [ $BUILDINIT ];then
     nohup ./oras pull ghcr.io/liangyuanpeng/files:kind &
     nohup ./oras pull ghcr.io/liangyuanpeng/files:pack &
     ./oras pull ghcr.io/liangyuanpeng/files:krew
-    oras pull ghcr.io/liangyuanpeng/files:blogfiles
+    ./oras pull ghcr.io/liangyuanpeng/files:blogfiles
     cd ..
 fi
 
