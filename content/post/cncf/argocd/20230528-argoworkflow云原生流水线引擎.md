@@ -4,7 +4,7 @@ slug:      "cloudnative-ci-of-argo-workflow"
 title:      "argoworkflow云原生流水线引擎"
 subtitle:   ""
 description: ""
-date:       2022-01-20
+date:        2023-05-28
 author:     "梁远鹏"
 image: "/img/banner-pexels.jpg"
 published: true
