@@ -11,11 +11,52 @@ Argo Workflow 是一个云原生的工作流引擎,基于kubernetes来做编排�
 
 ## Workflow
 
+Workflow 定义的字段和 WorkflowTemplate 定义的字段基本上是一致的，因此将字段的解释放在 WorkflowTemplate 部分，对 Workflow 的理解只需要知道Workflow 是一个流水线的"实例",也就是只有创建了 Workflow 对象是才会真正的运行流水线。
+
+## WorkflowTemplate
+
+WorkflowTemplate 是最重要的对象了,基本上绝大部分时间你都是和它在打交道，其中还有一个 template 的定义，在刚认识 argo workflow 时需要注意区分的一点是 workflowTemplate 和 template，这在我刚入门时也造成了一点困惑，接下来讲一下这两个的区别：
+
+workflowTemplate是argo workflow 中实现的CRD对象，而template则是对象内的一个字段，实际执行内容都是在 template 中定义的，一个 workflowTemplate 至少要包含一个 template。 workflowTemplate 需要将一个 template 配置为 entrypoint，也就是流水线的起点，在这个 template 的 steps 中又可以应用多个相同或不同的 template。
+
+简单举一个例子来理解 workflowTemplate 多个 template，假设要封装一个 workflowTemplate 来处理 git 相关的场景：
+
+分别为以下三个操作创建三个 template，在同一份代码中可以多次merge && commit,因此流水线入口是 git clone,然后 git merge, git add && git commit，在这种情况下 2 和 3 是作为 1 的一部分存在的。而当流水线入口直接就是 git merge 或 git add && git commit 的情况时， template2或template3是作为单独的流水线逻辑存在。
+
+1. git clone
+2. git merge
+3. git add && git commit
+
+
+
+
+
+先对几个关键词做一个简单的概述来更好的了解 Template:
+
+- steps
+- container
+- script
+- resource
+
+一个简单示意的yaml格式如下:
+
+```yaml
+...
+ templates:
+  - name: asd
+    steps:
+    - - name: asdasd
+  - name: sda
+    container: asdad
+...
+```
+
+
 每一个 step 就是一个 pod 中的容器,最基础的 pod 都会有两个容器,一个是 argoproj/argoexec 容器,另一个则是 step 中需要使用的容器,也就是实际执行内容的容器,只有当需要执行对应的 step 时才会创建出对应的 pod,因此和 Tekton 一样,也是对资源的申请和释放具有很好的利用性.
 
 而我们在执行代码测试的过程中经常会有一些依赖服务要怎么在 argo workflow 中实现呢?
 
-argo workflow 为每一个step提供了 sidecars 参数,可以配置你需要的依赖容器,例如 DID,etcd,Redis和Mysql等等.
+argo workflow 为每一个 step 提供了 sidecars 参数,可以配置你需要的依赖容器,例如 DID,etcd,Redis和Mysql等等.
 
 另一个比较常见的是 并行版本/参数测试,例如跑测试时,希望让同一份代码基于多个版本的 Etcd 服务做测试,那么 Argo workflow 也提供了 withItems 的方式来实现这个功能.
 
@@ -23,11 +64,10 @@ argo workflow 为每一个step提供了 sidecars 参数,可以配置你需要的
 
 根据文件唯一性来确认编译缓存是否更改,对于并行测试来说编译缓存可能是一样的,例如只更新了代码而没有更新 pom.xml 那么缓存依赖是一样的. 对于pom.xml更改了，也就是编译缓存变更了，那么可以先更新编译缓存，然后再跑并行测试,当然这是具体的业务内容了。
 
-## WorkflowTemplate
+---
 
-WorkflowTemplate 是最重要的对象了,基本上绝大部分时间你都是和它在打交道，但是在刚认识 argo workflow 时需要注意区分的一点是 workflowTemplate 和 template，这在我刚入门时也造成了一点困惑，接下来讲一下这两个的区别：
 
-workflowTemplate是argo workflow 中实现的CRD对象，而template则是对象内的一个字段，实际执行内容都是在 template 中定义的，一个 workflowTemplate 至少要包含一个 template。 workflowTemplate 需要将一个 template 配置为entrypoint，也就是流水线的起点，在这个 template 的steps 中又可以应用多个相同或不同的 template,接下来从官方一个默认的 workflowTemplate 来看一下实际的yaml是怎么样的。
+接下来从官方一个默认的 workflowTemplate 来看一下实际的yaml是怎么样的。
 
 ### 一个默认的简单workflowTemplate
 
