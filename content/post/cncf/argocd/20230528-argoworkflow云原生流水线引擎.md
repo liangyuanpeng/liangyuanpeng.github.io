@@ -7,19 +7,21 @@ Argo Workflow 是一个云原生的工作流引擎,基于kubernetes来做编排�
 - WorkflowTemplate
 - CronWrokflow
 
+接下来分别了解一下三个CRD对象。
+
 ## Workflow
 
-每一个 step 就是一个pod中的容器,最基础的pod都会有两个容器,一个是argoproj/argoexec容器,另一个则是step中需要使用的容器,也就是实际执行内容的容器,只有当需要执行对应的 step 时才会创建出对应的 pod,因此和 Tekton一样,也是对资源的申请和释放具有很好的利用性.
+每一个 step 就是一个 pod 中的容器,最基础的 pod 都会有两个容器,一个是 argoproj/argoexec 容器,另一个则是 step 中需要使用的容器,也就是实际执行内容的容器,只有当需要执行对应的 step 时才会创建出对应的 pod,因此和 Tekton 一样,也是对资源的申请和释放具有很好的利用性.
 
 而我们在执行代码测试的过程中经常会有一些依赖服务要怎么在 argo workflow 中实现呢?
 
 argo workflow 为每一个step提供了 sidecars 参数,可以配置你需要的依赖容器,例如 DID,etcd,Redis和Mysql等等.
 
-另一个比较常见的是 并行版本/参数测试,例如跑测试时,希望让同一份代码基于多个版本的etcd服务做测试,那么 argo workflow 也提供了 withItems 的方式来实现这个功能.
+另一个比较常见的是 并行版本/参数测试,例如跑测试时,希望让同一份代码基于多个版本的 Etcd 服务做测试,那么 Argo workflow 也提供了 withItems 的方式来实现这个功能.
 
-还有一个常见的需求是希望保持编译缓存,例如java应用编译产物希望在下一个CI中继续应用,避免每次都去下载一些重复的jar,argo workflow 通过 volume 功能来实现这部分内容. 也可以通过 artifact 功能实现,例如上传到 s3,需要时再进行下载.
+还有一个常见的需求是希望保持编译缓存,例如 java 应用编译产物希望在下一个 CI 中继续应用,避免每次都去下载一些重复的 jar,Argo workflow 通过 volume 功能来实现这部分内容. 也可以通过 artifact 功能实现,例如上传到 S3,需要时再进行下载.
 
-根据文件唯一性来确认编译缓存是否更改,对于并行测试来说编译缓存可能是一样的,例如只更新了代码而没有更新pom.xml 那么缓存依赖是一样的. 对于pom.xml更改了 也就是编译缓存变更了 那么可以先更新编译缓存 然后再跑并行测试,当然这是具体的业务内容了.
+根据文件唯一性来确认编译缓存是否更改,对于并行测试来说编译缓存可能是一样的,例如只更新了代码而没有更新 pom.xml 那么缓存依赖是一样的. 对于pom.xml更改了，也就是编译缓存变更了，那么可以先更新编译缓存，然后再跑并行测试,当然这是具体的业务内容了。
 
 ## WorkflowTemplate
 
@@ -68,7 +70,13 @@ spec:
 
 默认创建的 workflowTemplate 只有一个 template 并且它做的唯一一件事情就是打印传参 `message`。
 
-需要注意的是 默认的 workflow 中设置了 podGC和workflowTTL，一旦pod执行完成了就会删除pod，并且由于默认没有配置日志持久化，这时候去查看日志的话只会看到空白，为了方便研究和测试，可以将条件设置为 workflowOnSuccess，当workflow顺利执行结束才会去删除pod，然后在流水线的最后设置一个一定失败的step来保证pod不会被删除。注意:实际应用时请正确设置日志持久化。
+需要注意的是 默认的 workflow 中设置了 podGC  和workflowTTL，一旦pod执行完成了就会删除pod，并且由于默认没有配置日志持久化，这时候去查看日志的话只会看到空白，
+
+为了方便研究测试，可以先将这部分内容给注释掉，或为 Argo Workflow 设置日志持久化。
+
+注意:实际应用时请正确设置日志持久化。
+
+下面的配置表示 workflow 会在 workflow 执行完成后的 300 秒删除，而 workflow 过程中产生的 pod(template) 会在 pod执行完成后立刻删除。
 
 ```yaml
   ttlStrategy:
@@ -83,7 +91,7 @@ spec:
 
 除了 steps template 之外，Argo WorkflowTemplate 同样支持 DAG，以 dag template 的方式存在，可以让用户更好的维护复杂的工作流。
 
-这里基于一个官方文档的示例来简单了解一下argo workflow dag template：  
+这里基于一个官方文档的示例来简单了解一下 argo workflow dag template：  
 
 ```yaml
 apiVersion: argoproj.io/v1alpha1
@@ -128,7 +136,7 @@ spec:
 
 ### 支持K8S资源操作
 
-接下来看一个官方例子：等待 workflow。
+接下来看一个官方例子：等待 workflow 执行完成。
 
 ```yaml
 apiVersion: argoproj.io/v1alpha1
@@ -189,7 +197,25 @@ spec:
 
 这个在 resource 操作在流水线需要处理一些K8s资源时会是一个很有用的功能。
 
+
+### 还有什么
+
+一个更完善的流水线可能还会包含很多复杂的内容，这里留下一些参考点为你在研究 Argo workflow 时提供一些方向：
+
+- 传递参数
+- CI 矩阵
+- 通过 artifact 下载源码
+- 为 CI 配置环境变量
+- 为 CI 配置依赖服务 (sidecar)
+- 设置/使用特别 bucketName s3 artifact
+- 工件存储 artifact
+- volume 传递编译缓存
+
 ## CronWorkflow
+
+CronWorkflow 是一个用于定时触发 workflow 的定义，在 CI 中也是很常见的，例如每晚构建。
+
+同样地，通过 Argo 的 UI 界面创建一个定时的 workflow 时也会有一个默认的 cronWorkflow，可以通过这个默认的 cronWorkflow 来了解下
 
 ```yaml
 metadata:
@@ -228,51 +254,27 @@ spec:
       strategy: OnPodCompletion
 ```
 
-# 尝试一下!
+经过前面 Workflow 和 WorkflowTemplate 的了解后，可以看到 cronWorkflow 的 yaml 文件整体来说是差不多的，无非是多了一些定时相关的配置。
 
-
-
-## 靠近生产多一点
-
-接下来编写一个更接近生产的workflow,它会包含以下内容:
-
-- 传递参数
-- CI矩阵
-- 通过 artifact 下载源码
-- 为CI配置环境变量
-- 为CI配置依赖服务(sidecar)
-
-- 设置/使用特别bucketName s3 artifact
-- 工件存储 artifact
-- volume传递编译缓存
-
+上述示例中 schedule 配置为 `* * * * *`,也就是每分钟会执行一次 workflow，关于定时的内容都会有一个注意点是定时任务的时区， cronWorkflow 支持为定时任务设置时区，具体可以看看官方文档。
 
 # 与 Tekton 的对比
 
-系统架构上来说，Tekton 做得更好，整体架构比较清晰，但从用户的角度上来说 Argo Workflow 更容易上手使用。
+在简单尝试后能够看到最明显的一个区别是 argo workflow 的 UI 能够展现出比较直观的 CI 顺序效果.
 
-在简单尝试后能够看到最明显的一个区别是 argo workflow 的UI 能够展现出比较直观的 CI 顺序效果.
+从系统架构上来说，Tekton 做得更好，整体架构比较清晰，但从用户的角度上来说 Argo Workflow 更容易上手使用。
 
-另一个是 argo workflow 中提供了一些 tekton 默认所没有的功能,在我看来这些也都是比较酷和实用的功能,例如：
+另一个是 Argo workflow 中提供了一些 Tekton 默认所没有的功能,在我看来这些也都是比较酷和实用的功能,例如：
 
-- action 操作,可以直接创建 k8s 对象以及 对 K8s 对象 get,等待k8s对象某个字段完成.
-- artifact 功能，例如和s3打交道，这在流水线中是很常见的需求，但Tekton本身并没有提供。
-- 归档日志和workflow。
+- resource 操作,可以直接创建 k8s 对象以及 对 K8S 对象 get,等待 K8S 对象某个字段完成.
+- artifact 功能，例如和s3打交道，这在流水线中是很常见的需求，但 Tekton 本身并没有提供。
 
 argo workflow 的文档建设也比 Tekton 更好。
 
-https://github.com/argoproj/argo-workflows/blob/master/examples/k8s-wait-wf.yaml
-
-总的来说 Tekton 提供的内容处于更底层的位置,而 Argo Workflow 提供了很多上层功能,可以很方便的应用起来.
-
-
-# 备份
-
-kubectl get wf,cwf,cwft,wftmpl -A -o yaml > backup.yaml
-
-似乎同样适用于Tekton,因为这只是把CRD对象对应的yaml文件导出来.
-
+总的来说 Tekton 提供的内容处于更底层的位置，与 kubernetes 类似，是一个 CICD 底层的引擎，需要基于它做一些事情。而 Argo Workflow 处于更上层一点的位置，提供了很多实用的功能,可以很方便的应用起来。
 
 # 写在最后
 
-到目前为止,我们了解了 Argo Workflow 的强大特性以及与Tekton的一个简单对比,实际在企业内应该选择Argo Workflow 还是 Tekton 还是需要根据业务特点以及实际验证一些测试后才能决定.但总的来说,Argo Workflow 在直接使用上会比 Tekton 更容易上手以及可以基于 UI 更直观的看到 CI 之间的依赖关系.
+到目前为止,我们了解了 Argo Workflow 的强大特性以及与 Tekton 的一个简单对比,实际在企业内应该选择 Argo Workflow 还是 Tekton 还是需要根据业务特点以及实际验证一些测试后才能决定。
+
+但总的来说,Argo Workflow 在直接使用上会比 Tekton 更容易上手，官方代码仓库也给了很多的[示例yaml](https://github.com/argoproj/argo-workflows/tree/master/examples)，因此可以通过这些示例yaml很快的了解到相关的功能。
