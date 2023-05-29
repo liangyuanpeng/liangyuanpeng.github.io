@@ -1,3 +1,23 @@
+---
+layout:     post 
+slug:      "cloudnative-ci-of-argo-workflow"
+title:      "argoworkflow云原生流水线引擎"
+subtitle:   ""
+description: ""
+date:       2022-01-20
+author:     "梁远鹏"
+image: "/img/banner-pexels.jpg"
+published: true
+wipnote: true
+tags:
+    - argo
+    - argo-workflow
+    - cncf
+    - kubernetes
+    - CI/CD
+categories: 
+    - kubernetes
+---    
 
 # Argo workflow 是什么
 
