@@ -4,7 +4,7 @@ slug:      "cloudnative-ci-of-argo-workflow"
 title:      "argoworkflow云原生流水线引擎"
 subtitle:   ""
 description: ""
-date:        2023-05-28
+date:       2023-05-28
 author:     "梁远鹏"
 image: "/img/banner-pexels.jpg"
 published: true
@@ -23,7 +23,7 @@ categories:
 
 老牌的流水线工具 Jenkins 应该是大部分都接触过的，而在云原生时代，诞生了两大流水线工具/框架，也就是 Argo Workflow 和 Tekton，本文主要介绍一下 Argo Workflow。
 
-Argo Workflow 是一个云原生的工作流引擎,基于 kubernetes 来做编排任务，目前 Argo 项目是CNCF的毕业项目。
+Argo Workflow 是一个云原生的工作流引擎,基于 kubernetes 来做编排任务，目前 Argo 项目是 CNCF 的毕业项目。
 
 在Argo Workflow 中主要的CRD对象有几个:
 
@@ -35,29 +35,31 @@ Argo Workflow 是一个云原生的工作流引擎,基于 kubernetes 来做编�
 
 ## Workflow
 
-Workflow 定义的字段和 WorkflowTemplate 定义的字段基本上是一致的，因此将字段的解释放在 WorkflowTemplate 部分，对 Workflow 的理解只需要知道Workflow 是一个流水线的"实例",也就是只有创建了 Workflow 对象是才会真正的运行流水线。
+Workflow 定义的字段和 workflowTemplate 定义的字段基本上是一致的，因此将字段的解释放在 workflowTemplate 部分，对 Workflow 的理解只需要知道Workflow 是一个流水线的"实例",也就是只有创建了 Workflow 对象是才会真正的运行流水线。
 
 ## WorkflowTemplate
 
 WorkflowTemplate 是最重要的对象了,基本上绝大部分时间你都是和它在打交道，其中还有一个 template 的定义，在刚认识 argo workflow 时需要注意区分的一点是 workflowTemplate 和 template，这在我刚入门时也造成了一点困惑，接下来讲一下这两个的区别：
 
-workflowTemplate 是 argo workflow 中实现的CRD对象，而template则是对象内的一个字段，实际执行内容都是在 template 中定义的，一个 workflowTemplate 至少要包含一个 template。 workflowTemplate 需要将一个 template 配置为 entrypoint，也就是流水线的起点，在这个 template 的 steps 中又可以应用多个相同或不同的 template。
+workflowTemplate 是 argo workflow 中实现的 CRD 对象，而 template 则是对象内的一个字段，实际执行内容都是在 template 中定义的，一个 workflowTemplate 至少要包含一个 template。 workflowTemplate 需要将一个 template 配置为 entrypoint，也就是流水线的起点，在这个 template 的 steps 中又可以应用多个相同或不同的 template。
 
 简单举一个例子来理解 workflowTemplate 多个 template，假设要封装一个 workflowTemplate 来处理 git 相关的场景：
 
-分别为以下三个操作创建三个 template，假设需要在同一份代码中多次 merge && commit,那么流水线入口是 git clone,然后 git merge, git add && git commit，在这种情况下 template2 和 template3 是作为 template1 的一部分存在的。而当流水线入口直接就是 git merge 或 git add && git commit 的情况时， template2或template3是作为单独的流水线逻辑存在。
+分别为以下三个操作创建三个 template，假设需要在同一份代码中多次 merge && commit,那么流水线入口是 git clone,然后 git merge, git add && git commit，在这种情况下 template2 和 template3 是作为 template1 的一部分存在的。而当流水线入口直接就是 git merge 或 git add && git commit 的情况时， template2 或 template3 是作为单独的流水线逻辑存在。
 
 1. git clone
 2. git merge
 3. git add && git commit
 
+因此 template 可以单独作为流水线入口执行，也可以被其他的 template 引用。
+
 
 先列出几个关键词做一个简单的概述来更好的了解 Template:
 
-- steps,  流水线每一步的执行内容，`--`表示与同级别的step并行执行，`-`表示与同级别的step顺序执行。
+- steps,  流水线每一步的执行内容，`--`表示与同级别的step并行执行，`-`表示与同级别的 step 顺序执行。
 - container，真正执行内容的定义，与 kubernetes container spec定义一致。
-- script，这是一个基于Container的类型，可以让用户直接在CI中直接执行一些脚本并且得到返回的结果，例如执行python代码，执行node代码以及执行shell等等。
-- resource，这个类型可以支持在CI中对K8S的对象进行操作，例如创建一个configMap,然后根据这个k8S资源对象的状态来判断该步骤是否成功.(这个功能太酷了!)
+- script，这是一个基于 container 的类型，可以让用户直接在CI中直接执行一些脚本并且得到返回的结果，例如执行 python 代码，执行 node 代码以及执行 shell 等等。
+- resource，这个类型可以支持在 CI 中对 K8S 的对象进行操作，例如创建一个 configMap,然后根据这个 K8S 资源对象的状态来判断该步骤是否成功.(这个功能太酷了!)
 
 以上几个点是理解 template 最主要的内容，一个简单示意的yaml格式如下:
 ```yaml
@@ -96,13 +98,14 @@ workflowTemplate 是 argo workflow 中实现的CRD对象，而template则是对�
 ...
 ```
 
-在 Argo Workflow 中，每一个 step 就是一个 pod 中的容器,最基础的 pod 会有两个容器,一个是 argoproj/argoexec 容器,另一个则是 step 中需要使用的容器,也就是实际执行内容的容器,其中 argoexec 是主容器，step 中定义的容器是 sidecar。只有当需要执行对应的 step 时才会创建出对应的 pod,因此和 Tekton 一样,对资源的申请和释放具有很好的利用性。
+在 Argo Workflow 中，每一个 step 就是一个 pod 中的容器,最基础的 pod 会有两个容器,一个是 argoproj/argoexec 容器,另一个则是 step 中需要使用的容器,也就是实际执行内容的容器,其中 argoexec 是主容器，step 中定义的容器是 sidecar。
+
+只有当需要执行对应的 step 时才会创建出对应的 pod,因此和 Tekton 一样,对资源的申请和释放具有很好的利用性。
 
 而我们在执行代码测试的过程中经常会有一些依赖服务要怎么在 argo workflow 中实现呢?
 
-argo workflow 为 step 提供了 sidecars 参数,可以配置你需要的依赖容器,例如 DID,etcd,Redis和Mysql等等.
+argo workflow 为 step 提供了 sidecars 参数,可以配置你需要的依赖容器,例如 DID,etcd,Redis 和 Mysql 等等.
 
-另一个比较常见的是 并行版本/参数测试,例如跑测试时,希望让同一份代码基于多个版本的 Etcd 服务做测试,那么 Argo workflow 也提供了 withItems 的方式来实现这个功能.
 
 下面是一个简单的yaml示例，为CI添加一个 redis 依赖服务：
 ```yaml
@@ -116,6 +119,8 @@ argo workflow 为 step 提供了 sidecars 参数,可以配置你需要的依赖�
           image: redis:7.0.11
 ...
 ```
+
+另一个比较常见的是 并行版本/参数测试,例如跑测试时希望让同一份代码基于多个版本的 Etcd 服务做测试,那么 Argo workflow 也提供了 withItems 的方式来实现这个功能.
 
 还有一个常见的需求是编译缓存,例如 java 应用编译产物希望在下一个 CI 中继续应用,避免每次都去下载一些重复的 jar,Argo workflow 通过 volume 功能来实现这部分内容. 也可以通过 artifact 功能实现,例如上传到 S3,需要时再进行下载.
 
@@ -173,10 +178,12 @@ spec:
 下面的配置表示 workflow 会在 workflow 执行完成后的 300 秒删除，而 workflow 过程中产生的 pod 会在 pod 执行完成后立刻删除。
 
 ```yaml
+...
   ttlStrategy:
     secondsAfterCompletion: 300
   podGC:
     strategy: OnPodCompletion
+...
 ```
 
 ### DAG 有向无环图
@@ -226,7 +233,7 @@ spec:
           parameters: [{name: message, value: D}]
 ```
 
-可以看到工作流的入口template为diamond，由于只有任务A没有顺序依赖，因此一开始只会执行任务A，任务A成功执行后开始同时执行任务B和任务C，最终任务B和任务C都顺利执行完后开始执行任务D。可以看到 dependencies 是一个数组传参，因此也可以将上述示例修改为任务D只需要等待任务C顺利执行后就开始执行。
+可以看到工作流的入口 template 为 diamond，由于只有任务A没有顺序依赖，因此一开始只会执行任务A，任务A成功执行后开始同时执行任务B和任务C，最终任务B和任务C都顺利执行完后开始执行任务D。可以看到 dependencies 是一个数组传参，因此也可以将上述示例修改为任务D只需要等待任务C顺利执行后就开始执行。
 
 ### 支持K8S资源操作
 
@@ -287,7 +294,7 @@ spec:
           name: {{inputs.parameters.wf-name}}
 ```
 
-可以看到，Argo Workflow 原生支持直接在流水线中创建K8S对象，并且根据对象的字段来控制流水线的执行。上述的示例效果是在 step1 中创建一个 workflow，然后在 step2 中等待创建的 workflow 执行完成，或者说等待这个 workflow 对象变更成预期的 success 或 failure 对应的状态。
+可以看到，Argo Workflow 原生支持直接在流水线中创建 K8S 对象，并且根据对象的字段来控制流水线的执行。上述的示例效果是在 step1 中创建一个 workflow，然后在 step2 中等待创建的 workflow 执行完成，或者说等待这个 workflow 对象变更成预期的 success 或 failure 对应的状态。
 
 这个在 resource 操作在流水线需要处理一些K8s资源时会是一个很有用的功能。
 
@@ -346,7 +353,7 @@ spec:
       strategy: OnPodCompletion
 ```
 
-经过前面 Workflow 和 WorkflowTemplate 的了解后，可以看到 cronWorkflow 的 yaml 文件整体来说是差不多的，无非是多了一些定时相关的配置。
+经过前面 workflow 和 workflowTemplate 的了解后，可以看到 cronWorkflow 的 yaml 文件整体来说是差不多的，无非是多了一些定时相关的配置。
 
 上述示例中 schedule 配置为 `* * * * *`,也就是每分钟会执行一次 workflow，关于定时的内容都会有一个注意点是定时任务的时区， cronWorkflow 支持为定时任务设置时区，具体可以看看官方的这个[cron workflow 示例](https://github.com/argoproj/argo-workflows/blob/master/examples/cron-workflow.yaml)
 
