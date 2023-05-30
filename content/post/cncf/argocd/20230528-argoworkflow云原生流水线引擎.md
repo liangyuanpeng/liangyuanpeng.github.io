@@ -376,7 +376,7 @@ spec:
 
 经过一番折腾后能够感受到一些很明显的区别：
 
-从系统架构上来说，Tekton 做得更好，整体架构比较清晰，但从用户的角度上来说 Argo Workflow 更容易上手使用。
+从系统架构上来说，Tekton 做得更好，整体架构比较清晰，但从用户功能的角度上来说 Argo Workflow 更容易上手使用。
 
 Argo workflow 的 UI 能够展现出比较直观的 CI 顺序效果,同时 Argo WOrkflow 会有很多实用的功能。
 
