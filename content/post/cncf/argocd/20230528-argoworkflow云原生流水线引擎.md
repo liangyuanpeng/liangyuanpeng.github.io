@@ -80,7 +80,7 @@ workflowTemplate 是 argo workflow 中实现的 CRD 对象，而 template 则是
 - script，这是一个基于 container 的类型，可以让用户直接在CI中直接执行一些脚本并且得到返回的结果，例如执行 python 代码，执行 node 代码以及执行 shell 等等。
 - resource，这个类型可以支持在 CI 中对 K8S 的对象进行操作，例如创建一个 configMap,然后根据这个 K8S 资源对象的状态来判断该步骤是否成功.(这个功能太酷了!)
 
-以上几个点是理解 template 最主要的内容，一个简单示意的yaml格式如下:
+以上几个点是理解 template 最主要的内容，一个简单示意的 yaml 格式如下:
 ```yaml
 ...
   entrypoint: hello-hello-hello #配置template入口
@@ -138,7 +138,7 @@ Argo Workflow 为 step 提供了 sidecars 参数,可以配置你需要的依赖�
 
 还有一个常见的需求是编译缓存,例如 java 应用编译产物希望在下一个 CI 中继续应用,避免每次都去下载一些重复的 jar,Argo workflow 通过 volume 功能来实现这部分内容. 也可以通过 artifact 功能实现,例如上传到 S3,需要时再进行下载.
 
-根据文件唯一性来确认编译缓存是否更改,对于并行测试来说编译缓存可能是一样的,例如只更新了代码而没有更新 pom.xml 那么缓存依赖是一样的. 对于pom.xml更改了，也就是编译缓存变更了，那么可以需要先更新编译缓存，然后再跑并行测试,当然这是具体的业务内容了。
+根据文件唯一性来确认编译缓存是否更改,对于并行测试来说编译缓存可能是一样的,例如只更新了代码而没有更新 pom.xml 那么缓存依赖是一样的. 对于 pom.xml 更改了，也就是编译缓存变更了，那么可以需要先更新编译缓存，然后再跑并行测试,当然这是具体的业务内容了。
 
 接下来从官方一个默认的 workflowTemplate 来看一下实际的 yaml 是怎么样的。
 
