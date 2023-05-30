@@ -16,7 +16,7 @@ jobs:
       - uses: actions-ecosystem/action-add-labels@v1
         if: ${{ startsWith(github.event.comment.body, '/approve') }}
         with:
-          labels: approve
+          labels: approved
 
   add_label_from_issue:
     if: github.event.issue.user.login == 'liangyuanpeng'
@@ -26,4 +26,4 @@ jobs:
       - uses: actions-ecosystem/action-add-labels@v1
         if: ${{ startsWith(github.event.issue.body, '/approve') }}
         with:
-          labels: approve
+          labels: approved
