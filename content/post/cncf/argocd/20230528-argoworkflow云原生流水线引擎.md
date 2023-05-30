@@ -24,7 +24,7 @@ categories:
 老牌的流水线工具 Jenkins 应该是大部分都接触过的，而在云原生时代，诞生了两大流水线工具/框架，也就是 Argo Workflow 和 Tekton，本文主要介绍一下 Argo Workflow。
 
 Argo Workflow 是一个云原生的工作流引擎,基于 kubernetes 来做编排任务，目前 Argo 项目是 CNCF 的毕业项目。
-
+ 
 只有当需要执行对应的 step 时才会创建出对应的 pod,因此和 Tekton 一样,对资源的申请和释放具有很好的利用性。
 
 基于 Argo Workflow 可以完成一些比较复杂的工作流，下面是一个来自某个 issue 的图:
@@ -324,6 +324,9 @@ spec:
 - volume 传递编译缓存
 - 条件判断 step，当某些条件成立时才执行对应的 step
 - workflow 和 step 并行度限制
+- resource 类型 template，直接编写 python 代码
+
+以上都是 Argo Workflow 本身就提供的功能，不需要自己再做一些封装，因此足以看到 Argo Workflow 提供的功能的实用性。
 
 ## CronWorkflow
 
