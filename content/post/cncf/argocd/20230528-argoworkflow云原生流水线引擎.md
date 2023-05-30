@@ -78,7 +78,7 @@ workflowTemplate 是 argo workflow 中实现的 CRD 对象，而 template 则是
 - steps,  流水线每一步的执行内容，`--`表示与同级别的step并行执行，`-`表示与同级别的 step 顺序执行。
 - container，真正执行内容的定义，与 kubernetes container spec 定义一致。
 - script，这是一个基于 container 的类型，可以让用户直接在CI中直接执行一些脚本并且得到返回的结果，例如执行 python 代码，执行 node 代码以及执行 shell 等等。
-- resource，这个类型可以支持在 CI 中对 K8S 的对象进行操作，例如创建一个 configMap,然后根据这个 K8S 资源对象的状态来判断该步骤是否成功.(这个功能太酷了!)
+- resource，这个类型可以支持在 CI 中对 Kubernetes 的对象进行操作，例如创建一个 configMap,然后根据这个 Kubernetes 资源对象的状态来判断该步骤是否成功.(这个功能太酷了!)
 
 以上几个点是理解 template 最主要的内容，一个简单示意的 yaml 格式如下:
 ```yaml
@@ -249,7 +249,7 @@ spec:
 
 可以看到工作流的入口 template 为 diamond，由于只有任务A没有顺序依赖，因此一开始只会执行任务A，任务A成功执行后开始同时执行任务B和任务C，最终任务B和任务C都顺利执行完后开始执行任务D。可以看到 dependencies 是一个数组传参，因此也可以将上述示例修改为任务D只需要等待任务C顺利执行后就开始执行。
 
-### 支持K8S资源操作
+### 支持Kubernetes资源操作
 
 在前面已经知道有一个 resource 类型的 template，这在我看来是很酷的功能!接下来看一个官方例子：等待 workflow 执行完成。
 
@@ -257,11 +257,11 @@ spec:
 apiVersion: argoproj.io/v1alpha1
 kind: Workflow
 metadata:
-  generateName: k8s-wait-wf-
+  generateName: Kubernetes-wait-wf-
 spec:
-  entrypoint: k8s-wait-wf
+  entrypoint: Kubernetes-wait-wf
   templates:
-  - name: k8s-wait-wf
+  - name: Kubernetes-wait-wf
     steps:
     - - name: create-wf
         template: create-wf
@@ -308,9 +308,9 @@ spec:
           name: {{inputs.parameters.wf-name}}
 ```
 
-可以看到，Argo Workflow 原生支持直接在流水线中创建 K8S 对象，并且根据对象的字段来控制流水线的执行。上述的示例效果是在 step1 中创建一个 workflow，然后在 step2 中等待创建的 workflow 执行完成，或者说等待这个 workflow 对象变更成预期的 success 或 failure 对应的状态。
+可以看到，Argo Workflow 原生支持直接在流水线中创建 Kubernetes 对象，并且根据对象的字段来控制流水线的执行。上述的示例效果是在 step1 中创建一个 workflow，然后在 step2 中等待创建的 workflow 执行完成，或者说等待这个 workflow 对象变更成预期的 success 或 failure 对应的状态。
 
-这个在 resource 操作在流水线需要处理一些 K8S 资源时会是一个很有用的功能。
+这个在 resource 操作在流水线需要处理一些 Kubernetes 资源时会是一个很有用的功能。
 
 ### 还有什么
 
@@ -385,7 +385,7 @@ Argo workflow 的 UI 能够展现出比较直观的 CI 顺序效果,同时 Argo 
 
 另一个是 Argo workflow 中提供了一些 Tekton 默认所没有的功能,在我看来这些也都是比较酷和实用的功能,例如：
 
-- resource 类型 template,可以直接创建 k8s 对象以及 对 K8S 对象 get,等待 K8S 对象某个字段变更。
+- resource 类型 template,可以直接创建 Kubernetes 对象以及 对 Kubernetes 对象 get,等待 Kubernetes 对象某个字段变更。
 - artifact 功能，例如和 S3 打交道，这在流水线中是很常见的需求，但 Tekton 本身并没有提供。
 
 Argo workflow 的文档建设也比 Tekton 更好。
