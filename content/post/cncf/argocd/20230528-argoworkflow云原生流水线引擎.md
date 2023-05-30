@@ -25,7 +25,28 @@ categories:
 
 Argo Workflow 是一个云原生的工作流引擎,基于 kubernetes 来做编排任务，目前 Argo 项目是 CNCF 的毕业项目。
 
-在Argo Workflow 中主要的CRD对象有几个:
+只有当需要执行对应的 step 时才会创建出对应的 pod,因此和 Tekton 一样,对资源的申请和释放具有很好的利用性。
+
+基于 Argo Workflow 可以完成一些比较复杂的工作流，下面是一个来自某个 issue 的图:
+
+todo图  
+
+## 架构概览
+
+todo 架构图 https://xie.infoq.cn/article/6f759f6efc2362fe9f30f5b61
+
+在 Argo Workflow 中，每一个 step/dag task 就是一个 pod 中的容器,最基础的 pod 会有 1 个 init 容器和两个工作容器,其中 init 容器和主容器都是 argoproj/argoexec 容器,另一个则是 step 中需要使用的容器,也就是实际执行内容的容器，在pod  中充当 sidecar。
+
+- main 容器，也就是 step/dag task 中定义的容器，用于执行实际内容。
+- init 容器，用于为 main 容器处理 artifact 以及参数相关的逻辑。
+- wait 容器，等待 main 容器执行完成，以及处理一些清理任务，例如上传 artifact 到 S3.
+
+需要理清的一点是虽然 Argo Workflow 将工作容器定义为`main容器`，但实际上`wait容器`是 pod 中的主容器。
+
+
+## 主要资源
+
+在 Argo Workflow 中主要的 CRD 对象有几个:
 
 - Workflow
 - WorkflowTemplate
@@ -39,7 +60,7 @@ Workflow 定义的字段和 workflowTemplate 定义的字段基本上是一致�
 
 ## WorkflowTemplate
 
-WorkflowTemplate 是最重要的对象了,基本上绝大部分时间你都是和它在打交道，其中还有一个 template 的定义，在刚认识 argo workflow 时需要注意区分的一点是 workflowTemplate 和 template，这在我刚入门时也造成了一点困惑，接下来讲一下这两个的区别：
+WorkflowTemplate 是最重要的对象了,基本上绝大部分时间你都是和它在打交道，其中还有一个 template 的定义，在刚认识 Argo workflow 时需要注意区分的一点是 workflowTemplate 和 template，这在我刚入门时也造成了一点困惑，接下来讲一下这两个的区别：
 
 workflowTemplate 是 argo workflow 中实现的 CRD 对象，而 template 则是对象内的一个字段，实际执行内容都是在 template 中定义的，一个 workflowTemplate 至少要包含一个 template。 workflowTemplate 需要将一个 template 配置为 entrypoint，也就是流水线的起点，在这个 template 的 steps 中又可以应用多个相同或不同的 template。
 
@@ -53,11 +74,10 @@ workflowTemplate 是 argo workflow 中实现的 CRD 对象，而 template 则是
 
 因此 template 可以单独作为流水线入口执行，也可以被其他的 template 引用。
 
-
 先列出几个关键词做一个简单的概述来更好的了解 Template:
 
 - steps,  流水线每一步的执行内容，`--`表示与同级别的step并行执行，`-`表示与同级别的 step 顺序执行。
-- container，真正执行内容的定义，与 kubernetes container spec定义一致。
+- container，真正执行内容的定义，与 kubernetes container spec 定义一致。
 - script，这是一个基于 container 的类型，可以让用户直接在CI中直接执行一些脚本并且得到返回的结果，例如执行 python 代码，执行 node 代码以及执行 shell 等等。
 - resource，这个类型可以支持在 CI 中对 K8S 的对象进行操作，例如创建一个 configMap,然后根据这个 K8S 资源对象的状态来判断该步骤是否成功.(这个功能太酷了!)
 
@@ -98,16 +118,11 @@ workflowTemplate 是 argo workflow 中实现的 CRD 对象，而 template 则是
 ...
 ```
 
-在 Argo Workflow 中，每一个 step 就是一个 pod 中的容器,最基础的 pod 会有两个容器,一个是 argoproj/argoexec 容器,另一个则是 step 中需要使用的容器,也就是实际执行内容的容器,其中 argoexec 是主容器，step 中定义的容器是 sidecar。
+我们在执行代码测试的过程中经常会有一些依赖服务要怎么在 Argo Workflow 中实现呢?
 
-只有当需要执行对应的 step 时才会创建出对应的 pod,因此和 Tekton 一样,对资源的申请和释放具有很好的利用性。
+Argo Workflow 为 step 提供了 sidecars 参数,可以配置你需要的依赖容器,例如 DID,etcd,Redis 和 Mysql 等等.
 
-而我们在执行代码测试的过程中经常会有一些依赖服务要怎么在 argo workflow 中实现呢?
-
-argo workflow 为 step 提供了 sidecars 参数,可以配置你需要的依赖容器,例如 DID,etcd,Redis 和 Mysql 等等.
-
-
-下面是一个简单的yaml示例，为CI添加一个 redis 依赖服务：
+下面是一个简单的 yaml 示例，为 CI 添加一个 redis 依赖服务：
 ```yaml
 ...
         container:
@@ -126,7 +141,7 @@ argo workflow 为 step 提供了 sidecars 参数,可以配置你需要的依赖�
 
 根据文件唯一性来确认编译缓存是否更改,对于并行测试来说编译缓存可能是一样的,例如只更新了代码而没有更新 pom.xml 那么缓存依赖是一样的. 对于pom.xml更改了，也就是编译缓存变更了，那么可以需要先更新编译缓存，然后再跑并行测试,当然这是具体的业务内容了。
 
-接下来从官方一个默认的 workflowTemplate 来看一下实际的yaml是怎么样的。
+接下来从官方一个默认的 workflowTemplate 来看一下实际的 yaml 是怎么样的。
 
 ### 一个默认的简单workflowTemplate
 
@@ -192,7 +207,7 @@ spec:
 
 除了 steps template 之外，Argo WorkflowTemplate 同样支持 DAG，以 dag template 的方式存在，可以让用户更好的维护复杂的工作流。
 
-这里基于一个官方文档的示例来简单了解一下 argo workflow dag template：  
+这里基于一个官方文档的示例来简单了解一下 Argo workflow dag template：  
 
 ```yaml
 apiVersion: argoproj.io/v1alpha1
@@ -296,7 +311,7 @@ spec:
 
 可以看到，Argo Workflow 原生支持直接在流水线中创建 K8S 对象，并且根据对象的字段来控制流水线的执行。上述的示例效果是在 step1 中创建一个 workflow，然后在 step2 中等待创建的 workflow 执行完成，或者说等待这个 workflow 对象变更成预期的 success 或 failure 对应的状态。
 
-这个在 resource 操作在流水线需要处理一些K8s资源时会是一个很有用的功能。
+这个在 resource 操作在流水线需要处理一些 K8S 资源时会是一个很有用的功能。
 
 ### 还有什么
 
@@ -309,6 +324,7 @@ spec:
 - 工件存储 artifact
 - volume 传递编译缓存
 - 条件判断 step，当某些条件成立时才执行对应的 step
+- workflow 和 step 并行度限制
 
 ## CronWorkflow
 
@@ -355,7 +371,7 @@ spec:
 
 经过前面 workflow 和 workflowTemplate 的了解后，可以看到 cronWorkflow 的 yaml 文件整体来说是差不多的，无非是多了一些定时相关的配置。
 
-上述示例中 schedule 配置为 `* * * * *`,也就是每分钟会执行一次 workflow，关于定时的内容都会有一个注意点是定时任务的时区， cronWorkflow 支持为定时任务设置时区，具体可以看看官方的这个[cron workflow 示例](https://github.com/argoproj/argo-workflows/blob/master/examples/cron-workflow.yaml)
+上述示例中 schedule 配置为 `* * * * *`,也就是每分钟会执行一次 workflow。关于定时的内容都会有一个注意点是定时任务的时区， cronWorkflow 支持为定时任务设置时区，具体可以看看官方的这个[cron workflow 示例](https://github.com/argoproj/argo-workflows/blob/master/examples/cron-workflow.yaml)
 
 # 与 Tekton 的对比
 
@@ -367,7 +383,7 @@ Argo workflow 的 UI 能够展现出比较直观的 CI 顺序效果,同时 Argo 
 
 另一个是 Argo workflow 中提供了一些 Tekton 默认所没有的功能,在我看来这些也都是比较酷和实用的功能,例如：
 
-- resource 操作,可以直接创建 k8s 对象以及 对 K8S 对象 get,等待 K8S 对象某个字段变更。
+- resource 类型 template,可以直接创建 k8s 对象以及 对 K8S 对象 get,等待 K8S 对象某个字段变更。
 - artifact 功能，例如和 S3 打交道，这在流水线中是很常见的需求，但 Tekton 本身并没有提供。
 
 Argo workflow 的文档建设也比 Tekton 更好。
@@ -378,4 +394,4 @@ Argo workflow 的文档建设也比 Tekton 更好。
 
 到目前为止,我们了解了 Argo Workflow 的强大特性以及与 Tekton 的一个简单对比,实际在企业内应该选择 Argo Workflow 还是 Tekton 还是需要根据业务特点以及实际验证一些测试后才能决定。
 
-以上只是聊到了 Argo Workflow 的一部分功能，如果想了解更多的功能可以先从官方示例开始，官方代码仓库给了很多的[示例yaml](https://github.com/argoproj/argo-workflows/tree/master/examples)，因此可以通过这些示例yaml很快的了解到相关的功能。
+以上只是聊到了 Argo Workflow 的一部分功能，如果想了解更多的功能可以先从官方示例开始，官方代码仓库给了很多的[示例yaml](https://github.com/argoproj/argo-workflows/tree/master/examples)，因此可以通过这些示例 yaml 很快的了解到相关的功能。
