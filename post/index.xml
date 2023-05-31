@@ -6,7 +6,7 @@
     <description>Recent content in Posts on Hi,I`m lan</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 16 May 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://liangyuanpeng.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 08 May 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://liangyuanpeng.github.io/post/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>lank8s.cn服务</title>
       <link>https://liangyuanpeng.github.io/post/service-lank8s.cn/</link>
@@ -23,15 +23,6 @@
       
       <guid>https://liangyuanpeng.github.io/post/run-k8s-with-kind/</guid>
       <description>前言 由于各类基于 kubernetes 的云原生实验或测试的前提都是需要一个 kubernetes 环境,而在写博客时总是需要提及使用 kind 来搭建 kubernetes 环境. 因此这里单独写一篇文章来介绍如何用</description>
-    </item>
-    
-    <item>
-      <title>那些让我疑惑的CNCF项目</title>
-      <link>https://liangyuanpeng.github.io/post/confuse-with-me-from-cncf-projects/</link>
-      <pubDate>Tue, 16 May 2023 00:00:00 +0000</pubDate>
-      
-      <guid>https://liangyuanpeng.github.io/post/confuse-with-me-from-cncf-projects/</guid>
-      <description>那些让我疑惑的CNCF项目 CNCF 在我心中一直是信仰一样的存在，只要是 CNCF 项目我就会开始对它感兴趣，但是随着 CNCF 项目的增多，一些让我疑惑的项目也随之而</description>
     </item>
     
     <item>
