@@ -17,7 +17,7 @@ pull_request_rules:
         message: Automatically approving imgbot
       label:
         add:
-          - approve
+          - approved
 
 
   # 冲突时在PR添加一条冲突的comment并且添加 conflict 的 label
@@ -41,7 +41,7 @@ pull_request_rules:
 
   - name: merge when approved
     conditions:
-    - label=approve
+    - label=approved
     actions:
       merge:
         method: merge
