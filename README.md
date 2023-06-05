@@ -10,9 +10,9 @@ https://liangyuanpeng.com
 # 以下博文你不会还没读过吧?
 
 - [lank8s.cn服务](https://liangyuanpeng.com/post/service-lank8s.cn/)
-- [用kind搭建k8s集群环境](https://liangyuanpeng.com/post/cncf-kubernetes/run-k8s-with-kind/)
-- [从零到 Kubernetes 子项目负责人](https://liangyuanpeng.com/post/cncf-kubernetes/from-zero-to-kubernets-subproject-lead/)
-- [K8S内置准入校验CRD参数配合lua起飞](https://liangyuanpeng.com/post/cncf-k8s/k8s-validating-admission-policy-with-crdparam-lua/)
+- [用kind搭建k8s集群环境](https://liangyuanpeng.com/post/run-k8s-with-kind/)
+- [从零到 Kubernetes 子项目负责人](https://liangyuanpeng.com/post/from-zero-to-kubernets-subproject-lead/)
+- [K8S内置准入校验CRD参数配合lua起飞](https://liangyuanpeng.com/post/k8s-validating-admission-policy-with-crdparam-lua/)
 
 # git 子模块命令相关 记录 
 
