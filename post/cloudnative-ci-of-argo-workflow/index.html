@@ -1,0 +1,1294 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head><head>
+    <meta name="google-site-verification" content="9vIieCe-Qpd78QOmBl63rGtIVbhY6sYyuxX3j8XWBA4" />
+    <meta name="baidu-site-verification" content="LRrmH41lz7" />
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <meta name="baidu-site-verification" content="HGLXRsUXC4" />
+
+    
+    <meta name="baidu-site-verification" content="code-ANZvlnN0Xr" />
+
+    
+    <meta name="description" content="lan，工程师⎈,远鹏|CNCF粉丝|Pulsar爱好者|公众号:四颗咖啡豆|云原生追随者">
+    
+    <meta name="keyword"  content="liangyuanpeng|LanLiang|OpenYurt|Knative|Pulsar|Prometheus|Halo||边缘计算kubernetes|Docker|CloudNative|Golang|Rust|Istio|微服务">
+
+    
+    <link rel="shortcut icon" href="/img/aboutme/hash-kube-rs-pulsar.png">
+    
+
+    
+    <meta property="og:image" content="https://liangyuanpeng.github.io/img/banner-pexels.jpg" />
+    <meta name="twitter:image" content="https://liangyuanpeng.github.io/img/banner-pexels.jpg" />
+
+    <title>argoworkflow 云原生工作流引擎-远鹏的博客 | liangyuanpeng&#39;s Blog</title>
+
+    <link rel="canonical" href="https://liangyuanpeng.github.io/post/cloudnative-ci-of-argo-workflow/">
+
+    
+
+    
+    <link rel="stylesheet" href='https://liangyuanpeng.github.io/css/bootstrap.min.css'>
+
+    
+    <link rel="stylesheet" href="https://liangyuanpeng.github.io/css/hux-blog.min.css">
+
+    
+    <link rel="stylesheet" href="https://liangyuanpeng.github.io/css/syntax.css">
+
+    
+    <link href="/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    
+    <script src="https://liangyuanpeng.github.io/js/jquery.min.js"></script>
+
+    
+    <script src="https://liangyuanpeng.github.io/js/bootstrap.min.js"></script>
+
+    
+    <script src="https://liangyuanpeng.github.io/js/hux-blog.min.js"></script>
+
+    
+    <script defer src='/js/cf-beacon.min.js' data-cf-beacon='{"token": "f73bc0092aeb491d89984c0eb5a87ac2"}'></script>
+</head>
+
+</head>
+
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="https://liangyuanpeng.github.io/">Hi,I`m lan</a>
+        </div>
+
+        
+        
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="https://liangyuanpeng.github.io/">Home</a>
+                    </li>
+                    
+                    
+                     
+
+                    
+		            <li>
+                        <a href="https://liangyuanpeng.github.io/search/">SEARCH <img src="https://liangyuanpeng.github.io/img/search.png" height="15" style="cursor: pointer;"></a>
+		            </li>
+                    
+
+		            <li>
+                        <a href="https://liangyuanpeng.github.io/about/">关于我 </a>
+		            </li>
+                </ul>
+            </div>
+        </div>
+        
+    </div>
+    
+</nav>
+<script>
+    
+    
+    
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        
+            $navbar.className = " ";
+            
+            setTimeout(function(){
+                
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+
+
+<style type="text/css">
+    header.intro-header{
+        background-image: url('https://liangyuanpeng.github.io/img/banner-pexels.jpg')
+    }
+</style>
+
+<header class="intro-header" >
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+
+                       
+                       <a class="tag" href="/tags/argo" title="argo">
+                        argo
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                        </a>
+                        
+                       <a class="tag" href="/tags/argo-workflow" title="argo-workflow">
+                        argo-workflow
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                        </a>
+                        
+                       <a class="tag" href="/tags/cncf" title="cncf">
+                        cncf
+                            
+                                
+                            
+                                
+                                <img style="display:inline-block;" src="/img/taglogo/cncf/cncf.png" height="20" width="20" />
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                        </a>
+                        
+                       <a class="tag" href="/tags/kubernetes" title="kubernetes">
+                        kubernetes
+                            
+                                
+                                <img style="display:inline-block;" src="/img/taglogo/emoji_k8s_loft.gif" height="20" width="20" />
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                        </a>
+                        
+                       <a class="tag" href="/tags/ci/cd" title="CI/CD">
+                        CI/CD
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                        </a>
+                        
+                        <br/>
+                    </div>
+                    <h1>argoworkflow 云原生工作流引擎</h1>
+                    <h2 class="subheading"></h2>
+                    <span  class="meta">Posted by 梁远鹏 on 2023-05-28
+                        
+                        <span id="busuanzi_container_page_pv">|<span id="busuanzi_value_page_pv"></span><span>
+                            <span id="/post/cloudnative-ci-of-argo-workflow/" class="leancloud_visitors meta_data_item" data-flag-title="">
+    <span class="post-meta-item-icon">
+      <span class="octicon octicon-eye"></span> 
+    </span>
+    <i class="fa fa-eye"></i>
+    <span class="old-visitors-count" style="display: none;"></span>
+    <span class="leancloud-visitors-count"></span>
+</span>
+
+
+
+
+
+
+                            阅读 </span></span>|<span class="post-date">共4107字</span>，阅读约<span class="more-meta"> 9 分钟</span>
+                        
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+
+
+<article>
+    <div class="container">
+        <div class="row">
+            
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+		
+                <header>
+                <h2>TOC</h2>
+                </header>
+                <nav id="TableOfContents">
+  <ul>
+    <li><a href="#架构概览">架构概览</a></li>
+    <li><a href="#主要资源">主要资源</a></li>
+    <li><a href="#workflow">Workflow</a></li>
+    <li><a href="#workflowtemplate">WorkflowTemplate</a>
+      <ul>
+        <li><a href="#一个默认的简单workflowtemplate">一个默认的简单workflowTemplate</a></li>
+        <li><a href="#dag-有向无环图">DAG 有向无环图</a></li>
+        <li><a href="#支持kubernetes资源操作">支持Kubernetes资源操作</a></li>
+        <li><a href="#还有什么">还有什么</a></li>
+      </ul>
+    </li>
+    <li><a href="#cronworkflow">CronWorkflow</a></li>
+  </ul>
+</nav>
+		
+
+		<h1 id="argo-workflow-是什么">Argo workflow 是什么</h1>
+<p>老牌的工作流工具 Jenkins 应该是大部分人都接触过的，而在云原生时代，诞生了两大工作流工具/框架，也就是 Argo Workflow 和 Tekton，本文主要介绍一下 Argo Workflow.</p>
+<p>Argo Workflow 是一个云原生的工作流引擎，基于 kubernetes 来做编排任务，目前 Argo 项目是 CNCF 的毕业项目.</p>
+<p>只有当需要执行对应的 step 时才会创建出对应的 pod，因此和 Tekton 一样，对资源的申请和释放具有很好的利用性.</p>
+<p>基于 Argo Workflow 可以完成一些比较复杂的工作流，下面是一个来自某个 issue 的图：</p>
+<p>！[issue_workflow]（/img/blog/cncf/argo/workflow/issue_workflow.png）</p>
+<h2 id="架构概览">架构概览</h2>
+<p>！[overview]（/img/blog/cncf/argo/workflow/overview.jpeg）</p>
+<p>在 Argo Workflow 中，每一个 step/dag task 就是一个 pod 中的容器，最基础的 pod 会有 1 个 init 容器和两个工作容器，其中 init 容器和主容器都是 argoproj/argoexec 容器，另一个则是 step 中需要使用的容器，也就是实际执行内容的容器，在pod  中充当 sidecar.</p>
+<ul>
+<li>main 容器，也就是 step/dag task 中定义的容器，用于执行实际内容.</li>
+<li>init 容器，用于为 main 容器处理 artifact 以及参数相关的逻辑.</li>
+<li>wait 容器，等待 main 容器执行完成，以及处理一些清理任务，例如上传 artifact 到 S3.</li>
+</ul>
+<p>需要理清的一点是虽然 Argo Workflow 将工作容器定义为<code>main容器</code>，但实际上<code>wait容器</code>是 pod 中的主容器.</p>
+<h2 id="主要资源">主要资源</h2>
+<p>在 Argo Workflow 中主要的 CRD 对象有几个:</p>
+<ul>
+<li>Workflow</li>
+<li>WorkflowTemplate</li>
+<li>CronWrokflow</li>
+</ul>
+<p>接下来分别了解一下三个CRD对象.</p>
+<h2 id="workflow">Workflow</h2>
+<p>Workflow 定义的字段和 workflowTemplate 定义的字段基本上是一致的，因此将字段的解释放在 workflowTemplate 部分，对 Workflow 的理解只需要知道Workflow 是一个流水线的&quot;实例&quot;，也就是只有创建了 Workflow 对象是才会真正的运行流水线.</p>
+<h2 id="workflowtemplate">WorkflowTemplate</h2>
+<p>WorkflowTemplate 是最重要的对象了，基本上绝大部分时间你都是和它在打交道，其中还有一个 template 的定义，在刚认识 Argo workflow 时需要注意区分的一点是 workflowTemplate 和 template，这在我刚入门时也造成了一点困惑，接下来讲一下这两个的区别:</p>
+<p>workflowTemplate 是 argo workflow 中实现的 CRD 对象，而 template 则是对象内的一个字段，实际执行内容都是在 template 中定义的，一个 workflowTemplate 至少要包含一个 template. workflowTemplate 需要将一个 template 配置为 entrypoint，也就是流水线的起点，在这个 template 的 steps 中又可以应用多个相同或不同的 template.</p>
+<p>简单举一个例子来理解 workflowTemplate 多个 template，假设要封装一个 workflowTemplate 来处理 git 相关的场景:</p>
+<p>分别为以下三个操作创建三个 template，假设需要在同一份代码中多次 merge &amp;&amp; commit，那么流水线入口是 git clone，然后 git merge， git add &amp;&amp; git commit，在这种情况下 template2 和 template3 是作为 template1 的一部分存在的.而当流水线入口直接就是 git merge 或 git add &amp;&amp; git commit 的情况时， template2 或 template3 是作为单独的流水线逻辑存在.</p>
+<ol>
+<li>git clone</li>
+<li>git merge</li>
+<li>git add &amp;&amp; git commit</li>
+</ol>
+<p>因此 template 可以单独作为流水线入口执行，也可以被其他的 template 引用.</p>
+<p>先列出几个关键词做一个简单的概述来更好的了解 Template:</p>
+<ul>
+<li>steps，  流水线每一步的执行内容，<code>--</code>表示与同级别的step并行执行，<code>-</code>表示与同级别的 step 顺序执行.</li>
+<li>container，真正执行内容的定义，与 kubernetes container spec 定义一致.</li>
+<li>script，这是一个基于 container 的类型，可以让用户直接在CI中直接执行一些脚本并且得到返回的结果，例如执行 python 代码，执行 node 代码以及执行 shell 等等.</li>
+<li>resource，这个类型可以支持在 CI 中对 Kubernetes 的对象进行操作，例如创建一个 configMap，然后根据这个 Kubernetes 资源对象的状态来判断该步骤是否成功.（这个功能太酷了！）</li>
+</ul>
+<p>以上几个点是理解 template 最主要的内容，一个简单示意的 yaml 格式如下：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">...
+  <span style="color:#f92672">entrypoint</span>: <span style="color:#ae81ff">hello-hello-hello</span> <span style="color:#75715e">#配置template入口</span>
+  <span style="color:#f92672">templates</span>:
+  - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">hello-hello-hello</span>
+    <span style="color:#f92672">steps</span>:
+    - - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">hello1            </span>
+        <span style="color:#f92672">template</span>: <span style="color:#ae81ff">whalesay</span>
+        <span style="color:#f92672">arguments</span>:
+          <span style="color:#f92672">parameters</span>:
+          - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">message</span>
+            <span style="color:#f92672">value</span>: <span style="color:#e6db74">&#34;hello1&#34;</span>
+    - - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">hello2a   </span>
+        <span style="color:#f92672">template</span>: <span style="color:#ae81ff">whalesay</span>
+        <span style="color:#f92672">arguments</span>:
+          <span style="color:#f92672">parameters</span>:
+          - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">message</span>
+            <span style="color:#f92672">value</span>: <span style="color:#e6db74">&#34;hello2a&#34;</span>   <span style="color:#75715e">#hello2a与hello1 是顺序执行</span>
+      - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">hello2b         </span> <span style="color:#75715e">#hello2a与hello2b是并行执行</span>
+        <span style="color:#f92672">template</span>: <span style="color:#ae81ff">whalesay</span>
+        <span style="color:#f92672">arguments</span>:
+          <span style="color:#f92672">parameters</span>:
+          - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">message</span>
+            <span style="color:#f92672">value</span>: <span style="color:#e6db74">&#34;hello2b&#34;</span>
+
+  - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">whalesay </span> <span style="color:#75715e"># 定义一个用于真正执行内容的 template</span>
+    <span style="color:#f92672">inputs</span>:
+      <span style="color:#f92672">parameters</span>:
+      - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">message</span>
+    <span style="color:#f92672">container</span>:
+      <span style="color:#f92672">image</span>: <span style="color:#ae81ff">docker/whalesay</span>
+      <span style="color:#f92672">command</span>: [<span style="color:#ae81ff">cowsay]</span>
+      <span style="color:#f92672">args</span>: [<span style="color:#e6db74">&#34;{{inputs.parameters.message}}&#34;</span>]
+...
+</code></pre></div><p>我们在执行代码测试的过程中经常会有一些依赖服务要怎么在 Argo Workflow 中实现呢?</p>
+<p>Argo Workflow 为 step 提供了 sidecars 参数，可以配置你需要的依赖容器，例如 DID，etcd，Redis 和 Mysql 等等.</p>
+<p>下面是一个简单的 yaml 示例，为 CI 添加一个 redis 依赖服务:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">...
+        <span style="color:#f92672">container</span>:
+          <span style="color:#f92672">image</span>: <span style="color:#ae81ff">busybox:1.36.1</span>
+          <span style="color:#f92672">command</span>: [<span style="color:#ae81ff">sh， -c]</span>
+          <span style="color:#f92672">args</span>: [<span style="color:#e6db74">&#34;echo hello&#34;</span>]
+        <span style="color:#f92672">sidecars</span>:
+        - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">redis</span>
+          <span style="color:#f92672">image</span>: <span style="color:#ae81ff">redis:7.0.11</span>
+...
+</code></pre></div><p>另一个比较常见的是 并行版本/参数测试，例如跑测试时希望让同一份代码基于多个版本的 Etcd 服务做测试，那么 Argo workflow 也提供了 withItems 的方式来实现这个功能.</p>
+<p>还有一个常见的需求是编译缓存，例如 java 应用编译产物希望在下一个 CI 中继续应用，避免每次都去下载一些重复的 jar，Argo workflow 通过 volume 功能来实现这部分内容. 也可以通过 artifact 功能实现，例如上传到 S3，需要时再进行下载.</p>
+<p>根据文件唯一性来确认编译缓存是否更改，对于并行测试来说编译缓存可能是一样的，例如只更新了代码而没有更新 pom.xml 那么缓存依赖是一样的. 对于 pom.xml 更改了，也就是编译缓存变更了，那么可以需要先更新编译缓存，然后再跑并行测试，当然这是具体的业务内容了.</p>
+<p>接下来从官方一个默认的 workflowTemplate 来看一下实际的 yaml 是怎么样的.</p>
+<h3 id="一个默认的简单workflowtemplate">一个默认的简单workflowTemplate</h3>
+<p>当创建 workflowTemplate 时会有一个默认的 workflowTemplate，来看一下这个 workflowTemplate 做了什么事情.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#f92672">metadata</span>:
+  <span style="color:#f92672">name</span>: <span style="color:#ae81ff">lovely-dragon</span>
+  <span style="color:#f92672">namespace</span>: <span style="color:#ae81ff">default</span>
+  <span style="color:#f92672">labels</span>:
+    <span style="color:#f92672">example</span>: <span style="color:#e6db74">&#39;true&#39;</span>
+<span style="color:#f92672">spec</span>:
+  <span style="color:#f92672">workflowMetadata</span>:
+    <span style="color:#f92672">labels</span>:
+      <span style="color:#f92672">example</span>: <span style="color:#e6db74">&#39;true&#39;</span>
+  <span style="color:#f92672">entrypoint</span>: <span style="color:#ae81ff">argosay</span>
+  <span style="color:#f92672">arguments</span>:
+    <span style="color:#f92672">parameters</span>:
+      - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">message</span>
+        <span style="color:#f92672">value</span>: <span style="color:#ae81ff">hello argo</span>
+  <span style="color:#f92672">templates</span>:
+    - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">argosay</span>
+      <span style="color:#f92672">inputs</span>:
+        <span style="color:#f92672">parameters</span>:
+          - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">message</span>
+            <span style="color:#f92672">value</span>: <span style="color:#e6db74">&#39;{{workflow.parameters.message}}&#39;</span>
+      <span style="color:#f92672">container</span>:
+        <span style="color:#f92672">name</span>: <span style="color:#ae81ff">main</span>
+        <span style="color:#f92672">image</span>: <span style="color:#ae81ff">argoproj/argosay:v2</span>
+        <span style="color:#f92672">command</span>:
+          - <span style="color:#ae81ff">/argosay</span>
+        <span style="color:#f92672">args</span>:
+          - <span style="color:#ae81ff">echo</span>
+          - <span style="color:#e6db74">&#39;{{inputs.parameters.message}}&#39;</span>
+  <span style="color:#f92672">ttlStrategy</span>:
+    <span style="color:#f92672">secondsAfterCompletion</span>: <span style="color:#ae81ff">300</span>
+  <span style="color:#f92672">podGC</span>:
+    <span style="color:#f92672">strategy</span>: <span style="color:#ae81ff">OnPodCompletion</span>
+</code></pre></div><p>默认创建的 workflowTemplate 只有一个 template 并且它做的唯一一件事情就是打印传参 <code>message</code>.</p>
+<p>需要注意的是 默认的 workflow 中设置了 podGC  和 workflow 的 TTL，一旦 pod 执行完成了就会删除 pod，并且由于默认没有配置日志持久化，这时候去查看日志的话只会看到空白，</p>
+<p>为了方便研究测试，可以先将这部分内容给注释掉，或为 Argo Workflow 设置日志持久化.</p>
+<p>注意:实际生产应用时请正确设置日志持久化.</p>
+<p>下面的配置表示 workflow 会在 workflow 执行完成后的 300 秒删除，而 workflow 过程中产生的 pod 会在 pod 执行完成后立刻删除.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">...
+  <span style="color:#f92672">ttlStrategy</span>:
+    <span style="color:#f92672">secondsAfterCompletion</span>: <span style="color:#ae81ff">300</span>
+  <span style="color:#f92672">podGC</span>:
+    <span style="color:#f92672">strategy</span>: <span style="color:#ae81ff">OnPodCompletion</span>
+...
+</code></pre></div><h3 id="dag-有向无环图">DAG 有向无环图</h3>
+<p>在 Tekton 中，DAG 的表示可以直接理解为 Pipeline.在整个流水线的过程中，可以串行或并行地执行 Tekton Task 并且任务起点与终点不会形成一个闭环.</p>
+<p>除了 steps template 之外，Argo WorkflowTemplate 同样支持 DAG，以 dag template 的方式存在，可以让用户更好的维护复杂的工作流.</p>
+<p>这里基于一个官方文档的示例来简单了解一下 Argo workflow dag template:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#f92672">apiVersion</span>: <span style="color:#ae81ff">argoproj.io/v1alpha1</span>
+<span style="color:#f92672">kind</span>: <span style="color:#ae81ff">Workflow</span>
+<span style="color:#f92672">metadata</span>:
+  <span style="color:#f92672">generateName</span>: <span style="color:#ae81ff">dag-diamond-</span>
+<span style="color:#f92672">spec</span>:
+  <span style="color:#f92672">entrypoint</span>: <span style="color:#ae81ff">diamond</span>
+  <span style="color:#f92672">templates</span>:
+  - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">echo</span>
+    <span style="color:#f92672">inputs</span>:
+      <span style="color:#f92672">parameters</span>:
+      - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">message</span>
+    <span style="color:#f92672">container</span>:
+      <span style="color:#f92672">image</span>: <span style="color:#ae81ff">alpine:3.7</span>
+      <span style="color:#f92672">command</span>: [<span style="color:#ae81ff">echo， &#34;{{inputs.parameters.message}}&#34;]</span>
+  - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">diamond</span>
+    <span style="color:#f92672">dag</span>:
+      <span style="color:#f92672">tasks</span>:
+      - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">A</span>
+        <span style="color:#f92672">template</span>: <span style="color:#ae81ff">echo</span>
+        <span style="color:#f92672">arguments</span>:
+          <span style="color:#f92672">parameters</span>: [{<span style="color:#f92672">name: message， value</span>: <span style="color:#ae81ff">A}]</span>
+      - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">B</span>
+        <span style="color:#f92672">dependencies</span>: [<span style="color:#ae81ff">A]</span>
+        <span style="color:#f92672">template</span>: <span style="color:#ae81ff">echo</span>
+        <span style="color:#f92672">arguments</span>:
+          <span style="color:#f92672">parameters</span>: [{<span style="color:#f92672">name: message， value</span>: <span style="color:#ae81ff">B}]</span>
+      - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">C</span>
+        <span style="color:#f92672">dependencies</span>: [<span style="color:#ae81ff">A]</span>
+        <span style="color:#f92672">template</span>: <span style="color:#ae81ff">echo</span>
+        <span style="color:#f92672">arguments</span>:
+          <span style="color:#f92672">parameters</span>: [{<span style="color:#f92672">name: message， value</span>: <span style="color:#ae81ff">C}]</span>
+      - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">D</span>
+        <span style="color:#f92672">dependencies</span>: [<span style="color:#ae81ff">B， C]</span>
+        <span style="color:#f92672">template</span>: <span style="color:#ae81ff">echo</span>
+        <span style="color:#f92672">arguments</span>:
+          <span style="color:#f92672">parameters</span>: [{<span style="color:#f92672">name: message， value</span>: <span style="color:#ae81ff">D}]</span>
+</code></pre></div><p>可以看到工作流的入口 template 为 diamond，由于只有任务A没有顺序依赖，因此一开始只会执行任务A，任务A成功执行后开始同时执行任务B和任务C，最终任务B和任务C都顺利执行完后开始执行任务D.可以看到 dependencies 是一个数组传参，因此也可以将上述示例修改为任务D只需要等待任务C顺利执行后就开始执行.</p>
+<h3 id="支持kubernetes资源操作">支持Kubernetes资源操作</h3>
+<p>在前面已经知道有一个 resource 类型的 template，这在我看来是很酷的功能！接下来看一个官方例子:等待 workflow 执行完成.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#f92672">apiVersion</span>: <span style="color:#ae81ff">argoproj.io/v1alpha1</span>
+<span style="color:#f92672">kind</span>: <span style="color:#ae81ff">Workflow</span>
+<span style="color:#f92672">metadata</span>:
+  <span style="color:#f92672">generateName</span>: <span style="color:#ae81ff">Kubernetes-wait-wf-</span>
+<span style="color:#f92672">spec</span>:
+  <span style="color:#f92672">entrypoint</span>: <span style="color:#ae81ff">Kubernetes-wait-wf</span>
+  <span style="color:#f92672">templates</span>:
+  - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">Kubernetes-wait-wf</span>
+    <span style="color:#f92672">steps</span>:
+    - - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">create-wf</span>
+        <span style="color:#f92672">template</span>: <span style="color:#ae81ff">create-wf</span>
+    - - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">wait-wf</span>
+        <span style="color:#f92672">template</span>: <span style="color:#ae81ff">wait-wf</span>
+        <span style="color:#f92672">arguments</span>:
+          <span style="color:#f92672">parameters</span>:
+          - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">wf-name</span>
+            <span style="color:#f92672">value</span>: <span style="color:#e6db74">&#39;{{steps.create-wf.outputs.parameters.wf-name}}&#39;</span>
+
+  - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">create-wf</span>
+    <span style="color:#f92672">resource</span>:
+      <span style="color:#f92672">action</span>: <span style="color:#ae81ff">create</span>
+      <span style="color:#f92672">manifest</span>: |<span style="color:#e6db74">
+</span><span style="color:#e6db74">        apiVersion: argoproj.io/v1alpha1
+</span><span style="color:#e6db74">        kind: Workflow
+</span><span style="color:#e6db74">        metadata:
+</span><span style="color:#e6db74">          generateName: sleep-
+</span><span style="color:#e6db74">        spec:
+</span><span style="color:#e6db74">          entrypoint: sleep
+</span><span style="color:#e6db74">          templates:
+</span><span style="color:#e6db74">          - name: sleep
+</span><span style="color:#e6db74">            container:
+</span><span style="color:#e6db74">              image: alpine:latest
+</span><span style="color:#e6db74">              command: [sleep， &#34;20&#34;]</span>        
+    <span style="color:#f92672">outputs</span>:
+      <span style="color:#f92672">parameters</span>:
+      - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">wf-name</span>
+        <span style="color:#f92672">valueFrom</span>:
+          <span style="color:#f92672">jsonPath</span>: <span style="color:#e6db74">&#39;{.metadata.name}&#39;</span>
+
+  - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">wait-wf</span>
+    <span style="color:#f92672">inputs</span>:
+      <span style="color:#f92672">parameters</span>:
+      - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">wf-name</span>
+    <span style="color:#f92672">resource</span>:
+      <span style="color:#f92672">action</span>: <span style="color:#ae81ff">get</span>
+      <span style="color:#f92672">successCondition</span>: <span style="color:#ae81ff">status.phase == Succeeded</span>
+      <span style="color:#f92672">failureCondition</span>: <span style="color:#ae81ff">status.phase in （Failed， Error）</span>
+      <span style="color:#f92672">manifest</span>: |<span style="color:#e6db74">
+</span><span style="color:#e6db74">        apiVersion: argoproj.io/v1alpha1
+</span><span style="color:#e6db74">        kind: Workflow
+</span><span style="color:#e6db74">        metadata:
+</span><span style="color:#e6db74">          name: {{inputs.parameters.wf-name}}</span>        
+</code></pre></div><p>可以看到，Argo Workflow 原生支持直接在流水线中创建 Kubernetes 对象，并且根据对象的字段来控制流水线的执行.上述的示例效果是在 step1 中创建一个 workflow，然后在 step2 中等待创建的 workflow 执行完成，或者说等待这个 workflow 对象变更成预期的 success 或 failure 对应的状态.</p>
+<p>这个在 resource 操作在流水线需要处理一些 Kubernetes 资源时会是一个很有用的功能.</p>
+<h3 id="还有什么">还有什么</h3>
+<p>一个更完善的流水线可能还会包含很多复杂的内容，这里留下一些参考点为研究 Argo workflow 时提供一些方向:</p>
+<ul>
+<li>CI 矩阵</li>
+<li>为 CI 配置环境变量</li>
+<li>为 CI 配置多个依赖服务 （sidecar）</li>
+<li>设置/使用特别 bucketName s3 artifact</li>
+<li>工件存储 artifact</li>
+<li>volume 传递编译缓存</li>
+<li>条件判断 step，当某些条件成立时才执行对应的 step</li>
+<li>workflow 和 step 并行度限制</li>
+<li>resource 类型 template，直接编写 python 代码</li>
+</ul>
+<p>以上都是 Argo Workflow 本身就提供的功能，不需要自己再做一些封装，因此足以看到 Argo Workflow 提供的功能的实用性.</p>
+<h2 id="cronworkflow">CronWorkflow</h2>
+<p>CronWorkflow 是一个用于定时触发 workflow 的定义，在 CI 中也是很常见的，例如每晚构建.</p>
+<p>同样地，通过 Argo 的 UI 界面创建一个定时的 workflow 时也会有一个默认的 cronWorkflow，可以通过这个默认的 cronWorkflow 来了解下</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#f92672">metadata</span>:
+  <span style="color:#f92672">name</span>: <span style="color:#ae81ff">sparkly-tiger</span>
+  <span style="color:#f92672">namespace</span>: <span style="color:#ae81ff">default</span>
+  <span style="color:#f92672">labels</span>:
+    <span style="color:#f92672">example</span>: <span style="color:#e6db74">&#39;true&#39;</span>
+<span style="color:#f92672">spec</span>:
+  <span style="color:#f92672">workflowMetadata</span>:
+    <span style="color:#f92672">labels</span>:
+      <span style="color:#f92672">example</span>: <span style="color:#e6db74">&#39;true&#39;</span>
+  <span style="color:#f92672">schedule</span>: <span style="color:#e6db74">&#39;* * * * *&#39;</span>
+  <span style="color:#f92672">workflowSpec</span>:
+    <span style="color:#f92672">entrypoint</span>: <span style="color:#ae81ff">argosay</span>
+    <span style="color:#f92672">arguments</span>:
+      <span style="color:#f92672">parameters</span>:
+        - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">message</span>
+          <span style="color:#f92672">value</span>: <span style="color:#ae81ff">hello argo</span>
+    <span style="color:#f92672">templates</span>:
+      - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">argosay</span>
+        <span style="color:#f92672">inputs</span>:
+          <span style="color:#f92672">parameters</span>:
+            - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">message</span>
+              <span style="color:#f92672">value</span>: <span style="color:#e6db74">&#39;{{workflow.parameters.message}}&#39;</span>
+        <span style="color:#f92672">container</span>:
+          <span style="color:#f92672">name</span>: <span style="color:#ae81ff">main</span>
+          <span style="color:#f92672">image</span>: <span style="color:#ae81ff">argoproj/argosay:v2</span>
+          <span style="color:#f92672">command</span>:
+            - <span style="color:#ae81ff">/argosay</span>
+          <span style="color:#f92672">args</span>:
+            - <span style="color:#ae81ff">echo</span>
+            - <span style="color:#e6db74">&#39;{{inputs.parameters.message}}&#39;</span>
+    <span style="color:#f92672">ttlStrategy</span>:
+      <span style="color:#f92672">secondsAfterCompletion</span>: <span style="color:#ae81ff">300</span>
+    <span style="color:#f92672">podGC</span>:
+      <span style="color:#f92672">strategy</span>: <span style="color:#ae81ff">OnPodCompletion</span>
+</code></pre></div><p>经过前面 workflow 和 workflowTemplate 的了解后，可以看到 cronWorkflow 的 yaml 文件整体来说是差不多的，无非是多了一些定时相关的配置.</p>
+<p>上述示例中 schedule 配置为 <code>* * * * *</code>，也就是每分钟会执行一次 workflow.关于定时的内容都会有一个注意点是定时任务的时区， cronWorkflow 支持为定时任务设置时区，具体可以看看官方的这个[cron workflow 示例]（https://github.com/argoproj/argo-workflows/blob/master/examples/cron-workflow.yaml）</p>
+<h1 id="与-tekton-的对比">与 Tekton 的对比</h1>
+<p>经过一番折腾后能够感受到一些很明显的区别:</p>
+<p>从系统架构上来说，Tekton 做得更好，整体架构比较清晰，但从用户功能的角度上来说 Argo Workflow 更容易上手使用.</p>
+<p>Argo workflow 的 UI 能够展现出比较直观的 CI 顺序效果，同时 Argo WOrkflow 会有很多实用的功能.</p>
+<p>另一个是 Argo workflow 中提供了一些 Tekton 默认所没有的功能，在我看来这些也都是比较酷和实用的功能，例如:</p>
+<ul>
+<li>resource 类型 template，可以直接创建 Kubernetes 对象以及 对 Kubernetes 对象 get，等待 Kubernetes 对象某个字段变更.</li>
+<li>artifact 功能，例如和 S3 打交道，这在流水线中是很常见的需求，但 Tekton 本身并没有提供.</li>
+</ul>
+<p>Argo workflow 的文档建设也比 Tekton 更好.</p>
+<p>总的来说 Tekton 提供的内容处于更底层的位置，与 kubernetes 类似，是一个 CI/CD 底层的引擎，真正用好它需要基于它做一些事情.而 Argo Workflow 处于更上层一点的位置，提供了很多实用的功能，可以很方便的应用起来.</p>
+<h1 id="写在最后">写在最后</h1>
+<p>到目前为止，我们了解了 Argo Workflow 的强大特性以及与 Tekton 的一个简单对比，实际在企业内应该选择 Argo Workflow 还是 Tekton 还是需要根据业务特点以及实际验证一些测试后才能决定.</p>
+<p>以上只是聊到了 Argo Workflow 的一部分功能，如果想了解更多的功能可以先从官方示例开始，官方代码仓库给了很多的[示例yaml]（https://github.com/argoproj/argo-workflows/tree/master/examples），因此可以通过这些示例 yaml 很快的了解到相关的功能.</p>
+
+
+        <h2>微信公众号</h2>
+<p>扫描下面的二维码关注我们的微信公众号,第一时间查看最新内容。同时也可以关注我的Github,看看我都在了解什么技术,在页面底部可以找到我的Github。</p>
+<img  src="/img/qrcode_for_sikekafeidou.jpg" alt="wechat-qrcode">
+
+        <div style="padding: 10px 0; margin: 20px auto; width: 100%; font-size:16px; text-align: center;">
+    <button class="btn btn-danger"  id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+        <span>「来都来了」赞赏</span></button>
+    <div  id="QR" style="display: none;">
+        <div id="wechat" style="display: inline-block">
+            <p>如果本文对你有帮助的话欢迎通过微信或支付宝对我进行赞助,强烈建议你在支付的备注上填上你的 githubID 或你的昵称,让我知道我该感谢谁!!! </br></br>
+                赞助金额设置为固定金额:8元. </br> 
+                8元赠与我,发发发反馈给你,2023祝你收入翻番一路发到底:)</p>
+            <a class="fancybox" rel="group">
+                <img id="wechat_qr" src="/img/wechat-zhifubao.png" alt="Pay"></a>
+        </div>
+    </div>
+</div>
+
+        
+
+                <hr>
+
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/post/list-of-source-with-pulsar/" data-toggle="tooltip" data-placement="top" title="pulsar源码系列">&larr; pulsar源码系列</a>
+                    </li>
+                    
+                    
+                    <li class="next">
+                        <a href="/post/run-k8s-with-kind/" data-toggle="tooltip" data-placement="top" title="用kind搭建k8s集群环境">用kind搭建k8s集群环境 &rarr;</a>
+                    </li>
+                    
+                </ul>
+
+            
+
+
+<script src="https://giscus.app/client.js"
+        data-repo="liangyuanpeng/liangyuanpeng.github.io"
+        data-repo-id="MDEwOlJlcG9zaXRvcnkxNDkwMDQ2OTM="
+        data-category=""
+        data-category-id="DIC_kwDOCOGhlc4CVwo2"
+        data-mapping="title"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="top"
+        data-theme="light"
+        data-lang="zh-CN"
+        crossorigin="anonymous"
+        async>
+</script>
+
+
+
+
+            </div>
+
+            
+
+            <div class="
+                col-lg-2 col-lg-offset-0
+                visible-lg-block
+                sidebar-container
+                catalog-container">
+                
+                扫码下面二维码加我微信 :)
+                <img src="https://liangyuanpeng.github.io/img/aboutme/wechat-lan.png" />
+                
+            </div> 
+
+            
+
+            
+            
+            
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                
+                
+<br/>
+<h5>开源项目推荐</h5>
+
+<style type="text/css">
+.pinned-repos {
+  max-width: 300px;
+  margin: 0 auto;
+}
+
+.repo-card {
+  display: flex;
+  flex-direction: column;
+  padding: 16px;
+  border: 1px solid #e1e4e8;
+  border-radius: 6px;
+  background-color: #fff;
+}
+
+.repo-card:hover {
+  box-shadow: 0 1px 3px rgba(36,41,46,.08);
+}
+
+.repo-card h2 {
+  margin-top: 0;
+  font-size: 20px;
+  font-weight: 200;
+  color: #0366d6;
+}
+
+.repo-card p {
+  margin: 8px 0 16px;
+  font-size: 14px;
+  color: #586069;
+}
+
+.repo-card-stats {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;  
+}
+
+.repo-card-stats span {
+  font-size: 12px;
+  color: #586069;
+  margin-right: 16px;
+}
+
+.repo-card-stats strong {
+  font-weight: 200;
+  color: #24292e;
+}
+</style>
+
+    
+    <ul class="margin-bottom: 25px;pinned-repo-list">
+      <li>
+        <div class="repo-card">
+          <div class="repo-card-details">
+            <h2><a href="https://github.com/liangyuanpeng/replacer">replacer</a></h2>
+            <p>K8S webhook的参考实现|Replace container image of kubernetes mutate webhook.</p>
+            <div class="repo-card-stats">
+              <span>Language: <strong>Golang</strong></span>
+              <span>Forks: <strong>*</strong></span>
+              <span>Stars: <strong>*</strong></span>
+              <span>Updated: <strong>Nov 20, 2021</strong></span>
+            </div>
+          </div>
+        </div>
+      </li>
+    </ul>
+
+            </div>
+
+            
+            
+            <div class="
+            col-lg- col-lg-offset-2
+            col-md-10 col-md-offset-1
+            ">
+            <section>
+                <hr class="hidden-sm hidden-xs">
+                
+
+<h2>相关文章</h2>
+<ul style="margin-bottom: 25px;">
+    
+    <li><a href="/post/k8s-cd-argo-deploy/">k8s部署云原生CD引擎Argo</a></li>
+    
+    <li><a href="/post/question-list-of-kubernetes/">[长期更新]kubernetes问题列表记录</a></li>
+    
+    <li><a href="/post/kubeadm-config-note-long-term/">[长期更新]kubeadm常见问题以及配置记录</a></li>
+    
+    <li><a href="/post/kubecon-china-2023%E5%B0%86%E5%9C%A8%E4%B8%8A%E6%B5%B7%E4%B8%BE%E5%8A%9E/">kubecon china 2023将在上海举办</a></li>
+    
+    <li><a href="/post/migrate-your-manifest-yaml-files-into-helm-chart/">将你的yaml文件迁移到helm</a></li>
+    
+    <li><a href="/post/from-zero-to-kubernets-subproject-lead/">从零到 Kubernetes 子项目负责人</a></li>
+    
+    <li><a href="/post/backup-pvc-to-s3-with-k8up/">基于k8up备份PVC到S3存储</a></li>
+    
+    <li><a href="/post/kubernetes-hpa-custom-metrics-for-effective-cpu-memory-scaling/">Kubernetes HPA:定制指标实现有效的CPU和内存扩展</a></li>
+    
+    <li><a href="/post/keda-helmchart-release-with-v2.10.1/">keda-helmchart发布v2.10.1</a></li>
+    
+    <li><a href="/post/run-k8s-with-kind/">用kind搭建k8s集群环境</a></li>
+    
+</ul>
+
+            </section>
+            </div>
+            
+
+            
+
+
+        </div>
+    </div>
+</article>
+
+
+
+
+
+
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                   
+                   <li>
+                       <a href="" rel="alternate" type="application/rss+xml" title="Hi,I`m lan" >
+                           <span class="fa-stack fa-lg">
+                               <i class="fa fa-circle fa-stack-2x"></i>
+                               <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+                           </span>
+                       </a>
+                   </li>
+                   
+                    
+                    <li>
+                        <a target="_blank" href="https://github.com/liangyuanpeng">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                   
+                   
+                    
+                    <li>
+                        <a target="_blank" href="https://liangyuanpeng.github.io/img/aboutme/wechat-lan.png">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-wechat fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li>
+                        <a href="mailto:liangyuanpengem@163.com">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+		    
+
+                    
+                    <li>
+                        <a href="https://twitter.com/lan31793328">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li>
+                        <a target="_blank" href="https://www.zhihu.com/people/liangyuanpeng">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa  fa-stack-1x fa-inverse">知</i>
+                            </span>
+                        </a>
+                    </li>
+		    
+                    
+                    <li>
+                        <a target="_blank" href="https://weibo.com/u/1908782280">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+		    
+
+                    
+
+		    
+                    
+                </ul>
+		<p class="copyright text-muted">
+                    Copyright &copy; Hi,I`m lan , 2023
+                    <br>
+                    <a href="https://themes.gohugo.io/hugo-theme-cleanwhite">CleanWhite Hugo Theme</a> by <a href="https://zhaohuabing.com">Huabing</a> |
+                    <iframe
+                        style="margin-left: 2px; margin-bottom:-5px;"
+                        frameborder="0" scrolling="0" width="100px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=zhaohuabing&repo=hugo-theme-cleanwhite&type=star&count=true" >
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+
+<script>
+    function loadAsync(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+
+
+
+
+
+<script>
+    
+    if($('#tag_cloud').length !== 0){
+        async("/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+
+
+
+<script type="text/javascript">
+
+    
+    
+
+    function generateCatalog(selector) {
+
+        
+        
+        
+        
+            _containerSelector = 'div.post-container'
+        
+
+        
+        var P = $(_containerSelector), a, n, t, l, i, c;
+        a = P.find('h1,h2,h3,h4,h5,h6');
+
+        
+        $(selector).html('')
+
+        
+        a.each(function () {
+            n = $(this).prop('tagName').toLowerCase();
+            i = "#" + $(this).prop('id');
+            t = $(this).text();
+            c = $('<a href="' + i + '" rel="nofollow">' + t + '</a>');
+            l = $('<li class="' + n + '_nav"></li>').append(c);
+            $(selector).append(l);
+        });
+        return true;
+    }
+
+    generateCatalog(".catalog-body");
+
+    
+    $(".catalog-toggle").click((function (e) {
+        e.preventDefault();
+        $('.side-catalog').toggleClass("fold")
+    }))
+
+    
+
+
+    loadAsync("\/js\/jquery.nav.js", function () {
+        $('.catalog-body').onePageNav({
+            currentClass: "active",
+            changeHash: !1,
+            easing: "swing",
+            filter: "",
+            scrollSpeed: 700,
+            scrollOffset: 0,
+            scrollThreshold: .2,
+            begin: null,
+            end: null,
+            scrollChange: null,
+            padding: 80
+        });
+    });
+</script>
+
+
+
+
+<script>
+    async("/js/fastclick-1.0.6.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+
+
+<script>
+    
+    var _baId = 'fad9c137f8ce239f9b323d36c871f8e6';
+
+    
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?" + _baId;
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+
+
+
+
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-RTTRHGYFWL"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-RTTRHGYFWL');
+</script>
+
+
+
+</body>
+</html>

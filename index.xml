@@ -6,7 +6,7 @@
     <description>Recent content on Hi,I`m lan</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 08 May 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://liangyuanpeng.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 28 May 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://liangyuanpeng.github.io/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>lank8s.cn服务</title>
       <link>https://liangyuanpeng.github.io/post/service-lank8s.cn/</link>
@@ -23,6 +23,15 @@
       
       <guid>https://liangyuanpeng.github.io/post/run-k8s-with-kind/</guid>
       <description>前言 由于各类基于 kubernetes 的云原生实验或测试的前提都是需要一个 kubernetes 环境,而在写博客时总是需要提及使用 kind 来搭建 kubernetes 环境. 因此这里单独写一篇文章来介绍如何用</description>
+    </item>
+    
+    <item>
+      <title>argoworkflow 云原生工作流引擎</title>
+      <link>https://liangyuanpeng.github.io/post/cloudnative-ci-of-argo-workflow/</link>
+      <pubDate>Sun, 28 May 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://liangyuanpeng.github.io/post/cloudnative-ci-of-argo-workflow/</guid>
+      <description>Argo workflow 是什么 老牌的工作流工具 Jenkins 应该是大部分人都接触过的，而在云原生时代，诞生了两大工作流工具/框架，也就是 Argo Workflow 和 Tekton，本文主要介绍一下</description>
     </item>
     
     <item>

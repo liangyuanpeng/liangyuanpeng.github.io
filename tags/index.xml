@@ -6,7 +6,52 @@
     <description>Recent content in Tags on Hi,I`m lan</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 08 May 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://liangyuanpeng.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 28 May 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://liangyuanpeng.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>argo</title>
+      <link>https://liangyuanpeng.github.io/tags/argo/</link>
+      <pubDate>Sun, 28 May 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://liangyuanpeng.github.io/tags/argo/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>argo-workflow</title>
+      <link>https://liangyuanpeng.github.io/tags/argo-workflow/</link>
+      <pubDate>Sun, 28 May 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://liangyuanpeng.github.io/tags/argo-workflow/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>ci</title>
+      <link>https://liangyuanpeng.github.io/tags/ci/</link>
+      <pubDate>Sun, 28 May 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://liangyuanpeng.github.io/tags/ci/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>cncf</title>
+      <link>https://liangyuanpeng.github.io/tags/cncf/</link>
+      <pubDate>Sun, 28 May 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://liangyuanpeng.github.io/tags/cncf/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>kubernetes</title>
+      <link>https://liangyuanpeng.github.io/tags/kubernetes/</link>
+      <pubDate>Sun, 28 May 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://liangyuanpeng.github.io/tags/kubernetes/</guid>
+      <description></description>
+    </item>
+    
     <item>
       <title>apache</title>
       <link>https://liangyuanpeng.github.io/tags/apache/</link>
@@ -26,15 +71,6 @@
     </item>
     
     <item>
-      <title>ci</title>
-      <link>https://liangyuanpeng.github.io/tags/ci/</link>
-      <pubDate>Fri, 05 May 2023 00:00:00 +0000</pubDate>
-      
-      <guid>https://liangyuanpeng.github.io/tags/ci/</guid>
-      <description></description>
-    </item>
-    
-    <item>
       <title>ghaction</title>
       <link>https://liangyuanpeng.github.io/tags/ghaction/</link>
       <pubDate>Fri, 05 May 2023 00:00:00 +0000</pubDate>
@@ -44,29 +80,11 @@
     </item>
     
     <item>
-      <title>cncf</title>
-      <link>https://liangyuanpeng.github.io/tags/cncf/</link>
-      <pubDate>Thu, 04 May 2023 00:00:00 +0000</pubDate>
-      
-      <guid>https://liangyuanpeng.github.io/tags/cncf/</guid>
-      <description></description>
-    </item>
-    
-    <item>
       <title>k8s</title>
       <link>https://liangyuanpeng.github.io/tags/k8s/</link>
       <pubDate>Thu, 04 May 2023 00:00:00 +0000</pubDate>
       
       <guid>https://liangyuanpeng.github.io/tags/k8s/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>kubernetes</title>
-      <link>https://liangyuanpeng.github.io/tags/kubernetes/</link>
-      <pubDate>Thu, 04 May 2023 00:00:00 +0000</pubDate>
-      
-      <guid>https://liangyuanpeng.github.io/tags/kubernetes/</guid>
       <description></description>
     </item>
     
@@ -526,15 +544,6 @@
       <pubDate>Sat, 22 Jan 2022 00:00:00 +0000</pubDate>
       
       <guid>https://liangyuanpeng.github.io/tags/xds/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>argo</title>
-      <link>https://liangyuanpeng.github.io/tags/argo/</link>
-      <pubDate>Thu, 20 Jan 2022 00:00:00 +0000</pubDate>
-      
-      <guid>https://liangyuanpeng.github.io/tags/argo/</guid>
       <description></description>
     </item>
     
