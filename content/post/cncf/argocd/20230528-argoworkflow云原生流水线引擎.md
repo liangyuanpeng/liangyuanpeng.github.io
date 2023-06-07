@@ -8,7 +8,6 @@ date:       2023-05-28
 author:     "梁远鹏"
 image: "/img/banner-pexels.jpg"
 published: true
-wipnote: true
 tags:
     - argo
     - argo-workflow
