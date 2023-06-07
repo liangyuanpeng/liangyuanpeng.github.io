@@ -49,7 +49,7 @@ if [ $ORASDOWNLOAD ];then
     cd ..
 fi
 
-cat content/post/cncf/kubernetes/top/lank8s.md >> cat content/post/cncf/kubernetes/top/2021-11-15-lank8s.cn服务.md
+cat content/post/cncf/kubernetes/top/lank8s.md >> content/post/cncf/kubernetes/top/2021-11-15-lank8s.cn服务.md
 
 cat config.toml
 
