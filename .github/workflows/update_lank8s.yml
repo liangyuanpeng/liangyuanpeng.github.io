@@ -1,6 +1,7 @@
 name: deploy ghpage
 
 on:
+  pull_request:
   push:
     branches: [ source ]
   schedule:
@@ -14,7 +15,12 @@ jobs:
     steps:
       - uses: actions/checkout@v3
         with:
-          submodules: true  # Fetch Hugo themes (true OR recursive)
-          fetch-depth: 0    # Fetch all history for .GitInfo and .Lastmod
+          submodules: false
+          fetch-depth: 1
 
-#todo clone lank8s/lank8s  and write README
+      - name: Sync lank8s 
+        run: |
+            git clone https://liangyuanpeng:${{ secrets.GITEE_PASSWORD }}@github.com/lank8s/.github.git lank8sprofile
+            cat content/post/cncf/kubernetes/top/lank8s.md > lank8sprofile/profile/README.md
+            git clone https://liangyuanpeng:@github.com/lank8scn/lank8scn.git lank8scn
+            cat content/post/cncf/kubernetes/top/lank8s.md > lank8scn/README.md
