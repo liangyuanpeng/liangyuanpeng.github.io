@@ -360,7 +360,7 @@
 
 
 
-                            阅读 </span></span>|<span class="post-date">共39字</span>，阅读约<span class="more-meta"> 1 分钟</span>
+                            阅读 </span></span>|<span class="post-date">共720字</span>，阅读约<span class="more-meta"> 2 分钟</span>
                         
                     </span>
                 </div>
@@ -390,7 +390,130 @@
 
 		<h1 id="前言">前言</h1>
 <p>本文接下来所有配置都是基于 <a href="https://liangyuanpeng.com/post/service-lank8s.cn/#undefined">lank8s服务</a>来做的.</p>
-<h1 id="containerd">containerd</h1>
+<p>在习惯了 kind 创建 kubernetes 集群后再次尝试了另外的搭建 kubernetes 集群工具: Talos 和 K0s,深深的感受到 Kind 将常用组件镜像都打包到 kindest/node 这个镜像内是多么明智的选择。 尝试 Talos 和 K0s 的首个问题就是镜像无法访问，其次是需要学习新的配置内容，而 Kind 是基于 Kubeadm 的，因此没有带来太多的学习成本，但 Talos 和 K0s 都有一个很实用的特性是支持部署豪 k8s 集群后 apply 一些用户自定义的 manifests。</p>
+<h1 id="talos">Talos</h1>
+<p>这个项目是我觉得非常有意思的一个项目，一个专注于 kubernetes 的容器化 Linux 操作系统，甚至连 SSH 功能都去掉了，一切都通过 API 的方式来操作。</p>
+<p>目前来看 Talos 启动 kubernetes 集群的速度比 Kind 慢，测试了多次基本上 Talos 基于 Docker 来启动一个 1 master 和 1 node 的 kubernetes 集群需要 2m18s,而 Kind 启动一个 1 master 和 1 node 的 kubernetes 集群只需要 48s，这个测试结果的前提是已经将需要的镜像全部都缓存在本地了。</p>
+<p>因此日常测试需要使用 kubernetes 集群还是推荐 Kind,不过 Talos 的目标是大规模情况下管理容器化 Linux 上的 kubernetes，所以也能够理解速度上比 Kind 慢，而且速度也已经足够快了。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">talosctl cluster create --provisioner docker <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>    --registry-mirror registry.k8s.io<span style="color:#f92672">=</span>http://172.17.0.1:5001 <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>    --registry-mirror gcr.io<span style="color:#f92672">=</span>http://172.17.0.1:5003 <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>    --image ghcr.io/siderolabs/talos:v1.4.5 --install-image ghcr.io/siderolabs/installer:v1.4.5
+</code></pre></div><h1 id="kind">Kind</h1>
+<h1 id="k0s">k0s</h1>
+<p>k3s 将 kubernetes 基本的组件都打包成一个二进制，然而依然需要 kubelet 和 CRI CNI 等运行时，而 K0s 这个项目将所有内容都打包成一个单一的二进制，也是挺有意思的。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">version: <span style="color:#e6db74">&#34;3.9&#34;</span>
+services:
+  k0s:
+    container_name: k0s
+    image: docker.io/k0sproject/k0s:latest
+    command: k0s controller --config<span style="color:#f92672">=</span>/etc/k0s/config.yaml --enable-worker
+    hostname: k0s
+    privileged: true
+    volumes:
+      - <span style="color:#e6db74">&#34;/var/lib/k0s&#34;</span>
+    tmpfs:
+      - /run
+      - /var/run
+    ports:
+      - <span style="color:#e6db74">&#34;5443:5443&#34;</span>
+      - 9443:9443
+    network_mode: <span style="color:#e6db74">&#34;bridge&#34;</span>
+    environment:
+      K0S_CONFIG: |-
+        apiVersion: k0s.k0sproject.io/v1beta1
+        kind: ClusterConfig
+        metadata:
+          creationTimestamp: null
+          name: k0s
+        spec:
+          images:
+            konnectivity:
+              image: registry.lank8s.cn/kas-network-proxy/proxy-agent
+            metricsserver:
+              image: registry.lank8s.cn/metrics-server/metrics-server
+            kubeproxy:
+              image: registry.lank8s.cn/kube-proxy
+            coredns:
+              image: registry.lank8s.cn/coredns/coredns
+            pause:
+              image: registry.lank8s.cn/pause
+          api:
+            k0sApiPort: <span style="color:#ae81ff">9443</span>
+            port: <span style="color:#ae81ff">5443</span>
+            sans:
+              - 192.168.1.77
+              - 172.17.0.1
+              - 172.18.0.1
+              - 10.5.0.1
+              - fe80::cf76:3e83:d99c:2819
+              - fe80::42:3eff:feb3:ace1
+              - fc00:f853:ccd:e793::1
+              - fe80::1
+              - fe80::42:65ff:fe15:bab6
+              - fe80::f0da:a2ff:fe07:c45c
+              - fe80::b038:81ff:fe28:7eac
+            tunneledNetworkingMode: false
+          controllerManager: <span style="color:#f92672">{}</span>
+          extensions:
+            helm:
+              charts: null
+              repositories: null
+            storage:
+              create_default_storage_class: false
+              type: external_storage
+          installConfig:
+            users:
+              etcdUser: etcd
+              kineUser: kube-apiserver
+              konnectivityUser: konnectivity-server
+              kubeAPIserverUser: kube-apiserver
+              kubeSchedulerUser: kube-scheduler
+          konnectivity:
+            adminPort: <span style="color:#ae81ff">8133</span>
+            agentPort: <span style="color:#ae81ff">8132</span>
+          network:
+            calico: null
+            clusterDomain: cluster.local
+            dualStack: <span style="color:#f92672">{}</span>
+            kubeProxy:
+              iptables:
+                minSyncPeriod: 0s
+                syncPeriod: 0s
+              ipvs:
+                minSyncPeriod: 0s
+                syncPeriod: 0s
+                tcpFinTimeout: 0s
+                tcpTimeout: 0s
+                udpTimeout: 0s
+              metricsBindAddress: 0.0.0.0:10249
+              mode: iptables
+            kuberouter:
+              autoMTU: true
+              hairpin: Enabled
+              ipMasq: false
+              metricsPort: <span style="color:#ae81ff">8080</span>
+              mtu: <span style="color:#ae81ff">0</span>
+              peerRouterASNs: <span style="color:#e6db74">&#34;&#34;</span>
+              peerRouterIPs: <span style="color:#e6db74">&#34;&#34;</span>
+            nodeLocalLoadBalancing:
+              envoyProxy:
+                apiServerBindPort: <span style="color:#ae81ff">7443</span>
+                image:
+                  image: quay.io/k0sproject/envoy-distroless
+                  version: v1.24.1
+                konnectivityServerBindPort: <span style="color:#ae81ff">7132</span>
+              type: EnvoyProxy
+            podCIDR: 10.244.0.0/16
+            provider: kuberouter
+            serviceCIDR: 10.96.0.0/12
+          scheduler: <span style="color:#f92672">{}</span>
+          storage:
+            type: etcd
+          telemetry:
+            enabled: true
+        status: <span style="color:#f92672">{}</span>
+</code></pre></div><h1 id="containerd">containerd</h1>
 <h1 id="crio">crio</h1>
 <h1 id="distribution-registry">distribution registry</h1>
 <h1 id="zot-registry">zot registry</h1>

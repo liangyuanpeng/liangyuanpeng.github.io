@@ -13,7 +13,7 @@
       <pubDate>Mon, 15 Nov 2021 00:00:00 +0000</pubDate>
       
       <guid>https://liangyuanpeng.github.io/post/service-lank8s.cn/</guid>
-      <description>Hi there 👋 国内安装K8S基本镜像站&amp;mdash;&amp;gt; lank8s.cn 欢迎使用，有问题/建议都可以加我微信交流，在博客底部可以找到我的微信联系方式 :) lank</description>
+      <description>Hi there 👋 国内安装K8S基本镜像站&amp;mdash;&amp;gt; lank8s.cn lank8s.cn 服务是什么 lank8s.cn的使命是希望国内能够更低门槛的学习 Kubernetes 技术! 在微软的镜像代</description>
     </item>
     
     <item>
@@ -274,7 +274,7 @@
       <pubDate>Wed, 22 Feb 2023 00:00:00 +0000</pubDate>
       
       <guid>https://liangyuanpeng.github.io/post/pull-gcr-k8s-image-with-lank8s/</guid>
-      <description>前言 本文接下来所有配置都是基于 lank8s服务来做的. containerd crio distribution registry zot registry harbor docker docker pull registry.lank8s.cn/kube-apiserver:v1.26.0 kubeadm</description>
+      <description>前言 本文接下来所有配置都是基于 lank8s服务来做的. 在习惯了 kind 创建 kubernetes 集群后再次尝试了另外的搭建 kubernetes 集群工具: Talos 和 K0s,深深的感受到 Kind 将常用</description>
     </item>
     
     <item>

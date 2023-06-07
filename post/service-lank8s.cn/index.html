@@ -616,7 +616,7 @@
 
 
 
-                            阅读 </span></span>|<span class="post-date">共2090字</span>，阅读约<span class="more-meta"> 5 分钟</span>
+                            阅读 </span></span>|<span class="post-date">共2105字</span>，阅读约<span class="more-meta"> 5 分钟</span>
                         
                     </span>
                 </div>
@@ -649,7 +649,6 @@
 
   <ul>
     <li><a href="#为-us-central1-dockerpkgdev-提供镜像服务8元3个月">为 us-central1-docker.pkg.dev 提供镜像服务,8元3个月.</a></li>
-    <li><a href="#代理-apigithubcom">代理 api.github.com</a></li>
   </ul>
 </nav>
 		
@@ -658,14 +657,16 @@
 <blockquote>
 <p>国内安装K8S基本镜像站&mdash;&gt; lank8s.cn</p>
 </blockquote>
-<p>欢迎使用，有问题/建议都可以加我微信交流，在博客底部可以找到我的微信联系方式 :)</p>
+<h1 id="lank8scn-服务是什么">lank8s.cn 服务是什么</h1>
 <p><code>lank8s.cn</code>的使命是希望国内能够更低门槛的学习 Kubernetes 技术!</p>
-<p>在微软的镜像代理节点还可用的时候,<code>azk8s.cn</code>一直是一个很好的选择,但是2020年上半年微软不再对外提供azk8s服务,只对微软云的国内服务器提供服务,非常的遗憾。</p>
-<p>在这样一个背景下我创立了 <code>lank8s.cn</code>,目前只提供搭建K8S所需要的最基本的镜像,希望国内技术人在学习K8S之初能够很好的进行一个 Kubernetes 的 Hello World!</p>
-<p>使用的方式也非常简单,如果使用了 kubeadm 来进行搭建K8S集群,只需要一行命令就可以快速开始：</p>
+<p>在微软的镜像代理节点还可用的时候,<code>azk8s.cn</code>一直是一个很好的选择,但是2020年上半年微软不再对外提供 azk8s 服务,只对微软云的国内服务器提供服务,非常的遗憾。</p>
+<p>在这样一个背景下我创立了 <code>lank8s.cn</code>,目前只提供搭建K8S所需要的最基本的镜像,希望国内技术人在学习 kubernetes 之初能够很好的进行一个 Kubernetes 的 Hello World!</p>
+<p>使用的方式也非常简单,如果使用了 kubeadm 来进行搭建 kubernetes 集群,只需要一行命令就可以快速开始：</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">kubeadm init --image-repository<span style="color:#f92672">=</span>lank8s.cn --kubernetes-version<span style="color:#f92672">=</span>v1.17.4 --pod-network-cidr<span style="color:#f92672">=</span>10.244.0.0/16 --service-cidr<span style="color:#f92672">=</span>10.96.0.0/12 --ignore-preflight-errors<span style="color:#f92672">=</span>Swap 
 </code></pre></div><p>其中使用 image-repository 参数指定镜像的仓库为<code>lank8s.cn</code>即可.</p>
 <p>上述例子是部署一个 1.17.4 版本的 K8S ,如需其他版本可自行修改.</p>
+<p>自 2020年7月份到现在，lank8s 服务已经运行了3年了!</p>
+<p>欢迎使用，有问题/建议都可以加我微信交流，在博客底部可以找到我的微信联系方式 :)</p>
 <h1 id="lank8scn和registryaliyuncscomgoogle_containers的区别">lank8s.cn和registry.aliyuncs.com/google_containers的区别</h1>
 <p>registry.aliyuncs.com/google_containers 是定时同步kubernetes的镜像到阿里镜像仓库服务的,但只是K8S组件的镜像,可以看下和 lank8s.cn 的对比:</p>
 <table>
@@ -772,8 +773,6 @@
 <ul>
 <li><a href="https://docs.robusta.dev">https://docs.robusta.dev</a>  kubernetes的可观测性监控方案</li>
 </ul>
-<h2 id="代理-apigithubcom">代理 api.github.com</h2>
-<p>加我微信与我联系:)</p>
 <h1 id="接受赞助">接受赞助</h1>
 <p>为了提供更好的服务,<code>lank8s.cn</code>服务接受赞助,我承诺所有赞助都只会用于优化<code>lank8s.cn</code>服务.点击本文下方的赞助按钮开始赞助:)</p>
 
