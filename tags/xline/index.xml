@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>xline on Hi,I`m lan</title>
+    <link>https://liangyuanpeng.github.io/tags/xline/</link>
+    <description>Recent content in xline on Hi,I`m lan</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 12 Mar 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://liangyuanpeng.github.io/tags/xline/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>用kind搭建k8s集群环境</title>
+      <link>https://liangyuanpeng.github.io/post/run-k8s-with-kind/</link>
+      <pubDate>Sun, 12 Mar 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://liangyuanpeng.github.io/post/run-k8s-with-kind/</guid>
+      <description>前言 由于各类基于 kubernetes 的云原生实验或测试的前提都是需要一个 kubernetes 环境,而在写博客时总是需要提及使用 Kind 来搭建 kubernetes 环境. 因此这里单独写一篇文章来介绍如何用</description>
+    </item>
+    
+  </channel>
+</rss>
