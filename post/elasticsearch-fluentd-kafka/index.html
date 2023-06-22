@@ -484,7 +484,7 @@
 
 
 
-                            阅读 </span></span>|<span class="post-date">共1304字</span>，阅读约<span class="more-meta"> 3 分钟</span>
+                            阅读 </span></span>|<span class="post-date">共1117字</span>，阅读约<span class="more-meta"> 3 分钟</span>
                         
                     </span>
                 </div>
@@ -527,49 +527,45 @@
 <ol>
 <li><a href="https://www.docker.com/get-started">docker</a></li>
 <li><a href="https://github.com/docker/compose">docker-compose</a></li>
-<li><a href="https://liangyuanpeng.com/post/docker-deploy-kafka/">apache kafka服务</a></li>
+<li>apache kafka服务</li>
 </ol>
 <h1 id="架构">架构</h1>
 <h2 id="数据采集流程">数据采集流程</h2>
-<p>数据的产生使用cadvisor采集容器的监控数据并将数据传输到Kafka.</p>
-<p>数据的传输链路是这样: Cadvisor-&gt;Kafka-&gt;Fluentd-&gt;elasticsearch</p>
+<p>数据的产生使用 cadvisor 采集容器的监控数据并将数据传输到 Kafka.</p>
+<p>数据的传输链路是这样: Cadvisor -&gt; Kafka-&gt;  Fluentd -&gt; elasticsearch</p>
 <p><img src="https://res.cloudinary.com/lyp/image/upload/v1581931896/hugo/blog.github.io/fluentd/cadvisor-kafka-fluentd-es.jpg" alt="https://res.cloudinary.com/lyp/image/upload/v1581931896/hugo/blog.github.io/fluentd/cadvisor-kafka-fluentd-es.jpg"></p>
 <p>每一个服务都可以横向扩展,添加服务到日志系统中.</p>
 <h2 id="配置文件">配置文件</h2>
 <p>docker-compose.yml</p>
-<pre tabindex="0"><code>version: &quot;3.7&quot;
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#f92672">version</span>: <span style="color:#e6db74">&#34;3.7&#34;</span>
 
-services:
+<span style="color:#f92672">services</span>:
   
-  elasticsearch:
-   image: elasticsearch:7.5.1
-   environment:
-    - discovery.type=single-node  #使用单机模式启动
-   ports:
-    - 9200:9200
+  <span style="color:#f92672">elasticsearch</span>:
+   <span style="color:#f92672">image</span>: <span style="color:#ae81ff">elasticsearch:7.5.1</span>
+   <span style="color:#f92672">environment</span>:
+    - <span style="color:#ae81ff">discovery.type=single-node </span> <span style="color:#75715e">#使用单机模式启动</span>
+   <span style="color:#f92672">ports</span>:
+    - <span style="color:#ae81ff">9200</span>:<span style="color:#ae81ff">9200</span>
 
-  cadvisor:
-    image: google/cadvisor
-    command: -storage_driver=kafka -storage_driver_kafka_broker_list=192.168.1.60:9092(kafka服务IP:PORT) -storage_driver_kafka_topic=kafeidou
-    depends_on:
-      - elasticsearch
+  <span style="color:#f92672">cadvisor</span>:
+    <span style="color:#f92672">image</span>: <span style="color:#ae81ff">google/cadvisor</span>
+    <span style="color:#f92672">command</span>: -<span style="color:#ae81ff">storage_driver=kafka -storage_driver_kafka_broker_list=192.168.1.60:9092(kafka服务IP:PORT) -storage_driver_kafka_topic=kafeidou</span>
+    <span style="color:#f92672">depends_on</span>:
+      - <span style="color:#ae81ff">elasticsearch</span>
 
-  fluentd:
-   image: lypgcs/fluentd-es-kafka:v1.3.2
-   volumes:
-    - ./:/etc/fluent
-    - /var/log/fluentd:/var/log/fluentd
-</code></pre><p>其中:</p>
+  <span style="color:#f92672">fluentd</span>:
+   <span style="color:#f92672">image</span>: <span style="color:#ae81ff">lypgcs/fluentd-es-kafka:v1.3.2</span>
+   <span style="color:#f92672">volumes</span>:
+    - <span style="color:#ae81ff">./:/etc/fluent</span>
+    - <span style="color:#ae81ff">/var/log/fluentd:/var/log/fluentd</span>
+</code></pre></div><p>其中:</p>
 <ol>
-<li>cadvisor产生的数据会传输到192.168.1.60这台机器的kafka服务,topic为kafeidou</li>
-<li>elasticsearch指定为单机模式启动(<code>discovery.type=single-node</code>环境变量),单机模式启动是为了方便实验整体效果</li>
+<li>cadvisor 产生的数据会传输到 192.168.1.60 这台机器的 kafka 服务,topic 为 kafeidou</li>
+<li>elasticsearch 指定为单机模式启动(<code>discovery.type=single-node</code>环境变量),单机模式启动是为了方便实验整体效果</li>
 </ol>
 <p>fluent.conf</p>
-<pre tabindex="0"><code>#&lt;source&gt;
-#  type http
-#  port 8888
-#&lt;/source&gt;
-
+<pre tabindex="0"><code class="language-conf" data-lang="conf">
 &lt;source&gt;
   @type kafka
   brokers 192.168.1.60:9092
@@ -581,10 +577,6 @@ services:
 
 &lt;match **&gt;
   @type copy
-
-#  &lt;store&gt;
-#   @type stdout
-#  &lt;/store&gt;
 
   &lt;store&gt;
   @type elasticsearch
@@ -602,31 +594,31 @@ services:
 </code></pre><p>其中:</p>
 <ol>
 <li>
-<p>type为copy的插件是为了能够将fluentd接收到的数据复制一份,是为了方便调试,将数据打印在控制台或者存储到文件中,这个配置文件默认关闭了,只提供必要的es输出插件.<br>
+<p>type 为 copy 的插件是为了能够将 fluentd 接收到的数据复制一份,是为了方便调试,将数据打印在控制台或者存储到文件中,这个配置文件默认关闭了,只提供必要的 es 输出插件.<br>
 需要时可以将<code>@type stdout</code>这一块打开,调试是否接收到数据.</p>
 </li>
 <li>
-<p>输入源也配置了一个http的输入配置,默认关闭,也是用于调试,往fluentd放入数据.<br>
-可以在linux上执行下面这条命令:</p>
+<p>输入源也配置了一个 http 的输入配置,默认关闭,也是用于调试,往 fluentd 放入数据.<br>
+可以在 linux 上执行下面这条命令:</p>
 </li>
 </ol>
 <pre tabindex="0"><code>curl -i -X POST -d 'json={&quot;action&quot;:&quot;write&quot;,&quot;user&quot;:&quot;kafeidou&quot;}' http://localhost:8888/mytag
 </code></pre><ol start="3">
-<li>target_index_key参数,这个参数是将数据中的某个字段对应的值作为es的索引,例如这个配置文件用的是machine_name这个字段内的值作为es的索引.</li>
+<li>target_index_key 参数,这个参数是将数据中的某个字段对应的值作为 es 的索引,例如这个配置文件用的是 machine_name 这个字段内的值作为es的索引.</li>
 </ol>
 <h3 id="开始部署">开始部署</h3>
-<p>在包含docker-compose.yml文件和fluent.conf文件的目录下执行:<br>
-<code>docker-compose up -d</code></p>
-<p>在查看所有容器都正常工作之后可以查看一下elasticsearch是否生成了预期中的数据作为验证,这里使用查看es的索引是否有生成以及数据数量来验证:</p>
-<pre tabindex="0"><code>-bash: -: 未找到命令
-[root@master kafka]# curl http://192.168.1.60:9200/_cat/indices?v
+<p>在包含 docker-compose.yml 文件和 fluent.conf 文件的目录下执行:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">docker-compose up -d
+</code></pre></div><p>在查看所有容器都正常工作之后可以查看一下 elasticsearch 是否生成了预期中的数据作为验证,这里使用查看es的索引是否有生成以及数据数量来验证:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">-bash: -: 未找到命令
+<span style="color:#f92672">[</span>root@master kafka<span style="color:#f92672">]</span><span style="color:#75715e"># curl http://192.168.1.60:9200/_cat/indices?v</span>
 health status index                                uuid                   pri rep docs.count docs.deleted store.size pri.store.size
-yellow open   55a4a25feff6                         Fz_5v3suRSasX_Olsp-4tA   1   1       1            0      4kb            4kb
-</code></pre><p>也可以直接在浏览器输入<code> http://192.168.1.60:9200/_cat/indices?v</code>查看结果,会更方便.</p>
+yellow open   55a4a25feff6                         Fz_5v3suRSasX_Olsp-4tA   <span style="color:#ae81ff">1</span>   <span style="color:#ae81ff">1</span>       <span style="color:#ae81ff">1</span>            <span style="color:#ae81ff">0</span>      4kb            4kb
+</code></pre></div><p>也可以直接在浏览器输入<code> http://192.168.1.60:9200/_cat/indices?v</code>查看结果,会更方便.</p>
 <p>可以看到我这里是用了machine_name这个字段作为索引值,查询的结果是生成了一个叫<code>55a4a25feff6</code>的索引数据,生成了1条数据(<code>docs.count</code>)</p>
 <p>到目前为止<code>kafka-&gt;fluentd-&gt;es</code>这样一个日志收集流程就搭建完成了.</p>
 <p>当然了,架构不是固定的.也可以使用<code>fluentd-&gt;kafka-&gt;es</code>这样的方式进行收集数据.这里不做演示了,无非是修改一下fluentd.conf配置文件,将es和kafka相关的配置做一下对应的位置调换就可以了.</p>
-<p>鼓励多看官方文档,在github或fluentd官网上都可以查找到fluentd-es插件和fluentd-kafka插件.</p>
+<p>鼓励多看官方文档,在 github 或 fluentd 官网上都可以查找到 fluentd-es 插件和 fluentd-kafka 插件.</p>
 
 
         <h2>微信公众号</h2>
