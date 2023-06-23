@@ -360,7 +360,7 @@
 
 
 
-                            阅读 </span></span>|<span class="post-date">共720字</span>，阅读约<span class="more-meta"> 2 分钟</span>
+                            阅读 </span></span>|<span class="post-date">共852字</span>，阅读约<span class="more-meta"> 2 分钟</span>
                         
                     </span>
                 </div>
@@ -400,6 +400,14 @@
 </span><span style="color:#ae81ff"></span>    --registry-mirror gcr.io<span style="color:#f92672">=</span>http://172.17.0.1:5003 <span style="color:#ae81ff">\
 </span><span style="color:#ae81ff"></span>    --image ghcr.io/siderolabs/talos:v1.4.5 --install-image ghcr.io/siderolabs/installer:v1.4.5
 </code></pre></div><h1 id="kind">Kind</h1>
+<p>由于 Kind 使用的 CRI 是 containerd，因此如果你熟悉 containerd 的配置方式的话，那么为 Kind 配置镜像仓库会显得很容易,关键配置如下:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#f92672">containerdConfigPatches</span>:
+- |-<span style="color:#e6db74">
+</span><span style="color:#e6db74">  [plugins.&#34;io.containerd.grpc.v1.cri&#34;.registry.mirrors.&#34;gcr.io&#34;]
+</span><span style="color:#e6db74">    endpoint = [&#34;https://gcr.lank8s.cn&#34;]
+</span><span style="color:#e6db74">  [plugins.&#34;io.containerd.grpc.v1.cri&#34;.registry.mirrors.&#34;registry.k8s.io&#34;]
+</span><span style="color:#e6db74">    endpoint = [&#34;https://registry.lank8s.cn&#34;]</span>  
+</code></pre></div><p>具体可以看看<a href="https://liangyuanpeng.com/post/run-k8s-with-kind/">用kind搭建k8s集群环境</a></p>
 <h1 id="k0s">k0s</h1>
 <p>k3s 将 kubernetes 基本的组件都打包成一个二进制，然而依然需要 kubelet 和 CRI CNI 等运行时，而 K0s 这个项目将所有内容都打包成一个单一的二进制，也是挺有意思的。</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">version: <span style="color:#e6db74">&#34;3.9&#34;</span>
@@ -514,13 +522,30 @@ services:
             enabled: true
         status: <span style="color:#f92672">{}</span>
 </code></pre></div><h1 id="containerd">containerd</h1>
+<h1 id="k3s">K3s</h1>
 <h1 id="crio">crio</h1>
+<p>关键配置如下:</p>
+<pre tabindex="0"><code>[[registry]]
+location = &quot;gcr.io&quot;
+
+[[registry.mirror]]
+location = &quot;gcr.lank8s.cn&quot;
+
+
+[[registry]]
+location = &quot;registry.k8s.io&quot;
+
+[[registry.mirror]]
+location = &quot;registry.lank8s.cn&quot;
+</code></pre><p>官方文档: <a href="https://github.com/containers/image/blob/main/docs/containers-registries.conf.5.md">https://github.com/containers/image/blob/main/docs/containers-registries.conf.5.md</a></p>
 <h1 id="distribution-registry">distribution registry</h1>
 <h1 id="zot-registry">zot registry</h1>
 <h1 id="harbor">harbor</h1>
 <h1 id="docker">docker</h1>
 <p>docker pull registry.lank8s.cn/kube-apiserver:v1.26.0</p>
 <h1 id="kubeadm">kubeadm</h1>
+<p>将 <code>image-repository</code> 参数指向 <code>registry.lank8s.cn</code> 即可.</p>
+<p>kubeadm init  &ndash;image-repository=registry.lank8s.cn</p>
 
 
         <h2>微信公众号</h2>
