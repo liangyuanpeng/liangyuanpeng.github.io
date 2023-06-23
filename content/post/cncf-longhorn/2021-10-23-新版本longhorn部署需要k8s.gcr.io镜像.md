@@ -180,4 +180,4 @@ longhorn-ui-75ccbd4695-c9rn6                1/1     Running   0          97s
 
 # 更新:看看国内如何拉取gcr.io和registry.k8s.io镜像的
 
-[传送门:国内环境拉取gcr和k8s镜像](https://liangyuanpeng.com/post/cncf-k8s/pull-gcr-k8s-image-with-lank8s/)
+[传送门:国内环境拉取gcr和k8s镜像](https://liangyuanpeng.com/post/pull-gcr-k8s-image-with-lank8s/)
