@@ -5,7 +5,7 @@ title:      "argoworkflow 云原生工作流引擎"
 subtitle:   ""
 description: ""
 date:       2023-05-28
-author:     "梁远鹏"
+author:     "云原生社区"
 image: "/img/banner-pexels.jpg"
 published: true
 tags:
@@ -18,6 +18,8 @@ categories:
     - kubernetes
 ---    
 
+> 注：本文已投稿至[云原生社区](https://cloudnative.to/)，因此作者填写为云原生社区
+
 # Argo workflow 是什么
 
 老牌的工作流工具 Jenkins 应该是大部分人都接触过的，而在云原生时代，诞生了两大工作流工具/框架，也就是 Argo Workflow 和 Tekton，本文主要介绍一下 Argo Workflow.
@@ -28,11 +30,11 @@ Argo Workflow 是一个云原生的工作流引擎，基于 kubernetes 来做编
 
 基于 Argo Workflow 可以完成一些比较复杂的工作流，下面是一个来自某个 issue 的图：
 
-！[issue_workflow]（/img/blog/cncf/argo/workflow/issue_workflow.png）
+！[复杂CI]（/img/blog/cncf/argo/workflow/issue_workflow.png）
 
 ## 架构概览
 
-！[overview]（/img/blog/cncf/argo/workflow/overview.jpeg）
+！[架构概览]（/img/blog/cncf/argo/workflow/overview.jpeg）
 
 在 Argo Workflow 中，每一个 step/dag task 就是一个 pod 中的容器，最基础的 pod 会有 1 个 init 容器和两个工作容器，其中 init 容器和主容器都是 argoproj/argoexec 容器，另一个则是 step 中需要使用的容器，也就是实际执行内容的容器，在pod  中充当 sidecar.
 
