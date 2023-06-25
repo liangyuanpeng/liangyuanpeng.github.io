@@ -16,12 +16,15 @@ categories:
     - cloudnative
 ---
 
+> 虽然 jdk17 也是一个 TLS 版本,但这次升级更多的是为了后续升级 jdk21 做准备,拥有虚拟线程的 jdk21 将会是改变大局的版本!
+
 
 # 说明
 
 springboot3 宣布将最低支持 jdk17,从框架上推动 java 用户来升级 jdk,太酷啦!! 虽然这种操作很有可能引来群怒,但对于springboot3的这波操作来说,我很认同,如果你的项目依然使用 jdk8 而不使用 jdk17,那么你继续使用 springboot2.x 就可以了,和最新技术说拜拜.而对于想要体验新技术的人则建议使用 springboot3,框架语法也会使用新版本语法,而不是被 jdk8 所限制.
 
 在你的项目中升级 springboot3 总得有一个值得升级的动力,对于我们项目来说,最值得期待的是 springboot3 支持 graalvm,同时 graalvm 也是 springboot3 的一个重大特性,非常值得一试.升级的目的主要是希望能够节省内存开销,虽然可以将多个项目丢到 Tomcat 中运行, Tomcat 也支持热更新,因此可以独立部署对应的微小服务,但我更推崇云原生不可变设施的理念,将每个服务打包成独立的容器镜像显然是更好的.
+
 
 本文记录从 springboot2.4x.x 升级到 springboot3.1.0 过程中遇到的问题.
 
@@ -102,3 +105,15 @@ spring6 删除了这个对象.
 
 解决方案: javax.mail 更新为 jakarta.mail
 
+# 使用Graalvm打包可执行文件容器镜像
+
+重头戏来了:使用Graalvm打包可执行文件容器镜像,由于我升级springboot3 的目的就是为了使用 graalvm 打包容器镜像, 因此比起升级的过程,这才是真正的重头戏.
+
+springboot3 已经提供了 maven 插件来基于 graalvm 打包,底层使用的是 buildpacks,但我仍然更喜欢 Jib 来打包 java 应用,因为它不需要 Docker 后台服务,因此在常用的 windows 开发环境也可以很方便的使用.
+
+
+
+在可预见的未来还会有两篇相关的文章出炉,敬请期待:
+
+- springboot buildpacks 打包容器镜像
+- jdk21 虚拟线程尝鲜!
