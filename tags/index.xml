@@ -6,7 +6,25 @@
     <description>Recent content in Tags on Hi,I`m lan</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 28 May 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://liangyuanpeng.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 25 Jun 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://liangyuanpeng.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>java</title>
+      <link>https://liangyuanpeng.github.io/tags/java/</link>
+      <pubDate>Sun, 25 Jun 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://liangyuanpeng.github.io/tags/java/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>springboot3</title>
+      <link>https://liangyuanpeng.github.io/tags/springboot3/</link>
+      <pubDate>Sun, 25 Jun 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://liangyuanpeng.github.io/tags/springboot3/</guid>
+      <description></description>
+    </item>
+    
     <item>
       <title>argo</title>
       <link>https://liangyuanpeng.github.io/tags/argo/</link>
@@ -751,15 +769,6 @@
       <pubDate>Wed, 12 May 2021 00:00:00 +0000</pubDate>
       
       <guid>https://liangyuanpeng.github.io/tags/bookeeper/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>java</title>
-      <link>https://liangyuanpeng.github.io/tags/java/</link>
-      <pubDate>Tue, 04 May 2021 00:00:00 +0000</pubDate>
-      
-      <guid>https://liangyuanpeng.github.io/tags/java/</guid>
       <description></description>
     </item>
     

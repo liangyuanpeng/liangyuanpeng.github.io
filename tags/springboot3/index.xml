@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>springboot3 on Hi,I`m lan</title>
+    <link>https://liangyuanpeng.github.io/tags/springboot3/</link>
+    <description>Recent content in springboot3 on Hi,I`m lan</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 25 Jun 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://liangyuanpeng.github.io/tags/springboot3/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>记一次springboot3的升级之旅</title>
+      <link>https://liangyuanpeng.github.io/post/write-note-for-upgrade-to-springboot3/</link>
+      <pubDate>Sun, 25 Jun 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://liangyuanpeng.github.io/post/write-note-for-upgrade-to-springboot3/</guid>
+      <description>说明 springboot3 宣布将最低支持 jdk17,从框架上推动 java 用户来升级 jdk,太酷啦!! 虽然这种操作很有可能引来群怒,但对于springboot3的这波操</description>
+    </item>
+    
+  </channel>
+</rss>
