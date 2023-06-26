@@ -45,27 +45,3 @@ jobs:
       - name: Build Hugo
         run: |
           sh build.sh
-
-      # - name: Upload artifact
-      #   uses: actions/upload-artifact@v3
-      #   with:
-      #     name: hugoblog
-      #     path: public
-
-      # - name: Build Hugo
-      #   run: |
-      #     rm -rf public
-
-      # - uses: actions/download-artifact@v3
-      #   id: download
-      #   with:
-      #     name: hugoblog
-      #     path: public
-
-      # - name: Build Hugo
-      #   run: |
-      #     ls
-      #     pwd
-      #     echo "downloadpath:" ${{steps.download.outputs.download-path}}
-      #     ls ${{steps.download.outputs.download-path}}
-      #     ls public
