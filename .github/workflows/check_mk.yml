@@ -7,7 +7,7 @@ on:
 
   schedule:
   # Run everyday at 9:00 AM (See https://pubs.opengroup.org/onlinepubs/9699919799/utilities/crontab.html#tag_20_25_07)
-  - cron: "0 9 * * *"
+  - cron: "0 3,4,5,9 * * *"
 
 jobs:
   markdown-link-check:
@@ -20,3 +20,17 @@ jobs:
         use-verbose-mode: 'yes'
         # config-file: 'mlc_config.json'
         # folder-path: 'docs/markdown_files'
+
+    - name: print1
+      if: github.event.schedule != ''
+      run: |
+        echo "this is a schedule action"
+
+    - name: print2
+      run: |
+        echo ${{ github.event }}
+
+    - name: print3
+      run: |
+        echo ${{ toJSON(github.event) }}
+        
