@@ -102,3 +102,51 @@ spring6 删除了这个对象.
 
 解决方案: javax.mail 更新为 jakarta.mail
 
+## incompatible types: @org.checkerframework.checker.nullness.qual.NonNull java.lang.Object cannot be converted to K
+
+使用 caffeine cache 时封装了一层，之前的版本支持当前泛型为K,使用与 caffeine 库相同的 @NonNull 为传参限制不为空这个注解时支持传参为 Object 类型,现在必须与泛型相同,不确认是 jdk17 的原因还是这个注解/caffeine 库高版本的问题.
+
+解决方案: 更新传参 Object 类型为泛型
+
+## java.lang.NoSuchMethodError: 'boolean com.google.protobuf.GeneratedMessageV3.isStringEmpty(java.lang.Object)'
+
+这个似乎是因为项目中使用的 protobuf 版本太低了,升级了较新的版本后依然存在.
+
+临时解决方案: 关闭了自动注入的 otlp.
+
+```yaml
+management:
+  otlp:
+    metrics:
+      export:
+        enabled: false
+```
+
+## required a bean of type 'org.springframework.cloud.openfeign.FeignContext' that could not be found.
+
+解决方案:升级了 springcloud 和 openfeign 版本
+
+## JDK 17: InaccessibleObjectException when deserialized class has java.time.Instant field
+
+使用 gson 反序列化时对象中有 java.time.Instant 类型字段, jdk17 中 gson 不支持这个类型,需要自己添加自定义反序列化器处理.  
+
+相关 issue:
+- https://github.com/google/gson/issues/1996
+- https://github.com/google/gson/issues/1996
+- https://github.com/google/gson/issues/1526
+
+解决方案: 重新审查了项目代码,这个字段是不必要的,优化了代码避免了这个问题.
+
+
+## springfox 报错 (报错堆栈忘记保留了)
+
+原因是 springfox 2020年已经停止维护了.
+
+解决方案: 使用 springdoc 代替.
+
+
+## Flink 本地任务执行报序列化错误
+
+Flink 任务还不支持 jdk17,master分支已经支持 还没发布.
+
+解决方案: 自己安装 master 分支代码到本地.
