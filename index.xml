@@ -814,7 +814,7 @@
       <pubDate>Tue, 04 May 2021 00:00:00 +0000</pubDate>
       
       <guid>https://liangyuanpeng.github.io/post/question-list-of-java/</guid>
-      <description>说明 本文主要收集 java 遇到的一些常见问题,欢迎对本文进行投稿你认为好的场景或问题.</description>
+      <description>说明 本文主要收集 java 遇到的一些常见问题,欢迎对本文进行投稿你认为好的场景或问题. 问题来了 使用jdk17时立刻堆栈报错提示内存不足 VM Arguments: jvm_args: -Xmx1G -XX:+UnlockExperimentalVMOptions -XX:ErrorFile=/usr/local/lan/logs/parser/hs_err.log -XX:HeapDumpPath=/usr/local/lan/dumps/parser</description>
     </item>
     
     <item>

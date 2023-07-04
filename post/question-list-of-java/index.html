@@ -230,7 +230,7 @@
 
 
 
-                            阅读 </span></span>|<span class="post-date">共39字</span>，阅读约<span class="more-meta"> 1 分钟</span>
+                            阅读 </span></span>|<span class="post-date">共1006字</span>，阅读约<span class="more-meta"> 3 分钟</span>
                         
                     </span>
                 </div>
@@ -255,11 +255,201 @@
                 <header>
                 <h2>TOC</h2>
                 </header>
-                <nav id="TableOfContents"></nav>
+                <nav id="TableOfContents">
+  <ul>
+    <li><a href="#使用jdk17时立刻堆栈报错提示内存不足">使用jdk17时立刻堆栈报错提示内存不足</a></li>
+  </ul>
+</nav>
 		
 
 		<h1 id="说明">说明</h1>
 <p>本文主要收集 java 遇到的一些常见问题,欢迎对本文进行投稿你认为好的场景或问题.</p>
+<h1 id="问题来了">问题来了</h1>
+<h2 id="使用jdk17时立刻堆栈报错提示内存不足">使用jdk17时立刻堆栈报错提示内存不足</h2>
+<pre tabindex="0"><code>VM Arguments:
+jvm_args: -Xmx1G -XX:+UnlockExperimentalVMOptions -XX:ErrorFile=/usr/local/lan/logs/parser/hs_err.log -XX:HeapDumpPath=/usr/local/lan/dumps/parser 
+java_command: com.lan.parser.YdcApplication
+java_class_path (initial): /usr/local/tomcat/webapps/ROOT/resources:/usr/local/tomcat/webapps/ROOT/classes:/usr/local/tomcat/webapps/ROOT/libs/aircompressor-0.20.jar:/usr/local/tomcat/webapps/ROOT/libs/pagehelper-spring-boot-autoconfigure-1.2.12.jar:/usr/local/tomcat/webapps/ROOT/libs/commons-pool2-2.9.0.jar:/usr/local/tomcat/webapps/ROOT/libs/persistence-api-1.0.jar:/usr/local/tomcat/webapps/ROOT/libs/jersey-common-2.32.jar:/usr/local/tomcat/webapps/ROOT/libs/spring-oxm-5.3.13.jar:/usr/local/tomcat/webapps/ROOT/libs/feign-slf4j-10.12.jar:/usr/local/tomcat/webapps/ROOT/libs/jakarta.inject-api-2.0.1.jar:/usr/local/tomcat/webapps/ROOT/libs/json-20180130.jar:/usr/local/tomcat/webapps/ROOT/libs/jersey-client-2.32.jar:/usr/local/tomcat/webapps/ROOT/libs/opentelemetry-context-1.17.0.jar:/usr/local/tomcat/webapps/ROOT/libs/logback-classic-1.2.7.jar:/usr/local/tomcat/webapps/ROOT/libs/micrometer-registry-otlp-1.9.4.jar:/usr/local/tomcat/webapps/ROOT/libs/j2objc-annotations-1.1.jar:/usr/local/tomcat/webapps/ROOT/libs/netty-transport-native-unix-common-4.1.70.Final.jar:/usr/local/tomcat/webapps/ROOT/libs/netty-handler-proxy-4.1.70.Final.jar:/usr/local/tomcat/webapps/ROOT/libs/mysql-connector-java-5.1.42.jar:/usr/local/tomcat/webapps/ROOT/libs/druid-spring-boot-starter-1.2.11.jar:/usr/local/tomcat/webapps/ROOT/libs/commons-codec-1.15.jar:/usr/local/tomcat/webapps/ROOT/libs/slf4j-api-1.7.32.jar:/usr/local/tomcat/webapps/ROOT/libs/jcip-annotations-1.0.jar:/usr/local/tomcat/webapps/ROOT/libs/druid-1.2.11.jar:/usr/local/tomcat/webapps/ROOT/libs/commons-math3-3.6.1.jar:/usr/local/tomcat/webapps/ROOT/libs/snappy-java-1.1.8.4.jar:/usr/local/tomcat/webapps/ROOT/libs/pulsar-client-api-2.10.0.jar:/usr/local/tomcat/webapps/ROOT/libs/opentelemetry-proto-0.16.0-alpha.jar:/usr/local/tomcat/webapps/ROOT/libs/metrics-core-4.1.26.jar:/usr/local/tomcat/webapps/ROOT/libs/hivemq-mqtt-client-1.2.0.jar:/usr/local/tomcat/webapps/ROOT/libs/spring-webmvc-5.3.13.jar:/usr/local/tomcat/webapps/ROOT/lib
+Launcher Type: SUN_STANDARD
+
+[Global flags]
+     intx CICompilerCount                          = 2                                         {product} {ergonomic}
+     uint ConcGCThreads                            = 1                                         {product} {ergonomic}
+    ccstr ErrorFile                                = /usr/local/lan/logs/parser/hs_err.log            {product} {command line}
+     uint G1ConcRefinementThreads                  = 2                                         {product} {ergonomic}
+     uint G1EagerReclaimRemSetThreshold            = 8                                    {experimental} {ergonomic}
+   size_t G1HeapRegionSize                         = 1048576                                   {product} {ergonomic}
+    uintx GCDrainStackTargetSize                   = 64                                        {product} {ergonomic}
+    ccstr HeapDumpPath                             = /usr/local/lan/dumps/parser         {manageable} {command line}
+   size_t InitialHeapSize                          = 130023424                                 {product} {ergonomic}
+   size_t MarkStackSize                            = 4194304                                   {product} {ergonomic}
+   size_t MaxHeapSize                              = 1073741824                                {product} {command line}
+   size_t MinHeapDeltaBytes                        = 1048576                                   {product} {ergonomic}
+   size_t MinHeapSize                              = 8388608                                   {product} {ergonomic}
+    uintx NonNMethodCodeHeapSize                   = 5826188                                {pd product} {ergonomic}
+    uintx NonProfiledCodeHeapSize                  = 122916026                              {pd product} {ergonomic}
+    uintx ProfiledCodeHeapSize                     = 122916026                              {pd product} {ergonomic}
+    uintx ReservedCodeCacheSize                    = 251658240                              {pd product} {ergonomic}
+     bool SegmentedCodeCache                       = true                                      {product} {ergonomic}
+   size_t SoftMaxHeapSize                          = 1073741824                             {manageable} {ergonomic}
+     bool UnlockExperimentalVMOptions              = true                                 {experimental} {environment}
+     bool UseCompressedClassPointers               = true                           {product lp64_product} {ergonomic}
+     bool UseCompressedOops                        = true                           {product lp64_product} {ergonomic}
+     bool UseFastUnorderedTimeStamps               = true                                 {experimental} {ergonomic}
+     bool UseG1GC                                  = true                                      {product} {ergonomic}
+
+Logging:
+Log output configuration:
+ #0: stdout all=warning uptime,level,tags
+ #1: stderr all=off uptime,level,tags
+
+Environment Variables:
+JAVA_HOME=/opt/java/openjdk
+JAVA_TOOL_OPTIONS=-Xmx1G -XX:+UnlockExperimentalVMOptions
+PATH=/opt/java/openjdk/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+LANG=en_US.UTF-8
+LC_ALL=en_US.UTF-8
+TZ=Asia/Shanghai
+
+Signal Handlers:
+   SIGSEGV: crash_handler in libjvm.so, mask=11100100010111111101111111111110, flags=SA_RESTART|SA_SIGINFO
+    SIGBUS: crash_handler in libjvm.so, mask=11100100010111111101111111111110, flags=SA_RESTART|SA_SIGINFO
+    SIGFPE: crash_handler in libjvm.so, mask=11100100010111111101111111111110, flags=SA_RESTART|SA_SIGINFO
+   SIGPIPE: javaSignalHandler in libjvm.so, mask=11100100010111111101111111111110, flags=SA_RESTART|SA_SIGINFO
+   SIGXFSZ: javaSignalHandler in libjvm.so, mask=11100100010111111101111111111110, flags=SA_RESTART|SA_SIGINFO
+    SIGILL: crash_handler in libjvm.so, mask=11100100010111111101111111111110, flags=SA_RESTART|SA_SIGINFO
+   SIGUSR2: SR_handler in libjvm.so, mask=00000000000000000000000000000000, flags=SA_RESTART|SA_SIGINFO
+    SIGHUP: SIG_DFL, mask=00000000000000000000000000000000, flags=none
+    SIGINT: SIG_DFL, mask=00000000000000000000000000000000, flags=none
+   SIGTERM: SIG_DFL, mask=00000000000000000000000000000000, flags=none
+   SIGQUIT: javaSignalHandler in libjvm.so, mask=11100100010111111101111111111110, flags=SA_RESTART|SA_SIGINFO
+   SIGTRAP: crash_handler in libjvm.so, mask=11100100010111111101111111111110, flags=SA_RESTART|SA_SIGINFO
+
+
+---------------  S Y S T E M  ---------------
+
+OS:
+DISTRIB_ID=Ubuntu
+DISTRIB_RELEASE=22.04
+DISTRIB_CODENAME=jammy
+DISTRIB_DESCRIPTION=&quot;Ubuntu 22.04.1 LTS&quot;
+uname: Linux 3.10.0-1160.71.1.el7.x86_64 #1 SMP Tue Jun 28 15:37:28 UTC 2022 x86_64
+OS uptime: 32 days 20:11 hours
+libc: glibc 2.35 NPTL 2.35 
+rlimit (soft/hard): STACK 8192k/infinity , CORE infinity/infinity , NPROC infinity/infinity , NOFILE 1048576/1048576 , AS infinity/infinity , CPU infinity/infinity , DATA infinity/infinity , FSIZE infinity/infinity , MEMLOCK 64k/64k
+load average: 10.92 11.49 11.05
+
+/proc/meminfo:
+MemTotal:        8008932 kB
+MemFree:          990724 kB
+MemAvailable:    1427868 kB
+Buffers:           19560 kB
+Cached:           813384 kB
+SwapCached:       113108 kB
+Active:          3917744 kB
+Inactive:        2723696 kB
+Active(anon):    3674760 kB
+Inactive(anon):  2198536 kB
+Active(file):     242984 kB
+Inactive(file):   525160 kB
+Unevictable:           4 kB
+Mlocked:               4 kB
+SwapTotal:       8388604 kB
+SwapFree:        4455608 kB
+Dirty:              4816 kB
+Writeback:             0 kB
+AnonPages:       5774248 kB
+Mapped:           170672 kB
+Shmem:             64744 kB
+Slab:             177808 kB
+SReclaimable:     129676 kB
+SUnreclaim:        48132 kB
+KernelStack:       18496 kB
+PageTables:        32676 kB
+NFS_Unstable:          0 kB
+Bounce:                0 kB
+WritebackTmp:          0 kB
+CommitLimit:    12393068 kB
+Committed_AS:   13919420 kB
+VmallocTotal:   34359738367 kB
+VmallocUsed:       23220 kB
+VmallocChunk:   34359683124 kB
+Percpu:             1064 kB
+HardwareCorrupted:     0 kB
+AnonHugePages:   1767424 kB
+CmaTotal:              0 kB
+CmaFree:               0 kB
+HugePages_Total:       0
+HugePages_Free:        0
+HugePages_Rsvd:        0
+HugePages_Surp:        0
+Hugepagesize:       2048 kB
+DirectMap4k:      106368 kB
+DirectMap2M:     4087808 kB
+DirectMap1G:     6291456 kB
+
+/sys/kernel/mm/transparent_hugepage/enabled: [always] madvise never
+/sys/kernel/mm/transparent_hugepage/defrag (defrag/compaction efforts parameter): [always] madvise never
+
+Process Memory:
+Virtual Size: 1450120K (peak: 1450120K)
+Resident Set Size: 11900K (peak: 11900K) (anon: 5904K, file: 5996K, shmem: 0K)
+Swapped out: 0K
+C-Heap outstanding allocations: 6701K, retained: 66K
+glibc malloc tunables: (default)
+
+/proc/sys/kernel/threads-max (system-wide limit on the number of threads): 999999
+/proc/sys/vm/max_map_count (maximum number of memory map areas a process may have): 65530
+/proc/sys/kernel/pid_max (system-wide limit on number of process identifiers): 32768
+
+container (cgroup) information:
+container_type: cgroupv1
+cpu_cpuset_cpus: 0-1
+cpu_memory_nodes: 0
+active_processor_count: 2
+cpu_quota: no quota
+cpu_period: 100000
+cpu_shares: no shares
+memory_limit_in_bytes: unlimited
+memory_and_swap_limit_in_bytes: unlimited
+memory_soft_limit_in_bytes: unlimited
+memory_usage_in_bytes: 6124 k
+memory_max_usage_in_bytes: 6124 k
+maximum number of tasks: unlimited
+current number of tasks: 1
+
+KVM virtualization detected
+Steal ticks since vm start: 0
+Steal ticks percentage since vm start:  0.000
+
+CPU: total 2 (initial active 2) (1 cores per cpu, 2 threads per core) family 6 model 79 stepping 1 microcode 0x1, cx8, cmov, fxsr, ht, mmx, 3dnowpref, sse, sse2, sse3, ssse3, sse4.1, sse4.2, popcnt, lzcnt, tsc, tscinvbit, avx, avx2, aes, erms, clmul, bmi1, bmi2, rtm, adx, fma, vzeroupper, clflush, hv
+CPU Model and flags from /proc/cpuinfo:
+model name	: Intel(R) Xeon(R) CPU E5-2682 v4 @ 2.50GHz
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush mmx fxsr sse sse2 ss ht syscall nx pdpe1gb rdtscp lm constant_tsc rep_good nopl nonstop_tsc eagerfpu pni pclmulqdq ssse3 fma cx16 pcid sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand hypervisor lahf_lm abm 3dnowprefetch invpcid_single ibrs ibpb stibp fsgsbase tsc_adjust bmi1 hle avx2 smep bmi2 erms invpcid rtm rdseed adx smap xsaveopt arat spec_ctrl intel_stibp
+
+Online cpus: 0-1
+Offline cpus: 
+BIOS frequency limitation: &lt;Not Available&gt;
+Frequency switch latency (ns): &lt;Not Available&gt;
+Available cpu frequencies: &lt;Not Available&gt;
+Current governor: &lt;Not Available&gt;
+Core performance/turbo boost: &lt;Not Available&gt;
+
+Memory: 4k page, physical 8008932k(990600k free), swap 8388604k(4455608k free)
+Page Sizes: 4k
+
+vm_info: OpenJDK 64-Bit Server VM (17.0.5+8) for linux-amd64 JRE (17.0.5+8), built on Oct 18 2022 00:00:00 by &quot;temurin&quot; with gcc 10.3.0
+
+END.
+</code></pre><p>一个应用程序,同时打包了 jdk11 和 jdk17 的版本,使用 jdk17 时容器无法正常启动,总是提示内存不够.</p>
+<p>一开始也向这个方向排查了一遍,发现不存在内存问题,但跑 jdk17 版本的容器时总是会失败.</p>
+<p>百思不得其解,最终在 stackoverflow 找到了解决的办法.</p>
+<ul>
+<li><a href="https://stackoverflow.com/questions/74443957/insufficient-memory-while-running-eclipse-temurin17-jdk-docker-image">https://stackoverflow.com/questions/74443957/insufficient-memory-while-running-eclipse-temurin17-jdk-docker-image</a></li>
+<li><a href="https://stackoverflow.com/questions/72841549/container-fails-to-start-insufficient-memory-for-the-java-runtime-environment-t/73970043#73970043">https://stackoverflow.com/questions/72841549/container-fails-to-start-insufficient-memory-for-the-java-runtime-environment-t/73970043#73970043</a></li>
+</ul>
+<p>为容器设置 <code>--security-opt seccomp=unconfined</code> 覆盖默认的设置就可以正常启动了.</p>
+<p>根本原因还没有研究.</p>
 
 
         <h2>微信公众号</h2>

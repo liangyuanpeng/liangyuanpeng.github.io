@@ -293,7 +293,7 @@
 
 
 
-                            阅读 </span></span>|<span class="post-date">共1139字</span>，阅读约<span class="more-meta"> 3 分钟</span>
+                            阅读 </span></span>|<span class="post-date">共1545字</span>，阅读约<span class="more-meta"> 4 分钟</span>
                         
                     </span>
                 </div>
@@ -327,6 +327,12 @@
     <li><a href="#commonsmultipartfile-对象没有了">CommonsMultipartFile 对象没有了</a></li>
     <li><a href="#websecurityconfigureradapter-对象没有了">WebSecurityConfigurerAdapter 对象没有了</a></li>
     <li><a href="#javaxmail">javax.mail</a></li>
+    <li><a href="#incompatible-types-orgcheckerframeworkcheckernullnessqualnonnull-javalangobject-cannot-be-converted-to-k">incompatible types: @org.checkerframework.checker.nullness.qual.NonNull java.lang.Object cannot be converted to K</a></li>
+    <li><a href="#javalangnosuchmethoderror-boolean-comgoogleprotobufgeneratedmessagev3isstringemptyjavalangobject">java.lang.NoSuchMethodError: &lsquo;boolean com.google.protobuf.GeneratedMessageV3.isStringEmpty(java.lang.Object)&rsquo;</a></li>
+    <li><a href="#required-a-bean-of-type-orgspringframeworkcloudopenfeignfeigncontext-that-could-not-be-found">required a bean of type &lsquo;org.springframework.cloud.openfeign.FeignContext&rsquo; that could not be found.</a></li>
+    <li><a href="#jdk-17-inaccessibleobjectexception-when-deserialized-class-has-javatimeinstant-field">JDK 17: InaccessibleObjectException when deserialized class has java.time.Instant field</a></li>
+    <li><a href="#springfox-报错-报错堆栈忘记保留了">springfox 报错 (报错堆栈忘记保留了)</a></li>
+    <li><a href="#flink-本地任务执行报序列化错误">Flink 本地任务执行报序列化错误</a></li>
   </ul>
 </nav>
 		
@@ -370,6 +376,34 @@ factory<span style="color:#f92672">.</span><span style="color:#a6e22e">setHttpCl
 <p>解决方案: TDB</p>
 <h2 id="javaxmail">javax.mail</h2>
 <p>解决方案: javax.mail 更新为 jakarta.mail</p>
+<h2 id="incompatible-types-orgcheckerframeworkcheckernullnessqualnonnull-javalangobject-cannot-be-converted-to-k">incompatible types: @org.checkerframework.checker.nullness.qual.NonNull java.lang.Object cannot be converted to K</h2>
+<p>使用 caffeine cache 时封装了一层，之前的版本支持当前泛型为K,使用与 caffeine 库相同的 @NonNull 为传参限制不为空这个注解时支持传参为 Object 类型,现在必须与泛型相同,不确认是 jdk17 的原因还是这个注解/caffeine 库高版本的问题.</p>
+<p>解决方案: 更新传参 Object 类型为泛型</p>
+<h2 id="javalangnosuchmethoderror-boolean-comgoogleprotobufgeneratedmessagev3isstringemptyjavalangobject">java.lang.NoSuchMethodError: &lsquo;boolean com.google.protobuf.GeneratedMessageV3.isStringEmpty(java.lang.Object)&rsquo;</h2>
+<p>这个似乎是因为项目中使用的 protobuf 版本太低了,升级了较新的版本后依然存在.</p>
+<p>临时解决方案: 关闭了自动注入的 otlp.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#f92672">management</span>:
+  <span style="color:#f92672">otlp</span>:
+    <span style="color:#f92672">metrics</span>:
+      <span style="color:#f92672">export</span>:
+        <span style="color:#f92672">enabled</span>: <span style="color:#66d9ef">false</span>
+</code></pre></div><h2 id="required-a-bean-of-type-orgspringframeworkcloudopenfeignfeigncontext-that-could-not-be-found">required a bean of type &lsquo;org.springframework.cloud.openfeign.FeignContext&rsquo; that could not be found.</h2>
+<p>解决方案:升级了 springcloud 和 openfeign 版本</p>
+<h2 id="jdk-17-inaccessibleobjectexception-when-deserialized-class-has-javatimeinstant-field">JDK 17: InaccessibleObjectException when deserialized class has java.time.Instant field</h2>
+<p>使用 gson 反序列化时对象中有 java.time.Instant 类型字段, jdk17 中 gson 不支持这个类型,需要自己添加自定义反序列化器处理.</p>
+<p>相关 issue:</p>
+<ul>
+<li><a href="https://github.com/google/gson/issues/1996">https://github.com/google/gson/issues/1996</a></li>
+<li><a href="https://github.com/google/gson/issues/1996">https://github.com/google/gson/issues/1996</a></li>
+<li><a href="https://github.com/google/gson/issues/1526">https://github.com/google/gson/issues/1526</a></li>
+</ul>
+<p>解决方案: 重新审查了项目代码,这个字段是不必要的,优化了代码避免了这个问题.</p>
+<h2 id="springfox-报错-报错堆栈忘记保留了">springfox 报错 (报错堆栈忘记保留了)</h2>
+<p>原因是 springfox 2020年已经停止维护了.</p>
+<p>解决方案: 使用 springdoc 代替.</p>
+<h2 id="flink-本地任务执行报序列化错误">Flink 本地任务执行报序列化错误</h2>
+<p>Flink 任务还不支持 jdk17,master分支已经支持 还没发布.</p>
+<p>解决方案: 自己安装 master 分支代码到本地.</p>
 
 
         <h2>微信公众号</h2>
