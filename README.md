@@ -32,5 +32,5 @@ git submodule status third_party/ModuleA    #查看子模块状态，即该子�
 git rm --cached ModuleA
 rm -rf moduleA
  
-git submodule set-url third_party/ModuleA https://XXX.git #，更新子模块URL，该功能在1.8.3.1以上版本
+git submodule set-url third_party/ModuleA XXX.git #，更新子模块URL，该功能在1.8.3.1以上版本
 git submodule set-branch --branch dev third_party/ModuleA   #设置子模块项目采用的分支，该功能在1.8.3.1以上版本
