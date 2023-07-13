@@ -104,3 +104,7 @@ https://www.surveymonkey.com/r/etcdusage23
 目前 Xline-kv 组织下共有两个项目, Xline 和 Xline Operator, 都是用 Rust 语言开发,对于 Rust 语言感兴趣的同学可以了解一下.
 
 我对其发展前景持看好态度,但由于是 Rust 语言开发,因此道路可能比较坎坷(社区相对go社区小,门槛比golang高 相关库不够丰富)
+
+## 开始使用 Xline
+
+目前我基于 Kind 搭建的 kubernetes 研究环境已经用上 Xline 了,如果你也想体验只需要将 kube-apiserver 中指向 etcd 的地址修改为 xline 的地址就可以了,也可以将部分数据存储到 Xline 中来浅尝一下,例如通过 xx 参数把 event 数据存储到 Xline 中,而 k8s 中的其他数据依然存储到 etcd 中.
