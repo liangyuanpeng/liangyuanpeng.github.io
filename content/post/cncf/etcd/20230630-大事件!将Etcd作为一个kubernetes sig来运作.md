@@ -83,6 +83,10 @@ TODO：获得 Kubernetes Steering 批准 SIG 所需的事项列表
 也许的
 利用 https://github.com/kubernetes/org 管理成员资格和权限。 目前，这是由 etcd 维护人员手动完成的，没有任何监督和审计。 这是一个安全风险，如果维护人员的笔记本电脑受到威胁，可能会导致灾难性的情况。
 
+# 进展
+
+目前已经在 kubernetes/community 中申请 etcd sigs 见 PR: https://github.com/kubernetes/community/pull/7372
+
 
 # 你都用etcd做了什么?
 
