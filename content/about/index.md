@@ -30,6 +30,7 @@ Hi，我是梁远鹏,云原生开源爱好者.
 
 - 2022-07 | 线上 | pulsar meetup | Pulsar Functions 在智慧城市中的实践 
 - 2022-07 | 线上 | pulsar summit Asia 2022 | Pulsar Functions 在智慧城市中的实践
+- 2023-07-30 | 线上 | 达坦科技DatenLord周日技术分享 | 基于Karmada实现Kubernetes应用跨集群故障转移 | https://www.bilibili.com/video/BV1rN411Y7aZ/?spm_id_from=333.999.0.0
 
 
 # 活动
