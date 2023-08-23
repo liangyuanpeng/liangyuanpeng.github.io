@@ -89,7 +89,7 @@ tags:
 
 22. - [ ] KubeSphere部署最简版，以及日志清理配置  
 
-23. - [x] [prometheus-alertmanager监控系统](https://liangyuanpeng.com/post/cncf-prometheus/prometheus-alertmanager-monitoring-quickstart/)  
+23. - [x] [prometheus-alertmanager监控系统](https://liangyuanpeng.com/post/prometheus-alertmanager-monitoring-quickstart/)  
 
 24. - [ ] 单独使用AlertManager,通过API调用触发告警  
 

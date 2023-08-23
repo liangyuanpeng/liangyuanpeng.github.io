@@ -42,7 +42,7 @@ docker run --rm -e ALGOLIA_ADMIN_KEY=${{ secrets.ALGOLIA_ADMIN_KEY }} -e ALGOLIA
 
 其中相关的参数是放在了 Github Action 的 secrets 当中.  
 
-完整的配置可以看看我是如何配置的[https://github.com/liangyuanpeng/liangyuanpeng.github.io/blob/source/.github/workflows/hugo.yml](https://github.com/liangyuanpeng/liangyuanpeng.github.io/blob/source/.github/workflows/hugo.yml).
+完整的配置可以看看我是如何配置的[https://github.com/liangyuanpeng/liangyuanpeng.github.io/blob/source/.github/workflows/ghpage.yml](https://github.com/liangyuanpeng/liangyuanpeng.github.io/blob/source/.github/workflows/ghpage.yml).
 
 有人问过我这个用于生成 algolia 索引的容器镜像 Dockerfile 在哪里,这个我后来找了一下,还真没找到,不过制作一下应该不会太难,找一个基础镜像然后把 atomic-algolia 命令打包进去就可以了.
 

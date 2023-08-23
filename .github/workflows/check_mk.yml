@@ -5,9 +5,9 @@ on:
     branches:
     - source
 
-  schedule:
-  # Run everyday at 9:00 AM (See https://pubs.opengroup.org/onlinepubs/9699919799/utilities/crontab.html#tag_20_25_07)
-  - cron: "0 3,4,5,6,7,8,9,10,11 * * *"
+  # schedule:
+  # # Run everyday at 9:00 AM (See https://pubs.opengroup.org/onlinepubs/9699919799/utilities/crontab.html#tag_20_25_07)
+  # - cron: "0 3,4,5,6,7,8,9,10,11 * * *"
 
 jobs:
   markdown-link-check:

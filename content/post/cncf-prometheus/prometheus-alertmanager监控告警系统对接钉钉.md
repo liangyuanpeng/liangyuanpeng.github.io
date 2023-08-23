@@ -22,13 +22,13 @@ categories:
 
 本文将会讲解alertmanager对接钉钉,并且会演示通过修改metrics值来触发alertmanager进行告警并且展示告警以及告警恢复的情况。  
 
-在此之前你可以先查看一下本文的上一篇文章-->[prometheus-alertmanager监控告警系统快速开始](https://liangyuanpeng.com/post/cncf-prometheus/prometheus-alertmanager-monitoring-quickstart/)  
+在此之前你可以先查看一下本文的上一篇文章-->[prometheus-alertmanager监控告警系统快速开始](https://liangyuanpeng.com/post/prometheus-alertmanager-monitoring-quickstart/)  
 
 docker-compose配置以及相关配置文件最终都会贴出来。 
 
 AlertManager本身不支持钉钉通知，实现的方式是使用一个实现了钉钉通知API的webhook程序，AlertManager将告警发送到webhook程序，webhook程序再将内容转换成钉钉通知需要的格式发送到钉钉API。  
 
-本文阅读前提: 阅读了博文[prometheus-alertmanager监控告警系统快速开始](https://liangyuanpeng.com/post/cncf-prometheus/prometheus-alertmanager-monitoring-quickstart/)
+本文阅读前提: 阅读了博文[prometheus-alertmanager监控告警系统快速开始](https://liangyuanpeng.com/post/prometheus-alertmanager-monitoring-quickstart/)
 
 # 支持钉钉的webhook程序
 
@@ -62,7 +62,7 @@ targets:
 
 # 配置AlertManager将告警发送到webhook  
 
-如果你已经看了[prometheus-alertmanager监控告警系统快速开始](https://liangyuanpeng.com/post/cncf-prometheus/prometheus-alertmanager-monitoring-quickstart/)那么应该知道新增一个webhook告警是多么容易的事情。  
+如果你已经看了[prometheus-alertmanager监控告警系统快速开始](https://liangyuanpeng.com/post/prometheus-alertmanager-monitoring-quickstart/)那么应该知道新增一个webhook告警是多么容易的事情。  
 
 首先找到你的AlertManager配置文件,找到`receivers`的部分,添加以下配置:  
 
@@ -88,7 +88,7 @@ route:
 
 接下来演示一下alertmanager触发告警通知钉钉的情况。使用镜像`registry.cn-shenzhen.aliyuncs.com/lan-k8s/lanapp:v0.0.1`  
 
-这是一个SpringBoot程序,更多细节可以在页面[prometheus-alertmanager监控告警系统快速开始](https://liangyuanpeng.com/post/cncf-prometheus/prometheus-alertmanager-monitoring-quickstart/)找到XXXX部分查看程序的介绍。  
+这是一个SpringBoot程序,更多细节可以在页面[prometheus-alertmanager监控告警系统快速开始](https://liangyuanpeng.com/post/prometheus-alertmanager-monitoring-quickstart/)找到XXXX部分查看程序的介绍。  
 
 ## 告警通知  
 

@@ -116,7 +116,7 @@ Starting logstash_logstash_1 ... done
 Starting logstash_logstash-worker_1 ... done
 ```  
 
-logstash启动较慢,我实验的效果是90秒左右,所以更推荐[使用fluentd收集日志](https://liangyuanpeng.com/post/docker-log-driver-fluentd/)
+logstash启动较慢,我实验的效果是90秒左右,所以更推荐[使用fluentd收集日志](https://liangyuanpeng.com/post/fluentd-logdrive-docker/)
 
 查看一下日志目录下,应该就有对应的容器日志文件了:  
 ```
@@ -144,4 +144,4 @@ fluentd更加轻量级并且更灵活,并且目前属于CNCF,活跃度和可靠�
 
 ## 推荐阅读:  
 
-[使用fluentd作为docker日志驱动收集日志](https://liangyuanpeng.com/post/docker-log-driver-fluentd/)
+[使用fluentd作为docker日志驱动收集日志](https://liangyuanpeng.com/post/fluentd-logdrive-docker/)

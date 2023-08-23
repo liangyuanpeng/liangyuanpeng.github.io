@@ -23,7 +23,7 @@ categories:
 Prometheus Github地址: [https://github.com/prometheus/prometheus](https://github.com/prometheus/prometheus)  
 
 - [prometheus2.25新特性讲解](https://liangyuanpeng.com/post/prometheus-v2.25-feature/)
-- [prometheus2.26新特性讲解](https://liangyuanpeng.com/post/prometheus-release-v2.26rc.0)
+- [prometheus2.26新特性讲解](https://liangyuanpeng.com/post/prometheus-release-v2.26rc-0)
 
 - [prometheus2.28.1更新讲解](https://liangyuanpeng.com/post/prometheus-v2.28.1-update)
 

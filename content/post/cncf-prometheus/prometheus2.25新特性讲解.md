@@ -53,7 +53,7 @@ https://github.com/prometheus/prometheus/pull/8424
 
 # 实验性功能  
 
-默认关闭的功能列表在这里可以找到:https://github.com/prometheus/prometheus/blob/main/docs/disabled_features.md  
+默认关闭的功能列表在这里可以找到:https://github.com/prometheus/prometheus/blob/main/docs/feature_flags.md
 
 在`prometheus`命令`help`中也可以找到:   
 ```shell

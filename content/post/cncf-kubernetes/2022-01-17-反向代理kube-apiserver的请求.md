@@ -7,7 +7,7 @@ description: ""
 date:       2022-01-17
 author:     "梁远鹏"
 image: "/img/banner-pexels.jpg"
-published: true
+published: false
 wipnote: true
 tags:
     - kubernetes 

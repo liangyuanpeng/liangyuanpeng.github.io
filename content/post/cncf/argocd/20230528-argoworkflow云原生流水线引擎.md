@@ -374,7 +374,7 @@ spec:
 
 经过前面 workflow 和 workflowTemplate 的了解后，可以看到 cronWorkflow 的 yaml 文件整体来说是差不多的，无非是多了一些定时相关的配置.
 
-上述示例中 schedule 配置为 `* * * * *`，也就是每分钟会执行一次 workflow.关于定时的内容都会有一个注意点是定时任务的时区， cronWorkflow 支持为定时任务设置时区，具体可以看看官方的这个[cron workflow 示例]（https://github.com/argoproj/argo-workflows/blob/master/examples/cron-workflow.yaml）
+上述示例中 schedule 配置为 `* * * * *`，也就是每分钟会执行一次 workflow.关于定时的内容都会有一个注意点是定时任务的时区， cronWorkflow 支持为定时任务设置时区，具体可以看看官方的这个[cron workflow 示例](https://github.com/argoproj/argo-workflows/blob/master/examples/cron-workflow.yaml)
 
 # 与 Tekton 的对比
 
