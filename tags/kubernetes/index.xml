@@ -242,15 +242,6 @@
     </item>
     
     <item>
-      <title>反向代理kube-apiserver的请求</title>
-      <link>https://liangyuanpeng.github.io/post/proxy-kube-apiserver/</link>
-      <pubDate>Mon, 17 Jan 2022 00:00:00 +0000</pubDate>
-      
-      <guid>https://liangyuanpeng.github.io/post/proxy-kube-apiserver/</guid>
-      <description>本文会介绍在L7中转发下面两种方式的请求以及L4转发. 默认的使用证书的kubectl请求 使用token的kubectl请求 L4比较简单处理,</description>
-    </item>
-    
-    <item>
       <title>Contour-v1.18.3发布</title>
       <link>https://liangyuanpeng.github.io/post/contour-v1.18.3-release/</link>
       <pubDate>Sun, 09 Jan 2022 00:00:00 +0000</pubDate>

@@ -486,7 +486,7 @@
 
 
 
-                            阅读 </span></span>|<span class="post-date">共4119字</span>，阅读约<span class="more-meta"> 9 分钟</span>
+                            阅读 </span></span>|<span class="post-date">共4033字</span>，阅读约<span class="more-meta"> 9 分钟</span>
                         
                     </span>
                 </div>
@@ -819,7 +819,7 @@
     <span style="color:#f92672">podGC</span>:
       <span style="color:#f92672">strategy</span>: <span style="color:#ae81ff">OnPodCompletion</span>
 </code></pre></div><p>经过前面 workflow 和 workflowTemplate 的了解后，可以看到 cronWorkflow 的 yaml 文件整体来说是差不多的，无非是多了一些定时相关的配置.</p>
-<p>上述示例中 schedule 配置为 <code>* * * * *</code>，也就是每分钟会执行一次 workflow.关于定时的内容都会有一个注意点是定时任务的时区， cronWorkflow 支持为定时任务设置时区，具体可以看看官方的这个[cron workflow 示例]（https://github.com/argoproj/argo-workflows/blob/master/examples/cron-workflow.yaml）</p>
+<p>上述示例中 schedule 配置为 <code>* * * * *</code>，也就是每分钟会执行一次 workflow.关于定时的内容都会有一个注意点是定时任务的时区， cronWorkflow 支持为定时任务设置时区，具体可以看看官方的这个<a href="https://github.com/argoproj/argo-workflows/blob/master/examples/cron-workflow.yaml">cron workflow 示例</a></p>
 <h1 id="与-tekton-的对比">与 Tekton 的对比</h1>
 <p>经过一番折腾后能够感受到一些很明显的区别:</p>
 <p>从系统架构上来说，Tekton 做得更好，整体架构比较清晰，但从用户功能的角度上来说 Argo Workflow 更容易上手使用.</p>

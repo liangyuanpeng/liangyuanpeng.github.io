@@ -632,11 +632,6 @@
   </url>
   
   <url>
-    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/post/proxy-kube-apiserver/</loc>
-    <lastmod>2022-01-17T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
     <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/post/contour-v1.18.3-release/</loc>
     <lastmod>2022-01-09T00:00:00+00:00</lastmod>
   </url>
@@ -1012,7 +1007,7 @@
   </url>
   
   <url>
-    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/post/prometheus-release-v2.26rc.0/</loc>
+    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/post/prometheus-release-v2.26rc-0/</loc>
     <lastmod>2021-03-25T00:00:00+00:00</lastmod>
   </url>
   

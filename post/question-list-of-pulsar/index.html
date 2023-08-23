@@ -295,7 +295,7 @@
 
 
 
-                            阅读 </span></span>|<span class="post-date">共40字</span>，阅读约<span class="more-meta"> 1 分钟</span>
+                            阅读 </span></span>|<span class="post-date">共228字</span>，阅读约<span class="more-meta"> 1 分钟</span>
                         
                     </span>
                 </div>
@@ -320,11 +320,31 @@
                 <header>
                 <h2>TOC</h2>
                 </header>
-                <nav id="TableOfContents"></nav>
+                <nav id="TableOfContents">
+  <ul>
+    <li><a href="#升级-pulsar-客户端-sdk">升级 pulsar 客户端 sdk</a></li>
+  </ul>
+</nav>
 		
 
 		<h1 id="说明">说明</h1>
 <p>本文主要收集 apache pulsar 遇到的一些常见问题,欢迎对本文进行投稿你认为好的场景或问题.</p>
+<h2 id="升级-pulsar-客户端-sdk">升级 pulsar 客户端 sdk</h2>
+<p>从 pulsar2.10/pulsar2.11 的 sdk 升级到 pulsar 3.0.0 时由于不是全部组件都升级到统一的 3.0.0 版本,因此遇到了在调用 adminAPI 的时候报错了,应该是 jar 包冲突导致的 noSuchMethod 异常.</p>
+<p>于是将所有组件都升级到统一的 pulsar 3.0.0,但是遇到一个新问题是下载依赖时一直卡着:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">...
+Downloaded from central: https://repo.maven.apache.org/maven2/org/slf4j/slf4j-parent/2.0.5/slf4j-parent-2.0.5.pom <span style="color:#f92672">(</span><span style="color:#ae81ff">16</span> kB at 1.3 MB/s<span style="color:#f92672">)</span>
+Downloading from central: https://repo.maven.apache.org/maven2/org/apache/pulsar/pulsar-transaction-coordinator/3.0.0/pulsar-transaction-coordinator-3.0.0.pom
+Progress <span style="color:#f92672">(</span>1<span style="color:#f92672">)</span>: 4.1/4.8 kB
+Progress <span style="color:#f92672">(</span>1<span style="color:#f92672">)</span>: 4.8 kB    
+                    
+Downloaded from central: https://repo.maven.apache.org/maven2/org/apache/pulsar/pulsar-transaction-coordinator/3.0.0/pulsar-transaction-coordinator-3.0.0.pom <span style="color:#f92672">(</span>4.8 kB at <span style="color:#ae81ff">371</span> kB/s<span style="color:#f92672">)</span>
+Downloading from central: https://repo.maven.apache.org/maven2/org/apache/pulsar/pulsar-package-filesystem-storage/3.0.0/pulsar-package-filesystem-storage-3.0.0.pom
+Progress <span style="color:#f92672">(</span>1<span style="color:#f92672">)</span>: 2.0 kB
+                    
+Downloaded from central: https://repo.maven.apache.org/maven2/org/apache/pulsar/pulsar-package-filesystem-storage/3.0.0/pulsar-package-filesystem-storage-3.0.0.pom <span style="color:#f92672">(</span>2.0 kB at <span style="color:#ae81ff">146</span> kB/s<span style="color:#f92672">)</span>
+Error: The operation was canceled.
+</code></pre></div><p>还没完全解决这个问题,有解决的朋友可以评论一下解决方案.</p>
 
 
         <h2>微信公众号</h2>

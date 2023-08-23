@@ -699,7 +699,7 @@
 <h1 id="技术使人懒惰">技术使人懒惰</h1>
 <p>我们知道,不管使用哪一种方式,我们都少不了的步骤时再部署一些 <code>registry.k8s.io</code> 的资源时需要在部署前将 <code>registry.k8s.io</code> 的镜像修改为国内某个地方(例如 <code>lank8s.cn</code>),这样的事情做得多了也会显得繁琐.</p>
 <p><del>因此我们即将推出一个k8s mutating webhook, 这个webhook的唯一作用就是在创建或更新资源(例如Deployment,Statefulset)将<code>k8s.gcr.io</code>修改为<code>lank8s.cn</code>.后续也会支持参数化,例如支持配置将<code>registry.aliyuncs.com/google_containers</code>修改为<code>lank8s.cn</code></del></p>
-<p>你可以为 containerd 配置仓库镜像,这样当你拉取 registry.k8s.io 的镜像时，不再需要去手动为每个镜像修改地址,可以直接使用到 lank8scn 服务. 参考<a href="https://liangyuanpeng.com/post/cncf-containerd/registry-mirrors-for-containerd/">文章:为containerd配置仓库镜像</a></p>
+<p>你可以为 containerd 配置仓库镜像,这样当你拉取 registry.k8s.io 的镜像时，不再需要去手动为每个镜像修改地址,可以直接使用到 lank8scn 服务. 参考<a href="https://liangyuanpeng.com/post/registry-mirrors-for-containerd/">文章:为containerd配置仓库镜像</a></p>
 <h1 id="服务说明">服务说明</h1>
 <h2 id="仓库镜像对应">仓库镜像对应</h2>
 <table>

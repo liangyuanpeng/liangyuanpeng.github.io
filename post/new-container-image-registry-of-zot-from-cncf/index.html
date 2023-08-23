@@ -476,7 +476,7 @@ curl -X DELETE -H <span style="color:#e6db74">&#34;Authorization: Basic: &#34;</
 拉取,为什么没有从另一个上游<code>gcr.lank8s.cn</code>拉取镜像呢?是因为在字段<code>content</code>中配置了<code>prefix</code>,只有前缀为 <code>google-containers</code> 的容器镜像才会从上游 <code>gcr.lank8s.cn</code> 拉取镜像.</p>
 <h2 id="kind-local-registry">kind local registry</h2>
 <p>目前我在使用 kind 创建 k8s 集群做一些实验时,也是使用了 zot 作为实验时拉取到的容器镜像的持久化管理,避免每次用 kind 创建一个新的 k8s 测试集群环境时总是要拉取一次镜像.</p>
-<p>可以看看<a href="https://liangyuanpeng.com/post/cncf-containerd/registry-mirrors-for-containerd/#kind">为containerd配置仓库镜像</a>这篇文章中关于这部分的内容.</p>
+<p>可以看看<a href="https://liangyuanpeng.com/post/registry-mirrors-for-containerd/#kind">为containerd配置仓库镜像</a>这篇文章中关于这部分的内容.</p>
 <p>官方文档:
 <a href="https://kind.sigs.k8s.io/docs/user/local-registry/">https://kind.sigs.k8s.io/docs/user/local-registry/</a></p>
 <h2 id="初体验">初体验</h2>

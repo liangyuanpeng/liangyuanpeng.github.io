@@ -473,7 +473,7 @@
         <span style="color:#f92672">resources</span>: [<span style="color:#e6db74">&#34;deployments&#34;</span>,<span style="color:#e6db74">&#34;daemonsets&#34;</span>,<span style="color:#e6db74">&#34;statefulsets&#34;</span>]
 </code></pre></div><p>这是一个最简的配置,你也可以根据具体情况扩展这个配置文件,例如加上限制某个namespace才启用这个<code>MutatingWebhook</code>.</p>
 <h1 id="试用">试用</h1>
-<p>接下来试着通过这个在线的webhook部署一下gcr.io的镜像,镜像使用收集k8s监控数据时经常用到的<code>k8s.gcr.io/metrics-server/metrics-server</code>镜像.具体可以来看<a href="https://liangyuanpeng.com/post/cncf-kubernetes/deploy-metrics-server-for-kubectl-top/">部署metrics-server,把kubectl top用起来</a></p>
+<p>接下来试着通过这个在线的webhook部署一下gcr.io的镜像,镜像使用收集k8s监控数据时经常用到的<code>k8s.gcr.io/metrics-server/metrics-server</code>镜像.具体可以来看<a href="https://liangyuanpeng.com/post/deploy-metrics-server-for-kubectl-top/">部署metrics-server,把kubectl top用起来</a></p>
 <h1 id="注意">注意</h1>
 <ul>
 <li>请不要将这项服务使用在线上环境(防止发生未知事故),在开发环境和测试环境愉快使用.</li>

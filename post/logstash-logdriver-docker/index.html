@@ -470,7 +470,7 @@ To deploy your application across the swarm, use `docker stack deploy`.
 
 Starting logstash_logstash_1 ... done
 Starting logstash_logstash-worker_1 ... done
-</code></pre><p>logstash启动较慢,我实验的效果是90秒左右,所以更推荐<a href="https://liangyuanpeng.com/post/docker-log-driver-fluentd/">使用fluentd收集日志</a></p>
+</code></pre><p>logstash启动较慢,我实验的效果是90秒左右,所以更推荐<a href="https://liangyuanpeng.com/post/fluentd-logdrive-docker/">使用fluentd收集日志</a></p>
 <p>查看一下日志目录下,应该就有对应的容器日志文件了:</p>
 <pre tabindex="0"><code>[root@master logstash]# ls /var/log/logstash/
 2020-02-16
@@ -488,7 +488,7 @@ logstash_logstash-worker_1.log
 <h3 id="为什么还要介绍logstash收集docker日志">为什么还要介绍logstash收集docker日志?</h3>
 <p>在一个公司或者业务中如果已经在使用ELK技术栈,也许就没有必要再引入一个fluentd,而是继续用logstash打通docker日志这块.这里主要做一个分享,让遇到这种情况的同学能够有多一个选择.</p>
 <h2 id="推荐阅读">推荐阅读:</h2>
-<p><a href="https://liangyuanpeng.com/post/docker-log-driver-fluentd/">使用fluentd作为docker日志驱动收集日志</a></p>
+<p><a href="https://liangyuanpeng.com/post/fluentd-logdrive-docker/">使用fluentd作为docker日志驱动收集日志</a></p>
 
 
         <h2>微信公众号</h2>

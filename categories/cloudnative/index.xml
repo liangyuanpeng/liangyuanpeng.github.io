@@ -301,7 +301,7 @@
       <pubDate>Tue, 04 May 2021 00:00:00 +0000</pubDate>
       
       <guid>https://liangyuanpeng.github.io/post/question-list-of-pulsar/</guid>
-      <description>说明 本文主要收集 apache pulsar 遇到的一些常见问题,欢迎对本文进行投稿你认为好的场景或问题.</description>
+      <description>说明 本文主要收集 apache pulsar 遇到的一些常见问题,欢迎对本文进行投稿你认为好的场景或问题. 升级 pulsar 客户端 sdk 从 pulsar2.10/pulsar2.11 的 sdk 升级到 pulsar 3.0.0 时由于不是全部组件都升级到统</description>
     </item>
     
     <item>
@@ -342,10 +342,10 @@
     
     <item>
       <title>Prometheus2.26rc.0新特性讲解</title>
-      <link>https://liangyuanpeng.github.io/post/prometheus-release-v2.26rc.0/</link>
+      <link>https://liangyuanpeng.github.io/post/prometheus-release-v2.26rc-0/</link>
       <pubDate>Thu, 25 Mar 2021 00:00:00 +0000</pubDate>
       
-      <guid>https://liangyuanpeng.github.io/post/prometheus-release-v2.26rc.0/</guid>
+      <guid>https://liangyuanpeng.github.io/post/prometheus-release-v2.26rc-0/</guid>
       <description>前言 Prometheus作为第二个从CNCF毕业的顶级项目,其成熟程度是毋庸置疑的,甚至推出了另一个CNCF项目OpenMetrics,希望</description>
     </item>
     
