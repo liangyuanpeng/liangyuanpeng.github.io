@@ -1,7 +1,7 @@
 ---
 layout:     post 
-slug:      "pulsar-schema-save-process"
-title:      "pulsar-schema的存储过程"
+slug:      "pulsar-function-task-jar-will-save-be-here"
+title:      "pulsar-function的任务jar存放在哪里"
 subtitle:   ""
 description: " "
 date:       2022-06-12
@@ -12,11 +12,12 @@ wipnote: true
 tags:
     - CloudNative
     - pulsar
+    - apache
 categories: 
     - TECH
 ---
 
 # 前言 
 
-pulsar-schema的存储过程
+pulsar-function的任务jar存放在哪里
 

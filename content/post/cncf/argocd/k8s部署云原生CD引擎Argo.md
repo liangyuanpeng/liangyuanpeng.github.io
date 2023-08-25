@@ -25,12 +25,12 @@ categories:
 
 ## 安装Argo CD
 
-```
+```shell
 kubectl create namespace argocd
 kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
 ```  
 
-如果下载访问有问题可以改一下地址,是我个人学习使用的一个代理github文件的下载地址.将`raw.githubusercontent.com`修改为`raw.lank8s.cn`就可以了.  
+如果下载访问有问题可以改一下地址,是我个人学习使用的一个代理 github 文件的下载地址.将`raw.githubusercontent.com`修改为`raw.lank8s.cn`就可以了,详情见:[lank8s.cn服务](https://liangyuanpeng.com/post/service-lank8s.cn/)
 
 ```shell
 kubectl apply -n argocd -f https://raw.lank8s.cn/argoproj/argo-cd/stable/manifests/install.yaml
@@ -49,7 +49,7 @@ mv argocd-linux-amd64 /usr/local/bin
 
 ### 使用Load Balancer类型的service访问  
 
-需要把argocd-server这个service修改为LoadBalancer类型:  
+需要把 argocd-server 这个 service 修改为 LoadBalancer 类型:  
 ```shell
 kubectl patch svc argocd-server -n argocd -p '{"spec": {"type": "LoadBalancer"}}'
 ```  
@@ -66,23 +66,23 @@ kubectl port-forward svc/argocd-server -n argocd 8080:443
 # 通过CLI修改默认密码  
 
 初始密码是自动生成的,可以用下面的命令查看初始密码是什么:   
-```
+```shell
 kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d; echo
 ```
  
-使用`admin`账号和上面的密码登陆ArgoCD server:   
-```
+使用`admin`账号和上面的密码登陆 ArgoCD server:   
+```shell
 argocd login <ARGOCD_SERVER>
 ``` 
 
 修改密码:   
-```
+```shell
 argocd account update-password
 ```
 
 # 创建一个Application  
 
-首先从上面三种方式中选择一种来暴露service,本文使用的是kubectl转发的方式.  
+首先从上面三种方式中选择一种来暴露 service,本文使用的是 kubectl 转发的方式.  
 
 访问IP:PORT
  

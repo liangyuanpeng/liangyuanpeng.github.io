@@ -12,6 +12,7 @@ wipnote: true
 tags:
     - CloudNative
     - pulsar
+    - apache
 categories: 
     - TECH
 ---
@@ -24,24 +25,24 @@ categories:
 
 Bookkeeper 和 Pulsar Broker 都有各自的元数据中心,并且都有自己的元数据中心接口,默认都是ZK.  
 
-要实现Pulsar去Zookeeper化的话意味着Pulsar Broker和Bookkeeper都需要拥有这样的能力. Bookkeeper 本身有etcd 元数据中心接口的实现,但是Pulsar Broker也实现了BK的元数据中心接口,我们这里讨论的 Bookkeeper 对接etcd 也是使用 Pulsar Broker 自身实现的 Bookkeeper 元数据接口.而不是 Bookkeeper 自带的 etcd 元数据接口实现.  
+要实现 Pulsar 去 Zookeeper 化的话意味着 Pulsar Broker 和 Bookkeeper 都需要拥有这样的能力. Bookkeeper 本身有 etcd 元数据中心接口的实现,但是 Pulsar Broker 也实现了 Bookkeeper 的元数据中心接口,我们这里讨论的 Bookkeeper 对接 etcd 也是使用 Pulsar Broker 自身实现的 Bookkeeper 元数据接口.而不是 Bookkeeper 自带的 etcd 元数据接口实现.  
 
 基本上有了这样的框架之后,后续 Pulsar 如果要发展自己的元数据中心会相对比较顺利.
 
-本文示例会以 Pulsar 2.10.0 这个版本,其中配套的 Bookkeeper 版本是4.14.4,这个版本的 Bookkeeper 的autoRecovery 逻辑中依然是直接连接了 Zookeeper,因此需要启动时需要在 bookkeeper.conf 中把  autoRecoveryDaemonEnabled 设置为 false.
+本文示例会以 Pulsar 2.10.0 这个版本,其中配套的 Bookkeeper 版本是 4.14.4,这个版本的 Bookkeeper 的 autoRecovery 逻辑中依然是直接连接了 Zookeeper,因此需要启动时需要在`bookkeeper.conf`中把  autoRecoveryDaemonEnabled 设置为 false.
 
 # 部署   
 
-部署相关的yaml都可以在[pulsar-sigs/deploy-files](https://github.com/pulsar-sigs/deploy-files)中找到.  
+部署相关的 yaml 都可以在[pulsar-sigs/deploy-files](https://github.com/pulsar-sigs/deploy-files)中找到.  
 
-首先将仓库clone到本地：  
+首先将仓库 clone 到本地：  
 
-```
+```shell
 git clone https://github.com/pulsar-sigs/deploy-files.git
 cd deploy-files
 ```  
 
-以下docker-compose和kubernetes部署方式都会以这个仓库的文件作为基础.
+以下 docker-compose 和 kubernetes 部署方式都会以这个仓库的文件作为基础.
 
 ## docker-compose
 
@@ -71,7 +72,7 @@ rolebinding.rbac.authorization.k8s.io/pulsar created
 clusterrolebinding.rbac.authorization.k8s.io/pulsar created
 ```
 
-耐心等待一段时间后所有Pod都会处于Running状态.
+耐心等待一段时间后所有 Pod 都会处于 Running 状态.
 ```shell
 $ kubectl get po
 NAME                               READY   STATUS      RESTARTS   AGE
@@ -85,7 +86,7 @@ pulsarctl-0                        1/1     Running     0          2m38s
 ```  
 
 
-假设这时候所有的Pod都已经启动在Running了,我们可以看一下pulsar-client consumer这个pod,他会不断的消费pulsar topic的消息,正常的话可以看到不断的有日志打印出来.
+假设这时候所有的Pod都已经启动在 Running 了,我们可以看一下 pulsar-client consumer 这个 pod,他会不断的消费 pulsar topi c的消息,正常的话可以看到不断的有日志打印出来.
 
 ```shell
 $ kubectl logs -f pulsar-consumer-77f96bbf9d-bwspx
@@ -98,5 +99,5 @@ $ kubectl logs -f pulsar-consumer-77f96bbf9d-bwspx
 
 # 笔记  
 
-1. function worker会使用到Dlog，直接连接的ZK. 
-2. 有状态的pulsar function会使用到BK的table service,而table service似乎也是连接ZK.
+1. function worker 会使用到 Dlog，直接连接的 Zookkeeper. 
+2. 有状态的 pulsar function 会使用到 Bookkeeper 的 table service,而 table service 似乎也是连接ZK.

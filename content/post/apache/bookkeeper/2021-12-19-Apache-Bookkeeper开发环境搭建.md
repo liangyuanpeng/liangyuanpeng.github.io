@@ -16,13 +16,13 @@ categories: [ TECH ]
 
 # 打包BK  
 
-```
+```shell
 mvn package -DsipTests=true
 ```  
 
 顺利的话就成功的打包好了.  
 
-```log
+```shell
 [INFO] Apache BookKeeper :: Tests :: Backward Compatibility :: Test upgrade between yahoo custom version and current SUCCESS [  0.373 s]
 [INFO] Apache BookKeeper :: Tests :: Backward Compatibility :: Test Bouncy Castle Provider load non FIPS version SUCCESS [  0.484 s]
 [INFO] Apache BookKeeper :: Tests :: Integration .......... SUCCESS [  0.013 s]
@@ -38,13 +38,13 @@ mvn package -DsipTests=true
 [INFO] ------------------------------------------------------------------------
 ```  
 
-我这里是第一次打包,包含下载依赖花费了近10分钟.
+我这里是第一次打包,包含下载依赖花费了近 10 分钟.
 
 ## 可能会出现的问题
 
 ### 提示没有g++  
 
-```log
+```shell
 [ERROR] Failed to execute goal com.github.maven-nar:nar-maven-plugin:3.5.2:nar-compile (default-nar-compile) on project circe-checksum: NAR: Compile failed: Could not launch g++: java.io.IOException: Cannot run program "g++" (in directory "/home/oem/repo/git/bookkeeper/circe-checksum/src/main"): error=2, No such file or directory -> [Help 1]
 [ERROR] 
 [ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
@@ -52,7 +52,7 @@ mvn package -DsipTests=true
 
 ```  
 
-直接用命令安装g++即可,   
+直接用命令安装`g++`即可,   
 
 ubuntu:
 ```shell
