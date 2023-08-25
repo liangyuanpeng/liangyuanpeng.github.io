@@ -103,7 +103,7 @@
       <pubDate>Sun, 23 Apr 2023 00:00:00 +0000</pubDate>
       
       <guid>https://liangyuanpeng.github.io/post/kubeadm-config-note-long-term/</guid>
-      <description>说明 本文主要收集常见场景下 kubeadm 配置以及遇到的一些常见问题,欢迎对本文进行投稿你认为好的场景配置或问题. 官方文档 https://kubernetes.io/docs/reference/config-api/kubeadm-config.v1beta3/ 注意: 如果是其他版本则将 v1beta3 修改</description>
+      <description>说明 本文主要收集常见场景下 kubeadm 配置以及遇到的一些常见问题,欢迎对本文进行投稿你认为好的场景配置或问题. Kind 是一个基于 Docker 来实现在容器内跑 kubernetes 的方案,</description>
     </item>
     
     <item>
@@ -391,7 +391,7 @@
       <pubDate>Mon, 06 Jun 2022 00:00:00 +0000</pubDate>
       
       <guid>https://liangyuanpeng.github.io/post/deploy-pulsar/</guid>
-      <description>前言 本文基本上是按照官方文档来实践的,非常简单. 首先要明确我们需要做的几件事情： 生成 token 并且配置 pulsar broker 开启 Token 认证. 配置 pulsar broker 开启自身需要用到的客户</description>
+      <description>前言 本文基本上是按照官方文档来实践的,非常简单. 首先要明确我们需要做的几件事情： 生成 token 并且配置 Pulsar broker 开启 Token 认证. 配置 Pulsar broker 开启自身需要用到的客户</description>
     </item>
     
     <item>
@@ -481,7 +481,7 @@
       <pubDate>Thu, 20 Jan 2022 00:00:00 +0000</pubDate>
       
       <guid>https://liangyuanpeng.github.io/post/k8s-cd-argo-deploy/</guid>
-      <description>部署Argo CD 安装Argo CD kubectl create namespace argocd kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml 如果下载访问有问题可以改一下地址,是我个人学习使用的一个代理github文件的下载地址.将r</description>
+      <description>部署Argo CD 安装Argo CD kubectl create namespace argocd kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml 如果下载访问有问题可以改一下地址,是我个人学习使用的一个代理 github 文件的下载地址.将raw.gi</description>
     </item>
     
     <item>
@@ -526,7 +526,7 @@
       <pubDate>Sun, 26 Dec 2021 00:00:00 +0000</pubDate>
       
       <guid>https://liangyuanpeng.github.io/post/simple-deploy-for-apache-bookkeeper/</guid>
-      <description>前言 开始部署 由于apache bookkeeper(本文后续简称为BK)需要使用元数据服务中心,当前支持zookeeper和etcd,本文将会</description>
+      <description>前言 开始部署 由于 Apache bookkeeper(本文后续简称为BK)需要使用元数据服务中心,当前支持 Zookeeper 和 Etcd,本文将会分别介绍使用 zookeeper+bookkeeper 部署和 etcd+bookkeeper 的部</description>
     </item>
     
     <item>
@@ -535,7 +535,7 @@
       <pubDate>Thu, 23 Dec 2021 00:00:00 +0000</pubDate>
       
       <guid>https://liangyuanpeng.github.io/post/flink-exception-qa/</guid>
-      <description>声明 由于我不是Flink专家,因此只是将使用/研究Flink时遇到的问题分享出来,如有不对之处麻烦提示或帮忙纠正一下,感谢! 常见异常 This type (GenericType&amp;lt;java.util.Map&amp;gt;) cannot</description>
+      <description>声明 由于我不是 Flink 专家,因此只是将使用/研究 Flink 时遇到的问题分享出来,如有不对之处麻烦提示或帮忙纠正一下,感谢! 常见异常 This type (GenericType&amp;lt;java.util.Map&amp;gt;) cannot be used as key. 基本上是</description>
     </item>
     
     <item>
@@ -787,7 +787,7 @@
       <pubDate>Wed, 12 May 2021 00:00:00 +0000</pubDate>
       
       <guid>https://liangyuanpeng.github.io/post/list-of-source-with-bookeeper/</guid>
-      <description>说明 之前研究过一些 bookeeper 源码，无奈时间问题都中断了，这里列出一些研究入口给希望研究 bookeeper 源码的同学。 对于交流持非常欢迎态度！可以微信联系我也可以在下</description>
+      <description>说明 之前研究过一些 Bookkeeper 源码，无奈时间问题都中断了，这里列出一些研究入口给希望研究 Bookkeeper 源码的同学。 对于交流持非常欢迎态度！可以微信联系我也可以在下</description>
     </item>
     
     <item>

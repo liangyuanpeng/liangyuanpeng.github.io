@@ -486,7 +486,7 @@
 
 
 
-                            阅读 </span></span>|<span class="post-date">共437字</span>，阅读约<span class="more-meta"> 1 分钟</span>
+                            阅读 </span></span>|<span class="post-date">共407字</span>，阅读约<span class="more-meta"> 1 分钟</span>
                         
                     </span>
                 </div>
@@ -529,9 +529,9 @@
 		<h1 id="heading"></h1>
 <h1 id="部署argo-cd">部署Argo CD</h1>
 <h2 id="安装argo-cd">安装Argo CD</h2>
-<pre tabindex="0"><code>kubectl create namespace argocd
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">kubectl create namespace argocd
 kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
-</code></pre><p>如果下载访问有问题可以改一下地址,是我个人学习使用的一个代理github文件的下载地址.将<code>raw.githubusercontent.com</code>修改为<code>raw.lank8s.cn</code>就可以了.</p>
+</code></pre></div><p>如果下载访问有问题可以改一下地址,是我个人学习使用的一个代理 github 文件的下载地址.将<code>raw.githubusercontent.com</code>修改为<code>raw.lank8s.cn</code>就可以了,详情见:<a href="https://liangyuanpeng.com/post/service-lank8s.cn/">lank8s.cn服务</a></p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">kubectl apply -n argocd -f https://raw.lank8s.cn/argoproj/argo-cd/stable/manifests/install.yaml
 </code></pre></div><h2 id="下载argocd命令行">下载ArgoCD命令行</h2>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">wget https://github.com/argoproj/argo-cd/releases/download/v2.2.3/argocd-linux-amd64
@@ -540,7 +540,7 @@ chmod +x argocd
 mv argocd-linux-amd64 /usr/local/bin
 </code></pre></div><h2 id="访问argo-cd的页面">访问Argo CD的页面</h2>
 <h3 id="使用load-balancer类型的service访问">使用Load Balancer类型的service访问</h3>
-<p>需要把argocd-server这个service修改为LoadBalancer类型:</p>
+<p>需要把 argocd-server 这个 service 修改为 LoadBalancer 类型:</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">kubectl patch svc argocd-server -n argocd -p <span style="color:#e6db74">&#39;{&#34;spec&#34;: {&#34;type&#34;: &#34;LoadBalancer&#34;}}&#39;</span>
 </code></pre></div><h3 id="使用ingress来访问">使用ingress来访问</h3>
 <p>这里我推荐使用Contour</p>
@@ -548,13 +548,13 @@ mv argocd-linux-amd64 /usr/local/bin
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">kubectl port-forward svc/argocd-server -n argocd 8080:443
 </code></pre></div><h1 id="通过cli修改默认密码">通过CLI修改默认密码</h1>
 <p>初始密码是自动生成的,可以用下面的命令查看初始密码是什么:</p>
-<pre tabindex="0"><code>kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath=&quot;{.data.password}&quot; | base64 -d; echo
-</code></pre><p>使用<code>admin</code>账号和上面的密码登陆ArgoCD server:</p>
-<pre tabindex="0"><code>argocd login &lt;ARGOCD_SERVER&gt;
-</code></pre><p>修改密码:</p>
-<pre tabindex="0"><code>argocd account update-password
-</code></pre><h1 id="创建一个application">创建一个Application</h1>
-<p>首先从上面三种方式中选择一种来暴露service,本文使用的是kubectl转发的方式.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;{.data.password}&#34;</span> | base64 -d; echo
+</code></pre></div><p>使用<code>admin</code>账号和上面的密码登陆 ArgoCD server:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">argocd login &lt;ARGOCD_SERVER&gt;
+</code></pre></div><p>修改密码:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">argocd account update-password
+</code></pre></div><h1 id="创建一个application">创建一个Application</h1>
+<p>首先从上面三种方式中选择一种来暴露 service,本文使用的是 kubectl 转发的方式.</p>
 <p>访问IP:PORT</p>
 <p><a href="https://victoriametrics.github.io/helm-charts/">https://victoriametrics.github.io/helm-charts/</a></p>
 

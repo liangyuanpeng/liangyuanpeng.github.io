@@ -13,7 +13,7 @@
       <pubDate>Thu, 23 Dec 2021 00:00:00 +0000</pubDate>
       
       <guid>https://liangyuanpeng.github.io/post/flink-exception-qa/</guid>
-      <description>声明 由于我不是Flink专家,因此只是将使用/研究Flink时遇到的问题分享出来,如有不对之处麻烦提示或帮忙纠正一下,感谢! 常见异常 This type (GenericType&amp;lt;java.util.Map&amp;gt;) cannot</description>
+      <description>声明 由于我不是 Flink 专家,因此只是将使用/研究 Flink 时遇到的问题分享出来,如有不对之处麻烦提示或帮忙纠正一下,感谢! 常见异常 This type (GenericType&amp;lt;java.util.Map&amp;gt;) cannot be used as key. 基本上是</description>
     </item>
     
   </channel>

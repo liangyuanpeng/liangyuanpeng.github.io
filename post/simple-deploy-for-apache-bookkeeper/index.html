@@ -358,7 +358,7 @@
 
 
 
-                            阅读 </span></span>|<span class="post-date">共848字</span>，阅读约<span class="more-meta"> 2 分钟</span>
+                            阅读 </span></span>|<span class="post-date">共735字</span>，阅读约<span class="more-meta"> 2 分钟</span>
                         
                     </span>
                 </div>
@@ -397,12 +397,12 @@
 
 		<h1 id="前言">前言</h1>
 <h1 id="开始部署">开始部署</h1>
-<p>由于apache bookkeeper(本文后续简称为BK)需要使用元数据服务中心,当前支持zookeeper和etcd,本文将会分别介绍使用zookeeper+bookkeeper部署和etcd+bookkeeper的部署,值得注意的是本文介绍的都是单机部署而不是集群.</p>
+<p>由于 Apache bookkeeper(本文后续简称为BK)需要使用元数据服务中心,当前支持 Zookeeper 和 Etcd,本文将会分别介绍使用 zookeeper+bookkeeper 部署和 etcd+bookkeeper 的部署,值得注意的是本文介绍的都是单机部署而不是集群.</p>
 <p>会介绍三种部署方式:</p>
 <ol>
-<li>单独部署bookkeeper和zookeeper</li>
-<li>单独部署bookkeeper和etcd</li>
-<li>部署一个嵌入式用于开发的本地bookkeeper</li>
+<li>单独部署 bookkeeper 和 zookeeper</li>
+<li>单独部署 bookkeeper 和 etcd</li>
+<li>部署一个嵌入式用于开发的本地 bookkeeper</li>
 </ol>
 <h2 id="zookeeperbookkeeper">zookeeper+bookkeeper</h2>
 <h3 id="下载需要的软件包">下载需要的软件包</h3>
@@ -410,10 +410,10 @@
 <li>zookeeper/etcd</li>
 <li>bookkeeper</li>
 </ol>
-<p>下载命令可以用下面的两条命令分别下载以及解压zookeeper和bookkeeper:</p>
-<pre tabindex="0"><code>wget https://dlcdn.apache.org/zookeeper/zookeeper-3.7.0/apache-zookeeper-3.7.0-bin.tar.gz  
+<p>下载命令可以用下面的两条命令分别下载以及解压 zookeeper 和 bookkeeper:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">wget https://dlcdn.apache.org/zookeeper/zookeeper-3.7.0/apache-zookeeper-3.7.0-bin.tar.gz  
 tar -xvf apache-zookeeper-3.7.0-bin.tar.gz
-</code></pre><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">wget https://dlcdn.apache.org/bookkeeper/bookkeeper-4.14.0/bookkeeper-server-4.14.0-bin.tar.gz  
+</code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">wget https://dlcdn.apache.org/bookkeeper/bookkeeper-4.14.0/bookkeeper-server-4.14.0-bin.tar.gz  
 tar -xvf bookkeeper-server-4.14.0-bin.tar.gz
 </code></pre></div><h4 id="启动zookeeper">启动zookeeper</h4>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ cd apache-zookeeper-3.7.0-bin
@@ -423,40 +423,40 @@ Using config: conf/zoo_sample.cfg
 Starting zookeeper ... STARTED
 </code></pre></div><p><code>logs目录</code>下会生成一个<code>zookeeper-{username}-server-{hostname}.out</code>这样格式的日志.我这里的日志名是<code>zookeeper-oem-server-lan.out</code></p>
 <p>查看日志是否正常:</p>
-<pre tabindex="0"><code class="language-log" data-lang="log">$ tail -22f logs/zookeeper-oem-server-lan.out  
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ tail -22f logs/zookeeper-oem-server-lan.out  
 ...
-2021-12-26 21:41:41,749 [myid:] - INFO  [ProcessThread(sid:0 cport:2181)::PrepRequestProcessor@137] - PrepRequestProcessor (sid:0) started, reconfigEnabled=false
-2021-12-26 21:41:41,750 [myid:] - INFO  [main:RequestThrottler@75] - zookeeper.request_throttler.shutdownTimeout = 10000
-2021-12-26 21:41:41,759 [myid:] - INFO  [main:ContainerManager@84] - Using checkIntervalMs=60000 maxPerMinute=10000 maxNeverUsedIntervalMs=0
-2021-12-26 21:41:41,759 [myid:] - INFO  [main:ZKAuditProvider@42] - ZooKeeper audit is disabled.
+2021-12-26 21:41:41,749 <span style="color:#f92672">[</span>myid:<span style="color:#f92672">]</span> - INFO  <span style="color:#f92672">[</span>ProcessThread<span style="color:#f92672">(</span>sid:0 cport:2181<span style="color:#f92672">)</span>::PrepRequestProcessor@137<span style="color:#f92672">]</span> - PrepRequestProcessor <span style="color:#f92672">(</span>sid:0<span style="color:#f92672">)</span> started, reconfigEnabled<span style="color:#f92672">=</span>false
+2021-12-26 21:41:41,750 <span style="color:#f92672">[</span>myid:<span style="color:#f92672">]</span> - INFO  <span style="color:#f92672">[</span>main:RequestThrottler@75<span style="color:#f92672">]</span> - zookeeper.request_throttler.shutdownTimeout <span style="color:#f92672">=</span> <span style="color:#ae81ff">10000</span>
+2021-12-26 21:41:41,759 <span style="color:#f92672">[</span>myid:<span style="color:#f92672">]</span> - INFO  <span style="color:#f92672">[</span>main:ContainerManager@84<span style="color:#f92672">]</span> - Using checkIntervalMs<span style="color:#f92672">=</span><span style="color:#ae81ff">60000</span> maxPerMinute<span style="color:#f92672">=</span><span style="color:#ae81ff">10000</span> maxNeverUsedIntervalMs<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>
+2021-12-26 21:41:41,759 <span style="color:#f92672">[</span>myid:<span style="color:#f92672">]</span> - INFO  <span style="color:#f92672">[</span>main:ZKAuditProvider@42<span style="color:#f92672">]</span> - ZooKeeper audit is disabled.
 
-</code></pre><p>日志一切正常,也可以看下端口号是否正常被进程占用了,如果确定ZK是启动正常的可以省略这部分:</p>
+</code></pre></div><p>日志一切正常,也可以看下端口号是否正常被进程占用了,如果确定 Zookkeeper 是启动正常的可以省略这部分:</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ lsof -i:2181
 COMMAND   PID USER   FD   TYPE DEVICE SIZE/OFF NODE NAME
 java    <span style="color:#ae81ff">24342</span>  oem   58u  IPv6 <span style="color:#ae81ff">173956</span>      0t0  TCP *:2181 <span style="color:#f92672">(</span>LISTEN<span style="color:#f92672">)</span>
 
-</code></pre></div><p>端口查看也是正常的.部署zookeeper的部分就完成了.</p>
+</code></pre></div><p>端口查看也是正常的.部署 Zookeeper 的部分就完成了.</p>
 <h4 id="启动bookkeeper">启动bookkeeper</h4>
-<p>执行<code>bin/bookkeeper bookie 1</code>来启动<code>BK</code>发现报错了:</p>
-<pre tabindex="0"><code class="language-log" data-lang="log">2021-12-26 22:01:54,802 - INFO  - [main:BookieNettyServer@424] - Shutting down BookieNettyServer
-2021-12-26 22:01:54,822 - ERROR - [main:Main@228] - Failed to build bookie server
+<p>执行<code>bin/bookkeeper bookie 1</code>来启动 Bookkeeper 发现报错了:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">2021-12-26 22:01:54,802 - INFO  - <span style="color:#f92672">[</span>main:BookieNettyServer@424<span style="color:#f92672">]</span> - Shutting down BookieNettyServer
+2021-12-26 22:01:54,822 - ERROR - <span style="color:#f92672">[</span>main:Main@228<span style="color:#f92672">]</span> - Failed to build bookie server
 org.apache.bookkeeper.bookie.BookieException$MetadataStoreException: Failed to get cluster instance id
-	at org.apache.bookkeeper.discover.ZKRegistrationManager.getClusterInstanceId(ZKRegistrationManager.java:428)
-</code></pre><p>这是因为需要先初始化元数据,执行<code>bin/bookkeeper shell metaformat</code>:</p>
-<pre tabindex="0"><code>22:02:39,898 INFO  Socket connection established, initiating session, client: /192.168.3.123:46676, server: node123/192.168.3.123:2281
-22:02:40,037 INFO  Session establishment complete on server node123/192.168.3.123:2281, sessionid = 0x100216aac630001, negotiated timeout = 16000
+	at org.apache.bookkeeper.discover.ZKRegistrationManager.getClusterInstanceId<span style="color:#f92672">(</span>ZKRegistrationManager.java:428<span style="color:#f92672">)</span>
+</code></pre></div><p>这是因为需要先初始化元数据,执行<code>bin/bookkeeper shell metaformat</code>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">22:02:39,898 INFO  Socket connection established, initiating session, client: /192.168.3.123:46676, server: node123/192.168.3.123:2281
+22:02:40,037 INFO  Session establishment complete on server node123/192.168.3.123:2281, sessionid <span style="color:#f92672">=</span> 0x100216aac630001, negotiated timeout <span style="color:#f92672">=</span> <span style="color:#ae81ff">16000</span>
 22:02:40,043 INFO  ZooKeeper client is connected now.
 22:02:40,761 INFO  Successfully formatted BookKeeper metadata
 22:02:40,892 INFO  Session: 0x100216aac630001 closed
-22:02:40,892 INFO  EventThread shut down for session: 0x100216aac630001
-</code></pre><p>然后再次尝试启动BK就可以启动成功了:</p>
+22:02:40,892 INFO  EventThread shut down <span style="color:#66d9ef">for</span> session: 0x100216aac630001
+</code></pre></div><p>然后再次尝试启动 Bookkeeper 就可以启动成功了:</p>
 <p>执行:<code>bin/bookkeeper bookie 1</code></p>
-<pre tabindex="0"><code class="language-log" data-lang="log">2021-12-26 22:04:01,472 - INFO  - [BookieJournal-3181:JournalChannel@157] - Opening journal /tmp/bk-txn-dev-bin/current/17df9d84aba.txn
-2021-12-26 22:04:01,732 - INFO  - [BookKeeperClientScheduler-OrderedScheduler-0-0:NetworkTopologyImpl@426] - Adding a new node: /default-rack/192.168.3.123:3181
-2021-12-26 22:04:02,014 - INFO  - [vert.x-eventloop-thread-0:VertxHttpServer$2@84] - Starting Vertx HTTP server on port 8081
-2021-12-26 22:04:02,315 - INFO  - [main:VertxHttpServer@91] - Vertx Http server started successfully
-2021-12-26 22:04:02,315 - INFO  - [main:ComponentStarter@86] - Started component bookie-server.
-</code></pre><h2 id="localbookie方式部署">localbookie方式部署</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">2021-12-26 22:04:01,472 - INFO  - <span style="color:#f92672">[</span>BookieJournal-3181:JournalChannel@157<span style="color:#f92672">]</span> - Opening journal /tmp/bk-txn-dev-bin/current/17df9d84aba.txn
+2021-12-26 22:04:01,732 - INFO  - <span style="color:#f92672">[</span>BookKeeperClientScheduler-OrderedScheduler-0-0:NetworkTopologyImpl@426<span style="color:#f92672">]</span> - Adding a new node: /default-rack/192.168.3.123:3181
+2021-12-26 22:04:02,014 - INFO  - <span style="color:#f92672">[</span>vert.x-eventloop-thread-0:VertxHttpServer$2@84<span style="color:#f92672">]</span> - Starting Vertx HTTP server on port <span style="color:#ae81ff">8081</span>
+2021-12-26 22:04:02,315 - INFO  - <span style="color:#f92672">[</span>main:VertxHttpServer@91<span style="color:#f92672">]</span> - Vertx Http server started successfully
+2021-12-26 22:04:02,315 - INFO  - <span style="color:#f92672">[</span>main:ComponentStarter@86<span style="color:#f92672">]</span> - Started component bookie-server.
+</code></pre></div><h2 id="localbookie方式部署">localbookie方式部署</h2>
 <p>这种方式主要是用于本地开发环境.</p>
 
 
@@ -639,6 +639,10 @@ org.apache.bookkeeper.bookie.BookieException$MetadataStoreException: Failed to g
     <li><a href="/post/bk-client-go-readme/">GO上手项目值得你拥有:Bookkeeper客户端</a></li>
     
     <li><a href="/post/bookkeeper-rs-readme/">Rust上手项目值得你拥有:Bookkeeper客户端</a></li>
+    
+    <li><a href="/post/flink-exception-qa/">Flink常见问题</a></li>
+    
+    <li><a href="/post/deploy-pulsar/">部署去ZK后的Apache Pulsar</a></li>
     
     <li><a href="/post/list-of-source-with-bookeeper/">bookeeper源码系列</a></li>
     

@@ -40,7 +40,7 @@
       <pubDate>Sun, 23 Apr 2023 00:00:00 +0000</pubDate>
       
       <guid>https://liangyuanpeng.github.io/post/kubeadm-config-note-long-term/</guid>
-      <description>说明 本文主要收集常见场景下 kubeadm 配置以及遇到的一些常见问题,欢迎对本文进行投稿你认为好的场景配置或问题. 官方文档 https://kubernetes.io/docs/reference/config-api/kubeadm-config.v1beta3/ 注意: 如果是其他版本则将 v1beta3 修改</description>
+      <description>说明 本文主要收集常见场景下 kubeadm 配置以及遇到的一些常见问题,欢迎对本文进行投稿你认为好的场景配置或问题. Kind 是一个基于 Docker 来实现在容器内跑 kubernetes 的方案,</description>
     </item>
     
     <item>

@@ -580,13 +580,13 @@
 新版本的配置需要在 /etc/containerd/certs.d 目录(默认)下为每一个镜像仓库新建一个对应的 hosts.toml 文件来进行镜像仓库的配置.
 例如 <code>registry.k8s.io</code> 的镜像配置,需要创建一个这样的文件:<code>/etc/containerd/certs.d/registry.k8s.io/hosts.toml</code>
 文件内容如下:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-toml" data-lang="toml"><span style="color:#a6e22e">server</span> = <span style="color:#e6db74">&#34;https://registry.k8s.io&#34;</span>
+<pre tabindex="0"><code class="language-conf" data-lang="conf">server = &quot;https://registry.k8s.io&quot;
 
-[<span style="color:#a6e22e">host</span>.<span style="color:#e6db74">&#34;https://registry.lank8s.cn&#34;</span>]
-  <span style="color:#a6e22e">capabilities</span> = [<span style="color:#e6db74">&#34;pull&#34;</span>,<span style="color:#e6db74">&#34;resolve&#34;</span>]
-[<span style="color:#a6e22e">host</span>.<span style="color:#e6db74">&#34;https://registry99.lank8s.cn&#34;</span>]
-  <span style="color:#a6e22e">capabilities</span> = [<span style="color:#e6db74">&#34;pull&#34;</span>,<span style="color:#e6db74">&#34;resolve&#34;</span>]
-</code></pre></div><p>其中镜像地址可以配置多个.</p>
+[host.&quot;https://registry.lank8s.cn&quot;]
+  capabilities = [&quot;pull&quot;,&quot;resolve&quot;]
+[host.&quot;https://registry99.lank8s.cn&quot;]
+  capabilities = [&quot;pull&quot;,&quot;resolve&quot;]
+</code></pre><p>其中镜像地址可以配置多个.</p>
 <p>具体参考官方文档: <a href="https://github.com/containerd/containerd/blob/main/docs/hosts.md#cri">https://github.com/containerd/containerd/blob/main/docs/hosts.md#cri</a></p>
 <p>对应到 Kind 上的使用的话则是需要挂载对应的 hosts 文件到对应上游仓库所在目录位置,而 Kind 的配置如下:</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#f92672">apiVersion</span>: <span style="color:#ae81ff">kind.x-k8s.io/v1alpha4</span>

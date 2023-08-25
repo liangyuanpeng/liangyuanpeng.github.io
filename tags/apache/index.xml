@@ -17,12 +17,39 @@
     </item>
     
     <item>
+      <title>下一代pulsar元数据存储Oxia</title>
+      <link>https://liangyuanpeng.github.io/post/oxia-is-next-pulsar-metadata/</link>
+      <pubDate>Wed, 03 May 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://liangyuanpeng.github.io/post/oxia-is-next-pulsar-metadata/</guid>
+      <description>Oxia 是什么? 简单来说呢 oxia 是一个 streamnative 开源的基于 kubernetes 的可扩展的元数据存储和协调系统,设计的目标是为了成为Apache Pulsar 的关键组件,也就是元数据中心,取</description>
+    </item>
+    
+    <item>
+      <title>部署去ZK后的Apache Pulsar</title>
+      <link>https://liangyuanpeng.github.io/post/deploy-pulsar/</link>
+      <pubDate>Mon, 06 Jun 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://liangyuanpeng.github.io/post/deploy-pulsar/</guid>
+      <description>前言 本文基本上是按照官方文档来实践的,非常简单. 首先要明确我们需要做的几件事情： 生成 token 并且配置 Pulsar broker 开启 Token 认证. 配置 Pulsar broker 开启自身需要用到的客户</description>
+    </item>
+    
+    <item>
       <title>简单部署Apache-Bookkeeper</title>
       <link>https://liangyuanpeng.github.io/post/simple-deploy-for-apache-bookkeeper/</link>
       <pubDate>Sun, 26 Dec 2021 00:00:00 +0000</pubDate>
       
       <guid>https://liangyuanpeng.github.io/post/simple-deploy-for-apache-bookkeeper/</guid>
-      <description>前言 开始部署 由于apache bookkeeper(本文后续简称为BK)需要使用元数据服务中心,当前支持zookeeper和etcd,本文将会</description>
+      <description>前言 开始部署 由于 Apache bookkeeper(本文后续简称为BK)需要使用元数据服务中心,当前支持 Zookeeper 和 Etcd,本文将会分别介绍使用 zookeeper+bookkeeper 部署和 etcd+bookkeeper 的部</description>
+    </item>
+    
+    <item>
+      <title>Flink常见问题</title>
+      <link>https://liangyuanpeng.github.io/post/flink-exception-qa/</link>
+      <pubDate>Thu, 23 Dec 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://liangyuanpeng.github.io/post/flink-exception-qa/</guid>
+      <description>声明 由于我不是 Flink 专家,因此只是将使用/研究 Flink 时遇到的问题分享出来,如有不对之处麻烦提示或帮忙纠正一下,感谢! 常见异常 This type (GenericType&amp;lt;java.util.Map&amp;gt;) cannot be used as key. 基本上是</description>
     </item>
     
     <item>
@@ -53,12 +80,21 @@
     </item>
     
     <item>
+      <title>部署去ZK后的Apache Pulsar</title>
+      <link>https://liangyuanpeng.github.io/post/deploy-pulsar/</link>
+      <pubDate>Sat, 22 May 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://liangyuanpeng.github.io/post/deploy-pulsar/</guid>
+      <description>前言 记录我的终端更新笔记 :( 当我们在说元数据中心的时候我们在说什么 Bookkeeper 和 Pulsar Broker 都有各自的元数据中心,并且都有自己的元数据中心接口,默认都是ZK. 要</description>
+    </item>
+    
+    <item>
       <title>bookeeper源码系列</title>
       <link>https://liangyuanpeng.github.io/post/list-of-source-with-bookeeper/</link>
       <pubDate>Wed, 12 May 2021 00:00:00 +0000</pubDate>
       
       <guid>https://liangyuanpeng.github.io/post/list-of-source-with-bookeeper/</guid>
-      <description>说明 之前研究过一些 bookeeper 源码，无奈时间问题都中断了，这里列出一些研究入口给希望研究 bookeeper 源码的同学。 对于交流持非常欢迎态度！可以微信联系我也可以在下</description>
+      <description>说明 之前研究过一些 Bookkeeper 源码，无奈时间问题都中断了，这里列出一些研究入口给希望研究 Bookkeeper 源码的同学。 对于交流持非常欢迎态度！可以微信联系我也可以在下</description>
     </item>
     
     <item>

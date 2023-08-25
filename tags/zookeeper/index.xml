@@ -13,7 +13,7 @@
       <pubDate>Sun, 26 Dec 2021 00:00:00 +0000</pubDate>
       
       <guid>https://liangyuanpeng.github.io/post/simple-deploy-for-apache-bookkeeper/</guid>
-      <description>前言 开始部署 由于apache bookkeeper(本文后续简称为BK)需要使用元数据服务中心,当前支持zookeeper和etcd,本文将会</description>
+      <description>前言 开始部署 由于 Apache bookkeeper(本文后续简称为BK)需要使用元数据服务中心,当前支持 Zookeeper 和 Etcd,本文将会分别介绍使用 zookeeper+bookkeeper 部署和 etcd+bookkeeper 的部</description>
     </item>
     
   </channel>

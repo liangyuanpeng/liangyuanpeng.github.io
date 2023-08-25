@@ -360,7 +360,7 @@
 
 
 
-                            阅读 </span></span>|<span class="post-date">共852字</span>，阅读约<span class="more-meta"> 2 分钟</span>
+                            阅读 </span></span>|<span class="post-date">共1138字</span>，阅读约<span class="more-meta"> 3 分钟</span>
                         
                     </span>
                 </div>
@@ -390,7 +390,8 @@
 
 		<h1 id="前言">前言</h1>
 <p>本文接下来所有配置都是基于 <a href="https://liangyuanpeng.com/post/service-lank8s.cn/#undefined">lank8s服务</a>来做的.</p>
-<p>在习惯了 kind 创建 kubernetes 集群后再次尝试了另外的搭建 kubernetes 集群工具: Talos 和 K0s,深深的感受到 Kind 将常用组件镜像都打包到 kindest/node 这个镜像内是多么明智的选择。 尝试 Talos 和 K0s 的首个问题就是镜像无法访问，其次是需要学习新的配置内容，而 Kind 是基于 Kubeadm 的，因此没有带来太多的学习成本，但 Talos 和 K0s 都有一个很实用的特性是支持部署豪 k8s 集群后 apply 一些用户自定义的 manifests。</p>
+<p>在习惯了 kind 创建 kubernetes 集群后再次尝试了另外的搭建 kubernetes 集群工具: Talos 和 K0s,深深的感受到 Kind 将常用组件镜像都打包到 kindest/node 这个镜像内是多么明智的选择。 尝试 Talos 和 K0s 的首个问题就是镜像无法访问，其次是需要学习新的配置内容，而 Kind 是基于 Kubeadm 的，因此没有带来太多的学习成本，但 Talos 和 K0s 都有一个很实用的特性是支持部署豪 k8s 集群后 apply 一些用户自定义的 manifests.</p>
+<p>Kind 是一个基于 Docker 来实现在容器内跑 kubernetes 的方案,其原理是在容器内使用 kubeadm 部署 kubernetes,我发布了一个同样是长期更新的专门记录 Kind 内容的博客,因此在这里的一些配置问题很可能已经出现在了<a href="https://liangyuanpeng.com/post/run-k8s-with-kind/">用kind搭建k8s集群环境</a>这篇文章,如果在本文没有找到你想要的内容可以去那篇文章试试运气,对信息碎片化感到抱歉 (:</p>
 <h1 id="talos">Talos</h1>
 <p>这个项目是我觉得非常有意思的一个项目，一个专注于 kubernetes 的容器化 Linux 操作系统，甚至连 SSH 功能都去掉了，一切都通过 API 的方式来操作。</p>
 <p>目前来看 Talos 启动 kubernetes 集群的速度比 Kind 慢，测试了多次基本上 Talos 基于 Docker 来启动一个 1 master 和 1 node 的 kubernetes 集群需要 2m18s,而 Kind 启动一个 1 master 和 1 node 的 kubernetes 集群只需要 48s，这个测试结果的前提是已经将需要的镜像全部都缓存在本地了。</p>
@@ -525,7 +526,7 @@ services:
 <h1 id="k3s">K3s</h1>
 <h1 id="crio">crio</h1>
 <p>关键配置如下:</p>
-<pre tabindex="0"><code>[[registry]]
+<pre tabindex="0"><code class="language-conf" data-lang="conf">[[registry]]
 location = &quot;gcr.io&quot;
 
 [[registry.mirror]]
@@ -538,15 +539,63 @@ location = &quot;registry.k8s.io&quot;
 [[registry.mirror]]
 location = &quot;registry.lank8s.cn&quot;
 </code></pre><p>官方文档: <a href="https://github.com/containers/image/blob/main/docs/containers-registries.conf.5.md">https://github.com/containers/image/blob/main/docs/containers-registries.conf.5.md</a></p>
-<h1 id="distribution-registry">distribution registry</h1>
-<h1 id="zot-registry">zot registry</h1>
-<h1 id="harbor">harbor</h1>
+<h1 id="distribution-registry-docker-registry">distribution registry (docker registry)</h1>
+<p>distribution 配置镜像代理非常简单,只需要传递一个环境变量就可以了,下面是一个 docker-compose 的配置示例:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#f92672">version</span>: <span style="color:#e6db74">&#34;3.8&#34;</span>
+<span style="color:#f92672">services</span>:
+    <span style="color:#f92672">registry</span>:
+      <span style="color:#f92672">image</span>: <span style="color:#ae81ff">registry:2</span>
+      <span style="color:#f92672">restart</span>: <span style="color:#ae81ff">always</span>
+      <span style="color:#f92672">ports</span>:
+        - <span style="color:#ae81ff">5000</span>:<span style="color:#ae81ff">5000</span>
+      <span style="color:#f92672">environment</span>:
+        - <span style="color:#ae81ff">REGISTRY_PROXY_REMOTEURL=https://registry.lank8s.cn</span>
+</code></pre></div><h1 id="zot-registry">zot registry</h1>
+<p>下面是一个配置示例, zot 支持对同一个镜像源配置多个上游,这一点非常实用.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json">{
+	<span style="color:#f92672">&#34;distspecversion&#34;</span>:<span style="color:#e6db74">&#34;1.1.0-dev&#34;</span>,
+	<span style="color:#f92672">&#34;storage&#34;</span>: {
+		<span style="color:#f92672">&#34;rootDirectory&#34;</span>: <span style="color:#e6db74">&#34;/tmp/zot_to_sync&#34;</span>,
+		<span style="color:#f92672">&#34;dedupe&#34;</span>: <span style="color:#66d9ef">false</span>,
+		<span style="color:#f92672">&#34;gc&#34;</span>: <span style="color:#66d9ef">false</span>
+	},
+	<span style="color:#f92672">&#34;http&#34;</span>: {
+		<span style="color:#f92672">&#34;address&#34;</span>: <span style="color:#e6db74">&#34;127.0.0.1&#34;</span>,
+		<span style="color:#f92672">&#34;port&#34;</span>: <span style="color:#e6db74">&#34;8081&#34;</span>
+	},
+	<span style="color:#f92672">&#34;log&#34;</span>: {
+		<span style="color:#f92672">&#34;level&#34;</span>: <span style="color:#e6db74">&#34;debug&#34;</span>
+	},
+	<span style="color:#f92672">&#34;extensions&#34;</span>: {
+		<span style="color:#f92672">&#34;sync&#34;</span>: {
+			<span style="color:#f92672">&#34;registries&#34;</span>: [
+				{
+					<span style="color:#f92672">&#34;urls&#34;</span>: [
+						<span style="color:#e6db74">&#34;https://registry.lank8s.cn&#34;</span>
+					],
+					<span style="color:#f92672">&#34;onDemand&#34;</span>: <span style="color:#66d9ef">false</span>,
+					<span style="color:#f92672">&#34;tlsVerify&#34;</span>: <span style="color:#66d9ef">false</span>,
+					<span style="color:#f92672">&#34;PollInterval&#34;</span>: <span style="color:#e6db74">&#34;30s&#34;</span>,
+					<span style="color:#f92672">&#34;content&#34;</span>: [
+						{
+							<span style="color:#f92672">&#34;prefix&#34;</span>: <span style="color:#e6db74">&#34;/**&#34;</span>
+						}
+					]
+				}
+			]
+		},
+		<span style="color:#f92672">&#34;scrub&#34;</span>: {
+			<span style="color:#f92672">&#34;interval&#34;</span>: <span style="color:#e6db74">&#34;24h&#34;</span>
+		}
+	}
+}
+</code></pre></div><h1 id="harbor">harbor</h1>
 <h1 id="docker">docker</h1>
-<p>docker pull registry.lank8s.cn/kube-apiserver:v1.26.0</p>
-<h1 id="kubeadm">kubeadm</h1>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">docker pull registry.lank8s.cn/kube-apiserver:v1.26.0
+</code></pre></div><h1 id="kubeadm">kubeadm</h1>
 <p>将 <code>image-repository</code> 参数指向 <code>registry.lank8s.cn</code> 即可.</p>
-<p>kubeadm init  &ndash;image-repository=registry.lank8s.cn</p>
-
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">kubeadm init  --image-repository<span style="color:#f92672">=</span>registry.lank8s.cn
+</code></pre></div>
 
         <h2>微信公众号</h2>
 <p>扫描下面的二维码关注我们的微信公众号,第一时间查看最新内容。同时也可以关注我的Github,看看我都在了解什么技术,在页面底部可以找到我的Github。</p>

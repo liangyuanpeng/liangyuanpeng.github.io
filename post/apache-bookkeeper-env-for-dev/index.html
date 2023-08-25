@@ -295,7 +295,7 @@
 
 
 
-                            阅读 </span></span>|<span class="post-date">共270字</span>，阅读约<span class="more-meta"> 1 分钟</span>
+                            阅读 </span></span>|<span class="post-date">共269字</span>，阅读约<span class="more-meta"> 1 分钟</span>
                         
                     </span>
                 </div>
@@ -332,30 +332,30 @@
 		
 
 		<h1 id="打包bk">打包BK</h1>
-<pre tabindex="0"><code>mvn package -DsipTests=true
-</code></pre><p>顺利的话就成功的打包好了.</p>
-<pre tabindex="0"><code class="language-log" data-lang="log">[INFO] Apache BookKeeper :: Tests :: Backward Compatibility :: Test upgrade between yahoo custom version and current SUCCESS [  0.373 s]
-[INFO] Apache BookKeeper :: Tests :: Backward Compatibility :: Test Bouncy Castle Provider load non FIPS version SUCCESS [  0.484 s]
-[INFO] Apache BookKeeper :: Tests :: Integration .......... SUCCESS [  0.013 s]
-[INFO] Apache BookKeeper :: Tests :: Integration :: Smoke test SUCCESS [  0.547 s]
-[INFO] Apache BookKeeper :: Tests :: Integration :: Standalone test SUCCESS [  0.289 s]
-[INFO] Apache BookKeeper :: Tests :: Integration :: Cluster test SUCCESS [  0.667 s]
-[INFO] Apache BookKeeper :: Tests :: Bash Scripts Test .... SUCCESS [  5.297 s]
-[INFO] ------------------------------------------------------------------------
-[INFO] BUILD SUCCESS
-[INFO] ------------------------------------------------------------------------
-[INFO] Total time:  09:55 min
-[INFO] Finished at: 2021-12-26T20:57:56+08:00
-[INFO] ------------------------------------------------------------------------
-</code></pre><p>我这里是第一次打包,包含下载依赖花费了近10分钟.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">mvn package -DsipTests<span style="color:#f92672">=</span>true
+</code></pre></div><p>顺利的话就成功的打包好了.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#f92672">[</span>INFO<span style="color:#f92672">]</span> Apache BookKeeper :: Tests :: Backward Compatibility :: Test upgrade between yahoo custom version and current SUCCESS <span style="color:#f92672">[</span>  0.373 s<span style="color:#f92672">]</span>
+<span style="color:#f92672">[</span>INFO<span style="color:#f92672">]</span> Apache BookKeeper :: Tests :: Backward Compatibility :: Test Bouncy Castle Provider load non FIPS version SUCCESS <span style="color:#f92672">[</span>  0.484 s<span style="color:#f92672">]</span>
+<span style="color:#f92672">[</span>INFO<span style="color:#f92672">]</span> Apache BookKeeper :: Tests :: Integration .......... SUCCESS <span style="color:#f92672">[</span>  0.013 s<span style="color:#f92672">]</span>
+<span style="color:#f92672">[</span>INFO<span style="color:#f92672">]</span> Apache BookKeeper :: Tests :: Integration :: Smoke test SUCCESS <span style="color:#f92672">[</span>  0.547 s<span style="color:#f92672">]</span>
+<span style="color:#f92672">[</span>INFO<span style="color:#f92672">]</span> Apache BookKeeper :: Tests :: Integration :: Standalone test SUCCESS <span style="color:#f92672">[</span>  0.289 s<span style="color:#f92672">]</span>
+<span style="color:#f92672">[</span>INFO<span style="color:#f92672">]</span> Apache BookKeeper :: Tests :: Integration :: Cluster test SUCCESS <span style="color:#f92672">[</span>  0.667 s<span style="color:#f92672">]</span>
+<span style="color:#f92672">[</span>INFO<span style="color:#f92672">]</span> Apache BookKeeper :: Tests :: Bash Scripts Test .... SUCCESS <span style="color:#f92672">[</span>  5.297 s<span style="color:#f92672">]</span>
+<span style="color:#f92672">[</span>INFO<span style="color:#f92672">]</span> ------------------------------------------------------------------------
+<span style="color:#f92672">[</span>INFO<span style="color:#f92672">]</span> BUILD SUCCESS
+<span style="color:#f92672">[</span>INFO<span style="color:#f92672">]</span> ------------------------------------------------------------------------
+<span style="color:#f92672">[</span>INFO<span style="color:#f92672">]</span> Total time:  09:55 min
+<span style="color:#f92672">[</span>INFO<span style="color:#f92672">]</span> Finished at: 2021-12-26T20:57:56+08:00
+<span style="color:#f92672">[</span>INFO<span style="color:#f92672">]</span> ------------------------------------------------------------------------
+</code></pre></div><p>我这里是第一次打包,包含下载依赖花费了近 10 分钟.</p>
 <h2 id="可能会出现的问题">可能会出现的问题</h2>
 <h3 id="提示没有g">提示没有g++</h3>
-<pre tabindex="0"><code class="language-log" data-lang="log">[ERROR] Failed to execute goal com.github.maven-nar:nar-maven-plugin:3.5.2:nar-compile (default-nar-compile) on project circe-checksum: NAR: Compile failed: Could not launch g++: java.io.IOException: Cannot run program &quot;g++&quot; (in directory &quot;/home/oem/repo/git/bookkeeper/circe-checksum/src/main&quot;): error=2, No such file or directory -&gt; [Help 1]
-[ERROR] 
-[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
-[ERROR] Re-run Maven using the -X switch to enable full debug logging.
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#f92672">[</span>ERROR<span style="color:#f92672">]</span> Failed to execute goal com.github.maven-nar:nar-maven-plugin:3.5.2:nar-compile <span style="color:#f92672">(</span>default-nar-compile<span style="color:#f92672">)</span> on project circe-checksum: NAR: Compile failed: Could not launch g++: java.io.IOException: Cannot run program <span style="color:#e6db74">&#34;g++&#34;</span> <span style="color:#f92672">(</span>in directory <span style="color:#e6db74">&#34;/home/oem/repo/git/bookkeeper/circe-checksum/src/main&#34;</span><span style="color:#f92672">)</span>: error<span style="color:#f92672">=</span>2, No such file or directory -&gt; <span style="color:#f92672">[</span>Help 1<span style="color:#f92672">]</span>
+<span style="color:#f92672">[</span>ERROR<span style="color:#f92672">]</span> 
+<span style="color:#f92672">[</span>ERROR<span style="color:#f92672">]</span> To see the full stack trace of the errors, re-run Maven with the -e switch.
+<span style="color:#f92672">[</span>ERROR<span style="color:#f92672">]</span> Re-run Maven using the -X switch to enable full debug logging.
 
-</code></pre><p>直接用命令安装g++即可,</p>
+</code></pre></div><p>直接用命令安装<code>g++</code>即可,</p>
 <p>ubuntu:</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">sudo apt install -y g++
 </code></pre></div>
@@ -533,6 +533,8 @@
     <li><a href="/post/bk-client-go-readme/">GO上手项目值得你拥有:Bookkeeper客户端</a></li>
     
     <li><a href="/post/bookkeeper-rs-readme/">Rust上手项目值得你拥有:Bookkeeper客户端</a></li>
+    
+    <li><a href="/post/deploy-pulsar/">部署去ZK后的Apache Pulsar</a></li>
     
     <li><a href="/post/list-of-source-with-bookeeper/">bookeeper源码系列</a></li>
     

@@ -209,6 +209,69 @@
                             
                         </a>
                         
+                       <a class="tag" href="/tags/apache" title="apache">
+                        apache
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                        </a>
+                        
                         <br/>
                     </div>
                     <h1>Flink常见问题</h1>
@@ -230,7 +293,7 @@
 
 
 
-                            阅读 </span></span>|<span class="post-date">共572字</span>，阅读约<span class="more-meta"> 2 分钟</span>
+                            阅读 </span></span>|<span class="post-date">共522字</span>，阅读约<span class="more-meta"> 2 分钟</span>
                         
                     </span>
                 </div>
@@ -270,10 +333,10 @@
 		
 
 		<h1 id="声明">声明</h1>
-<p>由于我不是Flink专家,因此只是将使用/研究Flink时遇到的问题分享出来,如有不对之处麻烦提示或帮忙纠正一下,感谢!</p>
+<p>由于我不是 Flink 专家,因此只是将使用/研究 Flink 时遇到的问题分享出来,如有不对之处麻烦提示或帮忙纠正一下,感谢!</p>
 <h1 id="常见异常">常见异常</h1>
 <h2 id="this-type-generictypejavautilmap-cannot-be-used-as-key">This type (GenericType&lt;java.util.Map&gt;) cannot be used as key.</h2>
-<p>基本上是说在你的数据处理过程中把map或含有map类型字段的对象作为了key或key的一部分.</p>
+<p>基本上是说在你的数据处理过程中把 Map 或含有 Map 类型字段的对象作为了 key 或 key 的一部分.</p>
 <p>例如:</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#f92672">...</span>
 DataSet<span style="color:#f92672">&lt;</span>Tuple2<span style="color:#f92672">&lt;</span>TdbBaseMto<span style="color:#f92672">,</span> Integer<span style="color:#f92672">&gt;&gt;</span> counts <span style="color:#f92672">=</span>
@@ -287,11 +350,11 @@ DataSet<span style="color:#f92672">&lt;</span>Tuple2<span style="color:#f92672">
     <span style="color:#f92672">...</span>
     <span style="color:#66d9ef">public</span> Map tags <span style="color:#f92672">=</span> Collections<span style="color:#f92672">.</span><span style="color:#a6e22e">emptyMap</span><span style="color:#f92672">();</span>
 <span style="color:#f92672">}</span>
-</code></pre></div><p>上述代码块中<code>TdbBaseMto</code>对象就存在了map类型的字段,因此发生了这个错误.</p>
+</code></pre></div><p>上述代码块中<code>TdbBaseMto</code>对象就存在了 Map 类型的字段,因此发生了这个错误.</p>
 <h2 id="this-type-generictype-cannot-be-used-as-key">This type (GenericType) cannot be used as key.</h2>
-<p>可能是你的key对象没有默认的无参public构造函数,或者是字段没有声明为public.</p>
+<p>可能是你的 key 对象没有默认的无参 public 构造函数,或者是字段没有声明为 public.</p>
 <h2 id="the-taskexecutor-is-shutting-down">The TaskExecutor is shutting down.</h2>
-<p>本地起了完整的Flink Runtime,然后跑了几个批处理的demo,但是批处理完成后总是会报出这个异常.</p>
+<p>本地起了完整的 Flink Runtime,然后跑了几个批处理的 demo,但是批处理完成后总是会报出这个异常.</p>
 <p>具体原因还未知.</p>
 <h2 id="the-module-flink-runtime-web-could-not-be-found-in-the-class-path-please-add-this-jar-in-order-to-enable-web-based-job-submission">The module flink-runtime-web could not be found in the class path. Please add this jar in order to enable web based job submission.</h2>
 <p>提示很明确了,缺少了<code>flink-runtime-web</code>的依赖包,把下面<code>${flink.version}</code>改成自己需要的版本就可以了.</p>
@@ -302,8 +365,8 @@ DataSet<span style="color:#f92672">&lt;</span>Tuple2<span style="color:#f92672">
     <span style="color:#f92672">&lt;/dependency&gt;</span>
 </code></pre></div><h1 id="常见问题">常见问题</h1>
 <h2 id="明明设置了webui但是打不开">明明设置了webui但是打不开.</h2>
-<p>使用下面方式开启了webui,并且日志已经提示开始监听8081,但是就是打不开页面.</p>
-<p>网上某些文章都是下面这样的代码来开启本地JVM Flink环境的webui.</p>
+<p>使用下面方式开启了 webui,并且日志已经提示开始监听8081,但是就是打不开页面.</p>
+<p>网上某些文章都是下面这样的代码来开启本地 JVM Flink 环境的 webui.</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#f92672">...</span>
 env <span style="color:#f92672">=</span> ExecutionEnvironment<span style="color:#f92672">.</span><span style="color:#a6e22e">createLocalEnvironmentWithWebUI</span><span style="color:#f92672">(</span><span style="color:#66d9ef">new</span> Configuration<span style="color:#f92672">());</span>
 <span style="color:#f92672">...</span> 
@@ -311,7 +374,7 @@ env <span style="color:#f92672">=</span> ExecutionEnvironment<span style="color:
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#f92672">...</span>
         StreamExecutionEnvironment env <span style="color:#f92672">=</span> StreamExecutionEnvironment<span style="color:#f92672">.</span><span style="color:#a6e22e">createLocalEnvironmentWithWebUI</span><span style="color:#f92672">(</span><span style="color:#66d9ef">new</span> Configuration<span style="color:#f92672">());</span>
 <span style="color:#f92672">...</span>
-</code></pre></div><p>不排除版本导致的问题,这里用到的Flink版本是<code>1.14.2</code>.</p>
+</code></pre></div><p>不排除版本导致的问题,这里用到的 Flink 版本是<code>1.14.2</code>.</p>
 <h1 id="温馨提示">温馨提示</h1>
 <p>本文持续更新</p>
 
@@ -482,6 +545,27 @@ env <span style="color:#f92672">=</span> ExecutionEnvironment<span style="color:
             <section>
                 <hr class="hidden-sm hidden-xs">
                 
+
+<h2>相关文章</h2>
+<ul style="margin-bottom: 25px;">
+    
+    <li><a href="/post/apache-bookkeeper-env-for-dev/">Apache-Bookkeeper开发环境搭建</a></li>
+    
+    <li><a href="/post/bk-client-go-readme/">GO上手项目值得你拥有:Bookkeeper客户端</a></li>
+    
+    <li><a href="/post/bookkeeper-rs-readme/">Rust上手项目值得你拥有:Bookkeeper客户端</a></li>
+    
+    <li><a href="/post/deploy-pulsar/">部署去ZK后的Apache Pulsar</a></li>
+    
+    <li><a href="/post/list-of-source-with-bookeeper/">bookeeper源码系列</a></li>
+    
+    <li><a href="/post/question-list-of-pulsar/">[长期更新]pulsar问题列表</a></li>
+    
+    <li><a href="/post/first-asf-board-member/">ASF第一位华人董事</a></li>
+    
+    <li><a href="/post/deploy-apache-rocketmq/">Apache RocketMQ单机部署</a></li>
+    
+</ul>
 
             </section>
             </div>

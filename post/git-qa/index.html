@@ -230,7 +230,7 @@
 
 
 
-                            阅读 </span></span>|<span class="post-date">共360字</span>，阅读约<span class="more-meta"> 1 分钟</span>
+                            阅读 </span></span>|<span class="post-date">共457字</span>，阅读约<span class="more-meta"> 1 分钟</span>
                         
                     </span>
                 </div>
@@ -273,15 +273,16 @@
 <li>我根据 Contour 的主分支 checkout 了一条 PR 分支,</li>
 <li>在这个分支上添加我的代码</li>
 <li>提交 PR</li>
-<li>好几天过去了 Contour 主分支更新了内容,其中更新的内容有代码变更影响了我的 PR 分支,导致 CI 失败,因此我需要rebase/merge 分支</li>
+<li>好几天过去了 Contour 主分支更新了内容,其中更新的内容有代码变更影响了我的 PR 分支,导致 CI 失败,因此我需要 rebase/merge 分支</li>
 <li>我拉取(fetch)了 Contour 的主分支代码,然后在我的分支上 rebase 了后出现了上述这个提示</li>
 </ol>
 <p>原以为是出现了错误,但是似乎并没有造成什么影响.</p>
 <p>TODO: 根据《Pro Git》第96页 似乎有提到这个内容,翻一翻求证一下.</p>
 <h2 id="使用远程分支覆盖本地分支">使用远程分支覆盖本地分支</h2>
 <p>偶尔会弄脏了本地分支,需要用远程分支来覆盖本地的内容.当然还有另外的做法，那就是切换到另一个分支，然后将不想要的分支删除，再基于远程分支创建一个新的分支(如果需要)。</p>
-<pre tabindex="0"><code>git reset --hard origin/branchName
-</code></pre>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">git reset --hard origin/branchName
+</code></pre></div><p>这个会硬回滚提交的内容,也就是说已提交的内容会消失,在你使用这个命令前请确保你已经理解了后果! (我的同事曾经在使用了这个命令后来问我他如何找到那些被 reset 前的代码,庆幸的是 IDEA 对 git 做了本地备份,可以在 local history 找到消失的内容.)</p>
+
 
         <h2>微信公众号</h2>
 <p>扫描下面的二维码关注我们的微信公众号,第一时间查看最新内容。同时也可以关注我的Github,看看我都在了解什么技术,在页面底部可以找到我的Github。</p>
