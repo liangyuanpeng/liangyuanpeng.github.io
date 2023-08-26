@@ -21,8 +21,8 @@ categories: [ kubernetes ]
 # 跨版本升级
 
 ## service-account-issuer is a required flag, --service-account-signing-key-file and --service-account-issuer are required flags  
-
-版本v1.19.16升级到v1.23.x,二进制 kube-apiserver 升级后启动失败,提示`service-account-issuer is a required flag, --service-account-signing-key-file and --service-account-issuer are required flags`,原因就是在新版本中添加了新参数而旧版本没有这个参数.  
+ 
+版本 v1.19.16 升级到 v1.23.x,二进制 kube-apiserver 升级后启动失败,提示`service-account-issuer is a required flag, --service-account-signing-key-file and --service-account-issuer are required flags`,原因就是在新版本中添加了新参数而旧版本没有这个参数.  
 
 ## only zero is allowed  
 
