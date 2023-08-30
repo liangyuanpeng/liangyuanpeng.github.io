@@ -76,7 +76,7 @@
       <pubDate>Fri, 05 Feb 2021 00:00:00 +0000</pubDate>
       
       <guid>https://liangyuanpeng.github.io/post/first-lorawan-gateway-device/</guid>
-      <description>LoraWan数据走向 可以先看一下下面的数据图 从节点到网关是通过无线传输，也就是lora协议。LoraWan网关接收到数据后将其转化为网络数</description>
+      <description>LoraWan数据走向 可以先看一下下面的数据图 从节点到网关是通过无线传输，也就是 lora 协议。LoraWan 网关接收到数据后将其转化为网络数据通过</description>
     </item>
     
     <item>

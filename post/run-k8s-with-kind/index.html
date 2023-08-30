@@ -14,7 +14,7 @@
     <meta name="baidu-site-verification" content="code-ANZvlnN0Xr" />
 
     
-    <meta name="description" content="lan，工程师⎈,远鹏|CNCF粉丝|Pulsar爱好者|公众号:四颗咖啡豆|云原生追随者">
+    <meta name="description" content="由于各类基于 kubernetes 的云原生实验或测试的前提都是需要一个 kubernetes 环境,而在写博客时总是需要提及使用 Kind 来搭建 kubernetes 环境. 因此这里单独写一篇文章来介绍如何用 Kind 来部署 kubernetes,同时提供各种不同 kubernetes 环境的 Kind 配置文件供你使用,还会有各类小技巧.">
     
     <meta name="keyword"  content="liangyuanpeng|LanLiang|OpenYurt|Knative|Pulsar|Prometheus|Halo||边缘计算kubernetes|Docker|CloudNative|Golang|Rust|Istio|微服务">
 
@@ -488,7 +488,7 @@
 
 
 
-                            阅读 </span></span>|<span class="post-date">共1791字</span>，阅读约<span class="more-meta"> 4 分钟</span>
+                            阅读 </span></span>|<span class="post-date">共1956字</span>，阅读约<span class="more-meta"> 4 分钟</span>
                         
                     </span>
                 </div>
@@ -551,6 +551,9 @@
 <li>正常的服务 NodePort 暴露端口号</li>
 </ul>
 <p>坑点主要是第一点时常会忘记,导致访问不了.</p>
+<h1 id="更多的-kind-版本">更多的 Kind 版本</h1>
+<p>Kind 目前不保证对每一个 kubernetes 版本都构建一个对应的 node 镜像,目前我提供了一些 Kind 官方没有的镜像,例如 beta 版本或 rc 版本的 kubernetes.如: <code>ghcr.io/liangyuanpeng/kindest/node:v1.28.0-rc.0</code>, 不仅仅是已发布的镜像,有时我还会基于 kubernetes master 分支进行构建Kind 的镜像,用于测试某一个功能或 PR.</p>
+<p>如果你发现你需要的某个版本的镜像 Kind 官方没有提供可以在<a href="https://liangyuanpeng.com/post/run-k8s-with-kind/">本博客:用kind搭建k8s集群环境</a>底部添加评论,我会考虑进行打包.</p>
 <h1 id="使用">使用</h1>
 <p>基本上,即使你没有使用过 Kind 也不是问题,因为基于 Kind 来搭建 kubernetes 就是一条命令的事,需要使用到 Kind 命令,因此你需要下载 Kind 命令行工具.</p>
 <p>官方的 Kind 命令下载地址可以在<a href="https://github.com/kubernetes-sigs/kind/releases">Kind发布地址</a>找到,而我提供了一个另一个地址来下载 Kind 命令行,在下载 Github 上文件速度慢的时候可以用这个地址:</p>
@@ -558,12 +561,12 @@
 <p>版本是 v0.17.0</p>
 <p>对应的Github文件下载地址是:</p>
 <p><a href="https://github.com/kubernetes-sigs/kind/releases/download/v0.17.0/kind-linux-amd64">https://github.com/kubernetes-sigs/kind/releases/download/v0.17.0/kind-linux-amd64</a></p>
-<p>上述文件架构是 linux amd64的,其他架构文件可以自行在上述提供的Github发布地址上找到.</p>
+<p>上述文件架构是 linux amd64 的,其他架构文件可以自行在上述提供的 Github 发布地址上找到.</p>
 <p>使用默认的节点镜像以及默认的集群测试环境名称:</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">kind create --config kind.yaml
 </code></pre></div><p>使用特定节点镜像搭建的测试环境:</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">kind create --config kind.yaml --image kindest/node:v1.26.0
-</code></pre></div><p>添加<code>--name</code>参数为你的 kind kubernetes 集群命名:</p>
+</code></pre></div><p>添加<code>--name</code>参数为你的 Kind kubernetes 集群命名:</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">kind create --config kind.yaml --image kindest/node:v1.26.0 --name mykind
 </code></pre></div><p>祝你云原生之旅愉快! :)</p>
 <h1 id="各类环境的配置文件">各类环境的配置文件</h1>
@@ -727,7 +730,7 @@ kube-system          etcd-flannel-control-plane                      1/1     Run
 <h2 id="多节点">多节点</h2>
 <p><a href="https://liangyuanpeng.com/files/kind/v1alpha4/kind_mult.yaml">https://liangyuanpeng.com/files/kind/v1alpha4/kind_mult.yaml</a></p>
 <h2 id="k8s-kube-apiserver-端口映射">K8S kube-apiserver 端口映射</h2>
-<p>默认情况下使用 Kind 搭建的 kubernetes 环境只能在本机使用,这个配置文件映射了 kube-apiserver 端口,因此可以在机器A用 Kind 搭建环境,在机器B访问Kind 的  K8S.</p>
+<p>默认情况下使用 Kind 搭建的 kubernetes 环境只能在本机使用,这个配置文件映射了 kube-apiserver 端口,因此可以在机器A用 Kind 搭建环境,在机器B访问 Kind 的  K8S.</p>
 <p><a href="https://liangyuanpeng.com/files/kind/v1alpha4/kind_port.yaml">https://liangyuanpeng.com/files/kind/v1alpha4/kind_port.yaml</a></p>
 <h2 id="没有lank8scn服务">没有lank8s.cn服务</h2>
 <p><a href="https://liangyuanpeng.com/files/kind/v1alpha4/kind_nolank8s.yaml">https://liangyuanpeng.com/files/kind/v1alpha4/kind_nolank8s.yaml</a></p>

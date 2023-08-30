@@ -230,7 +230,7 @@
 
 
 
-                            阅读 </span></span>|<span class="post-date">共15字</span>，阅读约<span class="more-meta"> 1 分钟</span>
+                            阅读 </span></span>|<span class="post-date">共144字</span>，阅读约<span class="more-meta"> 1 分钟</span>
                         
                     </span>
                 </div>
@@ -260,6 +260,29 @@
 
 		<h1 id="前言">前言</h1>
 <p>本文长期更新,欢迎投稿:)</p>
+<h1 id="入门用法">入门用法</h1>
+<p>这个只是记录一下最简单的一个用法示例</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">---
+- <span style="color:#f92672">hosts</span>: <span style="color:#ae81ff">local</span>
+  <span style="color:#f92672">vars</span>:
+
+  <span style="color:#f92672">tasks</span>:
+
+    - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">create fold</span>
+      <span style="color:#f92672">shell</span>: <span style="color:#ae81ff">mkdir -p /root/dev/lank8s</span>
+
+    - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">copy yaml</span>
+      <span style="color:#f92672">copy</span>:
+        <span style="color:#f92672">src</span>: <span style="color:#ae81ff">/home/lan/repo/git/lank8s/deploy/test/files/</span>
+        <span style="color:#f92672">dest</span>: <span style="color:#ae81ff">/root/dev/lank8s/</span>
+
+    - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">docker-compose up</span>
+      <span style="color:#f92672">shell</span>: <span style="color:#ae81ff">cd /root/dev/lank8s &amp;&amp; docker-compose -f docker-compose-parser.yml up -d &amp;&amp; docker-compose -f docker-compose-ecf.yml up -d</span>
+
+    - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">docker-compose ps</span>
+      <span style="color:#f92672">shell</span>: <span style="color:#ae81ff">cd /root/dev/lank8s &amp;&amp; docker-compose -f docker-compose-parser.yml ps</span>
+</code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">ansible-playbook -i ansible/hostfile ansible/book.yml
+</code></pre></div><p>上述配置以及命令表示 调用 ansible-playbook 去对一组机器执行一批命令,一组机器的组名为 local,一批命令则是各个 tasks</p>
 
 
         <h2>微信公众号</h2>

@@ -274,7 +274,7 @@
       <pubDate>Sat, 22 Jan 2022 00:00:00 +0000</pubDate>
       
       <guid>https://liangyuanpeng.github.io/post/rust-project-in-cncf/</guid>
-      <description>介绍 本文会介绍在CNCF中的Rust项目,项目的介绍可能是很简陋的,如果你可以帮忙完善一下项目的介绍,那就太好了,随时欢迎在评论区或网站仓库</description>
+      <description>介绍 本文会介绍在 CNCF 中的 Rust 项目,项目的介绍可能是很简陋的,如果你可以帮忙完善一下项目的介绍,那就太好了,随时欢迎在评论区或网站仓库提交 PR. 项目列</description>
     </item>
     
     <item>
@@ -301,7 +301,7 @@
       <pubDate>Tue, 18 Jan 2022 00:00:00 +0000</pubDate>
       
       <guid>https://liangyuanpeng.github.io/post/kubernetes-qa/</guid>
-      <description>声明 本文会持续的更新,将在使用kubernetes过程中遇到的问题都收集起来.欢迎投稿加入你遇到的问题 :) 跨版本升级 service-account-issuer is a required flag, &amp;ndash;service-account-signing-key-file and &amp;ndash;service-account-issuer are required flags 版本</description>
+      <description>声明 本文会持续的更新,将在使用 kubernetes 过程中遇到的问题都收集起来.欢迎投稿加入你遇到的问题 :) 跨版本升级 service-account-issuer is a required flag, &amp;ndash;service-account-signing-key-file and &amp;ndash;service-account-issuer are required flags 版本 v1.19.16 升级到 v1.23</description>
     </item>
     
     <item>
@@ -355,7 +355,7 @@
       <pubDate>Sun, 19 Dec 2021 00:00:00 +0000</pubDate>
       
       <guid>https://liangyuanpeng.github.io/post/quick-start-open-policy-agent/</guid>
-      <description>什么是OPA 官网介绍 翻译了一段官网的介绍,简单了解下OPA是什么东西. Open Policy Agent是一个开源的通用的策略引擎,它统一了整个技术栈中的策略行</description>
+      <description>什么是OPA 官网介绍 翻译了一段官网的介绍,简单了解下 OPA 是什么东西. Open Policy Agent 是一个开源的通用的策略引擎,它统一了整个技术栈中的策略行为.OPA 提</description>
     </item>
     
     <item>
@@ -575,6 +575,15 @@
     </item>
     
     <item>
+      <title>OpenKruise专栏介绍</title>
+      <link>https://liangyuanpeng.github.io/post/openkruise-column/</link>
+      <pubDate>Sun, 07 Feb 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://liangyuanpeng.github.io/post/openkruise-column/</guid>
+      <description>OpenKruise 是什么 OpenKruise 是 Kubernetes 的一个标准扩展，它可以配合原生 Kubernetes 使用，并为管理应用容器、sidecar、镜像分发等方面提供更加强大和高效的能力. 最初由阿里巴巴</description>
+    </item>
+    
+    <item>
       <title>用helm chart将chripstack部署到kubernetes之上</title>
       <link>https://liangyuanpeng.github.io/post/use-helm-deploy-chirpstack-kubernetes/</link>
       <pubDate>Sat, 30 Jan 2021 00:00:00 +0000</pubDate>
@@ -607,7 +616,7 @@
       <pubDate>Sat, 15 Feb 2020 00:00:00 +0000</pubDate>
       
       <guid>https://liangyuanpeng.github.io/post/fluentd-plugin-kafka/</guid>
-      <description>前言 Fluentd是用于统一日志记录层的开源数据收集器,是继Kubernetes、Prometheus、Envoy 、CoreDNS 和cont</description>
+      <description>前言 Fluentd 是用于统一日志记录层的开源数据收集器,是继 Kubernetes、Prometheus、Envoy 、CoreDNS 和 containerd 后的第6个 CNCF 毕业项</description>
     </item>
     
     <item>
@@ -616,7 +625,7 @@
       <pubDate>Fri, 14 Feb 2020 00:00:00 +0000</pubDate>
       
       <guid>https://liangyuanpeng.github.io/post/fluentd-quickstart/</guid>
-      <description>前言 Fluentd是用于统一日志记录层的开源数据收集器,是继Kubernetes、Prometheus、Envoy 、CoreDNS 和cont</description>
+      <description>前言 Fluentd 是用于统一日志记录层的开源数据收集器,是继 Kubernetes、Prometheus、Envoy 、CoreDNS 和 containerd 后的第6个 CNCF 毕业项</description>
     </item>
     
     <item>

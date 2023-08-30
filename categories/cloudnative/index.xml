@@ -220,7 +220,7 @@
       <pubDate>Sun, 19 Dec 2021 00:00:00 +0000</pubDate>
       
       <guid>https://liangyuanpeng.github.io/post/quick-start-open-policy-agent/</guid>
-      <description>什么是OPA 官网介绍 翻译了一段官网的介绍,简单了解下OPA是什么东西. Open Policy Agent是一个开源的通用的策略引擎,它统一了整个技术栈中的策略行</description>
+      <description>什么是OPA 官网介绍 翻译了一段官网的介绍,简单了解下 OPA 是什么东西. Open Policy Agent 是一个开源的通用的策略引擎,它统一了整个技术栈中的策略行为.OPA 提</description>
     </item>
     
     <item>
@@ -436,7 +436,7 @@
       <pubDate>Tue, 18 Feb 2020 00:00:00 +0000</pubDate>
       
       <guid>https://liangyuanpeng.github.io/post/jib-springboot-docker-maven/</guid>
-      <description>前提 docker 容器镜像仓库 这里举例可以公用的两个 dockerhub 阿里云容器镜像服务 前言 本文主要介绍的是google开源的一个java领域的docker构建工具ji</description>
+      <description>前提 docker 容器镜像仓库 这里举例可以公用的两个 dockerhub 阿里云容器镜像服务 前言 本文主要介绍的是 google 开源的一个java领域的 docker 构建工具jib. 目前在githu</description>
     </item>
     
     <item>

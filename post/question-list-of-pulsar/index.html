@@ -295,7 +295,7 @@
 
 
 
-                            阅读 </span></span>|<span class="post-date">共228字</span>，阅读约<span class="more-meta"> 1 分钟</span>
+                            阅读 </span></span>|<span class="post-date">共764字</span>，阅读约<span class="more-meta"> 2 分钟</span>
                         
                     </span>
                 </div>
@@ -323,6 +323,7 @@
                 <nav id="TableOfContents">
   <ul>
     <li><a href="#升级-pulsar-客户端-sdk">升级 pulsar 客户端 sdk</a></li>
+    <li><a href="#添加-pulsar-broker-用于测试时依赖冲突">添加 pulsar-broker 用于测试时依赖冲突</a></li>
   </ul>
 </nav>
 		
@@ -331,7 +332,9 @@
 <p>本文主要收集 apache pulsar 遇到的一些常见问题,欢迎对本文进行投稿你认为好的场景或问题.</p>
 <h2 id="升级-pulsar-客户端-sdk">升级 pulsar 客户端 sdk</h2>
 <p>从 pulsar2.10/pulsar2.11 的 sdk 升级到 pulsar 3.0.0 时由于不是全部组件都升级到统一的 3.0.0 版本,因此遇到了在调用 adminAPI 的时候报错了,应该是 jar 包冲突导致的 noSuchMethod 异常.</p>
-<p>于是将所有组件都升级到统一的 pulsar 3.0.0,但是遇到一个新问题是下载依赖时一直卡着:</p>
+<p>于是将所有组件都升级到统一的 pulsar 3.0.0,并且添加一个 pulsar admin API 的集成测试来覆盖这一点.</p>
+<h2 id="添加-pulsar-broker-用于测试时依赖冲突">添加 pulsar-broker 用于测试时依赖冲突</h2>
+<p>但是遇到一个新问题是下载依赖时一直卡着:</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">...
 Downloaded from central: https://repo.maven.apache.org/maven2/org/slf4j/slf4j-parent/2.0.5/slf4j-parent-2.0.5.pom <span style="color:#f92672">(</span><span style="color:#ae81ff">16</span> kB at 1.3 MB/s<span style="color:#f92672">)</span>
 Downloading from central: https://repo.maven.apache.org/maven2/org/apache/pulsar/pulsar-transaction-coordinator/3.0.0/pulsar-transaction-coordinator-3.0.0.pom
@@ -344,7 +347,81 @@ Progress <span style="color:#f92672">(</span>1<span style="color:#f92672">)</spa
                     
 Downloaded from central: https://repo.maven.apache.org/maven2/org/apache/pulsar/pulsar-package-filesystem-storage/3.0.0/pulsar-package-filesystem-storage-3.0.0.pom <span style="color:#f92672">(</span>2.0 kB at <span style="color:#ae81ff">146</span> kB/s<span style="color:#f92672">)</span>
 Error: The operation was canceled.
-</code></pre></div><p>还没完全解决这个问题,有解决的朋友可以评论一下解决方案.</p>
+</code></pre></div><p>通过添加 debug 日志最终看到是 maven 无法解决依赖冲突导致下载卡住了:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">Caused by: org.eclipse.aether.collection.UnsolvableVersionConflictException: Could not resolve version conflict among <span style="color:#f92672">[</span>org.apache.pulsar:pulsar-broker:jar:3.1.0 -&gt; org.apache.pulsar:managed-ledger:jar:3.1.0 -&gt; org.apache.pulsar:pulsar-metadata:jar:3.1.0 -&gt; io.etcd:jetcd-core:jar:0.7.5 -&gt; io.etcd:jetcd-grpc:jar:0.7.5 -&gt; io.grpc:grpc-core:jar:1.51.0, org.apache.pulsar:pulsar-broker:jar:3.1.0 -&gt; org.apache.pulsar:managed-ledger:jar:3.1.0 -&gt; org.apache.pulsar:pulsar-metadata:jar:3.1.0 -&gt; io.etcd:jetcd-core:jar:0.7.5 -&gt; io.etcd:jetcd-common:jar:0.7.5 -&gt; io.grpc:grpc-core:jar:1.51.0, org.apache.pulsar:pulsar-broker:jar:3.1.0 -&gt; org.apache.bookkeeper:stream-storage-server:jar:4.16.2 -&gt; org.apache.bookkeeper:stream-storage-java-client:jar:4.16.2 -&gt; io.grpc:grpc-core:jar:1.54.1, org.apache.pulsar:pulsar-broker:jar:3.1.0 -&gt; org.apache.bookkeeper:stream-storage-server:jar:4.16.2 -&gt; org.apache.bookkeeper:stream-storage-java-client:jar:4.16.2 -&gt; io.grpc:grpc-grpclb:jar:1.54.1 -&gt; io.grpc:grpc-core:jar:<span style="color:#f92672">[</span>1.54.1,1.54.1<span style="color:#f92672">]</span>, org.apache.pulsar:pulsar-broker:jar:3.1.0 -&gt; org.apache.bookkeeper:stream-storage-server:jar:4.16.2 -&gt; org.apache.bookkeeper:stream-storage-java-client:jar:4.16.2 -&gt; io.grpc:grpc-netty:jar:1.54.1 -&gt; io.grpc:grpc-core:jar:<span style="color:#f92672">[</span>1.54.1,1.54.1<span style="color:#f92672">]</span>, org.apache.pulsar:pulsar-broker:jar:3.1.0 -&gt; org.apache.bookkeeper:stream-storage-server:jar:4.16.2 -&gt; org.apache.bookkeeper:stream-storage-java-client:jar:4.16.2 -&gt; io.grpc:grpc-rls:jar:1.54.1 -&gt; io.grpc:grpc-core:jar:<span style="color:#f92672">[</span>1.54.1,1.54.1<span style="color:#f92672">]</span>, org.apache.pulsar:pulsar-broker:jar:3.1.0 -&gt; org.apache.bookkeeper:stream-storage-server:jar:4.16.2 -&gt; org.apache.bookkeeper:stream-storage-java-client:jar:4.16.2 -&gt; io.grpc:grpc-services:jar:1.54.1 -&gt; io.grpc:grpc-core:jar:<span style="color:#f92672">[</span>1.54.1,1.54.1<span style="color:#f92672">]</span>, org.apache.pulsar:pulsar-broker:jar:3.1.0 -&gt; org.apache.bookkeeper:stream-storage-server:jar:4.16.2 -&gt; org.apache.bookkeeper:stream-storage-java-client:jar:4.16.2 -&gt; io.grpc:grpc-testing:jar:1.54.1 -&gt; io.grpc:grpc-core:jar:<span style="color:#f92672">[</span>1.54.1,1.54.1<span style="color:#f92672">]</span>, org.apache.pulsar:pulsar-broker:jar:3.1.0 -&gt; org.apache.bookkeeper:stream-storage-server:jar:4.16.2 -&gt; org.apache.bookkeeper:stream-storage-java-client:jar:4.16.2 -&gt; io.grpc:grpc-xds:jar:1.54.1 -&gt; io.grpc:grpc-core:jar:1.54.1, org.apache.pulsar:pulsar-broker:jar:3.1.0 -&gt; org.apache.pulsar:pulsar-functions-worker:jar:3.1.0 -&gt; org.apache.pulsar:pulsar-functions-runtime:jar:3.1.0 -&gt; org.apache.pulsar:pulsar-functions-instance:jar:3.1.0 -&gt; io.grpc:grpc-all:jar:1.45.1 -&gt; io.grpc:grpc-core:jar:<span style="color:#f92672">[</span>1.45.1,1.45.1<span style="color:#f92672">]]</span>
+    at org.eclipse.aether.util.graph.transformer.NearestVersionSelector.newFailure <span style="color:#f92672">(</span>NearestVersionSelector.java:129<span style="color:#f92672">)</span>
+    at org.eclipse.aether.util.graph.transformer.NearestVersionSelector.backtrack <span style="color:#f92672">(</span>NearestVersionSelector.java:100<span style="color:#f92672">)</span>
+    at org.eclipse.aether.util.graph.transformer.NearestVersionSelector.selectVersion <span style="color:#f92672">(</span>NearestVersionSelector.java:80<span style="color:#f92672">)</span>
+    at org.eclipse.aether.util.graph.transformer.ConflictResolver.transformGraph <span style="color:#f92672">(</span>ConflictResolver.java:217<span style="color:#f92672">)</span>
+    at org.eclipse.aether.util.graph.transformer.ChainedDependencyGraphTransformer.transformGraph <span style="color:#f92672">(</span>ChainedDependencyGraphTransformer.java:71<span style="color:#f92672">)</span>
+    at org.eclipse.aether.internal.impl.collect.DependencyCollectorDelegate.collectDependencies <span style="color:#f92672">(</span>DependencyCollectorDelegate.java:246<span style="color:#f92672">)</span>
+    at org.eclipse.aether.internal.impl.collect.DefaultDependencyCollector.collectDependencies <span style="color:#f92672">(</span>DefaultDependencyCollector.java:87<span style="color:#f92672">)</span>
+    at org.eclipse.aether.internal.impl.DefaultRepositorySystem.collectDependencies <span style="color:#f92672">(</span>DefaultRepositorySystem.java:305<span style="color:#f92672">)</span>
+    at org.apache.maven.project.DefaultProjectDependenciesResolver.resolve <span style="color:#f92672">(</span>DefaultProjectDependenciesResolver.java:151<span style="color:#f92672">)</span>
+    at org.apache.maven.lifecycle.internal.LifecycleDependencyResolver.getDependencies <span style="color:#f92672">(</span>LifecycleDependencyResolver.java:224<span style="color:#f92672">)</span>
+    at org.apache.maven.lifecycle.internal.LifecycleDependencyResolver.resolveProjectDependencies <span style="color:#f92672">(</span>LifecycleDependencyResolver.java:136<span style="color:#f92672">)</span>
+    at org.apache.maven.lifecycle.internal.MojoExecutor.ensureDependenciesAreResolved <span style="color:#f92672">(</span>MojoExecutor.java:355<span style="color:#f92672">)</span>
+    at org.apache.maven.lifecycle.internal.MojoExecutor.doExecute <span style="color:#f92672">(</span>MojoExecutor.java:313<span style="color:#f92672">)</span>
+    at org.apache.maven.lifecycle.internal.MojoExecutor.execute <span style="color:#f92672">(</span>MojoExecutor.java:212<span style="color:#f92672">)</span>
+    at org.apache.maven.lifecycle.internal.MojoExecutor.execute <span style="color:#f92672">(</span>MojoExecutor.java:174<span style="color:#f92672">)</span>
+    at org.apache.maven.lifecycle.internal.MojoExecutor.access$000 <span style="color:#f92672">(</span>MojoExecutor.java:75<span style="color:#f92672">)</span>
+    at org.apache.maven.lifecycle.internal.MojoExecutor$1.run <span style="color:#f92672">(</span>MojoExecutor.java:162<span style="color:#f92672">)</span>
+    at org.apache.maven.plugin.DefaultMojosExecutionStrategy.execute <span style="color:#f92672">(</span>DefaultMojosExecutionStrategy.java:39<span style="color:#f92672">)</span>
+    at org.apache.maven.lifecycle.internal.MojoExecutor.execute <span style="color:#f92672">(</span>MojoExecutor.java:159<span style="color:#f92672">)</span>
+    at org.apache.maven.lifecycle.internal.LifecycleModuleBuilder.buildProject <span style="color:#f92672">(</span>LifecycleModuleBuilder.java:105<span style="color:#f92672">)</span>
+    at org.apache.maven.lifecycle.internal.LifecycleModuleBuilder.buildProject <span style="color:#f92672">(</span>LifecycleModuleBuilder.java:73<span style="color:#f92672">)</span>
+    at org.apache.maven.lifecycle.internal.builder.singlethreaded.SingleThreadedBuilder.build <span style="color:#f92672">(</span>SingleThreadedBuilder.java:53<span style="color:#f92672">)</span>
+    at org.apache.maven.lifecycle.internal.LifecycleStarter.execute <span style="color:#f92672">(</span>LifecycleStarter.java:118<span style="color:#f92672">)</span>
+    at org.apache.maven.DefaultMaven.doExecute <span style="color:#f92672">(</span>DefaultMaven.java:261<span style="color:#f92672">)</span>
+    at org.apache.maven.DefaultMaven.doExecute <span style="color:#f92672">(</span>DefaultMaven.java:173<span style="color:#f92672">)</span>
+    at org.apache.maven.DefaultMaven.execute <span style="color:#f92672">(</span>DefaultMaven.java:101<span style="color:#f92672">)</span>
+    at org.apache.maven.cli.MavenCli.execute <span style="color:#f92672">(</span>MavenCli.java:906<span style="color:#f92672">)</span>
+    at org.apache.maven.cli.MavenCli.doMain <span style="color:#f92672">(</span>MavenCli.java:283<span style="color:#f92672">)</span>
+    at org.apache.maven.cli.MavenCli.main <span style="color:#f92672">(</span>MavenCli.java:206<span style="color:#f92672">)</span>
+    at jdk.internal.reflect.NativeMethodAccessorImpl.invoke0 <span style="color:#f92672">(</span>Native Method<span style="color:#f92672">)</span>
+    at jdk.internal.reflect.NativeMethodAccessorImpl.invoke <span style="color:#f92672">(</span>NativeMethodAccessorImpl.java:62<span style="color:#f92672">)</span>
+    at jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke <span style="color:#f92672">(</span>DelegatingMethodAccessorImpl.java:43<span style="color:#f92672">)</span>
+    at java.lang.reflect.Method.invoke <span style="color:#f92672">(</span>Method.java:566<span style="color:#f92672">)</span>
+    at org.codehaus.plexus.classworlds.launcher.Launcher.launchEnhanced <span style="color:#f92672">(</span>Launcher.java:283<span style="color:#f92672">)</span>
+    at org.codehaus.plexus.classworlds.launcher.Launcher.launch <span style="color:#f92672">(</span>Launcher.java:226<span style="color:#f92672">)</span>
+    at org.codehaus.plexus.classworlds.launcher.Launcher.mainWithExitCode <span style="color:#f92672">(</span>Launcher.java:407<span style="color:#f92672">)</span>
+    at org.codehaus.plexus.classworlds.launcher.Launcher.main <span style="color:#f92672">(</span>Launcher.java:348<span style="color:#f92672">)</span>
+<span style="color:#f92672">[</span>ERROR<span style="color:#f92672">]</span> 
+<span style="color:#f92672">[</span>ERROR<span style="color:#f92672">]</span> Re-run Maven using the -X switch to enable full debug logging.
+<span style="color:#f92672">[</span>ERROR<span style="color:#f92672">]</span> 
+<span style="color:#f92672">[</span>ERROR<span style="color:#f92672">]</span> For more information about the errors and possible solutions, please read the following articles:
+<span style="color:#f92672">[</span>ERROR<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>Help 1<span style="color:#f92672">]</span> http://cwiki.apache.org/confluence/display/MAVEN/DependencyResolutionException
+</code></pre></div><p>最后是在依赖中排除了 pulsar-broker 中的 grpc 依赖解决了问题.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml"><span style="color:#f92672">&lt;dependency&gt;</span>
+            <span style="color:#f92672">&lt;groupId&gt;</span>org.apache.pulsar<span style="color:#f92672">&lt;/groupId&gt;</span>
+            <span style="color:#f92672">&lt;artifactId&gt;</span>pulsar-broker<span style="color:#f92672">&lt;/artifactId&gt;</span>
+            <span style="color:#f92672">&lt;version&gt;</span>${pulsar.version}<span style="color:#f92672">&lt;/version&gt;</span>
+            <span style="color:#f92672">&lt;scope&gt;</span>test<span style="color:#f92672">&lt;/scope&gt;</span>
+            <span style="color:#f92672">&lt;exclusions&gt;</span>
+                <span style="color:#f92672">&lt;exclusion&gt;</span>
+                    <span style="color:#f92672">&lt;groupId&gt;</span>io.grpc<span style="color:#f92672">&lt;/groupId&gt;</span>
+                    <span style="color:#f92672">&lt;artifactId&gt;</span>grpc-all<span style="color:#f92672">&lt;/artifactId&gt;</span>
+                <span style="color:#f92672">&lt;/exclusion&gt;</span>
+                <span style="color:#f92672">&lt;exclusion&gt;</span>
+                    <span style="color:#f92672">&lt;groupId&gt;</span>io.grpc<span style="color:#f92672">&lt;/groupId&gt;</span>
+                    <span style="color:#f92672">&lt;artifactId&gt;</span>grpc-core<span style="color:#f92672">&lt;/artifactId&gt;</span>
+                <span style="color:#f92672">&lt;/exclusion&gt;</span>
+                <span style="color:#f92672">&lt;exclusion&gt;</span>
+                    <span style="color:#f92672">&lt;groupId&gt;</span>io.grpc<span style="color:#f92672">&lt;/groupId&gt;</span>
+                    <span style="color:#f92672">&lt;artifactId&gt;</span>grpc-testing<span style="color:#f92672">&lt;/artifactId&gt;</span>
+                <span style="color:#f92672">&lt;/exclusion&gt;</span>
+                <span style="color:#f92672">&lt;exclusion&gt;</span>
+                    <span style="color:#f92672">&lt;groupId&gt;</span>io.grpc<span style="color:#f92672">&lt;/groupId&gt;</span>
+                    <span style="color:#f92672">&lt;artifactId&gt;</span>grpc-auth<span style="color:#f92672">&lt;/artifactId&gt;</span>
+                <span style="color:#f92672">&lt;/exclusion&gt;</span>
+            <span style="color:#f92672">&lt;/exclusions&gt;</span>
+        <span style="color:#f92672">&lt;/dependency&gt;</span>
+</code></pre></div><p>在这个问题卡着的时候考虑过使用 testcontainers 来代替,也就是每次跑集成测试时直接下载一个 pulsar 容器来启动,也能达到效果.</p>
+<p>但是最终还是采用引入 pulsar-broker 依赖的方式在 java 代码中启动一个 pulsar 本地服务来完成测试需求,主要是考虑以下方面:</p>
+<ul>
+<li>项目中封装的这个组件主要是和 pulsar 打交道,没有业务代码,因此组件内专注于 pulsar 的内容,通过本地启动 pulsar 服务也能更好的理解 pulsar.</li>
+<li>testcontainers 直接启动一个 pulsar 对于我这个集成测试需求来说可能太重了,因为一个 pulsar 容器镜像就需要 1.+ G 的大小,并且强依赖 docker 服务</li>
+</ul>
 
 
         <h2>微信公众号</h2>

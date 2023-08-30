@@ -421,7 +421,7 @@
 
 
 
-                            阅读 </span></span>|<span class="post-date">共1112字</span>，阅读约<span class="more-meta"> 3 分钟</span>
+                            阅读 </span></span>|<span class="post-date">共1067字</span>，阅读约<span class="more-meta"> 3 分钟</span>
                         
                     </span>
                 </div>
@@ -461,17 +461,17 @@
 		<h1 id="lorawan数据走向">LoraWan数据走向</h1>
 <p>可以先看一下下面的数据图</p>
 <p><img src="https://res.cloudinary.com/lyp/image/upload/v1612512099/hugo/blog.github.io/lorawan/first-device-gateway/123.png" alt=""></p>
-<p>从节点到网关是通过无线传输，也就是lora协议。LoraWan网关接收到数据后将其转化为网络数据通过MQTT/UDP发送给服务器。</p>
+<p>从节点到网关是通过无线传输，也就是 lora 协议。LoraWan 网关接收到数据后将其转化为网络数据通过 MQTT/UDP 发送给服务器。</p>
 <h1 id="开始配置">开始配置</h1>
 <h2 id="创建ns">创建NS</h2>
-<p>登陆到dashboard后首先创建一个network-server,由于我已经创建过，因此显示了已经存在的数据。</p>
+<p>登陆到 dashboard 后首先创建一个 network-server,由于我已经创建过，因此显示了已经存在的数据。</p>
 <p><img src="https://res.cloudinary.com/lyp/image/upload/v1612512151/hugo/blog.github.io/lorawan/first-device-gateway/2.png" alt=""></p>
 <p>会切换到新增ns的页面</p>
 <p><img src="https://res.cloudinary.com/lyp/image/upload/v1612512429/hugo/blog.github.io/lorawan/first-device-gateway/3.png" alt=""></p>
-<p>如果是docker-compose部署的则填写<code>chirpstack-network-server:8000</code>,如果修改了NS的端口，这里的8000端口也需要修改。</p>
+<p>如果是 docker-compose 部署的则填写<code>chirpstack-network-server:8000</code>,如果修改了 NetworkServer 的端口，这里的 8000 端口也需要修改。</p>
 <h2 id="创建service-profile">创建service-profile</h2>
 <p><img src="https://res.cloudinary.com/lyp/image/upload/v1612512435/hugo/blog.github.io/lorawan/first-device-gateway/4.png" alt=""></p>
-<p>名称可随意填写，network-server的填写是一个下拉列表，会显示刚才创建的NS,只填写两个带<code>*</code>的必填项就可以了，填写完后点击右下角按钮提交。</p>
+<p>名称可随意填写，network-server 的填写是一个下拉列表，会显示刚才创建的NS,只填写两个带<code>*</code>的必填项就可以了，填写完后点击右下角按钮提交。</p>
 <h2 id="创建device-profile">创建device-profile</h2>
 <p><img src="https://res.cloudinary.com/lyp/image/upload/v1612512444/hugo/blog.github.io/lorawan/first-device-gateway/5.png" alt=""></p>
 <p><img src="https://res.cloudinary.com/lyp/image/upload/v1612512612/hugo/blog.github.io/lorawan/first-device-gateway/6.1.png" alt=""></p>
@@ -479,7 +479,7 @@
 <p>创建完后在device-profile的列表点击进入刚才创建的device-profile，需要更新一下内容，允许OTAA功能。</p>
 <p><img src="https://res.cloudinary.com/lyp/image/upload/v1612512446/hugo/blog.github.io/lorawan/first-device-gateway/6.png" alt=""></p>
 <p><img src="https://res.cloudinary.com/lyp/image/upload/v1612512447/hugo/blog.github.io/lorawan/first-device-gateway/7.png" alt=""></p>
-<p>如果你需要classB则可以点击右边classB的选项，勾上即可，classC同理。</p>
+<p>如果你需要 classB 则可以点击右边 classB 的选项，勾上即可，classC 同理。</p>
 <p>到目前为止配置的内容基本上已经完成了，接下来就是添加网关和设备了。</p>
 <h2 id="添加网关信息">添加网关信息</h2>
 <p><img src="https://res.cloudinary.com/lyp/image/upload/v1612512450/hugo/blog.github.io/lorawan/first-device-gateway/8.png" alt=""></p>

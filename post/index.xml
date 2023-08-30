@@ -454,7 +454,7 @@
       <pubDate>Sat, 22 Jan 2022 00:00:00 +0000</pubDate>
       
       <guid>https://liangyuanpeng.github.io/post/rust-project-in-cncf/</guid>
-      <description>介绍 本文会介绍在CNCF中的Rust项目,项目的介绍可能是很简陋的,如果你可以帮忙完善一下项目的介绍,那就太好了,随时欢迎在评论区或网站仓库</description>
+      <description>介绍 本文会介绍在 CNCF 中的 Rust 项目,项目的介绍可能是很简陋的,如果你可以帮忙完善一下项目的介绍,那就太好了,随时欢迎在评论区或网站仓库提交 PR. 项目列</description>
     </item>
     
     <item>
@@ -481,7 +481,7 @@
       <pubDate>Tue, 18 Jan 2022 00:00:00 +0000</pubDate>
       
       <guid>https://liangyuanpeng.github.io/post/kubernetes-qa/</guid>
-      <description>声明 本文会持续的更新,将在使用kubernetes过程中遇到的问题都收集起来.欢迎投稿加入你遇到的问题 :) 跨版本升级 service-account-issuer is a required flag, &amp;ndash;service-account-signing-key-file and &amp;ndash;service-account-issuer are required flags 版本</description>
+      <description>声明 本文会持续的更新,将在使用 kubernetes 过程中遇到的问题都收集起来.欢迎投稿加入你遇到的问题 :) 跨版本升级 service-account-issuer is a required flag, &amp;ndash;service-account-signing-key-file and &amp;ndash;service-account-issuer are required flags 版本 v1.19.16 升级到 v1.23</description>
     </item>
     
     <item>
@@ -571,7 +571,7 @@
       <pubDate>Sun, 19 Dec 2021 00:00:00 +0000</pubDate>
       
       <guid>https://liangyuanpeng.github.io/post/quick-start-open-policy-agent/</guid>
-      <description>什么是OPA 官网介绍 翻译了一段官网的介绍,简单了解下OPA是什么东西. Open Policy Agent是一个开源的通用的策略引擎,它统一了整个技术栈中的策略行</description>
+      <description>什么是OPA 官网介绍 翻译了一段官网的介绍,简单了解下 OPA 是什么东西. Open Policy Agent 是一个开源的通用的策略引擎,它统一了整个技术栈中的策略行为.OPA 提</description>
     </item>
     
     <item>
@@ -814,7 +814,7 @@
       <pubDate>Mon, 26 Apr 2021 00:00:00 +0000</pubDate>
       
       <guid>https://liangyuanpeng.github.io/post/ansible-qa/</guid>
-      <description>前言 本文长期更新,欢迎投稿:)</description>
+      <description>前言 本文长期更新,欢迎投稿:) 入门用法 这个只是记录一下最简单的一个用法示例 --- - hosts: local vars: tasks: - name: create fold shell: mkdir -p /root/dev/lank8s - name: copy yaml copy: src: /home/lan/repo/git/lank8s/deploy/test/files/ dest: /root/dev/lank8s/ - name: docker-compose up shell: cd /root/dev/lank8s &amp;amp;&amp;amp; docker-compose -f</description>
     </item>
     
     <item>
@@ -967,7 +967,7 @@
       <pubDate>Fri, 12 Mar 2021 00:00:00 +0000</pubDate>
       
       <guid>https://liangyuanpeng.github.io/post/first-asf-board-member/</guid>
-      <description>前言 今天一早打开朋友圈就看到几条消息,都是在讲吴晟当选新一届Apache董事会成员,在一定程度上讲中国已经进入Apache核心并且还会一直展</description>
+      <description>前言 今天一早打开朋友圈就看到几条消息,都是在讲吴晟当选新一届Apache董事会成员,在一定程度上讲中国已经进入 Apache 核心并且还会一直展现向上的趋</description>
     </item>
     
     <item>
@@ -1093,7 +1093,7 @@
       <pubDate>Fri, 05 Feb 2021 00:00:00 +0000</pubDate>
       
       <guid>https://liangyuanpeng.github.io/post/first-lorawan-gateway-device/</guid>
-      <description>LoraWan数据走向 可以先看一下下面的数据图 从节点到网关是通过无线传输，也就是lora协议。LoraWan网关接收到数据后将其转化为网络数</description>
+      <description>LoraWan数据走向 可以先看一下下面的数据图 从节点到网关是通过无线传输，也就是 lora 协议。LoraWan 网关接收到数据后将其转化为网络数据通过</description>
     </item>
     
     <item>
@@ -1147,7 +1147,7 @@
       <pubDate>Tue, 18 Feb 2020 00:00:00 +0000</pubDate>
       
       <guid>https://liangyuanpeng.github.io/post/jib-springboot-docker-maven/</guid>
-      <description>前提 docker 容器镜像仓库 这里举例可以公用的两个 dockerhub 阿里云容器镜像服务 前言 本文主要介绍的是google开源的一个java领域的docker构建工具ji</description>
+      <description>前提 docker 容器镜像仓库 这里举例可以公用的两个 dockerhub 阿里云容器镜像服务 前言 本文主要介绍的是 google 开源的一个java领域的 docker 构建工具jib. 目前在githu</description>
     </item>
     
     <item>
@@ -1183,7 +1183,7 @@
       <pubDate>Sat, 15 Feb 2020 00:00:00 +0000</pubDate>
       
       <guid>https://liangyuanpeng.github.io/post/fluentd-plugin-kafka/</guid>
-      <description>前言 Fluentd是用于统一日志记录层的开源数据收集器,是继Kubernetes、Prometheus、Envoy 、CoreDNS 和cont</description>
+      <description>前言 Fluentd 是用于统一日志记录层的开源数据收集器,是继 Kubernetes、Prometheus、Envoy 、CoreDNS 和 containerd 后的第6个 CNCF 毕业项</description>
     </item>
     
     <item>
@@ -1192,7 +1192,7 @@
       <pubDate>Fri, 14 Feb 2020 00:00:00 +0000</pubDate>
       
       <guid>https://liangyuanpeng.github.io/post/fluentd-quickstart/</guid>
-      <description>前言 Fluentd是用于统一日志记录层的开源数据收集器,是继Kubernetes、Prometheus、Envoy 、CoreDNS 和cont</description>
+      <description>前言 Fluentd 是用于统一日志记录层的开源数据收集器,是继 Kubernetes、Prometheus、Envoy 、CoreDNS 和 containerd 后的第6个 CNCF 毕业项</description>
     </item>
     
     <item>
@@ -1201,7 +1201,7 @@
       <pubDate>Fri, 14 Feb 2020 00:00:00 +0000</pubDate>
       
       <guid>https://liangyuanpeng.github.io/post/docker-compose-deploy-kafka/</guid>
-      <description>前提 docker docker-compose 其中docker-compose不是必须的,单单使用docker也是可以的,这里主要介绍docker和docker-compose两</description>
+      <description>前提 docker docker-compose 其中 docker-compose 不是必须的,单单使用 docker 也是可以的,这里主要介绍 docker 和 docker-compose 两种方式 docker部署 docker 部署 kafka 非常简单，只需要两条命令即可完成 kafka 服务器的</description>
     </item>
     
     <item>
@@ -1381,7 +1381,7 @@
       <pubDate>Tue, 27 Nov 2018 00:00:00 +0000</pubDate>
       
       <guid>https://liangyuanpeng.github.io/post/deploy-apache-rocketmq/</guid>
-      <description>前言 这篇文章以4.3.0版本为标准进行讲述在linux下部署RocketMQ单机实例,在此之前需要已配置JAVA环境。 apache RocketMQ 是阿里巴巴在201</description>
+      <description>前言 这篇文章以4.3.0版本为标准进行讲述在 linux 下部署 RocketMQ 单机实例,在此之前需要已配置 JAVA 环境。 apache RocketMQ 是阿里巴巴在2016年11月捐赠给了apach</description>
     </item>
     
     <item>
