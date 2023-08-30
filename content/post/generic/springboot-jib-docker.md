@@ -29,9 +29,9 @@ categories:
 
 ## 前言  
 
-本文主要介绍的是google开源的一个java领域的docker构建工具jib.  
+本文主要介绍的是 google 开源的一个java领域的 docker 构建工具jib.  
 
-目前在[github](https://github.com/GoogleContainerTools/jib)上的start有8.5k,fork有784,是一款非常方便的java领域docker构建工具.  
+目前在[github](https://github.com/GoogleContainerTools/jib)上的 start 有 8.5k,fork 有 784,是一款非常方便的 java 领域 docker 构建工具.  
 
 亮点是不需要Docker daemon,意味着即使本地没有安装docker也能通过jib构建docker镜像,并且可以构建符合[OCI](https://github.com/opencontainers/image-spec)规范的镜像.  
 
@@ -40,14 +40,15 @@ categories:
 2. [grade插件](https://github.com/GoogleContainerTools/jib/blob/master/jib-gradle-plugin)  
 3. [jib代码库](https://github.com/GoogleContainerTools/jib/tree/master/jib-core)  
 
-本文使用的是springboot项目通过maven插件的方式进行讲述.  
+本文使用的是 springboot 项目通过 maven 插件的方式进行讲述.  
 
-讲一下第三种,jib代码库,这种方式可以用于自研平台构建java的docker服务.
+讲一下第三种,jib 代码库,这种方式可以用于自研平台构建 java 的 Docker 服务.
 
 ## 配置pom.xml  
 
 添加下面这段标准标签到文件中  
-```
+
+```xml
 <build>
     <plugins>
       ...
@@ -78,8 +79,8 @@ categories:
 2. 配置在maven的setting.xml中
 3. 直接在pom.xml文件配置  
 
-本文使用第三种,即在from标签或to标签下添加一个用于认证信息的auth标签,例如:   
-``` 
+本文使用第三种,即在 from 标签或 to 标签下添加一个用于认证信息的 auth 标签,例如:   
+``` shell
 <from>
   ...
   <auth>
@@ -91,7 +92,7 @@ categories:
 ```  
 
 也可以方便的通过环境变量的方式进行配置:  
-```
+```shell
 <from>
   ...
   <auth>
@@ -105,7 +106,7 @@ categories:
 其中``${env.}``这一部分是固定的,后面跟着实际环境变量.  
 
 还可以通过系统属性的方式:  
-```
+```shell
 mvn compile jib:build \
     -Djib.to.image=myregistry/myimage:latest \
     -Djib.to.auth.username=kafeidou \
@@ -126,16 +127,16 @@ mvn compile jib:build \
 ...  
 还有其他内容具体可以参考[container](https://github.com/GoogleContainerTools/jib/tree/master/jib-maven-plugin#container-object).  
 
-有一个注意点是阿里的容器镜像服务不支持OCI镜像,所以如果选择使用阿里的容器镜像服务记得将OCI格式取消,默认是取消的.  
+有一个注意点是阿里的容器镜像服务不支持 OCI 镜像,所以如果选择使用阿里的容器镜像服务记得将 OCI 格式取消,默认是取消的.  
 
 另外,JVM参数可以通过环境变量配置动态内容,所以不需要计划将所有启动参数写死在``jvmFlags``标签里面.  
 
 例如启动容器时指定使用G1回收器,``docker run -it -e JAVA_TOOL_OPTIONS="-XX:+UseG1GC" -d  registry.cn-beijing.aliyuncs.com/lyp/lanbox:v1.0``.  
 
-所有配置项完成后运行mvn命令``mvn compile jib:build`` 开始构建docker镜像.  
+所有配置项完成后运行mvn命令``mvn compile jib:build`` 开始构建 docker 镜像.  
 
 如果看到类似这样的信息说明就成功了:  
-```
+```shell
 [INFO] ------------------------------------------------------------------------
 [INFO] BUILD SUCCESS
 [INFO] ------------------------------------------------------------------------
@@ -145,3 +146,12 @@ mvn compile jib:build \
 ```
 
 完整的一个例子可以在github上查看并下载[https://github.com/FISHStack/hello-spring-cloud](https://github.com/FISHStack/hello-spring-cloud),欢迎多多交流.
+
+
+# 目前我还将Jib用于存储和下载
+
+将 rocksdb 生成的文件打包成容器镜像,上传到容器镜像仓库, 在下一次使用时再使用 Jib 下载容器镜像，然后解压出来使用。
+
+目前是两个用处:
+当做缓存持久化,需要时将内容下载下来做缓存预热
+CI 中下载 rocksdb 的文件,用来跑测试逻辑

@@ -11,6 +11,7 @@ tags:
     - kubernetes
     - CloudNative
     - OpenKruise
+    - cncf
 categories: 
     - kubernetes
 ---  
