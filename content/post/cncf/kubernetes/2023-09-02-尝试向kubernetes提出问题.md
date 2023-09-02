@@ -26,6 +26,12 @@ categories: [ kubernetes ]
 
 (有可能会单独整理成一篇文章,但目前只是一个回答)
 
+这个问题的部分背景:
+- (https://github.com/etcd-io/jetcd/issues/1202)
+- (https://github.com/etcd-io/jetcd/issues/1185)
+
+接下来进入正文.
+
 kubernetes 的数据以 `/registry` 开头存储在 etcd 当中,如果直接查询 etcd 中的数据会发现数据是对人不友好的.这是因为默认情况下存储进去的数据默认是以 protobuf 二进制的方式存储的,因此数据是没办法直接看的.
 
 由于 kubernetes 当中只有 kube-apiserver 与 etcd 进行通讯,因此尝试从 kube-apiserver 找到一些线索: 有一个 `--storage-media-type` 参数是标识数据存储的格式,默认情况下是 `application/vnd.kubernetes.protobuf`,可选的值有: `application/json`, `application/yaml`以及`application/vnd.kubernetes.protobuf`.
