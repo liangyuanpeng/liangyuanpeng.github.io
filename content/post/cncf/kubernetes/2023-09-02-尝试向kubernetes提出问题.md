@@ -33,7 +33,7 @@ categories: [ kubernetes ]
 
 接下来进入正文.
 
-kubernetes 的数据以 `/registry` 开头存储在 etcd 当中,如果直接查询 etcd 中的数据会发现数据是对人不友好的.这是因为默认情况下存储进去的数据默认是以 protobuf 二进制的方式存储的,因此数据是没办法直接看的.
+kubernetes 的数据以 `/registry` 开头存储在 etcd 当中,如果直接查询 etcd 中的数据会发现数据是对人不友好的.这是因为默认情况下存储进去的数据默认是以 protobuf 二进制的方式存储的,因此数据是没办法直接看的,另一个情况是使用了数据加密,也就是在存储到 etcd 之前 kube-apiserver 对数据进行了加密,这时候也是无法直接查看数据的,但这个回答不包括加密的情况,可能会在后续单独文章中来介绍,如果你对数据加密感兴趣,可以看看[Kubernetes 中允许允许用户编辑的持久 API 资源数据的所有 API 都支持静态加密](https://kubernetes.io/zh-cn/docs/tasks/administer-cluster/encrypt-data/)
 
 由于 kubernetes 当中只有 kube-apiserver 与 etcd 进行通讯,因此尝试从 kube-apiserver 找到一些线索: 有一个 `--storage-media-type` 参数是标识数据存储的格式,默认情况下是 `application/vnd.kubernetes.protobuf`,可选的值有: `application/json`, `application/yaml`以及`application/vnd.kubernetes.protobuf`.
 
