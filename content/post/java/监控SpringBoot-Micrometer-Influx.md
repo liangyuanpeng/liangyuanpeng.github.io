@@ -18,25 +18,25 @@ categories:
 
 
 # 前言  
-聊到微服务监控,首先需要考虑的一个技术选型问题就是使用推数据还是使用拉数据的方式进行数据的收集,这个问题这里不进行具体讲解.本文使用``micrometer-registry-influx``这个组件使用推的方式进行数据的收集.  
+聊到微服务监控,首先需要考虑的一个技术选型问题就是使用推数据还是使用拉数据的方式进行数据的收集,这个问题这里不进行具体讲解.本文使用`micrometer-registry-influx`这个组件使用推的方式进行数据的收集.  
 
-讲到这里不得不说一下``micrometer``这个内容,这个可以理解是java监控领域的slf4j.上层实现有很多组件,influx,prometheus,telegraf等都有提供支持.  
+讲到这里不得不说一下``micrometer``这个内容,这个可以理解是 java 监控领域的 slf4j.上层实现有很多组件,influx,prometheus,telegraf 等都有提供支持.  
 
 # 前提
 
 1. [influxdb](https://www.influxdata.com/)  
 
-本文不进行influxdb的部署讲解,所以需要提前准备好influxdb.  
+本文不进行 influxdb 的部署讲解,所以需要提前准备好 influxdb.  
 
-使用的版本是influx-1.x,编写本文时``micrometer-registry-influx``还不支持Influx2.
+使用的版本是 influx-1.x,编写本文时``micrometer-registry-influx``还不支持Influx2.
 
-快速验证推荐使用docker部署influxdb的方式,网上有很多答案.
+快速验证推荐使用 docker 部署 influxdb 的方式,网上有很多答案.
 
 
 # 项目配置  
 
 1. 引入依赖
-```
+```xml
 <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-actuator</artifactId>
@@ -49,9 +49,9 @@ categories:
 
 2. 配置文件配置  
 
-这里演示的是yml格式的配置文件,添加下列内容到配置文件中
+这里演示的是 yml 格式的配置文件,添加下列内容到配置文件中
 
-```
+```yaml
 management:
   metrics:
     export:
@@ -76,10 +76,10 @@ management:
 
 # 验证数据是否正常产生  
 
-1. 启动SpringBoot项目  
-2. 进入到influxdb中,查看datbase:  
+1. 启动 SpringBoot 项目  
+2. 进入到 influxdb 中,查看 datbase:  
 
-```
+```shell
 > show databases
 name: databases
 name
@@ -88,9 +88,9 @@ _internal
 spring
 ```  
 
-这里可以看到已经生成了一个spring的数据库,可以进入到这个数据库查看里面生成了一些什么数据  
+这里可以看到已经生成了一个 spring 的数据库,可以进入到这个数据库查看里面生成了一些什么数据  
 
-```
+```shell
 > use spring
 Using database spring
 > show measurements
@@ -128,7 +128,7 @@ tomcat_sessions_expired
 tomcat_sessions_rejected
 ```  
 
-上述measurement就是springboot开启actuator后默认生成的metrics  
+上述 measurement 就是 springboot 开启 actuator 后默认生成的 metrics  
 
-到目前为止,一个最简单的SpringBoot项目通过micrometer将数据推送到influxdb的例子就完成了.
+到目前为止,一个最简单的 SpringBoot 项目通过 micrometer 将数据推送到 influxdb 的例子就完成了.
 

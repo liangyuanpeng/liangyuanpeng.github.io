@@ -65,7 +65,7 @@ healthCheckRegistry.runHealthCheck(healthCheckName).isHealthy();
             },0,30, TimeUnit.SECONDS);
 ```  
 
-这样就可以定时检测程序中是否有死锁存在,如果有,`thread_dead_lock`这个 metrics 会显示为0.也可以通过`HealthCheck.Result result`这个对象,把死锁相关信息打印在程序 log 中,这样可以将信息收集到专门的日志系统去.比如 Elasticsearch.  
+这样就可以定时检测程序中是否有死锁存在,如果有,`thread_dead_lock`这个 metrics 会显示为 0.也可以通过`HealthCheck.Result result`这个对象,把死锁相关信息打印在程序 log 中,这样可以将信息收集到专门的日志系统去.比如 Elasticsearch.  
 
 # 原理 
 
