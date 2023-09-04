@@ -29,11 +29,11 @@ categories:
 
 ## 前言  
 
-本文主要介绍的是 google 开源的一个java领域的 docker 构建工具jib.  
+本文主要介绍的是 google 开源的一个 java 领域的 docker 构建工具jib.  
 
 目前在[github](https://github.com/GoogleContainerTools/jib)上的 start 有 8.5k,fork 有 784,是一款非常方便的 java 领域 docker 构建工具.  
 
-亮点是不需要Docker daemon,意味着即使本地没有安装docker也能通过jib构建docker镜像,并且可以构建符合[OCI](https://github.com/opencontainers/image-spec)规范的镜像.  
+亮点是不需要 Docker daemon,意味着即使本地没有安装 docker 也能通过 jib 构建 docker 镜像,并且可以构建符合[OCI](https://github.com/opencontainers/image-spec)规范的镜像.  
 
 官方支持三种方式:  
 1. [maven插件](https://github.com/GoogleContainerTools/jib/blob/master/jib-maven-plugin)  
@@ -70,17 +70,18 @@ categories:
   </build>
 ```  
 
-上述内容配置了一个结果镜像名称``imageName``,也就是最终构建成的docker镜像地址,包含``容器仓库地址/镜像名称:版本号``例如``registry.cn-beijing.aliyuncs.com/lyp/lanbox:v1.0``,如果仓库地址不填则默认为[dockerhub](https://hub.docker.com/).  
+上述内容配置了一个结果镜像名称``imageName``,也就是最终构建成的 docker 镜像地址,包含``容器仓库地址/镜像名称:版本号``例如``registry.cn-beijing.aliyuncs.com/lyp/lanbox:v1.0``,如果仓库地址不填则默认为[dockerhub](https://hub.docker.com/).  
 
-另外还配置了一个基础镜像``registry.cn-hangzhou.aliyuncs.com/dragonwell/dragonwell8:8.1.1-GA_alpine_x86_64_8u222-b67``,可以认为等同于Dockerfile中的From语句.  
+另外还配置了一个基础镜像``registry.cn-hangzhou.aliyuncs.com/dragonwell/dragonwell8:8.1.1-GA_alpine_x86_64_8u222-b67``,可以认为等同于 Dockerfile 中的 From 语句.  
 
-如果基础镜像或目标镜像需要账号密码的话,在from标签或to标签添加一个认证信息即可,有三种方式:  
-1. 配置在docker的配置文件中  
-2. 配置在maven的setting.xml中
-3. 直接在pom.xml文件配置  
+如果基础镜像或目标镜像需要账号密码的话,在 from 标签或 to 标签添加一个认证信息即可,有三种方式:  
+
+1. 配置在 docker 的配置文件中  
+2. 配置在 maven 的 setting.xml 中
+3. 直接在 pom.xml 文件配置  
 
 本文使用第三种,即在 from 标签或 to 标签下添加一个用于认证信息的 auth 标签,例如:   
-``` shell
+``` xml
 <from>
   ...
   <auth>
@@ -92,7 +93,7 @@ categories:
 ```  
 
 也可以方便的通过环境变量的方式进行配置:  
-```shell
+```xml
 <from>
   ...
   <auth>
@@ -115,7 +116,7 @@ mvn compile jib:build \
 
 在进行构建时通过参数方式传递认证信息,是不是很方便呢?  
 
-继续看``configuration``下的标签有``container``配置:  
+继续看`configuration`下的标签有`container`配置:  
 这个标签主要配置目标容器相关的内容,比如:  
 1. appRoot -> 放置应用程序的根目录,用于war包项目  
 2. args -> 程序额外的启动参数.  
@@ -131,9 +132,9 @@ mvn compile jib:build \
 
 另外,JVM参数可以通过环境变量配置动态内容,所以不需要计划将所有启动参数写死在``jvmFlags``标签里面.  
 
-例如启动容器时指定使用G1回收器,``docker run -it -e JAVA_TOOL_OPTIONS="-XX:+UseG1GC" -d  registry.cn-beijing.aliyuncs.com/lyp/lanbox:v1.0``.  
+例如启动容器时指定使用 G1 回收器,``docker run -it -e JAVA_TOOL_OPTIONS="-XX:+UseG1GC" -d  registry.cn-beijing.aliyuncs.com/lyp/lanbox:v1.0``.  
 
-所有配置项完成后运行mvn命令``mvn compile jib:build`` 开始构建 docker 镜像.  
+所有配置项完成后运行 mvn 命令``mvn compile jib:build`` 开始构建 docker 镜像.  
 
 如果看到类似这样的信息说明就成功了:  
 ```shell
@@ -145,7 +146,7 @@ mvn compile jib:build \
 [INFO] ------------------------------------------------------------------------
 ```
 
-完整的一个例子可以在github上查看并下载[https://github.com/FISHStack/hello-spring-cloud](https://github.com/FISHStack/hello-spring-cloud),欢迎多多交流.
+完整的一个例子可以在 github 上查看并下载[https://github.com/FISHStack/hello-spring-cloud](https://github.com/FISHStack/hello-spring-cloud),欢迎多多交流.
 
 
 # 目前我还将Jib用于存储和下载

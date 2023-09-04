@@ -27,8 +27,8 @@ hashmap内部实现的数据结构是数组+单链表，一般称数组的每一
 
 ![](https://res.cloudinary.com/lyp/image/upload/v1546398133/hugo/blog.github.io/data-structure/map/hashmap1.png)
 
-那么hashmap添加元素的流程是怎么样的呢?  
-```
+那么 hashmap 添加元素的流程是怎么样的呢?  
+```java
 map.put("a","hello");  
 ```  
 

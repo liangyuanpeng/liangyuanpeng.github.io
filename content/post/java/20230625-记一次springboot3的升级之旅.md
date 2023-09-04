@@ -86,7 +86,7 @@ public static final boolean isMultipartContent(javax.servlet.http.HttpServletReq
 
 ## CommonsMultipartFile 对象没有了
 
-spring6 删除了这个对象,需要使用另外的方法代替,spring6没有提供替换参考.
+spring6 删除了这个对象,需要使用另外的方法代替,spring6 没有提供替换参考.
 
 解决方案: TDB
 
@@ -147,6 +147,6 @@ management:
 
 ## Flink 本地任务执行报序列化错误
 
-Flink 任务还不支持 jdk17,master分支已经支持 还没发布.
+Flink 任务还不支持 jdk17,master 分支已经支持 还没发布.
 
 解决方案: 自己安装 master 分支代码到本地.
