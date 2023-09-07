@@ -232,7 +232,7 @@
 
 
 
-                            阅读 </span></span>|<span class="post-date">共94字</span>，阅读约<span class="more-meta"> 1 分钟</span>
+                            阅读 </span></span>|<span class="post-date">共271字</span>，阅读约<span class="more-meta"> 1 分钟</span>
                         
                     </span>
                 </div>
@@ -260,6 +260,7 @@
                 <nav id="TableOfContents">
   <ul>
     <li><a href="#feature-edition2021-is-required--this-cargo-does-not-support-nightly-features-but-if-you-switch-to-nightly-channel-you-can-add-xxx-to-enable-this-feature">feature edition2021 is required  this Cargo does not support nightly features, but if you switch to nightly channel you can add xxx to enable this feature</a></li>
+    <li><a href="#将-github-team-添加-crates-的-owner-时提示401或-could-not-find-the-github-team">将 Github Team 添加 crates 的 owner 时提示401或 could not find the github team</a></li>
   </ul>
 </nav>
 		
@@ -268,7 +269,20 @@
 <p>由于我不是 Rust 专家,因此只是将使用/研究 Rust 时遇到的问题分享出来,如有不对之处麻烦提示或帮忙纠正一下,感谢!</p>
 <h1 id="常见问题">常见问题</h1>
 <h2 id="feature-edition2021-is-required--this-cargo-does-not-support-nightly-features-but-if-you-switch-to-nightly-channel-you-can-add-xxx-to-enable-this-feature">feature edition2021 is required  this Cargo does not support nightly features, but if you switch to nightly channel you can add xxx to enable this feature</h2>
-<h1 id="温馨提示">温馨提示</h1>
+<h2 id="将-github-team-添加-crates-的-owner-时提示401或-could-not-find-the-github-team">将 Github Team 添加 crates 的 owner 时提示401或 could not find the github team</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">lan@lan:~/bookkeeper-rs$cargo owner --add github:pulsar-sigs:bk-client-rs
+    Updating crates.io index
+error: failed to invite owners to crate <span style="color:#e6db74">`</span>bookkeeper-rs<span style="color:#e6db74">`</span> on registry at https://crates.io
+
+Caused by:
+  the remote server responded with an error: could not find the github team pulsar-sigs/bk-client-rs
+</code></pre></div><p>在给 pulsar-sigs/bk-client-rs 这个 team 添加 creates 权限时提示找不到这个 team,最终在 issue <a href="https://github.com/rust-lang/cargo/issues/5297">cannot add team as github owner for lalrpop crate</a> 找到了答案.</p>
+<p>很有可能是因为 github app 中的 crates 没有设置好权限,因此在 crates 调用 github 的 API 时出错了.</p>
+<p>解决方案是在 <a href="https://github.com/settings/applications">https://github.com/settings/applications</a> 中找到 crates.io 这个 APP,并且赋予权限.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">lan@lan:~/bookkeeper-rs$ cargo owner --add github:pulsar-sigs:bk-client-rs
+    Updating crates.io index
+       Owner team github:pulsar-sigs:bk-client-rs has been added as an owner of crate bookkeeper-rs
+</code></pre></div><h1 id="温馨提示">温馨提示</h1>
 <p>本文持续更新</p>
 
 

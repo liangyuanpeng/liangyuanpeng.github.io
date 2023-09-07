@@ -23,12 +23,12 @@
     
 
     
-    <meta property="og:image" content="https://res.cloudinary.com/lyp/image/upload/v1612746030/hugo/blog.github.io/pexels-eva-elijas-5949232.jpg" />
-    <meta name="twitter:image" content="https://res.cloudinary.com/lyp/image/upload/v1612746030/hugo/blog.github.io/pexels-eva-elijas-5949232.jpg" />
+    <meta property="og:image" content="https://liangyuanpeng.github.io/img/banner-pexels.jpg" />
+    <meta name="twitter:image" content="https://liangyuanpeng.github.io/img/banner-pexels.jpg" />
 
-    <title>离线运行swagger文档-远鹏的博客 | liangyuanpeng&#39;s Blog</title>
+    <title>尝试向kubernetes提出问题-远鹏的博客 | liangyuanpeng&#39;s Blog</title>
 
-    <link rel="canonical" href="https://liangyuanpeng.github.io/post/swagger-api-offline/">
+    <link rel="canonical" href="https://liangyuanpeng.github.io/post/try-to-ask-question-to-kubernetes-for-source/">
 
     
 
@@ -133,7 +133,7 @@
 
 <style type="text/css">
     header.intro-header{
-        background-image: url('https://res.cloudinary.com/lyp/image/upload/v1612746030/hugo/blog.github.io/pexels-eva-elijas-5949232.jpg')
+        background-image: url('https://liangyuanpeng.github.io/img/banner-pexels.jpg')
     }
 </style>
 
@@ -146,9 +146,11 @@
                         
 
                        
-                       <a class="tag" href="/tags/kubesphere" title="kubesphere">
-                        kubesphere
+                       <a class="tag" href="/tags/kubernetes" title="kubernetes">
+                        kubernetes
                             
+                                
+                                <img style="display:inline-block;" src="/img/taglogo/emoji_k8s_loft.gif" height="20" width="20" />
                                 
                             
                                 
@@ -209,9 +211,13 @@
                             
                         </a>
                         
-                       <a class="tag" href="/tags/swagger" title="swagger">
-                        swagger
+                       <a class="tag" href="/tags/cncf" title="cncf">
+                        cncf
                             
+                                
+                            
+                                
+                                <img style="display:inline-block;" src="/img/taglogo/cncf/cncf.png" height="20" width="20" />
                                 
                             
                                 
@@ -220,73 +226,6 @@
                             
                                 
                             
-                                
-                            
-                                
-                            
-                                
-                            
-                                
-                            
-                                
-                            
-                                
-                            
-                                
-                            
-                                
-                            
-                                
-                            
-                                
-                            
-                                
-                            
-                                
-                            
-                                
-                            
-                                
-                            
-                                
-                            
-                                
-                            
-                                
-                            
-                                
-                            
-                                
-                            
-                                
-                            
-                                
-                            
-                                
-                            
-                                
-                            
-                                
-                            
-                                
-                            
-                        </a>
-                        
-                       <a class="tag" href="/tags/docker" title="docker">
-                        docker
-                            
-                                
-                            
-                                
-                            
-                                
-                            
-                                
-                            
-                                
-                            
-                                
-                                <img style="display:inline-block;" src="/img/taglogo/docker.png" height="20" width="20" />
                                 
                             
                                 
@@ -339,12 +278,12 @@
                         
                         <br/>
                     </div>
-                    <h1>离线运行swagger文档</h1>
+                    <h1>尝试向kubernetes提出问题</h1>
                     <h2 class="subheading"></h2>
-                    <span  class="meta">Posted by 梁远鹏 on 2021-04-13
+                    <span  class="meta">Posted by 梁远鹏 on 2023-09-02
                         
                         <span id="busuanzi_container_page_pv">|<span id="busuanzi_value_page_pv"></span><span>
-                            <span id="/post/swagger-api-offline/" class="leancloud_visitors meta_data_item" data-flag-title="">
+                            <span id="/post/try-to-ask-question-to-kubernetes-for-source/" class="leancloud_visitors meta_data_item" data-flag-title="">
     <span class="post-meta-item-icon">
       <span class="octicon octicon-eye"></span> 
     </span>
@@ -358,7 +297,7 @@
 
 
 
-                            阅读 </span></span>|<span class="post-date">共432字</span>，阅读约<span class="more-meta"> 1 分钟</span>
+                            阅读 </span></span>|<span class="post-date">共833字</span>，阅读约<span class="more-meta"> 2 分钟</span>
                         
                     </span>
                 </div>
@@ -386,27 +325,201 @@
                 <nav id="TableOfContents"></nav>
 		
 
-		<h1 id="前言">前言</h1>
-<p>在社区群看到有人希望能够将 kubesphere 的文档自己搭一个环境跑起来使用,我想了下这个需求应该是实际使用确实会碰到的,比如某些公司内部网络规则禁止了一些网站或者只允许某些网站.</p>
-<p>在这样的情况下自己搭建一个API文档网站还是很有必要的.</p>
-<h1 id="动起来">动起来</h1>
-<p>我首先去 kubesphere 的 API 网址看了下有没有提供下载文档 json 文件.</p>
-<p>提醒: kubesphere API 文档地址是<a href="https://kubesphere.io/api/kubesphere/">https://kubesphere.io/api/kubesphere/</a></p>
-<p>[upl-image-preview url=https://kubesphere.com.cn/forum/assets/files/2021-04-13/1618290575-306140-image.png]</p>
-<p>按钮还是很明显的,将文件下载下来.</p>
-<p>API 文档既然可以以文件的方式下载下来,那肯定可以再以某种方式加载,然后提供访问.</p>
-<p>去 swagger-ui 的官方库看了看文档,找到了加载自定义json的方式,</p>
-<p>地址是: <a href="https://github.com/swagger-api/swagger-ui/blob/master/docs/usage/installation.md">https://github.com/swagger-api/swagger-ui/blob/master/docs/usage/installation.md</a></p>
-<p>执行的 docker 命令如下:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">docker run -it -d --name swagger -p 80:8080 -e SWAGGER_JSON<span style="color:#f92672">=</span>/doc/kubesphere.json -v <span style="color:#f92672">{</span>文档文件目录<span style="color:#f92672">}</span>:/doc swaggerapi/swagger-ui
-</code></pre></div><p>上述命令中假定 swagger 文件名为<code>kubesphere.json</code>,如果你的文件叫其他名字,记得修改成真实文件名.</p>
-<p>接着就可以通过访问本机本机 IP 来看 kubesphere 的 API 文档了.</p>
-<h1 id="总结">总结</h1>
-<p>总的来说就两步:</p>
-<ol>
-<li>下载 swagger API 文档</li>
-<li>用<code>swaggerapi/swagger-ui</code>容器把文档跑起来.</li>
-</ol>
+		<h1 id="声明">声明</h1>
+<p>本文会持续的更新,提出一些问题用于研究 kubernetes 原理/源码.欢迎投稿加入你感兴趣的问题 :)</p>
+<p>类似的文章有:</p>
+<ul>
+<li><a href="https://liangyuanpeng.com/post/list-of-source-with-pulsar">pulsar源码系列</a></li>
+<li><a href="https://liangyuanpeng.com/post/list-of-source-with-bookeeper">bookeeper源码系列</a></li>
+</ul>
+<h1 id="etcd-当中存储了-kubernetes-什么数据">etcd 当中存储了 kubernetes 什么数据?</h1>
+<p>(有可能会单独整理成一篇文章,但目前只是一个回答)</p>
+<p>这个问题的部分背景:</p>
+<ul>
+<li>当我和朋友说我在研究 kubernetes 时他问我 kubernetes 的数据存储在哪里,怎么存储的</li>
+<li><a href="https://github.com/etcd-io/jetcd/issues/1202">获取 Kubernetes 集群 1.24 中 etcd 数据部分显示乱码</a></li>
+<li><a href="https://github.com/etcd-io/jetcd/issues/1185">当我使用 watch 功能时,响应值中包含一些乱码,这正常吗?如何修复乱码?</a></li>
+</ul>
+<p>接下来进入正文.</p>
+<p>kubernetes 的数据以 <code>/registry</code> 开头存储在 etcd 当中,如果直接查询 etcd 中的数据会发现数据是对人不友好的.这是因为默认情况下存储进去的数据默认是以 protobuf 二进制的方式存储的,因此数据是没办法直接看的,另一个情况是使用了数据加密,也就是在存储到 etcd 之前 kube-apiserver 对数据进行了加密,这时候也是无法直接查看数据的,但这个回答不包括加密的情况,可能会在后续单独文章中来介绍,如果你对数据加密感兴趣,可以看看<a href="https://kubernetes.io/zh-cn/docs/tasks/administer-cluster/encrypt-data/">Kubernetes 中允许允许用户编辑的持久 API 资源数据的所有 API 都支持静态加密</a></p>
+<p>由于 kubernetes 当中只有 kube-apiserver 与 etcd 进行通讯,因此尝试从 kube-apiserver 找到一些线索: 有一个 <code>--storage-media-type</code> 参数是标识数据存储的格式,默认情况下是 <code>application/vnd.kubernetes.protobuf</code>,可选的值有: <code>application/json</code>, <code>application/yaml</code>以及<code>application/vnd.kubernetes.protobuf</code>.</p>
+<p>因此如果想研究 kubernetes 在 etcd 的数据,我的建议是 用 Kind 创建一个 kubernetes,然后给 kube-apiserver 添加启动参数 &ndash;storage-media-type=application/json, 这样就可以在 etcd 轻松的看到 kube-apiserver 存储到 etcd 的是什么数据了.</p>
+<p>下面是一个 service 的数据(由于我修改了默认的存储前缀,因此不是以 /registry 开头):</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#75715e"># etcdctl --endpoints http://172.18.0.2:14379 get /dev/20230902/0952/services/specs/kube-system/kube-dns</span>
+/dev/20230902/0952/services/specs/kube-system/kube-dns
+<span style="color:#f92672">{</span>
+    <span style="color:#e6db74">&#34;kind&#34;</span>:<span style="color:#e6db74">&#34;Service&#34;</span>,
+    <span style="color:#e6db74">&#34;apiVersion&#34;</span>:<span style="color:#e6db74">&#34;v1&#34;</span>,
+    <span style="color:#e6db74">&#34;metadata&#34;</span>:<span style="color:#f92672">{</span>
+        <span style="color:#e6db74">&#34;name&#34;</span>:<span style="color:#e6db74">&#34;kube-dns&#34;</span>,
+        <span style="color:#e6db74">&#34;namespace&#34;</span>:<span style="color:#e6db74">&#34;kube-system&#34;</span>,
+        <span style="color:#e6db74">&#34;uid&#34;</span>:<span style="color:#e6db74">&#34;5a81d246-ffb1-440a-aa8e-d3ebca7c1dec&#34;</span>,
+        <span style="color:#e6db74">&#34;creationTimestamp&#34;</span>:<span style="color:#e6db74">&#34;2023-09-02T12:04:29Z&#34;</span>,
+        <span style="color:#e6db74">&#34;labels&#34;</span>:<span style="color:#f92672">{</span>
+            <span style="color:#e6db74">&#34;k8s-app&#34;</span>:<span style="color:#e6db74">&#34;kube-dns&#34;</span>,
+            <span style="color:#e6db74">&#34;kubernetes.io/cluster-service&#34;</span>:<span style="color:#e6db74">&#34;true&#34;</span>,
+            <span style="color:#e6db74">&#34;kubernetes.io/name&#34;</span>:<span style="color:#e6db74">&#34;CoreDNS&#34;</span>
+        <span style="color:#f92672">}</span>,
+        <span style="color:#e6db74">&#34;annotations&#34;</span>:<span style="color:#f92672">{</span>
+            <span style="color:#e6db74">&#34;prometheus.io/port&#34;</span>:<span style="color:#e6db74">&#34;9153&#34;</span>,
+            <span style="color:#e6db74">&#34;prometheus.io/scrape&#34;</span>:<span style="color:#e6db74">&#34;true&#34;</span>
+        <span style="color:#f92672">}</span>,
+        <span style="color:#e6db74">&#34;managedFields&#34;</span>:<span style="color:#f92672">[</span>
+            <span style="color:#f92672">{</span>
+                <span style="color:#e6db74">&#34;manager&#34;</span>:<span style="color:#e6db74">&#34;kubeadm&#34;</span>,
+                <span style="color:#e6db74">&#34;operation&#34;</span>:<span style="color:#e6db74">&#34;Update&#34;</span>,
+                <span style="color:#e6db74">&#34;apiVersion&#34;</span>:<span style="color:#e6db74">&#34;v1&#34;</span>,
+                <span style="color:#e6db74">&#34;time&#34;</span>:<span style="color:#e6db74">&#34;2023-09-02T12:04:29Z&#34;</span>,
+                <span style="color:#e6db74">&#34;fieldsType&#34;</span>:<span style="color:#e6db74">&#34;FieldsV1&#34;</span>,
+                <span style="color:#e6db74">&#34;fieldsV1&#34;</span>:<span style="color:#f92672">{</span>
+                    <span style="color:#e6db74">&#34;f:metadata&#34;</span>:<span style="color:#f92672">{</span>
+                        <span style="color:#e6db74">&#34;f:annotations&#34;</span>:<span style="color:#f92672">{</span>
+                            <span style="color:#e6db74">&#34;.&#34;</span>:<span style="color:#f92672">{</span>
+
+                            <span style="color:#f92672">}</span>,
+                            <span style="color:#e6db74">&#34;f:prometheus.io/port&#34;</span>:<span style="color:#f92672">{</span>
+
+                            <span style="color:#f92672">}</span>,
+                            <span style="color:#e6db74">&#34;f:prometheus.io/scrape&#34;</span>:<span style="color:#f92672">{</span>
+
+                            <span style="color:#f92672">}</span>
+                        <span style="color:#f92672">}</span>,
+                        <span style="color:#e6db74">&#34;f:labels&#34;</span>:<span style="color:#f92672">{</span>
+                            <span style="color:#e6db74">&#34;.&#34;</span>:<span style="color:#f92672">{</span>
+
+                            <span style="color:#f92672">}</span>,
+                            <span style="color:#e6db74">&#34;f:k8s-app&#34;</span>:<span style="color:#f92672">{</span>
+
+                            <span style="color:#f92672">}</span>,
+                            <span style="color:#e6db74">&#34;f:kubernetes.io/cluster-service&#34;</span>:<span style="color:#f92672">{</span>
+
+                            <span style="color:#f92672">}</span>,
+                            <span style="color:#e6db74">&#34;f:kubernetes.io/name&#34;</span>:<span style="color:#f92672">{</span>
+
+                            <span style="color:#f92672">}</span>
+                        <span style="color:#f92672">}</span>
+                    <span style="color:#f92672">}</span>,
+                    <span style="color:#e6db74">&#34;f:spec&#34;</span>:<span style="color:#f92672">{</span>
+                        <span style="color:#e6db74">&#34;f:clusterIP&#34;</span>:<span style="color:#f92672">{</span>
+
+                        <span style="color:#f92672">}</span>,
+                        <span style="color:#e6db74">&#34;f:internalTrafficPolicy&#34;</span>:<span style="color:#f92672">{</span>
+
+                        <span style="color:#f92672">}</span>,
+                        <span style="color:#e6db74">&#34;f:ports&#34;</span>:<span style="color:#f92672">{</span>
+                            <span style="color:#e6db74">&#34;.&#34;</span>:<span style="color:#f92672">{</span>
+
+                            <span style="color:#f92672">}</span>,
+                            <span style="color:#e6db74">&#34;k:{\&#34;port\&#34;:53,\&#34;protocol\&#34;:\&#34;TCP\&#34;}&#34;</span>:<span style="color:#f92672">{</span>
+                                <span style="color:#e6db74">&#34;.&#34;</span>:<span style="color:#f92672">{</span>
+
+                                <span style="color:#f92672">}</span>,
+                                <span style="color:#e6db74">&#34;f:name&#34;</span>:<span style="color:#f92672">{</span>
+
+                                <span style="color:#f92672">}</span>,
+                                <span style="color:#e6db74">&#34;f:port&#34;</span>:<span style="color:#f92672">{</span>
+
+                                <span style="color:#f92672">}</span>,
+                                <span style="color:#e6db74">&#34;f:protocol&#34;</span>:<span style="color:#f92672">{</span>
+
+                                <span style="color:#f92672">}</span>,
+                                <span style="color:#e6db74">&#34;f:targetPort&#34;</span>:<span style="color:#f92672">{</span>
+
+                                <span style="color:#f92672">}</span>
+                            <span style="color:#f92672">}</span>,
+                            <span style="color:#e6db74">&#34;k:{\&#34;port\&#34;:53,\&#34;protocol\&#34;:\&#34;UDP\&#34;}&#34;</span>:<span style="color:#f92672">{</span>
+                                <span style="color:#e6db74">&#34;.&#34;</span>:<span style="color:#f92672">{</span>
+
+                                <span style="color:#f92672">}</span>,
+                                <span style="color:#e6db74">&#34;f:name&#34;</span>:<span style="color:#f92672">{</span>
+
+                                <span style="color:#f92672">}</span>,
+                                <span style="color:#e6db74">&#34;f:port&#34;</span>:<span style="color:#f92672">{</span>
+
+                                <span style="color:#f92672">}</span>,
+                                <span style="color:#e6db74">&#34;f:protocol&#34;</span>:<span style="color:#f92672">{</span>
+
+                                <span style="color:#f92672">}</span>,
+                                <span style="color:#e6db74">&#34;f:targetPort&#34;</span>:<span style="color:#f92672">{</span>
+
+                                <span style="color:#f92672">}</span>
+                            <span style="color:#f92672">}</span>,
+                            <span style="color:#e6db74">&#34;k:{\&#34;port\&#34;:9153,\&#34;protocol\&#34;:\&#34;TCP\&#34;}&#34;</span>:<span style="color:#f92672">{</span>
+                                <span style="color:#e6db74">&#34;.&#34;</span>:<span style="color:#f92672">{</span>
+
+                                <span style="color:#f92672">}</span>,
+                                <span style="color:#e6db74">&#34;f:name&#34;</span>:<span style="color:#f92672">{</span>
+
+                                <span style="color:#f92672">}</span>,
+                                <span style="color:#e6db74">&#34;f:port&#34;</span>:<span style="color:#f92672">{</span>
+
+                                <span style="color:#f92672">}</span>,
+                                <span style="color:#e6db74">&#34;f:protocol&#34;</span>:<span style="color:#f92672">{</span>
+
+                                <span style="color:#f92672">}</span>,
+                                <span style="color:#e6db74">&#34;f:targetPort&#34;</span>:<span style="color:#f92672">{</span>
+
+                                <span style="color:#f92672">}</span>
+                            <span style="color:#f92672">}</span>
+                        <span style="color:#f92672">}</span>,
+                        <span style="color:#e6db74">&#34;f:selector&#34;</span>:<span style="color:#f92672">{</span>
+
+                        <span style="color:#f92672">}</span>,
+                        <span style="color:#e6db74">&#34;f:sessionAffinity&#34;</span>:<span style="color:#f92672">{</span>
+
+                        <span style="color:#f92672">}</span>,
+                        <span style="color:#e6db74">&#34;f:type&#34;</span>:<span style="color:#f92672">{</span>
+
+                        <span style="color:#f92672">}</span>
+                    <span style="color:#f92672">}</span>
+                <span style="color:#f92672">}</span>
+            <span style="color:#f92672">}</span>
+        <span style="color:#f92672">]</span>
+    <span style="color:#f92672">}</span>,
+    <span style="color:#e6db74">&#34;spec&#34;</span>:<span style="color:#f92672">{</span>
+        <span style="color:#e6db74">&#34;ports&#34;</span>:<span style="color:#f92672">[</span>
+            <span style="color:#f92672">{</span>
+                <span style="color:#e6db74">&#34;name&#34;</span>:<span style="color:#e6db74">&#34;dns&#34;</span>,
+                <span style="color:#e6db74">&#34;protocol&#34;</span>:<span style="color:#e6db74">&#34;UDP&#34;</span>,
+                <span style="color:#e6db74">&#34;port&#34;</span>:53,
+                <span style="color:#e6db74">&#34;targetPort&#34;</span>:53
+            <span style="color:#f92672">}</span>,
+            <span style="color:#f92672">{</span>
+                <span style="color:#e6db74">&#34;name&#34;</span>:<span style="color:#e6db74">&#34;dns-tcp&#34;</span>,
+                <span style="color:#e6db74">&#34;protocol&#34;</span>:<span style="color:#e6db74">&#34;TCP&#34;</span>,
+                <span style="color:#e6db74">&#34;port&#34;</span>:53,
+                <span style="color:#e6db74">&#34;targetPort&#34;</span>:53
+            <span style="color:#f92672">}</span>,
+            <span style="color:#f92672">{</span>
+                <span style="color:#e6db74">&#34;name&#34;</span>:<span style="color:#e6db74">&#34;metrics&#34;</span>,
+                <span style="color:#e6db74">&#34;protocol&#34;</span>:<span style="color:#e6db74">&#34;TCP&#34;</span>,
+                <span style="color:#e6db74">&#34;port&#34;</span>:9153,
+                <span style="color:#e6db74">&#34;targetPort&#34;</span>:9153
+            <span style="color:#f92672">}</span>
+        <span style="color:#f92672">]</span>,
+        <span style="color:#e6db74">&#34;selector&#34;</span>:<span style="color:#f92672">{</span>
+            <span style="color:#e6db74">&#34;k8s-app&#34;</span>:<span style="color:#e6db74">&#34;kube-dns&#34;</span>
+        <span style="color:#f92672">}</span>,
+        <span style="color:#e6db74">&#34;clusterIP&#34;</span>:<span style="color:#e6db74">&#34;10.96.0.10&#34;</span>,
+        <span style="color:#e6db74">&#34;clusterIPs&#34;</span>:<span style="color:#f92672">[</span>
+            <span style="color:#e6db74">&#34;10.96.0.10&#34;</span>
+        <span style="color:#f92672">]</span>,
+        <span style="color:#e6db74">&#34;type&#34;</span>:<span style="color:#e6db74">&#34;ClusterIP&#34;</span>,
+        <span style="color:#e6db74">&#34;sessionAffinity&#34;</span>:<span style="color:#e6db74">&#34;None&#34;</span>,
+        <span style="color:#e6db74">&#34;ipFamilies&#34;</span>:<span style="color:#f92672">[</span>
+            <span style="color:#e6db74">&#34;IPv4&#34;</span>
+        <span style="color:#f92672">]</span>,
+        <span style="color:#e6db74">&#34;ipFamilyPolicy&#34;</span>:<span style="color:#e6db74">&#34;SingleStack&#34;</span>,
+        <span style="color:#e6db74">&#34;internalTrafficPolicy&#34;</span>:<span style="color:#e6db74">&#34;Cluster&#34;</span>
+    <span style="color:#f92672">}</span>,
+    <span style="color:#e6db74">&#34;status&#34;</span>:<span style="color:#f92672">{</span>
+        <span style="color:#e6db74">&#34;loadBalancer&#34;</span>:<span style="color:#f92672">{</span>
+
+        <span style="color:#f92672">}</span>
+    <span style="color:#f92672">}</span>
+<span style="color:#f92672">}</span>
+</code></pre></div><h1 id="温馨提示">温馨提示</h1>
+<p>本文持续更新</p>
 
 
         <h2>微信公众号</h2>
@@ -434,12 +547,12 @@
                 <ul class="pager">
                     
                     <li class="previous">
-                        <a href="/post/k8s-deploy-longhorn/" data-toggle="tooltip" data-placement="top" title="kubernetes部署longhorn">&larr; kubernetes部署longhorn</a>
+                        <a href="/post/write-note-for-upgrade-to-springboot3/" data-toggle="tooltip" data-placement="top" title="记一次springboot3的升级之旅">&larr; 记一次springboot3的升级之旅</a>
                     </li>
                     
                     
                     <li class="next">
-                        <a href="/post/automation-test-wechat-api/" data-toggle="tooltip" data-placement="top" title="微信小程序接口自动化的实现方案">微信小程序接口自动化的实现方案 &rarr;</a>
+                        <a href="/post/run-k8s-with-kind/" data-toggle="tooltip" data-placement="top" title="用kind搭建k8s集群环境">用kind搭建k8s集群环境 &rarr;</a>
                     </li>
                     
                 </ul>
@@ -579,25 +692,25 @@
 <h2>相关文章</h2>
 <ul style="margin-bottom: 25px;">
     
-    <li><a href="/post/deploy-halo/">部署Halo博客</a></li>
+    <li><a href="/post/cloudnative-ci-of-argo-workflow/">argoworkflow 云原生工作流引擎</a></li>
     
-    <li><a href="/post/use-helm-deploy-chirpstack-kubernetes/">用helm chart将chripstack部署到kubernetes之上</a></li>
+    <li><a href="/post/question-list-of-kubernetes/">[长期更新]kubernetes问题列表记录</a></li>
     
-    <li><a href="/post/docker-compose-deploy-chirpstack/">用docker-compose快速部署ChirpStack</a></li>
+    <li><a href="/post/kubeadm-config-note-long-term/">[长期更新]kubeadm常见问题以及配置记录</a></li>
     
-    <li><a href="/post/jib-springboot-docker-maven/">不用安装docker也能构建docker镜像</a></li>
+    <li><a href="/post/kubecon-china-2023%E5%B0%86%E5%9C%A8%E4%B8%8A%E6%B5%B7%E4%B8%BE%E5%8A%9E/">kubecon china 2023将在上海举办</a></li>
     
-    <li><a href="/post/elasticsearch-fluentd-kafka/">Elasticsearch&#43;Fluentd&#43;Kafka搭建分布式日志系统</a></li>
+    <li><a href="/post/migrate-your-manifest-yaml-files-into-helm-chart/">将你的yaml文件迁移到helm</a></li>
     
-    <li><a href="/post/logstash-logdriver-docker/">使用logstash作为docker日志驱动收集日志</a></li>
+    <li><a href="/post/from-zero-to-kubernets-subproject-lead/">从零到 Kubernetes 子项目负责人</a></li>
     
-    <li><a href="/post/fluentd-logdrive-docker/">使用fluentd作为docker日志驱动收集日志</a></li>
+    <li><a href="/post/backup-pvc-to-s3-with-k8up/">基于k8up备份PVC到S3存储</a></li>
     
-    <li><a href="/post/fluentd-plugin-kafka/">制作带有kafka插件和es插件的fluentd镜像</a></li>
+    <li><a href="/post/kubernetes-hpa-custom-metrics-for-effective-cpu-memory-scaling/">Kubernetes HPA:定制指标实现有效的CPU和内存扩展</a></li>
     
-    <li><a href="/post/fluentd-quickstart/">fluentd语法入门</a></li>
+    <li><a href="/post/keda-helmchart-release-with-v2.10.1/">keda-helmchart发布v2.10.1</a></li>
     
-    <li><a href="/post/deploy-command/">docker常用命令集合</a></li>
+    <li><a href="/post/run-k8s-with-kind/">用kind搭建k8s集群环境</a></li>
     
 </ul>
 
@@ -701,7 +814,7 @@
                     
                 </ul>
 		<p class="copyright text-muted">
-                    Copyright &copy; Hi,I`m lan , 2021
+                    Copyright &copy; Hi,I`m lan , 2023
                     <br>
                     <a href="https://themes.gohugo.io/hugo-theme-cleanwhite">CleanWhite Hugo Theme</a> by <a href="https://zhaohuabing.com">Huabing</a> |
                     <iframe

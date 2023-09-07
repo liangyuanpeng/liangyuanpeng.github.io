@@ -421,7 +421,7 @@
 
 
 
-                            阅读 </span></span>|<span class="post-date">共1356字</span>，阅读约<span class="more-meta"> 3 分钟</span>
+                            阅读 </span></span>|<span class="post-date">共1282字</span>，阅读约<span class="more-meta"> 3 分钟</span>
                         
                     </span>
                 </div>
@@ -463,9 +463,9 @@
 <a href="https://hub.docker.com/">dockerhub</a><br>
 <a href="https://cr.console.aliyun.com/cn-beijing/instances/repositories">阿里云容器镜像服务</a></p>
 <h2 id="前言">前言</h2>
-<p>本文主要介绍的是 google 开源的一个java领域的 docker 构建工具jib.</p>
+<p>本文主要介绍的是 google 开源的一个 java 领域的 docker 构建工具jib.</p>
 <p>目前在<a href="https://github.com/GoogleContainerTools/jib">github</a>上的 start 有 8.5k,fork 有 784,是一款非常方便的 java 领域 docker 构建工具.</p>
-<p>亮点是不需要Docker daemon,意味着即使本地没有安装docker也能通过jib构建docker镜像,并且可以构建符合<a href="https://github.com/opencontainers/image-spec">OCI</a>规范的镜像.</p>
+<p>亮点是不需要 Docker daemon,意味着即使本地没有安装 docker 也能通过 jib 构建 docker 镜像,并且可以构建符合<a href="https://github.com/opencontainers/image-spec">OCI</a>规范的镜像.</p>
 <p>官方支持三种方式:</p>
 <ol>
 <li><a href="https://github.com/GoogleContainerTools/jib/blob/master/jib-maven-plugin">maven插件</a></li>
@@ -495,32 +495,32 @@
       ...
     <span style="color:#f92672">&lt;/plugins&gt;</span>
   <span style="color:#f92672">&lt;/build&gt;</span>
-</code></pre></div><p>上述内容配置了一个结果镜像名称<code>imageName</code>,也就是最终构建成的docker镜像地址,包含<code>容器仓库地址/镜像名称:版本号</code>例如<code>registry.cn-beijing.aliyuncs.com/lyp/lanbox:v1.0</code>,如果仓库地址不填则默认为<a href="https://hub.docker.com/">dockerhub</a>.</p>
-<p>另外还配置了一个基础镜像<code>registry.cn-hangzhou.aliyuncs.com/dragonwell/dragonwell8:8.1.1-GA_alpine_x86_64_8u222-b67</code>,可以认为等同于Dockerfile中的From语句.</p>
-<p>如果基础镜像或目标镜像需要账号密码的话,在from标签或to标签添加一个认证信息即可,有三种方式:</p>
+</code></pre></div><p>上述内容配置了一个结果镜像名称<code>imageName</code>,也就是最终构建成的 docker 镜像地址,包含<code>容器仓库地址/镜像名称:版本号</code>例如<code>registry.cn-beijing.aliyuncs.com/lyp/lanbox:v1.0</code>,如果仓库地址不填则默认为<a href="https://hub.docker.com/">dockerhub</a>.</p>
+<p>另外还配置了一个基础镜像<code>registry.cn-hangzhou.aliyuncs.com/dragonwell/dragonwell8:8.1.1-GA_alpine_x86_64_8u222-b67</code>,可以认为等同于 Dockerfile 中的 From 语句.</p>
+<p>如果基础镜像或目标镜像需要账号密码的话,在 from 标签或 to 标签添加一个认证信息即可,有三种方式:</p>
 <ol>
-<li>配置在docker的配置文件中</li>
-<li>配置在maven的setting.xml中</li>
-<li>直接在pom.xml文件配置</li>
+<li>配置在 docker 的配置文件中</li>
+<li>配置在 maven 的 setting.xml 中</li>
+<li>直接在 pom.xml 文件配置</li>
 </ol>
 <p>本文使用第三种,即在 from 标签或 to 标签下添加一个用于认证信息的 auth 标签,例如:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">&lt;from&gt;
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml"><span style="color:#f92672">&lt;from&gt;</span>
   ...
-  &lt;auth&gt;
-    &lt;username&gt;kafeidou&lt;/username&gt;
-    &lt;password&gt;kafeidou&lt;/password&gt;
-  &lt;auth&gt;
+  <span style="color:#f92672">&lt;auth&gt;</span>
+    <span style="color:#f92672">&lt;username&gt;</span>kafeidou<span style="color:#f92672">&lt;/username&gt;</span>
+    <span style="color:#f92672">&lt;password&gt;</span>kafeidou<span style="color:#f92672">&lt;/password&gt;</span>
+  <span style="color:#f92672">&lt;auth&gt;</span>
   ...
-&lt;/from&gt;  
+<span style="color:#f92672">&lt;/from&gt;</span>  
 </code></pre></div><p>也可以方便的通过环境变量的方式进行配置:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">&lt;from&gt;
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml"><span style="color:#f92672">&lt;from&gt;</span>
   ...
-  &lt;auth&gt;
-    &lt;username&gt;<span style="color:#e6db74">${</span>env.REGISTRY_FROM_USERNAME<span style="color:#e6db74">}</span>&lt;/username&gt;
-    &lt;password&gt;<span style="color:#e6db74">${</span>env.REGISTRY_FROM_PASSWORD<span style="color:#e6db74">}</span>&lt;/password&gt;
-  &lt;auth&gt;
+  <span style="color:#f92672">&lt;auth&gt;</span>
+    <span style="color:#f92672">&lt;username&gt;</span>${env.REGISTRY_FROM_USERNAME}<span style="color:#f92672">&lt;/username&gt;</span>
+    <span style="color:#f92672">&lt;password&gt;</span>${env.REGISTRY_FROM_PASSWORD}<span style="color:#f92672">&lt;/password&gt;</span>
+  <span style="color:#f92672">&lt;auth&gt;</span>
   ...
-&lt;/from&gt; 
+<span style="color:#f92672">&lt;/from&gt;</span> 
 </code></pre></div><p>其中<code>${env.}</code>这一部分是固定的,后面跟着实际环境变量.</p>
 <p>还可以通过系统属性的方式:</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">mvn compile jib:build <span style="color:#ae81ff">\
@@ -543,8 +543,8 @@
 </ol>
 <p>有一个注意点是阿里的容器镜像服务不支持 OCI 镜像,所以如果选择使用阿里的容器镜像服务记得将 OCI 格式取消,默认是取消的.</p>
 <p>另外,JVM参数可以通过环境变量配置动态内容,所以不需要计划将所有启动参数写死在<code>jvmFlags</code>标签里面.</p>
-<p>例如启动容器时指定使用G1回收器,<code>docker run -it -e JAVA_TOOL_OPTIONS=&quot;-XX:+UseG1GC&quot; -d  registry.cn-beijing.aliyuncs.com/lyp/lanbox:v1.0</code>.</p>
-<p>所有配置项完成后运行mvn命令<code>mvn compile jib:build</code> 开始构建 docker 镜像.</p>
+<p>例如启动容器时指定使用 G1 回收器,<code>docker run -it -e JAVA_TOOL_OPTIONS=&quot;-XX:+UseG1GC&quot; -d  registry.cn-beijing.aliyuncs.com/lyp/lanbox:v1.0</code>.</p>
+<p>所有配置项完成后运行 mvn 命令<code>mvn compile jib:build</code> 开始构建 docker 镜像.</p>
 <p>如果看到类似这样的信息说明就成功了:</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#f92672">[</span>INFO<span style="color:#f92672">]</span> ------------------------------------------------------------------------
 <span style="color:#f92672">[</span>INFO<span style="color:#f92672">]</span> BUILD SUCCESS
@@ -552,7 +552,7 @@
 <span style="color:#f92672">[</span>INFO<span style="color:#f92672">]</span> Total time:  42.598 s
 <span style="color:#f92672">[</span>INFO<span style="color:#f92672">]</span> Finished at: 2020-02-18T23:30:53+08:00
 <span style="color:#f92672">[</span>INFO<span style="color:#f92672">]</span> ------------------------------------------------------------------------
-</code></pre></div><p>完整的一个例子可以在github上查看并下载<a href="https://github.com/FISHStack/hello-spring-cloud">https://github.com/FISHStack/hello-spring-cloud</a>,欢迎多多交流.</p>
+</code></pre></div><p>完整的一个例子可以在 github 上查看并下载<a href="https://github.com/FISHStack/hello-spring-cloud">https://github.com/FISHStack/hello-spring-cloud</a>,欢迎多多交流.</p>
 <h1 id="目前我还将jib用于存储和下载">目前我还将Jib用于存储和下载</h1>
 <p>将 rocksdb 生成的文件打包成容器镜像,上传到容器镜像仓库, 在下一次使用时再使用 Jib 下载容器镜像，然后解压出来使用。</p>
 <p>目前是两个用处:

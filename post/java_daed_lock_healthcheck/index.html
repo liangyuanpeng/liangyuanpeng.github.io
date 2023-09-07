@@ -356,7 +356,7 @@ healthCheckRegistry<span style="color:#f92672">.</span><span style="color:#a6e22
                     current<span style="color:#f92672">.</span><span style="color:#a6e22e">set</span><span style="color:#f92672">(</span>result<span style="color:#f92672">.</span><span style="color:#a6e22e">isHealthy</span><span style="color:#f92672">()?</span>1<span style="color:#f92672">:</span>0<span style="color:#f92672">);</span>
                 <span style="color:#f92672">}</span>
             <span style="color:#f92672">},</span>0<span style="color:#f92672">,</span>30<span style="color:#f92672">,</span> TimeUnit<span style="color:#f92672">.</span><span style="color:#a6e22e">SECONDS</span><span style="color:#f92672">);</span>
-</code></pre></div><p>这样就可以定时检测程序中是否有死锁存在,如果有,<code>thread_dead_lock</code>这个 metrics 会显示为0.也可以通过<code>HealthCheck.Result result</code>这个对象,把死锁相关信息打印在程序 log 中,这样可以将信息收集到专门的日志系统去.比如 Elasticsearch.</p>
+</code></pre></div><p>这样就可以定时检测程序中是否有死锁存在,如果有,<code>thread_dead_lock</code>这个 metrics 会显示为 0.也可以通过<code>HealthCheck.Result result</code>这个对象,把死锁相关信息打印在程序 log 中,这样可以将信息收集到专门的日志系统去.比如 Elasticsearch.</p>
 <h1 id="原理">原理</h1>
 <p>需要配置的内容和编写的代码并不多,只需要少量代码就可以做到检测程序死锁了.那么这一切是如何做到的呢?一起来看一下.</p>
 <p>首先从最外面的入口点进源码看看逻辑.</p>

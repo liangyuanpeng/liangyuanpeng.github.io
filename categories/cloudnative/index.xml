@@ -436,7 +436,7 @@
       <pubDate>Tue, 18 Feb 2020 00:00:00 +0000</pubDate>
       
       <guid>https://liangyuanpeng.github.io/post/jib-springboot-docker-maven/</guid>
-      <description>前提 docker 容器镜像仓库 这里举例可以公用的两个 dockerhub 阿里云容器镜像服务 前言 本文主要介绍的是 google 开源的一个java领域的 docker 构建工具jib. 目前在githu</description>
+      <description>前提 docker 容器镜像仓库 这里举例可以公用的两个 dockerhub 阿里云容器镜像服务 前言 本文主要介绍的是 google 开源的一个 java 领域的 docker 构建工具jib. 目前在github上的</description>
     </item>
     
     <item>

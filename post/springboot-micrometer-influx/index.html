@@ -356,7 +356,7 @@
 
 
 
-                            阅读 </span></span>|<span class="post-date">共731字</span>，阅读约<span class="more-meta"> 2 分钟</span>
+                            阅读 </span></span>|<span class="post-date">共614字</span>，阅读约<span class="more-meta"> 2 分钟</span>
                         
                     </span>
                 </div>
@@ -386,42 +386,42 @@
 
 		<h1 id="前言">前言</h1>
 <p>聊到微服务监控,首先需要考虑的一个技术选型问题就是使用推数据还是使用拉数据的方式进行数据的收集,这个问题这里不进行具体讲解.本文使用<code>micrometer-registry-influx</code>这个组件使用推的方式进行数据的收集.</p>
-<p>讲到这里不得不说一下<code>micrometer</code>这个内容,这个可以理解是java监控领域的slf4j.上层实现有很多组件,influx,prometheus,telegraf等都有提供支持.</p>
+<p>讲到这里不得不说一下<code>micrometer</code>这个内容,这个可以理解是 java 监控领域的 slf4j.上层实现有很多组件,influx,prometheus,telegraf 等都有提供支持.</p>
 <h1 id="前提">前提</h1>
 <ol>
 <li><a href="https://www.influxdata.com/">influxdb</a></li>
 </ol>
-<p>本文不进行influxdb的部署讲解,所以需要提前准备好influxdb.</p>
-<p>使用的版本是influx-1.x,编写本文时<code>micrometer-registry-influx</code>还不支持Influx2.</p>
-<p>快速验证推荐使用docker部署influxdb的方式,网上有很多答案.</p>
+<p>本文不进行 influxdb 的部署讲解,所以需要提前准备好 influxdb.</p>
+<p>使用的版本是 influx-1.x,编写本文时<code>micrometer-registry-influx</code>还不支持Influx2.</p>
+<p>快速验证推荐使用 docker 部署 influxdb 的方式,网上有很多答案.</p>
 <h1 id="项目配置">项目配置</h1>
 <ol>
 <li>引入依赖</li>
 </ol>
-<pre tabindex="0"><code>&lt;dependency&gt;
-            &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
-            &lt;artifactId&gt;spring-boot-starter-actuator&lt;/artifactId&gt;
-        &lt;/dependency&gt;
-        &lt;dependency&gt;
-            &lt;groupId&gt;io.micrometer&lt;/groupId&gt;
-            &lt;artifactId&gt;micrometer-registry-influx&lt;/artifactId&gt;
-        &lt;/dependency&gt;
-</code></pre><ol start="2">
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml"><span style="color:#f92672">&lt;dependency&gt;</span>
+            <span style="color:#f92672">&lt;groupId&gt;</span>org.springframework.boot<span style="color:#f92672">&lt;/groupId&gt;</span>
+            <span style="color:#f92672">&lt;artifactId&gt;</span>spring-boot-starter-actuator<span style="color:#f92672">&lt;/artifactId&gt;</span>
+        <span style="color:#f92672">&lt;/dependency&gt;</span>
+        <span style="color:#f92672">&lt;dependency&gt;</span>
+            <span style="color:#f92672">&lt;groupId&gt;</span>io.micrometer<span style="color:#f92672">&lt;/groupId&gt;</span>
+            <span style="color:#f92672">&lt;artifactId&gt;</span>micrometer-registry-influx<span style="color:#f92672">&lt;/artifactId&gt;</span>
+        <span style="color:#f92672">&lt;/dependency&gt;</span>
+</code></pre></div><ol start="2">
 <li>配置文件配置</li>
 </ol>
-<p>这里演示的是yml格式的配置文件,添加下列内容到配置文件中</p>
-<pre tabindex="0"><code>management:
-  metrics:
-    export:
-      influx:
-        enabled: true
-        db: spring
-        uri: http://192.168.1.16:31001
-        step: 10s
-#        user-name: admin
-#        password: admin123
-        auto-create-db: true
-</code></pre><p>上述配置内容中<br>
+<p>这里演示的是 yml 格式的配置文件,添加下列内容到配置文件中</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#f92672">management</span>:
+  <span style="color:#f92672">metrics</span>:
+    <span style="color:#f92672">export</span>:
+      <span style="color:#f92672">influx</span>:
+        <span style="color:#f92672">enabled</span>: <span style="color:#66d9ef">true</span>
+        <span style="color:#f92672">db</span>: <span style="color:#ae81ff">spring</span>
+        <span style="color:#f92672">uri</span>: <span style="color:#ae81ff">http://192.168.1.16:31001</span>
+        <span style="color:#f92672">step</span>: <span style="color:#ae81ff">10s</span>
+<span style="color:#75715e">#        user-name: admin</span>
+<span style="color:#75715e">#        password: admin123</span>
+        <span style="color:#f92672">auto-create-db</span>: <span style="color:#66d9ef">true</span>
+</code></pre></div><p>上述配置内容中<br>
 <code>enabled</code>: 打开数据推送开关<br>
 <code>db</code>: influxdb中存储数据的数据库<br>
 <code>uri</code>: influxdb的地址<br>
@@ -431,17 +431,17 @@
 <code>auto-create-db</code>: 是否自动创建数据库</p>
 <h1 id="验证数据是否正常产生">验证数据是否正常产生</h1>
 <ol>
-<li>启动SpringBoot项目</li>
-<li>进入到influxdb中,查看datbase:</li>
+<li>启动 SpringBoot 项目</li>
+<li>进入到 influxdb 中,查看 datbase:</li>
 </ol>
-<pre tabindex="0"><code>&gt; show databases
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">&gt; show databases
 name: databases
 name
 ----
 _internal
 spring
-</code></pre><p>这里可以看到已经生成了一个spring的数据库,可以进入到这个数据库查看里面生成了一些什么数据</p>
-<pre tabindex="0"><code>&gt; use spring
+</code></pre></div><p>这里可以看到已经生成了一个 spring 的数据库,可以进入到这个数据库查看里面生成了一些什么数据</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">&gt; use spring
 Using database spring
 &gt; show measurements
 name: measurements
@@ -476,8 +476,8 @@ tomcat_sessions_alive_max
 tomcat_sessions_created
 tomcat_sessions_expired
 tomcat_sessions_rejected
-</code></pre><p>上述measurement就是springboot开启actuator后默认生成的metrics</p>
-<p>到目前为止,一个最简单的SpringBoot项目通过micrometer将数据推送到influxdb的例子就完成了.</p>
+</code></pre></div><p>上述 measurement 就是 springboot 开启 actuator 后默认生成的 metrics</p>
+<p>到目前为止,一个最简单的 SpringBoot 项目通过 micrometer 将数据推送到 influxdb 的例子就完成了.</p>
 
 
         <h2>微信公众号</h2>
