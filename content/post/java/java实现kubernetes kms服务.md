@@ -17,3 +17,6 @@ categories:
     - cloudnative
 ---
 
+
+
+kubernetes kms plugin 要求 KMS 服务需要有一个本地的 socket,而 grpc-java 目前似乎不支持 unix socket.
