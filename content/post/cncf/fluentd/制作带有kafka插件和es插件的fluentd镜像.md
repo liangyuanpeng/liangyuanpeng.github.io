@@ -88,4 +88,4 @@ docker run -it -d fluentd-es-kafka:v1.3.2
 docker run -it -v {存放fluent.conf的目录}:/etc/fluent -d fluentd-es-kafka:v1.3.2
 ```
 
-发一个已经制作完成的镜像:``lypgcs/fluentd-es-kafka:v1.3.2``
+发一个已经制作完成的镜像:`lypgcs/fluentd-es-kafka:v1.3.2`

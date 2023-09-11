@@ -18,7 +18,7 @@ categories: [ kubernetes ]
 
 # 前言 
 
-由于实验基于kubernetes,因此你首先需要有一个kubernetes环境,这里推荐使用 Kind 命令来搭建.见[用kind搭建k8s集群环境](https://liangyuanpeng.com/post/run-k8s-with-kind/)
+由于实验基于 kubernetes,因此你首先需要有一个 kubernetes 环境,这里推荐使用 Kind 命令来搭建.见[用kind搭建k8s集群环境](https://liangyuanpeng.com/post/run-k8s-with-kind/)
 
 ## 前提
 - kubernetes
