@@ -36,7 +36,7 @@ springboot3 宣布将最低支持 jdk17,从框架上推动 java 用户来升级 
 
 ## 找不到 javax.servlet 
 
-这是因为 javax 已经捐赠给了 eclipse 基金会,已经更名为 jakarta,而 springboot3 使用到了而已。虽然说在升级过程中会遇到这个问题，但其实这个变更与springboot3 关联性不大,即使你不使用 springboot3,也可能会遇到这个问题.
+这是因为 javax 已经捐赠给了 eclipse 基金会,已经更名为 jakarta,而 springboot3 使用到了而已。虽然说在升级过程中会遇到这个问题，但其实这个变更与 springboot3 关联性不大,即使你不使用 springboot3,也可能会遇到这个问题.
 
 ## 初始化 ServletRegistrationBean 失败
 
@@ -44,7 +44,7 @@ springboot3 宣布将最低支持 jdk17,从框架上推动 java 用户来升级 
 
 由于项目中使用到了 Druid 连接池,因此这里使用到的对象是 StatViewServlet.
 
-第一个问题是实例化ServletRegistrationBean时传参失败,需要将 StatViewServlet 强转为 jakarta.servlet .
+第一个问题是实例化 ServletRegistrationBean 时传参失败,需要将 StatViewServlet 强转为 jakarta.servlet .
 
 ```shell
 ServletRegistrationBean servletRegistrationBean = new ServletRegistrationBean(new StatViewServlet(),"/druid/*");
@@ -108,6 +108,25 @@ spring6 删除了这个对象.
 
 解决方案: 更新传参 Object 类型为泛型
 
+> 不确认是 jdk17 的原因还是这个注解/caffeine 库高版本的问题.
+
+确认是 caffeine 高版本问题,由于springboot3需要使用高版本caffeine,因此对此依赖做了升级.
+
+```shell
+    public V getIfPresent(@NonNull @CompatibleWith("K") Object key) {
+        if(key instanceof String){
+            if(toLowerCaseKey){
+                key = ((String) key).toLowerCase();
+            }else if(toUpperCaseKey){
+                key = ((String) key).toUpperCase();
+            }
+        }
+        return cache.getIfPresent((******K)******key);
+    }
+```
+
+在调用 caffeine 的方法,例如 getIfPresent 时强转一下即可.
+
 ## java.lang.NoSuchMethodError: 'boolean com.google.protobuf.GeneratedMessageV3.isStringEmpty(java.lang.Object)'
 
 这个似乎是因为项目中使用的 protobuf 版本太低了,升级了较新的版本后依然存在.
@@ -150,3 +169,12 @@ management:
 Flink 任务还不支持 jdk17,master 分支已经支持 还没发布.
 
 解决方案: 自己安装 master 分支代码到本地.
+
+
+# 一个总结
+
+虽然说是总结,但这个能依然是进行中,到目前为止(2023-09-05),对应用做了一些模块化的重构,从而更好的支持升级.例如将一些内容抽象出来,支持动态引入.(说的就是你 rocksdb),原因是使用 gralvm 构建镜像时有一些问题,而目前没有过多的动力去深挖,因此将一些能力模块化出来,在使用 graalvm 打包时排除掉这些内容.
+
+好在虽然在业务高速发展期做了一些基本的动态配置能力,因此进行重构时可以比较轻松的做到抽象出来.
+
+同时我首先是对整体的升级在同一个 PR 中做了大量工作,然后将这个大任务拆分成各个小任务来做逐步改造,避免一次升级做太多的东西.

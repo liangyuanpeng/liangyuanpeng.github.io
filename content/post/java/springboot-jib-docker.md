@@ -104,7 +104,7 @@ categories:
 </from> 
 ```  
 
-其中``${env.}``这一部分是固定的,后面跟着实际环境变量.  
+其中``${env.}`这一部分是固定的,后面跟着实际环境变量.  
 
 还可以通过系统属性的方式:  
 ```shell
@@ -132,9 +132,9 @@ mvn compile jib:build \
 
 另外,JVM参数可以通过环境变量配置动态内容,所以不需要计划将所有启动参数写死在``jvmFlags``标签里面.  
 
-例如启动容器时指定使用 G1 回收器,``docker run -it -e JAVA_TOOL_OPTIONS="-XX:+UseG1GC" -d  registry.cn-beijing.aliyuncs.com/lyp/lanbox:v1.0``.  
+例如启动容器时指定使用 G1 回收器,`docker run -it -e JAVA_TOOL_OPTIONS="-XX:+UseG1GC" -d  registry.cn-beijing.aliyuncs.com/lyp/lanbox:v1.0`.  
 
-所有配置项完成后运行 mvn 命令``mvn compile jib:build`` 开始构建 docker 镜像.  
+所有配置项完成后运行 mvn 命令`mvn compile jib:build` 开始构建 docker 镜像.  
 
 如果看到类似这样的信息说明就成功了:  
 ```shell
