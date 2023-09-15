@@ -32,11 +32,17 @@ categories:
 
 目前有几个流行项目已经基于 JOSDK 来开发 operator 了:
 
-- https://github.com/operator-framework/java-operator-sdk#projects-using-josdk
-https://github.com/datastax/kaap
+- Keycloak 目前是 CNCF 孵化级别的项目,[Keycloak operator](https://github.com/keycloak/keycloak/tree/main/operator) 是官方开源的基于 Quarkus 和 JOSDK. 开发的 Operator.
+- strimzi 目前是 CNCF 孵化级别的 kafka operator 的项目,不是基于 JOSDK 开发的,但子项目[Strimzi Access operator](https://github.com/strimzi/kafka-access-operator) 是基于 JOSDK 开发,还有另一个子项目 [Strimzi Schema Registry Operator](https://github.com/shangyuantech/strimzi-registry-ksql-operator) 也是基于 JOSDK 开发.
+- [Apache Flink Kubernetes operator](https://github.com/apache/flink-kubernetes-operator) 是 Apache Flink 官方开发的 operator.
+- [kaap](https://github.com/datastax/kaap)是datastax 开源的一个 pulsar operator
 
 
 Strimzi   cncf 项目
 flink 
 pulsar
 Keycloak operator: the official Keycloak operator, built with Quarkus and JOSDK.   cncf
+
+
+参考:
+- https://kubernetes.io/zh-cn/blog/2019/11/26/develop-a-kubernetes-controller-in-java/
