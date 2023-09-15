@@ -230,7 +230,7 @@
 
 
 
-                            阅读 </span></span>|<span class="post-date">共144字</span>，阅读约<span class="more-meta"> 1 分钟</span>
+                            阅读 </span></span>|<span class="post-date">共395字</span>，阅读约<span class="more-meta"> 1 分钟</span>
                         
                     </span>
                 </div>
@@ -255,7 +255,16 @@
                 <header>
                 <h2>TOC</h2>
                 </header>
-                <nav id="TableOfContents"></nav>
+                <nav id="TableOfContents">
+  <ul>
+    <li><a href="#直接在当前机器执行命令">直接在当前机器执行命令</a></li>
+    <li><a href="#无论是否失败一定执行某个-ansible-playbook-的-task">无论是否失败,一定执行某个 ansible-playbook 的 task</a></li>
+  </ul>
+
+  <ul>
+    <li><a href="#cicd">CI/CD</a></li>
+  </ul>
+</nav>
 		
 
 		<h1 id="前言">前言</h1>
@@ -263,7 +272,7 @@
 <h1 id="入门用法">入门用法</h1>
 <p>这个只是记录一下最简单的一个用法示例</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">---
-- <span style="color:#f92672">hosts</span>: <span style="color:#ae81ff">local</span>
+- <span style="color:#f92672">hosts</span>: <span style="color:#ae81ff">deploy</span>
   <span style="color:#f92672">vars</span>:
 
   <span style="color:#f92672">tasks</span>:
@@ -282,7 +291,38 @@
     - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">docker-compose ps</span>
       <span style="color:#f92672">shell</span>: <span style="color:#ae81ff">cd /root/dev/lank8s &amp;&amp; docker-compose -f docker-compose-parser.yml ps</span>
 </code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">ansible-playbook -i ansible/hostfile ansible/book.yml
-</code></pre></div><p>上述配置以及命令表示 调用 ansible-playbook 去对一组机器执行一批命令,一组机器的组名为 local,一批命令则是各个 tasks</p>
+</code></pre></div><p>上述配置以及命令表示 调用 ansible-playbook 去对一组机器执行一批命令,一组机器的组名为 deploy,一批命令则是各个 tasks.</p>
+<p>命令的效果是在远程机器上做如下操作:</p>
+<ol>
+<li>创建目录 <code>/root/dev/lank8s</code></li>
+<li>复制本机器 <code>/home/lan/repo/git/lank8s/deploy/test/files/</code> 下的文件到远程机器的 <code>/root/dev/lank8s/</code></li>
+<li>在远程机器执行命令 <code>cd /root/dev/lank8s &amp;&amp; docker-compose -f docker-compose-parser.yml up -d &amp;&amp; docker-compose -f docker-compose-ecf.yml up -d</code></li>
+<li>在远程机器执行命令 <code> cd /root/dev/lank8s &amp;&amp; docker-compose -f docker-compose-parser.yml ps</code></li>
+</ol>
+<h1 id="常用关键">常用/关键</h1>
+<h2 id="直接在当前机器执行命令">直接在当前机器执行命令</h2>
+<p>ansible -i localhost
+ansible-playbook -i localhost book.yml</p>
+<h2 id="无论是否失败一定执行某个-ansible-playbook-的-task">无论是否失败,一定执行某个 ansible-playbook 的 task</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">    - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">always task</span>
+      <span style="color:#f92672">always</span>: <span style="color:#66d9ef">yes</span>
+      <span style="color:#f92672">tags</span>:
+        - <span style="color:#ae81ff">always</span>
+      <span style="color:#f92672">register</span>: <span style="color:#ae81ff">always_task</span>
+      <span style="color:#f92672">command</span>: <span style="color:#ae81ff">/usr/bin/true</span>
+</code></pre></div><p>我的 ansible-playbook 版本是 2.15.2,一开始这样用总是报错,提示有语法错误,最终改成下面的方式,使用 tags, (似乎也不行 :( )</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">    - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">always task</span>
+      <span style="color:#f92672">tags</span>:
+        - <span style="color:#ae81ff">always</span>
+      <span style="color:#f92672">register</span>: <span style="color:#ae81ff">always_task</span>
+      <span style="color:#f92672">command</span>: <span style="color:#ae81ff">/usr/bin/true</span>
+</code></pre></div><h1 id="实践场景">实践场景</h1>
+<h2 id="cicd">CI/CD</h2>
+<p>目前我将 ansible-playbook 用作的场景有以下:</p>
+<ul>
+<li>自动化部署,批量在多台机器上基于 docker-compose 部署服务</li>
+<li>CI, 当做 CI 来执行一些编译构建任务</li>
+</ul>
 
 
         <h2>微信公众号</h2>

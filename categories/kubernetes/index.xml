@@ -166,7 +166,7 @@
       <pubDate>Sat, 22 Jan 2022 00:00:00 +0000</pubDate>
       
       <guid>https://liangyuanpeng.github.io/post/envoy-file-xds-with-reload-configmap/</guid>
-      <description>前言 由于实验基于kubernetes,因此你首先需要有一个kubernetes环境,这里推荐使用 Kind 命令来搭建.见用kind搭建k8s集群环境</description>
+      <description>前言 由于实验基于 kubernetes,因此你首先需要有一个 kubernetes 环境,这里推荐使用 Kind 命令来搭建.见用kind搭建k8s集群环境 前提 kubernetes 为什么选择c</description>
     </item>
     
     <item>

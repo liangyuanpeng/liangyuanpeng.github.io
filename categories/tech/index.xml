@@ -229,7 +229,7 @@
       <pubDate>Mon, 26 Apr 2021 00:00:00 +0000</pubDate>
       
       <guid>https://liangyuanpeng.github.io/post/ansible-qa/</guid>
-      <description>前言 本文长期更新,欢迎投稿:) 入门用法 这个只是记录一下最简单的一个用法示例 --- - hosts: local vars: tasks: - name: create fold shell: mkdir -p /root/dev/lank8s - name: copy yaml copy: src: /home/lan/repo/git/lank8s/deploy/test/files/ dest: /root/dev/lank8s/ - name: docker-compose up shell: cd /root/dev/lank8s &amp;amp;&amp;amp; docker-compose -f</description>
+      <description>前言 本文长期更新,欢迎投稿:) 入门用法 这个只是记录一下最简单的一个用法示例 --- - hosts: deploy vars: tasks: - name: create fold shell: mkdir -p /root/dev/lank8s - name: copy yaml copy: src: /home/lan/repo/git/lank8s/deploy/test/files/ dest: /root/dev/lank8s/ - name: docker-compose up shell: cd /root/dev/lank8s &amp;amp;&amp;amp; docker-compose -f</description>
     </item>
     
     <item>
@@ -355,7 +355,7 @@
       <pubDate>Sat, 15 Feb 2020 00:00:00 +0000</pubDate>
       
       <guid>https://liangyuanpeng.github.io/post/fluentd-logdrive-docker/</guid>
-      <description>前言 docker默认的日志驱动是json-file,每一个容器都会在本地生成一个/var/lib/docker/containers/con</description>
+      <description>前言 docker 默认的日志驱动是json-file,每一个容器都会在本地生成一个/var/lib/docker/containers/containe</description>
     </item>
     
     <item>

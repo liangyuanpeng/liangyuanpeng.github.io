@@ -293,7 +293,7 @@
 
 
 
-                            阅读 </span></span>|<span class="post-date">共1534字</span>，阅读约<span class="more-meta"> 4 分钟</span>
+                            阅读 </span></span>|<span class="post-date">共1893字</span>，阅读约<span class="more-meta"> 4 分钟</span>
                         
                     </span>
                 </div>
@@ -346,11 +346,11 @@
 <p>还在持续解决问题当中,先抛出一些问题和解决方案尝鲜 :)</p>
 <h1 id="遇到的问题">遇到的问题</h1>
 <h2 id="找不到-javaxservlet">找不到 javax.servlet</h2>
-<p>这是因为 javax 已经捐赠给了 eclipse 基金会,已经更名为 jakarta,而 springboot3 使用到了而已。虽然说在升级过程中会遇到这个问题，但其实这个变更与springboot3 关联性不大,即使你不使用 springboot3,也可能会遇到这个问题.</p>
+<p>这是因为 javax 已经捐赠给了 eclipse 基金会,已经更名为 jakarta,而 springboot3 使用到了而已。虽然说在升级过程中会遇到这个问题，但其实这个变更与 springboot3 关联性不大,即使你不使用 springboot3,也可能会遇到这个问题.</p>
 <h2 id="初始化-servletregistrationbean-失败">初始化 ServletRegistrationBean 失败</h2>
 <p>这里会有两个可能出现的问题:</p>
 <p>由于项目中使用到了 Druid 连接池,因此这里使用到的对象是 StatViewServlet.</p>
-<p>第一个问题是实例化ServletRegistrationBean时传参失败,需要将 StatViewServlet 强转为 jakarta.servlet .</p>
+<p>第一个问题是实例化 ServletRegistrationBean 时传参失败,需要将 StatViewServlet 强转为 jakarta.servlet .</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">ServletRegistrationBean servletRegistrationBean <span style="color:#f92672">=</span> new ServletRegistrationBean<span style="color:#f92672">(</span>new StatViewServlet<span style="color:#f92672">()</span>,<span style="color:#e6db74">&#34;/druid/*&#34;</span><span style="color:#f92672">)</span>;
 </code></pre></div><p>第二个问题是 StatViewServlet 这个对象内部还是使用 javax.servlet,导致失败,这种情况需要等对应的依赖包升级到使用 jakarta.servlet 的版本才行.</p>
 <p>目前将 druid 包从 druid-spring-boot-starter 更新为 druid-spring-boot-3-starter, 是否解决还有待确认.</p>
@@ -379,6 +379,21 @@ factory<span style="color:#f92672">.</span><span style="color:#a6e22e">setHttpCl
 <h2 id="incompatible-types-orgcheckerframeworkcheckernullnessqualnonnull-javalangobject-cannot-be-converted-to-k">incompatible types: @org.checkerframework.checker.nullness.qual.NonNull java.lang.Object cannot be converted to K</h2>
 <p>使用 caffeine cache 时封装了一层，之前的版本支持当前泛型为K,使用与 caffeine 库相同的 @NonNull 为传参限制不为空这个注解时支持传参为 Object 类型,现在必须与泛型相同,不确认是 jdk17 的原因还是这个注解/caffeine 库高版本的问题.</p>
 <p>解决方案: 更新传参 Object 类型为泛型</p>
+<blockquote>
+<p>不确认是 jdk17 的原因还是这个注解/caffeine 库高版本的问题.</p>
+</blockquote>
+<p>确认是 caffeine 高版本问题,由于springboot3需要使用高版本caffeine,因此对此依赖做了升级.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">    public V getIfPresent<span style="color:#f92672">(</span>@NonNull @CompatibleWith<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;K&#34;</span><span style="color:#f92672">)</span> Object key<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+        <span style="color:#66d9ef">if</span><span style="color:#f92672">(</span>key instanceof String<span style="color:#f92672">){</span>
+            <span style="color:#66d9ef">if</span><span style="color:#f92672">(</span>toLowerCaseKey<span style="color:#f92672">){</span>
+                key <span style="color:#f92672">=</span> <span style="color:#f92672">((</span>String<span style="color:#f92672">)</span> key<span style="color:#f92672">)</span>.toLowerCase<span style="color:#f92672">()</span>;
+            <span style="color:#f92672">}</span><span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span><span style="color:#f92672">(</span>toUpperCaseKey<span style="color:#f92672">){</span>
+                key <span style="color:#f92672">=</span> <span style="color:#f92672">((</span>String<span style="color:#f92672">)</span> key<span style="color:#f92672">)</span>.toUpperCase<span style="color:#f92672">()</span>;
+            <span style="color:#f92672">}</span>
+        <span style="color:#f92672">}</span>
+        <span style="color:#66d9ef">return</span> cache.getIfPresent<span style="color:#f92672">((</span>******K<span style="color:#f92672">)</span>******key<span style="color:#f92672">)</span>;
+    <span style="color:#f92672">}</span>
+</code></pre></div><p>在调用 caffeine 的方法,例如 getIfPresent 时强转一下即可.</p>
 <h2 id="javalangnosuchmethoderror-boolean-comgoogleprotobufgeneratedmessagev3isstringemptyjavalangobject">java.lang.NoSuchMethodError: &lsquo;boolean com.google.protobuf.GeneratedMessageV3.isStringEmpty(java.lang.Object)&rsquo;</h2>
 <p>这个似乎是因为项目中使用的 protobuf 版本太低了,升级了较新的版本后依然存在.</p>
 <p>临时解决方案: 关闭了自动注入的 otlp.</p>
@@ -404,6 +419,10 @@ factory<span style="color:#f92672">.</span><span style="color:#a6e22e">setHttpCl
 <h2 id="flink-本地任务执行报序列化错误">Flink 本地任务执行报序列化错误</h2>
 <p>Flink 任务还不支持 jdk17,master 分支已经支持 还没发布.</p>
 <p>解决方案: 自己安装 master 分支代码到本地.</p>
+<h1 id="一个总结">一个总结</h1>
+<p>虽然说是总结,但这个能依然是进行中,到目前为止(2023-09-05),对应用做了一些模块化的重构,从而更好的支持升级.例如将一些内容抽象出来,支持动态引入.(说的就是你 rocksdb),原因是使用 gralvm 构建镜像时有一些问题,而目前没有过多的动力去深挖,因此将一些能力模块化出来,在使用 graalvm 打包时排除掉这些内容.</p>
+<p>好在虽然在业务高速发展期做了一些基本的动态配置能力,因此进行重构时可以比较轻松的做到抽象出来.</p>
+<p>同时我首先是对整体的升级在同一个 PR 中做了大量工作,然后将这个大任务拆分成各个小任务来做逐步改造,避免一次升级做太多的东西.</p>
 
 
         <h2>微信公众号</h2>

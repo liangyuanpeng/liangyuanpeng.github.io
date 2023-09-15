@@ -549,7 +549,7 @@
 
 
 
-                            阅读 </span></span>|<span class="post-date">共1347字</span>，阅读约<span class="more-meta"> 3 分钟</span>
+                            阅读 </span></span>|<span class="post-date">共1176字</span>，阅读约<span class="more-meta"> 3 分钟</span>
                         
                     </span>
                 </div>
@@ -579,7 +579,7 @@
     <li><a href="#准备配置文件">准备配置文件</a></li>
     <li><a href="#架构总结">架构总结</a>
       <ul>
-        <li><a href="#为什么不用docker的原始日志呢">为什么不用docker的原始日志呢?</a></li>
+        <li><a href="#为什么不用-docker-的原始日志呢">为什么不用 docker 的原始日志呢?</a></li>
         <li><a href="#使用了fluentd后有什么不一样">使用了fluentd后有什么不一样?</a></li>
         <li><a href="#fluentd只能将容器日志收集到本地吗">fluentd只能将容器日志收集到本地吗?</a></li>
         <li><a href="#fluentd灵活性">fluentd灵活性</a></li>
@@ -590,8 +590,8 @@
 		
 
 		<h1 id="前言">前言</h1>
-<p>docker默认的日志驱动是<a href="https://docs.docker.com/config/containers/logging/json-file/">json-file</a>,每一个容器都会在本地生成一个<code>/var/lib/docker/containers/containerID/containerID-json.log</code>,而日志驱动是支持扩展的,本章主要讲解的是Fluentd驱动收集docker日志.</p>
-<p>Fluentd是用于统一日志记录层的开源数据收集器,是继Kubernetes、Prometheus、Envoy 、CoreDNS 和containerd后的第6个CNCF毕业项目,常用来对比的是elastic的logstash,相对而言fluentd更加轻量灵活,现在发展非常迅速社区很活跃,在编写这篇blog的时候github的star是8.8k,fork是1k就可见一斑.</p>
+<p>docker 默认的日志驱动是<a href="https://docs.docker.com/config/containers/logging/json-file/">json-file</a>,每一个容器都会在本地生成一个<code>/var/lib/docker/containers/containerID/containerID-json.log</code>,而日志驱动是支持扩展的,本章主要讲解的是 Fluentd 驱动收集 docker 日志.</p>
+<p>Fluentd 是用于统一日志记录层的开源数据收集器,是继 Kubernetes、Prometheus、Envoy 、CoreDNS 和 Containerd 后的第6个 CNCF 毕业项目,常用来对比的是 elasticsearch 的 logstash,相对而言 fluentd 更加轻量灵活,现在发展非常迅速社区很活跃,在编写这篇 blog 的时候 github 的 star 是8.8k,fork 是 1k 就可见一斑.</p>
 <h1 id="前提">前提</h1>
 <ol>
 <li><a href="https://www.docker.com/get-started">docker</a></li>
@@ -600,37 +600,37 @@
 </ol>
 <h2 id="准备配置文件">准备配置文件</h2>
 <p>docker-compose.yml</p>
-<pre tabindex="0"><code>version: '3.7'
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#f92672">version</span>: <span style="color:#e6db74">&#39;3.7&#39;</span>
 
-x-logging:
-  &amp;default-logging
-  driver: fluentd
-  options:
-    fluentd-address: localhost:24224
-    fluentd-async-connect: 'true'
-    mode: non-blocking
-    max-buffer-size: 4m
-    tag: &quot;kafeidou.{{.Name}}&quot;  #配置容器的tag,以kafeidou.为前缀,容器名称为后缀,docker-compose会给容器添加副本后缀,如 fluentd_1
+<span style="color:#f92672">x-logging</span>:
+  <span style="color:#75715e">&amp;default-logging</span>
+  <span style="color:#f92672">driver</span>: <span style="color:#ae81ff">fluentd</span>
+  <span style="color:#f92672">options</span>:
+    <span style="color:#f92672">fluentd-address</span>: <span style="color:#ae81ff">localhost:24224</span>
+    <span style="color:#f92672">fluentd-async-connect</span>: <span style="color:#e6db74">&#39;true&#39;</span>
+    <span style="color:#f92672">mode</span>: <span style="color:#ae81ff">non-blocking</span>
+    <span style="color:#f92672">max-buffer-size</span>: <span style="color:#ae81ff">4m</span>
+    <span style="color:#f92672">tag</span>: <span style="color:#e6db74">&#34;kafeidou.{{.Name}}&#34;</span>  <span style="color:#75715e">#配置容器的tag,以kafeidou.为前缀,容器名称为后缀,docker-compose会给容器添加副本后缀,如 fluentd_1</span>
 
-services:
+<span style="color:#f92672">services</span>:
 
-  fluentd:
-   image: fluent/fluentd:v1.3.2
-   ports:
-    - 24224:24224
-   volumes:
-    - ./:/fluentd/etc
-    - /var/log/fluentd:/var/log/fluentd
-   environment:
-    - FLUENTD_CONF=fluentd.conf
+  <span style="color:#f92672">fluentd</span>:
+   <span style="color:#f92672">image</span>: <span style="color:#ae81ff">fluent/fluentd:v1.3.2</span>
+   <span style="color:#f92672">ports</span>:
+    - <span style="color:#ae81ff">24224</span>:<span style="color:#ae81ff">24224</span>
+   <span style="color:#f92672">volumes</span>:
+    - <span style="color:#ae81ff">./:/fluentd/etc</span>
+    - <span style="color:#ae81ff">/var/log/fluentd:/var/log/fluentd</span>
+   <span style="color:#f92672">environment</span>:
+    - <span style="color:#ae81ff">FLUENTD_CONF=fluentd.conf</span>
 
-  fluentd-worker:
-   image: fluent/fluentd:v1.3.2
-   depends_on:
-     - fluentd
-   logging: *default-logging
-</code></pre><p>fluentd.conf</p>
-<pre tabindex="0"><code>&lt;source&gt;
+  <span style="color:#f92672">fluentd-worker</span>:
+   <span style="color:#f92672">image</span>: <span style="color:#ae81ff">fluent/fluentd:v1.3.2</span>
+   <span style="color:#f92672">depends_on</span>:
+     - <span style="color:#ae81ff">fluentd</span>
+   <span style="color:#f92672">logging</span>: <span style="color:#75715e">*default-logging</span>
+</code></pre></div><p>fluentd.conf</p>
+<pre tabindex="0"><code class="language-conf" data-lang="conf">&lt;source&gt;
   @type forward
   port 24224
   bind 0.0.0.0
@@ -669,45 +669,45 @@ services:
     flush_interval    5s
   &lt;/buffer&gt;
 &lt;/match&gt;
-</code></pre><p>由于fluentd需要在配置的目录中有写入的权限,所以需要先准备好存放log的目录以及给予权限.<br>
+</code></pre><p>由于 fluentd 需要在配置的目录中有写入的权限,所以需要先准备好存放 log 的目录以及给予权限.<br>
 创建目录</p>
-<pre tabindex="0"><code>mkdir /var/log/fluentd
-</code></pre><p>给予权限,这里用于实验演示,直接授权777</p>
-<pre tabindex="0"><code>chmod -R 777 /var/log/fluentd
-</code></pre><p>在docker-compose.yml和fluentd.conf的目录中执行命令:<br>
-<code>docker-compose up -d</code></p>
-<pre tabindex="0"><code>[root@master log]# docker-compose up -d
-WARNING: The Docker Engine you're using is running in swarm mode.
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">mkdir /var/log/fluentd
+</code></pre></div><p>给予权限,这里用于实验演示,直接授权 777</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">chmod -R <span style="color:#ae81ff">777</span> /var/log/fluentd
+</code></pre></div><p>在 docker-compose.yml 和 fluentd.conf 的目录中执行命令:<br>
+<code>shell docker-compose up -d </code></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#f92672">[</span>root@master log<span style="color:#f92672">]</span><span style="color:#75715e"># docker-compose up -d</span>
+WARNING: The Docker Engine you<span style="color:#960050;background-color:#1e0010">&#39;</span>re using is running in swarm mode.
 
 Compose does not use swarm mode to deploy services to multiple nodes in a swarm. All containers will be scheduled on the current node.
 
-To deploy your application across the swarm, use `docker stack deploy`.
+To deploy your application across the swarm, use <span style="color:#e6db74">`</span>docker stack deploy<span style="color:#e6db74">`</span>.
 
-Creating network &quot;log_default&quot; with the default driver
-Creating fluentd ... done
-Creating fluentd-worker ... done
-</code></pre><p>查看一下日志目录下,应该就有对应的容器日志文件了:</p>
-<pre tabindex="0"><code>[root@master log]# ls /var/log/fluentd/kafeidou/
-fluentd-worker.20200215.log  ${tag[1]}
-</code></pre><p>这是我最后的一个实验结果,会创建一个<code>${tag[1]}</code>目录,挺奇怪的,而且在这个目录下还会有两个文件</p>
-<pre tabindex="0"><code>[root@master log]# ls /var/log/fluentd/kafeidou/\$\{tag\[1\]\}/
+Creating network <span style="color:#e6db74">&#34;log_default&#34;</span> with the default driver
+Creating fluentd ... <span style="color:#66d9ef">done</span>
+Creating fluentd-worker ... <span style="color:#66d9ef">done</span>
+</code></pre></div><p>查看一下日志目录下,应该就有对应的容器日志文件了:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#f92672">[</span>root@master log<span style="color:#f92672">]</span><span style="color:#75715e"># ls /var/log/fluentd/kafeidou/</span>
+fluentd-worker.20200215.log  <span style="color:#e6db74">${</span>tag[1]<span style="color:#e6db74">}</span>
+</code></pre></div><p>这是我最后的一个实验结果,会创建一个<code>${tag[1]}</code>目录,挺奇怪的,而且在这个目录下还会有两个文件</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#f92672">[</span>root@master log<span style="color:#f92672">]</span><span style="color:#75715e"># ls /var/log/fluentd/kafeidou/\$\{tag\[1\]\}/</span>
 buffer.b59ea0804f0c1f8b6206cf76aacf52fb0.log  buffer.b59ea0804f0c1f8b6206cf76aacf52fb0.log.meta
-</code></pre><p>如果有明白这块的也欢迎一起交流!</p>
+</code></pre></div><p>如果有明白这块的也欢迎一起交流!</p>
 <h2 id="架构总结">架构总结</h2>
-<h3 id="为什么不用docker的原始日志呢">为什么不用docker的原始日志呢?</h3>
-<p>我们先看一下原始的docker日志是怎么样一个架构:</p>
+<h3 id="为什么不用-docker-的原始日志呢">为什么不用 docker 的原始日志呢?</h3>
+<p>我们先看一下原始的 docker 日志是怎么样一个架构:</p>
 <p><img src="https://res.cloudinary.com/lyp/image/upload/v1581787531/hugo/blog.github.io/fluentd/docker-log-driver-local.jpg" alt="https://res.cloudinary.com/lyp/image/upload/v1581787531/hugo/blog.github.io/fluentd/docker-log-driver-local.jpg"></p>
-<p>docker会在本机的<code>/var/lib/docker/containers/containerID/containerID-json.log</code>路径为每一个容器生成一个log文件,存储docker的日志.</p>
-<p>上图中总共有7个容器,当成7个微服务的话,在需要查看日志的时候就已经很不方便了,最差情况需要分别在三台机器上查看每一个容器的日志.</p>
+<p>docker会在本机的<code>/var/lib/docker/containers/containerID/containerID-json.log</code>路径为每一个容器生成一个 log 文件,存储 Docker 的日志.</p>
+<p>上图中总共有 7 个容器,当成 7 个微服务的话,在需要查看日志的时候就已经很不方便了,最差情况需要分别在三台机器上查看每一个容器的日志.</p>
 <h3 id="使用了fluentd后有什么不一样">使用了fluentd后有什么不一样?</h3>
-<p>使用fluentd收集docker日志后可以将容器汇总到一起.来看看配置了本文的fluentd配置文件后的架构:</p>
+<p>使用 fluentd 收集 Docker 日志后可以将容器汇总到一起.来看看配置了本文的 fluentd 配置文件后的架构:</p>
 <p><img src="https://res.cloudinary.com/lyp/image/upload/v1581787531/hugo/blog.github.io/fluentd/docker-log-driver-fluent-local.jpg" alt="https://res.cloudinary.com/lyp/image/upload/v1581787531/hugo/blog.github.io/fluentd/docker-log-driver-fluent-local.jpg"></p>
-<p>由于fluentd配置的是存储在fluentd所在机器的本地目录,所以效果是将其他机器的容器日志收集到fluentd所在机器的本地目录中.</p>
+<p>由于 fluentd 配置的是存储在 fluentd 所在机器的本地目录,所以效果是将其他机器的容器日志收集到 fluentd 所在机器的本地目录中.</p>
 <h3 id="fluentd只能将容器日志收集到本地吗">fluentd只能将容器日志收集到本地吗?</h3>
-<p>fluentd实际上可以将收集到的日志再次传输出去,例如传输到elasticsearch等存储软件中:</p>
+<p>fluentd 实际上可以将收集到的日志再次传输出去,例如传输到 elasticsearch 等存储软件中:</p>
 <p><img src="https://res.cloudinary.com/lyp/image/upload/v1581787532/hugo/blog.github.io/fluentd/docker-log-driver-art.jpg" alt="https://res.cloudinary.com/lyp/image/upload/v1581787532/hugo/blog.github.io/fluentd/docker-log-driver-art.jpg"></p>
 <h3 id="fluentd灵活性">fluentd灵活性</h3>
-<p>fluentd能做的事情还有很多,fluentd本身能作为传输节点也能作为接受节点,还能够过滤特定日志,格式化特定内容的日志,将匹配的特定日志再次传输出去,这里只是做到一个简单的收集docker容器日志的效果.</p>
+<p>fluentd 能做的事情还有很多,fluentd 本身能作为传输节点也能作为接受节点,还能够过滤特定日志,格式化特定内容的日志,将匹配的特定日志再次传输出去,这里只是做到一个简单的收集docker容器日志的效果.</p>
 
 
         <h2>微信公众号</h2>

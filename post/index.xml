@@ -472,7 +472,7 @@
       <pubDate>Sat, 22 Jan 2022 00:00:00 +0000</pubDate>
       
       <guid>https://liangyuanpeng.github.io/post/envoy-file-xds-with-reload-configmap/</guid>
-      <description>前言 由于实验基于kubernetes,因此你首先需要有一个kubernetes环境,这里推荐使用 Kind 命令来搭建.见用kind搭建k8s集群环境</description>
+      <description>前言 由于实验基于 kubernetes,因此你首先需要有一个 kubernetes 环境,这里推荐使用 Kind 命令来搭建.见用kind搭建k8s集群环境 前提 kubernetes 为什么选择c</description>
     </item>
     
     <item>
@@ -805,7 +805,7 @@
       <pubDate>Tue, 04 May 2021 00:00:00 +0000</pubDate>
       
       <guid>https://liangyuanpeng.github.io/post/question-list-of-java/</guid>
-      <description>说明 本文主要收集 java 遇到的一些常见问题,欢迎对本文进行投稿你认为好的场景或问题. 问题来了 使用jdk17时立刻堆栈报错提示内存不足 VM Arguments: jvm_args: -Xmx1G -XX:+UnlockExperimentalVMOptions -XX:ErrorFile=/usr/local/lan/logs/parser/hs_err.log -XX:HeapDumpPath=/usr/local/lan/dumps/parser</description>
+      <description>说明 本文主要收集 java 遇到的一些常见问题,欢迎对本文进行投稿你认为好的场景或问题. 问题来了 使用 jdk17 时立刻堆栈报错提示内存不足 VM Arguments: jvm_args: -Xmx1G -XX:+UnlockExperimentalVMOptions -XX:ErrorFile=/usr/local/lan/logs/parser/hs_err.log -XX:HeapDumpPath=/usr/local/lan/dumps/parser java_command: com.lan.parser.YdcApplication java_class_path (initial):</description>
     </item>
     
     <item>
@@ -823,7 +823,7 @@
       <pubDate>Mon, 26 Apr 2021 00:00:00 +0000</pubDate>
       
       <guid>https://liangyuanpeng.github.io/post/ansible-qa/</guid>
-      <description>前言 本文长期更新,欢迎投稿:) 入门用法 这个只是记录一下最简单的一个用法示例 --- - hosts: local vars: tasks: - name: create fold shell: mkdir -p /root/dev/lank8s - name: copy yaml copy: src: /home/lan/repo/git/lank8s/deploy/test/files/ dest: /root/dev/lank8s/ - name: docker-compose up shell: cd /root/dev/lank8s &amp;amp;&amp;amp; docker-compose -f</description>
+      <description>前言 本文长期更新,欢迎投稿:) 入门用法 这个只是记录一下最简单的一个用法示例 --- - hosts: deploy vars: tasks: - name: create fold shell: mkdir -p /root/dev/lank8s - name: copy yaml copy: src: /home/lan/repo/git/lank8s/deploy/test/files/ dest: /root/dev/lank8s/ - name: docker-compose up shell: cd /root/dev/lank8s &amp;amp;&amp;amp; docker-compose -f</description>
     </item>
     
     <item>
@@ -1183,7 +1183,7 @@
       <pubDate>Sat, 15 Feb 2020 00:00:00 +0000</pubDate>
       
       <guid>https://liangyuanpeng.github.io/post/fluentd-logdrive-docker/</guid>
-      <description>前言 docker默认的日志驱动是json-file,每一个容器都会在本地生成一个/var/lib/docker/containers/con</description>
+      <description>前言 docker 默认的日志驱动是json-file,每一个容器都会在本地生成一个/var/lib/docker/containers/containe</description>
     </item>
     
     <item>

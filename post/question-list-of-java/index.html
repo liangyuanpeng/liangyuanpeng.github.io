@@ -230,7 +230,7 @@
 
 
 
-                            阅读 </span></span>|<span class="post-date">共1006字</span>，阅读约<span class="more-meta"> 3 分钟</span>
+                            阅读 </span></span>|<span class="post-date">共1670字</span>，阅读约<span class="more-meta"> 4 分钟</span>
                         
                     </span>
                 </div>
@@ -257,7 +257,9 @@
                 </header>
                 <nav id="TableOfContents">
   <ul>
-    <li><a href="#使用jdk17时立刻堆栈报错提示内存不足">使用jdk17时立刻堆栈报错提示内存不足</a></li>
+    <li><a href="#使用-jdk17-时立刻堆栈报错提示内存不足">使用 jdk17 时立刻堆栈报错提示内存不足</a></li>
+    <li><a href="#基于-operator-framework-spring-boot-starter-的项目启动失败">基于 operator-framework-spring-boot-starter 的项目启动失败</a></li>
+    <li><a href="#基于-operator-framework-spring-boot-starter-的项目graalvm-打包的二进制文件启动失败">基于 operator-framework-spring-boot-starter 的项目,Graalvm 打包的二进制文件启动失败</a></li>
   </ul>
 </nav>
 		
@@ -265,183 +267,183 @@
 		<h1 id="说明">说明</h1>
 <p>本文主要收集 java 遇到的一些常见问题,欢迎对本文进行投稿你认为好的场景或问题.</p>
 <h1 id="问题来了">问题来了</h1>
-<h2 id="使用jdk17时立刻堆栈报错提示内存不足">使用jdk17时立刻堆栈报错提示内存不足</h2>
-<pre tabindex="0"><code>VM Arguments:
-jvm_args: -Xmx1G -XX:+UnlockExperimentalVMOptions -XX:ErrorFile=/usr/local/lan/logs/parser/hs_err.log -XX:HeapDumpPath=/usr/local/lan/dumps/parser 
+<h2 id="使用-jdk17-时立刻堆栈报错提示内存不足">使用 jdk17 时立刻堆栈报错提示内存不足</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">VM Arguments:
+jvm_args: -Xmx1G -XX:+UnlockExperimentalVMOptions -XX:ErrorFile<span style="color:#f92672">=</span>/usr/local/lan/logs/parser/hs_err.log -XX:HeapDumpPath<span style="color:#f92672">=</span>/usr/local/lan/dumps/parser 
 java_command: com.lan.parser.YdcApplication
-java_class_path (initial): /usr/local/tomcat/webapps/ROOT/resources:/usr/local/tomcat/webapps/ROOT/classes:/usr/local/tomcat/webapps/ROOT/libs/aircompressor-0.20.jar:/usr/local/tomcat/webapps/ROOT/libs/pagehelper-spring-boot-autoconfigure-1.2.12.jar:/usr/local/tomcat/webapps/ROOT/libs/commons-pool2-2.9.0.jar:/usr/local/tomcat/webapps/ROOT/libs/persistence-api-1.0.jar:/usr/local/tomcat/webapps/ROOT/libs/jersey-common-2.32.jar:/usr/local/tomcat/webapps/ROOT/libs/spring-oxm-5.3.13.jar:/usr/local/tomcat/webapps/ROOT/libs/feign-slf4j-10.12.jar:/usr/local/tomcat/webapps/ROOT/libs/jakarta.inject-api-2.0.1.jar:/usr/local/tomcat/webapps/ROOT/libs/json-20180130.jar:/usr/local/tomcat/webapps/ROOT/libs/jersey-client-2.32.jar:/usr/local/tomcat/webapps/ROOT/libs/opentelemetry-context-1.17.0.jar:/usr/local/tomcat/webapps/ROOT/libs/logback-classic-1.2.7.jar:/usr/local/tomcat/webapps/ROOT/libs/micrometer-registry-otlp-1.9.4.jar:/usr/local/tomcat/webapps/ROOT/libs/j2objc-annotations-1.1.jar:/usr/local/tomcat/webapps/ROOT/libs/netty-transport-native-unix-common-4.1.70.Final.jar:/usr/local/tomcat/webapps/ROOT/libs/netty-handler-proxy-4.1.70.Final.jar:/usr/local/tomcat/webapps/ROOT/libs/mysql-connector-java-5.1.42.jar:/usr/local/tomcat/webapps/ROOT/libs/druid-spring-boot-starter-1.2.11.jar:/usr/local/tomcat/webapps/ROOT/libs/commons-codec-1.15.jar:/usr/local/tomcat/webapps/ROOT/libs/slf4j-api-1.7.32.jar:/usr/local/tomcat/webapps/ROOT/libs/jcip-annotations-1.0.jar:/usr/local/tomcat/webapps/ROOT/libs/druid-1.2.11.jar:/usr/local/tomcat/webapps/ROOT/libs/commons-math3-3.6.1.jar:/usr/local/tomcat/webapps/ROOT/libs/snappy-java-1.1.8.4.jar:/usr/local/tomcat/webapps/ROOT/libs/pulsar-client-api-2.10.0.jar:/usr/local/tomcat/webapps/ROOT/libs/opentelemetry-proto-0.16.0-alpha.jar:/usr/local/tomcat/webapps/ROOT/libs/metrics-core-4.1.26.jar:/usr/local/tomcat/webapps/ROOT/libs/hivemq-mqtt-client-1.2.0.jar:/usr/local/tomcat/webapps/ROOT/libs/spring-webmvc-5.3.13.jar:/usr/local/tomcat/webapps/ROOT/lib
+java_class_path <span style="color:#f92672">(</span>initial<span style="color:#f92672">)</span>: /usr/local/tomcat/webapps/ROOT/resources:/usr/local/tomcat/webapps/ROOT/classes:/usr/local/tomcat/webapps/ROOT/libs/aircompressor-0.20.jar:/usr/local/tomcat/webapps/ROOT/libs/pagehelper-spring-boot-autoconfigure-1.2.12.jar:/usr/local/tomcat/webapps/ROOT/libs/commons-pool2-2.9.0.jar:/usr/local/tomcat/webapps/ROOT/libs/persistence-api-1.0.jar:/usr/local/tomcat/webapps/ROOT/libs/jersey-common-2.32.jar:/usr/local/tomcat/webapps/ROOT/libs/spring-oxm-5.3.13.jar:/usr/local/tomcat/webapps/ROOT/libs/feign-slf4j-10.12.jar:/usr/local/tomcat/webapps/ROOT/libs/jakarta.inject-api-2.0.1.jar:/usr/local/tomcat/webapps/ROOT/libs/json-20180130.jar:/usr/local/tomcat/webapps/ROOT/libs/jersey-client-2.32.jar:/usr/local/tomcat/webapps/ROOT/libs/opentelemetry-context-1.17.0.jar:/usr/local/tomcat/webapps/ROOT/libs/logback-classic-1.2.7.jar:/usr/local/tomcat/webapps/ROOT/libs/micrometer-registry-otlp-1.9.4.jar:/usr/local/tomcat/webapps/ROOT/libs/j2objc-annotations-1.1.jar:/usr/local/tomcat/webapps/ROOT/libs/netty-transport-native-unix-common-4.1.70.Final.jar:/usr/local/tomcat/webapps/ROOT/libs/netty-handler-proxy-4.1.70.Final.jar:/usr/local/tomcat/webapps/ROOT/libs/mysql-connector-java-5.1.42.jar:/usr/local/tomcat/webapps/ROOT/libs/druid-spring-boot-starter-1.2.11.jar:/usr/local/tomcat/webapps/ROOT/libs/commons-codec-1.15.jar:/usr/local/tomcat/webapps/ROOT/libs/slf4j-api-1.7.32.jar:/usr/local/tomcat/webapps/ROOT/libs/jcip-annotations-1.0.jar:/usr/local/tomcat/webapps/ROOT/libs/druid-1.2.11.jar:/usr/local/tomcat/webapps/ROOT/libs/commons-math3-3.6.1.jar:/usr/local/tomcat/webapps/ROOT/libs/snappy-java-1.1.8.4.jar:/usr/local/tomcat/webapps/ROOT/libs/pulsar-client-api-2.10.0.jar:/usr/local/tomcat/webapps/ROOT/libs/opentelemetry-proto-0.16.0-alpha.jar:/usr/local/tomcat/webapps/ROOT/libs/metrics-core-4.1.26.jar:/usr/local/tomcat/webapps/ROOT/libs/hivemq-mqtt-client-1.2.0.jar:/usr/local/tomcat/webapps/ROOT/libs/spring-webmvc-5.3.13.jar:/usr/local/tomcat/webapps/ROOT/lib
 Launcher Type: SUN_STANDARD
 
-[Global flags]
-     intx CICompilerCount                          = 2                                         {product} {ergonomic}
-     uint ConcGCThreads                            = 1                                         {product} {ergonomic}
-    ccstr ErrorFile                                = /usr/local/lan/logs/parser/hs_err.log            {product} {command line}
-     uint G1ConcRefinementThreads                  = 2                                         {product} {ergonomic}
-     uint G1EagerReclaimRemSetThreshold            = 8                                    {experimental} {ergonomic}
-   size_t G1HeapRegionSize                         = 1048576                                   {product} {ergonomic}
-    uintx GCDrainStackTargetSize                   = 64                                        {product} {ergonomic}
-    ccstr HeapDumpPath                             = /usr/local/lan/dumps/parser         {manageable} {command line}
-   size_t InitialHeapSize                          = 130023424                                 {product} {ergonomic}
-   size_t MarkStackSize                            = 4194304                                   {product} {ergonomic}
-   size_t MaxHeapSize                              = 1073741824                                {product} {command line}
-   size_t MinHeapDeltaBytes                        = 1048576                                   {product} {ergonomic}
-   size_t MinHeapSize                              = 8388608                                   {product} {ergonomic}
-    uintx NonNMethodCodeHeapSize                   = 5826188                                {pd product} {ergonomic}
-    uintx NonProfiledCodeHeapSize                  = 122916026                              {pd product} {ergonomic}
-    uintx ProfiledCodeHeapSize                     = 122916026                              {pd product} {ergonomic}
-    uintx ReservedCodeCacheSize                    = 251658240                              {pd product} {ergonomic}
-     bool SegmentedCodeCache                       = true                                      {product} {ergonomic}
-   size_t SoftMaxHeapSize                          = 1073741824                             {manageable} {ergonomic}
-     bool UnlockExperimentalVMOptions              = true                                 {experimental} {environment}
-     bool UseCompressedClassPointers               = true                           {product lp64_product} {ergonomic}
-     bool UseCompressedOops                        = true                           {product lp64_product} {ergonomic}
-     bool UseFastUnorderedTimeStamps               = true                                 {experimental} {ergonomic}
-     bool UseG1GC                                  = true                                      {product} {ergonomic}
+<span style="color:#f92672">[</span>Global flags<span style="color:#f92672">]</span>
+     intx CICompilerCount                          <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>                                         <span style="color:#f92672">{</span>product<span style="color:#f92672">}</span> <span style="color:#f92672">{</span>ergonomic<span style="color:#f92672">}</span>
+     uint ConcGCThreads                            <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>                                         <span style="color:#f92672">{</span>product<span style="color:#f92672">}</span> <span style="color:#f92672">{</span>ergonomic<span style="color:#f92672">}</span>
+    ccstr ErrorFile                                <span style="color:#f92672">=</span> /usr/local/lan/logs/parser/hs_err.log            <span style="color:#f92672">{</span>product<span style="color:#f92672">}</span> <span style="color:#f92672">{</span>command line<span style="color:#f92672">}</span>
+     uint G1ConcRefinementThreads                  <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>                                         <span style="color:#f92672">{</span>product<span style="color:#f92672">}</span> <span style="color:#f92672">{</span>ergonomic<span style="color:#f92672">}</span>
+     uint G1EagerReclaimRemSetThreshold            <span style="color:#f92672">=</span> <span style="color:#ae81ff">8</span>                                    <span style="color:#f92672">{</span>experimental<span style="color:#f92672">}</span> <span style="color:#f92672">{</span>ergonomic<span style="color:#f92672">}</span>
+   size_t G1HeapRegionSize                         <span style="color:#f92672">=</span> <span style="color:#ae81ff">1048576</span>                                   <span style="color:#f92672">{</span>product<span style="color:#f92672">}</span> <span style="color:#f92672">{</span>ergonomic<span style="color:#f92672">}</span>
+    uintx GCDrainStackTargetSize                   <span style="color:#f92672">=</span> <span style="color:#ae81ff">64</span>                                        <span style="color:#f92672">{</span>product<span style="color:#f92672">}</span> <span style="color:#f92672">{</span>ergonomic<span style="color:#f92672">}</span>
+    ccstr HeapDumpPath                             <span style="color:#f92672">=</span> /usr/local/lan/dumps/parser         <span style="color:#f92672">{</span>manageable<span style="color:#f92672">}</span> <span style="color:#f92672">{</span>command line<span style="color:#f92672">}</span>
+   size_t InitialHeapSize                          <span style="color:#f92672">=</span> <span style="color:#ae81ff">130023424</span>                                 <span style="color:#f92672">{</span>product<span style="color:#f92672">}</span> <span style="color:#f92672">{</span>ergonomic<span style="color:#f92672">}</span>
+   size_t MarkStackSize                            <span style="color:#f92672">=</span> <span style="color:#ae81ff">4194304</span>                                   <span style="color:#f92672">{</span>product<span style="color:#f92672">}</span> <span style="color:#f92672">{</span>ergonomic<span style="color:#f92672">}</span>
+   size_t MaxHeapSize                              <span style="color:#f92672">=</span> <span style="color:#ae81ff">1073741824</span>                                <span style="color:#f92672">{</span>product<span style="color:#f92672">}</span> <span style="color:#f92672">{</span>command line<span style="color:#f92672">}</span>
+   size_t MinHeapDeltaBytes                        <span style="color:#f92672">=</span> <span style="color:#ae81ff">1048576</span>                                   <span style="color:#f92672">{</span>product<span style="color:#f92672">}</span> <span style="color:#f92672">{</span>ergonomic<span style="color:#f92672">}</span>
+   size_t MinHeapSize                              <span style="color:#f92672">=</span> <span style="color:#ae81ff">8388608</span>                                   <span style="color:#f92672">{</span>product<span style="color:#f92672">}</span> <span style="color:#f92672">{</span>ergonomic<span style="color:#f92672">}</span>
+    uintx NonNMethodCodeHeapSize                   <span style="color:#f92672">=</span> <span style="color:#ae81ff">5826188</span>                                <span style="color:#f92672">{</span>pd product<span style="color:#f92672">}</span> <span style="color:#f92672">{</span>ergonomic<span style="color:#f92672">}</span>
+    uintx NonProfiledCodeHeapSize                  <span style="color:#f92672">=</span> <span style="color:#ae81ff">122916026</span>                              <span style="color:#f92672">{</span>pd product<span style="color:#f92672">}</span> <span style="color:#f92672">{</span>ergonomic<span style="color:#f92672">}</span>
+    uintx ProfiledCodeHeapSize                     <span style="color:#f92672">=</span> <span style="color:#ae81ff">122916026</span>                              <span style="color:#f92672">{</span>pd product<span style="color:#f92672">}</span> <span style="color:#f92672">{</span>ergonomic<span style="color:#f92672">}</span>
+    uintx ReservedCodeCacheSize                    <span style="color:#f92672">=</span> <span style="color:#ae81ff">251658240</span>                              <span style="color:#f92672">{</span>pd product<span style="color:#f92672">}</span> <span style="color:#f92672">{</span>ergonomic<span style="color:#f92672">}</span>
+     bool SegmentedCodeCache                       <span style="color:#f92672">=</span> true                                      <span style="color:#f92672">{</span>product<span style="color:#f92672">}</span> <span style="color:#f92672">{</span>ergonomic<span style="color:#f92672">}</span>
+   size_t SoftMaxHeapSize                          <span style="color:#f92672">=</span> <span style="color:#ae81ff">1073741824</span>                             <span style="color:#f92672">{</span>manageable<span style="color:#f92672">}</span> <span style="color:#f92672">{</span>ergonomic<span style="color:#f92672">}</span>
+     bool UnlockExperimentalVMOptions              <span style="color:#f92672">=</span> true                                 <span style="color:#f92672">{</span>experimental<span style="color:#f92672">}</span> <span style="color:#f92672">{</span>environment<span style="color:#f92672">}</span>
+     bool UseCompressedClassPointers               <span style="color:#f92672">=</span> true                           <span style="color:#f92672">{</span>product lp64_product<span style="color:#f92672">}</span> <span style="color:#f92672">{</span>ergonomic<span style="color:#f92672">}</span>
+     bool UseCompressedOops                        <span style="color:#f92672">=</span> true                           <span style="color:#f92672">{</span>product lp64_product<span style="color:#f92672">}</span> <span style="color:#f92672">{</span>ergonomic<span style="color:#f92672">}</span>
+     bool UseFastUnorderedTimeStamps               <span style="color:#f92672">=</span> true                                 <span style="color:#f92672">{</span>experimental<span style="color:#f92672">}</span> <span style="color:#f92672">{</span>ergonomic<span style="color:#f92672">}</span>
+     bool UseG1GC                                  <span style="color:#f92672">=</span> true                                      <span style="color:#f92672">{</span>product<span style="color:#f92672">}</span> <span style="color:#f92672">{</span>ergonomic<span style="color:#f92672">}</span>
 
 Logging:
 Log output configuration:
- #0: stdout all=warning uptime,level,tags
- #1: stderr all=off uptime,level,tags
+ <span style="color:#75715e">#0: stdout all=warning uptime,level,tags</span>
+ <span style="color:#75715e">#1: stderr all=off uptime,level,tags</span>
 
 Environment Variables:
-JAVA_HOME=/opt/java/openjdk
-JAVA_TOOL_OPTIONS=-Xmx1G -XX:+UnlockExperimentalVMOptions
-PATH=/opt/java/openjdk/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
-LANG=en_US.UTF-8
-LC_ALL=en_US.UTF-8
-TZ=Asia/Shanghai
+JAVA_HOME<span style="color:#f92672">=</span>/opt/java/openjdk
+JAVA_TOOL_OPTIONS<span style="color:#f92672">=</span>-Xmx1G -XX:+UnlockExperimentalVMOptions
+PATH<span style="color:#f92672">=</span>/opt/java/openjdk/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+LANG<span style="color:#f92672">=</span>en_US.UTF-8
+LC_ALL<span style="color:#f92672">=</span>en_US.UTF-8
+TZ<span style="color:#f92672">=</span>Asia/Shanghai
 
 Signal Handlers:
-   SIGSEGV: crash_handler in libjvm.so, mask=11100100010111111101111111111110, flags=SA_RESTART|SA_SIGINFO
-    SIGBUS: crash_handler in libjvm.so, mask=11100100010111111101111111111110, flags=SA_RESTART|SA_SIGINFO
-    SIGFPE: crash_handler in libjvm.so, mask=11100100010111111101111111111110, flags=SA_RESTART|SA_SIGINFO
-   SIGPIPE: javaSignalHandler in libjvm.so, mask=11100100010111111101111111111110, flags=SA_RESTART|SA_SIGINFO
-   SIGXFSZ: javaSignalHandler in libjvm.so, mask=11100100010111111101111111111110, flags=SA_RESTART|SA_SIGINFO
-    SIGILL: crash_handler in libjvm.so, mask=11100100010111111101111111111110, flags=SA_RESTART|SA_SIGINFO
-   SIGUSR2: SR_handler in libjvm.so, mask=00000000000000000000000000000000, flags=SA_RESTART|SA_SIGINFO
-    SIGHUP: SIG_DFL, mask=00000000000000000000000000000000, flags=none
-    SIGINT: SIG_DFL, mask=00000000000000000000000000000000, flags=none
-   SIGTERM: SIG_DFL, mask=00000000000000000000000000000000, flags=none
-   SIGQUIT: javaSignalHandler in libjvm.so, mask=11100100010111111101111111111110, flags=SA_RESTART|SA_SIGINFO
-   SIGTRAP: crash_handler in libjvm.so, mask=11100100010111111101111111111110, flags=SA_RESTART|SA_SIGINFO
+   SIGSEGV: crash_handler in libjvm.so, mask<span style="color:#f92672">=</span>11100100010111111101111111111110, flags<span style="color:#f92672">=</span>SA_RESTART|SA_SIGINFO
+    SIGBUS: crash_handler in libjvm.so, mask<span style="color:#f92672">=</span>11100100010111111101111111111110, flags<span style="color:#f92672">=</span>SA_RESTART|SA_SIGINFO
+    SIGFPE: crash_handler in libjvm.so, mask<span style="color:#f92672">=</span>11100100010111111101111111111110, flags<span style="color:#f92672">=</span>SA_RESTART|SA_SIGINFO
+   SIGPIPE: javaSignalHandler in libjvm.so, mask<span style="color:#f92672">=</span>11100100010111111101111111111110, flags<span style="color:#f92672">=</span>SA_RESTART|SA_SIGINFO
+   SIGXFSZ: javaSignalHandler in libjvm.so, mask<span style="color:#f92672">=</span>11100100010111111101111111111110, flags<span style="color:#f92672">=</span>SA_RESTART|SA_SIGINFO
+    SIGILL: crash_handler in libjvm.so, mask<span style="color:#f92672">=</span>11100100010111111101111111111110, flags<span style="color:#f92672">=</span>SA_RESTART|SA_SIGINFO
+   SIGUSR2: SR_handler in libjvm.so, mask<span style="color:#f92672">=</span>00000000000000000000000000000000, flags<span style="color:#f92672">=</span>SA_RESTART|SA_SIGINFO
+    SIGHUP: SIG_DFL, mask<span style="color:#f92672">=</span>00000000000000000000000000000000, flags<span style="color:#f92672">=</span>none
+    SIGINT: SIG_DFL, mask<span style="color:#f92672">=</span>00000000000000000000000000000000, flags<span style="color:#f92672">=</span>none
+   SIGTERM: SIG_DFL, mask<span style="color:#f92672">=</span>00000000000000000000000000000000, flags<span style="color:#f92672">=</span>none
+   SIGQUIT: javaSignalHandler in libjvm.so, mask<span style="color:#f92672">=</span>11100100010111111101111111111110, flags<span style="color:#f92672">=</span>SA_RESTART|SA_SIGINFO
+   SIGTRAP: crash_handler in libjvm.so, mask<span style="color:#f92672">=</span>11100100010111111101111111111110, flags<span style="color:#f92672">=</span>SA_RESTART|SA_SIGINFO
 
 
 ---------------  S Y S T E M  ---------------
 
 OS:
-DISTRIB_ID=Ubuntu
-DISTRIB_RELEASE=22.04
-DISTRIB_CODENAME=jammy
-DISTRIB_DESCRIPTION=&quot;Ubuntu 22.04.1 LTS&quot;
-uname: Linux 3.10.0-1160.71.1.el7.x86_64 #1 SMP Tue Jun 28 15:37:28 UTC 2022 x86_64
-OS uptime: 32 days 20:11 hours
+DISTRIB_ID<span style="color:#f92672">=</span>Ubuntu
+DISTRIB_RELEASE<span style="color:#f92672">=</span>22.04
+DISTRIB_CODENAME<span style="color:#f92672">=</span>jammy
+DISTRIB_DESCRIPTION<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;Ubuntu 22.04.1 LTS&#34;</span>
+uname: Linux 3.10.0-1160.71.1.el7.x86_64 <span style="color:#75715e">#1 SMP Tue Jun 28 15:37:28 UTC 2022 x86_64</span>
+OS uptime: <span style="color:#ae81ff">32</span> days 20:11 hours
 libc: glibc 2.35 NPTL 2.35 
-rlimit (soft/hard): STACK 8192k/infinity , CORE infinity/infinity , NPROC infinity/infinity , NOFILE 1048576/1048576 , AS infinity/infinity , CPU infinity/infinity , DATA infinity/infinity , FSIZE infinity/infinity , MEMLOCK 64k/64k
+rlimit <span style="color:#f92672">(</span>soft/hard<span style="color:#f92672">)</span>: STACK 8192k/infinity , CORE infinity/infinity , NPROC infinity/infinity , NOFILE 1048576/1048576 , AS infinity/infinity , CPU infinity/infinity , DATA infinity/infinity , FSIZE infinity/infinity , MEMLOCK 64k/64k
 load average: 10.92 11.49 11.05
 
 /proc/meminfo:
-MemTotal:        8008932 kB
-MemFree:          990724 kB
-MemAvailable:    1427868 kB
-Buffers:           19560 kB
-Cached:           813384 kB
-SwapCached:       113108 kB
-Active:          3917744 kB
-Inactive:        2723696 kB
-Active(anon):    3674760 kB
-Inactive(anon):  2198536 kB
-Active(file):     242984 kB
-Inactive(file):   525160 kB
-Unevictable:           4 kB
-Mlocked:               4 kB
-SwapTotal:       8388604 kB
-SwapFree:        4455608 kB
-Dirty:              4816 kB
-Writeback:             0 kB
-AnonPages:       5774248 kB
-Mapped:           170672 kB
-Shmem:             64744 kB
-Slab:             177808 kB
-SReclaimable:     129676 kB
-SUnreclaim:        48132 kB
-KernelStack:       18496 kB
-PageTables:        32676 kB
-NFS_Unstable:          0 kB
-Bounce:                0 kB
-WritebackTmp:          0 kB
-CommitLimit:    12393068 kB
-Committed_AS:   13919420 kB
-VmallocTotal:   34359738367 kB
-VmallocUsed:       23220 kB
-VmallocChunk:   34359683124 kB
-Percpu:             1064 kB
-HardwareCorrupted:     0 kB
-AnonHugePages:   1767424 kB
-CmaTotal:              0 kB
-CmaFree:               0 kB
-HugePages_Total:       0
-HugePages_Free:        0
-HugePages_Rsvd:        0
-HugePages_Surp:        0
-Hugepagesize:       2048 kB
-DirectMap4k:      106368 kB
-DirectMap2M:     4087808 kB
-DirectMap1G:     6291456 kB
+MemTotal:        <span style="color:#ae81ff">8008932</span> kB
+MemFree:          <span style="color:#ae81ff">990724</span> kB
+MemAvailable:    <span style="color:#ae81ff">1427868</span> kB
+Buffers:           <span style="color:#ae81ff">19560</span> kB
+Cached:           <span style="color:#ae81ff">813384</span> kB
+SwapCached:       <span style="color:#ae81ff">113108</span> kB
+Active:          <span style="color:#ae81ff">3917744</span> kB
+Inactive:        <span style="color:#ae81ff">2723696</span> kB
+Active<span style="color:#f92672">(</span>anon<span style="color:#f92672">)</span>:    <span style="color:#ae81ff">3674760</span> kB
+Inactive<span style="color:#f92672">(</span>anon<span style="color:#f92672">)</span>:  <span style="color:#ae81ff">2198536</span> kB
+Active<span style="color:#f92672">(</span>file<span style="color:#f92672">)</span>:     <span style="color:#ae81ff">242984</span> kB
+Inactive<span style="color:#f92672">(</span>file<span style="color:#f92672">)</span>:   <span style="color:#ae81ff">525160</span> kB
+Unevictable:           <span style="color:#ae81ff">4</span> kB
+Mlocked:               <span style="color:#ae81ff">4</span> kB
+SwapTotal:       <span style="color:#ae81ff">8388604</span> kB
+SwapFree:        <span style="color:#ae81ff">4455608</span> kB
+Dirty:              <span style="color:#ae81ff">4816</span> kB
+Writeback:             <span style="color:#ae81ff">0</span> kB
+AnonPages:       <span style="color:#ae81ff">5774248</span> kB
+Mapped:           <span style="color:#ae81ff">170672</span> kB
+Shmem:             <span style="color:#ae81ff">64744</span> kB
+Slab:             <span style="color:#ae81ff">177808</span> kB
+SReclaimable:     <span style="color:#ae81ff">129676</span> kB
+SUnreclaim:        <span style="color:#ae81ff">48132</span> kB
+KernelStack:       <span style="color:#ae81ff">18496</span> kB
+PageTables:        <span style="color:#ae81ff">32676</span> kB
+NFS_Unstable:          <span style="color:#ae81ff">0</span> kB
+Bounce:                <span style="color:#ae81ff">0</span> kB
+WritebackTmp:          <span style="color:#ae81ff">0</span> kB
+CommitLimit:    <span style="color:#ae81ff">12393068</span> kB
+Committed_AS:   <span style="color:#ae81ff">13919420</span> kB
+VmallocTotal:   <span style="color:#ae81ff">34359738367</span> kB
+VmallocUsed:       <span style="color:#ae81ff">23220</span> kB
+VmallocChunk:   <span style="color:#ae81ff">34359683124</span> kB
+Percpu:             <span style="color:#ae81ff">1064</span> kB
+HardwareCorrupted:     <span style="color:#ae81ff">0</span> kB
+AnonHugePages:   <span style="color:#ae81ff">1767424</span> kB
+CmaTotal:              <span style="color:#ae81ff">0</span> kB
+CmaFree:               <span style="color:#ae81ff">0</span> kB
+HugePages_Total:       <span style="color:#ae81ff">0</span>
+HugePages_Free:        <span style="color:#ae81ff">0</span>
+HugePages_Rsvd:        <span style="color:#ae81ff">0</span>
+HugePages_Surp:        <span style="color:#ae81ff">0</span>
+Hugepagesize:       <span style="color:#ae81ff">2048</span> kB
+DirectMap4k:      <span style="color:#ae81ff">106368</span> kB
+DirectMap2M:     <span style="color:#ae81ff">4087808</span> kB
+DirectMap1G:     <span style="color:#ae81ff">6291456</span> kB
 
-/sys/kernel/mm/transparent_hugepage/enabled: [always] madvise never
-/sys/kernel/mm/transparent_hugepage/defrag (defrag/compaction efforts parameter): [always] madvise never
+/sys/kernel/mm/transparent_hugepage/enabled: <span style="color:#f92672">[</span>always<span style="color:#f92672">]</span> madvise never
+/sys/kernel/mm/transparent_hugepage/defrag <span style="color:#f92672">(</span>defrag/compaction efforts parameter<span style="color:#f92672">)</span>: <span style="color:#f92672">[</span>always<span style="color:#f92672">]</span> madvise never
 
 Process Memory:
-Virtual Size: 1450120K (peak: 1450120K)
-Resident Set Size: 11900K (peak: 11900K) (anon: 5904K, file: 5996K, shmem: 0K)
+Virtual Size: 1450120K <span style="color:#f92672">(</span>peak: 1450120K<span style="color:#f92672">)</span>
+Resident Set Size: 11900K <span style="color:#f92672">(</span>peak: 11900K<span style="color:#f92672">)</span> <span style="color:#f92672">(</span>anon: 5904K, file: 5996K, shmem: 0K<span style="color:#f92672">)</span>
 Swapped out: 0K
 C-Heap outstanding allocations: 6701K, retained: 66K
-glibc malloc tunables: (default)
+glibc malloc tunables: <span style="color:#f92672">(</span>default<span style="color:#f92672">)</span>
 
-/proc/sys/kernel/threads-max (system-wide limit on the number of threads): 999999
-/proc/sys/vm/max_map_count (maximum number of memory map areas a process may have): 65530
-/proc/sys/kernel/pid_max (system-wide limit on number of process identifiers): 32768
+/proc/sys/kernel/threads-max <span style="color:#f92672">(</span>system-wide limit on the number of threads<span style="color:#f92672">)</span>: <span style="color:#ae81ff">999999</span>
+/proc/sys/vm/max_map_count <span style="color:#f92672">(</span>maximum number of memory map areas a process may have<span style="color:#f92672">)</span>: <span style="color:#ae81ff">65530</span>
+/proc/sys/kernel/pid_max <span style="color:#f92672">(</span>system-wide limit on number of process identifiers<span style="color:#f92672">)</span>: <span style="color:#ae81ff">32768</span>
 
-container (cgroup) information:
+container <span style="color:#f92672">(</span>cgroup<span style="color:#f92672">)</span> information:
 container_type: cgroupv1
 cpu_cpuset_cpus: 0-1
-cpu_memory_nodes: 0
-active_processor_count: 2
+cpu_memory_nodes: <span style="color:#ae81ff">0</span>
+active_processor_count: <span style="color:#ae81ff">2</span>
 cpu_quota: no quota
-cpu_period: 100000
+cpu_period: <span style="color:#ae81ff">100000</span>
 cpu_shares: no shares
 memory_limit_in_bytes: unlimited
 memory_and_swap_limit_in_bytes: unlimited
 memory_soft_limit_in_bytes: unlimited
-memory_usage_in_bytes: 6124 k
-memory_max_usage_in_bytes: 6124 k
+memory_usage_in_bytes: <span style="color:#ae81ff">6124</span> k
+memory_max_usage_in_bytes: <span style="color:#ae81ff">6124</span> k
 maximum number of tasks: unlimited
-current number of tasks: 1
+current number of tasks: <span style="color:#ae81ff">1</span>
 
 KVM virtualization detected
-Steal ticks since vm start: 0
+Steal ticks since vm start: <span style="color:#ae81ff">0</span>
 Steal ticks percentage since vm start:  0.000
 
-CPU: total 2 (initial active 2) (1 cores per cpu, 2 threads per core) family 6 model 79 stepping 1 microcode 0x1, cx8, cmov, fxsr, ht, mmx, 3dnowpref, sse, sse2, sse3, ssse3, sse4.1, sse4.2, popcnt, lzcnt, tsc, tscinvbit, avx, avx2, aes, erms, clmul, bmi1, bmi2, rtm, adx, fma, vzeroupper, clflush, hv
+CPU: total <span style="color:#ae81ff">2</span> <span style="color:#f92672">(</span>initial active 2<span style="color:#f92672">)</span> <span style="color:#f92672">(</span><span style="color:#ae81ff">1</span> cores per cpu, <span style="color:#ae81ff">2</span> threads per core<span style="color:#f92672">)</span> family <span style="color:#ae81ff">6</span> model <span style="color:#ae81ff">79</span> stepping <span style="color:#ae81ff">1</span> microcode 0x1, cx8, cmov, fxsr, ht, mmx, 3dnowpref, sse, sse2, sse3, ssse3, sse4.1, sse4.2, popcnt, lzcnt, tsc, tscinvbit, avx, avx2, aes, erms, clmul, bmi1, bmi2, rtm, adx, fma, vzeroupper, clflush, hv
 CPU Model and flags from /proc/cpuinfo:
-model name	: Intel(R) Xeon(R) CPU E5-2682 v4 @ 2.50GHz
+model name	: Intel<span style="color:#f92672">(</span>R<span style="color:#f92672">)</span> Xeon<span style="color:#f92672">(</span>R<span style="color:#f92672">)</span> CPU E5-2682 v4 @ 2.50GHz
 flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush mmx fxsr sse sse2 ss ht syscall nx pdpe1gb rdtscp lm constant_tsc rep_good nopl nonstop_tsc eagerfpu pni pclmulqdq ssse3 fma cx16 pcid sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand hypervisor lahf_lm abm 3dnowprefetch invpcid_single ibrs ibpb stibp fsgsbase tsc_adjust bmi1 hle avx2 smep bmi2 erms invpcid rtm rdseed adx smap xsaveopt arat spec_ctrl intel_stibp
 
 Online cpus: 0-1
 Offline cpus: 
 BIOS frequency limitation: &lt;Not Available&gt;
-Frequency switch latency (ns): &lt;Not Available&gt;
+Frequency switch latency <span style="color:#f92672">(</span>ns<span style="color:#f92672">)</span>: &lt;Not Available&gt;
 Available cpu frequencies: &lt;Not Available&gt;
 Current governor: &lt;Not Available&gt;
 Core performance/turbo boost: &lt;Not Available&gt;
 
-Memory: 4k page, physical 8008932k(990600k free), swap 8388604k(4455608k free)
+Memory: 4k page, physical 8008932k<span style="color:#f92672">(</span>990600k free<span style="color:#f92672">)</span>, swap 8388604k<span style="color:#f92672">(</span>4455608k free<span style="color:#f92672">)</span>
 Page Sizes: 4k
 
-vm_info: OpenJDK 64-Bit Server VM (17.0.5+8) for linux-amd64 JRE (17.0.5+8), built on Oct 18 2022 00:00:00 by &quot;temurin&quot; with gcc 10.3.0
+vm_info: OpenJDK 64-Bit Server VM <span style="color:#f92672">(</span>17.0.5+8<span style="color:#f92672">)</span> <span style="color:#66d9ef">for</span> linux-amd64 JRE <span style="color:#f92672">(</span>17.0.5+8<span style="color:#f92672">)</span>, built on Oct <span style="color:#ae81ff">18</span> <span style="color:#ae81ff">2022</span> 00:00:00 by <span style="color:#e6db74">&#34;temurin&#34;</span> with gcc 10.3.0
 
 END.
-</code></pre><p>一个应用程序,同时打包了 jdk11 和 jdk17 的版本,使用 jdk17 时容器无法正常启动,总是提示内存不够.</p>
+</code></pre></div><p>一个应用程序,同时打包了 jdk11 和 jdk17 的版本,使用 jdk17 时容器无法正常启动,总是提示内存不够.</p>
 <p>一开始也向这个方向排查了一遍,发现不存在内存问题,但跑 jdk17 版本的容器时总是会失败.</p>
 <p>百思不得其解,最终在 stackoverflow 找到了解决的办法.</p>
 <ul>
@@ -450,6 +452,125 @@ END.
 </ul>
 <p>为容器设置 <code>--security-opt seccomp=unconfined</code> 覆盖默认的设置就可以正常启动了.</p>
 <p>根本原因还没有研究.</p>
+<h2 id="基于-operator-framework-spring-boot-starter-的项目启动失败">基于 operator-framework-spring-boot-starter 的项目启动失败</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">2023-09-07T14:05:09.037+08:00  INFO <span style="color:#ae81ff">235286</span> --- <span style="color:#f92672">[</span>omcatreconciler<span style="color:#f92672">]</span> i.j.operator.processing.Controller       : Starting <span style="color:#e6db74">&#39;mytomcatreconciler&#39;</span> controller <span style="color:#66d9ef">for</span> reconciler: cn.lank8s.demo.operator.reconciler.MyTomcatReconciler, resource: cn.lank8s.demo.operator.apis.MyTomcat
+2023-09-07T14:05:10.515+08:00 ERROR <span style="color:#ae81ff">235286</span> --- <span style="color:#f92672">[</span>           main<span style="color:#f92672">]</span> i.j.o.s.starter.OperatorStarter          : Could not start operator
+
+io.javaoperatorsdk.operator.OperatorException: Error starting operator
+	at io.javaoperatorsdk.operator.Operator.start<span style="color:#f92672">(</span>Operator.java:166<span style="color:#f92672">)</span> ~<span style="color:#f92672">[</span>operator-framework-core-4.4.0.jar:na<span style="color:#f92672">]</span>
+	at io.javaoperatorsdk.operator.springboot.starter.OperatorStarter.start<span style="color:#f92672">(</span>OperatorStarter.java:28<span style="color:#f92672">)</span> ~<span style="color:#f92672">[</span>operator-framework-spring-boot-starter-5.2.0.jar:na<span style="color:#f92672">]</span>
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0<span style="color:#f92672">(</span>Native Method<span style="color:#f92672">)</span> ~<span style="color:#f92672">[</span>na:na<span style="color:#f92672">]</span>
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke<span style="color:#f92672">(</span>NativeMethodAccessorImpl.java:77<span style="color:#f92672">)</span> ~<span style="color:#f92672">[</span>na:na<span style="color:#f92672">]</span>
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke<span style="color:#f92672">(</span>DelegatingMethodAccessorImpl.java:43<span style="color:#f92672">)</span> ~<span style="color:#f92672">[</span>na:na<span style="color:#f92672">]</span>
+	at java.base/java.lang.reflect.Method.invoke<span style="color:#f92672">(</span>Method.java:568<span style="color:#f92672">)</span> ~<span style="color:#f92672">[</span>na:na<span style="color:#f92672">]</span>
+	at org.springframework.context.event.ApplicationListenerMethodAdapter.doInvoke<span style="color:#f92672">(</span>ApplicationListenerMethodAdapter.java:343<span style="color:#f92672">)</span> ~<span style="color:#f92672">[</span>spring-context-6.0.10.jar:6.0.10<span style="color:#f92672">]</span>
+	at org.springframework.context.event.ApplicationListenerMethodAdapter.processEvent<span style="color:#f92672">(</span>ApplicationListenerMethodAdapter.java:228<span style="color:#f92672">)</span> ~<span style="color:#f92672">[</span>spring-context-6.0.10.jar:6.0.10<span style="color:#f92672">]</span>
+	at org.springframework.context.event.ApplicationListenerMethodAdapter.onApplicationEvent<span style="color:#f92672">(</span>ApplicationListenerMethodAdapter.java:165<span style="color:#f92672">)</span> ~<span style="color:#f92672">[</span>spring-context-6.0.10.jar:6.0.10<span style="color:#f92672">]</span>
+	at org.springframework.context.event.SimpleApplicationEventMulticaster.doInvokeListener<span style="color:#f92672">(</span>SimpleApplicationEventMulticaster.java:172<span style="color:#f92672">)</span> ~<span style="color:#f92672">[</span>spring-context-6.0.10.jar:6.0.10<span style="color:#f92672">]</span>
+	at org.springframework.context.event.SimpleApplicationEventMulticaster.invokeListener<span style="color:#f92672">(</span>SimpleApplicationEventMulticaster.java:165<span style="color:#f92672">)</span> ~<span style="color:#f92672">[</span>spring-context-6.0.10.jar:6.0.10<span style="color:#f92672">]</span>
+	at org.springframework.context.event.SimpleApplicationEventMulticaster.multicastEvent<span style="color:#f92672">(</span>SimpleApplicationEventMulticaster.java:143<span style="color:#f92672">)</span> ~<span style="color:#f92672">[</span>spring-context-6.0.10.jar:6.0.10<span style="color:#f92672">]</span>
+	at org.springframework.context.support.AbstractApplicationContext.publishEvent<span style="color:#f92672">(</span>AbstractApplicationContext.java:437<span style="color:#f92672">)</span> ~<span style="color:#f92672">[</span>spring-context-6.0.10.jar:6.0.10<span style="color:#f92672">]</span>
+	at org.springframework.context.support.AbstractApplicationContext.publishEvent<span style="color:#f92672">(</span>AbstractApplicationContext.java:370<span style="color:#f92672">)</span> ~<span style="color:#f92672">[</span>spring-context-6.0.10.jar:6.0.10<span style="color:#f92672">]</span>
+	at org.springframework.boot.context.event.EventPublishingRunListener.ready<span style="color:#f92672">(</span>EventPublishingRunListener.java:109<span style="color:#f92672">)</span> ~<span style="color:#f92672">[</span>spring-boot-3.1.1.jar:3.1.1<span style="color:#f92672">]</span>
+	at org.springframework.boot.SpringApplicationRunListeners.lambda$ready$6<span style="color:#f92672">(</span>SpringApplicationRunListeners.java:80<span style="color:#f92672">)</span> ~<span style="color:#f92672">[</span>spring-boot-3.1.1.jar:3.1.1<span style="color:#f92672">]</span>
+	at java.base/java.lang.Iterable.forEach<span style="color:#f92672">(</span>Iterable.java:75<span style="color:#f92672">)</span> ~<span style="color:#f92672">[</span>na:na<span style="color:#f92672">]</span>
+	at org.springframework.boot.SpringApplicationRunListeners.doWithListeners<span style="color:#f92672">(</span>SpringApplicationRunListeners.java:118<span style="color:#f92672">)</span> ~<span style="color:#f92672">[</span>spring-boot-3.1.1.jar:3.1.1<span style="color:#f92672">]</span>
+	at org.springframework.boot.SpringApplicationRunListeners.doWithListeners<span style="color:#f92672">(</span>SpringApplicationRunListeners.java:112<span style="color:#f92672">)</span> ~<span style="color:#f92672">[</span>spring-boot-3.1.1.jar:3.1.1<span style="color:#f92672">]</span>
+	at org.springframework.boot.SpringApplicationRunListeners.ready<span style="color:#f92672">(</span>SpringApplicationRunListeners.java:80<span style="color:#f92672">)</span> ~<span style="color:#f92672">[</span>spring-boot-3.1.1.jar:3.1.1<span style="color:#f92672">]</span>
+	at org.springframework.boot.SpringApplication.run<span style="color:#f92672">(</span>SpringApplication.java:331<span style="color:#f92672">)</span> ~<span style="color:#f92672">[</span>spring-boot-3.1.1.jar:3.1.1<span style="color:#f92672">]</span>
+	at org.springframework.boot.SpringApplication.run<span style="color:#f92672">(</span>SpringApplication.java:1306<span style="color:#f92672">)</span> ~<span style="color:#f92672">[</span>spring-boot-3.1.1.jar:3.1.1<span style="color:#f92672">]</span>
+	at org.springframework.boot.SpringApplication.run<span style="color:#f92672">(</span>SpringApplication.java:1295<span style="color:#f92672">)</span> ~<span style="color:#f92672">[</span>spring-boot-3.1.1.jar:3.1.1<span style="color:#f92672">]</span>
+	at cn.lank8s.demo.operator.OperatorApplication.main<span style="color:#f92672">(</span>OperatorApplication.java:18<span style="color:#f92672">)</span> ~<span style="color:#f92672">[</span>classes/:na<span style="color:#f92672">]</span>
+Caused by: io.javaoperatorsdk.operator.OperatorException: io.javaoperatorsdk.operator.MissingCRDException: <span style="color:#e6db74">&#39;mytomcats.lank8s.cn&#39;</span> v1 CRD was not found on the cluster, controller <span style="color:#e6db74">&#39;mytomcatreconciler&#39;</span> cannot be registered
+	at io.javaoperatorsdk.operator.api.config.ExecutorServiceManager.lambda$executeAndWaitForAllToComplete$2<span style="color:#f92672">(</span>ExecutorServiceManager.java:81<span style="color:#f92672">)</span> ~<span style="color:#f92672">[</span>operator-framework-core-4.4.0.jar:na<span style="color:#f92672">]</span>
+	at java.base/java.util.ArrayList.forEach<span style="color:#f92672">(</span>ArrayList.java:1511<span style="color:#f92672">)</span> ~<span style="color:#f92672">[</span>na:na<span style="color:#f92672">]</span>
+	at io.javaoperatorsdk.operator.api.config.ExecutorServiceManager.executeAndWaitForAllToComplete<span style="color:#f92672">(</span>ExecutorServiceManager.java:76<span style="color:#f92672">)</span> ~<span style="color:#f92672">[</span>operator-framework-core-4.4.0.jar:na<span style="color:#f92672">]</span>
+	at io.javaoperatorsdk.operator.api.config.ExecutorServiceManager.boundedExecuteAndWaitForAllToComplete<span style="color:#f92672">(</span>ExecutorServiceManager.java:56<span style="color:#f92672">)</span> ~<span style="color:#f92672">[</span>operator-framework-core-4.4.0.jar:na<span style="color:#f92672">]</span>
+	at io.javaoperatorsdk.operator.ControllerManager.start<span style="color:#f92672">(</span>ControllerManager.java:42<span style="color:#f92672">)</span> ~<span style="color:#f92672">[</span>operator-framework-core-4.4.0.jar:na<span style="color:#f92672">]</span>
+	at io.javaoperatorsdk.operator.Operator.start<span style="color:#f92672">(</span>Operator.java:161<span style="color:#f92672">)</span> ~<span style="color:#f92672">[</span>operator-framework-core-4.4.0.jar:na<span style="color:#f92672">]</span>
+	... <span style="color:#ae81ff">23</span> common frames omitted
+Caused by: io.javaoperatorsdk.operator.MissingCRDException: <span style="color:#e6db74">&#39;mytomcats.lank8s.cn&#39;</span> v1 CRD was not found on the cluster, controller <span style="color:#e6db74">&#39;mytomcatreconciler&#39;</span> cannot be registered
+	at io.javaoperatorsdk.operator.processing.Controller.throwMissingCRDException<span style="color:#f92672">(</span>Controller.java:388<span style="color:#f92672">)</span> ~<span style="color:#f92672">[</span>operator-framework-core-4.4.0.jar:na<span style="color:#f92672">]</span>
+	at io.javaoperatorsdk.operator.processing.Controller.start<span style="color:#f92672">(</span>Controller.java:349<span style="color:#f92672">)</span> ~<span style="color:#f92672">[</span>operator-framework-core-4.4.0.jar:na<span style="color:#f92672">]</span>
+	at io.javaoperatorsdk.operator.ControllerManager.lambda$start$0<span style="color:#f92672">(</span>ControllerManager.java:43<span style="color:#f92672">)</span> ~<span style="color:#f92672">[</span>operator-framework-core-4.4.0.jar:na<span style="color:#f92672">]</span>
+	at io.javaoperatorsdk.operator.api.config.ExecutorServiceManager.lambda$executeAndWaitForAllToComplete$0<span style="color:#f92672">(</span>ExecutorServiceManager.java:70<span style="color:#f92672">)</span> ~<span style="color:#f92672">[</span>operator-framework-core-4.4.0.jar:na<span style="color:#f92672">]</span>
+	at java.base/java.util.concurrent.FutureTask.run<span style="color:#f92672">(</span>FutureTask.java:264<span style="color:#f92672">)</span> ~<span style="color:#f92672">[</span>na:na<span style="color:#f92672">]</span>
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker<span style="color:#f92672">(</span>ThreadPoolExecutor.java:1136<span style="color:#f92672">)</span> ~<span style="color:#f92672">[</span>na:na<span style="color:#f92672">]</span>
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run<span style="color:#f92672">(</span>ThreadPoolExecutor.java:635<span style="color:#f92672">)</span> ~<span style="color:#f92672">[</span>na:na<span style="color:#f92672">]</span>
+	at java.base/java.lang.Thread.run<span style="color:#f92672">(</span>Thread.java:833<span style="color:#f92672">)</span> ~<span style="color:#f92672">[</span>na:na<span style="color:#f92672">]</span>
+</code></pre></div><p>原因是项目启动依赖于项目对应的 CRD,需要先将 CRD 资源 create 到 kubernetes 当中.</p>
+<p>可以执行 <code>mvn compile</code> 来生成 CRD 的 yaml.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">lan@lan:~/repo/git/kubernetes-with-java/operator$ ls target/classes/META-INF/fabric8/
+mytomcats.lank8s.cn-v1beta1.yml  mytomcats.lank8s.cn-v1.yml
+lan@lan:~/repo/git/kubernetes-with-java/operator$ k create -f target/classes/META-INF/fabric8/mytomcats.lank8s.cn-v1.yml 
+customresourcedefinition.apiextensions.k8s.io/mytomcats.lank8s.cn created
+</code></pre></div><h2 id="基于-operator-framework-spring-boot-starter-的项目graalvm-打包的二进制文件启动失败">基于 operator-framework-spring-boot-starter 的项目,Graalvm 打包的二进制文件启动失败</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">lan@lan:~/work/lanactions/lanactions/kubernetes-with-java/operator$ target/operator 
+
+  .   ____          _            __ _ _
+ /<span style="color:#ae81ff">\\</span> / ___<span style="color:#e6db74">&#39;_ __ _ _(_)_ __  __ _ \ \ \ \
+</span><span style="color:#e6db74">( ( )\___ | &#39;</span>_ | <span style="color:#e6db74">&#39;_| | &#39;</span>_ <span style="color:#ae81ff">\/</span> _<span style="color:#e6db74">`</span> | <span style="color:#ae81ff">\ \ \ \
+</span><span style="color:#ae81ff"></span> <span style="color:#ae81ff">\\</span>/  ___<span style="color:#f92672">)</span>| |_<span style="color:#f92672">)</span>| | | | | <span style="color:#f92672">||</span> <span style="color:#f92672">(</span>_| |  <span style="color:#f92672">)</span> <span style="color:#f92672">)</span> <span style="color:#f92672">)</span> <span style="color:#f92672">)</span>
+  <span style="color:#e6db74">&#39;  |____| .__|_| |_|_| |_\__, | / / / /
+</span><span style="color:#e6db74"> =========|_|==============|___/=/_/_/_/
+</span><span style="color:#e6db74"> :: Spring Boot ::                (v3.1.1)
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">2023-09-07T06:35:19.486Z  INFO 11782 --- [           main] c.l.demo.operator.OperatorApplication    : Starting AOT-processed OperatorApplication using Java 17.0.7 with PID 11782 (/home/lan/work/lanactions/lanactions/kubernetes-with-java/operator/target/operator started by runner in /home/lan/work/lanactions/lanactions/kubernetes-with-java/operator)
+</span><span style="color:#e6db74">2023-09-07T06:35:19.486Z  INFO 11782 --- [           main] c.l.demo.operator.OperatorApplication    : No active profile set, falling back to 1 default profile: &#34;default&#34;
+</span><span style="color:#e6db74">2023-09-07T06:35:19.506Z  INFO 11782 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+</span><span style="color:#e6db74">2023-09-07T06:35:19.506Z  INFO 11782 --- [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+</span><span style="color:#e6db74">2023-09-07T06:35:19.506Z  INFO 11782 --- [           main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.10]
+</span><span style="color:#e6db74">2023-09-07T06:35:19.513Z  INFO 11782 --- [           main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+</span><span style="color:#e6db74">2023-09-07T06:35:19.513Z  INFO 11782 --- [           main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 27 ms
+</span><span style="color:#e6db74">2023-09-07T06:35:19.519Z  WARN 11782 --- [           main] w.s.c.ServletWebServerApplicationContext : Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanCreationException: Error creating bean with name &#39;</span>myTomcatReconciler<span style="color:#e6db74">&#39;: Instantiation of supplied bean failed
+</span><span style="color:#e6db74">2023-09-07T06:35:19.519Z  INFO 11782 --- [           main] o.apache.catalina.core.StandardService   : Stopping service [Tomcat]
+</span><span style="color:#e6db74">2023-09-07T06:35:19.520Z ERROR 11782 --- [           main] o.s.boot.SpringApplication               : Application run failed
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">org.springframework.beans.factory.BeanCreationException: Error creating bean with name &#39;</span>myTomcatReconciler<span style="color:#960050;background-color:#1e0010">&#39;</span>: Instantiation of supplied bean failed
+        at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.obtainFromSupplier<span style="color:#f92672">(</span>AbstractAutowireCapableBeanFactory.java:1220<span style="color:#f92672">)</span> ~<span style="color:#f92672">[</span>operator:6.0.10<span style="color:#f92672">]</span>
+        at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance<span style="color:#f92672">(</span>AbstractAutowireCapableBeanFactory.java:1158<span style="color:#f92672">)</span> ~<span style="color:#f92672">[</span>operator:6.0.10<span style="color:#f92672">]</span>
+        at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean<span style="color:#f92672">(</span>AbstractAutowireCapableBeanFactory.java:560<span style="color:#f92672">)</span> ~<span style="color:#f92672">[</span>operator:6.0.10<span style="color:#f92672">]</span>
+        at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean<span style="color:#f92672">(</span>AbstractAutowireCapableBeanFactory.java:520<span style="color:#f92672">)</span> ~<span style="color:#f92672">[</span>operator:6.0.10<span style="color:#f92672">]</span>
+        at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0<span style="color:#f92672">(</span>AbstractBeanFactory.java:326<span style="color:#f92672">)</span> ~<span style="color:#f92672">[</span>operator:6.0.10<span style="color:#f92672">]</span>
+        at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton<span style="color:#f92672">(</span>DefaultSingletonBeanRegistry.java:234<span style="color:#f92672">)</span> ~<span style="color:#f92672">[</span>operator:6.0.10<span style="color:#f92672">]</span>
+        at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean<span style="color:#f92672">(</span>AbstractBeanFactory.java:324<span style="color:#f92672">)</span> ~<span style="color:#f92672">[</span>operator:6.0.10<span style="color:#f92672">]</span>
+        at org.springframework.beans.factory.support.AbstractBeanFactory.getBean<span style="color:#f92672">(</span>AbstractBeanFactory.java:200<span style="color:#f92672">)</span> ~<span style="color:#f92672">[</span>operator:6.0.10<span style="color:#f92672">]</span>
+        at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons<span style="color:#f92672">(</span>DefaultListableBeanFactory.java:973<span style="color:#f92672">)</span> ~<span style="color:#f92672">[</span>operator:6.0.10<span style="color:#f92672">]</span>
+        at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization<span style="color:#f92672">(</span>AbstractApplicationContext.java:941<span style="color:#f92672">)</span> ~<span style="color:#f92672">[</span>operator:6.0.10<span style="color:#f92672">]</span>
+        at org.springframework.context.support.AbstractApplicationContext.refresh<span style="color:#f92672">(</span>AbstractApplicationContext.java:608<span style="color:#f92672">)</span> ~<span style="color:#f92672">[</span>operator:6.0.10<span style="color:#f92672">]</span>
+        at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh<span style="color:#f92672">(</span>ServletWebServerApplicationContext.java:146<span style="color:#f92672">)</span> ~<span style="color:#f92672">[</span>operator:3.1.1<span style="color:#f92672">]</span>
+        at org.springframework.boot.SpringApplication.refresh<span style="color:#f92672">(</span>SpringApplication.java:734<span style="color:#f92672">)</span> ~<span style="color:#f92672">[</span>operator:3.1.1<span style="color:#f92672">]</span>
+        at org.springframework.boot.SpringApplication.refreshContext<span style="color:#f92672">(</span>SpringApplication.java:436<span style="color:#f92672">)</span> ~<span style="color:#f92672">[</span>operator:3.1.1<span style="color:#f92672">]</span>
+        at org.springframework.boot.SpringApplication.run<span style="color:#f92672">(</span>SpringApplication.java:312<span style="color:#f92672">)</span> ~<span style="color:#f92672">[</span>operator:3.1.1<span style="color:#f92672">]</span>
+        at org.springframework.boot.SpringApplication.run<span style="color:#f92672">(</span>SpringApplication.java:1306<span style="color:#f92672">)</span> ~<span style="color:#f92672">[</span>operator:3.1.1<span style="color:#f92672">]</span>
+        at org.springframework.boot.SpringApplication.run<span style="color:#f92672">(</span>SpringApplication.java:1295<span style="color:#f92672">)</span> ~<span style="color:#f92672">[</span>operator:3.1.1<span style="color:#f92672">]</span>
+        at cn.lank8s.demo.operator.OperatorApplication.main<span style="color:#f92672">(</span>OperatorApplication.java:18<span style="color:#f92672">)</span> ~<span style="color:#f92672">[</span>operator:na<span style="color:#f92672">]</span>
+Caused by: java.lang.ExceptionInInitializerError: null
+        at org.snakeyaml.engine.v2.api.Load.loadAllFromInputStream<span style="color:#f92672">(</span>Load.java:166<span style="color:#f92672">)</span> ~<span style="color:#f92672">[</span>na:na<span style="color:#f92672">]</span>
+        at io.fabric8.kubernetes.client.utils.KubernetesSerialization.parseYaml<span style="color:#f92672">(</span>KubernetesSerialization.java:270<span style="color:#f92672">)</span> ~<span style="color:#f92672">[</span>operator:na<span style="color:#f92672">]</span>
+        at io.fabric8.kubernetes.client.utils.KubernetesSerialization.unmarshal<span style="color:#f92672">(</span>KubernetesSerialization.java:252<span style="color:#f92672">)</span> ~<span style="color:#f92672">[</span>operator:na<span style="color:#f92672">]</span>
+        at io.fabric8.kubernetes.client.utils.KubernetesSerialization.unmarshal<span style="color:#f92672">(</span>KubernetesSerialization.java:342<span style="color:#f92672">)</span> ~<span style="color:#f92672">[</span>operator:na<span style="color:#f92672">]</span>
+        at io.fabric8.kubernetes.client.utils.KubernetesSerialization.unmarshal<span style="color:#f92672">(</span>KubernetesSerialization.java:327<span style="color:#f92672">)</span> ~<span style="color:#f92672">[</span>operator:na<span style="color:#f92672">]</span>
+        at io.fabric8.kubernetes.client.utils.Serialization.unmarshal<span style="color:#f92672">(</span>Serialization.java:185<span style="color:#f92672">)</span> ~<span style="color:#f92672">[</span>na:na<span style="color:#f92672">]</span>
+        at io.fabric8.kubernetes.client.internal.KubeConfigUtils.parseConfigFromString<span style="color:#f92672">(</span>KubeConfigUtils.java:47<span style="color:#f92672">)</span> ~<span style="color:#f92672">[</span>na:na<span style="color:#f92672">]</span>
+        at io.fabric8.kubernetes.client.Config.loadFromKubeconfig<span style="color:#f92672">(</span>Config.java:704<span style="color:#f92672">)</span> ~<span style="color:#f92672">[</span>operator:na<span style="color:#f92672">]</span>
+        at io.fabric8.kubernetes.client.Config.tryKubeConfig<span style="color:#f92672">(</span>Config.java:668<span style="color:#f92672">)</span> ~<span style="color:#f92672">[</span>operator:na<span style="color:#f92672">]</span>
+        at io.fabric8.kubernetes.client.Config.autoConfigure<span style="color:#f92672">(</span>Config.java:286<span style="color:#f92672">)</span> ~<span style="color:#f92672">[</span>operator:na<span style="color:#f92672">]</span>
+        at io.fabric8.kubernetes.client.Config.&lt;init&gt;<span style="color:#f92672">(</span>Config.java:251<span style="color:#f92672">)</span> ~<span style="color:#f92672">[</span>operator:na<span style="color:#f92672">]</span>
+        at io.fabric8.kubernetes.client.Config.&lt;init&gt;<span style="color:#f92672">(</span>Config.java:242<span style="color:#f92672">)</span> ~<span style="color:#f92672">[</span>operator:na<span style="color:#f92672">]</span>
+        at io.fabric8.kubernetes.client.ConfigBuilder.&lt;init&gt;<span style="color:#f92672">(</span>ConfigBuilder.java:10<span style="color:#f92672">)</span> ~<span style="color:#f92672">[</span>operator:na<span style="color:#f92672">]</span>
+        at io.fabric8.kubernetes.client.ConfigBuilder.&lt;init&gt;<span style="color:#f92672">(</span>ConfigBuilder.java:7<span style="color:#f92672">)</span> ~<span style="color:#f92672">[</span>operator:na<span style="color:#f92672">]</span>
+        at io.fabric8.kubernetes.client.DefaultKubernetesClient.&lt;init&gt;<span style="color:#f92672">(</span>DefaultKubernetesClient.java:37<span style="color:#f92672">)</span> ~<span style="color:#f92672">[</span>na:na<span style="color:#f92672">]</span>
+        at cn.lank8s.demo.operator.reconciler.MyTomcatReconciler.&lt;init&gt;<span style="color:#f92672">(</span>MyTomcatReconciler.java:34<span style="color:#f92672">)</span> ~<span style="color:#f92672">[</span>operator:na<span style="color:#f92672">]</span>
+        at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.obtainInstanceFromSupplier<span style="color:#f92672">(</span>AbstractAutowireCapableBeanFactory.java:1254<span style="color:#f92672">)</span> ~<span style="color:#f92672">[</span>operator:6.0.10<span style="color:#f92672">]</span>
+        at org.springframework.beans.factory.support.DefaultListableBeanFactory.obtainInstanceFromSupplier<span style="color:#f92672">(</span>DefaultListableBeanFactory.java:949<span style="color:#f92672">)</span> ~<span style="color:#f92672">[</span>operator:6.0.10<span style="color:#f92672">]</span>
+        at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.obtainFromSupplier<span style="color:#f92672">(</span>AbstractAutowireCapableBeanFactory.java:1214<span style="color:#f92672">)</span> ~<span style="color:#f92672">[</span>operator:6.0.10<span style="color:#f92672">]</span>
+        ... <span style="color:#ae81ff">17</span> common frames omitted
+Caused by: java.nio.charset.UnsupportedCharsetException: UTF-32BE
+        at java.base@17.0.7/java.nio.charset.Charset.forName<span style="color:#f92672">(</span>Charset.java:528<span style="color:#f92672">)</span> ~<span style="color:#f92672">[</span>operator:na<span style="color:#f92672">]</span>
+        at org.snakeyaml.engine.v2.api.YamlUnicodeReader.&lt;clinit&gt;<span style="color:#f92672">(</span>YamlUnicodeReader.java:50<span style="color:#f92672">)</span> ~<span style="color:#f92672">[</span>na:na<span style="color:#f92672">]</span>
+        ... <span style="color:#ae81ff">36</span> common frames omitted
+</code></pre></div><p>看起来似乎是丢失了需要的 yaml 配置文件.</p>
 
 
         <h2>微信公众号</h2>

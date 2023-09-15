@@ -13,7 +13,7 @@
       <pubDate>Sat, 15 Feb 2020 00:00:00 +0000</pubDate>
       
       <guid>https://liangyuanpeng.github.io/post/fluentd-logdrive-docker/</guid>
-      <description>前言 docker默认的日志驱动是json-file,每一个容器都会在本地生成一个/var/lib/docker/containers/con</description>
+      <description>前言 docker 默认的日志驱动是json-file,每一个容器都会在本地生成一个/var/lib/docker/containers/containe</description>
     </item>
     
     <item>
