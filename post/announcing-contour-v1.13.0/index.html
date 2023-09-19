@@ -336,7 +336,7 @@
 <h1 id="网关api">网关API</h1>
 <p>功能状态: Contour v1.13.0 <a href="https://projectcontour.io/resources/deprecation-policy/">alpha</a></p>
 <p>Contour 现在提供 alpha 版本支持<a href="https://gateway-api.sigs.k8s.io/">Gateway API</a>,Gateway  API 是用于k8s中发展网络相关 API 的一个开源项目.  Gateway API 由多个资源组成,可以为用户公开程序 Service，Ingress 等.</p>
-<p>在Contour和<a href="https://github.com/projectcontour/contour-operator">Contour Operator</a>中共同实现了支持 Gateway API.这种方式和 Gateway API 中定义的<a href="https://gateway-api.sigs.k8s.io/api-overview/#roles-and-personas">角色</a>是一致的,Operator管理基础设施级别的资源,比如<a href="https://gateway-api.sigs.k8s.io/gateway/">网关(Gateway)</a>,而Contour管理应用程序级别的资源,例如<a href="https://gateway-api.sigs.k8s.io/httproute/">HTTPRoute</a>.</p>
+<p>在Contour和<a href="https://github.com/projectcontour/contour-operator">Contour Operator</a>中共同实现了支持 Gateway API.这种方式和 Gateway API 中定义的<a href="https://gateway-api.sigs.k8s.io/concepts/security-model/?h=role#roles-and-personas">角色</a>是一致的,Operator管理基础设施级别的资源,比如<a href="https://gateway-api.sigs.k8s.io/api-types/gateway/">网关(Gateway)</a>,而Contour管理应用程序级别的资源,例如<a href="https://gateway-api.sigs.k8s.io/api-types/httproute/?h=httprout">HTTPRoute</a>.</p>
 <p>将Gateway API和Contour结合使用的具体详情可以参考<a href="https://projectcontour.io/guides/gateway-api/">用户指南</a></p>
 <p>非常感谢<a href="https://github.com/stevesloka">@stevesloka</a>和<a href="https://github.com/youngnick">@youngnick</a>定义和实现这个功能!</p>
 <h1 id="全局速率限制">全局速率限制</h1>

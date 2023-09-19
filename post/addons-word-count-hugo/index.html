@@ -293,7 +293,7 @@
 
 
 
-                            阅读 </span></span>|<span class="post-date">共651字</span>，阅读约<span class="more-meta"> 2 分钟</span>
+                            阅读 </span></span>|<span class="post-date">共646字</span>，阅读约<span class="more-meta"> 2 分钟</span>
                         
                     </span>
                 </div>
@@ -326,30 +326,30 @@
 <p><img src="https://res.cloudinary.com/lyp/image/upload/v1613460274/hugo/blog.github.io/blogfeature/blog1.png" alt="https://res.cloudinary.com/lyp/image/upload/v1613460274/hugo/blog.github.io/blogfeature/blog1.png"></p>
 <h1 id="修改博客页面">修改博客页面</h1>
 <p>页面位于对应主题目录下的：<code>layouts/_default/single.html</code>,搜索<code>subtitle</code>可以找到以下类似的代码块:</p>
-<pre tabindex="0"><code>&lt;h2 class=&quot;subheading&quot;&gt;{{ .Params.subtitle }}&lt;/h2&gt;
-                    &lt;span  class=&quot;meta&quot;&gt;Posted by {{ if .Params.author }}{{ .Params.author }}{{ else }}{{ .Site.Title }}{{ end }} on {{ .Date.Format &quot;Monday, January 2, 2006&quot; }}
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">&lt;<span style="color:#f92672">h2</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;subheading&#34;</span>&gt;{{ .Params.subtitle }}&lt;/<span style="color:#f92672">h2</span>&gt;
+                    &lt;<span style="color:#f92672">span</span>  <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;meta&#34;</span>&gt;Posted by {{ if .Params.author }}{{ .Params.author }}{{ else }}{{ .Site.Title }}{{ end }} on {{ .Date.Format &#34;Monday, January 2, 2006&#34; }}
                         {{ if .Site.Params.page_view_conter }}
-                        {{ partial &quot;page_view_counter.html&quot; . }}
+                        {{ partial &#34;page_view_counter.html&#34; . }}
                         {{ end }}
-                    &lt;/span&gt;
-</code></pre><p>修改后是一下的样子，其实就是引入两个变量:</p>
+                    &lt;/<span style="color:#f92672">span</span>&gt;
+</code></pre></div><p>修改后是一下的样子，其实就是引入两个变量:</p>
 <ol>
 <li>WordCount 文章字数</li>
 <li>ReadingTime 阅读时间</li>
 </ol>
-<pre tabindex="0"><code>                    &lt;h2 class=&quot;subheading&quot;&gt;{{ .Params.subtitle }}&lt;/h2&gt;
-                    &lt;span  class=&quot;meta&quot;&gt;Posted by {{ if .Params.author }}{{ .Params.author }}{{ else }}{{ .Site.Title }}{{ end }} on {{ .Date.Format &quot;Monday, January 2, 2006&quot; }}
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">                    &lt;<span style="color:#f92672">h2</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;subheading&#34;</span>&gt;{{ .Params.subtitle }}&lt;/<span style="color:#f92672">h2</span>&gt;
+                    &lt;<span style="color:#f92672">span</span>  <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;meta&#34;</span>&gt;Posted by {{ if .Params.author }}{{ .Params.author }}{{ else }}{{ .Site.Title }}{{ end }} on {{ .Date.Format &#34;Monday, January 2, 2006&#34; }}
                         {{ if .Site.Params.page_view_conter }}
-                        &lt;span id=&quot;busuanzi_container_page_pv&quot;&gt;|&lt;span id=&quot;busuanzi_value_page_pv&quot;&gt;&lt;/span&gt;&lt;span&gt;
-                            {{ partial &quot;page_view_counter.html&quot; .  }}
-                            阅读 &lt;/span&gt;&lt;/span&gt;|&lt;span class=&quot;post-date&quot;&gt;共{{ .WordCount  }}字&lt;/span&gt;，阅读约&lt;span class=&quot;more-meta&quot;&gt; {{ .ReadingTime  }} 分钟&lt;/span&gt;
+                        &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;busuanzi_container_page_pv&#34;</span>&gt;|&lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;busuanzi_value_page_pv&#34;</span>&gt;&lt;/<span style="color:#f92672">span</span>&gt;&lt;<span style="color:#f92672">span</span>&gt;
+                            {{ partial &#34;page_view_counter.html&#34; .  }}
+                            阅读 &lt;/<span style="color:#f92672">span</span>&gt;&lt;/<span style="color:#f92672">span</span>&gt;|&lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;post-date&#34;</span>&gt;共{{ .WordCount  }}字&lt;/<span style="color:#f92672">span</span>&gt;，阅读约&lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;more-meta&#34;</span>&gt; {{ .ReadingTime  }} 分钟&lt;/<span style="color:#f92672">span</span>&gt;
                         {{ end }}
-                    &lt;/span&gt;
-</code></pre><h1 id="修改配置文件">修改配置文件</h1>
+                    &lt;/<span style="color:#f92672">span</span>&gt;
+</code></pre></div><h1 id="修改配置文件">修改配置文件</h1>
 <p>在修改了上述内容后主题已经支持字数统计和阅读时间的功能，下面需要在博客的配置文件当中启动这个功能。</p>
 <p>找到<code>config.toml</code>文件中的<code>page_view_conter</code>，配置为<code>true</code>即可。</p>
 <p><code>page_view_conter=true</code></p>
-<p>在重新打开任意一篇Blog后发现已经可以看到这个功能的展示了。</p>
+<p>在重新打开任意一篇 Blog 后发现已经可以看到这个功能的展示了。</p>
 <p><img src="https://res.cloudinary.com/lyp/image/upload/v1613463423/hugo/blog.github.io/blogfeature/blog2.png" alt="https://res.cloudinary.com/lyp/image/upload/v1613463423/hugo/blog.github.io/blogfeature/blog2.png"></p>
 <h1 id="随意聊聊">随意聊聊</h1>
 <p>在我看来一个博客除了字数统计和阅读时间这样一个功能之外呢，阅读次数和文章搜索还是很有必要的，这也是我接下来会给我的博客添加的功能。</p>
