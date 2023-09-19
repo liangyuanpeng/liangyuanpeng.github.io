@@ -21,38 +21,38 @@ categories:
 1. [docker](https://www.docker.com/get-started)  
 2. [docker-compose](https://github.com/docker/compose)  
 
-其中docker-compose不是必须的,单单使用docker也是可以的,这里主要介绍docker和docker-compose两种方式
+其中 docker-compose 不是必须的,单单使用 docker 也是可以的,这里主要介绍 docker 和 docker-compose 两种方式
 
 ## docker部署  
 
-docker部署kafka非常简单，只需要两条命令即可完成kafka服务器的部署。
+docker 部署 kafka 非常简单，只需要两条命令即可完成 kafka 服务器的部署。
 
-```
+```shell
 docker run -d --name zookeeper -p 2181:2181  wurstmeister/zookeeper
 docker run -d --name kafka -p 9092:9092 -e KAFKA_BROKER_ID=0 -e KAFKA_ZOOKEEPER_CONNECT=zookeeper:2181 --link zookeeper -e KAFKA_ADVERTISED_LISTENERS=PLAINTEXT://192.168.1.60(机器IP):9092 -e KAFKA_LISTENERS=PLAINTEXT://0.0.0.0:9092 -t wurstmeister/kafka
 ```  
-由于kafka是需要和zookeeper共同工作的,所以需要部署一个zookeeper,但有了docker这对部署来说非常轻松.  
-可以通过``docker ps``查看到两个容器的状态,这里不再展示.
+由于 kafka 是需要和 zookeeper 共同工作的,所以需要部署一个 zookeeper,但有了 docker 这对部署来说非常轻松.  
+可以通过`docker ps`查看到两个容器的状态,这里不再展示.
 
 接下来可以进行生产者和消费者的尝试  
 
 ### 通过kafka自带工具生产消费消息测试  
 
-1. 首先,进入到kafka的docker容器中  
-```
+1. 首先,进入到 kafka 的 docker 容器中  
+```shell
 docker exec -it kafka sh
 ```  
 2. 运行消费者,进行消息的监听
-```
+```shell
 kafka-console-consumer.sh --bootstrap-server 192.168.1.60:9094 --topic kafeidou --from-beginning
 ```  
 
-3. 打开一个新的ssh窗口,同样进入kafka的容器中,执行下面这条命令生产消息
-```
+3. 打开一个新的 ssh 窗口,同样进入 kafka 的容器中,执行下面这条命令生产消息
+```shell
 kafka-console-producer.sh --broker-list 192.168.1.60(机器IP):9092 --topic kafeidou
 ```  
-输入完这条命令后会进入到控制台，可以输入任何想发送的消息,这里发送一个``hello``
-```
+输入完这条命令后会进入到控制台，可以输入任何想发送的消息,这里发送一个`hello`
+```shell
 >>
 >hello
 >
@@ -61,12 +61,12 @@ kafka-console-producer.sh --broker-list 192.168.1.60(机器IP):9092 --topic kafe
 ```  
 4. 可以看到,在生产者的控制台中输入消息后,消费者的控制台立刻看到了消息   
 
-到目前为止,一个kafka完整的hello world就完成了.kafka的部署加上生产者消费者测试.  
+到目前为止,一个 kafka 完整的 hello world 就完成了 kafka 的部署加上生产者消费者测试.  
 
 ### 通过java代码进行测试  
 
-1. 新建一个maven项目并加入以下依赖  
-```
+1. 新建一个 maven 项目并加入以下依赖  
+```xml
 <dependency>
       <groupId>org.apache.kafka</groupId>
       <artifactId>kafka-clients</artifactId>
@@ -79,8 +79,9 @@ kafka-console-producer.sh --broker-list 192.168.1.60(机器IP):9092 --topic kafe
     </dependency>
 ```  
 2. 生产者代码  
+
 producer.java
-```
+```java
 import org.apache.kafka.clients.producer.*;
 
 import java.util.Date;
@@ -132,8 +133,9 @@ public class HelloWorldProducer {
 
 ```  
 3. 消费者代码  
+
 consumer.java  
-```
+```java
 import java.util.Arrays;
 import java.util.Properties;
 import org.apache.kafka.clients.consumer.Consumer;
@@ -170,13 +172,13 @@ public class HelloWorldConsumer2 {
 ```  
 4. 分别运行生产者和消费者即可  
 生产者打印消息  
-```
+```shell
 1581651496176,www.example.com,192.168.2.219
 1581651497299,www.example.com,192.168.2.112
 1581651497299,www.example.com,192.168.2.20
 ```
 消费者打印消息
-```
+```shell
 offset = 0, key = 192.168.2.202, value = 1581645295298,www.example.com,192.168.2.202
 offset = 1, key = 192.168.2.102, value = 1581645295848,www.example.com,192.168.2.102
 offset = 2, key = 192.168.2.63, value = 1581645295848,www.example.com,192.168.2.63
@@ -184,8 +186,8 @@ offset = 2, key = 192.168.2.63, value = 1581645295848,www.example.com,192.168.2.
 源码地址:[FISHStack/kafka-demo](https://github.com/FISHStack/kafka-demo)  
 
 ## 通过docker-compose部署kafka  
-首先创建一个docker-compose.yml文件
-```
+首先创建一个 docker-compose.yml 文件
+```yaml
 version: '3.7'
 services:
   zookeeper:
@@ -211,14 +213,14 @@ services:
       - zookeeper
 ```  
 
-部署起来很简单,在``docker-compose.yml``文件的目录下执行``docker-compose up -d``就可以了,测试方式和上面的一样。  
-这个docker-compose做的东西比上面docker方式部署的东西要多一些  
-1. 数据持久化，在当前目录下挂在了两个目录分别存储zookeeper和kafka的数据,当然在``docker run ``命令中添加 ``-v 选项``也是可以做到这样的效果的  
-2. kafka在启动后会初始化一个有分区的topic,同样的,``docker run``的时候添加`` -e KAFKA_CREATE_TOPICS=kafeidou:2:0 ``也是可以做到的。
+部署起来很简单,在`docker-compose.yml`文件的目录下执行`docker-compose up -d`就可以了,测试方式和上面的一样。  
+这个 docker-compose 做的东西比上面docker方式部署的东西要多一些  
+1. 数据持久化，在当前目录下挂在了两个目录分别存储 zookeeper 和 kafka 的数据,当然在`docker run `命令中添加 `-v 选项`也是可以做到这样的效果的  
+2. kafka 在启动后会初始化一个有分区的 topic,同样的,``docker run``的时候添加` -e KAFKA_CREATE_TOPICS=kafeidou:2:0 `也是可以做到的。
 
 ## 总结:优先推荐docker-compose方式部署    
 为什么呢?  
 
-因为单纯使用docker方式部署的话，如果有改动(例如:修改对外开放的端口号)的情况下,docker需要把容器停止``docker stop 容器ID/容器NAME``,然后删除容器``docker rm 容器ID/容器NAME``,最后启动新效果的容器``docker run ...``  
+因为单纯使用 docker 方式部署的话，如果有改动(例如:修改对外开放的端口号)的情况下,docker 需要把容器停止`docker stop 容器ID/容器NAME`,然后删除容器`docker rm 容器ID/容器NAME`,最后启动新效果的容器`docker run ...` 
 
-而如果在docker-compose部署的情况下如果修改内容只需要修改docker-compose.yml文件对应的地方,例如``2181:2181改成2182:2182``,然后再次在docker-compose.yml文件对应的目录下执行``docker-compose up -d``就能达到更新后的效果。  
+而如果在 docker-compose 部署的情况下如果修改内容只需要修改 docker-compose.yml 文件对应的地方,例如`2181:2181`改成`2182:2182`,然后再次在 docker-compose.yml 文件对应的目录下执行`docker-compose up -d`就能达到更新后的效果。  
