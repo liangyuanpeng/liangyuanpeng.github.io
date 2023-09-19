@@ -77,15 +77,15 @@ tags:
 
 16. - [x] [loft文章翻译](https://loft.sh/blog/kubernetes-multi-tenancy-best-practices-guide/)  
 
-17. - [x] [自动化构建algolia索引](https://liangyuanpeng.com/post/blog/auto-build-algolia-index/)  
+17. - [x] [自动化构建algolia索引](https://liangyuanpeng.com/post/auto-build-algolia-index/)  
 
 18. - [ ] 部署halo博客,jar部署并且作为系统服务/docker部署
 
 19. - [ ] ~~halo文件存储-minio-阿里-百度-腾讯-华为~~  
 
-20. - [x] [springboot添加prometheus支持](https://liangyuanpeng.com/post/cncf-promethues/springboot-support-prometheus/)  
+20. - [x] [springboot添加prometheus支持](https://liangyuanpeng.com/post/springboot-support-prometheus/)  
 
-21. - [x] [hugo标题与URL区分开](https://liangyuanpeng.com/post/blog/hugo-slug-url/)
+21. - [x] [hugo标题与URL区分开](https://liangyuanpeng.com/post/hugo-slug-url/)
 
 22. - [ ] KubeSphere部署最简版，以及日志清理配置  
 
@@ -138,6 +138,4 @@ tags:
 43. - [ ] k8s部署minio
 
 44. - [ ] k8s部署nats  
-
-45. - [ ] k8s部署nats
 
