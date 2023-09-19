@@ -112,3 +112,7 @@ https://www.surveymonkey.com/r/etcdusage23
 ## 开始使用 Xline
 
 目前我基于 Kind 搭建的 kubernetes 研究环境已经用上 Xline 了,如果你也想体验只需要将 kube-apiserver 中指向 etcd 的地址修改为 xline 的地址就可以了,也可以将部分数据存储到 Xline 中来浅尝一下,例如通过 xx 参数把 event 数据存储到 Xline 中,而 k8s 中的其他数据依然存储到 etcd 中.
+
+# 注意
+
+本文还未完成,后续将继续更新.
