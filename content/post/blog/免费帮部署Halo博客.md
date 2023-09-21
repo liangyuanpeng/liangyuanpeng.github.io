@@ -22,6 +22,4 @@ categories:
 # 只要[通过这个链接购买服务器](https://www.aliyun.com/activity?source=5176.11533457&userCode=ltwng80f)
 # 即可免费帮部署Halo博客
 
-# 联系我 
-
-# [free.liangyuanpeng.com](free.liangyuanpeng.com)右上角找到我的微信。  
+# 联系我  

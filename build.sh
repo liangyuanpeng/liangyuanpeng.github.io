@@ -37,8 +37,9 @@ else
 	echo "BASEURL IS NOT EXISTS"
 fi
 
-if [ $ORASDOWNLOAD ];then
-	echo "ORASURL = $ORASDOWNLOAD"
+# $ORASDOWNLOAD
+if [ $BUILDINIT ];then
+	  echo "ORASURL = $ORASDOWNLOAD"
     wget https://github.com/oras-project/oras/releases/download/v1.0.0/oras_1.0.0_linux_amd64.tar.gz
     tar -xf oras_1.0.0_linux_amd64.tar.gz
     mv ./oras static/ && cd static
@@ -46,6 +47,7 @@ if [ $ORASDOWNLOAD ];then
     nohup ./oras pull ghcr.io/liangyuanpeng/files:kind &
     nohup ./oras pull ghcr.io/liangyuanpeng/files:pack &
     ./oras pull ghcr.io/liangyuanpeng/files:krew
+    ./oras pull ghcr.io/liangyuanpeng/files:blogfiles
     cd ..
 fi
 

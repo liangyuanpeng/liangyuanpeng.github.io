@@ -188,6 +188,7 @@ JVM Serializers [https://github.com/eishay/jvm-serializers/wiki](https://github.
 而对一些场景比较简单，能够容忍固定 IP调用，或者使用硬件负载均衡设备的。也可以直接使用各个跨语言客户端，进行直接开发调用。
 
 ----------------
-文章转自[剖析 | SOFARPC 框架】之SOFARPC 跨语言支持剖析](http://www.sofastack.tech/post/nuo9ph)
+文章转自[剖析 | SOFARPC 框架】之SOFARPC 跨语言支持剖析](https://www.sofastack.tech)
 
 
+注意: 由于原文章链接发生变更，因此将链接更新为 sofastack 官网，可在官网查询相关文章.

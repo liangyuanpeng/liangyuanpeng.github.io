@@ -283,6 +283,6 @@ private int resolveTimeout(SofaRequest request, ConsumerConfig consumerConfig, P
 
 
 ----------------
-文章转自[【剖析 | SOFARPC 框架】之SOFARPC 同步异步实现剖析](http://www.sofastack.tech/post/ktnzp9)
+文章转自[【剖析 | SOFARPC 框架】之SOFARPC 同步异步实现剖析](https://www.sofastack.tech)
 
-
+注意: 由于原文章链接发生变更，因此将链接更新为 sofastack 官网，可在官网查询相关文章.
