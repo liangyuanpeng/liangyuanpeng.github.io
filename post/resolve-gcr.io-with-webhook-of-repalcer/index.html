@@ -14,7 +14,7 @@
     <meta name="baidu-site-verification" content="code-ANZvlnN0Xr" />
 
     
-    <meta name="description" content="lan，工程师⎈,远鹏|CNCF粉丝|Pulsar爱好者|公众号:四颗咖啡豆|云原生追随者">
+    <meta name="description" content="⎈lan，工程师⎈, OpenYurt Member,CDF中文本地化SIG成员,开源爱好者 | 公众号:四颗咖啡豆">
     
     <meta name="keyword"  content="liangyuanpeng|LanLiang|OpenYurt|Knative|Pulsar|Prometheus|Halo||边缘计算kubernetes|Docker|CloudNative|Golang|Rust|Istio|微服务">
 
@@ -26,7 +26,7 @@
     <meta property="og:image" content="https://liangyuanpeng.github.io/img/banner-pexels.jpg" />
     <meta name="twitter:image" content="https://liangyuanpeng.github.io/img/banner-pexels.jpg" />
 
-    <title>部署一个webhook,轻松解决gcr.io-远鹏的博客 | liangyuanpeng&#39;s Blog</title>
+    <title>部署一个webhook,轻松解决gcr.io-liangyuanpeng的博客 | liangyuanpeng&#39;s Blog</title>
 
     <link rel="canonical" href="https://liangyuanpeng.github.io/post/resolve-gcr.io-with-webhook-of-repalcer/">
 
@@ -358,7 +358,7 @@
 
 
 
-                            阅读 </span></span>|<span class="post-date">共793字</span>，阅读约<span class="more-meta"> 2 分钟</span>
+                            阅读 </span></span>|<span class="post-date">共846字</span>，阅读约<span class="more-meta"> 2 分钟</span>
                         
                     </span>
                 </div>
@@ -391,7 +391,10 @@
 </nav>
 		
 
-		<h1 id="前言">前言</h1>
+		<h1 id="这个-webhook-当前已经不再推荐使用">⚠这个 webhook 当前已经不再推荐使用⚠</h1>
+<p>⚠这个 webhook 当前已经不再推荐使用⚠</p>
+<p>⚠推荐的做法是设置镜像仓库镜像,参考 <a href="https://liangyuanpeng.com/post/cncf-kubernetes/run-k8s-with-kind/#%E5%90%84%E7%B1%BB%E7%8E%AF%E5%A2%83%E7%9A%84%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6">kind(containerd) 的配置</a>⚠</p>
+<h1 id="前言">前言</h1>
 <p><code>lank8s.cn</code> 已经正常运营几年了，目前可以看到每天都有人在使用 <code>gcr.lank8s.cn</code> 来拉取 <code>gcr.io</code> 的镜像,避免了墙带来的困扰,不过当需要拉取的不同的镜像多了之后可能会显得有些繁琐，每次都需要手动的将 <code>gcr.io</code> 修改为 <code>gcr.lank8s.cn</code> ,作为软件工程师那必须懂得为自己减少不必要的工作量,于是 <code>replacer</code> 这个 Mutating Webhook 就出现了.</p>
 <p>其实我已经使用<code>replacer</code>有一段时间了,每次使用 <code>Kubekey</code> 创建一个新的K8S实验环境时,都会配置一个addon来自动化的安装<code>replacer</code>(没错,你可以用 <code>Helm</code> 来安装这个 webhook),不过拖着这篇文章的产出，但是现在是时候了!</p>
 <h1 id="部署">部署</h1>

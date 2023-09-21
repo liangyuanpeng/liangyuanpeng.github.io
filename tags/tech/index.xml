@@ -40,7 +40,7 @@
       <pubDate>Tue, 05 Apr 2022 00:00:00 +0000</pubDate>
       
       <guid>https://liangyuanpeng.github.io/post/resolve-gcr.io-with-webhook-of-repalcer/</guid>
-      <description>前言 lank8s.cn 已经正常运营几年了，目前可以看到每天都有人在使用 gcr.lank8s.cn 来拉取 gcr.io 的镜像,避免了墙带来的困扰,不过当需要拉取的不同的镜像多了之后可能会显得有些</description>
+      <description>⚠这个 webhook 当前已经不再推荐使用⚠ ⚠这个 webhook 当前已经不再推荐使用⚠ ⚠推荐的做法是设置镜像仓库镜像,参考 kind(containerd) 的配置⚠ 前言 lank8s.cn 已经正常运营几年了，目前可以</description>
     </item>
     
     <item>
@@ -94,7 +94,7 @@
       <pubDate>Sat, 20 Nov 2021 00:00:00 +0000</pubDate>
       
       <guid>https://liangyuanpeng.github.io/post/deploy-lank8s-webhook-for-k8s.gcr.io/</guid>
-      <description>什么是lank8s webhook 前提: 使用这项在线服务需要保证kubernetes所在的机器是联网状态. lank8s webhook是一项在线的webook服务,唯</description>
+      <description>⚠这个在线webhook当前已经不再提供使用⚠ ⚠这个在线webhook当前已经不再提供使用⚠ ⚠推荐的做法是设置镜像仓库镜像,参考 kind(containerd) 的配置⚠ 什</description>
     </item>
     
     <item>

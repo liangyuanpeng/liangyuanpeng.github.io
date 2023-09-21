@@ -26,6 +26,15 @@
     </item>
     
     <item>
+      <title>用kind搭建k8s集群环境</title>
+      <link>https://liangyuanpeng.github.io/post/run-k8s-with-kind/</link>
+      <pubDate>Sun, 12 Mar 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://liangyuanpeng.github.io/post/run-k8s-with-kind/</guid>
+      <description>前言 由于各类基于 kubernetes 的云原生实验或测试的前提都是需要一个 kubernetes 环境,而在写博客时总是需要提及使用 kind 来搭建 kubernetes 环境. 因此这里单独写一篇文章来介绍如何用</description>
+    </item>
+    
+    <item>
       <title>为containerd配置仓库镜像</title>
       <link>https://liangyuanpeng.github.io/post/registry-mirrors-for-containerd/</link>
       <pubDate>Thu, 12 Jan 2023 00:00:00 +0000</pubDate>
