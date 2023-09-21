@@ -7,7 +7,14 @@ https://liangyuanpeng.com
 
 博客使用Hugo搭建,托管于Cloudflare Pages.
 
-# git 子模块命令相关  
+# 以下博文你不会还没读过吧?
+
+- [lank8s.cn服务](https://liangyuanpeng.com/post/service-lank8s.cn/)
+- [用kind搭建k8s集群环境](https://liangyuanpeng.com/post/run-k8s-with-kind/)
+- [从零到 Kubernetes 子项目负责人](https://liangyuanpeng.com/post/from-zero-to-kubernets-subproject-lead/)
+- [K8S内置准入校验CRD参数配合lua起飞](https://liangyuanpeng.com/post/k8s-validating-admission-policy-with-crdparam-lua/)
+
+# git 子模块命令相关 记录 
 
 git clone <repository> --recursive #递归的方式克隆整个项目
 git submodule add <repository> <path> #添加子模块
@@ -25,5 +32,5 @@ git submodule status third_party/ModuleA    #查看子模块状态，即该子�
 git rm --cached ModuleA
 rm -rf moduleA
  
-git submodule set-url third_party/ModuleA https://XXX.git #，更新子模块URL，该功能在1.8.3.1以上版本
+git submodule set-url third_party/ModuleA XXX.git #，更新子模块URL，该功能在1.8.3.1以上版本
 git submodule set-branch --branch dev third_party/ModuleA   #设置子模块项目采用的分支，该功能在1.8.3.1以上版本

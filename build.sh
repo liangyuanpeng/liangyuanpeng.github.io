@@ -1,4 +1,4 @@
-#/bin/sh
+#!/bin/bash
 
 # cd content/files
 # tar -czf k8s-admissionregistration-with-cel.tar.gz k8s-admissionregistration-with-cel
@@ -26,13 +26,37 @@
 # https://github.com/kubernetes-sigs/krew/releases/download/v0.4.3/krew-darwin_arm64.tar.gz
 # ls
 
+
 if [ $BASEURL ];then
+    echo "==============begin update baseurl=============="
 	echo "BASEURL = $BASEURL"
     sed "s/#{baseurl}/$BASEURL/g" config.toml -i
     sed 's/#baseurl/baseurl/g' config.toml -i
+     echo "==============end update baseurl=============="
 else
-	echo "ORACLE IS NOT EXISTS"
+	echo "BASEURL IS NOT EXISTS"
+fi
+
+# $ORASDOWNLOAD
+if [ $BUILDINIT ];then
+	  echo "ORASURL = $ORASDOWNLOAD"
+    wget https://github.com/oras-project/oras/releases/download/v1.0.0/oras_1.0.0_linux_amd64.tar.gz
+    tar -xf oras_1.0.0_linux_amd64.tar.gz
+    mv ./oras static/ && cd static
+    pwd
+    nohup ./oras pull ghcr.io/liangyuanpeng/files:kind &
+    nohup ./oras pull ghcr.io/liangyuanpeng/files:pack &
+    ./oras pull ghcr.io/liangyuanpeng/files:krew
+    ./oras pull ghcr.io/liangyuanpeng/files:blogfiles
+    cd ..
 fi
 
 cat config.toml
+
+hugo version
+
 hugo
+
+echo "======================read env begin======================="
+env
+echo "======================read env end======================="

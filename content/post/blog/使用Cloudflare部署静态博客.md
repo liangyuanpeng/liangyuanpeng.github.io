@@ -6,8 +6,9 @@ subtitle:   "使"
 description: " "
 date:       2021-03-22
 author:     "梁远鹏"
-image: "https://res.cloudinary.com/lyp/image/upload/v1612709780/hugo/blog.github.io/pexels-matt-hardy-2568001.jpg"
+image: "/img/banner/tolgahang_The_sky_suddenly_darkened_and_lightning_struck_with_t_87bfe445-a272-486a-9961-5f424dcca429.png"
 published: true
+wipnote: true
 tags:
     - hugo
     - cloudflare
@@ -30,5 +31,3 @@ Cloudflare是一家美国公司
 # 创建站点  
 
 在登陆之后右侧菜单列表有个`网页`,点击进入到网页站点列表,点击创建
-
-# 注意 本文还处于创作阶段,将会尽快完善

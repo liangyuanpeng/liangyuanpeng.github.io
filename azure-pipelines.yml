@@ -1,0 +1,39 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+trigger:
+  branches:
+    include:
+      - source
+
+pr:
+  - "*"
+
+pool:
+  vmImage: ubuntu-latest
+
+# variables: 
+# - group: lan
+
+steps:
+- script: |
+      git submodule update --init --recursive 
+  displayName: 'Init submodule'
+  timeoutInMinutes: 10
+
+- script: |
+      wget https://github.com/gohugoio/hugo/releases/download/v0.79.1/hugo_0.79.1_Linux-64bit.tar.gz
+      tar -xf  hugo_0.79.1_Linux-64bit.tar.gz
+      ls 
+      ./hugo
+  displayName: 'hugo build'
+  timeoutInMinutes: 10
+  # env:
+  #   GH_TOKEN: $(GH_TOKEN)
+
+- script: |
+      echo "update algolia"
+  displayName: "update algolia"
+  timeoutInMinutes: 10

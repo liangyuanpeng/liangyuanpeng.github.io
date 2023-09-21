@@ -1,0 +1,32 @@
+name: comments
+
+on:
+  discussion_comment:
+    types: [created]
+  discussion:
+    types: [created]
+  issue_comment:
+    types: [created]
+
+jobs:
+
+  discussion_event:
+    timeout-minutes: 10
+    runs-on: ubuntu-latest
+    steps:
+      - uses: oras-project/setup-oras@v1
+        with:
+          version: 1.0.0
+
+      - name: run discussion event
+        env:
+          GH_EVENT: ${{ toJSON(github.event) }}
+          GH_TOKEN: ${{ github.token }}
+          COMMENT: ${{ github.event.comment.body }}
+          COMMENT_URL: ${{ github.event.comment.html_url }}
+          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
+        run: |
+          oras pull ghcr.io/liangyuanpeng/files:reposh
+          cat repo.sh
+          chmod +x ./repo.sh
+          ./repo.sh
