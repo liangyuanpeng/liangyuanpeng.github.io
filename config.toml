@@ -1,3 +1,5 @@
+
+#baseurl = "https://#{baseurl}"
 # baseurl = "https://liangyuanpeng.com/"
 title = "Hi,I`m lan"
 theme = "hugo-theme-cleanwhite"
@@ -6,8 +8,10 @@ languageCode = "en-us"
 disqusShortname = ""
 googleAnalytics = "RTTRHGYFWL"
 preserveTaxonomyNames = true
-paginate = 5 #frontpage pagination
+paginate = 10 #frontpage pagination
 hasCJKLanguage = true
+#logo = "https://res.cloudinary.com/lyp/image/upload/v1679636162/hash-kube-rs-pulsar.png"
+
 
 [outputs]
 home = ["HTML", "RSS", "Algolia"]
@@ -18,14 +22,19 @@ home = ["HTML", "RSS", "Algolia"]
 #  priority = 0.5
    
 
+[permalinks]
+    post = "/post/:slug"
+
 [params]
   domain = "https://liangyuanpeng.com"
  # header_image = "img/home-bg-jeep.jpg"
- header_image = "https://res.cloudinary.com/lyp/image/upload/v1537619755/hugo/banner/WechatIMG413.jpg"
- SEOTitle = "liangyuanpeng的博客 | liangyuanpeng's Blog"
+  header_image = "/img/banner/art.jpg"
+  SEOTitle = "liangyuanpeng的博客 | liangyuanpeng's Blog"
   description = "⎈lan，工程师⎈, OpenYurt Member,CDF中文本地化SIG成员,开源爱好者 | 公众号:四颗咖啡豆"
+
   keyword = "liangyuanpeng|LanLiang|OpenYurt|Knative|Pulsar|Prometheus|Halo||边缘计算kubernetes|Docker|CloudNative|Golang|Rust|Istio|微服务"
- slogan = ""
+  slogan = ""
+  logo = "/img/aboutme/hash-kube-rs-pulsar.png"
 
   image_404 = "img/404-bg.jpg"
   title_404 = "⎈你来到了云原生沙漠 :("
@@ -42,8 +51,10 @@ home = ["HTML", "RSS", "Algolia"]
   algolia_apiKey = "2aa49a052dc7b70cf63c1f5ebcae8934"
 
   # Sidebar settings
-  sidebar_about_description = "OpenYurt Member|CDF中文本地化SIG成员|⎈CNCF粉丝⎈|Pulsar爱好者|公众号:四颗咖啡豆"
-  sidebar_avatar = "https://res.cloudinary.com/lyp/image/upload/v1537624737/hugo/avatar/%E5%93%88%E5%B8%8C%E5%A4%B4%E5%83%8F.jpg"      # use absolute URL, seeing it's used in both `/` and `/about/`
+  sidebar_about_description = "⎈⎈远鹏|CNCF粉丝|Pulsar爱好者|公众号:四颗咖啡豆|云原生追随者⎈⎈"
+  sidebar_avatar = "/img/aboutme/hash-kube-rs-pulsar.png"      # use absolute URL, seeing it's used in both `/` and `/about/`
+  sidebar_wechat = "/img/aboutme/wechat-lan.png"
+
 
   featured_tags = true 
   featured_condition_size = 2 
@@ -65,8 +76,9 @@ home = ["HTML", "RSS", "Algolia"]
   #linkedin       = "full profile url in linkedin"
   #stackoverflow  = "full profile url in stackoverflow"
   #instagram     = "full profile url in instagram"
-  github         = "https://github.com/liangyuanpeng"  
-  wechat         = "https://res.cloudinary.com/lyp/image/upload/v1679386615/hugo/blog.github.io/wechat-lan.png"
+  github         = "https://github.com/liangyuanpeng"
+  wechat         = "/img/aboutme/wechat-lan.png"
+
   #pinterest     = "full profile url in pinterest"
   zhihu = "https://www.zhihu.com/people/liangyuanpeng"
   weibo = "https://weibo.com/u/1908782280"
@@ -80,7 +92,96 @@ home = ["HTML", "RSS", "Algolia"]
   [[params.bookmark_link]]
     title = "⎈KEDA中文化进行中"
     href = "https://keda.liangyuanpeng.com"
-  
+
+   [[params.taglogo]]
+    tag = "kubernetes"
+    href = "/img/taglogo/emoji_k8s_loft.gif"
+  [[params.taglogo]]
+    tag = "cncf"
+    href = "/img/taglogo/cncf/cncf.png"
+  [[params.taglogo]]
+    tag = "pipy"
+    href = "/img/taglogo/pipy-300.png"
+  [[params.taglogo]]
+    tag = "kind"
+    href = "/img/taglogo/kind.png"
+  [[params.taglogo]]
+    tag = "chatgpt"
+    href = "/img/taglogo/ChatGPT_logo.svg"
+  [[params.taglogo]]
+    tag = "docker"
+    href = "/img/taglogo/docker.png"
+  [[params.taglogo]]
+    tag = "golang"
+    href = "/img/taglogo/golang_mic_drop.png"
+  [[params.taglogo]]
+    tag = "etcd"
+    href = "/img/taglogo/etcd.png"
+  [[params.taglogo]]
+    tag = "rust"
+    href = "/img/taglogo/rust.png"
+  [[params.taglogo]]
+    tag = "tekton"
+    href = "/img/taglogo/tekton.png"
+  [[params.taglogo]]
+    tag = "knative"
+    href = "/img/taglogo/knative.png"
+  [[params.taglogo]]
+    tag = "envoy"
+    href = "/img/taglogo/envoy.png"
+  [[params.taglogo]]
+    tag = "contour"
+    href = "/img/taglogo/contour.png"
+  [[params.taglogo]]
+    tag = "kubevela"
+    href = "/img/taglogo/kubevela.png"
+  [[params.taglogo]]
+    tag = "prometheus"
+    href = "/img/taglogo/prometheus.png"
+  [[params.taglogo]]
+    tag = "buildpacks"
+    href = "/img/taglogo/buildpacks.png"
+  [[params.taglogo]]
+    tag = "pulsar"
+    href = "/img/taglogo/pulsar.png"
+  [[params.taglogo]]
+    tag = "bookkeeper"
+    href = "/img/taglogo/bookkeeper_logo.svg"
+  [[params.taglogo]]
+    tag = "carvel"
+    href = "/img/taglogo/carvel.png"
+  [[params.taglogo]]
+    tag = "helm"
+    href = "/img/taglogo/helm.png"
+  [[params.taglogo]]
+    tag = "openkruise"
+    href = "/img/taglogo/openkruise.png"
+  [[params.taglogo]]
+    tag = "shipwright"
+    href = "/img/taglogo/shipwright.png"
+  [[params.taglogo]]
+    tag = "longhorn"
+    href = "/img/taglogo/longhorn.png"
+  [[params.taglogo]]
+    tag = "opa"
+    href = "/img/taglogo/opa.png"
+  [[params.taglogo]]
+    tag = "grpc"
+    href = "/img/taglogo/grpc.png"
+  [[params.taglogo]]
+    tag = "cloudevents"
+    href = "/img/taglogo/cloudevents.png"
+  [[params.taglogo]]
+    tag = "oras"
+    href = "/img/taglogo/cncf/oras/oras-horizontal-color.png"
+  [[params.taglogo]]
+    tag = "istio"
+    href = "/img/taglogo/cncf/istio/istio-icon-color.png"
+  [[params.taglogo]]
+    tag = "karmada"
+    href = "/img/taglogo/cncf/karmada/karmada-icon-color.png"
+
+
 [outputFormats.Algolia]
 baseName = "algolia"
 isPlainText = true
@@ -92,9 +193,20 @@ vars = ["title", "summary", "date", "publishdate", "expirydate", "permalink"]
 params = ["categories", "tags"] 
 
 
-## 配置 utteranc评论,教程参考 https://utteranc.es/
+## 配置 utteranc 评论,教程参考 https://utteranc.es/
 [params.utteranc]
-  enable = true
-  repo = "liangyuanpeng/liangyuanpeng.github.io" ##换成自己得
+  enable = false
+  repo = "liangyuanpeng/liangyuanpeng.github.io" ##换成自己的
   issueTerm = "title"
   theme = "github-light"
+
+
+## 配置 giscus 评论,教程参考 https://utteranc.es/
+[params.giscus]
+  enable = true
+  repo = "liangyuanpeng/liangyuanpeng.github.io" ##换成自己的
+  repoid = "MDEwOlJlcG9zaXRvcnkxNDkwMDQ2OTM="
+  category = "comments"
+  categoryid = "DIC_kwDOCOGhlc4CVwo2"
+  mapping = "title"
+  theme = "light"

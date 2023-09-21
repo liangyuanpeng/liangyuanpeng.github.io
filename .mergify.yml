@@ -1,0 +1,62 @@
+pull_request_rules:
+
+  - name: automatic approval for ci
+    conditions:
+      - check-success==ci
+    actions:
+      review:
+        type: APPROVE
+        message: Automatically approving when ci is passed
+
+  - name: automatic approval for imgbot pull requests
+    conditions:
+      - author=imgbot[bot]
+    actions:
+      review:
+        type: APPROVE
+        message: Automatically approving imgbot
+      label:
+        add:
+          - approved
+
+
+  # 冲突时在PR添加一条冲突的comment并且添加 conflict 的 label
+  - name: warn on conflicts
+    conditions:
+      - conflict
+    actions:
+      comment:
+        message: "@{{author}} this pull request is now in conflict 😩"
+      label:
+        add:
+          - conflict
+  # 不冲突时删除 conflict label
+  - name: remove conflict label if not needed
+    conditions:
+      - -conflict
+    actions:
+      label:
+        remove:
+          - conflict
+
+  - name: merge when approved
+    conditions:
+    - label=approved
+    actions:
+      merge:
+        method: merge
+
+  # 如果是 imgbot 提交的 PR 自动合并
+  # - name: Automatic merge for imgbot
+  #   conditions:
+  #     - author=imgbot[bot]
+  #   actions:
+  #     merge:
+  #       method: merge
+
+  # PR合并时自动删除branch
+  - name: delete head branch after merge
+    conditions:
+      - merged
+    actions:
+      delete_head_branch:

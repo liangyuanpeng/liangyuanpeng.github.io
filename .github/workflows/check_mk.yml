@@ -1,0 +1,39 @@
+name: Check Markdown links
+
+on:
+  push:
+    branches:
+    - source
+
+  # schedule:
+  # # Run everyday at 9:00 AM (See https://pubs.opengroup.org/onlinepubs/9699919799/utilities/crontab.html#tag_20_25_07)
+  # - cron: "0 3,4,5,6,7,8,9,10,11 * * *"
+
+jobs:
+  markdown-link-check:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - uses: gaurav-nelson/github-action-markdown-link-check@v1
+      with:
+        use-quiet-mode: 'yes'
+        use-verbose-mode: 'yes'
+        # config-file: 'mlc_config.json'
+        # folder-path: 'docs/markdown_files'
+
+  prints:
+    runs-on: ubuntu-latest
+    steps:
+    - name: print1
+      if: github.event.schedule != ''
+      run: |
+        echo "this is a schedule action"
+
+    - name: print2
+      run: |
+        echo ${{ github.event }}
+
+    - name: print3
+      run: |
+        echo ${{ toJSON(github.event) }}
+        
