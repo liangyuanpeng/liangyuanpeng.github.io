@@ -11,7 +11,7 @@ published: false
 tags:
     - cdf
     - shipwright
-categories: [ CLOUDNATIVE ]
+categories: [ cloudnative ]
 ---    
 
 # 什么是shipwright

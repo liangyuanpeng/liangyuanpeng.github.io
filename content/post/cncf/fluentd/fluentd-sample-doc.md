@@ -7,7 +7,7 @@ description: "Fluentd是一个开源的日志统一处理数据收集器,非常�
 date:       2020-02-14
 author:     "梁远鹏"
 image: "https://res.cloudinary.com/lyp/image/upload/v1581649210/hugo/blog.github.io/blur-close-up-code-computer-546819.jpg"
-published: true
+published: false
 wipnote: true
 tags: 
     - docker
@@ -31,4 +31,4 @@ Fluentd 是用于统一日志记录层的开源数据收集器,是继 Kubernetes
 实验主要以 docker 进行环境搭建,所以需要提前准备好 docker
 
 
-## fluent.conf文件编写    
+## fluent.conf文件编写  

@@ -27,6 +27,7 @@ docker 默认的日志驱动是[json-file](https://docs.docker.com/config/contai
 
 Fluentd 是用于统一日志记录层的开源数据收集器,是继 Kubernetes、Prometheus、Envoy 、CoreDNS 和 Containerd 后的第6个 CNCF 毕业项目,常用来对比的是 elasticsearch 的 logstash,相对而言 fluentd 更加轻量灵活,现在发展非常迅速社区很活跃,在编写这篇 blog 的时候 github 的 star 是8.8k,fork 是 1k 就可见一斑.
 
+
 # 前提
 
 1. [docker](https://www.docker.com/get-started)  
@@ -37,6 +38,7 @@ Fluentd 是用于统一日志记录层的开源数据收集器,是继 Kubernetes
 
 
 docker-compose.yml  
+
 ```yaml
 version: '3.7'
 
@@ -112,6 +114,7 @@ fluentd.conf
 </match>
 ```  
 
+
 由于 fluentd 需要在配置的目录中有写入的权限,所以需要先准备好存放 log 的目录以及给予权限.  
 创建目录
 ```shell
@@ -156,6 +159,7 @@ buffer.b59ea0804f0c1f8b6206cf76aacf52fb0.log  buffer.b59ea0804f0c1f8b6206cf76aac
 
 ## 架构总结  
 
+
 ### 为什么不用 docker 的原始日志呢?  
 
 我们先看一下原始的 docker 日志是怎么样一个架构:  
@@ -178,8 +182,10 @@ docker会在本机的`/var/lib/docker/containers/containerID/containerID-json.lo
 
 fluentd 实际上可以将收集到的日志再次传输出去,例如传输到 elasticsearch 等存储软件中:  
 
+
 ![https://res.cloudinary.com/lyp/image/upload/v1581787532/hugo/blog.github.io/fluentd/docker-log-driver-art.jpg](https://res.cloudinary.com/lyp/image/upload/v1581787532/hugo/blog.github.io/fluentd/docker-log-driver-art.jpg)  
 
 ### fluentd灵活性  
 
 fluentd 能做的事情还有很多,fluentd 本身能作为传输节点也能作为接受节点,还能够过滤特定日志,格式化特定内容的日志,将匹配的特定日志再次传输出去,这里只是做到一个简单的收集docker容器日志的效果.
+

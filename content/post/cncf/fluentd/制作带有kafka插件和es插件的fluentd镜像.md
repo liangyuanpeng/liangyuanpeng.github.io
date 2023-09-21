@@ -23,6 +23,7 @@ categories:
 
 Fluentd 是用于统一日志记录层的开源数据收集器,是继 Kubernetes、Prometheus、Envoy 、CoreDNS 和 containerd 后的第6个 CNCF 毕业项目,常用来对比的是 elasticsearch 的 logstash,相对而言 fluentd 更加轻量灵活,现在发展非常迅速社区很活跃,在编写这篇 blog 的时候 github 的 star 是8.8k, fork 是1k就可见一斑.
 
+
 # 前提
 
 1. [docker](https://www.docker.com/get-started)  
@@ -64,6 +65,7 @@ fluent.conf
 ```  
 
 
+
 以版本为v1.3.2的 fluentd 镜像为基础镜像,由于fluentd的处理层扩展是以插件的方式进行扩展,所以在制作这个镜像时需要安装对应的 kafka 插件和elasticsearch 插件.  
 这里 kafka 的 fluentd 插件版本为 0.12.3,elasticsearch 的 fluentd 插件版本为4.0.3.  
 
@@ -89,3 +91,4 @@ docker run -it -v {存放fluent.conf的目录}:/etc/fluent -d fluentd-es-kafka:v
 ```
 
 发一个已经制作完成的镜像:`lypgcs/fluentd-es-kafka:v1.3.2`
+
