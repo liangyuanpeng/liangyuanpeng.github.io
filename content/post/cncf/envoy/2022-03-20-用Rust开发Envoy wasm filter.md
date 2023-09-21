@@ -116,3 +116,4 @@ impl Default for SampleHttpFilterConfig {
 目前 https://github.com/tetratelabs/envoy-wasm-rust-sdk 不再维护,将尝试从 https://github.com/proxy-wasm/proxy-wasm-rust-sdk 开始示例。
 
 到目前为止,我们使用Rust开发了一个支持参数配置的envoy wasm filter.
+
