@@ -16,6 +16,13 @@ tags:
 categories: [ kubernetes ]
 ---
 
+# ⚠这个在线webhook当前已经不再提供使用⚠
+
+⚠这个在线webhook当前已经不再提供使用⚠
+
+⚠推荐的做法是设置镜像仓库镜像,参考 [kind(containerd) 的配置](https://liangyuanpeng.com/post/cncf-kubernetes/run-k8s-with-kind/#%E5%90%84%E7%B1%BB%E7%8E%AF%E5%A2%83%E7%9A%84%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6)⚠
+
+
 # 什么是lank8s webhook  
 
 前提: 使用这项在线服务需要保证kubernetes所在的机器是联网状态.
@@ -57,3 +64,5 @@ webhooks:
 - 请不要将这项服务使用在线上环境(防止发生未知事故),在开发环境和测试环境愉快使用.  
 - 很快会开源webhook并且手把手教你部署在本地集群,线上环境应将webhook部署在集群内.
 - 当前lank8s webhook只对`Deployment`有效,很快将会对`Daemonsets`和`Statefulsets`提供支持.
+
+

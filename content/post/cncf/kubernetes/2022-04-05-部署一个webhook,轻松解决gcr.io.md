@@ -15,6 +15,13 @@ tags:
 categories: [ kubernetes ]
 ---
 
+# ⚠这个 webhook 当前已经不再推荐使用⚠
+
+⚠这个 webhook 当前已经不再推荐使用⚠
+
+⚠推荐的做法是设置镜像仓库镜像,参考 [kind(containerd) 的配置](https://liangyuanpeng.com/post/cncf-kubernetes/run-k8s-with-kind/#%E5%90%84%E7%B1%BB%E7%8E%AF%E5%A2%83%E7%9A%84%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6)⚠
+
+
 # 前言  
 
 `lank8s.cn` 已经正常运营几年了，目前可以看到每天都有人在使用 `gcr.lank8s.cn` 来拉取 `gcr.io` 的镜像,避免了墙带来的困扰,不过当需要拉取的不同的镜像多了之后可能会显得有些繁琐，每次都需要手动的将 `gcr.io` 修改为 `gcr.lank8s.cn` ,作为软件工程师那必须懂得为自己减少不必要的工作量,于是 `replacer` 这个 Mutating Webhook 就出现了.
