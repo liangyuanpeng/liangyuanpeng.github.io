@@ -143,6 +143,15 @@
     </item>
     
     <item>
+      <title>快速开始Envoy-gateway</title>
+      <link>https://liangyuanpeng.github.io/post/quickstart-with-envoy-gateway/</link>
+      <pubDate>Thu, 02 Mar 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://liangyuanpeng.github.io/post/quickstart-with-envoy-gateway/</guid>
+      <description>https://github.com/envoyproxy/gateway https://gateway.envoyproxy.io/v0.3.0/user/quickstart.html kubectl apply -f https://github.com/envoyproxy/gateway/releases/download/v0.3.0/install.yaml kubectl wait --timeout=5m -n envoy-gateway-system deployment/envoy-gateway --for=condition=Available kubectl apply -f https://github.com/envoyproxy/gateway/releases/download/v0.3.0/quickstart.yaml export ENVOY_SERVICE=$(kubectl get svc -n envoy-gateway-system --selector=gateway.envoyproxy.io/owning-gateway-namespace=default,gateway.envoyproxy.io/owning-gateway-name=eg -o jsonpath=&amp;#39;{.items[0].metadata.name}&amp;#39;) kubectl -n envoy-gateway-system port-forward service/${ENVOY_SERVICE} 8888:80 curl --verbose --header &amp;#34;Host: www.example.com&amp;#34; http://localhost:8888/get lan@lan:~/server/kind$ curl --verbose --header &amp;#34;Host: www.example.com&amp;#34; http://localhost:8888/get * Trying 127.0.0.1:8888... * TCP_NODELAY set * Connected to localhost (127.0.0.1) port 8888 (#0) &amp;gt; GET /get HTTP/1.1 &amp;gt; Host: www.example.com &amp;gt; User-Agent: curl/7.68.0 &amp;gt;</description>
+    </item>
+    
+    <item>
       <title>Contour-1.24.0发布</title>
       <link>https://liangyuanpeng.github.io/post/contour-1.24.0-release/</link>
       <pubDate>Sun, 26 Feb 2023 00:00:00 +0000</pubDate>
@@ -230,6 +239,15 @@
       
       <guid>https://liangyuanpeng.github.io/post/rust-project-in-cncf/</guid>
       <description>介绍 本文会介绍在 CNCF 中的 Rust 项目,项目的介绍可能是很简陋的,如果你可以帮忙完善一下项目的介绍,那就太好了,随时欢迎在评论区或网站仓库提交 PR. 项目列</description>
+    </item>
+    
+    <item>
+      <title>将热更新configmap作为Envoy的XDS服务</title>
+      <link>https://liangyuanpeng.github.io/post/envoy-file-xds-with-reload-configmap/</link>
+      <pubDate>Sat, 22 Jan 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://liangyuanpeng.github.io/post/envoy-file-xds-with-reload-configmap/</guid>
+      <description>在使用 Envoy 的过程中时常会需要对接 XDS 用作流量的动态管理，那么如何以低成本的方式实现这个效果呢? ConfigMap 你值得拥有,本质上还是使用文件作为 Envoy 的 XDS 服务实现</description>
     </item>
     
     <item>

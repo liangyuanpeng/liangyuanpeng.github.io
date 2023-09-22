@@ -3104,7 +3104,7 @@
 
 
 <div class="post-preview">
-    <a href="https://liangyuanpeng.github.io/post/contour-1.24.0-release/">
+    <a href="https://liangyuanpeng.github.io/post/quickstart-with-envoy-gateway/">
         <h2 class="post-title">
 
             
@@ -3116,9 +3116,11 @@
                     
                 
                     
+                    <img style="display:inline-block;" src="/img/taglogo/emoji_k8s_loft.gif" height="20" width="20" />
+                    
                 
                     
-                    <img style="display:inline-block;" src="/img/taglogo/emoji_k8s_loft.gif" height="20" width="20" />
+                
                     
                 
             
@@ -3133,27 +3135,11 @@
                 
                     
                 
-            
-                
-                    
-                
-                    
-                
-                    
-                
                     
                 
             
                 
                     
-                
-                    
-                
-                    
-                
-                    
-                
-            
                 
                     
                 
@@ -3173,27 +3159,11 @@
                 
                     
                 
-            
-                
-                    
-                
-                    
-                
-                    
-                
                     
                 
             
                 
                     
-                
-                    
-                
-                    
-                
-                    
-                
-            
                 
                     
                 
@@ -3213,39 +3183,11 @@
                 
                     
                 
-            
-                
-                    
-                
-                    
-                
-                    
-                
                     
                 
             
                 
                     
-                
-                    
-                
-                    
-                
-                    
-                
-            
-                
-                    
-                
-                    
-                
-                    
-                    <img style="display:inline-block;" src="/img/taglogo/contour.png" height="20" width="20" />
-                    
-                
-                    
-                
-            
                 
                     
                 
@@ -3265,27 +3207,11 @@
                 
                     
                 
-            
-                
-                    
-                
-                    
-                
-                    
-                
                     
                 
             
                 
                     
-                
-                    
-                
-                    
-                
-                    
-                
-            
                 
                     
                 
@@ -3305,14 +3231,6 @@
                 
                     
                 
-            
-                
-                    
-                
-                    
-                
-                    
-                
                     
                 
             
@@ -3325,17 +3243,13 @@
                 
                     
                 
-            
-                
-                    
-                
-                    
-                
-                    
-                
                     
                 
             
+                
+                    
+                    <img style="display:inline-block;" src="/img/taglogo/envoy.png" height="20" width="20" />
+                    
                 
                     
                 
@@ -3355,27 +3269,11 @@
                 
                     
                 
-            
-                
-                    
-                
-                    
-                
-                    
-                
                     
                 
             
                 
                     
-                
-                    
-                
-                    
-                
-                    
-                
-            
                 
                     
                 
@@ -3395,7 +3293,167 @@
                 
                     
                 
+                    
+                
             
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
                 
                     
                 
@@ -3407,19 +3465,18 @@
                 
             
 
-            Contour-1.24.0发布
+            快速开始Envoy-gateway
         </h2>
         
 	
         <div class="post-content-preview">
 	
-            Contour-1.24.0发布
-            
-        
+            https://github.com/envoyproxy/gateway https://gateway.envoyproxy.io/v0.3.0/user/quickstart.html kubectl apply -f https://github.com/envoyproxy/gateway/releases/download/v0.3.0/install.yaml kubectl wait --timeout=5m -n envoy-gateway-system deployment/envoy-gateway --for=condition=Available kubectl apply -f https://github.com/envoyproxy/gateway/releases/download/v0.3.0/quickstart.yaml export ENVOY_SERVICE=$(kubectl get svc -n envoy-gateway-system --selector=gateway.envoyproxy.io/owning-gateway-namespace=default,gateway.envoyproxy.io/owning-gateway-name=eg -o jsonpath=&#39;{.items[0].metadata.name}&#39;) kubectl -n envoy-gateway-system port-forward service/${ENVOY_SERVICE} 8888:80 curl --verbose --header &#34;Host: www.example.com&#34; http://localhost:8888/get lan@lan:~/server/kind$ curl --verbose --header &#34;Host: www.example.com&#34; http://localhost:8888/get * Trying 127.0.0.1:8888... * TCP_NODELAY set * Connected to localhost (127.0.0.1) port 8888 (#0) &gt; GET /get HTTP/1.1 &gt; Host: www.example.com &gt; User-Agent: curl/7.68.0 &gt;
+       
         </div>
     </a>
     <p class="post-meta">
-    Posted by 梁远鹏 2023-02-26 
+    Posted by 梁远鹏 2023-03-02 
     </p>
 </div>
 <hr>
@@ -3724,6 +3781,8 @@
                  
              
                  
+             
+                 
                      <a href="/tags/fluentd" title="fluentd">
                          fluentd
                      </a>
@@ -3774,10 +3833,6 @@
                  
              
                  
-                     <a href="/tags/image" title="image">
-                         image
-                     </a>
-                 
              
                  
              
@@ -3803,6 +3858,8 @@
                      <a href="/tags/k8s" title="k8s">
                          k8s
                      </a>
+                 
+             
                  
              
                  

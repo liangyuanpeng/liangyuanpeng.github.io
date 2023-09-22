@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>envoy-gateway on Hi,I`m lan</title>
+    <link>https://liangyuanpeng.github.io/tags/envoy-gateway/</link>
+    <description>Recent content in envoy-gateway on Hi,I`m lan</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Thu, 02 Mar 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://liangyuanpeng.github.io/tags/envoy-gateway/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>快速开始Envoy-gateway</title>
+      <link>https://liangyuanpeng.github.io/post/quickstart-with-envoy-gateway/</link>
+      <pubDate>Thu, 02 Mar 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://liangyuanpeng.github.io/post/quickstart-with-envoy-gateway/</guid>
+      <description>https://github.com/envoyproxy/gateway https://gateway.envoyproxy.io/v0.3.0/user/quickstart.html kubectl apply -f https://github.com/envoyproxy/gateway/releases/download/v0.3.0/install.yaml kubectl wait --timeout=5m -n envoy-gateway-system deployment/envoy-gateway --for=condition=Available kubectl apply -f https://github.com/envoyproxy/gateway/releases/download/v0.3.0/quickstart.yaml export ENVOY_SERVICE=$(kubectl get svc -n envoy-gateway-system --selector=gateway.envoyproxy.io/owning-gateway-namespace=default,gateway.envoyproxy.io/owning-gateway-name=eg -o jsonpath=&amp;#39;{.items[0].metadata.name}&amp;#39;) kubectl -n envoy-gateway-system port-forward service/${ENVOY_SERVICE} 8888:80 curl --verbose --header &amp;#34;Host: www.example.com&amp;#34; http://localhost:8888/get lan@lan:~/server/kind$ curl --verbose --header &amp;#34;Host: www.example.com&amp;#34; http://localhost:8888/get * Trying 127.0.0.1:8888... * TCP_NODELAY set * Connected to localhost (127.0.0.1) port 8888 (#0) &amp;gt; GET /get HTTP/1.1 &amp;gt; Host: www.example.com &amp;gt; User-Agent: curl/7.68.0 &amp;gt;</description>
+    </item>
+    
+  </channel>
+</rss>

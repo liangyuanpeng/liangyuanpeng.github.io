@@ -422,6 +422,26 @@
   </url>
   
   <url>
+    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/tags/envoy/</loc>
+    <lastmod>2023-03-02T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/tags/envoy-gateway/</loc>
+    <lastmod>2023-03-02T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/tags/k8s-gateway-api/</loc>
+    <lastmod>2023-03-02T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/post/quickstart-with-envoy-gateway/</loc>
+    <lastmod>2023-03-02T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/tags/contour/</loc>
     <lastmod>2023-02-26T00:00:00+00:00</lastmod>
   </url>
@@ -453,11 +473,6 @@
   
   <url>
     <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/tags/apisix/</loc>
-    <lastmod>2023-02-20T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/tags/envoy/</loc>
     <lastmod>2023-02-20T00:00:00+00:00</lastmod>
   </url>
   
@@ -618,6 +633,11 @@
   
   <url>
     <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/tags/xds/</loc>
+    <lastmod>2022-01-22T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/post/envoy-file-xds-with-reload-configmap/</loc>
     <lastmod>2022-01-22T00:00:00+00:00</lastmod>
   </url>
   
@@ -1344,11 +1364,6 @@
   <url>
     <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/post/fluentd-plugin-kafka/</loc>
     <lastmod>2020-02-15T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/post/fluentd-quickstart/</loc>
-    <lastmod>2020-02-14T00:00:00+00:00</lastmod>
   </url>
   
   <url>

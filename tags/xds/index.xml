@@ -13,6 +13,15 @@
       <pubDate>Sat, 22 Jan 2022 00:00:00 +0000</pubDate>
       
       <guid>https://liangyuanpeng.github.io/post/envoy-file-xds-with-reload-configmap/</guid>
+      <description>在使用 Envoy 的过程中时常会需要对接 XDS 用作流量的动态管理，那么如何以低成本的方式实现这个效果呢? ConfigMap 你值得拥有,本质上还是使用文件作为 Envoy 的 XDS 服务实现</description>
+    </item>
+    
+    <item>
+      <title>将热更新configmap作为Envoy的XDS服务</title>
+      <link>https://liangyuanpeng.github.io/post/envoy-file-xds-with-reload-configmap/</link>
+      <pubDate>Sat, 22 Jan 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://liangyuanpeng.github.io/post/envoy-file-xds-with-reload-configmap/</guid>
       <description>前言 由于实验基于 kubernetes,因此你首先需要有一个 kubernetes 环境,这里推荐使用 Kind 命令来搭建.见用kind搭建k8s集群环境 前提 kubernetes 为什么选择c</description>
     </item>
     
