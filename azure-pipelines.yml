@@ -6,10 +6,10 @@
 trigger:
   branches:
     include:
-      - source
+      - disabled
 
-pr:
-  - "*"
+# pr:
+#   - "*"
 
 pool:
   vmImage: ubuntu-latest
