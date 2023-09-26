@@ -6,7 +6,7 @@ subtitle:   "Simplified approach for building container images, built on Tekton"
 description: "基于 Tekton 构建容器镜像的简单方法"
 date:       2021-08-04
 author:     "梁远鹏"
-image: "https://res.cloudinary.com/lyp/image/upload/v1612709780/hugo/blog.github.io/pexels-matt-hardy-2568001.jpg"
+image: "/img/banner/743a4e9227e1f14cb24a1eb6db29e183.jpg"
 published: true
 tags:
     - cdf 

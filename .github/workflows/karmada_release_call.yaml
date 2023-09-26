@@ -1,0 +1,52 @@
+name: call karmada release
+
+on:
+  push:
+    branches: [ karmada ]
+
+jobs:
+
+  get_date:
+    name: get date
+    runs-on: ubuntu-20.04
+    outputs:
+      today: ${{ steps.outputdate.outputs.today }}
+      hello: ${{ steps.outputdate.outputs.hello }}
+    steps:
+      - name: outputdate
+        id: outputdate
+        run: |
+          DATE_TODAY=`date "+%Y%m%d"`
+          echo "today=$DATE_TODAY" >> "$GITHUB_OUTPUT"
+          echo "hello=world" >> "$GITHUB_OUTPUT"
+
+  print_date:
+    name: print output
+    runs-on: ubuntu-20.04
+    needs: get_date
+    steps:
+      # TODO call github action to run
+      - name: print output
+        run: |
+          echo ${{needs.get_date.outputs.today}}
+          echo ${{needs.get_date.outputs.hello}}
+
+  call_karmada_release:
+    uses: liangyuanpeng/lanactions/.github/workflows/karmada_release.yaml@pulsar
+    needs: get_date
+    with:
+      tag: ${{needs.get_date.outputs.today}}
+    secrets:
+      DOCKERHUB_USER_NAME: ${{ secrets.DOCKERHUB_USER_NAME }}
+      DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
+
+  call_karmada_release_latest:
+      uses: liangyuanpeng/lanactions/.github/workflows/karmada_release.yaml@pulsar
+      with:
+        tag: latest
+      secrets:
+        DOCKERHUB_USER_NAME: ${{ secrets.DOCKERHUB_USER_NAME }}
+        DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
+        
+        
+

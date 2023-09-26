@@ -2,16 +2,28 @@ name: labelaction
 
 on:
   issue_comment:
+  issues:
+    types: opened
 
 jobs:
 
   add_label:
-    if: github.event.issue.login == 'liangyuanpeng'
+    # TODO only work for PR
+    if: github.event.comment.user.login == 'liangyuanpeng'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
       - uses: actions-ecosystem/action-add-labels@v1
-        if: ${{ startsWith(github.event.comment.body, '/approved') }}
+        if: ${{ startsWith(github.event.comment.body, '/approve') }}
         with:
           labels: approved
-          github_token: ${{ secrets.TOKEN }}
+
+  add_label_from_issue:
+    if: github.event.issue.user.login == 'liangyuanpeng'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions-ecosystem/action-add-labels@v1
+        if: ${{ startsWith(github.event.issue.body, '/approve') }}
+        with:
+          labels: approved

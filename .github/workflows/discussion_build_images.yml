@@ -1,0 +1,25 @@
+name: build_from_comments
+
+on:
+  # discussion_comment:
+  #   types: [created]
+  push:
+    branches: [ disable ]
+
+jobs:
+
+  discussion_comment_check:
+    timeout-minutes: 10
+    runs-on: ubuntu-latest
+    steps:
+      # - uses: actions/checkout@v3
+      #   with:
+      #     repository: "kubernetes/kubernetes"
+      #     fetch-depth: 1
+
+      - name: run discussion check
+        env:
+          GH_EVENT: ${{ toJSON(github.event) }}
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          echo hello

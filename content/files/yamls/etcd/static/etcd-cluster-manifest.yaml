@@ -1,0 +1,27 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  creationTimestamp: null
+  name: etcd-manifest-init
+  namespace: kube-system
+spec:
+  containers:
+    - name: busybox
+      image: busybox:1.34.0
+      imagePullPolicy: IfNotPresent
+      resources:
+        requests:
+          cpu: 1m
+      volumeMounts:
+        - name: manifests
+          mountPath: /manifests
+      command:
+        - /bin/sh
+        - -c
+        - wget https://liangyuanpeng.com/etcd/static/etcd1.yaml && wget https://liangyuanpeng.com/etcd/static/etcd2.yaml && wget https://liangyuanpeng.com/etcd/static/etcd3.yaml && mv *.yaml /manifests/ && ls && sleep 99999
+  volumes:
+    - hostPath:
+        path: /etc/kubernetes/manifests
+        type: DirectoryOrCreate
+      name: manifests
+status: {}

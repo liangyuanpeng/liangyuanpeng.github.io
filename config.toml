@@ -28,15 +28,16 @@ home = ["HTML", "RSS", "Algolia"]
 [params]
   domain = "https://liangyuanpeng.com"
  # header_image = "img/home-bg-jeep.jpg"
- header_image = "/img/banner/art.jpg"
- SEOTitle = "远鹏的博客 | liangyuanpeng's Blog"
-  description = "lan，工程师⎈,远鹏|CNCF粉丝|Pulsar爱好者|公众号:四颗咖啡豆|云原生追随者"
+  header_image = "/img/banner/art.jpg"
+  SEOTitle = "liangyuanpeng的博客 | liangyuanpeng's Blog"
+  description = "⎈lan，工程师⎈, OpenYurt Member,CDF中文本地化SIG成员,开源爱好者 | 公众号:四颗咖啡豆"
+
   keyword = "liangyuanpeng|LanLiang|OpenYurt|Knative|Pulsar|Prometheus|Halo||边缘计算kubernetes|Docker|CloudNative|Golang|Rust|Istio|微服务"
- slogan = ""
+  slogan = ""
   logo = "/img/aboutme/hash-kube-rs-pulsar.png"
 
   image_404 = "img/404-bg.jpg"
-  title_404 = "你来到了云原生沙漠 :("
+  title_404 = "⎈你来到了云原生沙漠 :("
 
   # leancloud storage for page view counter
   page_view_conter = true
@@ -77,6 +78,7 @@ home = ["HTML", "RSS", "Algolia"]
   #instagram     = "full profile url in instagram"
   github         = "https://github.com/liangyuanpeng"
   wechat         = "/img/aboutme/wechat-lan.png"
+
   #pinterest     = "full profile url in pinterest"
   zhihu = "https://www.zhihu.com/people/liangyuanpeng"
   weibo = "https://weibo.com/u/1908782280"
@@ -88,7 +90,7 @@ home = ["HTML", "RSS", "Algolia"]
     title = "Awesome Service Mesh"
     href = "https://servicemesh.gitbooks.io/awesome-servicemesh"
   [[params.bookmark_link]]
-    title = "KEDA中文化进行中"
+    title = "⎈KEDA中文化进行中"
     href = "https://keda.liangyuanpeng.com"
 
    [[params.taglogo]]

@@ -7,7 +7,7 @@ description: "在云原生时代,每时每刻都有metrics被prometheus定时抓
 date:       2021-03-11
 # date: {{ dateFormat "2006-01-02" .Date }}
 author:     "梁远鹏"
-image: "https://res.cloudinary.com/lyp/image/upload/v1544363191/hugo/blog.github.io/743a4e9227e1f14cb24a1eb6db29e183.jpg"
+image: "/img/banner-pexels.jpg"
 published: false
 tags:
     - metrics
