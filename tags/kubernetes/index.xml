@@ -125,15 +125,6 @@
     </item>
     
     <item>
-      <title>用kind搭建k8s集群环境</title>
-      <link>https://liangyuanpeng.github.io/post/run-k8s-with-kind/</link>
-      <pubDate>Sun, 12 Mar 2023 00:00:00 +0000</pubDate>
-      
-      <guid>https://liangyuanpeng.github.io/post/run-k8s-with-kind/</guid>
-      <description>前言 由于各类基于 kubernetes 的云原生实验或测试的前提都是需要一个 kubernetes 环境,而在写博客时总是需要提及使用 kind 来搭建 kubernetes 环境. 因此这里单独写一篇文章来介绍如何用</description>
-    </item>
-    
-    <item>
       <title>flomesh-ingress浅试</title>
       <link>https://liangyuanpeng.github.io/post/flomesh-ingress-quickstart/</link>
       <pubDate>Fri, 03 Mar 2023 00:00:00 +0000</pubDate>
@@ -266,15 +257,6 @@
       
       <guid>https://liangyuanpeng.github.io/post/k8s-cd-argo-deploy/</guid>
       <description>部署Argo CD 安装Argo CD kubectl create namespace argocd kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml 如果下载访问有问题可以改一下地址,是我个人学习使用的一个代理 github 文件的下载地址.将raw.gi</description>
-    </item>
-    
-    <item>
-      <title>kubernetes常见问题</title>
-      <link>https://liangyuanpeng.github.io/post/kubernetes-qa/</link>
-      <pubDate>Tue, 18 Jan 2022 00:00:00 +0000</pubDate>
-      
-      <guid>https://liangyuanpeng.github.io/post/kubernetes-qa/</guid>
-      <description>声明 本文会持续的更新,将在使用 kubernetes 过程中遇到的问题都收集起来.欢迎投稿加入你遇到的问题. 可以在下方的联系方式中找到我的微信,对你加我微信表示欢</description>
     </item>
     
     <item>

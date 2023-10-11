@@ -13,7 +13,7 @@
       <pubDate>Mon, 08 May 2023 00:00:00 +0000</pubDate>
       
       <guid>https://liangyuanpeng.github.io/post/list-of-source-with-pulsar/</guid>
-      <description>说明 之前研究过一些 pulsar 源码，无奈时间问题都中断了，这里列出一些研究入口给希望研究 pulsar 源码的同学。 对于交流持非常欢迎态度！可以微信联系我也可以在下</description>
+      <description>说明 之前研究过一些 Apache Pulsar 源码，无奈时间问题都中断了，这里列出一些研究入口给希望研究 Apache Pulsar 源码的同学。 对于交流持非常欢迎态度！可以微信联系我也可以</description>
     </item>
     
     <item>
@@ -67,7 +67,7 @@
       <pubDate>Tue, 04 May 2021 00:00:00 +0000</pubDate>
       
       <guid>https://liangyuanpeng.github.io/post/question-list-of-pulsar/</guid>
-      <description>说明 本文主要收集 apache pulsar 遇到的一些常见问题,欢迎对本文进行投稿你认为好的场景或问题. 升级 pulsar 客户端 sdk 从 pulsar2.10/pulsar2.11 的 sdk 升级到 pulsar 3.0.0 时由于不是全部组件都升级到统</description>
+      <description>说明 本文主要收集 apache pulsar 遇到的一些常见问题,欢迎对本文进行投稿你认为好的场景或问题或是一个实践. 升级 pulsar 客户端 sdk 从 pulsar2.10/pulsar2.11 的 sdk 升级到 pulsar 3.0.0 时由于不是全部组</description>
     </item>
     
     <item>

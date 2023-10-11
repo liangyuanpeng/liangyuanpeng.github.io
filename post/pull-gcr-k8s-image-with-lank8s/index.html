@@ -360,7 +360,7 @@
 
 
 
-                            阅读 </span></span>|<span class="post-date">共1172字</span>，阅读约<span class="more-meta"> 3 分钟</span>
+                            阅读 </span></span>|<span class="post-date">共1214字</span>，阅读约<span class="more-meta"> 3 分钟</span>
                         
                     </span>
                 </div>
@@ -390,8 +390,13 @@
 
 		<h1 id="前言">前言</h1>
 <p>本文接下来所有配置都是基于 <a href="https://liangyuanpeng.com/post/service-lank8s.cn/#undefined">lank8s服务</a>来做的.</p>
-<p>在习惯了 kind 创建 kubernetes 集群后再次尝试了另外的搭建 kubernetes 集群工具: Talos 和 K0s,深深的感受到 Kind 将常用组件镜像都打包到 kindest/node 这个镜像内是多么明智的选择。 尝试 Talos 和 K0s 的首个问题就是镜像无法访问，其次是需要学习新的配置内容，而 Kind 是基于 Kubeadm 的，因此没有带来太多的学习成本，但 Talos 和 K0s 都有一个很实用的特性是支持部署豪 k8s 集群后 apply 一些用户自定义的 manifests.</p>
+<p>在习惯了 kind 创建 kubernetes 集群后再次尝试了另外的搭建 kubernetes 集群工具: Talos 和 K0s,深深的感受到 Kind 将常用组件镜像都打包到 kindest/node 这个镜像内是多么明智的选择。 尝试 Talos 和 K0s 的首个问题就是镜像无法访问，其次是需要学习新的配置内容，而 Kind 是基于 Kubeadm 的，因此没有带来太多的学习成本，但 Talos 和 K0s 都有一个很实用的特性是支持部署好 kubernetes 集群后 apply 一些用户自定义的 manifests.</p>
 <p>Kind 是一个基于 Docker 来实现在容器内跑 kubernetes 的方案,其原理是在容器内使用 kubeadm 部署 kubernetes,我发布了一个同样是长期更新的专门记录 Kind 内容的博客,因此在这里的一些配置问题很可能已经出现在了<a href="https://liangyuanpeng.com/post/run-k8s-with-kind/">用kind搭建k8s集群环境</a>这篇文章,如果在本文没有找到你想要的内容可以去那篇文章试试运气,对信息碎片化感到抱歉 (:</p>
+<h1 id="相关文章推荐阅读">相关文章推荐阅读</h1>
+<ul>
+<li><a href="https://liangyuanpeng.com/post/service-lank8s.cn/">lank8s.cn服务</a></li>
+<li><a href="https://liangyuanpeng.com/post/run-k8s-with-kind/">用kind搭建k8s集群环境</a></li>
+</ul>
 <h1 id="talos">Talos</h1>
 <p>这个项目是我觉得非常有意思的一个项目，一个专注于 kubernetes 的容器化 Linux 操作系统，甚至连 SSH 功能都去掉了，一切都通过 API 的方式来操作。</p>
 <p>目前来看 Talos 启动 kubernetes 集群的速度比 Kind 慢，测试了多次基本上 Talos 基于 Docker 来启动一个 1 master 和 1 node 的 kubernetes 集群需要 2m18s,而 Kind 启动一个 1 master 和 1 node 的 kubernetes 集群只需要 48s，这个测试结果的前提是已经将需要的镜像全部都缓存在本地了。</p>
@@ -401,7 +406,7 @@
 </span><span style="color:#ae81ff"></span>    --registry-mirror gcr.io<span style="color:#f92672">=</span>http://172.17.0.1:5003 <span style="color:#ae81ff">\
 </span><span style="color:#ae81ff"></span>    --image ghcr.io/siderolabs/talos:v1.4.5 --install-image ghcr.io/siderolabs/installer:v1.4.5
 </code></pre></div><h1 id="kind">Kind</h1>
-<p>由于 Kind 使用的 CRI 是 containerd，因此如果你熟悉 containerd 的配置方式的话，那么为 Kind 配置镜像仓库会显得很容易,关键配置如下:</p>
+<p>由于 Kind 使用的 CRI 是 Containerd，因此如果你熟悉 Containerd 的配置方式的话，那么为 Kind 配置镜像仓库会显得很容易,关键配置如下:</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#f92672">containerdConfigPatches</span>:
 - |-<span style="color:#e6db74">
 </span><span style="color:#e6db74">  [plugins.&#34;io.containerd.grpc.v1.cri&#34;.registry.mirrors.&#34;gcr.io&#34;]
@@ -524,6 +529,7 @@ services:
             enabled: true
         status: <span style="color:#f92672">{}</span>
 </code></pre></div><h1 id="containerd">containerd</h1>
+<p>暂时没有单独整理,</p>
 <h1 id="k3s">K3s</h1>
 <h1 id="crio">crio</h1>
 <p>关键配置如下:</p>

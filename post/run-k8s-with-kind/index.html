@@ -488,7 +488,7 @@
 
 
 
-                            阅读 </span></span>|<span class="post-date">共1956字</span>，阅读约<span class="more-meta"> 4 分钟</span>
+                            阅读 </span></span>|<span class="post-date">共1990字</span>，阅读约<span class="more-meta"> 4 分钟</span>
                         
                     </span>
                 </div>
@@ -543,6 +543,11 @@
 
 		<h1 id="前言">前言</h1>
 <p>由于各类基于 kubernetes 的云原生实验或测试的前提都是需要一个 kubernetes 环境,而在写博客时总是需要提及使用 Kind 来搭建 kubernetes 环境. 因此这里单独写一篇文章来介绍如何用 Kind 来部署 kubernetes,同时提供各种不同 kubernetes 环境的 Kind 配置文件供你使用.</p>
+<h1 id="相关文章推荐阅读">相关文章推荐阅读</h1>
+<ul>
+<li><a href="https://liangyuanpeng.com/post/service-lank8s.cn/">lank8s.cn服务</a></li>
+<li><a href="https://liangyuanpeng.com/post/pull-gcr-k8s-image-with-lank8s">国内环境拉取gcr和k8s镜像</a></li>
+</ul>
 <h1 id="值得先说的经验">值得先说的经验</h1>
 <h2 id="端口映射">端口映射</h2>
 <p>一个很值得注意的踩坑点： Kind 通过 NodePort 暴露端口号时一定要注意有两个地方需要处理：</p>
@@ -927,8 +932,6 @@ kube-system          etcd-flannel-control-plane                      1/1     Run
 <h2>相关文章</h2>
 <ul style="margin-bottom: 25px;">
     
-    <li><a href="/post/run-k8s-with-kind/">用kind搭建k8s集群环境</a></li>
-    
     <li><a href="/post/k8s-admissionregistration-with-cel/">用cel表达式来实现k8s准入校验</a></li>
     
     <li><a href="/post/pull-gcr-k8s-image-with-lank8s/">国内环境拉取gcr和k8s镜像</a></li>
@@ -946,6 +949,8 @@ kube-system          etcd-flannel-control-plane                      1/1     Run
     <li><a href="/post/rust-project-in-cncf/">cncf基金会中的rust项目</a></li>
     
     <li><a href="/post/dev-webhook-for-kubernetes/">k8s-webhook开发技巧</a></li>
+    
+    <li><a href="/post/deploy-lank8s-webhook-for-k8s.gcr.io/">部署在线的lank8s webhook之后,不再为k8s.gcr.io/gcr.io镜像苦恼</a></li>
     
 </ul>
 
