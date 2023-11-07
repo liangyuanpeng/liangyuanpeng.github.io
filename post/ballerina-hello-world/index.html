@@ -484,7 +484,7 @@
 
 
 
-                            阅读 </span></span>|<span class="post-date">共1030字</span>，阅读约<span class="more-meta"> 3 分钟</span>
+                            阅读 </span></span>|<span class="post-date">共975字</span>，阅读约<span class="more-meta"> 2 分钟</span>
                         
                     </span>
                 </div>
@@ -619,32 +619,32 @@ Hello, World!
 <li>创建hello-world-paraller.bal文件并写入对应代码<br>
 <code> lan@lan-machine:/disk/note/ballerina$ touch hello-world-paraller.bal </code></li>
 </ol>
-<pre tabindex="0"><code>import ballerina/io;
-public function main() {
-    worker w1 {
-        io:println(&quot;Hello, World! #m&quot;);
-    }
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">import ballerina/io;
+public <span style="color:#66d9ef">function</span> main<span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+    worker w1 <span style="color:#f92672">{</span>
+        io:println<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Hello, World! #m&#34;</span><span style="color:#f92672">)</span>;
+    <span style="color:#f92672">}</span>
 
-    worker w2 {
-        io:println(&quot;Hello, World! #n&quot;);
-    }
-    worker w3 {
-        io:println(&quot;Hello, World! #k&quot;);
-    }
-}
-</code></pre><ol>
+    worker w2 <span style="color:#f92672">{</span>
+        io:println<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Hello, World! #n&#34;</span><span style="color:#f92672">)</span>;
+    <span style="color:#f92672">}</span>
+    worker w3 <span style="color:#f92672">{</span>
+        io:println<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Hello, World! #k&#34;</span><span style="color:#f92672">)</span>;
+    <span style="color:#f92672">}</span>
+<span style="color:#f92672">}</span>
+</code></pre></div><ol>
 <li>运行hello-world-paraller.bal 文件</li>
 </ol>
-<pre tabindex="0"><code>lan@lan-machine:/disk/note/ballerina$ ballerina run hello-world-paraller.bal
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">lan@lan-machine:/disk/note/ballerina$ ballerina run hello-world-paraller.bal
 Compiling source
         hello-world-paraller.bal
 
 Generating executables
 Running executables
 
-Hello, World! #m
-Hello, World! #n
-Hello, World! #k
+Hello, World! <span style="color:#75715e">#m</span>
+Hello, World! <span style="color:#75715e">#n</span>
+Hello, World! <span style="color:#75715e">#k</span>
 lan@lan-machine:/disk/note/ballerina$ 
 lan@lan-machine:/disk/note/ballerina$ 
 lan@lan-machine:/disk/note/ballerina$ ballerina run hello-world-paraller.bal
@@ -654,49 +654,49 @@ Compiling source
 Generating executables
 Running executables
 
-Hello, World! #n
-Hello, World! #m
-Hello, World! #k
-</code></pre><p>可以看到每次打印的顺序并不是一样的</p>
+Hello, World! <span style="color:#75715e">#n</span>
+Hello, World! <span style="color:#75715e">#m</span>
+Hello, World! <span style="color:#75715e">#k</span>
+</code></pre></div><p>可以看到每次打印的顺序并不是一样的</p>
 <h3 id="hello-world-client">Hello World Client</h3>
-<p>最后一个hello-world的例子是http客户端请求</p>
+<p>最后一个 hello-world 的例子是 http 客户端请求</p>
 <ol>
-<li>创建hello-world-client.bar文件并写入对应代码
-<code> lan@lan-machine:/disk/note/ballerina$ touch hello-world-client.bal </code></li>
+<li>创建 hello-world-client.bar 文件并写入对应代码</li>
 </ol>
-<pre tabindex="0"><code>import ballerina/http;
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">lan@lan-machine:/disk/note/ballerina$ touch hello-world-client.bal
+</code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">import ballerina/http;
 import ballerina/io;
-public function main() {
-    http:Client clientEP = new (&quot;http://www.mocky.io&quot;);
+public <span style="color:#66d9ef">function</span> main<span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+    http:Client clientEP <span style="color:#f92672">=</span> new <span style="color:#f92672">(</span><span style="color:#e6db74">&#34;http://www.mocky.io&#34;</span><span style="color:#f92672">)</span>;
 
-    var resp = clientEP-&gt;get(&quot;/v2/5ae082123200006b00510c3d/&quot;);
+    var resp <span style="color:#f92672">=</span> clientEP-&gt;get<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;/v2/5ae082123200006b00510c3d/&#34;</span><span style="color:#f92672">)</span>;
 
-    if (resp is http:Response) {
-        var payload = resp.getTextPayload();
-        if (payload is string) {
+    <span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>resp is http:Response<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+        var payload <span style="color:#f92672">=</span> resp.getTextPayload<span style="color:#f92672">()</span>;
+        <span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>payload is string<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
 
-            io:println(payload);
-        } else {
+            io:println<span style="color:#f92672">(</span>payload<span style="color:#f92672">)</span>;
+        <span style="color:#f92672">}</span> <span style="color:#66d9ef">else</span> <span style="color:#f92672">{</span>
 
-            io:println(payload.detail());
-        }
-    } else {
+            io:println<span style="color:#f92672">(</span>payload.detail<span style="color:#f92672">())</span>;
+        <span style="color:#f92672">}</span>
+    <span style="color:#f92672">}</span> <span style="color:#66d9ef">else</span> <span style="color:#f92672">{</span>
 
-        io:println(resp.detail());
-    }
-}
-</code></pre><ol start="2">
-<li>运行hello-world-client.bal文件</li>
+        io:println<span style="color:#f92672">(</span>resp.detail<span style="color:#f92672">())</span>;
+    <span style="color:#f92672">}</span>
+<span style="color:#f92672">}</span>
+</code></pre></div><ol start="2">
+<li>运行 hello-world-client.bal 文件</li>
 </ol>
-<pre tabindex="0"><code>lan@lan-machine:/disk/note/ballerina$ ballerina run hello-world-client.bal
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">lan@lan-machine:/disk/note/ballerina$ ballerina run hello-world-client.bal
 Compiling source
         hello-world-client.bal
 
 Generating executables
 Running executables
-</code></pre><p>Hello World</p>
+</code></pre></div><p>Hello World</p>
 <p>例子中是请求 <code>http://www.mocky.io/v2/5ae082123200006b00510c3d/</code> 并将结果打印出来</p>
-<p>更多的example可以在<a href="https://ballerina.io/v1-1/learn/by-example/">官网</a>找到</p>
+<p>更多的example可以在<a href="https://ballerina.io/learn/by-example/">官网</a>找到</p>
 
 
         <h2>微信公众号</h2>
