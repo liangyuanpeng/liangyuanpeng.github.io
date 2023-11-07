@@ -126,7 +126,7 @@ Hello, World!
 ``
 lan@lan-machine:/disk/note/ballerina$ touch hello-world-paraller.bal
 ``
-```
+```shell
 import ballerina/io;
 public function main() {
     worker w1 {
@@ -142,7 +142,7 @@ public function main() {
 }
 ```
 1. 运行hello-world-paraller.bal 文件
-```
+```shell
 lan@lan-machine:/disk/note/ballerina$ ballerina run hello-world-paraller.bal
 Compiling source
         hello-world-paraller.bal
@@ -169,13 +169,14 @@ Hello, World! #k
 可以看到每次打印的顺序并不是一样的
 
 ### Hello World Client
-最后一个hello-world的例子是http客户端请求
+最后一个 hello-world 的例子是 http 客户端请求
 
-1. 创建hello-world-client.bar文件并写入对应代码
-``
+1. 创建 hello-world-client.bar 文件并写入对应代码
+```shell
 lan@lan-machine:/disk/note/ballerina$ touch hello-world-client.bal
-``
 ```
+
+```shell
 import ballerina/http;
 import ballerina/io;
 public function main() {
@@ -198,8 +199,8 @@ public function main() {
     }
 }
 ```
-2. 运行hello-world-client.bal文件
-```
+2. 运行 hello-world-client.bal 文件
+```shell
 lan@lan-machine:/disk/note/ballerina$ ballerina run hello-world-client.bal
 Compiling source
         hello-world-client.bal
@@ -211,7 +212,7 @@ Hello World
 
 例子中是请求 ``http://www.mocky.io/v2/5ae082123200006b00510c3d/`` 并将结果打印出来  
 
-更多的example可以在[官网](https://ballerina.io/v1-1/learn/by-example/)找到
+更多的example可以在[官网](https://ballerina.io/learn/by-example/)找到
 
 
 

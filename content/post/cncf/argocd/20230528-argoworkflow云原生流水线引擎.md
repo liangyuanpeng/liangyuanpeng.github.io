@@ -397,4 +397,4 @@ Argo workflow 的文档建设也比 Tekton 更好.
 
 到目前为止，我们了解了 Argo Workflow 的强大特性以及与 Tekton 的一个简单对比，实际在企业内应该选择 Argo Workflow 还是 Tekton 还是需要根据业务特点以及实际验证一些测试后才能决定.
 
-以上只是聊到了 Argo Workflow 的一部分功能，如果想了解更多的功能可以先从官方示例开始，官方代码仓库给了很多的[示例yaml]（https://github.com/argoproj/argo-workflows/tree/master/examples），因此可以通过这些示例 yaml 很快的了解到相关的功能.
+以上只是聊到了 Argo Workflow 的一部分功能，如果想了解更多的功能可以先从官方示例开始，官方代码仓库给了很多的[示例yaml](https://github.com/argoproj/argo-workflows/tree/master/examples)，因此可以通过这些示例 yaml 很快的了解到相关的功能.
