@@ -616,7 +616,7 @@
 
 
 
-                            阅读 </span></span>|<span class="post-date">共2383字</span>，阅读约<span class="more-meta"> 5 分钟</span>
+                            阅读 </span></span>|<span class="post-date">共2544字</span>，阅读约<span class="more-meta"> 6 分钟</span>
                         
                     </span>
                 </div>
@@ -644,7 +644,11 @@
                 <nav id="TableOfContents">
   <ul>
     <li><a href="#仓库镜像对应">仓库镜像对应</a></li>
-    <li><a href="#使用">使用</a></li>
+    <li><a href="#使用">使用</a>
+      <ul>
+        <li><a href="#不推荐的做法">不推荐的做法</a></li>
+      </ul>
+    </li>
   </ul>
 
   <ul>
@@ -720,10 +724,6 @@
 <td style="text-align:center">registry.lank8s.cn</td>
 </tr>
 <tr>
-<td>registry.k8s.io</td>
-<td style="text-align:center">lank8s.cn</td>
-</tr>
-<tr>
 <td>gcr.io</td>
 <td style="text-align:center">gcr.lank8s.cn</td>
 </tr>
@@ -732,6 +732,10 @@
 <h2 id="使用">使用</h2>
 <p>由于维护 <code>lank8s.cn</code> 存在一定的经济压力(服务器费用,域名费用,带宽费用等),因此 <code>lank8s.cn</code> 保证可用性,但不保证绝佳的镜像下载速度.</p>
 <p>这样的原因是越来越多人使用 <code>lank8s.cn</code>,镜像下载速度会变慢,而提升服务器配置/带宽是解决这类问题的方法.如果有对 <code>lank8s.cn</code> 的赞助将把所有赞助都使用在 <code>lank8s.cn</code> 服务的优化上.</p>
+<h3 id="不推荐的做法">不推荐的做法</h3>
+<p>⚠请勿在公司项目内直接使用 lank8s.cn⚠</p>
+<p>主要的原因是随着服务/应用的增多可能会对 lank8s.cn 造成一定的流量压力,从而造成未知的影响⚠</p>
+<p>如果是在公司内使用,那么强烈建议在本地部署一个镜像仓库,例如 Zot/Harbor/distribution,然后可以将 lank8s.cn 作为一个镜像上游来拉取镜像,公司内的服务则使用本地部署的镜像仓库.</p>
 <h1 id="安全性">安全性</h1>
 <p>由于 lank8s.cn 是一个镜像服务,那么必然会存在一个安全性的问题,如何保证拉取到的容器镜像与上游( gcr.io 等地址)的容器镜像是相同的呢?</p>
 <p>可以看看官方文章:<a href="https://kubernetes.io/zh-cn/docs/tasks/administer-cluster/verify-signed-artifacts/">验证已签名容器镜像</a></p>

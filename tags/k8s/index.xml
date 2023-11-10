@@ -6,7 +6,7 @@
     <description>Recent content in k8s on Hi,I`m lan</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 04 May 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://liangyuanpeng.github.io/tags/k8s/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 08 Nov 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://liangyuanpeng.github.io/tags/k8s/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>用kind搭建k8s集群环境</title>
       <link>https://liangyuanpeng.github.io/post/run-k8s-with-kind/</link>
@@ -14,6 +14,15 @@
       
       <guid>https://liangyuanpeng.github.io/post/run-k8s-with-kind/</guid>
       <description>前言 由于各类基于 kubernetes 的云原生实验或测试的前提都是需要一个 kubernetes 环境,而在写博客时总是需要提及使用 Kind 来搭建 kubernetes 环境. 因此这里单独写一篇文章来介绍如何用</description>
+    </item>
+    
+    <item>
+      <title>快速入门KCL</title>
+      <link>https://liangyuanpeng.github.io/post/quick-start-kcl/</link>
+      <pubDate>Wed, 08 Nov 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://liangyuanpeng.github.io/post/quick-start-kcl/</guid>
+      <description>什么是KCL 使用场景 yaml 配置管理 当谈到 yaml 时很容易联想到 kubernetes 资源的 yaml 文件,但目前我个人的使用场景更多的是管理 Kind 的配置文件,因为我会有很多种不同的 Kind</description>
     </item>
     
     <item>
@@ -212,6 +221,15 @@
       
       <guid>https://liangyuanpeng.github.io/post/ballerina-hello-world/</guid>
       <description>前言 Ballerina是一款完全开源的编译时强类型语言,愿景是让云原生时代的程序员轻松编写出想要的的软件. 开源地址:https://gith</description>
+    </item>
+    
+    <item>
+      <title>编译构建Kind</title>
+      <link>https://liangyuanpeng.github.io/post/build-for-kind/</link>
+      <pubDate>Sat, 15 Oct 1994 00:00:00 +0000</pubDate>
+      
+      <guid>https://liangyuanpeng.github.io/post/build-for-kind/</guid>
+      <description>前言 本页面将专注于构建自定义的 Kind 容器镜像,只需要在下面评论区添加对应的命令评论触发构建即可. 也可以在 github discussion 地址来发评论,效果是一样的. 默认的命</description>
     </item>
     
   </channel>

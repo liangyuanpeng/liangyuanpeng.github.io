@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>kcl on Hi,I`m lan</title>
+    <link>https://liangyuanpeng.github.io/tags/kcl/</link>
+    <description>Recent content in kcl on Hi,I`m lan</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 08 Nov 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://liangyuanpeng.github.io/tags/kcl/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>快速入门KCL</title>
+      <link>https://liangyuanpeng.github.io/post/quick-start-kcl/</link>
+      <pubDate>Wed, 08 Nov 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://liangyuanpeng.github.io/post/quick-start-kcl/</guid>
+      <description>什么是KCL 使用场景 yaml 配置管理 当谈到 yaml 时很容易联想到 kubernetes 资源的 yaml 文件,但目前我个人的使用场景更多的是管理 Kind 的配置文件,因为我会有很多种不同的 Kind</description>
+    </item>
+    
+  </channel>
+</rss>

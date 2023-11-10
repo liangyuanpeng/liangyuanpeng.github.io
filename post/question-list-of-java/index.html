@@ -230,7 +230,7 @@
 
 
 
-                            阅读 </span></span>|<span class="post-date">共1670字</span>，阅读约<span class="more-meta"> 4 分钟</span>
+                            阅读 </span></span>|<span class="post-date">共1704字</span>，阅读约<span class="more-meta"> 4 分钟</span>
                         
                     </span>
                 </div>
@@ -260,6 +260,7 @@
     <li><a href="#使用-jdk17-时立刻堆栈报错提示内存不足">使用 jdk17 时立刻堆栈报错提示内存不足</a></li>
     <li><a href="#基于-operator-framework-spring-boot-starter-的项目启动失败">基于 operator-framework-spring-boot-starter 的项目启动失败</a></li>
     <li><a href="#基于-operator-framework-spring-boot-starter-的项目graalvm-打包的二进制文件启动失败">基于 operator-framework-spring-boot-starter 的项目,Graalvm 打包的二进制文件启动失败</a></li>
+    <li><a href="#gradle-打包-shade-包">gradle 打包 shade 包</a></li>
   </ul>
 </nav>
 		
@@ -571,6 +572,8 @@ Caused by: java.nio.charset.UnsupportedCharsetException: UTF-32BE
         at org.snakeyaml.engine.v2.api.YamlUnicodeReader.&lt;clinit&gt;<span style="color:#f92672">(</span>YamlUnicodeReader.java:50<span style="color:#f92672">)</span> ~<span style="color:#f92672">[</span>na:na<span style="color:#f92672">]</span>
         ... <span style="color:#ae81ff">36</span> common frames omitted
 </code></pre></div><p>看起来似乎是丢失了需要的 yaml 配置文件.</p>
+<h2 id="gradle-打包-shade-包">gradle 打包 shade 包</h2>
+<p>两个第三方包都依赖了同一个第三方包,但版本不一样导致冲突.</p>
 
 
         <h2>微信公众号</h2>

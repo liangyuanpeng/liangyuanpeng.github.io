@@ -13,17 +13,47 @@
   
   <url>
     <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/categories/</loc>
-    <lastmod>2023-09-02T00:00:00+00:00</lastmod>
+    <lastmod>2023-11-08T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/categories/cloudnative/</loc>
+    <lastmod>2023-11-08T00:00:00+00:00</lastmod>
   </url>
   
   <url>
     <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/tags/cncf/</loc>
-    <lastmod>2023-09-02T00:00:00+00:00</lastmod>
+    <lastmod>2023-11-08T00:00:00+00:00</lastmod>
   </url>
   
   <url>
     <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/</loc>
-    <lastmod>2023-09-02T00:00:00+00:00</lastmod>
+    <lastmod>2023-11-08T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/tags/k8s/</loc>
+    <lastmod>2023-11-08T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/tags/kcl/</loc>
+    <lastmod>2023-11-08T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/post/</loc>
+    <lastmod>2023-11-08T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/tags/</loc>
+    <lastmod>2023-11-08T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/post/quick-start-kcl/</loc>
+    <lastmod>2023-11-08T00:00:00+00:00</lastmod>
   </url>
   
   <url>
@@ -37,23 +67,8 @@
   </url>
   
   <url>
-    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/post/</loc>
-    <lastmod>2023-09-02T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/tags/</loc>
-    <lastmod>2023-09-02T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
     <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/post/try-to-ask-question-to-kubernetes-for-source/</loc>
     <lastmod>2023-09-02T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/categories/cloudnative/</loc>
-    <lastmod>2023-06-25T00:00:00+00:00</lastmod>
   </url>
   
   <url>
@@ -123,11 +138,6 @@
   
   <url>
     <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/post/question-list-of-kubernetes/</loc>
-    <lastmod>2023-05-04T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/tags/k8s/</loc>
     <lastmod>2023-05-04T00:00:00+00:00</lastmod>
   </url>
   
@@ -1569,6 +1579,11 @@
   <url>
     <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/post/script-for-init-vm-package-with-ansible/</loc>
     <lastmod>2012-01-28T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/post/build-for-kind/</loc>
+    <lastmod>1994-10-15T00:00:00+00:00</lastmod>
   </url>
   
   <url>
