@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>k3s on Hi,I`m lan</title>
+    <link>https://liangyuanpeng.github.io/tags/k3s/</link>
+    <description>Recent content in k3s on Hi,I`m lan</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 29 Mar 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://liangyuanpeng.github.io/tags/k3s/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>k3s常见问题</title>
+      <link>https://liangyuanpeng.github.io/post/k3s-qa/</link>
+      <pubDate>Wed, 29 Mar 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://liangyuanpeng.github.io/post/k3s-qa/</guid>
+      <description>前言 备份恢复 如果是使用默认存储的k3s,也就是使用 sqlite 作为存储,那么k3s 集群的备份和恢复很简单,只需要备份 sqlite 的 db 文件. 至于使用local 持久</description>
+    </item>
+    
+  </channel>
+</rss>

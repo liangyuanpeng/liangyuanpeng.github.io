@@ -98,6 +98,15 @@
     </item>
     
     <item>
+      <title>k3s常见问题</title>
+      <link>https://liangyuanpeng.github.io/post/k3s-qa/</link>
+      <pubDate>Wed, 29 Mar 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://liangyuanpeng.github.io/post/k3s-qa/</guid>
+      <description>前言 备份恢复 如果是使用默认存储的k3s,也就是使用 sqlite 作为存储,那么k3s 集群的备份和恢复很简单,只需要备份 sqlite 的 db 文件. 至于使用local 持久</description>
+    </item>
+    
+    <item>
       <title>基于k8up备份PVC到S3存储</title>
       <link>https://liangyuanpeng.github.io/post/backup-pvc-to-s3-with-k8up/</link>
       <pubDate>Wed, 29 Mar 2023 00:00:00 +0000</pubDate>

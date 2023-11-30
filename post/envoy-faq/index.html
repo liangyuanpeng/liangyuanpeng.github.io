@@ -297,7 +297,7 @@
 
 
 
-                            阅读 </span></span>|<span class="post-date">共277字</span>，阅读约<span class="more-meta"> 1 分钟</span>
+                            阅读 </span></span>|<span class="post-date">共326字</span>，阅读约<span class="more-meta"> 1 分钟</span>
                         
                     </span>
                 </div>
@@ -330,6 +330,10 @@
   <ul>
     <li><a href="#权重分流">权重分流</a></li>
     <li><a href="#header分流">header分流</a></li>
+  </ul>
+
+  <ul>
+    <li><a href="#didnt-find-a-registered-implementation-for-envoyfiltershttprouter-with-type-url-">Didn&rsquo;t find a registered implementation for &lsquo;envoy.filters.http.router&rsquo; with type URL: ''</a></li>
   </ul>
 </nav>
 		
@@ -370,7 +374,14 @@
                           <span style="color:#f92672">route</span>:
                             <span style="color:#f92672">cluster</span>: <span style="color:#ae81ff">lank8scn_v1</span>
 </code></pre></div><p>上述配置部分表示匹配前缀为 <code>/</code> 的请求并且将包含有  header 为 <code>sversion:v2</code> 的请求分流给<code>lank8scn_v2</code>,而没有这个 header 时将请求正常分流给 <code>lank8scn_v1</code>.</p>
-
+<h1 id="问题列表">问题列表</h1>
+<h2 id="didnt-find-a-registered-implementation-for-envoyfiltershttprouter-with-type-url-">Didn&rsquo;t find a registered implementation for &lsquo;envoy.filters.http.router&rsquo; with type URL: ''</h2>
+<p>这是因为envoy v3 之后配置都需要填一个 <code>@type</code> 参数,例如:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">        <span style="color:#f92672">http_filters</span>:
+        - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">envoy.filters.http.router</span>
+          <span style="color:#f92672">typed_config</span>: 
+            <span style="color:#f92672">&#34;@type&#34;: </span><span style="color:#ae81ff">type.googleapis.com/envoy.extensions.filters.http.router.v3.Router</span>
+</code></pre></div>
 
         <h2>微信公众号</h2>
 <p>扫描下面的二维码关注我们的微信公众号,第一时间查看最新内容。同时也可以关注我的Github,看看我都在了解什么技术,在页面底部可以找到我的Github。</p>
