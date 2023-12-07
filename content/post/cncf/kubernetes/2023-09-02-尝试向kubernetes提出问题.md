@@ -8,6 +8,7 @@ date:       2023-09-02
 author:     "梁远鹏"
 image: "/img/banner-pexels.jpg"
 published: true
+wip: true
 tags:
     - kubernetes
     - cncf 
@@ -37,7 +38,7 @@ kubernetes 的数据以 `/registry` 开头存储在 etcd 当中,如果直接查�
 
 由于 kubernetes 当中只有 kube-apiserver 与 etcd 进行通讯,因此尝试从 kube-apiserver 找到一些线索: 有一个 `--storage-media-type` 参数是标识数据存储的格式,默认情况下是 `application/vnd.kubernetes.protobuf`,可选的值有: `application/json`, `application/yaml`以及`application/vnd.kubernetes.protobuf`.
 
-因此如果想研究 kubernetes 在 etcd 的数据,我的建议是 用 Kind 创建一个 kubernetes,然后给 kube-apiserver 添加启动参数 --storage-media-type=application/json, 这样就可以在 etcd 轻松的看到 kube-apiserver 存储到 etcd 的是什么数据了.
+因此如果想研究 kubernetes 在 etcd 的数据,我的建议是 用 Kind 创建一个 kubernetes,然后给 kube-apiserver 添加启动参数 `--storage-media-type=application/json`, 这样就可以在 etcd 轻松的看到 kube-apiserver 存储到 etcd 的是什么数据了.
 
 下面是一个 service 的数据(由于我修改了默认的存储前缀,因此不是以 /registry 开头):
 
@@ -216,7 +217,3 @@ kubernetes 的数据以 `/registry` 开头存储在 etcd 当中,如果直接查�
     }
 }
 ```
-
-# 温馨提示 
-
-本文持续更新
