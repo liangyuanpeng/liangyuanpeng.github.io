@@ -517,9 +517,9 @@
 		
 
 		<h1 id="heading"></h1>
-<pre tabindex="0"><code>helm repo add chaos-mesh https://charts.chaos-mesh.org
-</code></pre><pre tabindex="0"><code>helm install chaos-mesh chaos-mesh/chaos-mesh -n=chaos-testing --version 2.0.4
-</code></pre><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">lan@lan:~$ k get po -n chaos-testing
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">helm repo add chaos-mesh https://charts.chaos-mesh.org
+</code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">helm install chaos-mesh chaos-mesh/chaos-mesh -n<span style="color:#f92672">=</span>chaos-testing --version 2.0.4
+</code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">lan@lan:~$ k get po -n chaos-testing
 NAME                                        READY   STATUS              RESTARTS   AGE
 chaos-controller-manager-5f7c8c4569-prc5s   0/1     ContainerCreating   <span style="color:#ae81ff">0</span>          40s
 chaos-daemon-bz859                          0/1     ContainerCreating   <span style="color:#ae81ff">0</span>          40s

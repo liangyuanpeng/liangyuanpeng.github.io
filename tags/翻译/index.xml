@@ -22,7 +22,7 @@
       <pubDate>Sat, 01 Apr 2023 00:00:00 +0000</pubDate>
       
       <guid>https://liangyuanpeng.github.io/post/migrate-your-manifest-yaml-files-into-helm-chart/</guid>
-      <description>在这篇博客文章中，我们将学习如何将现有的清单 yaml 文件转换为Helm Charts。 清单文件 Kubernetes 清单文件是描述 K8s 对象期望状态的YAML文件，例如 po</description>
+      <description>在这篇博客文章中，我们将学习如何将现有的清单 yaml 文件转换为 Helm Charts。 清单文件 Kubernetes 清单文件是描述 K8s 对象期望状态的YAML文件，例如 pod、s</description>
     </item>
     
     <item>
@@ -58,7 +58,7 @@
       <pubDate>Wed, 14 Apr 2021 00:00:00 +0000</pubDate>
       
       <guid>https://liangyuanpeng.github.io/post/k8s-multi-tenancy-guide/</guid>
-      <description>前言 随着Kubernetes的使用范围不断扩大，Kubernetes多租户成为越来越多的组织感兴趣的话题。但是，由于Kubernetes本身</description>
+      <description>前言 随着 Kubernetes 的使用范围不断扩大，Kubernetes 多租户成为越来越多的组织感兴趣的话题。但是，由于 Kubernetes 本身并不是多租户系统，因此想要实现多租户</description>
     </item>
     
   </channel>
