@@ -20,11 +20,11 @@ categories: [ kubernetes ]
 
 # 
 
-```
+```shell
 helm repo add chaos-mesh https://charts.chaos-mesh.org
 ```
 
-```
+```shell
 helm install chaos-mesh chaos-mesh/chaos-mesh -n=chaos-testing --version 2.0.4
 ``` 
 

@@ -36,7 +36,7 @@ categories: [ kubernetes ]
 
 另外，不懂也没关系！我记得当时我参加 Kubernetes 社区的 SIG 安全小组会议时，对 Kubernetes 和社区本身的工作知之甚少。尽管今天我更了解社区的运作方式，但我仍在不断学习关于它和项目的知识。幸运的是，社区充满了愿意帮助您学习的友好人士。在不断学习中成长是被期待和赞赏的。当您举手去做一些事情，即使什么都不懂，人们也会为您加油，并在路上帮助您。
 
-这也是我的经历。我第一次或第二次参加 [SIG 安全小组](https://github.com/kubernetes/community/tree/master/sig-security)会议时，[Pushkar Joglekar](https://github.com/PushkarJ) 提到他需要一个子项目的负责人，因为他已经对 [Cluster API](https://cluster-api.sigs.k8s.io/) 进行了安全评估。会议上的每个人都非常友好，我就想，“为什么不试试呢？”从那以后，我的合作伙伴给予了我很多支持和鼓励，尤其是因为我是一个初学者，新的参与者是社区健康发展的关键。
+这也是我的经历。我第一次或第二次参加 [SIG 安全小组](https://github.com/kubernetes/community/tree/master/sig-security)会议时，[Pushkar Joglekar](https://github.com/PushkarJ) 提到他需要一个子项目的负责人，因为他已经对 [Cluster API](https://cluster-api.sigs.k8s.io/) 进行了安全评估。会议上的每个人都非常友好，我就想，"为什么不试试呢?" 从那以后，我的合作伙伴给予了我很多支持和鼓励，尤其是因为我是一个初学者，新的参与者是社区健康发展的关键。
 
 
 # 不断学习
