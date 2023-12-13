@@ -616,7 +616,7 @@
 
 
 
-                            阅读 </span></span>|<span class="post-date">共2757字</span>，阅读约<span class="more-meta"> 6 分钟</span>
+                            阅读 </span></span>|<span class="post-date">共3060字</span>，阅读约<span class="more-meta"> 7 分钟</span>
                         
                     </span>
                 </div>
@@ -664,6 +664,7 @@ China mirror for registry.k8s.io and gcr.io :)</p>
 </blockquote>
 <h1 id="lank8scn-服务是什么">lank8s.cn 服务是什么</h1>
 <p>⭐⭐⭐目前 lank8s.cn 正在逐步开源,项目开源地址-&gt;<a href="https://github.com/liangyuanpeng/lank8s.cn">liangyuanpeng/lank8s.cn</a>,欢迎参与贡献!⭐⭐⭐</p>
+<p>在参与贡献的过程中也加深了自己对容器镜像相关的知识,怎么找到任务?-&gt; 在 github repo 里面会有一些带有 <code>help wanted</code> 标签的 issue,感兴趣的话可以认领来完成 issue 提到的内容.</p>
 <p><code>lank8s.cn</code>的使命是希望国内能够更低门槛的学习 Kubernetes 技术!</p>
 <p>在微软的镜像代理节点还可用的时候,<code>azk8s.cn</code>一直是一个很好的选择,但是 2020 年上半年微软不再对外提供 azk8s 服务,只对微软云的国内服务器提供服务,非常的遗憾。</p>
 <p>在这样一个背景下我创立了 <code>lank8s.cn</code>,目前只提供搭建 K8S 所需要的最基本的镜像,希望国内技术人在学习 kubernetes 之初能够很好的进行一个 Kubernetes 的 Hello World!</p>
@@ -785,6 +786,23 @@ China mirror for registry.k8s.io and gcr.io :)</p>
 <ul>
 <li><a href="https://docs.robusta.dev">https://docs.robusta.dev</a>  kubernetes 的可观测性监控方案</li>
 </ul>
+<h1 id="使用到的域名">使用到的域名</h1>
+<p>lank8s.cn 服务使用到了以下域名,如果你是在公司内使用 lank8s.cn 并且需要一些安全配置的话可能会有帮助:</p>
+<ul>
+<li>*.lank8s.cn</li>
+<li>*.aliyuncs.com  使用 阿里云容器镜像仓库或 阿里云 OSS</li>
+<li>*.amazonaws.com  使用 aws 的 S3</li>
+<li>*.liangyuanpeng.com  使用 Cloudflare</li>
+</ul>
+<p>对于 gcr.lank8s.cn 则会涉及一下域名:</p>
+<ul>
+<li>*.lank8s.cn</li>
+<li>*.aliyuncs.com  使用 阿里云容器镜像仓库或 阿里云 OSS</li>
+<li>storage.googleapis.com  使用 google 的 S3</li>
+<li>*.liangyuanpeng.com  使用 Cloudflare</li>
+</ul>
+<p>对于一些虚拟机,可能需要为虚拟机设置好 dns nameserver,否则可能解析不到 amazonaws.com 和 storage.googleapis.com.</p>
+<p>目前正在考虑剔除域名 *.liangyuanpeng.com,减少不必要的域名,但这是一个长期的缓慢的工作,一旦有进展将会在这里更新.</p>
 <h1 id="再说一点">再说一点</h1>
 <p>其实 lank8s.cn 和 registry.k8s.io 本质上是一个东西:将流量分发到实际的镜像存储服务,当然出发点是不一样的,registry.k8s.io 是希望将流量代理到与用户相近的地方,同时减少存储服务流量成本. 而 lank8s.cn 完全是因为成本问题,但目前不会将流量代理到与用户相近的地方,毕竟 lank8s.cn 目前只保证镜像可下载,没有保证最优的下载速度.</p>
 <p>目前部分流量会分到 liangyuanpeng.com,最近正在处理将这部分迁移回 lank8s.cn,减少涉及到的域名数量.</p>
