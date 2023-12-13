@@ -8,17 +8,16 @@ pull_request_rules:
         type: APPROVE
         message: Automatically approving when ci is passed
 
-  - name: automatic approval for imgbot pull requests
-    conditions:
-      - author=imgbot[bot]
-    actions:
-      review:
-        type: APPROVE
-        message: Automatically approving imgbot
-      label:
-        add:
-          - approved
-
+  # - name: automatic approval for imgbot pull requests
+  #   conditions:
+  #     - author=imgbot[bot]
+  #   actions:
+  #     review:
+  #       type: APPROVE
+  #       message: Automatically approving imgbot
+  #     label:
+  #       add:
+  #         - approved
 
   # 冲突时在PR添加一条冲突的comment并且添加 conflict 的 label
   - name: warn on conflicts
@@ -39,12 +38,12 @@ pull_request_rules:
         remove:
           - conflict
 
-  - name: merge when approved
-    conditions:
-    - label=approved
-    actions:
-      merge:
-        method: merge
+  # - name: merge when approved
+  #   conditions:
+  #   - label=approved
+  #   actions:
+  #     merge:
+  #       method: merge
 
   # 如果是 imgbot 提交的 PR 自动合并
   # - name: Automatic merge for imgbot
