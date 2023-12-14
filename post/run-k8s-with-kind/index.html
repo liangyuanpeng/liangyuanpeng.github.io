@@ -488,7 +488,7 @@
 
 
 
-                            阅读 </span></span>|<span class="post-date">共2041字</span>，阅读约<span class="more-meta"> 5 分钟</span>
+                            阅读 </span></span>|<span class="post-date">共2085字</span>，阅读约<span class="more-meta"> 5 分钟</span>
                         
                     </span>
                 </div>
@@ -559,6 +559,8 @@
 <h1 id="更多的-kind-版本">更多的 Kind 版本</h1>
 <p>Kind 目前不保证对每一个 kubernetes 版本都构建一个对应的 node 镜像,目前我提供了一些 Kind 官方没有的镜像,例如 beta 版本或 RC 版本的 kubernetes.如: <code>ghcr.io/liangyuanpeng/kindest/node:v1.28.0-rc.0</code>, 不仅仅是已发布的镜像,有时我还会基于 kubernetes master 分支进行构建Kind 的镜像,用于测试某一个功能或 PR,如果你也有需要为一个特定版本打包一个对应的 Kind 镜像,可以在我的博客留言,有时间的话我可以帮忙处理:)</p>
 <p>如果你发现你需要的某个版本的镜像 Kind 官方没有提供可以在<a href="https://liangyuanpeng.com/post/run-k8s-with-kind/">本博客:用kind搭建k8s集群环境</a>底部添加评论,我会考虑进行打包.</p>
+<p>kubernetes v1.29 已经发布了!!! 但 Kind 还没有提供对应的版本,因此我首先构建了一个对应版本:</p>
+<p><code>ghcr.io/liangyuanpeng/kindest/node:v1.29.0</code> 欢迎试用!</p>
 <h1 id="使用">使用</h1>
 <p>基本上,即使你没有使用过 Kind 也不是问题,因为基于 Kind 来搭建 kubernetes 就是一条命令的事,需要使用到 Kind 命令,因此你需要下载 Kind 命令行工具.</p>
 <p>官方的 Kind 命令下载地址可以在<a href="https://github.com/kubernetes-sigs/kind/releases">Kind发布地址</a>找到,而我提供了一个另一个地址来下载 Kind 命令行,在下载 Github 上文件速度慢的时候可以用这个地址:</p>
