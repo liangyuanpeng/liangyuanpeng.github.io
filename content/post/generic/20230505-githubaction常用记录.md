@@ -29,7 +29,7 @@ categories:
 ### 被调用方
 
 
-被调用自然就是重用的 github action，只需要声明是 workflow_call 就可以了,这样就能够被直接应用到 github action当中,另一个相似的是 workflow_dispatch，能够以 API 的方式调用 github action。
+被调用自然就是重用的 github action，只需要声明是 workflow_call 就可以了,这样就能够被直接应用到 github action 当中,另一个相似的是 workflow_dispatch，能够以 API 的方式调用 github action。
 
 ```yaml
 ...
@@ -57,7 +57,7 @@ on:
 
 调用时比较简单，直接使用 uses 关键字就可以了:
 
-```
+```yaml
 ...
 jobs:
   call_karmada_release_latest:
