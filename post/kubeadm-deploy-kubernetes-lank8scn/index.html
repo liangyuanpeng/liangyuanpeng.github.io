@@ -486,7 +486,7 @@
 
 
 
-                            阅读 </span></span>|<span class="post-date">共1395字</span>，阅读约<span class="more-meta"> 3 分钟</span>
+                            阅读 </span></span>|<span class="post-date">共1262字</span>，阅读约<span class="more-meta"> 3 分钟</span>
                         
                     </span>
                 </div>
@@ -520,32 +520,32 @@
 		
 
 		<h1 id="本文实现目标">本文实现目标</h1>
-<p>本文主要使用kubeadm快速部署一个单机的kubernetes,其中镜像仓库使用lank8s.cn,当然也可以使用其他地址,lank8s.cn主要优势是短域名,好记.</p>
+<p>本文主要使用 kubeadm 快速部署一个单机的 kubernetes,其中镜像仓库使用 lank8s.cn,当然也可以使用其他地址, lank8s.cn 主要优势是短域名,好记.</p>
 <h1 id="前提">前提</h1>
 <p>本文内容不包括讲述 docker 安装,因此需要自行先安装好 docker。</p>
 <h1 id="安装kubectlkubeletkubeadm">安装kubectl、kubelet、kubeadm</h1>
 <ol>
 <li>添加国内源</li>
 </ol>
-<pre tabindex="0"><code>cat &lt;&lt;EOF &gt; /etc/yum.repos.d/kubernetes.repo
-[kubernetes]
-name=Kubernetes
-baseurl=https://mirrors.aliyun.com/kubernetes/yum/repos/kubernetes-el7-x86_64
-enabled=1
-gpgcheck=1
-repo_gpgcheck=1
-gpgkey=https://mirrors.aliyun.com/kubernetes/yum/doc/yum-key.gpg https://mirrors.aliyun.com/kubernetes/yum/doc/rpm-package-key.gpg
-EOF
-</code></pre><ol start="2">
-<li>配置安装的kubernetes版本,本文使用v1.18.6</li>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">cat <span style="color:#e6db74">&lt;&lt;EOF &gt; /etc/yum.repos.d/kubernetes.repo
+</span><span style="color:#e6db74">[kubernetes]
+</span><span style="color:#e6db74">name=Kubernetes
+</span><span style="color:#e6db74">baseurl=https://mirrors.aliyun.com/kubernetes/yum/repos/kubernetes-el7-x86_64
+</span><span style="color:#e6db74">enabled=1
+</span><span style="color:#e6db74">gpgcheck=1
+</span><span style="color:#e6db74">repo_gpgcheck=1
+</span><span style="color:#e6db74">gpgkey=https://mirrors.aliyun.com/kubernetes/yum/doc/yum-key.gpg https://mirrors.aliyun.com/kubernetes/yum/doc/rpm-package-key.gpg
+</span><span style="color:#e6db74">EOF</span>
+</code></pre></div><ol start="2">
+<li>配置安装的 kubernetes 版本,本文使用 v1.18.6</li>
 </ol>
-<pre tabindex="0"><code>export KUBE_VERSION=1.18.6 
-</code></pre><ol start="3">
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">export KUBE_VERSION<span style="color:#f92672">=</span>1.18.6 
+</code></pre></div><ol start="3">
 <li>开始安装</li>
 </ol>
-<pre tabindex="0"><code>yum install -y kubectl-${KUBE_VERSION} kubelet-${KUBE_VERSION} kubeadm-${KUBE_VERSION}
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">yum install -y kubectl-<span style="color:#e6db74">${</span>KUBE_VERSION<span style="color:#e6db74">}</span> kubelet-<span style="color:#e6db74">${</span>KUBE_VERSION<span style="color:#e6db74">}</span> kubeadm-<span style="color:#e6db74">${</span>KUBE_VERSION<span style="color:#e6db74">}</span>
 
-</code></pre><h1 id="开始部署kubernetes">开始部署kubernetes</h1>
+</code></pre></div><h1 id="开始部署kubernetes">开始部署kubernetes</h1>
 <ol>
 <li>
 <p>关闭swap
@@ -555,11 +555,11 @@ todo</p>
 <p>开始 kubeadm 安装 kubernetes</p>
 </li>
 </ol>
-<pre tabindex="0"><code>kubeadm init --kubernetes-version=v1.18.6 --pod-network-cidr=10.244.0.0/16 --service-cidr=10.96.0.0/12 --image-repository=lank8s.cn
-</code></pre><p>通过<code>--image-repository</code>指定镜像的地址就可以达到不需要翻墙的    效果(默认镜像需要拉取谷歌镜像仓库的地址,需要翻墙).</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">kubeadm init --kubernetes-version<span style="color:#f92672">=</span>v1.18.6 --pod-network-cidr<span style="color:#f92672">=</span>10.244.0.0/16 --service-cidr<span style="color:#f92672">=</span>10.96.0.0/12 --image-repository<span style="color:#f92672">=</span>lank8s.cn
+</code></pre></div><p>通过<code>--image-repository</code>指定镜像的地址就可以达到不需要翻墙的    效果(默认镜像需要拉取谷歌镜像仓库的地址,需要翻墙).</p>
 <p>顺利的话就可以看到部署成功的信息:</p>
-<pre tabindex="0"><code>[addons] Applied essential addon: CoreDNS
-[addons] Applied essential addon: kube-proxy
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#f92672">[</span>addons<span style="color:#f92672">]</span> Applied essential addon: CoreDNS
+<span style="color:#f92672">[</span>addons<span style="color:#f92672">]</span> Applied essential addon: kube-proxy
 
 Your Kubernetes control-plane has initialized successfully!
 
@@ -567,46 +567,46 @@ To start using your cluster, you need to run the following as a regular user:
 
   mkdir -p $HOME/.kube
   sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
-  sudo chown $(id -u):$(id -g) $HOME/.kube/config
+  sudo chown <span style="color:#66d9ef">$(</span>id -u<span style="color:#66d9ef">)</span>:<span style="color:#66d9ef">$(</span>id -g<span style="color:#66d9ef">)</span> $HOME/.kube/config
 
 You should now deploy a pod network to the cluster.
-Run &quot;kubectl apply -f [podnetwork].yaml&quot; with one of the options listed at:
+Run <span style="color:#e6db74">&#34;kubectl apply -f [podnetwork].yaml&#34;</span> with one of the options listed at:
   https://kubernetes.io/docs/concepts/cluster-administration/addons/
 
 Then you can join any number of worker nodes by running the following on each as root:
 
-kubeadm join 192.168.3.239:6443 --token 9ptsuq.tfgal9ly5j268dr5 \
-    --discovery-token-ca-cert-hash sha256:9eca63e1388d1fdf7cea63fc58bc8232bf26322e2094ea276f67f53057e54d9c
-</code></pre><p>复制提示中的三行命令,分别执行：</p>
-<pre tabindex="0"><code>mkdir -p $HOME/.kube  
+kubeadm join 192.168.3.239:6443 --token 9ptsuq.tfgal9ly5j268dr5 <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>    --discovery-token-ca-cert-hash sha256:9eca63e1388d1fdf7cea63fc58bc8232bf26322e2094ea276f67f53057e54d9c
+</code></pre></div><p>复制提示中的三行命令,分别执行：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">mkdir -p $HOME/.kube  
 sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
-sudo chown $(id -u):$(id -g) $HOME/.kube/config
-</code></pre><ol start="3">
-<li>查看一下当前pod的情况,正常的话只有两个coredns的pod处于pending的状态,其他pod处于running状态.</li>
+sudo chown <span style="color:#66d9ef">$(</span>id -u<span style="color:#66d9ef">)</span>:<span style="color:#66d9ef">$(</span>id -g<span style="color:#66d9ef">)</span> $HOME/.kube/config
+</code></pre></div><ol start="3">
+<li>查看一下当前 pod 的情况,正常的话只有两个 coredns 的 pod 处于 pending 的状态,其他pod处于 running 状态.</li>
 </ol>
-<pre tabindex="0"><code>[root@installk8s ~]# kubectl get po -A
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#f92672">[</span>root@installk8s ~<span style="color:#f92672">]</span><span style="color:#75715e"># kubectl get po -A</span>
 NAMESPACE     NAME                                 READY   STATUS    RESTARTS   AGE
-kube-system   coredns-5c579bbb7b-6gm9j             0/1     Pending   0          71s
-kube-system   coredns-5c579bbb7b-r4wk5             0/1     Pending   0          71s
-kube-system   etcd-installk8s                      1/1     Running   0          80s
-kube-system   kube-apiserver-installk8s            1/1     Running   0          80s
-kube-system   kube-controller-manager-installk8s   1/1     Running   0          80s
-kube-system   kube-proxy-tkmc7                     1/1     Running   0          72s
-kube-system   kube-scheduler-installk8s            1/1     Running   0          81s
-</code></pre><p>这是因为CNI插件需要另外部署,本文使用kube-flannel,部署文件可以从kube-flannel的官方github仓库下载,不过可能会由于版本问题引起的冲突,这里推荐使用与本文一致的<a href="https://res.cloudinary.com/lyp/raw/upload/v1612710643/hugo/blog.github.io/kubernetes/kube-flannel.yml">kube-flannel文件</a>.</p>
+kube-system   coredns-5c579bbb7b-6gm9j             0/1     Pending   <span style="color:#ae81ff">0</span>          71s
+kube-system   coredns-5c579bbb7b-r4wk5             0/1     Pending   <span style="color:#ae81ff">0</span>          71s
+kube-system   etcd-installk8s                      1/1     Running   <span style="color:#ae81ff">0</span>          80s
+kube-system   kube-apiserver-installk8s            1/1     Running   <span style="color:#ae81ff">0</span>          80s
+kube-system   kube-controller-manager-installk8s   1/1     Running   <span style="color:#ae81ff">0</span>          80s
+kube-system   kube-proxy-tkmc7                     1/1     Running   <span style="color:#ae81ff">0</span>          72s
+kube-system   kube-scheduler-installk8s            1/1     Running   <span style="color:#ae81ff">0</span>          81s
+</code></pre></div><p>这是因为 CNI 插件需要另外部署,本文使用 kube-flannel,部署文件可以从 kube-flannel 的官方 github 仓库下载,不过可能会由于版本问题引起的冲突,这里推荐使用与本文一致的<a href="https://res.cloudinary.com/lyp/raw/upload/v1612710643/hugo/blog.github.io/kubernetes/kube-flannel.yml">kube-flannel文件</a>.</p>
 <ol start="4">
 <li>部署kube-flannel</li>
 </ol>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">
 kubectl apply -f kube-flannel.yml  
 
-</code></pre></div><p>可以用watch命令查看pod的动态部署情况</p>
+</code></pre></div><p>可以用 watch 命令查看 pod 的动态部署情况</p>
 <pre tabindex="0"><code>watch kubectl get po -A
 </code></pre><p>过一会就全部运行起来了.</p>
 <h1 id="kubernetes-hell-world">kubernetes hell world!</h1>
 <h2 id="注意">注意</h2>
-<p>此时只有一个master节点,master节点默认是有污点的(无法部署服务),如果希望在master节点部署服务的话需要给master节点去除污点:</p>
-<p>首先用<code>kubectl get node</code>查看你的node名,然后用<code>kubectl taint node {NODENAME} node-role.kubernetes.io/master-</code>给对应节点去除master污点.</p>
+<p>此时只有一个 master 节点,master 节点默认是有污点的(无法部署服务),如果希望在 master 节点部署服务的话需要给 master 节点去除污点:</p>
+<p>首先用<code>kubectl get node</code>查看你的 node 名,然后用<code>kubectl taint node {NODENAME} node-role.kubernetes.io/master-</code>给对应节点去除 master 污点.</p>
 <h2 id="部署一个nginx服务">部署一个nginx服务</h2>
 <p>nginx-deployment.yaml:</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#f92672">apiVersion</span>: <span style="color:#ae81ff">apps/v1</span>
@@ -637,37 +637,37 @@ kubectl apply -f kube-flannel.yml
                     <span style="color:#f92672">memory</span>: <span style="color:#e6db74">&#34;512Mi&#34;</span>
                     <span style="color:#f92672">cpu</span>: <span style="color:#e6db74">&#34;800m&#34;</span>
 </code></pre></div><p>nginx-svc.yaml:</p>
-<pre tabindex="0"><code>apiVersion: v1
-kind: Service
-metadata:
-    name: nginx
-spec:
-    selector:
-        app: nginx
-    type: NodePort
-    ports:
-        - name: http
-          protocol: TCP
-          port: 80
-          targetPort: 80
-</code></pre><p>执行命令应用:</p>
-<pre tabindex="0"><code>kubectl apply -f nginx-deployment.yaml
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#f92672">apiVersion</span>: <span style="color:#ae81ff">v1</span>
+<span style="color:#f92672">kind</span>: <span style="color:#ae81ff">Service</span>
+<span style="color:#f92672">metadata</span>:
+    <span style="color:#f92672">name</span>: <span style="color:#ae81ff">nginx</span>
+<span style="color:#f92672">spec</span>:
+    <span style="color:#f92672">selector</span>:
+        <span style="color:#f92672">app</span>: <span style="color:#ae81ff">nginx</span>
+    <span style="color:#f92672">type</span>: <span style="color:#ae81ff">NodePort</span>
+    <span style="color:#f92672">ports</span>:
+        - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">http</span>
+          <span style="color:#f92672">protocol</span>: <span style="color:#ae81ff">TCP</span>
+          <span style="color:#f92672">port</span>: <span style="color:#ae81ff">80</span>
+          <span style="color:#f92672">targetPort</span>: <span style="color:#ae81ff">80</span>
+</code></pre></div><p>执行命令应用:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">kubectl apply -f nginx-deployment.yaml
 kubectl apply -f nginx-svc.yaml
-</code></pre><p>使用<code>kubectl get pod</code>和<code>kubectl get svc</code>就可以分别看到对应的pod和service运行起来了.</p>
-<p>service使用的是NodePort类型,因此这暴露了一个宿主机端口号来访问Nginx服务,我这里显示的端口号是30460,因此我通过这个端口来访问Nginx:</p>
-<pre tabindex="0"><code>...
+</code></pre></div><p>使用<code>kubectl get pod</code>和<code>kubectl get svc</code>就可以分别看到对应的 pod 和 service 运行起来了.</p>
+<p>service 使用的是 NodePort 类型,因此这暴露了一个宿主机端口号来访问 Nginx 服务,我这里显示的端口号是 30460,因此我通过这个端口来访问 Nginx:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">...
 nginx                           NodePort    10.97.211.40    &lt;none&gt;        80:30460/TCP
 ...
-</code></pre><p>可以通过浏览器访问<code>IP:30460</code>,也可以直接用curl在linux系统上直接访问,我这里使用curl来访问:</p>
+</code></pre></div><p>可以通过浏览器访问<code>IP:30460</code>,也可以直接用 curl 在 linux 系统上直接访问,我这里使用 curl 来访问:</p>
 <p>执行<code>curl localhost:30460</code>得到下面的结果:</p>
-<pre tabindex="0"><code>&lt;!DOCTYPE html&gt;
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">&lt;!DOCTYPE html&gt;
 &lt;html&gt;
 &lt;head&gt;
 &lt;title&gt;Welcome to nginx!&lt;/title&gt;
 &lt;style&gt;
-html { color-scheme: light dark; }
-body { width: 35em; margin: 0 auto;
-font-family: Tahoma, Verdana, Arial, sans-serif; }
+html <span style="color:#f92672">{</span> color-scheme: light dark; <span style="color:#f92672">}</span>
+body <span style="color:#f92672">{</span> width: 35em; margin: <span style="color:#ae81ff">0</span> auto;
+font-family: Tahoma, Verdana, Arial, sans-serif; <span style="color:#f92672">}</span>
 &lt;/style&gt;
 &lt;/head&gt;
 &lt;body&gt;
@@ -676,15 +676,15 @@ font-family: Tahoma, Verdana, Arial, sans-serif; }
 working. Further configuration is required.&lt;/p&gt;
 
 &lt;p&gt;For online documentation and support please refer to
-&lt;a href=&quot;http://nginx.org/&quot;&gt;nginx.org&lt;/a&gt;.&lt;br/&gt;
+&lt;a href<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;http://nginx.org/&#34;</span>&gt;nginx.org&lt;/a&gt;.&lt;br/&gt;
 Commercial support is available at
-&lt;a href=&quot;http://nginx.com/&quot;&gt;nginx.com&lt;/a&gt;.&lt;/p&gt;
+&lt;a href<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;http://nginx.com/&#34;</span>&gt;nginx.com&lt;/a&gt;.&lt;/p&gt;
 
-&lt;p&gt;&lt;em&gt;Thank you for using nginx.&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;Thank you <span style="color:#66d9ef">for</span> using nginx.&lt;/em&gt;&lt;/p&gt;
 &lt;/body&gt;
 &lt;/html&gt;
-</code></pre><h1 id="总结">总结</h1>
-<p>到目前为止就用 kubeadm 使用国内网络轻松部署起一个 kubernetes 了,<code>lank8s.cn</code>是我个人在维护的一个<code>k8s.gcr.io</code>镜像的代理,还有一个<code>gcr.lank8s.cn</code>可以代替<code>gcr.io</code>来拉取镜像.</p>
+</code></pre></div><h1 id="总结">总结</h1>
+<p>到目前为止就用 kubeadm 使用国内网络轻松部署起一个 kubernetes 了,<code>lank8s.cn</code>是我个人在维护的一个<code>registry.gcr.io</code>镜像的代理,还有一个<code>gcr.lank8s.cn</code>可以代替<code>gcr.io</code>来拉取镜像.</p>
 <p>详情可以看看<a href="https://liangyuanpeng.com/post/service-lank8s.cn/">lank8s.cn服务</a></p>
 
 

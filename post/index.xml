@@ -6,7 +6,7 @@
     <description>Recent content in Posts on Hi,I`m lan</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 08 Nov 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://liangyuanpeng.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 27 Dec 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://liangyuanpeng.github.io/post/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>lank8s.cn服务</title>
       <link>https://liangyuanpeng.github.io/post/service-lank8s.cn/</link>
@@ -23,6 +23,15 @@
       
       <guid>https://liangyuanpeng.github.io/post/run-k8s-with-kind/</guid>
       <description>前言 由于各类基于 kubernetes 的云原生实验或测试的前提都是需要一个 kubernetes 环境,而在写博客时总是需要提及使用 Kind 来搭建 kubernetes 环境. 因此这里单独写一篇文章来介绍如何用</description>
+    </item>
+    
+    <item>
+      <title>kuberne-kep-1880-多服务CIDR</title>
+      <link>https://liangyuanpeng.github.io/post/kuberne-kep-1880-multiple-service-cidrs/</link>
+      <pubDate>Wed, 27 Dec 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://liangyuanpeng.github.io/post/kuberne-kep-1880-multiple-service-cidrs/</guid>
+      <description>KEP-1880 多服务 CIDR 是什么 KEP-1880 允许通过 API 对象配置分配给 Kubernetes 集群的 ServiceCIDR,能够动态的扩展 kubernetes 集群的服务的 IP. Proposal 这个提议实现了一个新的IP分配器逻</description>
     </item>
     
     <item>
@@ -85,7 +94,7 @@
       <pubDate>Thu, 04 May 2023 00:00:00 +0000</pubDate>
       
       <guid>https://liangyuanpeng.github.io/post/question-list-of-kubernetes/</guid>
-      <description>说明 本文主要收集常见场景下 kubernetes 遇到的一些常见问题,欢迎对本文进行投稿你认为好的场景或问题. 如何保证 sidecar 先于 app 容器销毁 通过信号方式 TODO 完善展开</description>
+      <description>说明 本文主要收集常见场景下 kubernetes 遇到的一些常见问题,欢迎对本文进行投稿你认为好的场景或问题. 如何保证 sidecar 先于 app 容器销毁 通过信号方式 TODO 完善展开 将ku</description>
     </item>
     
     <item>
@@ -179,6 +188,15 @@
     </item>
     
     <item>
+      <title>基于flux和kind快速搭建k8s环境</title>
+      <link>https://liangyuanpeng.github.io/post/quick-k8s-dev-with-flux-and-kind/</link>
+      <pubDate>Mon, 03 Apr 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://liangyuanpeng.github.io/post/quick-k8s-dev-with-flux-and-kind/</guid>
+      <description>目前,这只是一个简单的笔记 总是需要各种特定的 K8S 研究环境，而部署各种环境的方式又不一致,有 yamls 方式的 有 helm 方式的，因此需要保证这两种方式都能够通过</description>
+    </item>
+    
+    <item>
       <title>epbf入门指南</title>
       <link>https://liangyuanpeng.github.io/post/what-is-ebpfan-introductory-guide/</link>
       <pubDate>Sat, 01 Apr 2023 00:00:00 +0000</pubDate>
@@ -211,7 +229,7 @@
       <pubDate>Wed, 29 Mar 2023 00:00:00 +0000</pubDate>
       
       <guid>https://liangyuanpeng.github.io/post/k3s-qa/</guid>
-      <description>前言 备份恢复 如果是使用默认存储的k3s,也就是使用 sqlite 作为存储,那么k3s 集群的备份和恢复很简单,只需要备份 sqlite 的 db 文件. 至于使用local 持久</description>
+      <description>前言 备份恢复 如果是使用默认存储的k3s,也就是使用 sqlite 作为存储,那么 k3s 集群的备份和恢复很简单,只需要备份 sqlite 的 db 文件. 至于使用 local 持久化在本地的数</description>
     </item>
     
     <item>
@@ -643,7 +661,7 @@
       <pubDate>Thu, 25 Nov 2021 00:00:00 +0000</pubDate>
       
       <guid>https://liangyuanpeng.github.io/post/deploy-chaosmesh-with-helm/</guid>
-      <description>helm repo add chaos-mesh https://charts.chaos-mesh.org helm install chaos-mesh chaos-mesh/chaos-mesh -n=chaos-testing --version 2.0.4 lan@lan:~$ k get po -n chaos-testing NAME READY STATUS RESTARTS AGE chaos-controller-manager-5f7c8c4569-prc5s 0/1 ContainerCreating 0 40s chaos-daemon-bz859 0/1 ContainerCreating 0 40s chaos-dashboard-5f7b6b9b6b-ml22l 0/1 ContainerCreating 0 40s 最后的最后 本文其实就是按照官方文档操作了一边,就让chaosme</description>
+      <description>helm repo add chaos-mesh https://charts.chaos-mesh.org helm install chaos-mesh chaos-mesh/chaos-mesh -n=chaos-testing --version 2.0.4 lan@lan:~$ k get po -n chaos-testing NAME READY STATUS RESTARTS AGE chaos-controller-manager-5f7c8c4569-prc5s 0/1 ContainerCreating 0 40s chaos-daemon-bz859 0/1 ContainerCreating 0 40s chaos-dashboard-5f7b6b9b6b-ml22l 0/1 ContainerCreating 0 40s 最后的最后 本文其实就是按照官方文档操作了一边,就让 chaosmesh 部署起来了.</description>
     </item>
     
     <item>
@@ -661,7 +679,7 @@
       <pubDate>Wed, 24 Nov 2021 00:00:00 +0000</pubDate>
       
       <guid>https://liangyuanpeng.github.io/post/dev-webhook-for-kubernetes/</guid>
-      <description>什么是kubernetes webhook 痛点 网上很多文章都是说写了kubernetes webhook代码后编译丢到k8s里面去测试,但是这样就非常消耗时</description>
+      <description>什么是kubernetes webhook 痛点 网上很多文章都是说写了 kubernetes webhook 代码后编译丢到 k8s 里面去测试,但是这样就非常消耗时间和精力,因为无法立刻知道写的代码</description>
     </item>
     
     <item>
@@ -706,7 +724,7 @@
       <pubDate>Mon, 25 Oct 2021 00:00:00 +0000</pubDate>
       
       <guid>https://liangyuanpeng.github.io/post/deploy-kubernetes-with-kubekey/</guid>
-      <description>前言 Kubekey 是青云研发并开源的一款快速部署 kubernetes 的工具,并且它也是下一代安装kubesphere的工具,使用 kubekey 你可以很轻松的就部署一套 kubernetes/kubespher 环境,我的体验</description>
+      <description>前言 Kubekey 是青云研发并开源的一款快速部署 kubernetes 的工具,并且它也是下一代安装kubesphere 的工具,使用 kubekey 你可以很轻松的就部署一套 kubernetes/kubespher 环境,我的体验</description>
     </item>
     
     <item>
@@ -1120,7 +1138,7 @@
       <pubDate>Sun, 07 Feb 2021 00:00:00 +0000</pubDate>
       
       <guid>https://liangyuanpeng.github.io/post/kubeadm-deploy-kubernetes-lank8scn/</guid>
-      <description>本文实现目标 本文主要使用kubeadm快速部署一个单机的kubernetes,其中镜像仓库使用lank8s.cn,当然也可以使用其他地址,l</description>
+      <description>本文实现目标 本文主要使用 kubeadm 快速部署一个单机的 kubernetes,其中镜像仓库使用 lank8s.cn,当然也可以使用其他地址, lank8s.cn 主要优势是短</description>
     </item>
     
     <item>
@@ -1147,7 +1165,7 @@
       <pubDate>Sat, 30 Jan 2021 00:00:00 +0000</pubDate>
       
       <guid>https://liangyuanpeng.github.io/post/use-helm-deploy-chirpstack-kubernetes/</guid>
-      <description>chirpstack-helm-chart 开源lorawan server 项目chirpstack的helm chart english 如何贡献 如果你想对这个项目进行贡献可以点击fork按钮fork这个项目并且发起P</description>
+      <description>chirpstack-helm-chart 开源 lorawan server 项目 chirpstack 的 helm chart english 如何贡献 如果你想对这个项目进行贡献可以点击fork按钮fork这个项目并且发起PR Fork 贡献的准备工作:Fork这个项目</description>
     </item>
     
     <item>

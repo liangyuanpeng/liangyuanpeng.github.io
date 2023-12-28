@@ -6,7 +6,7 @@
     <description>Recent content in k8s on Hi,I`m lan</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 08 Nov 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://liangyuanpeng.github.io/tags/k8s/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 27 Dec 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://liangyuanpeng.github.io/tags/k8s/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>用kind搭建k8s集群环境</title>
       <link>https://liangyuanpeng.github.io/post/run-k8s-with-kind/</link>
@@ -14,6 +14,15 @@
       
       <guid>https://liangyuanpeng.github.io/post/run-k8s-with-kind/</guid>
       <description>前言 由于各类基于 kubernetes 的云原生实验或测试的前提都是需要一个 kubernetes 环境,而在写博客时总是需要提及使用 Kind 来搭建 kubernetes 环境. 因此这里单独写一篇文章来介绍如何用</description>
+    </item>
+    
+    <item>
+      <title>kuberne-kep-1880-多服务CIDR</title>
+      <link>https://liangyuanpeng.github.io/post/kuberne-kep-1880-multiple-service-cidrs/</link>
+      <pubDate>Wed, 27 Dec 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://liangyuanpeng.github.io/post/kuberne-kep-1880-multiple-service-cidrs/</guid>
+      <description>KEP-1880 多服务 CIDR 是什么 KEP-1880 允许通过 API 对象配置分配给 Kubernetes 集群的 ServiceCIDR,能够动态的扩展 kubernetes 集群的服务的 IP. Proposal 这个提议实现了一个新的IP分配器逻</description>
     </item>
     
     <item>
@@ -31,7 +40,7 @@
       <pubDate>Thu, 04 May 2023 00:00:00 +0000</pubDate>
       
       <guid>https://liangyuanpeng.github.io/post/question-list-of-kubernetes/</guid>
-      <description>说明 本文主要收集常见场景下 kubernetes 遇到的一些常见问题,欢迎对本文进行投稿你认为好的场景或问题. 如何保证 sidecar 先于 app 容器销毁 通过信号方式 TODO 完善展开</description>
+      <description>说明 本文主要收集常见场景下 kubernetes 遇到的一些常见问题,欢迎对本文进行投稿你认为好的场景或问题. 如何保证 sidecar 先于 app 容器销毁 通过信号方式 TODO 完善展开 将ku</description>
     </item>
     
     <item>
@@ -157,7 +166,7 @@
       <pubDate>Wed, 24 Nov 2021 00:00:00 +0000</pubDate>
       
       <guid>https://liangyuanpeng.github.io/post/dev-webhook-for-kubernetes/</guid>
-      <description>什么是kubernetes webhook 痛点 网上很多文章都是说写了kubernetes webhook代码后编译丢到k8s里面去测试,但是这样就非常消耗时</description>
+      <description>什么是kubernetes webhook 痛点 网上很多文章都是说写了 kubernetes webhook 代码后编译丢到 k8s 里面去测试,但是这样就非常消耗时间和精力,因为无法立刻知道写的代码</description>
     </item>
     
     <item>

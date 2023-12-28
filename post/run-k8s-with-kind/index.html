@@ -731,7 +731,7 @@ kube-system          etcd-flannel-control-plane                      1/1     Run
 <h3 id="部署flannel">部署flannel</h3>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">kubectl apply -f https://github.com/flannel-io/flannel/releases/latest/download/kube-flannel.yml
 </code></pre></div><h3 id="回来吧kubernetes">回来吧kubernetes!</h3>
-<p>现在再查看一下所有 pod 的情况,会看到 flannel 的 pod 正在拉取镜像启动,再过一会所有的 pod 都会启动起来了,当然也包括 coredns 的 pod,这时候就可以正常食用你的 kubernetes 测试环境了!</p>
+<p>现在再查看一下所有 pod 的情况,会看到 Flannel 的 pod 正在拉取镜像启动,再过一会所有的 pod 都会启动起来了,当然也包括 Coredns 的 pod,这时候就可以正常食用你的 kubernetes 测试环境了!</p>
 <h2 id="k8s-126-cel准入校验功能">k8s 1.26 CEL准入校验功能</h2>
 <p><a href="https://liangyuanpeng.com/files/kind/v1alpha4/kind_flannel.yaml">https://liangyuanpeng.com/files/kind/v1alpha4/kind_flannel.yaml</a></p>
 <h2 id="多节点">多节点</h2>
@@ -789,7 +789,7 @@ kube-system          etcd-flannel-control-plane                      1/1     Run
                 <ul class="pager">
                     
                     <li class="previous">
-                        <a href="/post/quick-start-kcl/" data-toggle="tooltip" data-placement="top" title="快速入门KCL">&larr; 快速入门KCL</a>
+                        <a href="/post/kuberne-kep-1880-multiple-service-cidrs/" data-toggle="tooltip" data-placement="top" title="kuberne-kep-1880-多服务CIDR">&larr; kuberne-kep-1880-多服务CIDR</a>
                     </li>
                     
                     

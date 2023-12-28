@@ -293,7 +293,7 @@
 
 
 
-                            阅读 </span></span>|<span class="post-date">共378字</span>，阅读约<span class="more-meta"> 1 分钟</span>
+                            阅读 </span></span>|<span class="post-date">共373字</span>，阅读约<span class="more-meta"> 1 分钟</span>
                         
                     </span>
                 </div>
@@ -336,7 +336,7 @@
 <p>这个应该是比较常见的，抽离共同的内容到一个 github action，传递参数执行不同的内容，比较常规的是构建特定版本镜像和构建 latest 版本镜像。</p>
 <p>主要分为两部分：</p>
 <h3 id="被调用方">被调用方</h3>
-<p>被调用自然就是重用的 github action，只需要声明是 workflow_call 就可以了,这样就能够被直接应用到 github action当中,另一个相似的是 workflow_dispatch，能够以 API 的方式调用 github action。</p>
+<p>被调用自然就是重用的 github action，只需要声明是 workflow_call 就可以了,这样就能够被直接应用到 github action 当中,另一个相似的是 workflow_dispatch，能够以 API 的方式调用 github action。</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">...
 <span style="color:#f92672">on</span>:
   <span style="color:#f92672">workflow_call</span>:
@@ -356,17 +356,17 @@
 </code></pre></div><p>上述是一个简单的示例，当被另一个 github action  调用时，必须提供一个 tag 传参 以及 DOCKERHUB_USER_NAME 和 DOCKERHUB_TOKEN 的 secret，用于构建特定版本的镜像以及 push 镜像。</p>
 <h3 id="调用方">调用方</h3>
 <p>调用时比较简单，直接使用 uses 关键字就可以了:</p>
-<pre tabindex="0"><code>...
-jobs:
-  call_karmada_release_latest:
-      uses: {owner}/{repo}/.github/workflows/karmada_release.yaml@main
-      with:
-        tag: latest
-      secrets:
-        DOCKERHUB_USER_NAME: ${{ secrets.DOCKERHUB_USER_NAME }}
-        DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">...
+<span style="color:#f92672">jobs</span>:
+  <span style="color:#f92672">call_karmada_release_latest</span>:
+      <span style="color:#f92672">uses</span>: {<span style="color:#ae81ff">owner}/{repo}/.github/workflows/karmada_release.yaml@main</span>
+      <span style="color:#f92672">with</span>:
+        <span style="color:#f92672">tag</span>: <span style="color:#ae81ff">latest</span>
+      <span style="color:#f92672">secrets</span>:
+        <span style="color:#f92672">DOCKERHUB_USER_NAME</span>: <span style="color:#ae81ff">${{ secrets.DOCKERHUB_USER_NAME }}</span>
+        <span style="color:#f92672">DOCKERHUB_TOKEN</span>: <span style="color:#ae81ff">${{ secrets.DOCKERHUB_TOKEN }}</span>
 ...
-</code></pre><p>上述是一个简单的例子，传递 latest 参数并且将需要的 secrets 传递到重用的 github action。</p>
+</code></pre></div><p>上述是一个简单的例子，传递 latest 参数并且将需要的 secrets 传递到重用的 github action。</p>
 <p>TODO output 以及和可重用 github action 的结合使用。</p>
 
 

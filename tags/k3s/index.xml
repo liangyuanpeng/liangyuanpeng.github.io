@@ -13,7 +13,7 @@
       <pubDate>Wed, 29 Mar 2023 00:00:00 +0000</pubDate>
       
       <guid>https://liangyuanpeng.github.io/post/k3s-qa/</guid>
-      <description>前言 备份恢复 如果是使用默认存储的k3s,也就是使用 sqlite 作为存储,那么k3s 集群的备份和恢复很简单,只需要备份 sqlite 的 db 文件. 至于使用local 持久</description>
+      <description>前言 备份恢复 如果是使用默认存储的k3s,也就是使用 sqlite 作为存储,那么 k3s 集群的备份和恢复很简单,只需要备份 sqlite 的 db 文件. 至于使用 local 持久化在本地的数</description>
     </item>
     
   </channel>

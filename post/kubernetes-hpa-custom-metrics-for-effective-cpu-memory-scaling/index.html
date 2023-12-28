@@ -614,7 +614,7 @@
 
 
 
-                            阅读 </span></span>|<span class="post-date">共3777字</span>，阅读约<span class="more-meta"> 8 分钟</span>
+                            阅读 </span></span>|<span class="post-date">共3755字</span>，阅读约<span class="more-meta"> 8 分钟</span>
                         
                     </span>
                 </div>
@@ -684,12 +684,12 @@
 提高可靠性：自动缩放通过在高需求时进行扩展和在需求减少时进行缩减，以维护应用程序的可用性和性能，从而防止潜在的瓶颈或系统故障。
 提高用户体验：通过确保您的应用程序具有处理不同工作负载所需的必要资源，自动缩放可以通过减少延迟和保持一致的性能来提高整体用户体验。</p>
 <h1 id="kubernetes中的水平pod自动缩放器hpa">Kubernetes中的水平Pod自动缩放器（HPA）</h1>
-<p>Kubernetes中水平Pod自动缩放器（HPA）的基本工作机制包括监控、缩放策略和Kubernetes度量服务器。让我们分解每个组件：</p>
+<p>Kubernetes 中水平 Pod 自动缩放器（HPA）的基本工作机制包括监控、缩放策略和 Kubernetes 度量服务器。让我们分解每个组件：</p>
 <h2 id="监控">监控</h2>
-<p>HPA 持续监视 Kubernetes 集群中部署的Pod的指标。默认情况下，HPA 监视 CPU 利用率，但也可以配置为监视内存使用情况、自定义指标或其他每个Pod的指标。</p>
+<p>HPA 持续监视 Kubernetes 集群中部署的Pod的指标。默认情况下，HPA 监视 CPU 利用率，但也可以配置为监视内存使用情况、自定义指标或其他每个 Pod 的指标。</p>
 <p>对于每个 Pod 的资源指标（例如CPU），HPA 从每个目标Pod的资源指标 API 获取指标。基于目标利用率或原始值，控制器从所有目标 Pod 的这些值的平均值计算缩放比率。如果某些容器缺少相关资源请求，则 CPU 利用率将未被定义，该指标不会发生自动缩放。</p>
 <p>对于每个 Pod 的自定义指标，控制器的操作方式类似，但使用原始值而不是利用率值。</p>
-<p>对于对象和外部指标，HPA获取描述对象的单个指标，将其与目标值进行比较，并生成缩放比率。在自动缩放/v2 API版本中，在比较之前可以将该值除以 Pod 数。</p>
+<p>对于对象和外部指标，HPA获取描述对象的单个指标，将其与目标值进行比较，并生成缩放比率。在自动缩放<code>/v2</code> API版本中，在比较之前可以将该值除以 Pod 数。</p>
 <p>这些指标由 Kubernetes Metrics 服务器收集和报告，它从每个节点上运行的 kubelet 汇总资源使用数据。</p>
 <p><img src="https://res.cloudinary.com/lyp/image/upload/v1679884449/hugo/blog.github.io/kubernetes/hpa/hpa_query_metrics.webp" alt="Image source: Kubecost | An illustration of how the Horizontal Pod Autoscaler (HPA) works in Kubernetes."></p>
 <h2 id="缩放策略">缩放策略:</h2>

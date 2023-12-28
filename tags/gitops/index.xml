@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>gitops on Hi,I`m lan</title>
+    <link>https://liangyuanpeng.github.io/tags/gitops/</link>
+    <description>Recent content in gitops on Hi,I`m lan</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Mon, 03 Apr 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://liangyuanpeng.github.io/tags/gitops/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>基于flux和kind快速搭建k8s环境</title>
+      <link>https://liangyuanpeng.github.io/post/quick-k8s-dev-with-flux-and-kind/</link>
+      <pubDate>Mon, 03 Apr 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://liangyuanpeng.github.io/post/quick-k8s-dev-with-flux-and-kind/</guid>
+      <description>目前,这只是一个简单的笔记 总是需要各种特定的 K8S 研究环境，而部署各种环境的方式又不一致,有 yamls 方式的 有 helm 方式的，因此需要保证这两种方式都能够通过</description>
+    </item>
+    
+  </channel>
+</rss>

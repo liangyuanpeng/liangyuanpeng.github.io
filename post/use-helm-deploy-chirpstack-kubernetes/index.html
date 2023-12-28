@@ -616,7 +616,7 @@
 
 
 
-                            阅读 </span></span>|<span class="post-date">共718字</span>，阅读约<span class="more-meta"> 2 分钟</span>
+                            阅读 </span></span>|<span class="post-date">共655字</span>，阅读约<span class="more-meta"> 2 分钟</span>
                         
                     </span>
                 </div>
@@ -650,7 +650,7 @@
 		
 
 		<h1 id="chirpstack-helm-chart">chirpstack-helm-chart</h1>
-<p>开源lorawan server 项目chirpstack的helm chart <a href="../README.md">english</a></p>
+<p>开源 lorawan server 项目 chirpstack 的 helm chart <a href="../README.md">english</a></p>
 <h1 id="如何贡献">如何贡献</h1>
 <p>如果你想对这个项目进行贡献可以点击<code>fork</code>按钮<code>fork</code>这个项目并且发起<code>PR</code></p>
 <h2 id="fork">Fork</h2>
@@ -701,16 +701,16 @@ redis-pvc-redis-0                  Bound    pvc-e464d0e8-e04a-4958-858e-5efef1ae
 <span style="color:#75715e"># 执行命令后可以看到以下chart</span>
 NAME            NAMESPACE       REVISION        UPDATED                                 STATUS          CHART                           APP VERSION
 chirpstack      default         <span style="color:#ae81ff">1</span>               2021-01-29 16:11:48.984574857 +0800 CST deployed        chirpstack-helm-chart-0.1.0     1.16.0
-</code></pre></div><h1 id="暴露application-server的svc访问application-server">暴露application-server的svc，访问application-server</h1>
+</code></pre></div><h1 id="暴露-application-server-的svc访问application-server">暴露 application-server 的svc，访问application-server</h1>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">kubectl port-forward svc/chirpstack-as 8080:8080 --address 0.0.0.0
 </code></pre></div><h1 id="在application-server上设置network-server">在application-server上设置network-server</h1>
 <p>你可以设置为 <code>chirpstack-ns.{namespace}:8000</code> 或者 <code>chirpstack-ns.{namespace}.svc.cluster.local:8000</code></p>
-<p>这里的{namespace}替换为真实的命名空间</p>
+<p>这里的<code>{namespace}</code>替换为真实的命名空间</p>
 <p><img src="https://res.cloudinary.com/lyp/image/upload/v1612010769/hugo/blog.github.io/chirpstack/create-ns.jpg" alt="login"></p>
 <h1 id="如果你用了gateway-bridge这个组件的话可以用下面的命令把svc暴露出来">如果你用了gateway-bridge这个组件的话，可以用下面的命令把svc暴露出来</h1>
-<pre tabindex="0"><code>kubectl expose deploy gateway-bridge --port 1700 --target-port=1700 --protocol=UDP --name udpservice --type=NodePort  
-</code></pre><h1 id="总结">总结</h1>
-<p>到目前为止ChirpStack已经在K8S上部署起来了,默认服务都是创建了SVC但是没有进一步暴露出来，具体的暴露方式目前是让用户来选择，可以把AS的端口暴露出来后就可以访问AS了.MQTT服务和gateway-bridge服务也是如此,数据需要上传到服务端需要将服务暴露出来。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">kubectl expose deploy gateway-bridge --port <span style="color:#ae81ff">1700</span> --target-port<span style="color:#f92672">=</span><span style="color:#ae81ff">1700</span> --protocol<span style="color:#f92672">=</span>UDP --name udpservice --type<span style="color:#f92672">=</span>NodePort  
+</code></pre></div><h1 id="总结">总结</h1>
+<p>到目前为止 ChirpStack 已经在 K8S 上部署起来了,默认服务都是创建了 SVC 但是没有进一步暴露出来，具体的暴露方式目前是让用户来选择，可以把 AS 的端口暴露出来后就可以访问 AS 了.MQTT 服务和 gateway-bridge 服务也是如此,数据需要上传到服务端需要将服务暴露出来。</p>
 
 
         <h2>微信公众号</h2>

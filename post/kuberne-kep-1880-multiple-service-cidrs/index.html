@@ -1,0 +1,1200 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head><head>
+    <meta name="google-site-verification" content="9vIieCe-Qpd78QOmBl63rGtIVbhY6sYyuxX3j8XWBA4" />
+    <meta name="baidu-site-verification" content="LRrmH41lz7" />
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <meta name="baidu-site-verification" content="HGLXRsUXC4" />
+
+    
+    <meta name="baidu-site-verification" content="code-ANZvlnN0Xr" />
+
+    
+    <meta name="description" content="kuberne-kep-1880-多服务CIDR">
+    
+    <meta name="keyword"  content="liangyuanpeng|LanLiang|OpenYurt|Knative|Pulsar|Prometheus|Halo||边缘计算kubernetes|Docker|CloudNative|Golang|Rust|Istio|微服务">
+
+    
+    <link rel="shortcut icon" href="/img/aboutme/hash-kube-rs-pulsar.png">
+    
+
+    
+    <meta property="og:image" content="https://liangyuanpeng.github.io/img/banner-pexels.jpg" />
+    <meta name="twitter:image" content="https://liangyuanpeng.github.io/img/banner-pexels.jpg" />
+
+    <title>kuberne-kep-1880-多服务CIDR-liangyuanpeng的博客 | liangyuanpeng&#39;s Blog</title>
+
+    <link rel="canonical" href="https://liangyuanpeng.github.io/post/kuberne-kep-1880-multiple-service-cidrs/">
+
+    
+
+    
+    <link rel="stylesheet" href='https://liangyuanpeng.github.io/css/bootstrap.min.css'>
+
+    
+    <link rel="stylesheet" href="https://liangyuanpeng.github.io/css/hux-blog.min.css">
+
+    
+    <link rel="stylesheet" href="https://liangyuanpeng.github.io/css/syntax.css">
+
+    
+    <link href="/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    
+    <script src="https://liangyuanpeng.github.io/js/jquery.min.js"></script>
+
+    
+    <script src="https://liangyuanpeng.github.io/js/bootstrap.min.js"></script>
+
+    
+    <script src="https://liangyuanpeng.github.io/js/hux-blog.min.js"></script>
+
+    
+    <script defer src='/js/cf-beacon.min.js' data-cf-beacon='{"token": "f73bc0092aeb491d89984c0eb5a87ac2"}'></script>
+</head>
+
+</head>
+
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="https://liangyuanpeng.github.io/">Hi,I`m lan</a>
+        </div>
+
+        
+        
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="https://liangyuanpeng.github.io/">Home</a>
+                    </li>
+                    
+                    
+                     
+
+                    
+		            <li>
+                        <a href="https://liangyuanpeng.github.io/search/">SEARCH <img src="https://liangyuanpeng.github.io/img/search.png" height="15" style="cursor: pointer;"></a>
+		            </li>
+                    
+
+		            <li>
+                        <a href="https://liangyuanpeng.github.io/about/">关于我 </a>
+		            </li>
+                </ul>
+            </div>
+        </div>
+        
+    </div>
+    
+</nav>
+<script>
+    
+    
+    
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        
+            $navbar.className = " ";
+            
+            setTimeout(function(){
+                
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+
+
+<style type="text/css">
+    header.intro-header{
+        background-image: url('https://liangyuanpeng.github.io/img/banner-pexels.jpg')
+    }
+</style>
+
+<header class="intro-header" >
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+
+                       
+                       <a class="tag" href="/tags/k8s" title="k8s">
+                        k8s
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                        </a>
+                        
+                       <a class="tag" href="/tags/kubernetes" title="kubernetes">
+                        kubernetes
+                            
+                                
+                                <img style="display:inline-block;" src="/img/taglogo/emoji_k8s_loft.gif" height="20" width="20" />
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                        </a>
+                        
+                       <a class="tag" href="/tags/cncf" title="cncf">
+                        cncf
+                            
+                                
+                            
+                                
+                                <img style="display:inline-block;" src="/img/taglogo/cncf/cncf.png" height="20" width="20" />
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                        </a>
+                        
+                       <a class="tag" href="/tags/golang" title="golang">
+                        golang
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                                <img style="display:inline-block;" src="/img/taglogo/golang_mic_drop.png" height="20" width="20" />
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                        </a>
+                        
+                       <a class="tag" href="/tags/kep" title="kep">
+                        kep
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                        </a>
+                        
+                        <br/>
+                    </div>
+                    <h1>kuberne-kep-1880-多服务CIDR</h1>
+                    <h2 class="subheading"></h2>
+                    <span  class="meta">Posted by 梁远鹏 on 2023-12-27
+                        
+                        <span id="busuanzi_container_page_pv">|<span id="busuanzi_value_page_pv"></span><span>
+                            <span id="/post/kuberne-kep-1880-multiple-service-cidrs/" class="leancloud_visitors meta_data_item" data-flag-title="">
+    <span class="post-meta-item-icon">
+      <span class="octicon octicon-eye"></span> 
+    </span>
+    <i class="fa fa-eye"></i>
+    <span class="old-visitors-count" style="display: none;"></span>
+    <span class="leancloud-visitors-count"></span>
+</span>
+
+
+
+
+
+
+                            阅读 </span></span>|<span class="post-date">共2053字</span>，阅读约<span class="more-meta"> 5 分钟</span>
+                        
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+
+
+<article>
+    <div class="container">
+        <div class="row">
+            
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+		
+                <header>
+                <h2>TOC</h2>
+                </header>
+                <nav id="TableOfContents">
+  <ul>
+    <li><a href="#准备-kubernetes-集群">准备 kubernetes 集群</a></li>
+    <li><a href="#观察默认情况的一些数据">观察默认情况的一些数据</a></li>
+    <li><a href="#用例">用例</a>
+      <ul>
+        <li><a href="#ip耗尽">IP耗尽</a></li>
+        <li><a href="#给-kubernetes-集群的-service-切换一个新的-ip-段">给 kubernetes 集群的 service 切换一个新的 IP 段</a></li>
+        <li><a href="#集群-ip-迁移">集群 IP 迁移</a></li>
+      </ul>
+    </li>
+    <li><a href="#最后">最后</a></li>
+  </ul>
+</nav>
+		
+
+		<h1 id="kep-1880-多服务-cidr-是什么">KEP-1880 多服务 CIDR 是什么</h1>
+<p><a href="https://github.com/kubernetes/enhancements/tree/master/keps/sig-network/1880-multiple-service-cidrs#summary">KEP-1880</a> 允许通过 API 对象配置分配给 Kubernetes 集群的 ServiceCIDR,能够动态的扩展 kubernetes 集群的服务的 IP.</p>
+<h1 id="proposal">Proposal</h1>
+<p>这个提议实现了一个新的IP分配器逻辑,其中主要使用了两个 API 对象,ServiceCIDR 和 IPAddress,并且允许用户可以通过创建一个新的 ServiceCIDR 来达到动态增加可用 service IP 的效果.</p>
+<p>这个分配器可以&quot;自动&quot;的使用任何可用的 ServiceCIDR 中的 IP,kubernetes 社区考虑添加这种模型,就像给存储系统添加更多的磁盘以增加可用的磁盘空间一样.</p>
+<p>为了简化 API 模型以及使其可以向后兼容,并且避免它演变成不同的东西并且与其他的 API(例如 Gateway API)发生冲突,这个提议添加了以下约束:</p>
+<ul>
+<li>ServiceCIDR 在创建之后是不可变的</li>
+<li>只有当 ServiceCIDR 没有被任何 service IP 引用时才能够删除 ServiceCIDR 对象</li>
+<li>可能存在重叠的 ServiceCIDR</li>
+<li>apiserver 会定期的确保存在一个默认的ServiceCIDR</li>
+<li>集群中存在的任何 IP 地址都必须属于 ServiceCIDR 定义的 service CIDR 内</li>
+<li>任何配合了 ClusterIP 的服务都应该有一个关联的 IPAddress 对象</li>
+<li>处于正在删除状态的 ServiceCIDR 不能分配新的 IP</li>
+</ul>
+<p>这样的话 Service 和 IPAddress 之间就是一个 1:1 的关系,以及 IPAddress 与对应的 ServiceCIDR 是 N:1 的关系.有一个值得关注的是重叠的 ServiceCIDR 会合并在内存中, IPAddress 不是存在一个特定的 ServiceCIDR 对象,而是包含了这个 IP 段的任何 ServiceCIDR.(也就是说多个 ServiceCIDR 可以分配相同的 IP 段)</p>
+<p>新的分配器逻辑还可以被其他 API 使用,例如 Gateway API.</p>
+<h1 id="演示">演示</h1>
+<p>接下来会使用 Kind 来创建一个 kubernetes 来演示多服务 CIDR 的效果.</p>
+<h2 id="准备-kubernetes-集群">准备 kubernetes 集群</h2>
+<p>准备好一个 kubernetes 集群,这里使用 Kind 快速部署一个 kubernetes.</p>
+<p>kind.yaml</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#f92672">kind</span>: <span style="color:#ae81ff">Cluster</span>
+<span style="color:#f92672">apiVersion</span>: <span style="color:#ae81ff">kind.x-k8s.io/v1alpha4</span>
+<span style="color:#f92672">networking</span>:
+  <span style="color:#f92672">ipFamily</span>: <span style="color:#ae81ff">ipv4</span>
+  <span style="color:#f92672">kubeProxyMode</span>: <span style="color:#ae81ff">iptables</span>
+  <span style="color:#f92672">serviceSubnet</span>: <span style="color:#e6db74">&#34;10.96.0.0/28&#34;</span>
+  <span style="color:#f92672">dnsSearch</span>: []
+<span style="color:#f92672">nodes</span>:
+- <span style="color:#f92672">role</span>: <span style="color:#ae81ff">control-plane</span>
+  <span style="color:#f92672">image</span>: <span style="color:#ae81ff">kindest/node:v1.29.0@sha256:eaa1450915475849a73a9227b8f201df25e55e268e5d619312131292e324d570</span>
+  <span style="color:#f92672">extraPortMappings</span>:
+  - <span style="color:#f92672">containerPort</span>: <span style="color:#ae81ff">32080</span>
+    <span style="color:#f92672">hostPort</span>: <span style="color:#ae81ff">32080</span>
+    <span style="color:#f92672">listenAddress</span>: <span style="color:#e6db74">&#34;0.0.0.0&#34;</span>
+- <span style="color:#f92672">role</span>: <span style="color:#ae81ff">worker</span>
+  <span style="color:#f92672">image</span>: <span style="color:#ae81ff">kindest/node:v1.29.0@sha256:eaa1450915475849a73a9227b8f201df25e55e268e5d619312131292e324d570</span>
+- <span style="color:#f92672">role</span>: <span style="color:#ae81ff">worker</span>
+  <span style="color:#f92672">image</span>: <span style="color:#ae81ff">kindest/node:v1.29.0@sha256:eaa1450915475849a73a9227b8f201df25e55e268e5d619312131292e324d570</span>
+<span style="color:#f92672">featureGates</span>: {<span style="color:#e6db74">&#34;AllAlpha&#34;</span>:<span style="color:#66d9ef">true</span>}
+<span style="color:#f92672">runtimeConfig</span>: {<span style="color:#e6db74">&#34;api/alpha&#34;</span>:<span style="color:#e6db74">&#34;true&#34;</span>}
+<span style="color:#f92672">kubeadmConfigPatches</span>:
+- |<span style="color:#e6db74">
+</span><span style="color:#e6db74">  kind: ClusterConfiguration
+</span><span style="color:#e6db74">  metadata:
+</span><span style="color:#e6db74">    name: config
+</span><span style="color:#e6db74">  apiServer:
+</span><span style="color:#e6db74">    extraArgs:
+</span><span style="color:#e6db74">      &#34;v&#34;: &#34;4&#34;
+</span><span style="color:#e6db74">  controllerManager:
+</span><span style="color:#e6db74">    extraArgs:
+</span><span style="color:#e6db74">      &#34;v&#34;: &#34;4&#34;
+</span><span style="color:#e6db74">  scheduler:
+</span><span style="color:#e6db74">    extraArgs:
+</span><span style="color:#e6db74">      &#34;v&#34;: &#34;4&#34;
+</span><span style="color:#e6db74">  ---
+</span><span style="color:#e6db74">  kind: InitConfiguration
+</span><span style="color:#e6db74">  nodeRegistration:
+</span><span style="color:#e6db74">    kubeletExtraArgs:
+</span><span style="color:#e6db74">      &#34;v&#34;: &#34;4&#34;
+</span><span style="color:#e6db74">  ---
+</span><span style="color:#e6db74">  kind: JoinConfiguration
+</span><span style="color:#e6db74">  nodeRegistration:
+</span><span style="color:#e6db74">    kubeletExtraArgs:
+</span><span style="color:#e6db74">      &#34;v&#34;: &#34;4&#34;</span>  
+</code></pre></div><p>运行以下命令使用上述的 Kind 配置文件创建一个 1 master 2 node 的 kubernetes 集群:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">kind create cluster --config kind.yaml -v9 --name servicecidr  
+</code></pre></div><p>等待一会出现以下提示则表示命令执行成功了:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">...
+I1228 14:39:34.531417     <span style="color:#ae81ff">139</span> round_trippers.go:553<span style="color:#f92672">]</span> PATCH https://servicecidr-control-plane:6443/api/v1/nodes/servicecidr-worker2?timeout<span style="color:#f92672">=</span>10s <span style="color:#ae81ff">200</span> OK in <span style="color:#ae81ff">3</span> milliseconds
+
+This node has joined the cluster:
+* Certificate signing request was sent to apiserver and a response was received.
+* The Kubelet was informed of the new secure connection details.
+
+Run <span style="color:#e6db74">&#39;kubectl get nodes&#39;</span> on the control-plane to see this node join the cluster.
+ ✓ Joining worker nodes 🚜
+Set kubectl context to <span style="color:#e6db74">&#34;kind-servicecidr&#34;</span>
+You can now use your cluster with:
+
+kubectl cluster-info --context kind-servicecidr
+
+Not sure what to <span style="color:#66d9ef">do</span> next? 😅  Check out https://kind.sigs.k8s.io/docs/user/quick-start/
+</code></pre></div><h2 id="观察默认情况的一些数据">观察默认情况的一些数据</h2>
+<p>kubernetes 集群准备好后可以观察一下默认情况 kubernetes 的一些关于 ServiceCIDR 的资源对象情况.</p>
+<ol>
+<li>有一个名为 kubernetes 的默认 ServiceCIDR 对象,根据上面 Kind 配置文件中的 <code>serviceSubnet</code> 来创建的.</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">lank8s@lank8s:~/cidrs$ kubectl get servicecidrs
+NAME         CIDRS          AGE
+kubernetes   10.96.0.0/28   3m57s
+</code></pre></div><ol start="2">
+<li>有一个名为 kubernetes 的默认 service 对象,是默认 ServiceCIDR 对象分配的第一个 IP.</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">lank8s@lank8s:~/cidrs$ kubectl get service
+NAME         TYPE        CLUSTER-IP   EXTERNAL-IP   PORT<span style="color:#f92672">(</span>S<span style="color:#f92672">)</span>   AGE
+kubernetes   ClusterIP   10.96.0.1    &lt;none&gt;        443/TCP   5m7s
+</code></pre></div><ol start="3">
+<li>默认 Service 会有一个对应的 IPAddress 对象</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">lank8s@lank8s:~/cidrs$ kubectl get ipaddress
+NAME         PARENTREF
+10.96.0.1    services/default/kubernetes
+10.96.0.10   services/kube-system/kube-dns
+</code></pre></div><p>可以看到实际上会有两个 IPAddress,另一个是由 coreDNS 产生的.</p>
+<p>ServiceCIDR 使用 finalizers 机制来保证资源的联级删除,只有当另一个 ServiceCIDR 包含了对应的 IP 段或者是没有相关的 IP 段时 ServiceCIDR 才会被删除.</p>
+<h2 id="用例">用例</h2>
+<h3 id="ip耗尽">IP耗尽</h3>
+<p>在某些情况下, ServiceCIDR IP 段被耗尽了,这时候想要增加 service 的话是一种破坏性的操作,甚至可能会造成数据丢失. 而当有了 Multiple-Service-CIDRs 之后,只需要新增一个 ServiceCIDR 对象就可以完成这个操作了.</p>
+<p>接下来简单演示一下,首先遍历创建 service,把集群的 service IP 都耗尽:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">lank8s@lank8s:~/cidrs$ <span style="color:#66d9ef">for</span> i in <span style="color:#66d9ef">$(</span>seq <span style="color:#ae81ff">1</span> 13<span style="color:#66d9ef">)</span>; <span style="color:#66d9ef">do</span> kubectl create service clusterip <span style="color:#e6db74">&#34;test-</span>$i<span style="color:#e6db74">&#34;</span> --tcp <span style="color:#ae81ff">80</span> -o json | jq -r .spec.clusterIP; <span style="color:#66d9ef">done</span>
+10.96.0.14
+10.96.0.12
+10.96.0.11
+10.96.0.9
+10.96.0.13
+10.96.0.5
+10.96.0.8
+10.96.0.7
+10.96.0.2
+10.96.0.3
+10.96.0.4
+10.96.0.6
+error: failed to create ClusterIP service: Internal error occurred: failed to allocate a serviceIP: range is full
+</code></pre></div><p>可以看到最后提示无法创建新的 Service 了,这个时候我们创建一个 ServiceCIDR 对象:</p>
+<p>cidr.yaml</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#f92672">apiVersion</span>: <span style="color:#ae81ff">networking.k8s.io/v1alpha1</span>
+<span style="color:#f92672">kind</span>: <span style="color:#ae81ff">ServiceCIDR</span>
+<span style="color:#f92672">metadata</span>:
+  <span style="color:#f92672">name</span>: <span style="color:#ae81ff">newcidr1</span>
+<span style="color:#f92672">spec</span>:
+  <span style="color:#f92672">cidrs</span>: 
+  - <span style="color:#ae81ff">192.96.0.0</span><span style="color:#ae81ff">/24</span>
+</code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">lank8s@lank8s:~/cidrs$ kubectl apply -f cidrs.yaml 
+servicecidr.networking.k8s.io/newcidr1 created
+</code></pre></div><p>然后继续创建新的 Service 看看结果如何:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">lank8s@lank8s:~/cidrs$ <span style="color:#66d9ef">for</span> i in <span style="color:#66d9ef">$(</span>seq <span style="color:#ae81ff">13</span> 16<span style="color:#66d9ef">)</span>; <span style="color:#66d9ef">do</span> kubectl create service clusterip <span style="color:#e6db74">&#34;test-</span>$i<span style="color:#e6db74">&#34;</span> --tcp <span style="color:#ae81ff">80</span> -o json | jq -r .spec.clusterIP; <span style="color:#66d9ef">done</span>
+192.96.0.43
+192.96.0.172
+192.96.0.146
+192.96.0.112
+</code></pre></div><p>可以看到这时候已经可以继续创建 Service 了,并且新的 Service 对应的 IP 都是和刚创建的 ServiceCIDR 资源所配置的网段里面.</p>
+<p>接下来试着删除一下这个 ServiceCIDR 对象:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">lank8s@lank8s:~/cidrs$ kubectl delete serviceCIDR newcidr1
+servicecidr.networking.k8s.io <span style="color:#e6db74">&#34;newcidr1&#34;</span> deleted
+
+</code></pre></div><p>由于集群中有关联的 service,所以会无法删除这个 ServiceCIDR,看一下这个时候 ServiceCIDR 对象的状态:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">lank8s@lank8s:~/cidrs$  kubectl get servicecidr newcidr1 -o yaml
+apiVersion: networking.k8s.io/v1alpha1
+kind: ServiceCIDR
+metadata:
+  annotations:
+    kubectl.kubernetes.io/last-applied-configuration: |
+      <span style="color:#f92672">{</span><span style="color:#e6db74">&#34;apiVersion&#34;</span>:<span style="color:#e6db74">&#34;networking.k8s.io/v1alpha1&#34;</span>,<span style="color:#e6db74">&#34;kind&#34;</span>:<span style="color:#e6db74">&#34;ServiceCIDR&#34;</span>,<span style="color:#e6db74">&#34;metadata&#34;</span>:<span style="color:#f92672">{</span><span style="color:#e6db74">&#34;annotations&#34;</span>:<span style="color:#f92672">{}</span>,<span style="color:#e6db74">&#34;name&#34;</span>:<span style="color:#e6db74">&#34;newcidr1&#34;</span><span style="color:#f92672">}</span>,<span style="color:#e6db74">&#34;spec&#34;</span>:<span style="color:#f92672">{</span><span style="color:#e6db74">&#34;cidrs&#34;</span>:<span style="color:#f92672">[</span><span style="color:#e6db74">&#34;192.96.0.0/24&#34;</span><span style="color:#f92672">]}}</span>
+  creationTimestamp: <span style="color:#e6db74">&#34;2023-12-28T14:53:28Z&#34;</span>
+  deletionGracePeriodSeconds: <span style="color:#ae81ff">0</span>
+  deletionTimestamp: <span style="color:#e6db74">&#34;2023-12-28T14:55:36Z&#34;</span>
+  finalizers:
+  - networking.k8s.io/service-cidr-finalizer
+  name: newcidr1
+  resourceVersion: <span style="color:#e6db74">&#34;2363&#34;</span>
+  uid: 38496a54-f718-470f-935f-f6db63873869
+spec:
+  cidrs:
+  - 192.96.0.0/24
+status:
+  conditions:
+  - lastTransitionTime: <span style="color:#e6db74">&#34;2023-12-28T14:55:36Z&#34;</span>
+    message: There are still IPAddresses referencing the ServiceCIDR, please remove
+      them or create a new ServiceCIDR
+    reason: Terminating
+    status: <span style="color:#e6db74">&#34;False&#34;</span>
+    type: Ready
+</code></pre></div><p>可以看到这时候它的 status 是 false,finalizers 标志上有 <code>networking.k8s.io/service-cidr-finalizer</code> 所以无法删除.</p>
+<p>现在我们将对应的 service 都删掉:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">lank8s@lank8s:~/cidrs$ <span style="color:#66d9ef">for</span> i in <span style="color:#66d9ef">$(</span>seq <span style="color:#ae81ff">13</span> 16<span style="color:#66d9ef">)</span>; <span style="color:#66d9ef">do</span> kubectl delete service <span style="color:#e6db74">&#34;test-</span>$i<span style="color:#e6db74">&#34;</span> ; <span style="color:#66d9ef">done</span>
+service <span style="color:#e6db74">&#34;test-13&#34;</span> deleted
+service <span style="color:#e6db74">&#34;test-14&#34;</span> deleted
+service <span style="color:#e6db74">&#34;test-15&#34;</span> deleted
+service <span style="color:#e6db74">&#34;test-16&#34;</span> deleted
+</code></pre></div><p>这个时候再查询一下刚才的 ServiceCIDR:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">lank8s@lank8s:~/cidrs$  kubectl get servicecidr newcidr1
+Error from server <span style="color:#f92672">(</span>NotFound<span style="color:#f92672">)</span>: servicecidrs.networking.k8s.io <span style="color:#e6db74">&#34;newcidr1&#34;</span> not found
+</code></pre></div><p>可以看到这个 ServiceCIDR 已经不存在了,因为没有与其关联的 service 所以它被成功删除了.</p>
+<h3 id="给-kubernetes-集群的-service-切换一个新的-ip-段">给 kubernetes 集群的 service 切换一个新的 IP 段</h3>
+<p>另一个常见的用例是当用户想要将集群中现有的 service IP 都切换到一个新的 IP 段,例如想要将 <code>10.96.0.0/28</code> 切换到 <code>192.168.7.0/24</code>.</p>
+<p>我们可以按照以下的步骤操作:</p>
+<ol>
+<li>使用 <code>192.168.7.0/24</code> 临时创建一个新的 ServiceCIDR 对象</li>
+<li>删除默认的 ServiceCIDR,让它处于一个被删除的状态,这样有新的 service 创建时就不会使用这个 ServiceCIDR 分配新的 IP 地址了</li>
+<li>这个时候只有默认的 kubernetes.default service 是一定要在默认的 ServiceCIDR 里面的</li>
+<li>重新创建集群内的其他所有 service,让它们可以从新的 ServiceCIDR 分配 IP 地址</li>
+<li>这个时候可以启动一个新的 apiserver,然后指定它的 serviceSubnet 与新创建的 ServiceCIDR 网段相匹配,在这个示例的话就是 <code>192.168.7.0/24</code></li>
+<li>当新的 apiserver 成功启动后可以关闭就的 apiserver 了</li>
+<li>删除默认的 kubernetes.default 服务,这样就可以让集群内原有的 ServiceCIDR 被删除了,然后默认的 kubernetes.default 服务会由新的 apiserver 创建出来,并且 IP 网段是由新的 ServiceCIDR 分配的.</li>
+<li>这个时候可以删除刚才临时创建的 ServiceCIDR 了，因为新启动的 apiserver 已经指定了 serviceSubnet 与这个 ServiceCIDR 是同一个网段,这时候临时创建的 ServiceCIDR 已经不需要了.</li>
+</ol>
+<h3 id="集群-ip-迁移">集群 IP 迁移</h3>
+<p>与集群切换 IP 网段是一样的.</p>
+<h2 id="最后">最后</h2>
+<p>如果 ServiceCIDR 处于被删除的状态,这时候管理的 Service 是不受影响的,可以继续访问.</p>
+<p>文章演示部分翻译于[2]</p>
+<p>参考:</p>
+<ul>
+<li>[1] <a href="https://github.com/kubernetes/enhancements/tree/master/keps/sig-network/1880-multiple-service-cidrs#summary">https://github.com/kubernetes/enhancements/tree/master/keps/sig-network/1880-multiple-service-cidrs#summary</a></li>
+<li>[2] <a href="https://gist.github.com/aojea/c20eb117bf1c1214f8bba26c495be9c7">https://gist.github.com/aojea/c20eb117bf1c1214f8bba26c495be9c7</a></li>
+</ul>
+
+
+        <h2>微信公众号</h2>
+<p>扫描下面的二维码关注我们的微信公众号,第一时间查看最新内容。同时也可以关注我的Github,看看我都在了解什么技术,在页面底部可以找到我的Github。</p>
+<img  src="/img/qrcode_for_sikekafeidou.jpg" alt="wechat-qrcode">
+
+        <div style="padding: 10px 0; margin: 20px auto; width: 100%; font-size:16px; text-align: center;">
+    <button class="btn btn-danger"  id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+        <span>「来都来了」赞赏</span></button>
+    <div  id="QR" style="display: none;">
+        <div id="wechat" style="display: inline-block">
+            <p>如果本文对你有帮助的话欢迎通过微信或支付宝对我进行赞助,强烈建议你在支付的备注上填上你的 githubID 或你的昵称,让我知道我该感谢谁!!! </br></br>
+                赞助金额设置为固定金额:8元. </br> 
+                8元赠与我,发发发反馈给你,2023祝你收入翻番一路发到底:)</p>
+            <a class="fancybox" rel="group">
+                <img id="wechat_qr" src="/img/wechat-zhifubao.png" alt="Pay"></a>
+        </div>
+    </div>
+</div>
+
+        
+
+                <hr>
+
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/post/quick-start-kcl/" data-toggle="tooltip" data-placement="top" title="快速入门KCL">&larr; 快速入门KCL</a>
+                    </li>
+                    
+                    
+                    <li class="next">
+                        <a href="/post/run-k8s-with-kind/" data-toggle="tooltip" data-placement="top" title="用kind搭建k8s集群环境">用kind搭建k8s集群环境 &rarr;</a>
+                    </li>
+                    
+                </ul>
+
+            
+
+
+<script src="https://giscus.app/client.js"
+        data-repo="liangyuanpeng/liangyuanpeng.github.io"
+        data-repo-id="MDEwOlJlcG9zaXRvcnkxNDkwMDQ2OTM="
+        data-category=""
+        data-category-id="DIC_kwDOCOGhlc4CVwo2"
+        data-mapping="title"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="top"
+        data-theme="light"
+        data-lang="zh-CN"
+        crossorigin="anonymous"
+        async>
+</script>
+
+
+
+
+            </div>
+
+            
+
+            <div class="
+                col-lg-2 col-lg-offset-0
+                visible-lg-block
+                sidebar-container
+                catalog-container">
+                
+                扫码下面二维码加我微信 :)
+                <img src="https://liangyuanpeng.github.io/img/aboutme/wechat-lan.png" />
+                
+            </div> 
+
+            
+
+            
+            
+            
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                
+                
+<br/>
+<h5>开源项目推荐</h5>
+
+<style type="text/css">
+.pinned-repos {
+  max-width: 300px;
+  margin: 0 auto;
+}
+
+.repo-card {
+  display: flex;
+  flex-direction: column;
+  padding: 16px;
+  border: 1px solid #e1e4e8;
+  border-radius: 6px;
+  background-color: #fff;
+}
+
+.repo-card:hover {
+  box-shadow: 0 1px 3px rgba(36,41,46,.08);
+}
+
+.repo-card h2 {
+  margin-top: 0;
+  font-size: 20px;
+  font-weight: 200;
+  color: #0366d6;
+}
+
+.repo-card p {
+  margin: 8px 0 16px;
+  font-size: 14px;
+  color: #586069;
+}
+
+.repo-card-stats {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;  
+}
+
+.repo-card-stats span {
+  font-size: 12px;
+  color: #586069;
+  margin-right: 16px;
+}
+
+.repo-card-stats strong {
+  font-weight: 200;
+  color: #24292e;
+}
+</style>
+
+    
+    <ul class="margin-bottom: 25px;pinned-repo-list">
+      <li>
+        <div class="repo-card">
+          <div class="repo-card-details">
+            <h2><a href="https://github.com/liangyuanpeng/replacer">replacer</a></h2>
+            <p>K8S webhook的参考实现|Replace container image of kubernetes mutate webhook.</p>
+            <div class="repo-card-stats">
+              <span>Language: <strong>Golang</strong></span>
+              <span>Forks: <strong>*</strong></span>
+              <span>Stars: <strong>*</strong></span>
+              <span>Updated: <strong>Nov 20, 2021</strong></span>
+            </div>
+          </div>
+        </div>
+      </li>
+    </ul>
+
+            </div>
+
+            
+            
+            <div class="
+            col-lg- col-lg-offset-2
+            col-md-10 col-md-offset-1
+            ">
+            <section>
+                <hr class="hidden-sm hidden-xs">
+                
+
+<h2>相关文章</h2>
+<ul style="margin-bottom: 25px;">
+    
+    <li><a href="/post/compile-kubernetes/">编译kubernetes组件</a></li>
+    
+    <li><a href="/post/question-list-of-kubernetes/">[长期更新]kubernetes问题列表记录</a></li>
+    
+    <li><a href="/post/kubeadm-config-note-long-term/">[长期更新]kubeadm常见问题以及配置记录</a></li>
+    
+    <li><a href="/post/kubecon-china-2023%E5%B0%86%E5%9C%A8%E4%B8%8A%E6%B5%B7%E4%B8%BE%E5%8A%9E/">kubecon china 2023将在上海举办</a></li>
+    
+    <li><a href="/post/migrate-your-manifest-yaml-files-into-helm-chart/">将你的yaml文件迁移到helm</a></li>
+    
+    <li><a href="/post/from-zero-to-kubernets-subproject-lead/">从零到 Kubernetes 子项目负责人</a></li>
+    
+    <li><a href="/post/kubernetes-hpa-custom-metrics-for-effective-cpu-memory-scaling/">Kubernetes HPA:定制指标实现有效的CPU和内存扩展</a></li>
+    
+    <li><a href="/post/run-k8s-with-kind/">用kind搭建k8s集群环境</a></li>
+    
+    <li><a href="/post/pull-gcr-k8s-image-with-lank8s/">国内环境拉取gcr和k8s镜像</a></li>
+    
+    <li><a href="/post/k8s-component-config-note-long-term/">[长期更新]k8s组件常用参数</a></li>
+    
+</ul>
+
+            </section>
+            </div>
+            
+
+            
+
+
+        </div>
+    </div>
+</article>
+
+
+
+
+
+
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                   
+                   <li>
+                       <a href="" rel="alternate" type="application/rss+xml" title="Hi,I`m lan" >
+                           <span class="fa-stack fa-lg">
+                               <i class="fa fa-circle fa-stack-2x"></i>
+                               <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+                           </span>
+                       </a>
+                   </li>
+                   
+                    
+                    <li>
+                        <a target="_blank" href="https://github.com/liangyuanpeng">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                   
+                   
+                    
+                    <li>
+                        <a target="_blank" href="https://liangyuanpeng.github.io/img/aboutme/wechat-lan.png">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-wechat fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li>
+                        <a href="mailto:liangyuanpengem@163.com">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+		    
+
+                    
+                    <li>
+                        <a href="https://twitter.com/lan31793328">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li>
+                        <a target="_blank" href="https://www.zhihu.com/people/liangyuanpeng">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa  fa-stack-1x fa-inverse">知</i>
+                            </span>
+                        </a>
+                    </li>
+		    
+                    
+                    <li>
+                        <a target="_blank" href="https://weibo.com/u/1908782280">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+		    
+
+                    
+
+		    
+                    
+                </ul>
+		<p class="copyright text-muted">
+                    Copyright &copy; Hi,I`m lan , 2023
+                    <br>
+                    <a href="https://themes.gohugo.io/hugo-theme-cleanwhite">CleanWhite Hugo Theme</a> by <a href="https://zhaohuabing.com">Huabing</a> |
+                    <iframe
+                        style="margin-left: 2px; margin-bottom:-5px;"
+                        frameborder="0" scrolling="0" width="100px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=zhaohuabing&repo=hugo-theme-cleanwhite&type=star&count=true" >
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+
+<script>
+    function loadAsync(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+
+
+
+
+
+<script>
+    
+    if($('#tag_cloud').length !== 0){
+        async("/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+
+
+
+<script type="text/javascript">
+
+    
+    
+
+    function generateCatalog(selector) {
+
+        
+        
+        
+        
+            _containerSelector = 'div.post-container'
+        
+
+        
+        var P = $(_containerSelector), a, n, t, l, i, c;
+        a = P.find('h1,h2,h3,h4,h5,h6');
+
+        
+        $(selector).html('')
+
+        
+        a.each(function () {
+            n = $(this).prop('tagName').toLowerCase();
+            i = "#" + $(this).prop('id');
+            t = $(this).text();
+            c = $('<a href="' + i + '" rel="nofollow">' + t + '</a>');
+            l = $('<li class="' + n + '_nav"></li>').append(c);
+            $(selector).append(l);
+        });
+        return true;
+    }
+
+    generateCatalog(".catalog-body");
+
+    
+    $(".catalog-toggle").click((function (e) {
+        e.preventDefault();
+        $('.side-catalog').toggleClass("fold")
+    }))
+
+    
+
+
+    loadAsync("\/js\/jquery.nav.js", function () {
+        $('.catalog-body').onePageNav({
+            currentClass: "active",
+            changeHash: !1,
+            easing: "swing",
+            filter: "",
+            scrollSpeed: 700,
+            scrollOffset: 0,
+            scrollThreshold: .2,
+            begin: null,
+            end: null,
+            scrollChange: null,
+            padding: 80
+        });
+    });
+</script>
+
+
+
+
+<script>
+    async("/js/fastclick-1.0.6.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+
+
+<script>
+    
+    var _baId = 'fad9c137f8ce239f9b323d36c871f8e6';
+
+    
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?" + _baId;
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+
+
+
+
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-RTTRHGYFWL"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-RTTRHGYFWL');
+</script>
+
+
+
+</body>
+</html>

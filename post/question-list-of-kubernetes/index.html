@@ -360,7 +360,7 @@
 
 
 
-                            阅读 </span></span>|<span class="post-date">共67字</span>，阅读约<span class="more-meta"> 1 分钟</span>
+                            阅读 </span></span>|<span class="post-date">共196字</span>，阅读约<span class="more-meta"> 1 分钟</span>
                         
                     </span>
                 </div>
@@ -397,7 +397,12 @@
 <h2 id="如何保证-sidecar-先于-app-容器销毁">如何保证 sidecar 先于 app 容器销毁</h2>
 <p>通过信号方式
 TODO 完善展开</p>
-
+<h1 id="将kubeconfig文件转换成证书文件">将kubeconfig文件转换成证书文件</h1>
+<p>对于我来说主要的场景是将默认的管理员 kubeconfig 内容转换成证书文件,然后放在 nginx/envoy 来代理 kubernetes 请求,减少双向证书认证带来的繁琐.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">kubectl config view --minify --flatten -o json | jq <span style="color:#e6db74">&#34;.clusters[0].cluster.\&#34;certificate-authority-data\&#34;&#34;</span> | sed <span style="color:#e6db74">&#39;s/\&#34;//g&#39;</span> | base64 --decode &gt;&gt; ca.crt 
+kubectl config view --minify --flatten -o json | jq <span style="color:#e6db74">&#34;.users[0].user.\&#34;client-certificate-data\&#34;&#34;</span> | sed <span style="color:#e6db74">&#39;s/\&#34;//g&#39;</span> | base64 --decode &gt;&gt; client.crt 
+kubectl config view --minify --flatten -o json | jq <span style="color:#e6db74">&#34;.users[0].user.\&#34;client-key-data\&#34;&#34;</span> | sed <span style="color:#e6db74">&#39;s/\&#34;//g&#39;</span> | base64 --decode &gt;&gt; client.key 
+</code></pre></div>
 
         <h2>微信公众号</h2>
 <p>扫描下面的二维码关注我们的微信公众号,第一时间查看最新内容。同时也可以关注我的Github,看看我都在了解什么技术,在页面底部可以找到我的Github。</p>

@@ -6,22 +6,49 @@
     <description>Recent content in Tags on Hi,I`m lan</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 08 Nov 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://liangyuanpeng.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 27 Dec 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://liangyuanpeng.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>cncf</title>
       <link>https://liangyuanpeng.github.io/tags/cncf/</link>
-      <pubDate>Wed, 08 Nov 2023 00:00:00 +0000</pubDate>
+      <pubDate>Wed, 27 Dec 2023 00:00:00 +0000</pubDate>
       
       <guid>https://liangyuanpeng.github.io/tags/cncf/</guid>
       <description></description>
     </item>
     
     <item>
+      <title>golang</title>
+      <link>https://liangyuanpeng.github.io/tags/golang/</link>
+      <pubDate>Wed, 27 Dec 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://liangyuanpeng.github.io/tags/golang/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>k8s</title>
       <link>https://liangyuanpeng.github.io/tags/k8s/</link>
-      <pubDate>Wed, 08 Nov 2023 00:00:00 +0000</pubDate>
+      <pubDate>Wed, 27 Dec 2023 00:00:00 +0000</pubDate>
       
       <guid>https://liangyuanpeng.github.io/tags/k8s/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>kep</title>
+      <link>https://liangyuanpeng.github.io/tags/kep/</link>
+      <pubDate>Wed, 27 Dec 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://liangyuanpeng.github.io/tags/kep/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>kubernetes</title>
+      <link>https://liangyuanpeng.github.io/tags/kubernetes/</link>
+      <pubDate>Wed, 27 Dec 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://liangyuanpeng.github.io/tags/kubernetes/</guid>
       <description></description>
     </item>
     
@@ -31,15 +58,6 @@
       <pubDate>Wed, 08 Nov 2023 00:00:00 +0000</pubDate>
       
       <guid>https://liangyuanpeng.github.io/tags/kcl/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>kubernetes</title>
-      <link>https://liangyuanpeng.github.io/tags/kubernetes/</link>
-      <pubDate>Sat, 02 Sep 2023 00:00:00 +0000</pubDate>
-      
-      <guid>https://liangyuanpeng.github.io/tags/kubernetes/</guid>
       <description></description>
     </item>
     
@@ -242,6 +260,33 @@
     </item>
     
     <item>
+      <title>fluxcd</title>
+      <link>https://liangyuanpeng.github.io/tags/fluxcd/</link>
+      <pubDate>Mon, 03 Apr 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://liangyuanpeng.github.io/tags/fluxcd/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>gitops</title>
+      <link>https://liangyuanpeng.github.io/tags/gitops/</link>
+      <pubDate>Mon, 03 Apr 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://liangyuanpeng.github.io/tags/gitops/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>kind</title>
+      <link>https://liangyuanpeng.github.io/tags/kind/</link>
+      <pubDate>Mon, 03 Apr 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://liangyuanpeng.github.io/tags/kind/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>chatgpt</title>
       <link>https://liangyuanpeng.github.io/tags/chatgpt/</link>
       <pubDate>Sat, 01 Apr 2023 00:00:00 +0000</pubDate>
@@ -386,15 +431,6 @@
     </item>
     
     <item>
-      <title>kind</title>
-      <link>https://liangyuanpeng.github.io/tags/kind/</link>
-      <pubDate>Sun, 12 Mar 2023 00:00:00 +0000</pubDate>
-      
-      <guid>https://liangyuanpeng.github.io/tags/kind/</guid>
-      <description></description>
-    </item>
-    
-    <item>
       <title>xline</title>
       <link>https://liangyuanpeng.github.io/tags/xline/</link>
       <pubDate>Sun, 12 Mar 2023 00:00:00 +0000</pubDate>
@@ -517,15 +553,6 @@
       <pubDate>Mon, 20 Feb 2023 00:00:00 +0000</pubDate>
       
       <guid>https://liangyuanpeng.github.io/tags/nginx/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>golang</title>
-      <link>https://liangyuanpeng.github.io/tags/golang/</link>
-      <pubDate>Sun, 19 Feb 2023 00:00:00 +0000</pubDate>
-      
-      <guid>https://liangyuanpeng.github.io/tags/golang/</guid>
       <description></description>
     </item>
     

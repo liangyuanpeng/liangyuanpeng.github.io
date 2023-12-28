@@ -40,7 +40,7 @@
       <pubDate>Thu, 04 May 2023 00:00:00 +0000</pubDate>
       
       <guid>https://liangyuanpeng.github.io/post/question-list-of-kubernetes/</guid>
-      <description>说明 本文主要收集常见场景下 kubernetes 遇到的一些常见问题,欢迎对本文进行投稿你认为好的场景或问题. 如何保证 sidecar 先于 app 容器销毁 通过信号方式 TODO 完善展开</description>
+      <description>说明 本文主要收集常见场景下 kubernetes 遇到的一些常见问题,欢迎对本文进行投稿你认为好的场景或问题. 如何保证 sidecar 先于 app 容器销毁 通过信号方式 TODO 完善展开 将ku</description>
     </item>
     
     <item>
@@ -59,6 +59,15 @@
       
       <guid>https://liangyuanpeng.github.io/post/opci-registry-for-opa-policy/</guid>
       <description>使用容器镜像仓库存储OPA策略 注意,目前 OPA(0.52.0) 只会去 OCI 镜像仓库下载这三种格式的内容: application/vnd.oci.image.layer.v1.tar+gzip application/vnd.oci.image.manifest.v1+json application/vnd.oci.image.config.v1+json 简单来说就是基于应用容器镜像的格式来做的,未来我相信会</description>
+    </item>
+    
+    <item>
+      <title>基于flux和kind快速搭建k8s环境</title>
+      <link>https://liangyuanpeng.github.io/post/quick-k8s-dev-with-flux-and-kind/</link>
+      <pubDate>Mon, 03 Apr 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://liangyuanpeng.github.io/post/quick-k8s-dev-with-flux-and-kind/</guid>
+      <description>目前,这只是一个简单的笔记 总是需要各种特定的 K8S 研究环境，而部署各种环境的方式又不一致,有 yamls 方式的 有 helm 方式的，因此需要保证这两种方式都能够通过</description>
     </item>
     
     <item>
