@@ -21,7 +21,7 @@ categories:
 ---
 
 # chirpstack-helm-chart
-开源lorawan server 项目chirpstack的helm chart [english](../README.md)
+开源 lorawan server 项目 chirpstack 的 helm chart [english](../README.md)
 
 # 如何贡献
 如果你想对这个项目进行贡献可以点击`fork`按钮`fork`这个项目并且发起`PR`
@@ -94,7 +94,7 @@ $ helm list
 NAME            NAMESPACE       REVISION        UPDATED                                 STATUS          CHART                           APP VERSION
 chirpstack      default         1               2021-01-29 16:11:48.984574857 +0800 CST deployed        chirpstack-helm-chart-0.1.0     1.16.0
 ```   
-# 暴露application-server的svc，访问application-server
+# 暴露 application-server 的svc，访问application-server
 ```bash
 kubectl port-forward svc/chirpstack-as 8080:8080 --address 0.0.0.0
 ```
@@ -103,16 +103,16 @@ kubectl port-forward svc/chirpstack-as 8080:8080 --address 0.0.0.0
 
 你可以设置为 `chirpstack-ns.{namespace}:8000` 或者 `chirpstack-ns.{namespace}.svc.cluster.local:8000`    
 
-这里的{namespace}替换为真实的命名空间
+这里的`{namespace}`替换为真实的命名空间
 
 ![login](https://res.cloudinary.com/lyp/image/upload/v1612010769/hugo/blog.github.io/chirpstack/create-ns.jpg)
 
 #  如果你用了gateway-bridge这个组件的话，可以用下面的命令把svc暴露出来
 
-```
+```shell
 kubectl expose deploy gateway-bridge --port 1700 --target-port=1700 --protocol=UDP --name udpservice --type=NodePort  
 ```  
 
 # 总结  
 
-到目前为止ChirpStack已经在K8S上部署起来了,默认服务都是创建了SVC但是没有进一步暴露出来，具体的暴露方式目前是让用户来选择，可以把AS的端口暴露出来后就可以访问AS了.MQTT服务和gateway-bridge服务也是如此,数据需要上传到服务端需要将服务暴露出来。
+到目前为止 ChirpStack 已经在 K8S 上部署起来了,默认服务都是创建了 SVC 但是没有进一步暴露出来，具体的暴露方式目前是让用户来选择，可以把 AS 的端口暴露出来后就可以访问 AS 了.MQTT 服务和 gateway-bridge 服务也是如此,数据需要上传到服务端需要将服务暴露出来。

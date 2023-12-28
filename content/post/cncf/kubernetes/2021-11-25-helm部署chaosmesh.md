@@ -39,9 +39,9 @@ chaos-dashboard-5f7b6b9b6b-ml22l            0/1     ContainerCreating   0       
 
 # 最后的最后  
 
-本文其实就是按照官方文档操作了一边,就让chaosmesh部署起来了.  
+本文其实就是按照官方文档操作了一边,就让 chaosmesh 部署起来了.  
 
-编写本篇文时,参照的文档是2.0.4版本.
+编写本篇文时,参照的文档是`2.0.4`版本.
 
 https://chaos-mesh.org/docs/production-installation-using-helm/
 
