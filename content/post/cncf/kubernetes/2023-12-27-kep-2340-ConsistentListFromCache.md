@@ -7,7 +7,7 @@ description: "kubernetes-kep-2340-ConsistentListFromCache"
 date:       2023-12-29
 author:     "梁远鹏"
 image: "/img/banner-pexels.jpg"
-published: true
+published: false
 wip: true
 tags:
     - k8s

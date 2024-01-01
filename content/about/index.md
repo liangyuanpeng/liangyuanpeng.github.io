@@ -11,19 +11,21 @@ published: true
 
 # 关于我
 
-Hi，我是梁远鹏,云原生开源爱好者.
+Hi，我是梁远鹏,云原生开源爱好者,在2024将会编写几篇关于 kube-apiserver 与 etcd 之间的博客,欢迎关注.
 
+- Karmada 贡献者
 - Apache Pulsar 贡献者
 - Tekton & Shipwright 贡献者
-- Karmada 贡献者
 - 短暂的 CDF 中文本地化 sigs 成员 (目前该 sigs 已经归档)
+
+很快将成为 kubernetes 贡献者 ⭐⭐
 
 # 关注
 
+- Kubernetes 项目及生态
 - Karmada
 - CNCF 项目
-- kubernetes 项目及生态
-- CDF 项目
+- ~~CDF 项目~~ (我对此仍然感兴趣,但时间精力有限)
 - Apache Pulsar 项目及生态.
 
 # 演讲分享
