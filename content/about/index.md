@@ -39,3 +39,11 @@ Hi，我是梁远鹏,云原生开源爱好者,在2024将会编写几篇关于 ku
 
 - 2021 | pulsar 周年 | 组织者 | 深圳
 - 2021-09 | 云原生社区深圳站 meetup | 志愿者 | 深圳
+
+# 云原生社区文章投稿
+
+可以在 [梁远鹏](https://cloudnative.to/author/%E6%A2%81%E8%BF%9C%E9%B9%8F/) 找到我的所有投稿文章.
+
+这里列出部分文章:
+
+- [Argo Workflow 介绍：一款强大的云原生持续集成工具](https://cloudnative.to/blog/cloudnative-ci-argo-workflow/)
