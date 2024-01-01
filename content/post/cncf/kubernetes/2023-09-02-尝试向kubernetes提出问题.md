@@ -12,6 +12,8 @@ wip: true
 tags:
     - kubernetes
     - cncf 
+    - etcd
+    - golang
 categories: [ kubernetes ]
 ---    
 
@@ -217,3 +219,12 @@ kubernetes 的数据以 `/registry` 开头存储在 etcd 当中,如果直接查�
     }
 }
 ```
+
+# kubernetes 的 resourceVersion 是什么?
+
+TODO: 
+1. kubectl 命令展示 resourceVersion
+2. 查看 etcd 中对应的数据,如何找到与 resourceVersion 对应的数据(就是 etcd 的 ModRevision)
+3. 开发 operator 时可能会碰到的与 resourceVersion 相关的问题: 并发修改资源
+
+说明 resourceVersion 不是和数据一起存储在 etcd 里面的,而是直接使用了 etcd kv 的 ModRevision 字段.
