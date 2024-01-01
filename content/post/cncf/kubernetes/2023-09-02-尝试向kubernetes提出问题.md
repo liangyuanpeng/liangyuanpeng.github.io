@@ -29,7 +29,8 @@ categories: [ kubernetes ]
 
 (有可能会单独整理成一篇文章,但目前只是一个回答)
 
-这个问题的部分背景:
+这个问题的部分背景:  
+
 - 当我和朋友说我在研究 kubernetes 时他问我 kubernetes 的数据存储在哪里,怎么存储的
 - [获取 Kubernetes 集群 1.24 中 etcd 数据部分显示乱码](https://github.com/etcd-io/jetcd/issues/1202)
 - [当我使用 watch 功能时,响应值中包含一些乱码,这正常吗?如何修复乱码?](https://github.com/etcd-io/jetcd/issues/1185)
