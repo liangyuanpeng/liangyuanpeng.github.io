@@ -14,7 +14,7 @@
     <meta name="baidu-site-verification" content="code-ANZvlnN0Xr" />
 
     
-    <meta name="description" content="kuberne-kep-1880-多服务CIDR">
+    <meta name="description" content="kubernetes-kep-1880-多服务CIDR">
     
     <meta name="keyword"  content="liangyuanpeng|LanLiang|OpenYurt|Knative|Pulsar|Prometheus|Halo||边缘计算kubernetes|Docker|CloudNative|Golang|Rust|Istio|微服务">
 
@@ -26,9 +26,9 @@
     <meta property="og:image" content="https://liangyuanpeng.github.io/img/banner-pexels.jpg" />
     <meta name="twitter:image" content="https://liangyuanpeng.github.io/img/banner-pexels.jpg" />
 
-    <title>kuberne-kep-1880-多服务CIDR-liangyuanpeng的博客 | liangyuanpeng&#39;s Blog</title>
+    <title>kubernetes-kep-1880-多服务CIDR-liangyuanpeng的博客 | liangyuanpeng&#39;s Blog</title>
 
-    <link rel="canonical" href="https://liangyuanpeng.github.io/post/kuberne-kep-1880-multiple-service-cidrs/">
+    <link rel="canonical" href="https://liangyuanpeng.github.io/post/kubernetes-kep-1880-multiple-service-cidrs/">
 
     
 
@@ -469,12 +469,12 @@
                         
                         <br/>
                     </div>
-                    <h1>kuberne-kep-1880-多服务CIDR</h1>
+                    <h1>kubernetes-kep-1880-多服务CIDR</h1>
                     <h2 class="subheading"></h2>
                     <span  class="meta">Posted by 梁远鹏 on 2023-12-27
                         
                         <span id="busuanzi_container_page_pv">|<span id="busuanzi_value_page_pv"></span><span>
-                            <span id="/post/kuberne-kep-1880-multiple-service-cidrs/" class="leancloud_visitors meta_data_item" data-flag-title="">
+                            <span id="/post/kubernetes-kep-1880-multiple-service-cidrs/" class="leancloud_visitors meta_data_item" data-flag-title="">
     <span class="post-meta-item-icon">
       <span class="octicon octicon-eye"></span> 
     </span>
@@ -488,7 +488,7 @@
 
 
 
-                            阅读 </span></span>|<span class="post-date">共2053字</span>，阅读约<span class="more-meta"> 5 分钟</span>
+                            阅读 </span></span>|<span class="post-date">共2111字</span>，阅读约<span class="more-meta"> 5 分钟</span>
                         
                     </span>
                 </div>
@@ -530,7 +530,7 @@
 		
 
 		<h1 id="kep-1880-多服务-cidr-是什么">KEP-1880 多服务 CIDR 是什么</h1>
-<p><a href="https://github.com/kubernetes/enhancements/tree/master/keps/sig-network/1880-multiple-service-cidrs#summary">KEP-1880</a> 允许通过 API 对象配置分配给 Kubernetes 集群的 ServiceCIDR,能够动态的扩展 kubernetes 集群的服务的 IP.</p>
+<p><a href="https://github.com/kubernetes/enhancements/tree/master/keps/sig-network/1880-multiple-service-cidrs#summary">KEP-1880</a> 允许通过 API 对象配置分配给 Kubernetes 集群的 ServiceCIDR,能够动态的扩展 kubernetes 集群的服务的 IP,该功能发布 kubernetes v1.29.0 中,功能版本时 alpha,因此需要开放对应 featuregate 才能使用.</p>
 <h1 id="proposal">Proposal</h1>
 <p>这个提议实现了一个新的IP分配器逻辑,其中主要使用了两个 API 对象,ServiceCIDR 和 IPAddress,并且允许用户可以通过创建一个新的 ServiceCIDR 来达到动态增加可用 service IP 的效果.</p>
 <p>这个分配器可以&quot;自动&quot;的使用任何可用的 ServiceCIDR 中的 IP,kubernetes 社区考虑添加这种模型,就像给存储系统添加更多的磁盘以增加可用的磁盘空间一样.</p>
@@ -731,7 +731,7 @@ Error from server <span style="color:#f92672">(</span>NotFound<span style="color
 <p>与集群切换 IP 网段是一样的.</p>
 <h2 id="最后">最后</h2>
 <p>如果 ServiceCIDR 处于被删除的状态,这时候管理的 Service 是不受影响的,可以继续访问.</p>
-<p>文章演示部分翻译于[2]</p>
+<p>文章演示部分翻译于[2],并且更新了其被淘汰的部分(字段名是旧的).</p>
 <p>参考:</p>
 <ul>
 <li>[1] <a href="https://github.com/kubernetes/enhancements/tree/master/keps/sig-network/1880-multiple-service-cidrs#summary">https://github.com/kubernetes/enhancements/tree/master/keps/sig-network/1880-multiple-service-cidrs#summary</a></li>
@@ -911,6 +911,8 @@ Error from server <span style="color:#f92672">(</span>NotFound<span style="color
     
     <li><a href="/post/compile-kubernetes/">编译kubernetes组件</a></li>
     
+    <li><a href="/post/try-to-ask-question-to-kubernetes-for-source/">尝试向kubernetes提出问题</a></li>
+    
     <li><a href="/post/question-list-of-kubernetes/">[长期更新]kubernetes问题列表记录</a></li>
     
     <li><a href="/post/kubeadm-config-note-long-term/">[长期更新]kubeadm常见问题以及配置记录</a></li>
@@ -926,8 +928,6 @@ Error from server <span style="color:#f92672">(</span>NotFound<span style="color
     <li><a href="/post/run-k8s-with-kind/">用kind搭建k8s集群环境</a></li>
     
     <li><a href="/post/pull-gcr-k8s-image-with-lank8s/">国内环境拉取gcr和k8s镜像</a></li>
-    
-    <li><a href="/post/k8s-component-config-note-long-term/">[长期更新]k8s组件常用参数</a></li>
     
 </ul>
 

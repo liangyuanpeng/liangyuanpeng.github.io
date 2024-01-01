@@ -26,12 +26,12 @@
     </item>
     
     <item>
-      <title>kuberne-kep-1880-多服务CIDR</title>
-      <link>https://liangyuanpeng.github.io/post/kuberne-kep-1880-multiple-service-cidrs/</link>
+      <title>kubernetes-kep-1880-多服务CIDR</title>
+      <link>https://liangyuanpeng.github.io/post/kubernetes-kep-1880-multiple-service-cidrs/</link>
       <pubDate>Wed, 27 Dec 2023 00:00:00 +0000</pubDate>
       
-      <guid>https://liangyuanpeng.github.io/post/kuberne-kep-1880-multiple-service-cidrs/</guid>
-      <description>KEP-1880 多服务 CIDR 是什么 KEP-1880 允许通过 API 对象配置分配给 Kubernetes 集群的 ServiceCIDR,能够动态的扩展 kubernetes 集群的服务的 IP. Proposal 这个提议实现了一个新的IP分配器逻</description>
+      <guid>https://liangyuanpeng.github.io/post/kubernetes-kep-1880-multiple-service-cidrs/</guid>
+      <description>KEP-1880 多服务 CIDR 是什么 KEP-1880 允许通过 API 对象配置分配给 Kubernetes 集群的 ServiceCIDR,能够动态的扩展 kubernetes 集群的服务的 IP,该功能发布 kubernetes v1.29.0 中,功能版本时 al</description>
     </item>
     
     <item>
@@ -121,7 +121,7 @@
       <pubDate>Wed, 26 Apr 2023 00:00:00 +0000</pubDate>
       
       <guid>https://liangyuanpeng.github.io/about/</guid>
-      <description>关于我 Hi，我是梁远鹏,云原生开源爱好者. Apache Pulsar 贡献者 Tekton &amp;amp; Shipwright 贡献者 Karmada 贡献者 短暂的 CDF 中文本地化 sigs 成员 (目前该 sigs 已经归档) 关注 Karmada CNCF 项目 kubernetes 项目及生态</description>
+      <description>关于我 Hi，我是梁远鹏,云原生开源爱好者,在2024将会编写几篇关于 kube-apiserver 与 etcd 之间的博客,欢迎关注. Karmada 贡献者 Apache Pulsar 贡献者 Tekton &amp;amp; Shipwright 贡献者 短暂的 CDF 中文本</description>
     </item>
     
     <item>

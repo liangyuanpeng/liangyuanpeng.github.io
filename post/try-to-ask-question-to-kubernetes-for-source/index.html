@@ -276,6 +276,136 @@
                             
                         </a>
                         
+                       <a class="tag" href="/tags/etcd" title="etcd">
+                        etcd
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                                <img style="display:inline-block;" src="/img/taglogo/etcd.png" height="20" width="20" />
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                        </a>
+                        
+                       <a class="tag" href="/tags/golang" title="golang">
+                        golang
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                                <img style="display:inline-block;" src="/img/taglogo/golang_mic_drop.png" height="20" width="20" />
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                        </a>
+                        
                         <br/>
                     </div>
                     <h1>尝试向kubernetes提出问题</h1>
@@ -297,7 +427,7 @@
 
 
 
-                            阅读 </span></span>|<span class="post-date">共823字</span>，阅读约<span class="more-meta"> 2 分钟</span>
+                            阅读 </span></span>|<span class="post-date">共920字</span>，阅读约<span class="more-meta"> 2 分钟</span>
                         
                     </span>
                 </div>
@@ -518,7 +648,15 @@
         <span style="color:#f92672">}</span>
     <span style="color:#f92672">}</span>
 <span style="color:#f92672">}</span>
-</code></pre></div>
+</code></pre></div><h1 id="kubernetes-的-resourceversion-是什么">kubernetes 的 resourceVersion 是什么?</h1>
+<p>TODO:</p>
+<ol>
+<li>kubectl 命令展示 resourceVersion</li>
+<li>查看 etcd 中对应的数据,如何找到与 resourceVersion 对应的数据(就是 etcd 的 ModRevision)</li>
+<li>开发 operator 时可能会碰到的与 resourceVersion 相关的问题: 并发修改资源</li>
+</ol>
+<p>说明 resourceVersion 不是和数据一起存储在 etcd 里面的,而是直接使用了 etcd kv 的 ModRevision 字段.</p>
+
 
         <h2>微信公众号</h2>
 <p>扫描下面的二维码关注我们的微信公众号,第一时间查看最新内容。同时也可以关注我的Github,看看我都在了解什么技术,在页面底部可以找到我的Github。</p>
@@ -690,6 +828,12 @@
 <h2>相关文章</h2>
 <ul style="margin-bottom: 25px;">
     
+    <li><a href="/post/compile-kubernetes/">编译kubernetes组件</a></li>
+    
+    <li><a href="/post/question-list-of-etcd/">[长期更新]etcd问题列表</a></li>
+    
+    <li><a href="/post/k8s-client-go-source-2/">k8s-client-go源码剖析(二)</a></li>
+    
     <li><a href="/post/cloudnative-ci-of-argo-workflow/">argoworkflow 云原生工作流引擎</a></li>
     
     <li><a href="/post/question-list-of-kubernetes/">[长期更新]kubernetes问题列表记录</a></li>
@@ -703,12 +847,6 @@
     <li><a href="/post/migrate-your-manifest-yaml-files-into-helm-chart/">将你的yaml文件迁移到helm</a></li>
     
     <li><a href="/post/from-zero-to-kubernets-subproject-lead/">从零到 Kubernetes 子项目负责人</a></li>
-    
-    <li><a href="/post/k3s-qa/">k3s常见问题</a></li>
-    
-    <li><a href="/post/backup-pvc-to-s3-with-k8up/">基于k8up备份PVC到S3存储</a></li>
-    
-    <li><a href="/post/kubernetes-hpa-custom-metrics-for-effective-cpu-memory-scaling/">Kubernetes HPA:定制指标实现有效的CPU和内存扩展</a></li>
     
 </ul>
 

@@ -360,7 +360,7 @@
 
 
 
-                            阅读 </span></span>|<span class="post-date">共279字</span>，阅读约<span class="more-meta"> 1 分钟</span>
+                            阅读 </span></span>|<span class="post-date">共381字</span>，阅读约<span class="more-meta"> 1 分钟</span>
                         
                     </span>
                 </div>
@@ -393,6 +393,7 @@
 <p>如果是使用默认存储的k3s,也就是使用 sqlite 作为存储,那么 k3s 集群的备份和恢复很简单,只需要备份 sqlite 的 db 文件. 至于使用 local 持久化在本地的数据</p>
 <p>目前我在我的测试场景中频繁使用这个能力,将备份好的 K3S 在每一次实验时恢复出一个对应状态的集群,备份内容我通过 oras 将数据备份到的容器镜像里面.</p>
 <p>这样我就可以每次都直接创建一个研究的 kubernetes 集群了,例如在没有备份恢复的情况下,我总是需要 部署一个默认的 K3S,然后部署我的研究项目,例如 karmada,接着需要等待 karmada 部署完成,这需要一定的时间,而有了备份恢复之后我就可以直接创建一个带有部署好 karmada 的 kubernetes,节省了很多时间.</p>
+<p>在通过外部 Etcd 的场景下,使用 Etcd 的备份数据启动一个新的 K3S 的时候报错了: <code>bootstrap data already found and encrypted with different token</code>,原因是 K3S 存储了一个 Token 在数据库中,在 Etcd 下则是存储在了 <code>/bootstrap/</code> 路径下,只需要删除对应的数据然后再启动 K3S 就可以正常启动了.</p>
 
 
         <h2>微信公众号</h2>
