@@ -12,6 +12,8 @@ wip: true
 tags:
     - kubernetes
     - cncf 
+    - etcd
+    - golang
 categories: [ kubernetes ]
 ---    
 
@@ -19,7 +21,8 @@ categories: [ kubernetes ]
 
 本文会持续的更新,提出一些问题用于研究 kubernetes 原理/源码.欢迎投稿加入你感兴趣的问题 :)
 
-类似的文章有:
+类似的文章有:  
+
 - [pulsar源码系列](https://liangyuanpeng.com/post/list-of-source-with-pulsar)
 - [bookeeper源码系列](https://liangyuanpeng.com/post/list-of-source-with-bookeeper)
 
@@ -27,7 +30,8 @@ categories: [ kubernetes ]
 
 (有可能会单独整理成一篇文章,但目前只是一个回答)
 
-这个问题的部分背景:
+这个问题的部分背景:  
+
 - 当我和朋友说我在研究 kubernetes 时他问我 kubernetes 的数据存储在哪里,怎么存储的
 - [获取 Kubernetes 集群 1.24 中 etcd 数据部分显示乱码](https://github.com/etcd-io/jetcd/issues/1202)
 - [当我使用 watch 功能时,响应值中包含一些乱码,这正常吗?如何修复乱码?](https://github.com/etcd-io/jetcd/issues/1185)
@@ -217,3 +221,13 @@ kubernetes 的数据以 `/registry` 开头存储在 etcd 当中,如果直接查�
     }
 }
 ```
+
+# kubernetes 的 resourceVersion 是什么?
+
+TODO:   
+
+1. kubectl 命令展示 resourceVersion
+2. 查看 etcd 中对应的数据,如何找到与 resourceVersion 对应的数据(就是 etcd 的 ModRevision)
+3. 开发 operator 时可能会碰到的与 resourceVersion 相关的问题: 并发修改资源
+
+说明 resourceVersion 不是和数据一起存储在 etcd 里面的,而是直接使用了 etcd kv 的 ModRevision 字段.
