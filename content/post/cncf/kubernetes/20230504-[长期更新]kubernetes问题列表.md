@@ -37,3 +37,10 @@ kubectl config view --minify --flatten -o json | jq ".clusters[0].cluster.\"cert
 kubectl config view --minify --flatten -o json | jq ".users[0].user.\"client-certificate-data\"" | sed 's/\"//g' | base64 --decode >> client.crt 
 kubectl config view --minify --flatten -o json | jq ".users[0].user.\"client-key-data\"" | sed 's/\"//g' | base64 --decode >> client.key 
 ```
+
+
+# IP固定的研究环境
+
+目前在我个人的研究环境下,我经常是使用备份好的 Etcd 数据来恢复某些特定场景的 kubernetes 集群,但有一个问题是新的虚拟机 hostname 和 IP 可能和备份数据中的 kubernetes hostname 和 IP 是不一样的,这时候就需要使用创建虚拟网卡,然后将 kubernetes 服务绑定到虚拟网卡的IP上,但这只设计到单节点的集群,还没有多节点的需求.
+
+这适用于 kubeadm 和 K3s 来恢复 kubernetes 的场景.
