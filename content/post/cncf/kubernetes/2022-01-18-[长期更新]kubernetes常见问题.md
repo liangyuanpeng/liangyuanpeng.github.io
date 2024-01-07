@@ -1,9 +1,9 @@
 ---
 layout:     post 
 slug:      "kubernetes-qa"
-title:      "kubernetes常见问题"
+title:      "[长期更新]kubernetes常见问题"
 subtitle:   ""
-description: ""
+description: "[长期更新]kubernetes常见问题"
 date:       2022-01-18
 author:     "梁远鹏"
 image: "/img/banner-pexels.jpg"
@@ -111,7 +111,3 @@ lan@lan:lan$ etcdctl --endpoints http://172.18.0.2:14379 get --keys-only --prefi
 /dev/20230903/0545/events/kruise-system/kruise-manager.1781527382771328
 /dev/20230903/0545/events/kruise-system/kruise-manager.1781527382772e1c
 ```
-
-# 温馨提示 
-
-本文持续更新
