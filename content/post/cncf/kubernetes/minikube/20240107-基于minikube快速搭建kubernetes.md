@@ -7,7 +7,8 @@ description: "基于minikube快速搭建kubernetes. "
 date:       2024-01-07
 author:     "梁远鹏"
 image: "/img/banner-pexels.jpg"
-published: true
+published: false
+wip: true
 tags:
     - kubernetes
     - CloudNative
