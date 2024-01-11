@@ -6,7 +6,7 @@
     <description>Recent content in Posts on Hi,I`m lan</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 27 Dec 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://liangyuanpeng.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 07 Jan 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://liangyuanpeng.github.io/post/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>lank8s.cn服务</title>
       <link>https://liangyuanpeng.github.io/post/service-lank8s.cn/</link>
@@ -23,6 +23,24 @@
       
       <guid>https://liangyuanpeng.github.io/post/run-k8s-with-kind/</guid>
       <description>前言 由于各类基于 kubernetes 的云原生实验或测试的前提都是需要一个 kubernetes 环境,而在写博客时总是需要提及使用 Kind 来搭建 kubernetes 环境. 因此这里单独写一篇文章来介绍如何用</description>
+    </item>
+    
+    <item>
+      <title>[长期更新]victoriaMetrics常见配置或问题</title>
+      <link>https://liangyuanpeng.github.io/post/victoriametrics-config-note-long-term/</link>
+      <pubDate>Sun, 07 Jan 2024 00:00:00 +0000</pubDate>
+      
+      <guid>https://liangyuanpeng.github.io/post/victoriametrics-config-note-long-term/</guid>
+      <description>说明 本文主要收集常见场景下 victoriaMetrics 配置以及遇到的一些常见问题,欢迎对本文进行投稿你认为好的场景配置或问题. victoriaMetrics 从已有数据中启动报错 FATAL: incomplete vmrestore run; run vmrestore again or remove</description>
+    </item>
+    
+    <item>
+      <title>[长期更新]grafana常见配置或问题</title>
+      <link>https://liangyuanpeng.github.io/post/grafana-config-note-long-term/</link>
+      <pubDate>Sat, 06 Jan 2024 00:00:00 +0000</pubDate>
+      
+      <guid>https://liangyuanpeng.github.io/post/grafana-config-note-long-term/</guid>
+      <description>说明 本文主要收集常见场景下 grafana 配置以及遇到的一些常见问题,欢迎对本文进行投稿你认为好的场景配置或问题. grafana 从已有数据中启动 在通过备份数据恢复 grafana 时</description>
     </item>
     
     <item>
@@ -53,6 +71,15 @@
     </item>
     
     <item>
+      <title>将Etcd作为一个kubernetes sig来运作</title>
+      <link>https://liangyuanpeng.github.io/post/etcd-as-a-kubernetes-sig/</link>
+      <pubDate>Fri, 30 Jun 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://liangyuanpeng.github.io/post/etcd-as-a-kubernetes-sig/</guid>
+      <description>说明 在我看来,做出这个决定的本质原因是 Etcd 的贡献者/维护人员过少,因此希望将 Etcd 作为一个 kubernetes sig 来运作,以此来降低维护人员的维护程度以及通过 kubernetes sig 来吸</description>
+    </item>
+    
+    <item>
       <title>记一次springboot3的升级之旅</title>
       <link>https://liangyuanpeng.github.io/post/write-note-for-upgrade-to-springboot3/</link>
       <pubDate>Sun, 25 Jun 2023 00:00:00 +0000</pubDate>
@@ -68,6 +95,15 @@
       
       <guid>https://liangyuanpeng.github.io/post/cloudnative-ci-of-argo-workflow/</guid>
       <description>注：本文已投稿至云原生社区，因此作者填写为云原生社区 Argo workflow 是什么 老牌的工作流工具 Jenkins 应该是大部分人都接触过的，而在云原生时代，诞生了两大工作流工</description>
+    </item>
+    
+    <item>
+      <title>[长期更新]etcd常见问题以及配置记录,欢迎投稿.</title>
+      <link>https://liangyuanpeng.github.io/post/question-list-of-etcd/</link>
+      <pubDate>Mon, 22 May 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://liangyuanpeng.github.io/post/question-list-of-etcd/</guid>
+      <description>说明 本文主要收集 etcd 遇到的一些常见问题,欢迎对本文进行投稿你认为好的场景或问题. 备份恢复 在我的研究场景中，经常需要重建环境,因此数据的备份恢复</description>
     </item>
     
     <item>
@@ -539,7 +575,7 @@
     </item>
     
     <item>
-      <title>kubernetes常见问题</title>
+      <title>[长期更新]kubernetes常见问题</title>
       <link>https://liangyuanpeng.github.io/post/kubernetes-qa/</link>
       <pubDate>Tue, 18 Jan 2022 00:00:00 +0000</pubDate>
       
@@ -815,15 +851,6 @@
       
       <guid>https://liangyuanpeng.github.io/post/prometheus-v2.28.1-update/</guid>
       <description>前言 Prometheus作为第二个从CNCF毕业的顶级项目,其成熟程度是毋庸置疑的,甚至推出了另一个CNCF项目OpenMetrics,希望</description>
-    </item>
-    
-    <item>
-      <title>[长期更新]etcd问题列表</title>
-      <link>https://liangyuanpeng.github.io/post/question-list-of-etcd/</link>
-      <pubDate>Sat, 22 May 2021 00:00:00 +0000</pubDate>
-      
-      <guid>https://liangyuanpeng.github.io/post/question-list-of-etcd/</guid>
-      <description>说明 本文主要收集 etcd 遇到的一些常见问题,欢迎对本文进行投稿你认为好的场景或问题.</description>
     </item>
     
     <item>
@@ -1273,7 +1300,7 @@
       <pubDate>Sun, 09 Feb 2020 00:00:00 +0000</pubDate>
       
       <guid>https://liangyuanpeng.github.io/post/deploy-docker-swarm-monitoring/</guid>
-      <description>前提 Docker 前言 现在Docker Swarm已经彻底输给了K8S,但是现在K8S依然很复杂，上手难度较Docker Swarm高，如果是小规模团队且需</description>
+      <description>前提 Docker 前言 现在 Docker Swarm 已经彻底输给了 K8S,但是现在 K8S 依然很复杂，上手难度较 Docker Swarm 高，如果是小规模团队且需要容器编排的话，使用 Docker Swarm 还是适合的。 目前</description>
     </item>
     
     <item>

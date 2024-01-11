@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Grafana on Hi,I`m lan</title>
+    <link>https://liangyuanpeng.github.io/tags/grafana/</link>
+    <description>Recent content in Grafana on Hi,I`m lan</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sat, 06 Jan 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://liangyuanpeng.github.io/tags/grafana/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>[长期更新]grafana常见配置或问题</title>
+      <link>https://liangyuanpeng.github.io/post/grafana-config-note-long-term/</link>
+      <pubDate>Sat, 06 Jan 2024 00:00:00 +0000</pubDate>
+      
+      <guid>https://liangyuanpeng.github.io/post/grafana-config-note-long-term/</guid>
+      <description>说明 本文主要收集常见场景下 grafana 配置以及遇到的一些常见问题,欢迎对本文进行投稿你认为好的场景配置或问题. grafana 从已有数据中启动 在通过备份数据恢复 grafana 时</description>
+    </item>
+    
+  </channel>
+</rss>

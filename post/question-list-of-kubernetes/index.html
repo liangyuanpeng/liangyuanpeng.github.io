@@ -360,7 +360,7 @@
 
 
 
-                            阅读 </span></span>|<span class="post-date">共196字</span>，阅读约<span class="more-meta"> 1 分钟</span>
+                            阅读 </span></span>|<span class="post-date">共350字</span>，阅读约<span class="more-meta"> 1 分钟</span>
                         
                     </span>
                 </div>
@@ -402,7 +402,10 @@ TODO 完善展开</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">kubectl config view --minify --flatten -o json | jq <span style="color:#e6db74">&#34;.clusters[0].cluster.\&#34;certificate-authority-data\&#34;&#34;</span> | sed <span style="color:#e6db74">&#39;s/\&#34;//g&#39;</span> | base64 --decode &gt;&gt; ca.crt 
 kubectl config view --minify --flatten -o json | jq <span style="color:#e6db74">&#34;.users[0].user.\&#34;client-certificate-data\&#34;&#34;</span> | sed <span style="color:#e6db74">&#39;s/\&#34;//g&#39;</span> | base64 --decode &gt;&gt; client.crt 
 kubectl config view --minify --flatten -o json | jq <span style="color:#e6db74">&#34;.users[0].user.\&#34;client-key-data\&#34;&#34;</span> | sed <span style="color:#e6db74">&#39;s/\&#34;//g&#39;</span> | base64 --decode &gt;&gt; client.key 
-</code></pre></div>
+</code></pre></div><h1 id="ip固定的研究环境">IP固定的研究环境</h1>
+<p>目前在我个人的研究环境下,我经常是使用备份好的 Etcd 数据来恢复某些特定场景的 kubernetes 集群,但有一个问题是新的虚拟机 hostname 和 IP 可能和备份数据中的 kubernetes hostname 和 IP 是不一样的,这时候就需要使用创建虚拟网卡,然后将 kubernetes 服务绑定到虚拟网卡的IP上,但这只设计到单节点的集群,还没有多节点的需求.</p>
+<p>这适用于 kubeadm 和 K3s 来恢复 kubernetes 的场景.</p>
+
 
         <h2>微信公众号</h2>
 <p>扫描下面的二维码关注我们的微信公众号,第一时间查看最新内容。同时也可以关注我的Github,看看我都在了解什么技术,在页面底部可以找到我的Github。</p>

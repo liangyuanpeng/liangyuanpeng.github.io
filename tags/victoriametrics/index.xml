@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>victoriaMetrics on Hi,I`m lan</title>
+    <link>https://liangyuanpeng.github.io/tags/victoriametrics/</link>
+    <description>Recent content in victoriaMetrics on Hi,I`m lan</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 07 Jan 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://liangyuanpeng.github.io/tags/victoriametrics/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>[长期更新]victoriaMetrics常见配置或问题</title>
+      <link>https://liangyuanpeng.github.io/post/victoriametrics-config-note-long-term/</link>
+      <pubDate>Sun, 07 Jan 2024 00:00:00 +0000</pubDate>
+      
+      <guid>https://liangyuanpeng.github.io/post/victoriametrics-config-note-long-term/</guid>
+      <description>说明 本文主要收集常见场景下 victoriaMetrics 配置以及遇到的一些常见问题,欢迎对本文进行投稿你认为好的场景配置或问题. victoriaMetrics 从已有数据中启动报错 FATAL: incomplete vmrestore run; run vmrestore again or remove</description>
+    </item>
+    
+  </channel>
+</rss>

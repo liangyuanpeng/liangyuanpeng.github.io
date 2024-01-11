@@ -295,7 +295,7 @@
 
 
 
-                            阅读 </span></span>|<span class="post-date">共2210字</span>，阅读约<span class="more-meta"> 5 分钟</span>
+                            阅读 </span></span>|<span class="post-date">共1951字</span>，阅读约<span class="more-meta"> 4 分钟</span>
                         
                     </span>
                 </div>
@@ -346,11 +346,11 @@
 <li>Docker</li>
 </ol>
 <h2 id="前言">前言</h2>
-<p>现在Docker Swarm已经彻底输给了K8S,但是现在K8S依然很复杂，上手难度较Docker Swarm高，如果是小规模团队且需要容器编排的话，使用Docker Swarm还是适合的。</p>
-<p>目前Docker Swarm有一个问题一直没有解决，如果业务需要知道用户的请求IP,则Docker Swarm满足不了要求。目前部署在Docker Swarm内的服务,无法获取到用户的请求IP。</p>
-<p>具体可以看看这个ISSUE-&gt;<a href="https://github.com/moby/moby/issues/25526">Unable to retrieve user&rsquo;s IP address in docker swarm mode</a></p>
+<p>现在 Docker Swarm 已经彻底输给了 K8S,但是现在 K8S 依然很复杂，上手难度较 Docker Swarm 高，如果是小规模团队且需要容器编排的话，使用 Docker Swarm 还是适合的。</p>
+<p>目前 Docker Swarm 有一个问题一直没有解决，如果业务需要知道用户的请求 IP,则 Docker Swarm 满足不了要求。目前部署在 Docker Swarm 内的服务,无法获取到用户的请求 IP。</p>
+<p>具体可以看看这个 ISSUE-&gt;<a href="https://github.com/moby/moby/issues/25526">Unable to retrieve user&rsquo;s IP address in docker swarm mode</a></p>
 <h2 id="整体思路">整体思路</h2>
-<p>思路整体来说是使用Influxdb+Grafana+cadvisor,其中<code>cadvisor</code>负责数据的收集，每一台节点都部署一个cadvisor服务,Influxdb负责数据的存储,Grafana负责数据的可视化。</p>
+<p>思路整体来说是使用 Influxdb+Grafana+cadvisor,其中<code>cadvisor</code>负责数据的收集，每一台节点都部署一个 cadvisor 服务,Influxdb 负责数据的存储, Grafana 负责数据的可视化。</p>
 <p><img src="https://res.cloudinary.com/lyp/image/upload/v1581387851/hugo/blog.github.io/docker/docker-swarm-monitor-process.png" alt="https://res.cloudinary.com/lyp/image/upload/v1581387851/hugo/blog.github.io/docker/docker-swarm-monitor-process.png"></p>
 <h2 id="演示环境">演示环境</h2>
 <table>
@@ -376,131 +376,128 @@
 </tbody>
 </table>
 <p><img src="https://res.cloudinary.com/lyp/image/upload/v1581387850/hugo/blog.github.io/docker/docker-swarm-monitor-node.png" alt="https://res.cloudinary.com/lyp/image/upload/v1581387850/hugo/blog.github.io/docker/docker-swarm-monitor-node.png"></p>
-<p>我这里是将master节点当作监控数据存储以及可视化服务的节点作为演示,一般是拿一个worker节点做这样的工作。</p>
+<p>我这里是将 master 节点当作监控数据存储以及可视化服务的节点作为演示,一般是拿一个 worker 节点做这样的工作。</p>
 <h2 id="初始化docker-swarm">初始化Docker Swarm</h2>
-<p>在master机器上初始化集群,运行<br>
+<p>在 master 机器上初始化集群,运行<br>
 <code>docker swarm init --advertise-addr {MASTER-IP}</code></p>
-<pre tabindex="0"><code>[root@master ~]# docker swarm init --advertise-addr 192.168.1.60
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#f92672">[</span>root@master ~<span style="color:#f92672">]</span><span style="color:#75715e"># docker swarm init --advertise-addr 192.168.1.60</span>
 
-Swarm initialized: current node (138n5rwjz83y8goyzepp1cdo7) is now a manager.
+Swarm initialized: current node <span style="color:#f92672">(</span>138n5rwjz83y8goyzepp1cdo7<span style="color:#f92672">)</span> is now a manager.
 
 To add a worker to this swarm, run the following command:
 
     docker swarm join --token SWMTKN-1-67je7chylnpyt0s4k1ee63rhxgh0qijiah9gadvcr7i6uab909-535nf6qu6v7b8dscc0plghr9j 192.168.1.60:2377
 
-To add a manager to this swarm, run 'docker swarm join-token manager' and follow the instructions
+To add a manager to this swarm, run <span style="color:#e6db74">&#39;docker swarm join-token manager&#39;</span> and follow the instructions
 
-</code></pre><p>在node节点运行提示的命令加入到集群中<br>
-<code>docker swarm join --token SWMTKN-1-67je7chylnpyt0s4k1ee63rhxgh0qijiah9gadvcr7i6uab909-535nf6qu6v7b8dscc0plghr9j 192.168.1.60:2377</code><br>
-manager节点初始化集群后，都会有这样一个提示，这个的命令只是给个示例，实际命令需要根据初始化集群后的真实情况来运行。</p>
-<pre tabindex="0"><code>[root@node1 ~]#  docker swarm join --token SWMTKN-1-67je7chylnpyt0s4k1ee63rhxgh0qijiah9gadvcr7i6uab909-535nf6qu6v7b8dscc0plghr9j 192.168.1.60:2377
+</code></pre></div><p>在node节点运行提示的命令加入到集群中</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">docker swarm join --token SWMTKN-1-67je7chylnpyt0s4k1ee63rhxgh0qijiah9gadvcr7i6uab909-535nf6qu6v7b8dscc0plghr9j 192.168.1.60:2377
+</code></pre></div><p>manager 节点初始化集群后，都会有这样一个提示，这个的命令只是给个示例，实际命令需要根据初始化集群后的真实情况来运行。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#f92672">[</span>root@node1 ~<span style="color:#f92672">]</span><span style="color:#75715e">#  docker swarm join --token SWMTKN-1-67je7chylnpyt0s4k1ee63rhxgh0qijiah9gadvcr7i6uab909-535nf6qu6v7b8dscc0plghr9j 192.168.1.60:2377</span>
 This node joined a swarm as a worker.
-</code></pre><pre tabindex="0"><code>[root@node2 ~]#  docker swarm join --token SWMTKN-1-67je7chylnpyt0s4k1ee63rhxgh0qijiah9gadvcr7i6uab909-535nf6qu6v7b8dscc0plghr9j 192.168.1.60:2377
+</code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#f92672">[</span>root@node2 ~<span style="color:#f92672">]</span><span style="color:#75715e">#  docker swarm join --token SWMTKN-1-67je7chylnpyt0s4k1ee63rhxgh0qijiah9gadvcr7i6uab909-535nf6qu6v7b8dscc0plghr9j 192.168.1.60:2377</span>
 This node joined a swarm as a worker.
-</code></pre><h2 id="在master机器上查看当前的node节点">在master机器上查看当前的node节点</h2>
-<p><code>docker node ls</code></p>
-<pre tabindex="0"><code>[root@master ~]# docker node ls
+</code></pre></div><h2 id="在master机器上查看当前的node节点">在master机器上查看当前的node节点</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">docker node ls
+</code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#f92672">[</span>root@master ~<span style="color:#f92672">]</span><span style="color:#75715e"># docker node ls</span>
 ID                            HOSTNAME            STATUS              AVAILABILITY        MANAGER STATUS      ENGINE VERSION
 138n5rwjz83y8goyzepp1cdo7 *   master              Ready               Active              Leader              18.09.8
 q03by75rqur63lx36cmordf11     node1               Ready               Active                                  18.09.8
 6shdf5ej4b5u7x877bg9nyjk3     node2               Ready               Active 
-</code></pre><p>到目前为止集群已经搭建完成了，接下来开始部署服务</p>
+</code></pre></div><p>到目前为止集群已经搭建完成了，接下来开始部署服务</p>
 <h2 id="在docker-swarm部署监控服务">在Docker Swarm部署监控服务</h2>
-<p><code>docker stack deploy -c docker-compose-monitor.yml monitor</code></p>
-<pre tabindex="0"><code>[root@master ~]# docker stack deploy -c docker-compose-monitor.yml monitor
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"> docker stack deploy -c docker-compose-monitor.yml monitor
+</code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#f92672">[</span>root@master ~<span style="color:#f92672">]</span><span style="color:#75715e"># docker stack deploy -c docker-compose-monitor.yml monitor</span>
 Creating network monitor_default
 Creating service monitor_influx
 Creating service monitor_grafana
 Creating service monitor_cadvisor
-</code></pre><p><code>docker-compose-monitor.yml</code>文件内容</p>
-<pre tabindex="0"><code>version: '3'
+</code></pre></div><p><code>docker-compose-monitor.yml</code>文件内容</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#f92672">version</span>: <span style="color:#e6db74">&#39;3&#39;</span>
 
-services:
- influx:
-   image: influxdb
-   volumes:
-     - influx:/var/lib/influxdb
-   deploy:
-     replicas: 1
-     placement:
-       constraints:
-         - node.role == manager
+<span style="color:#f92672">services</span>:
+ <span style="color:#f92672">influx</span>:
+   <span style="color:#f92672">image</span>: <span style="color:#ae81ff">influxdb</span>
+   <span style="color:#f92672">volumes</span>:
+     - <span style="color:#ae81ff">influx:/var/lib/influxdb</span>
+   <span style="color:#f92672">deploy</span>:
+     <span style="color:#f92672">replicas</span>: <span style="color:#ae81ff">1</span>
+     <span style="color:#f92672">placement</span>:
+       <span style="color:#f92672">constraints</span>:
+         - <span style="color:#ae81ff">node.role == manager</span>
 
- grafana:
-   image: grafana/grafana
-   ports:
-     - 0.0.0.0:80:3000
-   volumes:
-     - grafana:/var/lib/grafana
-   depends_on:
-     - influx
-   deploy:
-     replicas: 1
-     placement:
-       constraints:
-         - node.role == manager
+ <span style="color:#f92672">grafana</span>:
+   <span style="color:#f92672">image</span>: <span style="color:#ae81ff">grafana/grafana</span>
+   <span style="color:#f92672">ports</span>:
+     - <span style="color:#ae81ff">0.0.0.0</span>:<span style="color:#ae81ff">80</span>:<span style="color:#ae81ff">3000</span>
+   <span style="color:#f92672">volumes</span>:
+     - <span style="color:#ae81ff">grafana:/var/lib/grafana</span>
+   <span style="color:#f92672">depends_on</span>:
+     - <span style="color:#ae81ff">influx</span>
+   <span style="color:#f92672">deploy</span>:
+     <span style="color:#f92672">replicas</span>: <span style="color:#ae81ff">1</span>
+     <span style="color:#f92672">placement</span>:
+       <span style="color:#f92672">constraints</span>:
+         - <span style="color:#ae81ff">node.role == manager</span>
 
- cadvisor:
-   image: google/cadvisor
-   hostname: '{{.Node.Hostname}}'
-   command: -logtostderr -docker_only -storage_driver=influxdb -storage_driver_db=cadvisor -storage_driver_host=influx:8086
-   volumes:
-     - /:/rootfs:ro
-     - /var/run:/var/run:rw
-     - /sys:/sys:ro
-     - /var/lib/docker/:/var/lib/docker:ro
-   depends_on:
-     - influx
-   deploy:
-     mode: global
+ <span style="color:#f92672">cadvisor</span>:
+   <span style="color:#f92672">image</span>: <span style="color:#ae81ff">google/cadvisor</span>
+   <span style="color:#f92672">hostname</span>: <span style="color:#e6db74">&#39;{{.Node.Hostname}}&#39;</span>
+   <span style="color:#f92672">command</span>: -<span style="color:#ae81ff">logtostderr -docker_only -storage_driver=influxdb -storage_driver_db=cadvisor -storage_driver_host=influx:8086</span>
+   <span style="color:#f92672">volumes</span>:
+     - <span style="color:#ae81ff">/:/rootfs:ro</span>
+     - <span style="color:#ae81ff">/var/run:/var/run:rw</span>
+     - <span style="color:#ae81ff">/sys:/sys:ro</span>
+     - <span style="color:#ae81ff">/var/lib/docker/:/var/lib/docker:ro</span>
+   <span style="color:#f92672">depends_on</span>:
+     - <span style="color:#ae81ff">influx</span>
+   <span style="color:#f92672">deploy</span>:
+     <span style="color:#f92672">mode</span>: <span style="color:#ae81ff">global</span>
 
-volumes:
- influx:
-   driver: local
- grafana:
-   driver: local
-</code></pre><p><a href="https://res.cloudinary.com/lyp/raw/upload/v1581252602/hugo/blog.github.io/docker/docker-compose-monitor.yml">下载docker-compose-monitor.yml</a></p>
+<span style="color:#f92672">volumes</span>:
+ <span style="color:#f92672">influx</span>:
+   <span style="color:#f92672">driver</span>: <span style="color:#ae81ff">local</span>
+ <span style="color:#f92672">grafana</span>:
+   <span style="color:#f92672">driver</span>: <span style="color:#ae81ff">local</span>
+</code></pre></div><p><a href="https://res.cloudinary.com/lyp/raw/upload/v1581252602/hugo/blog.github.io/docker/docker-compose-monitor.yml">下载docker-compose-monitor.yml</a></p>
 <h2 id="查看服务的部署情况">查看服务的部署情况</h2>
-<p><code>docker service ls</code></p>
-<pre tabindex="0"><code>[root@master ~]# docker service ls
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#f92672">[</span>root@master ~<span style="color:#f92672">]</span><span style="color:#75715e"># docker service ls</span>
 ID                  NAME                MODE                REPLICAS            IMAGE                    PORTS
 qth4tssf2sm1        monitor_cadvisor    global              3/3                 google/cadvisor:latest   
 p2vbxe7ic175        monitor_grafana     replicated          1/1                 grafana/grafana:latest   *:80-&gt;3000/tcp
 von1rpeqq7vj        monitor_influx      replicated          1/1                 influxdb:latest  
-</code></pre><p>到目前为止，服务已经部署完成了，三台机器各自部署一个<code>cadvisor</code>,在master节点部署了<code>grafana</code>和<code>influxdb</code></p>
+</code></pre></div><p>到目前为止，服务已经部署完成了，三台机器各自部署一个<code>cadvisor</code>,在 master 节点部署了<code>grafana</code>和<code>influxdb</code></p>
 <h2 id="为cadvisor配置influxdb数据库">为cadvisor配置influxdb数据库</h2>
-<p>查看一下master机器上的服务<br>
-<code>docker ps</code></p>
-<pre tabindex="0"><code>[root@master ~]# docker ps
+<p>查看一下 master 机器上的服务</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#f92672">[</span>root@master ~<span style="color:#f92672">]</span><span style="color:#75715e"># docker ps</span>
 CONTAINER ID        IMAGE                    COMMAND                  CREATED             STATUS              PORTS               NAMES
-55965fdf13a3        grafana/grafana:latest   &quot;/run.sh&quot;                3 hours ago         Up 3 hours          3000/tcp            monitor_grafana.1.l9uh0ov7ltk7q2yollmk4x1v9
-0bf544c7d81c        google/cadvisor:latest   &quot;/usr/bin/cadvisor -…&quot;   3 hours ago         Up 3 hours          8080/tcp            monitor_cadvisor.138n5rwjz83y8goyzepp1cdo7.l53vufoivp0oe8tyy14nh0jof
-3ce050f0483e        influxdb:latest          &quot;/entrypoint.sh infl…&quot;   3 hours ago         Up 3 hours          8086/tcp            monitor_influx.1.vraeh8ektium1j1jd27qvq1au
-[root@master ~]# 
-</code></pre><p>可以看到是符合预期的，接下来进一步查看<code>cadvisor</code>容器的日志<br>
-<code>docker logs -f 0bf544c7d81c</code></p>
-<pre tabindex="0"><code>[root@master ~]# docker logs -f 0bf544c7d81c
-W0209 09:32:15.730951       1 manager.go:349] Could not configure a source for OOM detection, disabling OOM events: open /dev/kmsg: no such file or directory
-E0209 09:33:15.783705       1 memory.go:94] failed to write stats to influxDb - {&quot;error&quot;:&quot;database not found: \&quot;cadvisor\&quot;&quot;}
-E0209 09:34:15.818661       1 memory.go:94] failed to write stats to influxDb - {&quot;error&quot;:&quot;database not found: \&quot;cadvisor\&quot;&quot;}
-E0209 09:35:16.009312       1 memory.go:94] failed to write stats to influxDb - {&quot;error&quot;:&quot;database not found: \&quot;cadvisor\&quot;&quot;}
-E0209 09:36:16.027113       1 memory.go:94] failed to write stats to influxDb - {&quot;error&quot;:&quot;database not found: \&quot;cadvisor\&quot;&quot;}
-E0209 09:37:16.107051       1 memory.go:94] failed to write stats to influxDb - {&quot;error&quot;:&quot;database not found: \&quot;cadvisor\&quot;&quot;}
-E0209 09:38:16.215684       1 memory.go:94] failed to write stats to influxDb - {&quot;error&quot;:&quot;database not found: \&quot;cadvisor\&quot;&quot;}
-E0209 09:39:16.305772       1 memory.go:94] failed to write stats to influxDb - {&quot;error&quot;:&quot;database not found: \&quot;cadvisor\&quot;&quot;}
+55965fdf13a3        grafana/grafana:latest   <span style="color:#e6db74">&#34;/run.sh&#34;</span>                <span style="color:#ae81ff">3</span> hours ago         Up <span style="color:#ae81ff">3</span> hours          3000/tcp            monitor_grafana.1.l9uh0ov7ltk7q2yollmk4x1v9
+0bf544c7d81c        google/cadvisor:latest   <span style="color:#e6db74">&#34;/usr/bin/cadvisor -…&#34;</span>   <span style="color:#ae81ff">3</span> hours ago         Up <span style="color:#ae81ff">3</span> hours          8080/tcp            monitor_cadvisor.138n5rwjz83y8goyzepp1cdo7.l53vufoivp0oe8tyy14nh0jof
+3ce050f0483e        influxdb:latest          <span style="color:#e6db74">&#34;/entrypoint.sh infl…&#34;</span>   <span style="color:#ae81ff">3</span> hours ago         Up <span style="color:#ae81ff">3</span> hours          8086/tcp            monitor_influx.1.vraeh8ektium1j1jd27qvq1au
+<span style="color:#f92672">[</span>root@master ~<span style="color:#f92672">]</span><span style="color:#75715e"># </span>
+</code></pre></div><p>可以看到是符合预期的，接下来进一步查看<code>cadvisor</code>容器的日志</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#f92672">[</span>root@master ~<span style="color:#f92672">]</span><span style="color:#75715e"># docker logs -f 0bf544c7d81c</span>
+W0209 09:32:15.730951       <span style="color:#ae81ff">1</span> manager.go:349<span style="color:#f92672">]</span> Could not configure a source <span style="color:#66d9ef">for</span> OOM detection, disabling OOM events: open /dev/kmsg: no such file or directory
+E0209 09:33:15.783705       <span style="color:#ae81ff">1</span> memory.go:94<span style="color:#f92672">]</span> failed to write stats to influxDb - <span style="color:#f92672">{</span><span style="color:#e6db74">&#34;error&#34;</span>:<span style="color:#e6db74">&#34;database not found: \&#34;cadvisor\&#34;&#34;</span><span style="color:#f92672">}</span>
+E0209 09:34:15.818661       <span style="color:#ae81ff">1</span> memory.go:94<span style="color:#f92672">]</span> failed to write stats to influxDb - <span style="color:#f92672">{</span><span style="color:#e6db74">&#34;error&#34;</span>:<span style="color:#e6db74">&#34;database not found: \&#34;cadvisor\&#34;&#34;</span><span style="color:#f92672">}</span>
+E0209 09:35:16.009312       <span style="color:#ae81ff">1</span> memory.go:94<span style="color:#f92672">]</span> failed to write stats to influxDb - <span style="color:#f92672">{</span><span style="color:#e6db74">&#34;error&#34;</span>:<span style="color:#e6db74">&#34;database not found: \&#34;cadvisor\&#34;&#34;</span><span style="color:#f92672">}</span>
+E0209 09:36:16.027113       <span style="color:#ae81ff">1</span> memory.go:94<span style="color:#f92672">]</span> failed to write stats to influxDb - <span style="color:#f92672">{</span><span style="color:#e6db74">&#34;error&#34;</span>:<span style="color:#e6db74">&#34;database not found: \&#34;cadvisor\&#34;&#34;</span><span style="color:#f92672">}</span>
+E0209 09:37:16.107051       <span style="color:#ae81ff">1</span> memory.go:94<span style="color:#f92672">]</span> failed to write stats to influxDb - <span style="color:#f92672">{</span><span style="color:#e6db74">&#34;error&#34;</span>:<span style="color:#e6db74">&#34;database not found: \&#34;cadvisor\&#34;&#34;</span><span style="color:#f92672">}</span>
+E0209 09:38:16.215684       <span style="color:#ae81ff">1</span> memory.go:94<span style="color:#f92672">]</span> failed to write stats to influxDb - <span style="color:#f92672">{</span><span style="color:#e6db74">&#34;error&#34;</span>:<span style="color:#e6db74">&#34;database not found: \&#34;cadvisor\&#34;&#34;</span><span style="color:#f92672">}</span>
+E0209 09:39:16.305772       <span style="color:#ae81ff">1</span> memory.go:94<span style="color:#f92672">]</span> failed to write stats to influxDb - <span style="color:#f92672">{</span><span style="color:#e6db74">&#34;error&#34;</span>:<span style="color:#e6db74">&#34;database not found: \&#34;cadvisor\&#34;&#34;</span><span style="color:#f92672">}</span>
 
-</code></pre><p>可以看到现在一直是在报错的，因为目前的<code>influx</code>容器中没有<code>cadvisor</code>这样的数据库存在，接下来我们进入<code>influx</code>容器并创建对应的<code>cadvisor</code>数据库,在master机器上执行以下命令即可。</p>
+</code></pre></div><p>可以看到现在一直是在报错的，因为目前的<code>influx</code>容器中没有<code>cadvisor</code>这样的数据库存在，接下来我们进入<code>influx</code>容器并创建对应的<code>cadvisor</code>数据库,在 master 机器上执行以下命令即可。</p>
 <p><code>docker exec `docker ps | grep -i influx | awk '{print $1}'` influx -execute 'CREATE DATABASE cadvisor'</code></p>
 <p>当然，也可以分步骤执行</p>
 <ol>
-<li>找到influxdb的容器</li>
-<li>进入到influxdb容器内并登陆influx</li>
+<li>找到 influxdb 的容器</li>
+<li>进入到 influxdb 容器内并登陆 influx</li>
 <li>创建数据库</li>
 </ol>
 <p>这里就不演示了。</p>
 <h2 id="配置grafana">配置grafana</h2>
-<p>到目前为止，数据已经在收集了，并且数据存储在<code>influxdb</code>中。接下来配置grafana将数据进行可视化。</p>
-<p>因为docker-compose-monitor.yml文件内给grafna配置的端口是80,这里直接访问master机器的IP就可以访问到grafana,在浏览器打开<code>192.168.1.60</code>.<br>
+<p>到目前为止，数据已经在收集了，并且数据存储在<code>influxdb</code>中。接下来配置 grafana 将数据进行可视化。</p>
+<p>因为 docker-compose-monitor.yml 文件内给 grafna 配置的端口是80,这里直接访问master机器的IP就可以访问到 grafana,在浏览器打开<code>192.168.1.60</code>.<br>
 grafana<br>
 默认的帐号是<code>admin</code><br>
 默认的密码是<code>admin</code><br>
@@ -514,23 +511,23 @@ grafana<br>
 <img src="https://res.cloudinary.com/lyp/image/upload/v1581251657/hugo/blog.github.io/docker/config_source2.png" alt=""></li>
 <li>选择influxdb类型的数据源<br>
 <img src="https://res.cloudinary.com/lyp/image/upload/v1581251656/hugo/blog.github.io/docker/config_source3.png" alt=""></li>
-<li>填写influxdb对应的信息,Name填写<code>influx</code>,因为待会要用到一个grafana模版,所以这里叫influx名字,URL填<code>http://influx:8086</code>,这个也不是固定的,本次<code>docker-compose-monitor.yml</code>文件内<code>influxdb</code>的容器名叫<code>influx</code>,端口开放出来的为8086(<code>默认</code>),所以这里填<code>influx:8086</code><br>
+<li>填写 influxdb 对应的信息,Name 填写<code>influx</code>,因为待会要用到一个grafana模版,所以这里叫 influx 名字,URL 填<code>http://influx:8086</code>,这个也不是固定的,本次<code>docker-compose-monitor.yml</code>文件内<code>influxdb</code>的容器名叫<code>influx</code>,端口开放出来的为8086(<code>默认</code>),所以这里填<code>influx:8086</code>
 <img src="https://res.cloudinary.com/lyp/image/upload/v1581251945/hugo/blog.github.io/docker/config_source4.png" alt=""></li>
 </ol>
 <p>到目前为止，数据源相关的内容已经配置完成了。</p>
 <h3 id="配置grafana视图模版">配置grafana视图模版</h3>
-<p>这里使用模版只是为了演示效果，如果模版的样式不太满意，可以研究下grafana自行调整。</p>
+<p>这里使用模版只是为了演示效果，如果模版的样式不太满意，可以研究下 grafana 自行调整。</p>
 <ol>
-<li>首先打开grafana的dashboard市场下载模版<a href="https://grafana.com/grafana/dashboards/4637/reviews">https://grafana.com/grafana/dashboards/4637/reviews</a><br>
+<li>首先打开 grafana 的 dashboard 市场下载模版<a href="https://grafana.com/grafana/dashboards/4637/reviews">https://grafana.com/grafana/dashboards/4637/reviews</a><br>
 <img src="https://res.cloudinary.com/lyp/image/upload/v1581252257/hugo/blog.github.io/docker/download_grafana_temp.png" alt=""></li>
-<li>选中dashboard菜单,选中import进行导入
+<li>选中 dashboard 菜单,选中 import 进行导入
 <img src="https://res.cloudinary.com/lyp/image/upload/v1581251657/hugo/blog.github.io/docker/import_dashboard.png" alt=""></li>
-<li>打开dashboard就已经可以看到dashboard模版的内容了.<br>
+<li>打开 dashboard 就已经可以看到 dashboard 模版的内容了.<br>
 <img src="https://res.cloudinary.com/lyp/image/upload/v1581251656/hugo/blog.github.io/docker/grafana_for_cadvisor.png" alt=""></li>
 </ol>
 <h2 id="总结">总结</h2>
-<p>一个基本的Docker Swarm集群监控就搭建完成了</p>
-<p>还有更高级的也许后面会更新一篇blog进行讲述.例如当某个值(CPU)达到某个阀值，发送钉钉或者slack消息进行告警</p>
+<p>一个基本的 Docker Swarm 集群监控就搭建完成了</p>
+<p>还有更高级的也许后面会更新一篇 blog 进行讲述.例如当某个值(CPU)达到某个阀值，发送钉钉或者slack消息进行告警</p>
 <p>只要明白思路，实操基本上没有什么问题。</p>
 
 

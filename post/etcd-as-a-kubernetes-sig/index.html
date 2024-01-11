@@ -1,0 +1,994 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head><head>
+    <meta name="google-site-verification" content="9vIieCe-Qpd78QOmBl63rGtIVbhY6sYyuxX3j8XWBA4" />
+    <meta name="baidu-site-verification" content="LRrmH41lz7" />
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <meta name="baidu-site-verification" content="HGLXRsUXC4" />
+
+    
+    <meta name="baidu-site-verification" content="code-ANZvlnN0Xr" />
+
+    
+    <meta name="description" content="⎈lan，工程师⎈, OpenYurt Member,CDF中文本地化SIG成员,开源爱好者 | 公众号:四颗咖啡豆">
+    
+    <meta name="keyword"  content="liangyuanpeng|LanLiang|OpenYurt|Knative|Pulsar|Prometheus|Halo||边缘计算kubernetes|Docker|CloudNative|Golang|Rust|Istio|微服务">
+
+    
+    <link rel="shortcut icon" href="/img/aboutme/hash-kube-rs-pulsar.png">
+    
+
+    
+    <meta property="og:image" content="https://liangyuanpeng.github.io/img/banner-pexels.jpg" />
+    <meta name="twitter:image" content="https://liangyuanpeng.github.io/img/banner-pexels.jpg" />
+
+    <title>将Etcd作为一个kubernetes sig来运作-liangyuanpeng的博客 | liangyuanpeng&#39;s Blog</title>
+
+    <link rel="canonical" href="https://liangyuanpeng.github.io/post/etcd-as-a-kubernetes-sig/">
+
+    
+
+    
+    <link rel="stylesheet" href='https://liangyuanpeng.github.io/css/bootstrap.min.css'>
+
+    
+    <link rel="stylesheet" href="https://liangyuanpeng.github.io/css/hux-blog.min.css">
+
+    
+    <link rel="stylesheet" href="https://liangyuanpeng.github.io/css/syntax.css">
+
+    
+    <link href="/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    
+    <script src="https://liangyuanpeng.github.io/js/jquery.min.js"></script>
+
+    
+    <script src="https://liangyuanpeng.github.io/js/bootstrap.min.js"></script>
+
+    
+    <script src="https://liangyuanpeng.github.io/js/hux-blog.min.js"></script>
+
+    
+    <script defer src='/js/cf-beacon.min.js' data-cf-beacon='{"token": "f73bc0092aeb491d89984c0eb5a87ac2"}'></script>
+</head>
+
+</head>
+
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="https://liangyuanpeng.github.io/">Hi,I`m lan</a>
+        </div>
+
+        
+        
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="https://liangyuanpeng.github.io/">Home</a>
+                    </li>
+                    
+                    
+                     
+
+                    
+		            <li>
+                        <a href="https://liangyuanpeng.github.io/search/">SEARCH <img src="https://liangyuanpeng.github.io/img/search.png" height="15" style="cursor: pointer;"></a>
+		            </li>
+                    
+
+		            <li>
+                        <a href="https://liangyuanpeng.github.io/about/">关于我 </a>
+		            </li>
+                </ul>
+            </div>
+        </div>
+        
+    </div>
+    
+</nav>
+<script>
+    
+    
+    
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        
+            $navbar.className = " ";
+            
+            setTimeout(function(){
+                
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+
+
+<style type="text/css">
+    header.intro-header{
+        background-image: url('https://liangyuanpeng.github.io/img/banner-pexels.jpg')
+    }
+</style>
+
+<header class="intro-header" >
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+
+                       
+                       <a class="tag" href="/tags/kubernetes" title="kubernetes">
+                        kubernetes
+                            
+                                
+                                <img style="display:inline-block;" src="/img/taglogo/emoji_k8s_loft.gif" height="20" width="20" />
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                        </a>
+                        
+                       <a class="tag" href="/tags/cncf" title="cncf">
+                        cncf
+                            
+                                
+                            
+                                
+                                <img style="display:inline-block;" src="/img/taglogo/cncf/cncf.png" height="20" width="20" />
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                        </a>
+                        
+                       <a class="tag" href="/tags/etcd" title="etcd">
+                        etcd
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                                <img style="display:inline-block;" src="/img/taglogo/etcd.png" height="20" width="20" />
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                        </a>
+                        
+                       <a class="tag" href="/tags/kubernetes-sigs" title="kubernetes-sigs">
+                        kubernetes-sigs
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                        </a>
+                        
+                        <br/>
+                    </div>
+                    <h1>将Etcd作为一个kubernetes sig来运作</h1>
+                    <h2 class="subheading"></h2>
+                    <span  class="meta">Posted by 梁远鹏 on 2023-06-30
+                        
+                        <span id="busuanzi_container_page_pv">|<span id="busuanzi_value_page_pv"></span><span>
+                            <span id="/post/etcd-as-a-kubernetes-sig/" class="leancloud_visitors meta_data_item" data-flag-title="">
+    <span class="post-meta-item-icon">
+      <span class="octicon octicon-eye"></span> 
+    </span>
+    <i class="fa fa-eye"></i>
+    <span class="old-visitors-count" style="display: none;"></span>
+    <span class="leancloud-visitors-count"></span>
+</span>
+
+
+
+
+
+
+                            阅读 </span></span>|<span class="post-date">共2231字</span>，阅读约<span class="more-meta"> 5 分钟</span>
+                        
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+
+
+<article>
+    <div class="container">
+        <div class="row">
+            
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+		
+                <header>
+                <h2>TOC</h2>
+                </header>
+                <nav id="TableOfContents">
+  <ul>
+    <li><a href="#etcd-sig-是什么">etcd sig 是什么</a>
+      <ul>
+        <li><a href="#领导">领导</a></li>
+        <li><a href="#chairs-期待">Chairs （期待）</a></li>
+      </ul>
+    </li>
+    <li><a href="#etcd-sig-注意事项">etcd sig 注意事项</a></li>
+  </ul>
+
+  <ul>
+    <li><a href="#开始使用-xline">开始使用 Xline</a></li>
+  </ul>
+</nav>
+		
+
+		<h1 id="说明">说明</h1>
+<p>在我看来,做出这个决定的本质原因是 Etcd 的贡献者/维护人员过少,因此希望将 Etcd 作为一个 kubernetes sig 来运作,以此来降低维护人员的维护程度以及通过 kubernetes sig 来吸引贡献者.</p>
+<p>这同样也意味着 etcd 社区希望引入 kubernetes 社区的一些治理模式,以此来增加 etcd 社区活跃度.</p>
+<p>完整的 issue 讨论在这里: <a href="https://github.com/etcd-io/etcd/issues/15875">https://github.com/etcd-io/etcd/issues/15875</a></p>
+<p>整个讨论中,很多大佬也发表了自己的想法,例如 etcd 前维护者,kubernetes SIG API Machinery 的联合主席以及etcd的一些现任维护者.</p>
+<h2 id="etcd-sig-是什么">etcd sig 是什么</h2>
+<p>etcd sig 相关的初步设计的谷歌文档在这里: <a href="https://docs.google.com/document/d/1KFrLeKyHvNDv4b0GswYU3_zbeSATgCanT5dzCID4oJY/edit">https://docs.google.com/document/d/1KFrLeKyHvNDv4b0GswYU3_zbeSATgCanT5dzCID4oJY/edit</a></p>
+<p>其中这个 sig 的负责内容如下:</p>
+<ul>
+<li>在etcd-io组织下开发etcd和其他存储库</li>
+<li>Kubernetes 打包的 etcd 镜像的维护</li>
+<li>指定、测试和改进隐式 Kubernetes-ETCD 合约</li>
+</ul>
+<p>不包括的内容: etcd 中存储的数据结构归 SIG API Machinery 所有</p>
+<h3 id="领导">领导</h3>
+<p>椅子和技术主管
+本杰明·王 (@ahtr)，VMware
+Marek Siarkowicz (@serathius)，谷歌</p>
+<h3 id="chairs-期待">Chairs （期待）</h3>
+<p>我们不会为 SIG 的成立提名专门的主席。 然而，我们将积极激励现有的社区成员增加他们的贡献，以便他们能够在未来填补这些角色。</p>
+<h2 id="etcd-sig-注意事项">etcd sig 注意事项</h2>
+<p><a href="https://docs.google.com/document/d/1tqjOxU7hhiQiUi_w6Fr5CWSCOzQIoc49kysB4bDx59o/edit">https://docs.google.com/document/d/1tqjOxU7hhiQiUi_w6Fr5CWSCOzQIoc49kysB4bDx59o/edit</a></p>
+<p>etcd SIG-ify 的注意事项
+作者：马雷克·西亚科维奇
+状态：审查
+评论：[x]ptabor@github.com、[x]ahrtr@github.com、[x]spzala@github.com、[x]h.mitake@gmail.com
+最后更新：2023 年 6 月 30 日
+创建时间：2023 年 6 月 30 日</p>
+<p>正如 The Case for SIG-ifying ETCD 和 ETCD 作为 kubernetes SIG 中提出的那样，etcd 项目正在致力于治理变革，以使其更接近 Kubernetes 组织。 为了确保清晰，本文档将讨论我们想要引入 etcd 项目的具体更改，以及我们想要保持不变的内容。</p>
+<p>首先要明确的是，SIG 化的目标不是将 etcd 项目捐赠给 Kubernetes，也不是改变项目目标只为 Kubernetes 服务。 etcd 项目的目标是利用 Kubernetes 构建的经验、基础设施和流程来服务 etcd 社区和所有 etcd 用户。 我们希望获得 CNCF 尚未准备好提供的关键支持。
+不该做的事
+让我们从我们不想改变的事情开始吧。 如果这只是一个项目捐赠，其中一些事情可能看起来很自然，但是由于我们没有看到 etcd 社区有任何好处，所以我们不会这样做。 以下列出了自 SIG etcd 创建以来不会发生的事情，我们认为它们将来不应该发生：
+不要将 etcd 项目捐赠给 Kubernetes 组织
+不要将 etcd 存储库移至 Kubernetes 组织
+不要将项目仅专注于 Kubernetes 用例，更多内容请参阅 SIG etcd 章程和愿景
+该做的
+Kubernetes 社区构建了很多我们想要利用的很棒的东西。 我们希望能够减少 etcd 维护者和社区的辛劳，让项目更加自我可持续，让每个人都专注于让 etcd 为每个人带来好处。 以下是我们希望发生的事情的列表：
+创建一个 SIG etcd 来代表 Kubernetes 社区中的 etcd 兴趣。 这将有助于利用 Kubernetes 的声誉吸引更多人加入该项目。
+TODO：获得 Kubernetes Steering 批准 SIG 所需的事项列表
+调整 Kubernetes 的治理并将决策权委托给 SIG-etcd，具体来说：
+取代当前基于维护者的治理模型，该模型效率低下并且可能导致群体思维。 相反，请使用 Kubernetes 的 SIG 治理模型，该模型需要积极的领导并将技术和组织角色分开。 SIG 治理的详细信息。
+向 etcd 项目引入审批者角色。 这将进一步分离贡献者的责任并增加代码库所有权的粒度。 它还将使贡献者更有利于成为特定领域的专家。 现有维护者将根据其活动转移到审批者角色。
+结合 etcd 和 Kubernetes 社区的努力，并将结果提供给所有人。 这将有助于避免重复工作并提高项目的整体质量。 重复工作的一些示例：etcd 镜像、etcd-Kubernetes 合约、etcd-proxy/K8s 监视缓存。
+调整类似于 Kubernetes 的增强建议和生产准备情况审核的流程。 利用 Kubernetes 社区的经验使 etcd 成熟用于生产。 etcd 社区不太擅长对功能进行分级并使其可用于生产（上下文、未分级功能列表）。
+使用 Kubernetes 发布机制来确保安全且经过审核的发布过程。 当前发布 etcd 的过程是在维护者拥有的笔记本电脑上手动完成的（上下文）。 这是一个安全风险，如果维护人员的笔记本电脑受到威胁，可能会导致灾难性的情况。
+利用 Kubernetes 的安全响应来帮助分类和解决 etcd 安全漏洞。 相比之下，对 etcd 安全电子邮件 <a href="mailto:security@etcd.io">security@etcd.io</a> 的访问权限丢失，并且一年多以来没有人阅读它。
+也许的
+利用 <a href="https://github.com/kubernetes/org">https://github.com/kubernetes/org</a> 管理成员资格和权限。 目前，这是由 etcd 维护人员手动完成的，没有任何监督和审计。 这是一个安全风险，如果维护人员的笔记本电脑受到威胁，可能会导致灾难性的情况。</p>
+<h1 id="进展">进展</h1>
+<p>目前已经在 kubernetes/community 中申请 etcd sigs 见 PR: <a href="https://github.com/kubernetes/community/pull/7372">https://github.com/kubernetes/community/pull/7372</a></p>
+<h1 id="你都用etcd做了什么">你都用etcd做了什么?</h1>
+<p><a href="https://www.surveymonkey.com/r/etcdusage23">https://www.surveymonkey.com/r/etcdusage23</a></p>
+<p>可以在官网https://etcd.io/docs/v3.5/integrations/#projects-using-etcd 看到，不少的知名项目都使用了 etcd，例如 Apache Pulsar,Apache APISIX.</p>
+<p>如果在你的项目中也将 etcd 用到了非 kubernetes 场景中,方便的话请帮助填写一下用户问卷,这对 etcd 社区很有帮助,感谢! 同时问卷中已经声明,只有 CNCF/etcd 相关人员可以见到调查问卷的情况,从而帮助保护你的隐私.</p>
+<h1 id="其他想法">其他想法</h1>
+<p>这让我想起 Apache Bookkeeper 也曾经历过类似的事情,由于 Apache Bookkeeper 处于一个相对底层的位置(作为 Pulsar 的存储层),因此贡献者相对较少,即使 19年 Streamnative 做过几次 Bookkeeper 的技术分享,似乎也没有泛起什么水花.</p>
+<h1 id="xline">Xline</h1>
+<p><a href="https://github.com/xline-kv/Xline">Xline</a> 是一个兼容 Etcd API 的用于元数据管理的 KV 存储，目标是基于 CURP 协议实现跨云/跨数据中心管理元数据，由 datenlord 开源并捐赠到CNCF,目前是 CNCF sandbox 项目.</p>
+<p>目前 Xline-kv 组织下共有两个项目, Xline 和 Xline Operator, 都是用 Rust 语言开发,对于 Rust 语言感兴趣的同学可以了解一下.</p>
+<p>我对其发展前景持看好态度,但由于是 Rust 语言开发,因此道路可能比较坎坷(社区相对go社区小,门槛比golang高 相关库不够丰富)</p>
+<h2 id="开始使用-xline">开始使用 Xline</h2>
+<p>目前我基于 Kind 搭建的 kubernetes 研究环境已经用上 Xline 了,如果你也想体验只需要将 kube-apiserver 中指向 etcd 的地址修改为 xline 的地址就可以了,也可以将部分数据存储到 Xline 中来浅尝一下,例如通过 xx 参数把 event 数据存储到 Xline 中,而 k8s 中的其他数据依然存储到 etcd 中.</p>
+<h1 id="注意">注意</h1>
+<p>本文还未完成,后续将继续更新.</p>
+
+
+        <h2>微信公众号</h2>
+<p>扫描下面的二维码关注我们的微信公众号,第一时间查看最新内容。同时也可以关注我的Github,看看我都在了解什么技术,在页面底部可以找到我的Github。</p>
+<img  src="/img/qrcode_for_sikekafeidou.jpg" alt="wechat-qrcode">
+
+        <div style="padding: 10px 0; margin: 20px auto; width: 100%; font-size:16px; text-align: center;">
+    <button class="btn btn-danger"  id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+        <span>「来都来了」赞赏</span></button>
+    <div  id="QR" style="display: none;">
+        <div id="wechat" style="display: inline-block">
+            <p>如果本文对你有帮助的话欢迎通过微信或支付宝对我进行赞助,强烈建议你在支付的备注上填上你的 githubID 或你的昵称,让我知道我该感谢谁!!! </br></br>
+                赞助金额设置为固定金额:8元. </br> 
+                8元赠与我,发发发反馈给你,2023祝你收入翻番一路发到底:)</p>
+            <a class="fancybox" rel="group">
+                <img id="wechat_qr" src="/img/wechat-zhifubao.png" alt="Pay"></a>
+        </div>
+    </div>
+</div>
+
+        
+
+                <hr>
+
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/post/write-note-for-upgrade-to-springboot3/" data-toggle="tooltip" data-placement="top" title="记一次springboot3的升级之旅">&larr; 记一次springboot3的升级之旅</a>
+                    </li>
+                    
+                    
+                    <li class="next">
+                        <a href="/post/try-to-ask-question-to-kubernetes-for-source/" data-toggle="tooltip" data-placement="top" title="尝试向kubernetes提出问题">尝试向kubernetes提出问题 &rarr;</a>
+                    </li>
+                    
+                </ul>
+
+            
+
+
+<script src="https://giscus.app/client.js"
+        data-repo="liangyuanpeng/liangyuanpeng.github.io"
+        data-repo-id="MDEwOlJlcG9zaXRvcnkxNDkwMDQ2OTM="
+        data-category=""
+        data-category-id="DIC_kwDOCOGhlc4CVwo2"
+        data-mapping="title"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="top"
+        data-theme="light"
+        data-lang="zh-CN"
+        crossorigin="anonymous"
+        async>
+</script>
+
+
+
+
+            </div>
+
+            
+
+            <div class="
+                col-lg-2 col-lg-offset-0
+                visible-lg-block
+                sidebar-container
+                catalog-container">
+                
+                扫码下面二维码加我微信 :)
+                <img src="https://liangyuanpeng.github.io/img/aboutme/wechat-lan.png" />
+                
+            </div> 
+
+            
+
+            
+            
+            
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                
+                
+<br/>
+<h5>开源项目推荐</h5>
+
+<style type="text/css">
+.pinned-repos {
+  max-width: 300px;
+  margin: 0 auto;
+}
+
+.repo-card {
+  display: flex;
+  flex-direction: column;
+  padding: 16px;
+  border: 1px solid #e1e4e8;
+  border-radius: 6px;
+  background-color: #fff;
+}
+
+.repo-card:hover {
+  box-shadow: 0 1px 3px rgba(36,41,46,.08);
+}
+
+.repo-card h2 {
+  margin-top: 0;
+  font-size: 20px;
+  font-weight: 200;
+  color: #0366d6;
+}
+
+.repo-card p {
+  margin: 8px 0 16px;
+  font-size: 14px;
+  color: #586069;
+}
+
+.repo-card-stats {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;  
+}
+
+.repo-card-stats span {
+  font-size: 12px;
+  color: #586069;
+  margin-right: 16px;
+}
+
+.repo-card-stats strong {
+  font-weight: 200;
+  color: #24292e;
+}
+</style>
+
+    
+    <ul class="margin-bottom: 25px;pinned-repo-list">
+      <li>
+        <div class="repo-card">
+          <div class="repo-card-details">
+            <h2><a href="https://github.com/liangyuanpeng/replacer">replacer</a></h2>
+            <p>K8S webhook的参考实现|Replace container image of kubernetes mutate webhook.</p>
+            <div class="repo-card-stats">
+              <span>Language: <strong>Golang</strong></span>
+              <span>Forks: <strong>*</strong></span>
+              <span>Stars: <strong>*</strong></span>
+              <span>Updated: <strong>Nov 20, 2021</strong></span>
+            </div>
+          </div>
+        </div>
+      </li>
+    </ul>
+
+            </div>
+
+            
+            
+            <div class="
+            col-lg- col-lg-offset-2
+            col-md-10 col-md-offset-1
+            ">
+            <section>
+                <hr class="hidden-sm hidden-xs">
+                
+
+<h2>相关文章</h2>
+<ul style="margin-bottom: 25px;">
+    
+    <li><a href="/post/question-list-of-etcd/">[长期更新]etcd常见问题以及配置记录,欢迎投稿.</a></li>
+    
+    <li><a href="/post/cloudnative-ci-of-argo-workflow/">argoworkflow 云原生工作流引擎</a></li>
+    
+    <li><a href="/post/question-list-of-kubernetes/">[长期更新]kubernetes问题列表记录</a></li>
+    
+    <li><a href="/post/kubeadm-config-note-long-term/">[长期更新]kubeadm常见问题以及配置记录</a></li>
+    
+    <li><a href="/post/kubecon-china-2023%E5%B0%86%E5%9C%A8%E4%B8%8A%E6%B5%B7%E4%B8%BE%E5%8A%9E/">kubecon china 2023将在上海举办</a></li>
+    
+    <li><a href="/post/quick-k8s-dev-with-flux-and-kind/">基于flux和kind快速搭建k8s环境</a></li>
+    
+    <li><a href="/post/migrate-your-manifest-yaml-files-into-helm-chart/">将你的yaml文件迁移到helm</a></li>
+    
+    <li><a href="/post/from-zero-to-kubernets-subproject-lead/">从零到 Kubernetes 子项目负责人</a></li>
+    
+    <li><a href="/post/k3s-qa/">k3s常见问题</a></li>
+    
+    <li><a href="/post/backup-pvc-to-s3-with-k8up/">基于k8up备份PVC到S3存储</a></li>
+    
+</ul>
+
+            </section>
+            </div>
+            
+
+            
+
+
+        </div>
+    </div>
+</article>
+
+
+
+
+
+
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                   
+                   <li>
+                       <a href="" rel="alternate" type="application/rss+xml" title="Hi,I`m lan" >
+                           <span class="fa-stack fa-lg">
+                               <i class="fa fa-circle fa-stack-2x"></i>
+                               <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+                           </span>
+                       </a>
+                   </li>
+                   
+                    
+                    <li>
+                        <a target="_blank" href="https://github.com/liangyuanpeng">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                   
+                   
+                    
+                    <li>
+                        <a target="_blank" href="https://liangyuanpeng.github.io/img/aboutme/wechat-lan.png">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-wechat fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li>
+                        <a href="mailto:liangyuanpengem@163.com">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+		    
+
+                    
+                    <li>
+                        <a href="https://twitter.com/lan31793328">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li>
+                        <a target="_blank" href="https://www.zhihu.com/people/liangyuanpeng">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa  fa-stack-1x fa-inverse">知</i>
+                            </span>
+                        </a>
+                    </li>
+		    
+                    
+                    <li>
+                        <a target="_blank" href="https://weibo.com/u/1908782280">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+		    
+
+                    
+
+		    
+                    
+                </ul>
+		<p class="copyright text-muted">
+                    Copyright &copy; Hi,I`m lan , 2023
+                    <br>
+                    <a href="https://themes.gohugo.io/hugo-theme-cleanwhite">CleanWhite Hugo Theme</a> by <a href="https://zhaohuabing.com">Huabing</a> |
+                    <iframe
+                        style="margin-left: 2px; margin-bottom:-5px;"
+                        frameborder="0" scrolling="0" width="100px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=zhaohuabing&repo=hugo-theme-cleanwhite&type=star&count=true" >
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+
+<script>
+    function loadAsync(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+
+
+
+
+
+<script>
+    
+    if($('#tag_cloud').length !== 0){
+        async("/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+
+
+
+<script type="text/javascript">
+
+    
+    
+
+    function generateCatalog(selector) {
+
+        
+        
+        
+        
+            _containerSelector = 'div.post-container'
+        
+
+        
+        var P = $(_containerSelector), a, n, t, l, i, c;
+        a = P.find('h1,h2,h3,h4,h5,h6');
+
+        
+        $(selector).html('')
+
+        
+        a.each(function () {
+            n = $(this).prop('tagName').toLowerCase();
+            i = "#" + $(this).prop('id');
+            t = $(this).text();
+            c = $('<a href="' + i + '" rel="nofollow">' + t + '</a>');
+            l = $('<li class="' + n + '_nav"></li>').append(c);
+            $(selector).append(l);
+        });
+        return true;
+    }
+
+    generateCatalog(".catalog-body");
+
+    
+    $(".catalog-toggle").click((function (e) {
+        e.preventDefault();
+        $('.side-catalog').toggleClass("fold")
+    }))
+
+    
+
+
+    loadAsync("\/js\/jquery.nav.js", function () {
+        $('.catalog-body').onePageNav({
+            currentClass: "active",
+            changeHash: !1,
+            easing: "swing",
+            filter: "",
+            scrollSpeed: 700,
+            scrollOffset: 0,
+            scrollThreshold: .2,
+            begin: null,
+            end: null,
+            scrollChange: null,
+            padding: 80
+        });
+    });
+</script>
+
+
+
+
+<script>
+    async("/js/fastclick-1.0.6.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+
+
+<script>
+    
+    var _baId = 'fad9c137f8ce239f9b323d36c871f8e6';
+
+    
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?" + _baId;
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+
+
+
+
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-RTTRHGYFWL"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-RTTRHGYFWL');
+</script>
+
+
+
+</body>
+</html>

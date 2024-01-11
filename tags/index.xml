@@ -6,7 +6,25 @@
     <description>Recent content in Tags on Hi,I`m lan</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 27 Dec 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://liangyuanpeng.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 07 Jan 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://liangyuanpeng.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>victoriaMetrics</title>
+      <link>https://liangyuanpeng.github.io/tags/victoriametrics/</link>
+      <pubDate>Sun, 07 Jan 2024 00:00:00 +0000</pubDate>
+      
+      <guid>https://liangyuanpeng.github.io/tags/victoriametrics/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Grafana</title>
+      <link>https://liangyuanpeng.github.io/tags/grafana/</link>
+      <pubDate>Sat, 06 Jan 2024 00:00:00 +0000</pubDate>
+      
+      <guid>https://liangyuanpeng.github.io/tags/grafana/</guid>
+      <description></description>
+    </item>
+    
     <item>
       <title>cncf</title>
       <link>https://liangyuanpeng.github.io/tags/cncf/</link>
@@ -67,6 +85,15 @@
       <pubDate>Sat, 02 Sep 2023 00:00:00 +0000</pubDate>
       
       <guid>https://liangyuanpeng.github.io/tags/etcd/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>kubernetes-sigs</title>
+      <link>https://liangyuanpeng.github.io/tags/kubernetes-sigs/</link>
+      <pubDate>Fri, 30 Jun 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://liangyuanpeng.github.io/tags/kubernetes-sigs/</guid>
       <description></description>
     </item>
     

@@ -44,12 +44,30 @@
     </item>
     
     <item>
+      <title>将Etcd作为一个kubernetes sig来运作</title>
+      <link>https://liangyuanpeng.github.io/post/etcd-as-a-kubernetes-sig/</link>
+      <pubDate>Fri, 30 Jun 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://liangyuanpeng.github.io/post/etcd-as-a-kubernetes-sig/</guid>
+      <description>说明 在我看来,做出这个决定的本质原因是 Etcd 的贡献者/维护人员过少,因此希望将 Etcd 作为一个 kubernetes sig 来运作,以此来降低维护人员的维护程度以及通过 kubernetes sig 来吸</description>
+    </item>
+    
+    <item>
       <title>argoworkflow 云原生工作流引擎</title>
       <link>https://liangyuanpeng.github.io/post/cloudnative-ci-of-argo-workflow/</link>
       <pubDate>Sun, 28 May 2023 00:00:00 +0000</pubDate>
       
       <guid>https://liangyuanpeng.github.io/post/cloudnative-ci-of-argo-workflow/</guid>
       <description>注：本文已投稿至云原生社区，因此作者填写为云原生社区 Argo workflow 是什么 老牌的工作流工具 Jenkins 应该是大部分人都接触过的，而在云原生时代，诞生了两大工作流工</description>
+    </item>
+    
+    <item>
+      <title>[长期更新]etcd常见问题以及配置记录,欢迎投稿.</title>
+      <link>https://liangyuanpeng.github.io/post/question-list-of-etcd/</link>
+      <pubDate>Mon, 22 May 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://liangyuanpeng.github.io/post/question-list-of-etcd/</guid>
+      <description>说明 本文主要收集 etcd 遇到的一些常见问题,欢迎对本文进行投稿你认为好的场景或问题. 备份恢复 在我的研究场景中，经常需要重建环境,因此数据的备份恢复</description>
     </item>
     
     <item>
@@ -287,7 +305,7 @@
     </item>
     
     <item>
-      <title>kubernetes常见问题</title>
+      <title>[长期更新]kubernetes常见问题</title>
       <link>https://liangyuanpeng.github.io/post/kubernetes-qa/</link>
       <pubDate>Tue, 18 Jan 2022 00:00:00 +0000</pubDate>
       
@@ -383,15 +401,6 @@
       
       <guid>https://liangyuanpeng.github.io/post/cdf-new-project-shipwright/</guid>
       <description>说明: 本文将使用CDF作为持续交付基金会简称. 基于 Tekton 构建容器镜像的简单方法 旧金山,2021年8月3日&amp;mdash;CDF是一个开源软件基金会</description>
-    </item>
-    
-    <item>
-      <title>[长期更新]etcd问题列表</title>
-      <link>https://liangyuanpeng.github.io/post/question-list-of-etcd/</link>
-      <pubDate>Sat, 22 May 2021 00:00:00 +0000</pubDate>
-      
-      <guid>https://liangyuanpeng.github.io/post/question-list-of-etcd/</guid>
-      <description>说明 本文主要收集 etcd 遇到的一些常见问题,欢迎对本文进行投稿你认为好的场景或问题.</description>
     </item>
     
     <item>

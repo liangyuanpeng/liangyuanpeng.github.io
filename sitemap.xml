@@ -12,8 +12,48 @@
   </url>
   
   <url>
+    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/post/victoriametrics-config-note-long-term/</loc>
+    <lastmod>2024-01-07T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/categories/</loc>
-    <lastmod>2023-12-27T00:00:00+00:00</lastmod>
+    <lastmod>2024-01-07T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/categories/cloudnative/</loc>
+    <lastmod>2024-01-07T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/</loc>
+    <lastmod>2024-01-07T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/post/</loc>
+    <lastmod>2024-01-07T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/tags/</loc>
+    <lastmod>2024-01-07T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/tags/victoriametrics/</loc>
+    <lastmod>2024-01-07T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/post/grafana-config-note-long-term/</loc>
+    <lastmod>2024-01-06T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/tags/grafana/</loc>
+    <lastmod>2024-01-06T00:00:00+00:00</lastmod>
   </url>
   
   <url>
@@ -23,11 +63,6 @@
   
   <url>
     <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/tags/golang/</loc>
-    <lastmod>2023-12-27T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/</loc>
     <lastmod>2023-12-27T00:00:00+00:00</lastmod>
   </url>
   
@@ -57,21 +92,6 @@
   </url>
   
   <url>
-    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/post/</loc>
-    <lastmod>2023-12-27T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/tags/</loc>
-    <lastmod>2023-12-27T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/categories/cloudnative/</loc>
-    <lastmod>2023-11-08T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
     <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/tags/kcl/</loc>
     <lastmod>2023-11-08T00:00:00+00:00</lastmod>
   </url>
@@ -89,6 +109,16 @@
   <url>
     <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/post/try-to-ask-question-to-kubernetes-for-source/</loc>
     <lastmod>2023-09-02T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/tags/kubernetes-sigs/</loc>
+    <lastmod>2023-06-30T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/post/etcd-as-a-kubernetes-sig/</loc>
+    <lastmod>2023-06-30T00:00:00+00:00</lastmod>
   </url>
   
   <url>
@@ -124,6 +154,11 @@
   <url>
     <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/tags/ci/</loc>
     <lastmod>2023-05-28T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/post/question-list-of-etcd/</loc>
+    <lastmod>2023-05-22T00:00:00+00:00</lastmod>
   </url>
   
   <url>
@@ -949,11 +984,6 @@
   <url>
     <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/post/prometheus-v2.28.1-update/</loc>
     <lastmod>2021-07-27T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/post/question-list-of-etcd/</loc>
-    <lastmod>2021-05-22T00:00:00+00:00</lastmod>
   </url>
   
   <url>

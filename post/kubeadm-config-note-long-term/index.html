@@ -360,7 +360,7 @@
 
 
 
-                            阅读 </span></span>|<span class="post-date">共229字</span>，阅读约<span class="more-meta"> 1 分钟</span>
+                            阅读 </span></span>|<span class="post-date">共558字</span>，阅读约<span class="more-meta"> 2 分钟</span>
                         
                     </span>
                 </div>
@@ -388,6 +388,7 @@
                 <nav id="TableOfContents">
   <ul>
     <li><a href="#官方文档">官方文档</a></li>
+    <li><a href="#单独设置容器镜像registry时coredns镜像报错">单独设置容器镜像registry时coredns镜像报错</a></li>
   </ul>
 </nav>
 		
@@ -395,11 +396,19 @@
 		<h1 id="说明">说明</h1>
 <p>本文主要收集常见场景下 kubeadm 配置以及遇到的一些常见问题,欢迎对本文进行投稿你认为好的场景配置或问题.</p>
 <p>Kind 是一个基于 Docker 来实现在容器内跑 kubernetes 的方案,其原理是在容器内使用 kubeadm 部署 kubernetes,我发布了一个同样是长期更新的专门记录 Kind 内容的博客,因此在这里的一些配置问题很可能已经出现在了<a href="https://liangyuanpeng.com/post/run-k8s-with-kind/">用kind搭建k8s集群环境</a>这篇文章,如果在本文没有找到你想要的内容可以去那篇文章试试运气,对信息碎片化感到抱歉 (:</p>
+<p>如果在使用 registry.lank8s.cn 时有疑问或问题,欢迎在<a href="https://liangyuanpeng.com/post/service-lank8s.cn/">lank8s.cn 服务</a>或<a href="https://github.com/liangyuanpeng/lank8s.cn">github.com/liangyuanpeng/lank8s.cn</a> 进行交流.</p>
 <h2 id="官方文档">官方文档</h2>
 <p><a href="https://kubernetes.io/docs/reference/config-api/kubeadm-config.v1beta3/">https://kubernetes.io/docs/reference/config-api/kubeadm-config.v1beta3/</a></p>
 <blockquote>
 <p>注意: 如果是其他版本则将 v1beta3 修改为你希望的版本就可以了.</p>
 </blockquote>
+<h2 id="单独设置容器镜像registry时coredns镜像报错">单独设置容器镜像registry时coredns镜像报错</h2>
+<p>在<a href="https://v1-28.docs.kubernetes.io/docs/reference/setup-tools/kubeadm/kubeadm-init/#custom-images">官方文档</a>说已经有所提及: 为了保持向后兼容,默认的 <code>registry.k8s.io</code> 和自定义的容器镜像仓库行为可能会有所不同,例如当镜像有子路径时如: <code>registry.k8s.io/coredns/coredns:v1.11.1</code> 在自定义容器镜像仓库时则会变成 <code>registry.lank8s.cn/coredns:v1.11.1</code>, 因此这就导致了 coredns 镜像只修改全局的容器镜像仓库时会无法使用,但 kubeadm 为 coredns 提供了<code>imageRepository</code>参数,因此在 kubeadm 配置文件当中为 coredns 指定以下容器镜像的 namespace 就可以了:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#f92672">dns</span>:
+  <span style="color:#f92672">imageRepository</span>: <span style="color:#ae81ff">registry.lank8s.cn/coredns</span>
+</code></pre></div><p>2024-01-09更新: registry.lank8s.cn 做了适配处理,默认将大于v1.7.1版本的 coredns 容器镜像请求解析成 coredns/coredns, 因此可以直接用一条 kubeadm 命令来初始化 kubernetes 集群了!</p>
+<h1 id="参考文献">参考文献</h1>
+<p>[1] <a href="https://v1-28.docs.kubernetes.io/docs/reference/setup-tools/kubeadm/kubeadm-init/#custom-images">https://v1-28.docs.kubernetes.io/docs/reference/setup-tools/kubeadm/kubeadm-init/#custom-images</a></p>
 
 
         <h2>微信公众号</h2>

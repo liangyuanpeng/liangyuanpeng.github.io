@@ -360,7 +360,7 @@
 
 
 
-                            阅读 </span></span>|<span class="post-date">共1214字</span>，阅读约<span class="more-meta"> 3 分钟</span>
+                            阅读 </span></span>|<span class="post-date">共1304字</span>，阅读约<span class="more-meta"> 3 分钟</span>
                         
                     </span>
                 </div>
@@ -602,7 +602,11 @@ location = &quot;registry.lank8s.cn&quot;
 </code></pre></div><h1 id="kubeadm">kubeadm</h1>
 <p>将 <code>image-repository</code> 参数指向 <code>registry.lank8s.cn</code> 即可.</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">kubeadm init  --image-repository<span style="color:#f92672">=</span>registry.lank8s.cn
-</code></pre></div>
+</code></pre></div><p>这里需要注意的一点是 coredns 也需要配置镜像地址,例如 registry.lank8s.cn/coredns, 因此目前不能用一条命令来进行 kubeadm 初始化了,需要指定配置文件,具体原因看: <a href="https://liangyuanpeng.com/post/kubeadm-config-note-long-term">https://liangyuanpeng.com/post/kubeadm-config-note-long-term</a></p>
+<p>后续考虑在 registry.lank8s.cn 服务层做一层适配,做到和原有的 registry.k8s.io 相同的体验.</p>
+<h1 id="minikube">minikube</h1>
+<p>TODO</p>
+
 
         <h2>微信公众号</h2>
 <p>扫描下面的二维码关注我们的微信公众号,第一时间查看最新内容。同时也可以关注我的Github,看看我都在了解什么技术,在页面底部可以找到我的Github。</p>
