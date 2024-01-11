@@ -7,7 +7,8 @@ description: ""
 date:       2023-06-30
 author:     "梁远鹏"
 image: "/img/banner-pexels.jpg"
-published: false
+published: true
+wip: true
 tags:
     - kubernetes 
     - cncf
