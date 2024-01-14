@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - "source"
+      - "generic"
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.actor }}-${{ github.head_ref || github.run_id }}
