@@ -24,6 +24,8 @@ jobs:
           fetch-depth: 0
 
       - name: create a pr 
+        env:
+          GH_TOKEN: ${{ github.token }}
         run: |
           touch tmp 
           echo "this is auto generator..." > tmp 
