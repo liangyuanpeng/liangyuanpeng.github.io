@@ -127,5 +127,5 @@ kubectl apply -f deployment.yaml
 
 # 关于 lank8s.cn
 
-关于 lank8s.cn 可以通过 [lank8s.cn服务](https://liangyuanpeng.com/post/service-lank8s.cn/) 或 [Lank8s Github组织](https://github.com/lank8s) 了解更多.
+关于 lank8s.cn 可以通过 [lank8s.cn服务](https://liangyuanpeng.com/post/service-lank8s.cn/) 了解更多.
 
