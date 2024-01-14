@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - "source"
+      - "generic"
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.actor }}-${{ github.head_ref || github.run_id }}
@@ -25,7 +26,8 @@ jobs:
 
       - name: create a pr 
         env:
-          GH_TOKEN: ${{ secrets.GEN_PR_GHTOKEN }}
+          #GH_TOKEN: ${{ secrets.GEN_PR_GHTOKEN }}
+          GH_TOKEN: ${{ github.token }}
         run: |
           touch tmp 
           echo "this is auto generator..." > tmp 
@@ -35,7 +37,8 @@ jobs:
           git commit -m "auto generator"
           CTIMED=`date +"%Y%m%d"`
           git checkout -b generic_$CTIMED
-          git push origin generic_$CTIMED:generic_$CTIMED
+          git remote add yp https://liangyuanpeng:$GH_TOKEN@github.com/liangyuanpeng/liangyuanpeng.github.io
+          git push yp generic_$CTIMED:generic_$CTIMED
           gh pr create --title "generic_$CTIMED" --body "here is a auto generate PR for generic" -H liangyuanpeng:generic_$CTIMED -R liangyuanpeng/liangyuanpeng.github.io -B source
           git checkout source
 
