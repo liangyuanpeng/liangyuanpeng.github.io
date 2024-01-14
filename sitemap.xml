@@ -12,32 +12,52 @@
   </url>
   
   <url>
-    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/post/victoriametrics-config-note-long-term/</loc>
-    <lastmod>2024-01-07T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
     <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/categories/</loc>
-    <lastmod>2024-01-07T00:00:00+00:00</lastmod>
+    <lastmod>2024-01-14T00:00:00+00:00</lastmod>
   </url>
   
   <url>
     <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/categories/cloudnative/</loc>
-    <lastmod>2024-01-07T00:00:00+00:00</lastmod>
+    <lastmod>2024-01-14T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/tags/cncf/</loc>
+    <lastmod>2024-01-14T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/tags/containerd/</loc>
+    <lastmod>2024-01-14T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/post/deprecation-warnings-in-containerd-getting-ready-for-2.0/</loc>
+    <lastmod>2024-01-14T00:00:00+00:00</lastmod>
   </url>
   
   <url>
     <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/</loc>
-    <lastmod>2024-01-07T00:00:00+00:00</lastmod>
+    <lastmod>2024-01-14T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/tags/kubernetes/</loc>
+    <lastmod>2024-01-14T00:00:00+00:00</lastmod>
   </url>
   
   <url>
     <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/post/</loc>
-    <lastmod>2024-01-07T00:00:00+00:00</lastmod>
+    <lastmod>2024-01-14T00:00:00+00:00</lastmod>
   </url>
   
   <url>
     <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/tags/</loc>
+    <lastmod>2024-01-14T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/post/victoriametrics-config-note-long-term/</loc>
     <lastmod>2024-01-07T00:00:00+00:00</lastmod>
   </url>
   
@@ -57,11 +77,6 @@
   </url>
   
   <url>
-    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/tags/cncf/</loc>
-    <lastmod>2023-12-27T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
     <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/tags/golang/</loc>
     <lastmod>2023-12-27T00:00:00+00:00</lastmod>
   </url>
@@ -73,11 +88,6 @@
   
   <url>
     <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/tags/kep/</loc>
-    <lastmod>2023-12-27T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/tags/kubernetes/</loc>
     <lastmod>2023-12-27T00:00:00+00:00</lastmod>
   </url>
   
@@ -619,11 +629,6 @@
   <url>
     <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/post/new-container-image-registry-of-zot-from-cncf/</loc>
     <lastmod>2023-01-18T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/tags/containerd/</loc>
-    <lastmod>2023-01-12T00:00:00+00:00</lastmod>
   </url>
   
   <url>

@@ -6,7 +6,7 @@
     <description>Recent content in kubernetes on Hi,I`m lan</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 27 Dec 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://liangyuanpeng.github.io/tags/kubernetes/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 14 Jan 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://liangyuanpeng.github.io/tags/kubernetes/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>lank8s.cn服务</title>
       <link>https://liangyuanpeng.github.io/post/service-lank8s.cn/</link>
@@ -23,6 +23,15 @@
       
       <guid>https://liangyuanpeng.github.io/post/run-k8s-with-kind/</guid>
       <description>前言 由于各类基于 kubernetes 的云原生实验或测试的前提都是需要一个 kubernetes 环境,而在写博客时总是需要提及使用 Kind 来搭建 kubernetes 环境. 因此这里单独写一篇文章来介绍如何用</description>
+    </item>
+    
+    <item>
+      <title>containerd 中的弃用警告 - 为 2.0 做好准备!</title>
+      <link>https://liangyuanpeng.github.io/post/deprecation-warnings-in-containerd-getting-ready-for-2.0/</link>
+      <pubDate>Sun, 14 Jan 2024 00:00:00 +0000</pubDate>
+      
+      <guid>https://liangyuanpeng.github.io/post/deprecation-warnings-in-containerd-getting-ready-for-2.0/</guid>
+      <description>前言 containerd 2.0 将是自 2017 年 12 月首次稳定发布 1.0 以来，containerd 的第一个大版本. 经过了六年的开发,测试和完善, 作为许多托管容器产品的默认容器运</description>
     </item>
     
     <item>
