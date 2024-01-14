@@ -23,8 +23,8 @@ jobs:
 
       - name: create a pr 
         env:
-          GH_TOKEN: ${{ secrets.GEN_PR_GHTOKEN }}
-          # GH_TOKEN: ${{ github.token }}
+          # GH_TOKEN: ${{ secrets.GEN_PR_GHTOKEN }}
+          GH_TOKEN: ${{ github.token }}
         run: |
           git clone https://liangyuanpeng:$GH_TOKEN@github.com/liangyuanpeng/liangyuanpeng.github.io
           cd liangyuanpeng.github.io
