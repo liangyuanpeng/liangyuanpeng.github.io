@@ -20,16 +20,14 @@ jobs:
     timeout-minutes: 20
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-        with:
-          submodules: true
-          fetch-depth: 0
 
       - name: create a pr 
         env:
           GH_TOKEN: ${{ secrets.GEN_PR_GHTOKEN }}
           # GH_TOKEN: ${{ github.token }}
         run: |
+          git clone https://liangyuanpeng:$GH_TOKEN@github.com/liangyuanpeng/liangyuanpeng.github.io
+          cd liangyuanpeng.github.io
           touch tmp 
           echo "this is auto generator..." > tmp 
           git config --global user.email "gcslyp@gmail.com"
