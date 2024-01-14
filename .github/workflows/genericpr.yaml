@@ -5,6 +5,7 @@ on:
     branches:
       - "source"
       - "generic"
+      - "generic2"
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.actor }}-${{ github.head_ref || github.run_id }}
