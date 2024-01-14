@@ -25,7 +25,7 @@ jobs:
 
       - name: create a pr 
         env:
-          GH_TOKEN: ${{ github.token }}
+          GH_TOKEN: ${{ secrets.GEN_PR_GHTOKEN }}
         run: |
           touch tmp 
           echo "this is auto generator..." > tmp 
