@@ -425,7 +425,7 @@
 
 
 
-                            阅读 </span></span>|<span class="post-date">共2231字</span>，阅读约<span class="more-meta"> 5 分钟</span>
+                            阅读 </span></span>|<span class="post-date">共2168字</span>，阅读约<span class="more-meta"> 5 分钟</span>
                         
                     </span>
                 </div>
@@ -518,19 +518,17 @@ TODO：获得 Kubernetes Steering 批准 SIG 所需的事项列表
 <h1 id="进展">进展</h1>
 <p>目前已经在 kubernetes/community 中申请 etcd sigs 见 PR: <a href="https://github.com/kubernetes/community/pull/7372">https://github.com/kubernetes/community/pull/7372</a></p>
 <h1 id="你都用etcd做了什么">你都用etcd做了什么?</h1>
-<p><a href="https://www.surveymonkey.com/r/etcdusage23">https://www.surveymonkey.com/r/etcdusage23</a></p>
-<p>可以在官网https://etcd.io/docs/v3.5/integrations/#projects-using-etcd 看到，不少的知名项目都使用了 etcd，例如 Apache Pulsar,Apache APISIX.</p>
-<p>如果在你的项目中也将 etcd 用到了非 kubernetes 场景中,方便的话请帮助填写一下用户问卷,这对 etcd 社区很有帮助,感谢! 同时问卷中已经声明,只有 CNCF/etcd 相关人员可以见到调查问卷的情况,从而帮助保护你的隐私.</p>
+<p>可以在官网 <a href="https://etcd.io/docs/v3.5/integrations/#projects-using-etcd">https://etcd.io/docs/v3.5/integrations/#projects-using-etcd</a> 看到，不少的知名项目都使用了 etcd，例如 Apache Pulsar,Apache APISIX.</p>
+<p>如果在你的项目中也将 etcd 用到了非 kubernetes 场景中,方便的话请帮助填写一下<a href="https://www.surveymonkey.com/r/etcdusage23">用户问卷</a>,这对 etcd 社区很有帮助,感谢! 同时问卷中已经声明,只有 CNCF/etcd 相关人员可以见到调查问卷的情况,从而帮助保护你的隐私.</p>
 <h1 id="其他想法">其他想法</h1>
 <p>这让我想起 Apache Bookkeeper 也曾经历过类似的事情,由于 Apache Bookkeeper 处于一个相对底层的位置(作为 Pulsar 的存储层),因此贡献者相对较少,即使 19年 Streamnative 做过几次 Bookkeeper 的技术分享,似乎也没有泛起什么水花.</p>
 <h1 id="xline">Xline</h1>
 <p><a href="https://github.com/xline-kv/Xline">Xline</a> 是一个兼容 Etcd API 的用于元数据管理的 KV 存储，目标是基于 CURP 协议实现跨云/跨数据中心管理元数据，由 datenlord 开源并捐赠到CNCF,目前是 CNCF sandbox 项目.</p>
 <p>目前 Xline-kv 组织下共有两个项目, Xline 和 Xline Operator, 都是用 Rust 语言开发,对于 Rust 语言感兴趣的同学可以了解一下.</p>
-<p>我对其发展前景持看好态度,但由于是 Rust 语言开发,因此道路可能比较坎坷(社区相对go社区小,门槛比golang高 相关库不够丰富)</p>
+<p>我对其发展前景持看好态度,但由于是 Rust 语言开发,因此道路可能比较坎坷(社区相对go社区小,门槛比 golang 高 相关库不够丰富)</p>
+<p>NOTE: Xline Operator 已经使用 Go 来重新开发了.</p>
 <h2 id="开始使用-xline">开始使用 Xline</h2>
-<p>目前我基于 Kind 搭建的 kubernetes 研究环境已经用上 Xline 了,如果你也想体验只需要将 kube-apiserver 中指向 etcd 的地址修改为 xline 的地址就可以了,也可以将部分数据存储到 Xline 中来浅尝一下,例如通过 xx 参数把 event 数据存储到 Xline 中,而 k8s 中的其他数据依然存储到 etcd 中.</p>
-<h1 id="注意">注意</h1>
-<p>本文还未完成,后续将继续更新.</p>
+<p>目前我基于 Kind 搭建的 kubernetes 研究环境已经用上 Xline 了,如果你也想体验只需要将 kube-apiserver 中指向 etcd 的地址修改为 xline 的地址就可以了,也可以将部分数据存储到 Xline 中来浅尝一下,例如通过 <code>etcd-servers-overrides: /events#http://172.18.0.2:2379</code> 参数把 event 数据单独存储到 Xline 中,而 k8s 中的其他数据依然存储到 etcd 中.</p>
 
 
         <h2>微信公众号</h2>
