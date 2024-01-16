@@ -8,7 +8,6 @@ date:       2023-06-30
 author:     "梁远鹏"
 image: "/img/banner-pexels.jpg"
 published: true
-wip: true
 tags:
     - kubernetes 
     - cncf
@@ -91,11 +90,11 @@ TODO：获得 Kubernetes Steering 批准 SIG 所需的事项列表
 
 # 你都用etcd做了什么?
 
-https://www.surveymonkey.com/r/etcdusage23
 
-可以在官网https://etcd.io/docs/v3.5/integrations/#projects-using-etcd 看到，不少的知名项目都使用了 etcd，例如 Apache Pulsar,Apache APISIX.
 
-如果在你的项目中也将 etcd 用到了非 kubernetes 场景中,方便的话请帮助填写一下用户问卷,这对 etcd 社区很有帮助,感谢! 同时问卷中已经声明,只有 CNCF/etcd 相关人员可以见到调查问卷的情况,从而帮助保护你的隐私.
+可以在官网 https://etcd.io/docs/v3.5/integrations/#projects-using-etcd 看到，不少的知名项目都使用了 etcd，例如 Apache Pulsar,Apache APISIX.
+
+如果在你的项目中也将 etcd 用到了非 kubernetes 场景中,方便的话请帮助填写一下[用户问卷](https://www.surveymonkey.com/r/etcdusage23),这对 etcd 社区很有帮助,感谢! 同时问卷中已经声明,只有 CNCF/etcd 相关人员可以见到调查问卷的情况,从而帮助保护你的隐私.
 
 
 # 其他想法
@@ -108,12 +107,10 @@ https://www.surveymonkey.com/r/etcdusage23
 
 目前 Xline-kv 组织下共有两个项目, Xline 和 Xline Operator, 都是用 Rust 语言开发,对于 Rust 语言感兴趣的同学可以了解一下.
 
-我对其发展前景持看好态度,但由于是 Rust 语言开发,因此道路可能比较坎坷(社区相对go社区小,门槛比golang高 相关库不够丰富)
+我对其发展前景持看好态度,但由于是 Rust 语言开发,因此道路可能比较坎坷(社区相对go社区小,门槛比 golang 高 相关库不够丰富)
+
+NOTE: Xline Operator 已经使用 Go 来重新开发了.
 
 ## 开始使用 Xline
 
-目前我基于 Kind 搭建的 kubernetes 研究环境已经用上 Xline 了,如果你也想体验只需要将 kube-apiserver 中指向 etcd 的地址修改为 xline 的地址就可以了,也可以将部分数据存储到 Xline 中来浅尝一下,例如通过 xx 参数把 event 数据存储到 Xline 中,而 k8s 中的其他数据依然存储到 etcd 中.
-
-# 注意
-
-本文还未完成,后续将继续更新.
+目前我基于 Kind 搭建的 kubernetes 研究环境已经用上 Xline 了,如果你也想体验只需要将 kube-apiserver 中指向 etcd 的地址修改为 xline 的地址就可以了,也可以将部分数据存储到 Xline 中来浅尝一下,例如通过 `etcd-servers-overrides: /events#http://172.18.0.2:2379` 参数把 event 数据单独存储到 Xline 中,而 k8s 中的其他数据依然存储到 etcd 中.
