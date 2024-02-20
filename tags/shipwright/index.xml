@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>shipwright on Hi,I`m lan</title>
+    <link>https://liangyuanpeng.github.io/tags/shipwright/</link>
+    <description>Recent content in shipwright on Hi,I`m lan</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Mon, 19 Feb 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://liangyuanpeng.github.io/tags/shipwright/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Tekton和Shipwright将从CDF迁移到CNCF</title>
+      <link>https://liangyuanpeng.github.io/post/moving-cncf-from-cdf-for-tekton-and-shipwright/</link>
+      <pubDate>Mon, 19 Feb 2024 00:00:00 +0000</pubDate>
+      
+      <guid>https://liangyuanpeng.github.io/post/moving-cncf-from-cdf-for-tekton-and-shipwright/</guid>
+      <description>Tekton 和 Shipwright 将从 CDF 迁移到 CNCF Tekton 社区已经与2023年11月10日决定将项目从 CDF 迁移到 CNCF, 见 issue: tektoncd/community#1080, 开始着手申请加入 CNCF,但到目前为止为止(2024年02</description>
+    </item>
+    
+  </channel>
+</rss>

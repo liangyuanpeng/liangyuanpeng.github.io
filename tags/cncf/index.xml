@@ -6,7 +6,7 @@
     <description>Recent content in cncf on Hi,I`m lan</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 14 Jan 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://liangyuanpeng.github.io/tags/cncf/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 19 Feb 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://liangyuanpeng.github.io/tags/cncf/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>用kind搭建k8s集群环境</title>
       <link>https://liangyuanpeng.github.io/post/run-k8s-with-kind/</link>
@@ -14,6 +14,15 @@
       
       <guid>https://liangyuanpeng.github.io/post/run-k8s-with-kind/</guid>
       <description>前言 由于各类基于 kubernetes 的云原生实验或测试的前提都是需要一个 kubernetes 环境,而在写博客时总是需要提及使用 Kind 来搭建 kubernetes 环境. 因此这里单独写一篇文章来介绍如何用</description>
+    </item>
+    
+    <item>
+      <title>Tekton和Shipwright将从CDF迁移到CNCF</title>
+      <link>https://liangyuanpeng.github.io/post/moving-cncf-from-cdf-for-tekton-and-shipwright/</link>
+      <pubDate>Mon, 19 Feb 2024 00:00:00 +0000</pubDate>
+      
+      <guid>https://liangyuanpeng.github.io/post/moving-cncf-from-cdf-for-tekton-and-shipwright/</guid>
+      <description>Tekton 和 Shipwright 将从 CDF 迁移到 CNCF Tekton 社区已经与2023年11月10日决定将项目从 CDF 迁移到 CNCF, 见 issue: tektoncd/community#1080, 开始着手申请加入 CNCF,但到目前为止为止(2024年02</description>
     </item>
     
     <item>

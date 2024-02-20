@@ -6,7 +6,7 @@
     <description>Recent content in tekton on Hi,I`m lan</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 15 Nov 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://liangyuanpeng.github.io/tags/tekton/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 19 Feb 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://liangyuanpeng.github.io/tags/tekton/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>lank8s.cn服务</title>
       <link>https://liangyuanpeng.github.io/post/service-lank8s.cn/</link>
@@ -14,6 +14,15 @@
       
       <guid>https://liangyuanpeng.github.io/post/service-lank8s.cn/</guid>
       <description>Hi there 👋 国内安装K8S基本镜像站&amp;mdash;&amp;gt; lank8s.cn China mirror for registry.k8s.io and gcr.io :) lank8s.cn 服务是什么 ⭐⭐⭐目前 lank8s.cn 正在逐步开源,项目开源地址-&amp;gt;liangy</description>
+    </item>
+    
+    <item>
+      <title>Tekton和Shipwright将从CDF迁移到CNCF</title>
+      <link>https://liangyuanpeng.github.io/post/moving-cncf-from-cdf-for-tekton-and-shipwright/</link>
+      <pubDate>Mon, 19 Feb 2024 00:00:00 +0000</pubDate>
+      
+      <guid>https://liangyuanpeng.github.io/post/moving-cncf-from-cdf-for-tekton-and-shipwright/</guid>
+      <description>Tekton 和 Shipwright 将从 CDF 迁移到 CNCF Tekton 社区已经与2023年11月10日决定将项目从 CDF 迁移到 CNCF, 见 issue: tektoncd/community#1080, 开始着手申请加入 CNCF,但到目前为止为止(2024年02</description>
     </item>
     
   </channel>
