@@ -24,7 +24,7 @@ categories:
 
 ## 如何保证 sidecar 先于 app 容器销毁
 
-通过信号方式
+通过信号方式,目前 kubernetes 已经拥有正式的 sidecar container 功能了,可以都介绍一下.
 TODO 完善展开
 
 
@@ -39,8 +39,36 @@ kubectl config view --minify --flatten -o json | jq ".users[0].user.\"client-key
 ```
 
 
-# IP固定的研究环境
+# IP 固定的研究环境
 
 目前在我个人的研究环境下,我经常是使用备份好的 Etcd 数据来恢复某些特定场景的 kubernetes 集群,但有一个问题是新的虚拟机 hostname 和 IP 可能和备份数据中的 kubernetes hostname 和 IP 是不一样的,这时候就需要使用创建虚拟网卡,然后将 kubernetes 服务绑定到虚拟网卡的IP上,但这只设计到单节点的集群,还没有多节点的需求.
 
 这适用于 kubeadm 和 K3s 来恢复 kubernetes 的场景.
+
+# 使用dynamicClient创建资源的时候报错 the server could not find the requested resource
+
+下面是一个关键部分的 golang 代码.
+
+```golang
+		gvr := schema.GroupVersionResource{Group: "argoproj.io", Version: "v1alpha1", Resource: "Workflow"}
+		gvk := schema.GroupVersionKind{Group: "argoproj.io", Version: "v1alpha1", Kind: "Workflow"}
+
+		obj := &unstructured.Unstructured{}
+		dec := yaml.NewDecodingSerializer(unstructured.UnstructuredJSONScheme)
+
+		dec.Decode([]byte(data), &gvk, obj)
+
+		_, err = dynamicClient.
+			Resource(gvr).
+			Namespace("default").Create(context.TODO(), obj, metav1.CreateOptions{})
+```
+
+可以看到主要是想使用 dynamicClient 客户端来创建 argo workflow 的 `Workflow` 资源,但是得到了`the server could not find the requested resource`的错误.
+
+原因是因为 gvr 填写 Resource 时填得不对,正确的是`workflows`资源,而不是`Workflow`,将其更新为下面的样子就没问题了.
+
+```golang
+gvr := schema.GroupVersionResource{Group: "argoproj.io", Version: "v1alpha1", Resource: "workflows"}
+```
+
+Workflow 是 Kind,而 workflows 才是对应的 Resource,这是需要注意的一个地方.
