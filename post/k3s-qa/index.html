@@ -360,7 +360,7 @@
 
 
 
-                            阅读 </span></span>|<span class="post-date">共381字</span>，阅读约<span class="more-meta"> 1 分钟</span>
+                            阅读 </span></span>|<span class="post-date">共635字</span>，阅读约<span class="more-meta"> 2 分钟</span>
                         
                     </span>
                 </div>
@@ -385,7 +385,12 @@
                 <header>
                 <h2>TOC</h2>
                 </header>
-                <nav id="TableOfContents"></nav>
+                <nav id="TableOfContents">
+  <ul>
+    <li><a href="#第一步安装控制器">第一步,安装控制器</a></li>
+    <li><a href="#第二步编写并应用升级计划">第二步,编写并应用升级计划</a></li>
+  </ul>
+</nav>
 		
 
 		<h1 id="前言">前言</h1>
@@ -394,6 +399,34 @@
 <p>目前我在我的测试场景中频繁使用这个能力,将备份好的 K3S 在每一次实验时恢复出一个对应状态的集群,备份内容我通过 oras 将数据备份到的容器镜像里面.</p>
 <p>这样我就可以每次都直接创建一个研究的 kubernetes 集群了,例如在没有备份恢复的情况下,我总是需要 部署一个默认的 K3S,然后部署我的研究项目,例如 karmada,接着需要等待 karmada 部署完成,这需要一定的时间,而有了备份恢复之后我就可以直接创建一个带有部署好 karmada 的 kubernetes,节省了很多时间.</p>
 <p>在通过外部 Etcd 的场景下,使用 Etcd 的备份数据启动一个新的 K3S 的时候报错了: <code>bootstrap data already found and encrypted with different token</code>,原因是 K3S 存储了一个 Token 在数据库中,在 Etcd 下则是存储在了 <code>/bootstrap/</code> 路径下,只需要删除对应的数据然后再启动 K3S 就可以正常启动了.</p>
+<h1 id="集群升级">集群升级</h1>
+<p>lank8s.cn 稳定运行在 K3S 之上几年了,这周(20240307)对 K3S 做了一次升级,比想象中的要轻松,当然这也是因为是但节点的缘故.</p>
+<p>K3S 的升级分两种,一种是手动升级,另一种是自动化升级,我采用的是自动化升级.</p>
+<h2 id="第一步安装控制器">第一步,安装控制器</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">kubectl apply -f https://github.com/rancher/system-upgrade-controller/releases/latest/download/system-upgrade-controller.yaml
+</code></pre></div><h2 id="第二步编写并应用升级计划">第二步,编写并应用升级计划</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#75715e"># Server plan</span>
+<span style="color:#f92672">apiVersion</span>: <span style="color:#ae81ff">upgrade.cattle.io/v1</span>
+<span style="color:#f92672">kind</span>: <span style="color:#ae81ff">Plan</span>
+<span style="color:#f92672">metadata</span>:
+  <span style="color:#f92672">name</span>: <span style="color:#ae81ff">server-plan</span>
+  <span style="color:#f92672">namespace</span>: <span style="color:#ae81ff">system-upgrade</span>
+<span style="color:#f92672">spec</span>:
+  <span style="color:#f92672">concurrency</span>: <span style="color:#ae81ff">1</span>
+  <span style="color:#f92672">cordon</span>: <span style="color:#66d9ef">true</span>
+  <span style="color:#f92672">nodeSelector</span>:
+    <span style="color:#f92672">matchExpressions</span>:
+    - <span style="color:#f92672">key</span>: <span style="color:#ae81ff">node-role.kubernetes.io/control-plane</span>
+      <span style="color:#f92672">operator</span>: <span style="color:#ae81ff">In</span>
+      <span style="color:#f92672">values</span>:
+      - <span style="color:#e6db74">&#34;true&#34;</span>
+  <span style="color:#f92672">serviceAccountName</span>: <span style="color:#ae81ff">system-upgrade</span>
+  <span style="color:#f92672">upgrade</span>:
+    <span style="color:#f92672">image</span>: <span style="color:#ae81ff">rancher/k3s-upgrade</span>
+  <span style="color:#f92672">version</span>: <span style="color:#ae81ff">v1.28.7+k3s1</span>
+</code></pre></div><p>正常来说还需要 apply 一个资源来升级 k3s agent 节点,但我是单节点,因此只需要一个 k3s server 的资源文件就可以了.</p>
+<p>我是升级了多次,因此也 apply 了多次 server plan 的资源,从 1.26-&gt;1.27-&gt;1.28-&gt;1.29.</p>
+<p>运气比较好,没有遇到例如某个资源被删除了这样的事情.</p>
 
 
         <h2>微信公众号</h2>

@@ -488,7 +488,7 @@
 
 
 
-                            阅读 </span></span>|<span class="post-date">共2085字</span>，阅读约<span class="more-meta"> 5 分钟</span>
+                            阅读 </span></span>|<span class="post-date">共2617字</span>，阅读约<span class="more-meta"> 6 分钟</span>
                         
                     </span>
                 </div>
@@ -762,7 +762,22 @@ kube-system          etcd-flannel-control-plane                      1/1     Run
 </span><span style="color:#e6db74">      certSANs:
 </span><span style="color:#e6db74">        - &#34;192.168.3.87&#34;
 </span><span style="color:#e6db74">        - &#34;192.168.3.152&#34;</span>    
-</code></pre></div>
+</code></pre></div><h1 id="定制化-kind-节点容器镜像">定制化 Kind 节点容器镜像</h1>
+<p>默认情况下 Kind 包含的是 kubeadm config list 所对应的容器镜像,而如果想要将自己应用的容器镜像也内置到 Kind 的节点镜像里面的话目前 Kind 是没有官方支持的,但可以用下面两种方法达到目的:</p>
+<ol>
+<li>修改源码,将自己的容器镜像加入到 kind build node-image 的逻辑当中.</li>
+</ol>
+<p>我在之前就做过这样的事情,让我的自定义 Kindest/node 镜像可以内置 Envoy 和 Xline 的容器镜像.但当 Kind 发布新版本的时候总是需要 rebase 一下,以此来让新发布的 Kind 也包含自己新增的这部分逻辑.</p>
+<ol start="2">
+<li>基于 <code>kindest/node</code> 镜像来制作 Dockerfile,放入自己的容器镜像.</li>
+</ol>
+<p>例如</p>
+<pre tabindex="0"><code>FROM kindest/node:v1.29.2
+COPY xline.tar /xline.tar
+</code></pre><p>我也做过这样的尝试,但是当我想将这个镜像导入到 containerd 的时候发现会失败,没有权限.</p>
+<p>然后我能想到的另一个思路是在这个容器内启动多一个容器镜像仓库,例如 distribution,然后将自己的应用容器镜像放入到这个容器镜像仓库里面,并且将这个容器镜像仓库应用后台启动.当实际需要的时候就填写 <code>localhost:5000/xline:v0.5.0</code>,这样的特殊地址来使用,缺点是需要多启动一个应用.</p>
+<p>最理想的当然是 Kind 官方支持在构建自定义的节点镜像时可以提供方式来导入自己的自定义应用镜像,但 Kind 项目的使命就是为了作为 kubernetes CI 存在的,因此维护者希望保持这个项目的简洁性,以致于<a href="https://github.com/kubernetes-sigs/kind/pull/2303">Feature 2160 add images subcommand</a>这个PR一直没有合并.</p>
+
 
         <h2>微信公众号</h2>
 <p>扫描下面的二维码关注我们的微信公众号,第一时间查看最新内容。同时也可以关注我的Github,看看我都在了解什么技术,在页面底部可以找到我的Github。</p>

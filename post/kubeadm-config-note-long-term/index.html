@@ -339,6 +339,69 @@
                             
                         </a>
                         
+                       <a class="tag" href="/tags/kubeadm" title="kubeadm">
+                        kubeadm
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                        </a>
+                        
                         <br/>
                     </div>
                     <h1>[长期更新]kubeadm常见问题以及配置记录</h1>
@@ -360,7 +423,7 @@
 
 
 
-                            阅读 </span></span>|<span class="post-date">共558字</span>，阅读约<span class="more-meta"> 2 分钟</span>
+                            阅读 </span></span>|<span class="post-date">共1056字</span>，阅读约<span class="more-meta"> 3 分钟</span>
                         
                     </span>
                 </div>
@@ -406,7 +469,26 @@
 <p>在<a href="https://v1-28.docs.kubernetes.io/docs/reference/setup-tools/kubeadm/kubeadm-init/#custom-images">官方文档</a>说已经有所提及: 为了保持向后兼容,默认的 <code>registry.k8s.io</code> 和自定义的容器镜像仓库行为可能会有所不同,例如当镜像有子路径时如: <code>registry.k8s.io/coredns/coredns:v1.11.1</code> 在自定义容器镜像仓库时则会变成 <code>registry.lank8s.cn/coredns:v1.11.1</code>, 因此这就导致了 coredns 镜像只修改全局的容器镜像仓库时会无法使用,但 kubeadm 为 coredns 提供了<code>imageRepository</code>参数,因此在 kubeadm 配置文件当中为 coredns 指定以下容器镜像的 namespace 就可以了:</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#f92672">dns</span>:
   <span style="color:#f92672">imageRepository</span>: <span style="color:#ae81ff">registry.lank8s.cn/coredns</span>
-</code></pre></div><p>2024-01-09更新: registry.lank8s.cn 做了适配处理,默认将大于v1.7.1版本的 coredns 容器镜像请求解析成 coredns/coredns, 因此可以直接用一条 kubeadm 命令来初始化 kubernetes 集群了!</p>
+</code></pre></div><p>2024-01-09更新: registry.lank8s.cn 做了适配处理,默认将大于<code>v1.7.1</code>版本的 coredns 容器镜像请求解析成 coredns/coredns, 因此可以直接用一条 kubeadm 命令来初始化 kubernetes 集群了!</p>
+<h1 id="kubeadm-init-初始化时希望使用我自定义的-kube-scheduler-容器镜像">kubeadm init 初始化时希望使用我自定义的 kube-scheduler 容器镜像</h1>
+<p>基本上实现一个 kube-scheduler 插件去做一些自定义的调度需求是一件很常见的事情,例如需要区分 gpu 和 cpu 的机器资源,目前需要实现一些自定义的调度需求基本上就是基于 scheduling Framework 来实现,也可以直接基于 scheduler-plugins 来添加自己定义的插件,但最终都需要打包成一个包含了 kube-scheduler 和自定义插件功能的新的容器镜像,然后将原有的 kube-scheduler 替换成自定义的容器镜像.</p>
+<p>那么在 kubeadm init 场景下如何方便的完成这一步替换 kube-scheduler 容器镜像的操作呢? kubeadm 本身已经通过 patch 的方式提供了支持.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#f92672">apiVersion</span>: <span style="color:#ae81ff">kubeadm.k8s.io/v1beta3</span>
+<span style="color:#f92672">kind</span>: <span style="color:#ae81ff">InitConfiguration</span>
+<span style="color:#f92672">patches</span>:
+  <span style="color:#f92672">directory</span>: <span style="color:#ae81ff">/etc/kubernetes/patches/</span>
+</code></pre></div><p>只需要在<code>InitConfiguration</code>的配置中指定<code>patches.directory</code>为 patch 文件的目录即可.</p>
+<p>例如我配置的这个目录下就放置了我对 kube-schedulder 的 patch 文件:</p>
+<p>kube-scheduler0+strategic.yaml</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#f92672">spec</span>:
+  <span style="color:#f92672">containers</span>:
+  - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">kube-scheduler</span>
+    <span style="color:#f92672">image</span>: <span style="color:#ae81ff">ghcr.io/liangyuanpeng/kube-scheduler:dev</span>
+</code></pre></div><p>文件的命名是有格式要求的:<code>target[suffix][+patchtype].extension</code>.</p>
+<p>target是组件名称,可选项是: kube-apiserver、kube-controller-manager、kube-scheduler 以及etcd.</p>
+<p>patchtype 是 patch 的方式,可选项是: merge和strategic, 默认是 strategic. 必须是 kubectl 支持的 patch.</p>
+<p>最后的 extension 则是文件的格式,json 或者 yaml.</p>
+<p>可参考官方文档 <a href="https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/control-plane-flags/#patches">https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/control-plane-flags/#patches</a></p>
 <h1 id="参考文献">参考文献</h1>
 <p>[1] <a href="https://v1-28.docs.kubernetes.io/docs/reference/setup-tools/kubeadm/kubeadm-init/#custom-images">https://v1-28.docs.kubernetes.io/docs/reference/setup-tools/kubeadm/kubeadm-init/#custom-images</a></p>
 

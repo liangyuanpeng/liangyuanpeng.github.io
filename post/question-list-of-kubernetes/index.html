@@ -360,7 +360,7 @@
 
 
 
-                            阅读 </span></span>|<span class="post-date">共350字</span>，阅读约<span class="more-meta"> 1 分钟</span>
+                            阅读 </span></span>|<span class="post-date">共605字</span>，阅读约<span class="more-meta"> 2 分钟</span>
                         
                     </span>
                 </div>
@@ -395,16 +395,33 @@
 		<h1 id="说明">说明</h1>
 <p>本文主要收集常见场景下 kubernetes 遇到的一些常见问题,欢迎对本文进行投稿你认为好的场景或问题.</p>
 <h2 id="如何保证-sidecar-先于-app-容器销毁">如何保证 sidecar 先于 app 容器销毁</h2>
-<p>通过信号方式
+<p>通过信号方式,目前 kubernetes 已经拥有正式的 sidecar container 功能了,可以都介绍一下.
 TODO 完善展开</p>
 <h1 id="将kubeconfig文件转换成证书文件">将kubeconfig文件转换成证书文件</h1>
 <p>对于我来说主要的场景是将默认的管理员 kubeconfig 内容转换成证书文件,然后放在 nginx/envoy 来代理 kubernetes 请求,减少双向证书认证带来的繁琐.</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">kubectl config view --minify --flatten -o json | jq <span style="color:#e6db74">&#34;.clusters[0].cluster.\&#34;certificate-authority-data\&#34;&#34;</span> | sed <span style="color:#e6db74">&#39;s/\&#34;//g&#39;</span> | base64 --decode &gt;&gt; ca.crt 
 kubectl config view --minify --flatten -o json | jq <span style="color:#e6db74">&#34;.users[0].user.\&#34;client-certificate-data\&#34;&#34;</span> | sed <span style="color:#e6db74">&#39;s/\&#34;//g&#39;</span> | base64 --decode &gt;&gt; client.crt 
 kubectl config view --minify --flatten -o json | jq <span style="color:#e6db74">&#34;.users[0].user.\&#34;client-key-data\&#34;&#34;</span> | sed <span style="color:#e6db74">&#39;s/\&#34;//g&#39;</span> | base64 --decode &gt;&gt; client.key 
-</code></pre></div><h1 id="ip固定的研究环境">IP固定的研究环境</h1>
+</code></pre></div><h1 id="ip-固定的研究环境">IP 固定的研究环境</h1>
 <p>目前在我个人的研究环境下,我经常是使用备份好的 Etcd 数据来恢复某些特定场景的 kubernetes 集群,但有一个问题是新的虚拟机 hostname 和 IP 可能和备份数据中的 kubernetes hostname 和 IP 是不一样的,这时候就需要使用创建虚拟网卡,然后将 kubernetes 服务绑定到虚拟网卡的IP上,但这只设计到单节点的集群,还没有多节点的需求.</p>
 <p>这适用于 kubeadm 和 K3s 来恢复 kubernetes 的场景.</p>
+<h1 id="使用dynamicclient创建资源的时候报错-the-server-could-not-find-the-requested-resource">使用dynamicClient创建资源的时候报错 the server could not find the requested resource</h1>
+<p>下面是一个关键部分的 golang 代码.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-golang" data-lang="golang">		<span style="color:#a6e22e">gvr</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">schema</span>.<span style="color:#a6e22e">GroupVersionResource</span>{<span style="color:#a6e22e">Group</span>: <span style="color:#e6db74">&#34;argoproj.io&#34;</span>, <span style="color:#a6e22e">Version</span>: <span style="color:#e6db74">&#34;v1alpha1&#34;</span>, <span style="color:#a6e22e">Resource</span>: <span style="color:#e6db74">&#34;Workflow&#34;</span>}
+		<span style="color:#a6e22e">gvk</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">schema</span>.<span style="color:#a6e22e">GroupVersionKind</span>{<span style="color:#a6e22e">Group</span>: <span style="color:#e6db74">&#34;argoproj.io&#34;</span>, <span style="color:#a6e22e">Version</span>: <span style="color:#e6db74">&#34;v1alpha1&#34;</span>, <span style="color:#a6e22e">Kind</span>: <span style="color:#e6db74">&#34;Workflow&#34;</span>}
+
+		<span style="color:#a6e22e">obj</span> <span style="color:#f92672">:=</span> <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">unstructured</span>.<span style="color:#a6e22e">Unstructured</span>{}
+		<span style="color:#a6e22e">dec</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">yaml</span>.<span style="color:#a6e22e">NewDecodingSerializer</span>(<span style="color:#a6e22e">unstructured</span>.<span style="color:#a6e22e">UnstructuredJSONScheme</span>)
+
+		<span style="color:#a6e22e">dec</span>.<span style="color:#a6e22e">Decode</span>([]byte(<span style="color:#a6e22e">data</span>), <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">gvk</span>, <span style="color:#a6e22e">obj</span>)
+
+		<span style="color:#a6e22e">_</span>, <span style="color:#a6e22e">err</span> = <span style="color:#a6e22e">dynamicClient</span>.
+			<span style="color:#a6e22e">Resource</span>(<span style="color:#a6e22e">gvr</span>).
+			<span style="color:#a6e22e">Namespace</span>(<span style="color:#e6db74">&#34;default&#34;</span>).<span style="color:#a6e22e">Create</span>(<span style="color:#a6e22e">context</span>.<span style="color:#a6e22e">TODO</span>(), <span style="color:#a6e22e">obj</span>, <span style="color:#a6e22e">metav1</span>.<span style="color:#a6e22e">CreateOptions</span>{})
+</code></pre></div><p>可以看到主要是想使用 dynamicClient 客户端来创建 argo workflow 的 <code>Workflow</code> 资源,但是得到了<code>the server could not find the requested resource</code>的错误.</p>
+<p>原因是因为 gvr 填写 Resource 时填得不对,正确的是<code>workflows</code>资源,而不是<code>Workflow</code>,将其更新为下面的样子就没问题了.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-golang" data-lang="golang"><span style="color:#a6e22e">gvr</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">schema</span>.<span style="color:#a6e22e">GroupVersionResource</span>{<span style="color:#a6e22e">Group</span>: <span style="color:#e6db74">&#34;argoproj.io&#34;</span>, <span style="color:#a6e22e">Version</span>: <span style="color:#e6db74">&#34;v1alpha1&#34;</span>, <span style="color:#a6e22e">Resource</span>: <span style="color:#e6db74">&#34;workflows&#34;</span>}
+</code></pre></div><p>Workflow 是 Kind,而 workflows 才是对应的 Resource,这是需要注意的一个地方.</p>
 
 
         <h2>微信公众号</h2>
