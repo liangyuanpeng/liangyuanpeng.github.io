@@ -111,3 +111,11 @@ lan@lan:lan$ etcdctl --endpoints http://172.18.0.2:14379 get --keys-only --prefi
 /dev/20230903/0545/events/kruise-system/kruise-manager.1781527382771328
 /dev/20230903/0545/events/kruise-system/kruise-manager.1781527382772e1c
 ```
+
+# Kubelet 相关
+
+## 获取当前集群各个节点 kubelet 配置情况
+
+```shell
+kubectl get --raw "/api/v1/nodes/{nodename}/proxy/configz" | jq .
+```
