@@ -39,3 +39,14 @@ KUBE_BUILD_PLATFORMS=linux/amd64 make quick-release
 ```shell
 
 ```
+
+有一些依赖的容器镜像可以在 `build/dependencies.yaml` 这个文件中找到,例如编译时需要使用到 `registry.k8s.io/build-image/kube-cross` 这个镜像,可以在这个文件中看到如下内容:
+
+```yaml
+...
+  - name: "registry.k8s.io/kube-cross: dependents"
+    version: v1.31.0-go1.22.3-bullseye.0
+...
+```
+
+表示需要使用到 `registry.k8s.io/build-image/kube-cross:v1.31.0-go1.22.3-bullseye.0`,还有一些其他会用到的容器镜像,稍后我会整理列出来.
