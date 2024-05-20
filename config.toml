@@ -29,10 +29,10 @@ home = ["HTML", "RSS", "Algolia"]
   domain = "https://liangyuanpeng.com"
  # header_image = "img/home-bg-jeep.jpg"
   header_image = "/img/banner/art.jpg"
-  SEOTitle = "liangyuanpeng的博客 | liangyuanpeng's Blog"
-  description = "⎈lan，工程师⎈, CNCF大使,kubernetes贡献者,开源爱好者 | 公众号:四颗咖啡豆"
+  SEOTitle = "liangyuanpeng 的博客 | liangyuanpeng's Blog"
+  description = "⎈远鹏，工程师⎈, 开源爱好者,kubernetes 贡献者,CNCF 大使 | 公众号:四颗咖啡豆"
 
-  keyword = "liangyuanpeng|CNCF大使|LanLiang|OpenYurt|Knative|Pulsar|Prometheus|Halo||边缘计算kubernetes|Docker|CloudNative|Golang|Rust|Istio|微服务"
+  keyword = "liangyuanpeng|CNCF大使|LanLiang|OpenYurt|Knative|Pulsar|Prometheus|Halo|ambassador|边缘计算|kubernetes|Docker|CloudNative|Golang|Rust|Istio|微服务"
   slogan = ""
   logo = "/img/aboutme/hash-kube-rs-pulsar.png"
 
@@ -51,7 +51,7 @@ home = ["HTML", "RSS", "Algolia"]
   algolia_apiKey = "2aa49a052dc7b70cf63c1f5ebcae8934"
 
   # Sidebar settings
-  sidebar_about_description = "⎈⎈远鹏|CNCF大使|kubernetes贡献者|Pulsar爱好者|公众号:四颗咖啡豆|云原生追随者⎈⎈"
+  sidebar_about_description = "⎈⎈远鹏|CNCF大使|kubernetes贡献者|CNCF粉丝|Pulsar爱好者|公众号:四颗咖啡豆|云原生追随者⎈⎈"
   sidebar_avatar = "/img/aboutme/hash-kube-rs-pulsar.png"      # use absolute URL, seeing it's used in both `/` and `/about/`
   sidebar_wechat = "/img/aboutme/wechat-lan.png"
 
