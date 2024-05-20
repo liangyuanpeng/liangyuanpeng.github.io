@@ -13,7 +13,7 @@ published: true
 
 Hi，我是梁远鹏,云原生开源爱好者,在2024将会编写几篇关于 kube-apiserver 与 etcd 之间的博客,欢迎关注.
 
-- CNCF 大使
+- [CNCF Ambassador](https://www.cncf.io/people/ambassadors/)
 - Kubernetes 贡献者
 - Karmada 贡献者
 - Apache Pulsar 贡献者
