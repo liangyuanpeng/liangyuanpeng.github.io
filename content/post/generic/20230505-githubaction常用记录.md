@@ -74,3 +74,25 @@ jobs:
 
 
 TODO output 以及和可重用 github action 的结合使用。
+
+## 下载github action artifact
+
+正常情况是在页面点击 github action 的 artifact 来下载,而网络不好的情况下这种方式就很难受了,这时可以通过请求 github api 的方式在一台网络良好的机器(无可视化界面/服务器)上下载 artifact了,文档在这里->https://docs.github.com/en/rest/actions/artifacts?apiVersion=2022-11-28#download-an-artifact
+
+### 使用 curl 请求原始API
+
+```shell
+curl -L \
+  -H "Accept: application/vnd.github+json" \
+  -H "Authorization: Bearer <YOUR-TOKEN>" \
+  -H "X-GitHub-Api-Version: 2022-11-28" \
+  https://api.github.com/repos/OWNER/REPO/actions/artifacts/ARTIFACT_ID/zip
+```
+
+只需要填写四个参数即可: `API TOKEN` `OWNER` `REPO`以及`ARTIFACT_ID`.
+
+### 使用 gh 命令
+
+```shell
+gh run download -R {OWNER}/{REPO} {RUN_ID} -n {ARTIFACT_NAME}
+```
