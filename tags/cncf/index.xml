@@ -166,7 +166,7 @@
       <pubDate>Wed, 29 Mar 2023 00:00:00 +0000</pubDate>
       
       <guid>https://liangyuanpeng.github.io/post/k3s-qa/</guid>
-      <description>前言 备份恢复 如果是使用默认存储的k3s,也就是使用 sqlite 作为存储,那么 k3s 集群的备份和恢复很简单,只需要备份 sqlite 的 db 文件. 至于使用 local 持久化在本地的数</description>
+      <description>前言 K3S sqlite 数据文件损坏 Apr 07 11:04:39 hk129 sshd[10472]: pam_unix(sshd:auth): authentication failure; logname= uid=0 euid=0 tty=ssh ruser= rhost=47.76.35.183 user=postfix Apr 07 11:04:39 hk129 sshd[10472]: pam_succeed_if(sshd:auth): requirement &amp;#34;uid &amp;gt;= 1000&amp;#34; not met by user &amp;#34;postfix&amp;#34; Apr 07 11:04:40 hk129 sshd[10472]: Failed password for postfix from 47.76.35.183 port 34040 ssh2 Apr 07 11:13:11 hk129 k3s[11743]: time=&amp;#34;2024-04-07T11:13:11.450737765+08:00&amp;#34; level=error msg=&amp;#34;error while range on /registry/ingress/ /registry/ingress/: database disk image</description>
     </item>
     
     <item>

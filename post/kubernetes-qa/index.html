@@ -16,7 +16,7 @@
     
     <meta name="description" content="[长期更新]kubernetes常见问题">
     
-    <meta name="keyword"  content="liangyuanpeng|LanLiang|OpenYurt|Knative|Pulsar|Prometheus|Halo|ambassador|边缘计算|kubernetes|Docker|CloudNative|Golang|Rust|Istio|微服务">
+    <meta name="keyword"  content="liangyuanpeng|CNCF大使|LanLiang|OpenYurt|Knative|Pulsar|Prometheus|Halo|ambassador|边缘计算|kubernetes|Docker|CloudNative|Golang|Rust|Istio|微服务">
 
     
     <link rel="shortcut icon" href="/img/aboutme/hash-kube-rs-pulsar.png">
@@ -297,7 +297,7 @@
 
 
 
-                            阅读 </span></span>|<span class="post-date">共666字</span>，阅读约<span class="more-meta"> 2 分钟</span>
+                            阅读 </span></span>|<span class="post-date">共691字</span>，阅读约<span class="more-meta"> 2 分钟</span>
                         
                     </span>
                 </div>
@@ -334,6 +334,10 @@
 
   <ul>
     <li><a href="#将单独的资源存储到单独的etcd服务内">将单独的资源存储到单独的etcd服务内</a></li>
+  </ul>
+
+  <ul>
+    <li><a href="#获取当前集群各个节点-kubelet-配置情况">获取当前集群各个节点 kubelet 配置情况</a></li>
   </ul>
 </nav>
 		
@@ -401,6 +405,9 @@ helm install kruise openkruise/kruise
 /dev/20230903/0545/events/kruise-system/kruise-daemon.17815270987a6344
 /dev/20230903/0545/events/kruise-system/kruise-manager.1781527382771328
 /dev/20230903/0545/events/kruise-system/kruise-manager.1781527382772e1c
+</code></pre></div><h1 id="kubelet-相关">Kubelet 相关</h1>
+<h2 id="获取当前集群各个节点-kubelet-配置情况">获取当前集群各个节点 kubelet 配置情况</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">kubectl get --raw <span style="color:#e6db74">&#34;/api/v1/nodes/{nodename}/proxy/configz&#34;</span> | jq .
 </code></pre></div>
 
         <h2>微信公众号</h2>

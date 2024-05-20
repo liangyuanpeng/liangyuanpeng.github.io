@@ -16,7 +16,7 @@
     
     <meta name="description" content="由于各类基于 kubernetes 的云原生实验或测试的前提都是需要一个 kubernetes 环境,而在写博客时总是需要提及使用 Kind 来搭建 kubernetes 环境. 因此这里单独写一篇文章来介绍如何用 Kind 来部署 kubernetes,同时提供各种不同 kubernetes 环境的 Kind 配置文件供你使用,还会有各类小技巧.">
     
-    <meta name="keyword"  content="liangyuanpeng|LanLiang|OpenYurt|Knative|Pulsar|Prometheus|Halo|ambassador|边缘计算|kubernetes|Docker|CloudNative|Golang|Rust|Istio|微服务">
+    <meta name="keyword"  content="liangyuanpeng|CNCF大使|LanLiang|OpenYurt|Knative|Pulsar|Prometheus|Halo|ambassador|边缘计算|kubernetes|Docker|CloudNative|Golang|Rust|Istio|微服务">
 
     
     <link rel="shortcut icon" href="/img/aboutme/hash-kube-rs-pulsar.png">
@@ -488,7 +488,7 @@
 
 
 
-                            阅读 </span></span>|<span class="post-date">共2617字</span>，阅读约<span class="more-meta"> 6 分钟</span>
+                            阅读 </span></span>|<span class="post-date">共2738字</span>，阅读约<span class="more-meta"> 6 分钟</span>
                         
                     </span>
                 </div>
@@ -559,8 +559,7 @@
 <h1 id="更多的-kind-版本">更多的 Kind 版本</h1>
 <p>Kind 目前不保证对每一个 kubernetes 版本都构建一个对应的 node 镜像,目前我提供了一些 Kind 官方没有的镜像,例如 beta 版本或 RC 版本的 kubernetes.如: <code>ghcr.io/liangyuanpeng/kindest/node:v1.28.0-rc.0</code>, 不仅仅是已发布的镜像,有时我还会基于 kubernetes master 分支进行构建Kind 的镜像,用于测试某一个功能或 PR,如果你也有需要为一个特定版本打包一个对应的 Kind 镜像,可以在我的博客留言,有时间的话我可以帮忙处理:)</p>
 <p>如果你发现你需要的某个版本的镜像 Kind 官方没有提供可以在<a href="https://liangyuanpeng.com/post/run-k8s-with-kind/">本博客:用kind搭建k8s集群环境</a>底部添加评论,我会考虑进行打包.</p>
-<p>kubernetes v1.29 已经发布了!!! 但 Kind 还没有提供对应的版本,因此我首先构建了一个对应版本:</p>
-<p><code>ghcr.io/liangyuanpeng/kindest/node:v1.29.0</code> 欢迎试用!</p>
+<p>有一些镜像版本 Kind 不会进行构建,但你可能可以在我的镜像列表中找到它: <a href="https://github.com/liangyuanpeng/kubernetes/pkgs/container/kindest%2Fnode">https://github.com/liangyuanpeng/kubernetes/pkgs/container/kindest%2Fnode</a></p>
 <h1 id="使用">使用</h1>
 <p>基本上,即使你没有使用过 Kind 也不是问题,因为基于 Kind 来搭建 kubernetes 就是一条命令的事,需要使用到 Kind 命令,因此你需要下载 Kind 命令行工具.</p>
 <p>官方的 Kind 命令下载地址可以在<a href="https://github.com/kubernetes-sigs/kind/releases">Kind发布地址</a>找到,而我提供了一个另一个地址来下载 Kind 命令行,在下载 Github 上文件速度慢的时候可以用这个地址:</p>
@@ -774,9 +773,18 @@ kube-system          etcd-flannel-control-plane                      1/1     Run
 <p>例如</p>
 <pre tabindex="0"><code>FROM kindest/node:v1.29.2
 COPY xline.tar /xline.tar
-</code></pre><p>我也做过这样的尝试,但是当我想将这个镜像导入到 containerd 的时候发现会失败,没有权限.</p>
+</code></pre><p><del>我也做过这样的尝试,但是当我想将这个镜像导入到 containerd 的时候发现会失败,没有权限.</del> (已经成功制作,见下方)</p>
 <p>然后我能想到的另一个思路是在这个容器内启动多一个容器镜像仓库,例如 distribution,然后将自己的应用容器镜像放入到这个容器镜像仓库里面,并且将这个容器镜像仓库应用后台启动.当实际需要的时候就填写 <code>localhost:5000/xline:v0.5.0</code>,这样的特殊地址来使用,缺点是需要多启动一个应用.</p>
+<p>这种方法的另一个注意事项是如果要考虑到多节点的情况的话就有些复杂了.</p>
 <p>最理想的当然是 Kind 官方支持在构建自定义的节点镜像时可以提供方式来导入自己的自定义应用镜像,但 Kind 项目的使命就是为了作为 kubernetes CI 存在的,因此维护者希望保持这个项目的简洁性,以致于<a href="https://github.com/kubernetes-sigs/kind/pull/2303">Feature 2160 add images subcommand</a>这个PR一直没有合并.</p>
+<p>目前使用下面的 Dockerfile 成功基于 Kind 的镜像制作了带应用镜像的容器镜像.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Dockerfile" data-lang="Dockerfile"><span style="color:#66d9ef">FROM</span><span style="color:#e6db74"> kindest/node:v1.29.2</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">RUN</span> mkdir /tmp/kind<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">COPY</span> xline.tar /tmp/kind/<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">RUN</span> <span style="color:#f92672">(</span> containerd -l warning &amp; <span style="color:#f92672">)</span> <span style="color:#f92672">&amp;&amp;</span> ctr -n k8s.io images import --no-unpack /tmp/kind/*.tar<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">RUN</span> rm /tmp/kind/*.tar<span style="color:#960050;background-color:#1e0010">
+</span></code></pre></div><p>目前已经将这部分提交到 Xline 仓库的 CI 中, 见 <a href="https://github.com/xline-kv/Xline/pull/696/files#diff-4e1e5819d750fc60652b63bacccd9aefa2fd311104d8c24387ad558268429bd4">https://github.com/xline-kv/Xline/pull/696/files#diff-4e1e5819d750fc60652b63bacccd9aefa2fd311104d8c24387ad558268429bd4</a></p>
 
 
         <h2>微信公众号</h2>

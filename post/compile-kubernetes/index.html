@@ -16,7 +16,7 @@
     
     <meta name="description" content="⎈远鹏，工程师⎈, 开源爱好者,kubernetes 贡献者,CNCF 大使 | 公众号:四颗咖啡豆">
     
-    <meta name="keyword"  content="liangyuanpeng|LanLiang|OpenYurt|Knative|Pulsar|Prometheus|Halo|ambassador|边缘计算|kubernetes|Docker|CloudNative|Golang|Rust|Istio|微服务">
+    <meta name="keyword"  content="liangyuanpeng|CNCF大使|LanLiang|OpenYurt|Knative|Pulsar|Prometheus|Halo|ambassador|边缘计算|kubernetes|Docker|CloudNative|Golang|Rust|Istio|微服务">
 
     
     <link rel="shortcut icon" href="/img/aboutme/hash-kube-rs-pulsar.png">
@@ -425,7 +425,7 @@
 
 
 
-                            阅读 </span></span>|<span class="post-date">共126字</span>，阅读约<span class="more-meta"> 1 分钟</span>
+                            阅读 </span></span>|<span class="post-date">共286字</span>，阅读约<span class="more-meta"> 1 分钟</span>
                         
                     </span>
                 </div>
@@ -465,7 +465,13 @@
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">KUBE_BUILD_PLATFORMS<span style="color:#f92672">=</span>linux/amd64  make all WHAT<span style="color:#f92672">=</span>cmd/kube-apiserver   GOFLAGS<span style="color:#f92672">=</span>-v GOGCFLAGS<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;-N -l&#34;</span>
 </code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">KUBE_BUILD_PLATFORMS<span style="color:#f92672">=</span>linux/amd64 make quick-release
 </code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">
-</code></pre></div>
+</code></pre></div><p>有一些依赖的容器镜像可以在 <code>build/dependencies.yaml</code> 这个文件中找到,例如编译时需要使用到 <code>registry.k8s.io/build-image/kube-cross</code> 这个镜像,可以在这个文件中看到如下内容:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">...
+  - <span style="color:#f92672">name</span>: <span style="color:#e6db74">&#34;registry.k8s.io/kube-cross: dependents&#34;</span>
+    <span style="color:#f92672">version</span>: <span style="color:#ae81ff">v1.31.0-go1.22.3-bullseye.0</span>
+...
+</code></pre></div><p>表示需要使用到 <code>registry.k8s.io/build-image/kube-cross:v1.31.0-go1.22.3-bullseye.0</code>,还有一些其他会用到的容器镜像,稍后我会整理列出来.</p>
+
 
         <h2>微信公众号</h2>
 <p>扫描下面的二维码关注我们的微信公众号,第一时间查看最新内容。同时也可以关注我的Github,看看我都在了解什么技术,在页面底部可以找到我的Github。</p>

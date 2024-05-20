@@ -16,7 +16,7 @@
     
     <meta name="description" content="⎈远鹏，工程师⎈, 开源爱好者,kubernetes 贡献者,CNCF 大使 | 公众号:四颗咖啡豆">
     
-    <meta name="keyword"  content="liangyuanpeng|LanLiang|OpenYurt|Knative|Pulsar|Prometheus|Halo|ambassador|边缘计算|kubernetes|Docker|CloudNative|Golang|Rust|Istio|微服务">
+    <meta name="keyword"  content="liangyuanpeng|CNCF大使|LanLiang|OpenYurt|Knative|Pulsar|Prometheus|Halo|ambassador|边缘计算|kubernetes|Docker|CloudNative|Golang|Rust|Istio|微服务">
 
     
     <link rel="shortcut icon" href="/img/aboutme/hash-kube-rs-pulsar.png">
@@ -293,7 +293,7 @@
 
 
 
-                            阅读 </span></span>|<span class="post-date">共373字</span>，阅读约<span class="more-meta"> 1 分钟</span>
+                            阅读 </span></span>|<span class="post-date">共643字</span>，阅读约<span class="more-meta"> 2 分钟</span>
                         
                     </span>
                 </div>
@@ -324,6 +324,12 @@
       <ul>
         <li><a href="#被调用方">被调用方</a></li>
         <li><a href="#调用方">调用方</a></li>
+      </ul>
+    </li>
+    <li><a href="#下载github-action-artifact">下载github action artifact</a>
+      <ul>
+        <li><a href="#使用-curl-请求原始api">使用 curl 请求原始API</a></li>
+        <li><a href="#使用-gh-命令">使用 gh 命令</a></li>
       </ul>
     </li>
   </ul>
@@ -368,7 +374,18 @@
 ...
 </code></pre></div><p>上述是一个简单的例子，传递 latest 参数并且将需要的 secrets 传递到重用的 github action。</p>
 <p>TODO output 以及和可重用 github action 的结合使用。</p>
-
+<h2 id="下载github-action-artifact">下载github action artifact</h2>
+<p>正常情况是在页面点击 github action 的 artifact 来下载,而网络不好的情况下这种方式就很难受了,这时可以通过请求 github api 的方式在一台网络良好的机器(无可视化界面/服务器)上下载 artifact了,文档在这里-&gt;https://docs.github.com/en/rest/actions/artifacts?apiVersion=2022-11-28#download-an-artifact</p>
+<h3 id="使用-curl-请求原始api">使用 curl 请求原始API</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">curl -L <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>  -H <span style="color:#e6db74">&#34;Accept: application/vnd.github+json&#34;</span> <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>  -H <span style="color:#e6db74">&#34;Authorization: Bearer &lt;YOUR-TOKEN&gt;&#34;</span> <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>  -H <span style="color:#e6db74">&#34;X-GitHub-Api-Version: 2022-11-28&#34;</span> <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>  https://api.github.com/repos/OWNER/REPO/actions/artifacts/ARTIFACT_ID/zip
+</code></pre></div><p>只需要填写四个参数即可: <code>API TOKEN</code> <code>OWNER</code> <code>REPO</code>以及<code>ARTIFACT_ID</code>.</p>
+<h3 id="使用-gh-命令">使用 gh 命令</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">gh run download -R <span style="color:#f92672">{</span>OWNER<span style="color:#f92672">}</span>/<span style="color:#f92672">{</span>REPO<span style="color:#f92672">}</span> <span style="color:#f92672">{</span>RUN_ID<span style="color:#f92672">}</span> -n <span style="color:#f92672">{</span>ARTIFACT_NAME<span style="color:#f92672">}</span>
+</code></pre></div>
 
         <h2>微信公众号</h2>
 <p>扫描下面的二维码关注我们的微信公众号,第一时间查看最新内容。同时也可以关注我的Github,看看我都在了解什么技术,在页面底部可以找到我的Github。</p>

@@ -16,7 +16,7 @@
     
     <meta name="description" content="kubernetes问题列表记录,欢迎投稿.">
     
-    <meta name="keyword"  content="liangyuanpeng|LanLiang|OpenYurt|Knative|Pulsar|Prometheus|Halo|ambassador|边缘计算|kubernetes|Docker|CloudNative|Golang|Rust|Istio|微服务">
+    <meta name="keyword"  content="liangyuanpeng|CNCF大使|LanLiang|OpenYurt|Knative|Pulsar|Prometheus|Halo|ambassador|边缘计算|kubernetes|Docker|CloudNative|Golang|Rust|Istio|微服务">
 
     
     <link rel="shortcut icon" href="/img/aboutme/hash-kube-rs-pulsar.png">
@@ -360,7 +360,7 @@
 
 
 
-                            阅读 </span></span>|<span class="post-date">共605字</span>，阅读约<span class="more-meta"> 2 分钟</span>
+                            阅读 </span></span>|<span class="post-date">共1385字</span>，阅读约<span class="more-meta"> 3 分钟</span>
                         
                     </span>
                 </div>
@@ -397,13 +397,13 @@
 <h2 id="如何保证-sidecar-先于-app-容器销毁">如何保证 sidecar 先于 app 容器销毁</h2>
 <p>通过信号方式,目前 kubernetes 已经拥有正式的 sidecar container 功能了,可以都介绍一下.
 TODO 完善展开</p>
-<h1 id="将kubeconfig文件转换成证书文件">将kubeconfig文件转换成证书文件</h1>
+<h1 id="将-kubeconfig-文件转换成证书文件">将 kubeconfig 文件转换成证书文件</h1>
 <p>对于我来说主要的场景是将默认的管理员 kubeconfig 内容转换成证书文件,然后放在 nginx/envoy 来代理 kubernetes 请求,减少双向证书认证带来的繁琐.</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">kubectl config view --minify --flatten -o json | jq <span style="color:#e6db74">&#34;.clusters[0].cluster.\&#34;certificate-authority-data\&#34;&#34;</span> | sed <span style="color:#e6db74">&#39;s/\&#34;//g&#39;</span> | base64 --decode &gt;&gt; ca.crt 
 kubectl config view --minify --flatten -o json | jq <span style="color:#e6db74">&#34;.users[0].user.\&#34;client-certificate-data\&#34;&#34;</span> | sed <span style="color:#e6db74">&#39;s/\&#34;//g&#39;</span> | base64 --decode &gt;&gt; client.crt 
 kubectl config view --minify --flatten -o json | jq <span style="color:#e6db74">&#34;.users[0].user.\&#34;client-key-data\&#34;&#34;</span> | sed <span style="color:#e6db74">&#39;s/\&#34;//g&#39;</span> | base64 --decode &gt;&gt; client.key 
 </code></pre></div><h1 id="ip-固定的研究环境">IP 固定的研究环境</h1>
-<p>目前在我个人的研究环境下,我经常是使用备份好的 Etcd 数据来恢复某些特定场景的 kubernetes 集群,但有一个问题是新的虚拟机 hostname 和 IP 可能和备份数据中的 kubernetes hostname 和 IP 是不一样的,这时候就需要使用创建虚拟网卡,然后将 kubernetes 服务绑定到虚拟网卡的IP上,但这只设计到单节点的集群,还没有多节点的需求.</p>
+<p>目前在我个人的研究环境下,我经常是使用备份好的 Etcd 数据来恢复某些特定场景的 kubernetes 集群,但有一个问题是新的虚拟机 hostname 和 IP 可能和备份数据中的 kubernetes hostname 和 IP 是不一样的,这时候就需要使用创建虚拟网卡,然后将 kubernetes 服务绑定到虚拟网卡的 IP 上,但这只设计到单节点的集群,还没有多节点的需求.</p>
 <p>这适用于 kubeadm 和 K3s 来恢复 kubernetes 的场景.</p>
 <h1 id="使用dynamicclient创建资源的时候报错-the-server-could-not-find-the-requested-resource">使用dynamicClient创建资源的时候报错 the server could not find the requested resource</h1>
 <p>下面是一个关键部分的 golang 代码.</p>
@@ -422,6 +422,107 @@ kubectl config view --minify --flatten -o json | jq <span style="color:#e6db74">
 <p>原因是因为 gvr 填写 Resource 时填得不对,正确的是<code>workflows</code>资源,而不是<code>Workflow</code>,将其更新为下面的样子就没问题了.</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-golang" data-lang="golang"><span style="color:#a6e22e">gvr</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">schema</span>.<span style="color:#a6e22e">GroupVersionResource</span>{<span style="color:#a6e22e">Group</span>: <span style="color:#e6db74">&#34;argoproj.io&#34;</span>, <span style="color:#a6e22e">Version</span>: <span style="color:#e6db74">&#34;v1alpha1&#34;</span>, <span style="color:#a6e22e">Resource</span>: <span style="color:#e6db74">&#34;workflows&#34;</span>}
 </code></pre></div><p>Workflow 是 Kind,而 workflows 才是对应的 Resource,这是需要注意的一个地方.</p>
+<h1 id="validatingadmissionpolicy-验证可选项">ValidatingAdmissionPolicy 验证可选项</h1>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">...
+  <span style="color:#f92672">validations</span>:
+  - <span style="color:#f92672">expression</span>: <span style="color:#e6db74">&#34;!object.spec.template.spec.containers.exists_one(c, c.image.startsWith(&#39;registry.lank8s.cn/&#39;))&#34;</span>
+    <span style="color:#f92672">message</span>: <span style="color:#e6db74">&#34;container image is not approve with start with registry.lank8s.cn&#34;</span>
+  - <span style="color:#f92672">expression</span>: <span style="color:#e6db74">&#34;!object.spec.template.spec.initContainers.exists_one(c, c.image.startsWith(&#39;registry.lank8s.cn/&#39;))&#34;</span>
+    <span style="color:#f92672">message</span>: <span style="color:#e6db74">&#34;initContainers image is not approve with start with registry.lank8s.cn&#34;</span>
+...
+</code></pre></div><p>例如上述的 cel 表达式是希望禁止在集群内使用 registry.lank8s.cn 这个域名的容器镜像,但如果没有定义 initContainer 容器的话,这时候会报错,提示不存在 initContainers 这个字段:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ kubectl apply -f sts.yaml 
+The statefulsets <span style="color:#e6db74">&#34;tools&#34;</span> is invalid: : ValidatingAdmissionPolicy <span style="color:#e6db74">&#39;vap2&#39;</span> with binding <span style="color:#e6db74">&#39;vapb2&#39;</span> denied request: expression <span style="color:#e6db74">&#39;!object.spec.template.spec.initContainers.exists_one(c, c.image.startsWith(&#39;</span>registry.lank8s.cn/<span style="color:#e6db74">&#39;))&#39;</span> resulted in error: no such key: initContainers
+</code></pre></div><p>可以首先判断是否定义了 initContainer,如果没有定义则通过 cel 表达式:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">...
+  <span style="color:#f92672">validations</span>:
+  - <span style="color:#f92672">expression</span>: <span style="color:#e6db74">&#34;!object.spec.template.spec.containers.exists_one(c, c.image.startsWith(&#39;registry.lank8s.cn/&#39;))&#34;</span>
+    <span style="color:#f92672">message</span>: <span style="color:#e6db74">&#34;container image is not approve with start with registry.lank8s.cn&#34;</span>
+  - <span style="color:#f92672">expression</span>: <span style="color:#e6db74">&#34;!has(object.spec.template.spec.initContainers) || !object.spec.template.spec.initContainers.exists_one(c, c.image.startsWith(&#39;registry.lank8s.cn/&#39;)) &#34;</span>
+...
+</code></pre></div><p>也可以判断 initContainers 这个数组的长度,如果长度小于0,则 cel 表达式通过:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">...
+  <span style="color:#f92672">validations</span>:
+  - <span style="color:#f92672">expression</span>: <span style="color:#e6db74">&#34;!object.spec.template.spec.containers.exists_one(c, c.image.startsWith(&#39;registry.lank8s.cn/&#39;))&#34;</span>
+    <span style="color:#f92672">message</span>: <span style="color:#e6db74">&#34;container image is not approve with start with registry.lank8s.cn&#34;</span>
+  - <span style="color:#f92672">expression</span>: <span style="color:#e6db74">&#34;size(object.spec.template.spec.initContainers)&lt;=0 || !object.spec.template.spec.initContainers.exists_one(c, c.image.startsWith(&#39;registry.lank8s.cn/&#39;))&#34;</span>
+    <span style="color:#f92672">message</span>: <span style="color:#e6db74">&#34;initContainers image is not approve with start with registry.lank8s.cn&#34;</span>
+...
+</code></pre></div><h1 id="validatingadmissionpolicy-中-cel-的类型检查">ValidatingAdmissionPolicy 中 cel 的类型检查</h1>
+<p>例如希望根据 StatefulSet 的副本数做一些判断逻辑,填写了下面这样的表达式:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#f92672">apiVersion</span>: <span style="color:#ae81ff">admissionregistration.k8s.io/v1</span>
+<span style="color:#f92672">kind</span>: <span style="color:#ae81ff">ValidatingAdmissionPolicy</span>
+<span style="color:#f92672">metadata</span>:
+  <span style="color:#f92672">name</span>: <span style="color:#ae81ff">vap2</span>
+<span style="color:#f92672">spec</span>:
+...
+  <span style="color:#f92672">validations</span>:
+  - <span style="color:#f92672">expression</span>: <span style="color:#e6db74">&#34;object.replicas &gt; 1&#34;</span> <span style="color:#75715e"># should be &#34;object.spec.replicas &gt; 1&#34;</span>
+    <span style="color:#f92672">message</span>: <span style="color:#e6db74">&#34;must be replicated&#34;</span>
+    <span style="color:#f92672">reason</span>: <span style="color:#ae81ff">Invalid</span>
+...
+</code></pre></div><p>上述 yaml 是可以正常 apply 的,但是在 ValidatingAdmissionPolicy 资源的 status 中会提示一些错误信息,可以通过 kubectl describe 命令来检查:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ kubectl describe ValidatingAdmissionPolicy vap2
+Name:         vap2
+Namespace:    
+Labels:       &lt;none&gt;
+Annotations:  &lt;none&gt;
+API Version:  admissionregistration.k8s.io/v1
+Kind:         ValidatingAdmissionPolicy
+Metadata:
+  Creation Timestamp:  2024-05-20T06:51:48Z
+  Generation:          <span style="color:#ae81ff">4</span>
+  Resource Version:    <span style="color:#ae81ff">20075</span>
+  UID:                 d8d1e433-40b2-4f75-ade1-48edf20c1eb0
+Spec:
+  Audit Annotations:
+    Key:               high-replica-count
+    Value Expression:  <span style="color:#e6db74">&#39;StatefulSets spec.replicas set to &#39;</span> + string<span style="color:#f92672">(</span>object.spec.replicas<span style="color:#f92672">)</span>
+  Failure Policy:      Fail
+  Match Constraints:
+    Match Policy:  Equivalent
+    Namespace Selector:
+    Object Selector:
+    Resource Rules:
+      API Groups:
+        apps
+      API Versions:
+        v1
+      Operations:
+        CREATE
+        UPDATE
+      Resources:
+        statefulsets
+      Scope:  *
+  Validations:
+    Expression:          object.replicas &gt; <span style="color:#ae81ff">1</span>
+    Message:             must be replicated
+    Reason:              Invalid
+    Expression:          object.spec.replicas &gt; <span style="color:#ae81ff">20</span>
+    Message Expression:  <span style="color:#e6db74">&#39;StatefulSets spec.replicas set to &#39;</span> + string<span style="color:#f92672">(</span>object.spec.replicas<span style="color:#f92672">)</span>
+    Expression:          !object.spec.template.spec.containers.exists_one<span style="color:#f92672">(</span>c, c.image.startsWith<span style="color:#f92672">(</span><span style="color:#e6db74">&#39;registry.lank8s.cn/&#39;</span><span style="color:#f92672">))</span>
+    Message:             container image is not approve with start with registry.lank8s.cn
+    Expression:          !has<span style="color:#f92672">(</span>object.spec.template.spec.initContainers<span style="color:#f92672">)</span> <span style="color:#f92672">||</span> !object.spec.template.spec.initContainers.exists_one<span style="color:#f92672">(</span>c, c.image.startsWith<span style="color:#f92672">(</span><span style="color:#e6db74">&#39;registry.lank8s.cn/&#39;</span><span style="color:#f92672">))</span> 
+    Message:             initContainers image is not approve with start with registry.lank8s.cn
+Status:
+  Observed Generation:  <span style="color:#ae81ff">4</span>
+  Type Checking:
+    Expression Warnings:
+      Field Ref:  spec.validations<span style="color:#f92672">[</span>0<span style="color:#f92672">]</span>.expression
+      Warning:    apps/v1, Kind<span style="color:#f92672">=</span>StatefulSet: ERROR: &lt;input&gt;:1:7: undefined field <span style="color:#e6db74">&#39;replicas&#39;</span>
+ | object.replicas &gt; <span style="color:#ae81ff">1</span>
+ | ......^
+
+Events:  &lt;none&gt;
+</code></pre></div><p>可以从上述 describe 的内容清晰的看到,有一个 type checking 的告警信息,<code>apps/v1, Kind=StatefulSet: ERROR: &lt;input&gt;:1:7: undefined field 'replicas'</code> 没有在 StatefulSet 这个类型中找到 object.replicas 这样结构的字段.</p>
+<p>这很方便的可以帮助用户提前发现,但类型检查目前来说也有一些限制(1.30):</p>
+<ul>
+<li>不支持通配符,如果 spec.matchConstraints.resourceRules 中 <code>apiGroups</code>, <code>apiVersions</code> 或 <code>resources</code> 中任意一个有 &ldquo;*&rdquo; 的表达式,那么不会进行类型检查</li>
+<li>类型检查只会检查一个 ValidatingAdmissionPolicy 资源中的前 10 个资源,防止 ValidatingAdmissionPolicy 指定了太多资源造成了过多的计算.</li>
+<li>类型检查不会影响策略行为,也就是只会发出一个告警信息,即使有错误也不会中断策略检查.</li>
+<li>类型检查不适用于CRD,包括匹配的 CRD 资源以及作为传参的 CRD 资源, CRD 资源会在未来版本支持.</li>
+</ul>
+<p>上述描述信息基本上在<a href="https://kubernetes.io/docs/reference/access-authn-authz/validating-admission-policy/#type-checking">官方文档</a>都可以查到.</p>
 
 
         <h2>微信公众号</h2>

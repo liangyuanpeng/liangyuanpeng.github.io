@@ -16,7 +16,7 @@
     
     <meta name="description" content="⎈远鹏，工程师⎈, 开源爱好者,kubernetes 贡献者,CNCF 大使 | 公众号:四颗咖啡豆">
     
-    <meta name="keyword"  content="liangyuanpeng|LanLiang|OpenYurt|Knative|Pulsar|Prometheus|Halo|ambassador|边缘计算|kubernetes|Docker|CloudNative|Golang|Rust|Istio|微服务">
+    <meta name="keyword"  content="liangyuanpeng|CNCF大使|LanLiang|OpenYurt|Knative|Pulsar|Prometheus|Halo|ambassador|边缘计算|kubernetes|Docker|CloudNative|Golang|Rust|Istio|微服务">
 
     
     <link rel="shortcut icon" href="/img/aboutme/hash-kube-rs-pulsar.png">
@@ -360,7 +360,7 @@
 
 
 
-                            阅读 </span></span>|<span class="post-date">共635字</span>，阅读约<span class="more-meta"> 2 分钟</span>
+                            阅读 </span></span>|<span class="post-date">共1010字</span>，阅读约<span class="more-meta"> 3 分钟</span>
                         
                     </span>
                 </div>
@@ -394,6 +394,25 @@
 		
 
 		<h1 id="前言">前言</h1>
+<h1 id="k3s-sqlite-数据文件损坏">K3S sqlite 数据文件损坏</h1>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">
+Apr <span style="color:#ae81ff">07</span> 11:04:39 hk129 sshd<span style="color:#f92672">[</span>10472<span style="color:#f92672">]</span>: pam_unix<span style="color:#f92672">(</span>sshd:auth<span style="color:#f92672">)</span>: authentication failure; logname<span style="color:#f92672">=</span> uid<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span> euid<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span> tty<span style="color:#f92672">=</span>ssh ruser<span style="color:#f92672">=</span> rhost<span style="color:#f92672">=</span>47.76.35.183  user<span style="color:#f92672">=</span>postfix
+Apr <span style="color:#ae81ff">07</span> 11:04:39 hk129 sshd<span style="color:#f92672">[</span>10472<span style="color:#f92672">]</span>: pam_succeed_if<span style="color:#f92672">(</span>sshd:auth<span style="color:#f92672">)</span>: requirement <span style="color:#e6db74">&#34;uid &gt;= 1000&#34;</span> not met by user <span style="color:#e6db74">&#34;postfix&#34;</span>
+Apr <span style="color:#ae81ff">07</span> 11:04:40 hk129 sshd<span style="color:#f92672">[</span>10472<span style="color:#f92672">]</span>: Failed password <span style="color:#66d9ef">for</span> postfix from 47.76.35.183 port <span style="color:#ae81ff">34040</span> ssh2
+
+
+Apr <span style="color:#ae81ff">07</span> 11:13:11 hk129 k3s<span style="color:#f92672">[</span>11743<span style="color:#f92672">]</span>: time<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;2024-04-07T11:13:11.450737765+08:00&#34;</span> level<span style="color:#f92672">=</span>error msg<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;error while range on /registry/ingress/ /registry/ingress/: database disk image is malformed&#34;</span>
+Apr <span style="color:#ae81ff">07</span> 11:13:11 hk129 k3s<span style="color:#f92672">[</span>11743<span style="color:#f92672">]</span>: E0407 11:13:11.450982   <span style="color:#ae81ff">11743</span> cacher.go:419<span style="color:#f92672">]</span> cacher <span style="color:#f92672">(</span>*networking.Ingress<span style="color:#f92672">)</span>: unexpected ListAndWatch error: failed to list *networking.Ingress: rpc error: code <span style="color:#f92672">=</span> Unknown desc <span style="color:#f92672">=</span> database disk image is malformed; reinitializing...
+Apr <span style="color:#ae81ff">07</span> 11:13:11 hk129 k3s<span style="color:#f92672">[</span>11743<span style="color:#f92672">]</span>: time<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;2024-04-07T11:13:11.451692678+08:00&#34;</span> level<span style="color:#f92672">=</span>error msg<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;error while range on /registry/ingressclasses/ /registry/ingressclasses/: database disk image is malformed&#34;</span>
+Apr <span style="color:#ae81ff">07</span> 11:13:11 hk129 k3s<span style="color:#f92672">[</span>11743<span style="color:#f92672">]</span>: E0407 11:13:11.451935   <span style="color:#ae81ff">11743</span> cacher.go:419<span style="color:#f92672">]</span> cacher <span style="color:#f92672">(</span>*networking.IngressClass<span style="color:#f92672">)</span>: unexpected ListAndWatch error: failed to list *networking.IngressClass: rpc error: code <span style="color:#f92672">=</span> Unknown desc <span style="color:#f92672">=</span> database disk image is malformed; reinitializing...
+Apr <span style="color:#ae81ff">07</span> 11:13:11 hk129 k3s<span style="color:#f92672">[</span>11743<span style="color:#f92672">]</span>: time<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;2024-04-07T11:13:11.452367238+08:00&#34;</span> level<span style="color:#f92672">=</span>error msg<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;error while range on /registry/ingressclasses/ /registry/ingressclasses/: database disk image is malformed&#34;</span>
+Apr <span style="color:#ae81ff">07</span> 11:13:11 hk129 k3s<span style="color:#f92672">[</span>11743<span style="color:#f92672">]</span>: time<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;2024-04-07T11:13:11.452912258+08:00&#34;</span> level<span style="color:#f92672">=</span>error msg<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;error while range on /registry/runtimeclasses/ /registry/runtimeclasses/: database disk image is malformed&#34;</span>
+Apr <span style="color:#ae81ff">07</span> 11:13:11 hk129 k3s<span style="color:#f92672">[</span>11743<span style="color:#f92672">]</span>: time<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;2024-04-07T11:13:11.453322547+08:00&#34;</span> level<span style="color:#f92672">=</span>error msg<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;error while range on /registry/runtimeclasses/ /registry/runtimeclasses/: database disk image is malformed&#34;</span>
+Apr <span style="color:#ae81ff">07</span> 11:13:11 hk129 k3s<span style="color:#f92672">[</span>11743<span style="color:#f92672">]</span>: time<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;2024-04-07T11:13:11.453749222+08:00&#34;</span> level<span style="color:#f92672">=</span>error msg<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;error while range on /registry/poddisruptionbudgets/ /registry/poddisruptionbudgets/: database disk image is malformed&#34;</span>
+Apr <span style="color:#ae81ff">07</span> 11:13:11 hk129 k3s<span style="color:#f92672">[</span>11743<span style="color:#f92672">]</span>: E0407 11:13:11.453846   <span style="color:#ae81ff">11743</span> cacher.go:419<span style="color:#f92672">]</span> cacher <span style="color:#f92672">(</span>*node.RuntimeClass<span style="color:#f92672">)</span>: unexpected ListAndWatch error: failed to list *node.RuntimeClass: rpc error: code <span style="color:#f92672">=</span> Unknown desc <span style="color:#f92672">=</span> database disk image is malformed; reinitializing...
+Apr <span style="color:#ae81ff">07</span> 11:13:11 hk129 k3s<span style="color:#f92672">[</span>11743<span style="color:#f92672">]</span>: time<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;2024-04-07T11:13:11.454290558+08:00&#34;</span> level<span style="color:#f92672">=</span>error msg<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;error while range on /registry/poddisruptionbudgets/ /registry/poddisruptionbudgets/: database disk image is malformed&#34;</span>
+</code></pre></div><p>近期遇到了 K3S sqlite3 数据文件损坏的问题,只有部分数据是可以查询的,这种情况下没办法对文件进行数据恢复,唯一的方法就是停止 k3s,然后使用备份文件重新启动 k3s.</p>
+<p>文件的备份处理还是非常重要的,否则一不小心整个 k3s 集群都没了.</p>
 <h1 id="备份恢复">备份恢复</h1>
 <p>如果是使用默认存储的k3s,也就是使用 sqlite 作为存储,那么 k3s 集群的备份和恢复很简单,只需要备份 sqlite 的 db 文件. 至于使用 local 持久化在本地的数据</p>
 <p>目前我在我的测试场景中频繁使用这个能力,将备份好的 K3S 在每一次实验时恢复出一个对应状态的集群,备份内容我通过 oras 将数据备份到的容器镜像里面.</p>
