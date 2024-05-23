@@ -261,3 +261,7 @@ curl -X GET localhost:8000/get
 
 
 原文地址: [Use CRI-O Container Runtime with KIND](https://rkiselenko.dev/blog/crio-in-kind/#build-node-image)
+
+# 译者有话说
+
+我也做了类似的事情,将[xline](https://github.com/xline-kv/xline)容器镜像放入到 Kind node 镜像内,启动 kind kubernetes 时可以直接使用内置的 xline 容器镜像了,目前作为 xline CI 的一部分运行中: [Add github action to run e2e test with kubernetes cluster. ](https://github.com/xline-kv/Xline/pull/696).
