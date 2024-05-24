@@ -6,7 +6,7 @@
     <description>Recent content on Hi,I`m lan</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 19 Feb 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://liangyuanpeng.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 22 May 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://liangyuanpeng.github.io/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>lank8s.cn服务</title>
       <link>https://liangyuanpeng.github.io/post/service-lank8s.cn/</link>
@@ -23,6 +23,15 @@
       
       <guid>https://liangyuanpeng.github.io/post/run-k8s-with-kind/</guid>
       <description>前言 由于各类基于 kubernetes 的云原生实验或测试的前提都是需要一个 kubernetes 环境,而在写博客时总是需要提及使用 Kind 来搭建 kubernetes 环境. 因此这里单独写一篇文章来介绍如何用</description>
+    </item>
+    
+    <item>
+      <title>使用crio作为kind的容器运行时</title>
+      <link>https://liangyuanpeng.github.io/post/use-cri-o-container-runtime-with-kind/</link>
+      <pubDate>Wed, 22 May 2024 00:00:00 +0000</pubDate>
+      
+      <guid>https://liangyuanpeng.github.io/post/use-cri-o-container-runtime-with-kind/</guid>
+      <description>译者: 梁远鹏 在本文中,我将演示如何基于特定的 kubernetes 版本和 cri-o 运行时构建kind的node镜像 构建基础镜像 为了构建基础镜像,我们需要 kind 的源码: $ git clone</description>
     </item>
     
     <item>

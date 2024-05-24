@@ -6,22 +6,58 @@
     <description>Recent content in Tags on Hi,I`m lan</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 19 Feb 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://liangyuanpeng.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 22 May 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://liangyuanpeng.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>cncf</title>
+      <link>https://liangyuanpeng.github.io/tags/cncf/</link>
+      <pubDate>Wed, 22 May 2024 00:00:00 +0000</pubDate>
+      
+      <guid>https://liangyuanpeng.github.io/tags/cncf/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>cri-o</title>
+      <link>https://liangyuanpeng.github.io/tags/cri-o/</link>
+      <pubDate>Wed, 22 May 2024 00:00:00 +0000</pubDate>
+      
+      <guid>https://liangyuanpeng.github.io/tags/cri-o/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>kind</title>
+      <link>https://liangyuanpeng.github.io/tags/kind/</link>
+      <pubDate>Wed, 22 May 2024 00:00:00 +0000</pubDate>
+      
+      <guid>https://liangyuanpeng.github.io/tags/kind/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>kubernetes</title>
+      <link>https://liangyuanpeng.github.io/tags/kubernetes/</link>
+      <pubDate>Wed, 22 May 2024 00:00:00 +0000</pubDate>
+      
+      <guid>https://liangyuanpeng.github.io/tags/kubernetes/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>kubernetes-sigs</title>
+      <link>https://liangyuanpeng.github.io/tags/kubernetes-sigs/</link>
+      <pubDate>Wed, 22 May 2024 00:00:00 +0000</pubDate>
+      
+      <guid>https://liangyuanpeng.github.io/tags/kubernetes-sigs/</guid>
+      <description></description>
+    </item>
+    
     <item>
       <title>cdf</title>
       <link>https://liangyuanpeng.github.io/tags/cdf/</link>
       <pubDate>Mon, 19 Feb 2024 00:00:00 +0000</pubDate>
       
       <guid>https://liangyuanpeng.github.io/tags/cdf/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>cncf</title>
-      <link>https://liangyuanpeng.github.io/tags/cncf/</link>
-      <pubDate>Mon, 19 Feb 2024 00:00:00 +0000</pubDate>
-      
-      <guid>https://liangyuanpeng.github.io/tags/cncf/</guid>
       <description></description>
     </item>
     
@@ -49,15 +85,6 @@
       <pubDate>Sun, 14 Jan 2024 00:00:00 +0000</pubDate>
       
       <guid>https://liangyuanpeng.github.io/tags/containerd/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>kubernetes</title>
-      <link>https://liangyuanpeng.github.io/tags/kubernetes/</link>
-      <pubDate>Sun, 14 Jan 2024 00:00:00 +0000</pubDate>
-      
-      <guid>https://liangyuanpeng.github.io/tags/kubernetes/</guid>
       <description></description>
     </item>
     
@@ -121,15 +148,6 @@
       <pubDate>Sat, 02 Sep 2023 00:00:00 +0000</pubDate>
       
       <guid>https://liangyuanpeng.github.io/tags/etcd/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>kubernetes-sigs</title>
-      <link>https://liangyuanpeng.github.io/tags/kubernetes-sigs/</link>
-      <pubDate>Fri, 30 Jun 2023 00:00:00 +0000</pubDate>
-      
-      <guid>https://liangyuanpeng.github.io/tags/kubernetes-sigs/</guid>
       <description></description>
     </item>
     
@@ -355,15 +373,6 @@
       <pubDate>Mon, 03 Apr 2023 00:00:00 +0000</pubDate>
       
       <guid>https://liangyuanpeng.github.io/tags/gitops/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>kind</title>
-      <link>https://liangyuanpeng.github.io/tags/kind/</link>
-      <pubDate>Mon, 03 Apr 2023 00:00:00 +0000</pubDate>
-      
-      <guid>https://liangyuanpeng.github.io/tags/kind/</guid>
       <description></description>
     </item>
     

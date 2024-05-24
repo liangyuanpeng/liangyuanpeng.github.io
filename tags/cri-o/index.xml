@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>cri-o on Hi,I`m lan</title>
+    <link>https://liangyuanpeng.github.io/tags/cri-o/</link>
+    <description>Recent content in cri-o on Hi,I`m lan</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 22 May 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://liangyuanpeng.github.io/tags/cri-o/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>使用crio作为kind的容器运行时</title>
+      <link>https://liangyuanpeng.github.io/post/use-cri-o-container-runtime-with-kind/</link>
+      <pubDate>Wed, 22 May 2024 00:00:00 +0000</pubDate>
+      
+      <guid>https://liangyuanpeng.github.io/post/use-cri-o-container-runtime-with-kind/</guid>
+      <description>译者: 梁远鹏 在本文中,我将演示如何基于特定的 kubernetes 版本和 cri-o 运行时构建kind的node镜像 构建基础镜像 为了构建基础镜像,我们需要 kind 的源码: $ git clone</description>
+    </item>
+    
+  </channel>
+</rss>

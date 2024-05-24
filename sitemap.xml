@@ -13,7 +13,57 @@
   
   <url>
     <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/categories/</loc>
-    <lastmod>2024-02-19T00:00:00+00:00</lastmod>
+    <lastmod>2024-05-22T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/tags/cncf/</loc>
+    <lastmod>2024-05-22T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/tags/cri-o/</loc>
+    <lastmod>2024-05-22T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/</loc>
+    <lastmod>2024-05-22T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/tags/kind/</loc>
+    <lastmod>2024-05-22T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/tags/kubernetes/</loc>
+    <lastmod>2024-05-22T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/categories/kubernetes/</loc>
+    <lastmod>2024-05-22T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/tags/kubernetes-sigs/</loc>
+    <lastmod>2024-05-22T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/post/</loc>
+    <lastmod>2024-05-22T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/tags/</loc>
+    <lastmod>2024-05-22T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/post/use-cri-o-container-runtime-with-kind/</loc>
+    <lastmod>2024-05-22T00:00:00+00:00</lastmod>
   </url>
   
   <url>
@@ -22,27 +72,7 @@
   </url>
   
   <url>
-    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/tags/cncf/</loc>
-    <lastmod>2024-02-19T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/</loc>
-    <lastmod>2024-02-19T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/post/</loc>
-    <lastmod>2024-02-19T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
     <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/tags/shipwright/</loc>
-    <lastmod>2024-02-19T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/tags/</loc>
     <lastmod>2024-02-19T00:00:00+00:00</lastmod>
   </url>
   
@@ -73,11 +103,6 @@
   
   <url>
     <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/post/deprecation-warnings-in-containerd-getting-ready-for-2.0/</loc>
-    <lastmod>2024-01-14T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/tags/kubernetes/</loc>
     <lastmod>2024-01-14T00:00:00+00:00</lastmod>
   </url>
   
@@ -117,11 +142,6 @@
   </url>
   
   <url>
-    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/categories/kubernetes/</loc>
-    <lastmod>2023-12-27T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
     <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/post/kubernetes-kep-1880-multiple-service-cidrs/</loc>
     <lastmod>2023-12-27T00:00:00+00:00</lastmod>
   </url>
@@ -144,11 +164,6 @@
   <url>
     <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/post/try-to-ask-question-to-kubernetes-for-source/</loc>
     <lastmod>2023-09-02T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/tags/kubernetes-sigs/</loc>
-    <lastmod>2023-06-30T00:00:00+00:00</lastmod>
   </url>
   
   <url>
@@ -368,11 +383,6 @@
   
   <url>
     <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/tags/gitops/</loc>
-    <lastmod>2023-04-03T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/tags/kind/</loc>
     <lastmod>2023-04-03T00:00:00+00:00</lastmod>
   </url>
   
