@@ -14,6 +14,7 @@ tags:
     - cncf
     - k8s-1.26
     - kubernetes
+    - cel
 categories: 
     - cloudnative
 ---
