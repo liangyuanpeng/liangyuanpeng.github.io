@@ -1,13 +1,13 @@
 ---
 layout:     post 
-slug:   "more-type-for-build-kind-node"
+slug:   "more-ways-to-build-kind-node"
 title:      "构建kind-node镜像的更多选择"
 subtitle:   ""
 description: ""  
 date:       2024-05-28
 author:     "梁远鹏"
 image: "/img/banner-pexels.jpg"
-published: false
+published: true
 tags: 
     - kubernetes
     - cncf
@@ -18,7 +18,7 @@ categories:
 ---
 
 
-Kind 构建的node镜像,多架构?
+Kind 构建的node镜像,多架构? 命令行似乎不支持多架构的,需要配合 docker manifest 命令来完成. kind repo 是在 hack/ 下的脚本做的.
 
 ```shell
 runner@fv-az1247-794:~/kind$ time kind build node-image v1.29.4
@@ -53,3 +53,6 @@ Building using URL: "https://dl.k8s.io/v1.29.4/kubernetes-server-linux-amd64.tar
 Starting to build Kubernetes
 Downloading "https://dl.k8s.io/v1.29.4/kubernetes-server-linux-amd64.tar.gz"
 ```
+
+
+kind build node-image --arch arm64 v1.30.1

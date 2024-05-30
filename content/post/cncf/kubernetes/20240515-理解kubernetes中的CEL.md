@@ -2,7 +2,7 @@
 layout:     post 
 slug:      "understand-cel-of-kubernetes"
 title:      "理解kubernetes中的CEL"
-subtitle:   ""
+subtitle:   ""https://loraserver.gwin.emsd.gov.hk/#/login
 description: "理解kubernetes中的CEL"
 date:       2024-05-15
 author:     "梁远鹏"
