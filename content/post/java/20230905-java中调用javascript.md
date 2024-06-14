@@ -4,15 +4,15 @@ slug:      "run-javascript-on-the-java"
 title:      "java中调用javascript"
 subtitle:   ""
 description: "在java中调用javascript,本文主要讲述的是 graal.js"
-#do not show it on the top
 date:       2023-09-05
-#date:       2023-05-04
 author:     "梁远鹏"
 image: "/img/banner-pexels.jpg"
-published: false
+published: true
+wip: true
 tags:
     - java
     - javascript
+    - graaljs
 categories: 
     - cloudnative
 ---
