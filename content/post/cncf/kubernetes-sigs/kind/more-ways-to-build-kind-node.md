@@ -98,10 +98,10 @@ Downloading "https://dl.k8s.io/v1.30.1/kubernetes-server-linux-arm64.tar.gz"
 
 # 注意点
 
-Kind 命令行构建的容器镜像不支持多架构的,但可以尝试自己手动构建.
+Kind 命令行构建的容器镜像不支持多架构的,但可以尝试自己手动构建(我没有尝试过).
 
-1. 构建 amd64 的镜像
-2. 构建 arm64 的镜像
+1. 构建 amd64 的镜像并且推送到仓库
+2. 构建 arm64 的镜像并且推送到仓库 (在arm64架构的机器上 kind build node-image --arch arm64 xxxk8s版本 )
 3. 使用 docker manifest 命令来构建一个多架构容器镜像.
 
 # 人工智能推荐
