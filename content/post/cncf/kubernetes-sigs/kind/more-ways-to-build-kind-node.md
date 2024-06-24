@@ -103,3 +103,20 @@ Kind 命令行构建的容器镜像不支持多架构的,但可以尝试自己�
 1. 构建 amd64 的镜像
 2. 构建 arm64 的镜像
 3. 使用 docker manifest 命令来构建一个多架构容器镜像.
+
+# 人工智能推荐
+
+如果你需要将一些容器镜像一起打包到 kindest/node 镜像里面,那么可以参考我给 Xline 提交的 PR:[Add github action to run e2e test with kubernetes cluster.](https://github.com/xline-kv/Xline/pull/696/files)
+
+基本上就是将构建好的 Xline 内置到自定义构建的 kindest/node 容器镜像内,然后在 CI 中可以直接使用内置的 xline 容器镜像而不需要再下载 xline 镜像了,下面贴出对应的 Dockerfile:
+
+```Dockerfile
+ARG K8S_VERSION
+
+FROM kindest/node:${K8S_VERSION}
+
+RUN mkdir /tmp/kind
+COPY xline.tar /tmp/kind/
+RUN ( containerd -l warning & ) && ctr -n k8s.io images import --no-unpack /tmp/kind/*.tar
+RUN rm /tmp/kind/*.tar
+```
