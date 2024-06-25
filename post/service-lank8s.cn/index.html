@@ -616,7 +616,7 @@
 
 
 
-                            阅读 </span></span>|<span class="post-date">共3061字</span>，阅读约<span class="more-meta"> 7 分钟</span>
+                            阅读 </span></span>|<span class="post-date">共3080字</span>，阅读约<span class="more-meta"> 7 分钟</span>
                         
                     </span>
                 </div>
@@ -652,7 +652,11 @@
   </ul>
 
   <ul>
-    <li><a href="#为-us-central1-dockerpkgdev-提供镜像服务8元3个月">为 us-central1-docker.pkg.dev 提供镜像服务,8元3个月.</a></li>
+    <li><a href="#为-us-central1-dockerpkgdev-提供镜像服务8元3个月">为 us-central1-docker.pkg.dev 提供镜像服务,8元3个月.</a>
+      <ul>
+        <li><a href="#heading"></a></li>
+      </ul>
+    </li>
   </ul>
 </nav>
 		
@@ -785,7 +789,9 @@ China mirror for registry.k8s.io and gcr.io :)</p>
 <p>镜像案例:</p>
 <ul>
 <li><a href="https://docs.robusta.dev">https://docs.robusta.dev</a>  kubernetes 的可观测性监控方案</li>
+<li><a href="https://skypilot.readthedocs.io/en/latest/">https://skypilot.readthedocs.io/en/latest/</a>  运行 LLM、AI 和批处理作业的框架 SkyPilot</li>
 </ul>
+<h3 id="heading"></h3>
 <h1 id="使用到的域名">使用到的域名</h1>
 <p>lank8s.cn 服务使用到了以下域名,如果你是在公司内使用 lank8s.cn 并且需要一些安全配置的话可能会有帮助:</p>
 <ul>
@@ -804,7 +810,7 @@ China mirror for registry.k8s.io and gcr.io :)</p>
 <p>对于一些虚拟机,可能需要为虚拟机设置好 dns nameserver,否则可能解析不到 amazonaws.com 和 storage.googleapis.com.</p>
 <p>目前正在考虑剔除域名 *.liangyuanpeng.com,减少不必要的域名,但这是一个长期的缓慢的工作,一旦有进展将会在这里更新.</p>
 <h1 id="再说一点">再说一点</h1>
-<p>其实 lank8s.cn 和 registry.k8s.io 本质上是一个东西:将流量分发到实际的镜像存储服务,当然出发点是不一样的,registry.k8s.io 是希望将流量代理到与用户相近的地方,同时减少存储服务流量成本. 而 lank8s.cn 完全是因为成本问题,但目前不会将流量代理到与用户相近的地方,毕竟 lank8s.cn 目前只保证镜像可下载,没有保证最优的下载速度.</p>
+<p>其实 lank8s.cn 和 registry.k8s.io 本质上是一类东西:将流量分发到实际的镜像存储服务,当然出发点是不一样的,registry.k8s.io 是希望将流量代理到与用户相近的地方,同时减少存储服务流量成本. 而 lank8s.cn 完全是因为成本问题,但目前不会将流量代理到与用户相近的地方,毕竟 lank8s.cn 目前只保证镜像可下载,没有保证最优的下载速度.</p>
 <p>目前部分流量会分到 liangyuanpeng.com,最近正在处理将这部分迁移回 lank8s.cn,减少涉及到的域名数量.</p>
 <h1 id="接受赞助">接受赞助</h1>
 <p>为了提供更好的服务,<code>lank8s.cn</code>服务接受赞助,我承诺所有赞助都只会用于优化<code>lank8s.cn</code>服务.点击本文下方的赞助按钮开始赞助:)</p>
@@ -997,8 +1003,6 @@ China mirror for registry.k8s.io and gcr.io :)</p>
     
     <li><a href="/post/cdf-new-project-shipwright/">CDF(持续交付基金会)欢迎基于k8s构建容器镜像的框架Shipwright作为新的孵化项目</a></li>
     
-    <li><a href="/post/helm-config-note-long-term/">[长期更新]helm常见问题以及配置记录</a></li>
-    
     <li><a href="/post/k8s-multi-tenancy-guide/">Kubernetes多租户–最佳实践指南</a></li>
     
     <li><a href="/post/k8s-deploy-longhorn/">kubernetes部署longhorn</a></li>
@@ -1006,6 +1010,8 @@ China mirror for registry.k8s.io and gcr.io :)</p>
     <li><a href="/post/kubernetes-deploy-kube-prometheus/">kubernetes部署kube-prometheus</a></li>
     
     <li><a href="/post/openkruise-column/">OpenKruise专栏介绍</a></li>
+    
+    <li><a href="/post/kubeadm-deploy-kubernetes-lank8scn/">kubeadm配合短域名lank8s.cn部署kubernetes</a></li>
     
 </ul>
 

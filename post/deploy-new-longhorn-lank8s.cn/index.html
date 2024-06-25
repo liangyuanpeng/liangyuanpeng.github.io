@@ -297,7 +297,7 @@
 
 
 
-                            阅读 </span></span>|<span class="post-date">共1623字</span>，阅读约<span class="more-meta"> 4 分钟</span>
+                            阅读 </span></span>|<span class="post-date">共1580字</span>，阅读约<span class="more-meta"> 4 分钟</span>
                         
                     </span>
                 </div>
@@ -375,8 +375,8 @@ longhorn-ui-75ccbd4695-92cj2                1/1     Running             <span st
   Normal   BackOff    36s                 kubelet            Back-off pulling image <span style="color:#e6db74">&#34;k8s.gcr.io/sig-storage/csi-attacher:v3.2.1&#34;</span>
   Warning  Failed     36s                 kubelet            Error: ImagePullBackOff
   Normal   Pulling    24s <span style="color:#f92672">(</span>x2 over 5m2s<span style="color:#f92672">)</span>  kubelet            Pulling image <span style="color:#e6db74">&#34;k8s.gcr.io/sig-storage/csi-attacher:v3.2.1&#34;</span>
-</code></pre></div><p>可以看到,pod从k8s.gcr.io拉取镜像失败了,这时候只需要可以helm upgrade一下将k8s.gcr.io都修改为<code>lank8s.cn</code>就可以了.</p>
-<p>下面是helm upgrade更新longhorn的命令:</p>
+</code></pre></div><p>可以看到,pod 从 k8s.gcr.io 拉取镜像失败了,这时候只需要可以 helm upgrade 一下将 k8s.gcr.io 都修改为<code>lank8s.cn</code>就可以了.</p>
+<p>下面是 helm upgrade 更新 longhorn 的命令:</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">helm upgrade longhorn longhorn/longhorn --namespace longhorn-system --set image.csi.attacher.repository<span style="color:#f92672">=</span>lank8s.cn/sig-storage/csi-attacher --set image.csi.provisioner.repository<span style="color:#f92672">=</span>lank8s.cn/sig-storage/csi-provisioner --set image.csi.nodeDriverRegistrar.repository<span style="color:#f92672">=</span>lank8s.cn/sig-storage/csi-node-driver-registrar --set image.csi.resizer.repository<span style="color:#f92672">=</span>lank8s.cn/sig-storage/csi-resizer --set image.csi.snapshotter.repository<span style="color:#f92672">=</span>lank8s.cn/sig-storage/csi-snapshotter --set persistence.defaultClassReplicaCount<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span> --set csi.attacherReplicaCount<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>  --set csi.provisionerReplicaCount<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>  --set csi.resizerReplicaCount<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>  --set csi.snapshotterReplicaCount<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>
 </code></pre></div><p>为了最简部署多了一些设置副本数为1的设置,如果希望使用默认的副本数的话可以用下面的helm upgrade命令:</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">helm upgrade longhorn longhorn/longhorn --namespace longhorn-system --set image.csi.attacher.repository<span style="color:#f92672">=</span>lank8s.cn/sig-storage/csi-attacher --set image.csi.provisioner.repository<span style="color:#f92672">=</span>lank8s.cn/sig-storage/csi-provisioner --set image.csi.nodeDriverRegistrar.repository<span style="color:#f92672">=</span>lank8s.cn/sig-storage/csi-node-driver-registrar --set image.csi.resizer.repository<span style="color:#f92672">=</span>lank8s.cn/sig-storage/csi-resizer --set image.csi.snapshotter.repository<span style="color:#f92672">=</span>lank8s.cn/sig-storage/csi-snapshotter
@@ -621,8 +621,6 @@ longhorn-ui-75ccbd4695-c9rn6                1/1     Running   <span style="color
     
     <li><a href="/post/prometheus-v2.28.1-update/">Prometheus2.28.1更新讲解</a></li>
     
-    <li><a href="/post/helm-config-note-long-term/">[长期更新]helm常见问题以及配置记录</a></li>
-    
     <li><a href="/post/k8s-deploy-longhorn/">kubernetes部署longhorn</a></li>
     
     <li><a href="/post/prometheus-replease-log/">Prometheus版本发布说明</a></li>
@@ -630,6 +628,8 @@ longhorn-ui-75ccbd4695-c9rn6                1/1     Running   <span style="color
     <li><a href="/post/springboot-clear-unuse-metrics/">清理SpringBoot应用无用的metrics指标</a></li>
     
     <li><a href="/post/kubernetes-deploy-kube-prometheus/">kubernetes部署kube-prometheus</a></li>
+    
+    <li><a href="/post/prometheus-release-v2.26rc-0/">Prometheus2.26rc.0新特性讲解</a></li>
     
 </ul>
 

@@ -6,7 +6,7 @@
     <description>Recent content in cncf on Hi,I`m lan</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 22 May 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://liangyuanpeng.github.io/tags/cncf/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 28 May 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://liangyuanpeng.github.io/tags/cncf/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>用kind搭建k8s集群环境</title>
       <link>https://liangyuanpeng.github.io/post/run-k8s-with-kind/</link>
@@ -14,6 +14,15 @@
       
       <guid>https://liangyuanpeng.github.io/post/run-k8s-with-kind/</guid>
       <description>前言 由于各类基于 kubernetes 的云原生实验或测试的前提都是需要一个 kubernetes 环境,而在写博客时总是需要提及使用 Kind 来搭建 kubernetes 环境. 因此这里单独写一篇文章来介绍如何用</description>
+    </item>
+    
+    <item>
+      <title>构建kind-node镜像的更多选择</title>
+      <link>https://liangyuanpeng.github.io/post/more-ways-to-build-kind-node/</link>
+      <pubDate>Tue, 28 May 2024 00:00:00 +0000</pubDate>
+      
+      <guid>https://liangyuanpeng.github.io/post/more-ways-to-build-kind-node/</guid>
+      <description>简介 在 PR 合并之前, Kind 构建一个自定义的 kubernetes 节点镜像至少有两个步骤(Kind命令自动完成): 使用 kubernetes 源码构建二进制文件 (假设已经下载好 kubernetes 源码) Kind 开始</description>
     </item>
     
     <item>
@@ -59,6 +68,15 @@
       
       <guid>https://liangyuanpeng.github.io/post/quick-start-kcl/</guid>
       <description>什么是KCL 使用场景 yaml 配置管理 当谈到 yaml 时很容易联想到 kubernetes 资源的 yaml 文件,但目前我个人的使用场景更多的是管理 Kind 的配置文件,因为我会有很多种不同的 Kind</description>
+    </item>
+    
+    <item>
+      <title>argoworkflow 的一些实践和思考</title>
+      <link>https://liangyuanpeng.github.io/post/something-with-argo-workflow/</link>
+      <pubDate>Sat, 23 Sep 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://liangyuanpeng.github.io/post/something-with-argo-workflow/</guid>
+      <description>实践 达到 github action 同一个 PR 只跑一个 CI 的效果 需要考虑的点: 一个PR使用同一个 volume,暂时每次都清理, 后续优化是延迟一些时间再清理 volume serverless 节点 为了成</description>
     </item>
     
     <item>
@@ -113,6 +131,15 @@
       
       <guid>https://liangyuanpeng.github.io/post/usage-oras/</guid>
       <description>这篇在讲什么 主要是记录我使用 oras 的一些使用场景。 由于已知 oras 是一个将任意内容存储为容器镜像的工具,因此不过多介绍 oras。 都有什么场景 存储工作区</description>
+    </item>
+    
+    <item>
+      <title>[长期更新]helm常见问题以及配置记录</title>
+      <link>https://liangyuanpeng.github.io/post/helm-config-note-long-term/</link>
+      <pubDate>Sun, 23 Apr 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://liangyuanpeng.github.io/post/helm-config-note-long-term/</guid>
+      <description>说明 本文主要收集常见场景下 helm 配置以及遇到的一些常见问题,欢迎对本文进行投稿你认为好的场景配置或问题. unclosed action 错误 用 helm 3.5 在 kubernetes 1.29 上安装 contour</description>
     </item>
     
     <item>
@@ -584,15 +611,6 @@
     </item>
     
     <item>
-      <title>[长期更新]helm常见问题以及配置记录</title>
-      <link>https://liangyuanpeng.github.io/post/helm-config-note-long-term/</link>
-      <pubDate>Fri, 23 Apr 2021 00:00:00 +0000</pubDate>
-      
-      <guid>https://liangyuanpeng.github.io/post/helm-config-note-long-term/</guid>
-      <description>说明 本文主要收集常见场景下 helm 配置以及遇到的一些常见问题,欢迎对本文进行投稿你认为好的场景配置或问题. 官方文档 https://helm.sh/docs/</description>
-    </item>
-    
-    <item>
       <title>kubernetes部署longhorn</title>
       <link>https://liangyuanpeng.github.io/post/k8s-deploy-longhorn/</link>
       <pubDate>Fri, 09 Apr 2021 00:00:00 +0000</pubDate>
@@ -697,7 +715,7 @@
       <pubDate>Sat, 23 Jan 2021 00:00:00 +0000</pubDate>
       
       <guid>https://liangyuanpeng.github.io/post/k8s-client-go-source-2/</guid>
-      <description>简介：云原生社区活动&amp;mdash;Kubernetes 源码剖析第一期第二周 本周是 K8S 源码研习社第一期第二周，学习内容是学习Informer机制</description>
+      <description>简介：云原生社区活动&amp;mdash;Kubernetes 源码剖析第一期第二周 本周是 K8S 源码研习社第一期第二周，学习内容是学习 Informer 机制，本文以这个课</description>
     </item>
     
     <item>

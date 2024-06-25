@@ -213,7 +213,7 @@
                     </div>
                     <h1>[长期更新]java问题列表</h1>
                     <h2 class="subheading"></h2>
-                    <span  class="meta">Posted by 梁远鹏 on 2021-05-04
+                    <span  class="meta">Posted by 梁远鹏 on 2023-05-04
                         
                         <span id="busuanzi_container_page_pv">|<span id="busuanzi_value_page_pv"></span><span>
                             <span id="/post/question-list-of-java/" class="leancloud_visitors meta_data_item" data-flag-title="">
@@ -230,7 +230,7 @@
 
 
 
-                            阅读 </span></span>|<span class="post-date">共1722字</span>，阅读约<span class="more-meta"> 4 分钟</span>
+                            阅读 </span></span>|<span class="post-date">共2259字</span>，阅读约<span class="more-meta"> 5 分钟</span>
                         
                     </span>
                 </div>
@@ -262,6 +262,9 @@
     <li><a href="#基于-operator-framework-spring-boot-starter-的项目graalvm-打包的二进制文件启动失败">基于 operator-framework-spring-boot-starter 的项目,Graalvm 打包的二进制文件启动失败</a></li>
     <li><a href="#gradle-打包-shade-包">gradle 打包 shade 包</a></li>
     <li><a href="#socketio客户端-使用客户端证书">socketio客户端 使用客户端证书</a></li>
+    <li><a href="#maven-deploy-时报错-repository-element-was-not-specified-in-the-pom-inside-distributionmanagement-eleme">maven deploy 时报错-repository element was not specified in the POM inside distributionManagement eleme</a></li>
+    <li><a href="#一次-git-commit-id-plugin-maven-插件的升级">一次 git-commit-id-plugin maven 插件的升级</a></li>
+    <li><a href="#renovate-没有升级依赖到最新版本">renovate 没有升级依赖到最新版本</a></li>
   </ul>
 </nav>
 		
@@ -576,6 +579,33 @@ Caused by: java.nio.charset.UnsupportedCharsetException: UTF-32BE
 <h2 id="gradle-打包-shade-包">gradle 打包 shade 包</h2>
 <p>两个第三方包都依赖了同一个第三方包,但版本不一样导致冲突.</p>
 <h2 id="socketio客户端-使用客户端证书">socketio客户端 使用客户端证书</h2>
+<p>本来计划是希望给每一个客户分发一个客户端证书,将证书作为权限管理的一部分,不过测试过后发现似乎不支持,因为在建立链接之前会发送一个 http 请求? (具体测试的时间有点久了,不太确认.)</p>
+<h2 id="maven-deploy-时报错-repository-element-was-not-specified-in-the-pom-inside-distributionmanagement-eleme">maven deploy 时报错-repository element was not specified in the POM inside distributionManagement eleme</h2>
+<p>原因是因为我项目中的一个子模块没有引用父模块.</p>
+<p>解决方案: 在这个模块的 pom.xml 里面单独配置仓库信息:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml"><span style="color:#f92672">&lt;distributionManagement&gt;</span>
+        <span style="color:#f92672">&lt;repository&gt;</span>
+                <span style="color:#f92672">&lt;id&gt;</span>alisnapshot<span style="color:#f92672">&lt;/id&gt;</span>
+                <span style="color:#f92672">&lt;name&gt;</span>alisnapshot<span style="color:#f92672">&lt;/name&gt;</span>
+                <span style="color:#f92672">&lt;url&gt;</span>https://packages.aliyun.com/maven/repository/2127020-snapshot-G5gKXW<span style="color:#f92672">&lt;/url&gt;</span>
+        <span style="color:#f92672">&lt;/repository&gt;</span>
+<span style="color:#f92672">&lt;/distributionManagement&gt;</span>
+</code></pre></div><h2 id="一次-git-commit-id-plugin-maven-插件的升级">一次 git-commit-id-plugin maven 插件的升级</h2>
+<p>当前项目使用的是 2.1.5 版本的 git-commit-id-plugin,这应该是在 2020 年左右引进来的,是同事在网上复制的.</p>
+<p>在中央仓库看了一下这个依赖包,没想到这个是 2013 年的版本了,着实有点老了.最新的版本是 2021 年的 4.9.10,看起来已经不更新了,但在搜索 git-commit-id-plugin 的时候还看到了另一个包,依赖包的 group 是 io.github.git-commit-id,因此可以很轻松的在 github 上找到这个项目: <a href="https://github.com/git-commit-id/git-commit-id-maven-plugin">git-commit-id-maven-plugin</a>,这个应该是项目的继承者了,当前最新的包是 2024 年发布的 9.0.0,因此果断升级到这个依赖的这个版本.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml"><span style="color:#f92672">&lt;plugin&gt;</span>
+        <span style="color:#f92672">&lt;groupId&gt;</span>pl.project13.maven<span style="color:#f92672">&lt;/groupId&gt;</span>
+        <span style="color:#f92672">&lt;artifactId&gt;</span>git-commit-id-plugin<span style="color:#f92672">&lt;/artifactId&gt;</span>
+        <span style="color:#f92672">&lt;version&gt;</span>2.1.5<span style="color:#f92672">&lt;/version&gt;</span>
+<span style="color:#f92672">&lt;/plugin&gt;</span>
+</code></pre></div><p>升级后:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml"><span style="color:#f92672">&lt;plugin&gt;</span>
+        <span style="color:#f92672">&lt;groupId&gt;</span>io.github.git-commit-id<span style="color:#f92672">&lt;/groupId&gt;</span>
+        <span style="color:#f92672">&lt;artifactId&gt;</span>git-commit-id-maven-plugin<span style="color:#f92672">&lt;/artifactId&gt;</span>
+        <span style="color:#f92672">&lt;version&gt;</span>9.0.0<span style="color:#f92672">&lt;/version&gt;</span>
+<span style="color:#f92672">&lt;/plugin&gt;</span>
+</code></pre></div><h2 id="renovate-没有升级依赖到最新版本">renovate 没有升级依赖到最新版本</h2>
+<p>项目使用 renovate 来对依赖进行自动化升级,不过配置上没有进行过太多的折腾,使用的是默认配置. 我发现依赖包是有新版本的,但是 renovate 却没有提 PR 进行升级,目前还没找到原因.</p>
 
 
         <h2>微信公众号</h2>
@@ -603,12 +633,12 @@ Caused by: java.nio.charset.UnsupportedCharsetException: UTF-32BE
                 <ul class="pager">
                     
                     <li class="previous">
-                        <a href="/post/question-list-of-pulsar/" data-toggle="tooltip" data-placement="top" title="[长期更新]pulsar问题列表">&larr; [长期更新]pulsar问题列表</a>
+                        <a href="/post/question-list-of-kubernetes/" data-toggle="tooltip" data-placement="top" title="[长期更新]kubernetes问题列表记录">&larr; [长期更新]kubernetes问题列表记录</a>
                     </li>
                     
                     
                     <li class="next">
-                        <a href="/post/question-list-of-golang/" data-toggle="tooltip" data-placement="top" title="[长期更新]golang问题列表">[长期更新]golang问题列表 &rarr;</a>
+                        <a href="/post/helpful-github-action/" data-toggle="tooltip" data-placement="top" title="githubaction常用记录">githubaction常用记录 &rarr;</a>
                     </li>
                     
                 </ul>
@@ -854,7 +884,7 @@ Caused by: java.nio.charset.UnsupportedCharsetException: UTF-32BE
                     
                 </ul>
 		<p class="copyright text-muted">
-                    Copyright &copy; Hi,I`m lan , 2021
+                    Copyright &copy; Hi,I`m lan , 2023
                     <br>
                     <a href="https://themes.gohugo.io/hugo-theme-cleanwhite">CleanWhite Hugo Theme</a> by <a href="https://zhaohuabing.com">Huabing</a> |
                     <iframe

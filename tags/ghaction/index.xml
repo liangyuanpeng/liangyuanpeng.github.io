@@ -13,7 +13,7 @@
       <pubDate>Fri, 05 May 2023 00:00:00 +0000</pubDate>
       
       <guid>https://liangyuanpeng.github.io/post/helpful-github-action/</guid>
-      <description>前言 记录有用的 github action 知识，欢迎投稿:) 可重用的github action 这个应该是比较常见的，抽离共同的内容到一个 github action，传递参数执行不同的内容，</description>
+      <description>前言 记录有用的 github action 知识或问题，欢迎投稿:) 可重用的github action 这个应该是比较常见的，抽离共同的内容到一个 github action，传递参数执行不同的</description>
     </item>
     
   </channel>

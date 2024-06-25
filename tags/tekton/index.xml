@@ -25,5 +25,14 @@
       <description>Tekton 和 Shipwright 将从 CDF 迁移到 CNCF Tekton 社区已经与2023年11月10日决定将项目从 CDF 迁移到 CNCF, 见 issue: tektoncd/community#1080, 开始着手申请加入 CNCF,但到目前为止为止(2024年02</description>
     </item>
     
+    <item>
+      <title>开源在高度合规组织中的重要性</title>
+      <link>https://liangyuanpeng.github.io/post/importance-of-open-source-in-high-compliance-organizations/</link>
+      <pubDate>Wed, 08 Mar 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://liangyuanpeng.github.io/post/importance-of-open-source-in-high-compliance-organizations/</guid>
+      <description>作者 Matheus Paes Pereira、Garima Bajpai 和 Moïse Kameni 开源技术越来越受欢迎,尤其是在航空、银行、医疗保健、能源和国防等监管严格的行业.由于采用</description>
+    </item>
+    
   </channel>
 </rss>

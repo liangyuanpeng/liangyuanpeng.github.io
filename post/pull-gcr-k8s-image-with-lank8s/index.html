@@ -360,7 +360,7 @@
 
 
 
-                            阅读 </span></span>|<span class="post-date">共1304字</span>，阅读约<span class="more-meta"> 3 分钟</span>
+                            阅读 </span></span>|<span class="post-date">共1612字</span>，阅读约<span class="more-meta"> 4 分钟</span>
                         
                     </span>
                 </div>
@@ -606,6 +606,41 @@ location = &quot;registry.lank8s.cn&quot;
 <p>后续考虑在 registry.lank8s.cn 服务层做一层适配,做到和原有的 registry.k8s.io 相同的体验.</p>
 <h1 id="minikube">minikube</h1>
 <p>TODO</p>
+<h1 id="docker-1">docker</h1>
+<p>如果希望机器上的 docker 可以直接拉取到 registry.k8s.io,也有一个曲线救国的方法,需要做以下几件事:</p>
+<ol>
+<li>将 registry.k8s.io 配置为 insecure 类型的注册中心,这会让docker 拉取 registry.k8s.io 镜像时通过 http 请求而不是 https 请求</li>
+<li>部署一个 nginx,将流量反向代理到 registry.lank8s.cn</li>
+<li>配置 hosts,将 registry.k8s.io 映射为本地IP,例如 192.168.3.160 (你的机器IP).</li>
+</ol>
+<p>/etc/docker/daemon.json</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json">{
+    <span style="color:#f92672">&#34;insecure-registries&#34;</span>: [<span style="color:#e6db74">&#34;registry.k8s.io&#34;</span>]
+}
+</code></pre></div><p>nginx 配置如下:</p>
+<pre tabindex="0"><code class="language-conf" data-lang="conf">server {
+    listen   80;
+    listen [::]:80;
+
+    access_log  /var/log/nginx/host.access.log  main;
+
+    location / {
+        proxy_pass https://registry.lank8s.cn/;
+        proxy_set_header Host registry.lank8s.cn;
+        proxy_ssl_name registry.lank8s.cn;
+        proxy_ssl_server_name on;
+        proxy_set_header X-Real-IP $remote_addr;
+        add_header Access-Control-Allow-Headers Authorization;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    }
+    error_page   500 502 503 504  /50x.html;
+    location = /50x.html {
+        root   /usr/share/nginx/html;
+    }
+}
+</code></pre><p>总体流量走向如下:</p>
+<p>docker pull &mdash;http&mdash;&gt; nginx &mdash;-&gt; registry.lank8s.cn</p>
+<p>通过这样的方式可以让你在机器上使用 docker pull 拉取 registry.k8s.io 镜像时通过nginx反向代理去请求 registry.lank8s.cn,这可以省去一些重新给容器镜像打 tag 的过程,但这不是银弹,无法适用所有场景.</p>
 
 
         <h2>微信公众号</h2>
@@ -800,7 +835,7 @@ location = &quot;registry.lank8s.cn&quot;
     
     <li><a href="/post/deploy-metrics-server-for-kubectl-top/">部署metrics-server,把kubectl top用起来</a></li>
     
-    <li><a href="/post/helm-config-note-long-term/">[长期更新]helm常见问题以及配置记录</a></li>
+    <li><a href="/post/k8s-deploy-longhorn/">kubernetes部署longhorn</a></li>
     
 </ul>
 

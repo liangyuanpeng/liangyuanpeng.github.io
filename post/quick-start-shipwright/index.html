@@ -1,0 +1,944 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head><head>
+    <meta name="google-site-verification" content="9vIieCe-Qpd78QOmBl63rGtIVbhY6sYyuxX3j8XWBA4" />
+    <meta name="baidu-site-verification" content="LRrmH41lz7" />
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <meta name="baidu-site-verification" content="HGLXRsUXC4" />
+
+    
+    <meta name="baidu-site-verification" content="code-ANZvlnN0Xr" />
+
+    
+    <meta name="description" content="⎈远鹏，工程师⎈, 开源爱好者,kubernetes 贡献者,CNCF 大使 | 公众号:四颗咖啡豆">
+    
+    <meta name="keyword"  content="liangyuanpeng|CNCF大使|LanLiang|OpenYurt|Knative|Pulsar|Prometheus|Halo|ambassador|边缘计算|kubernetes|Docker|CloudNative|Golang|Rust|Istio|微服务">
+
+    
+    <link rel="shortcut icon" href="/img/aboutme/hash-kube-rs-pulsar.png">
+    
+
+    
+    <meta property="og:image" content="https://liangyuanpeng.github.io/img/banner/743a4e9227e1f14cb24a1eb6db29e183.jpg" />
+    <meta name="twitter:image" content="https://liangyuanpeng.github.io/img/banner/743a4e9227e1f14cb24a1eb6db29e183.jpg" />
+
+    <title>shipwright快速入门-liangyuanpeng 的博客 | liangyuanpeng&#39;s Blog</title>
+
+    <link rel="canonical" href="https://liangyuanpeng.github.io/post/quick-start-shipwright/">
+
+    
+
+    
+    <link rel="stylesheet" href='https://liangyuanpeng.github.io/css/bootstrap.min.css'>
+
+    
+    <link rel="stylesheet" href="https://liangyuanpeng.github.io/css/hux-blog.min.css">
+
+    
+    <link rel="stylesheet" href="https://liangyuanpeng.github.io/css/syntax.css">
+
+    
+    <link href="/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    
+    <script src="https://liangyuanpeng.github.io/js/jquery.min.js"></script>
+
+    
+    <script src="https://liangyuanpeng.github.io/js/bootstrap.min.js"></script>
+
+    
+    <script src="https://liangyuanpeng.github.io/js/hux-blog.min.js"></script>
+
+    
+    <script defer src='/js/cf-beacon.min.js' data-cf-beacon='{"token": "f73bc0092aeb491d89984c0eb5a87ac2"}'></script>
+</head>
+
+</head>
+
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="https://liangyuanpeng.github.io/">Hi,I`m lan</a>
+        </div>
+
+        
+        
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="https://liangyuanpeng.github.io/">Home</a>
+                    </li>
+                    
+                    
+                     
+
+                    
+		            <li>
+                        <a href="https://liangyuanpeng.github.io/search/">SEARCH <img src="https://liangyuanpeng.github.io/img/search.png" height="15" style="cursor: pointer;"></a>
+		            </li>
+                    
+
+		            <li>
+                        <a href="https://liangyuanpeng.github.io/about/">关于我 </a>
+		            </li>
+                </ul>
+            </div>
+        </div>
+        
+    </div>
+    
+</nav>
+<script>
+    
+    
+    
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        
+            $navbar.className = " ";
+            
+            setTimeout(function(){
+                
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+
+
+<style type="text/css">
+    header.intro-header{
+        background-image: url('https://liangyuanpeng.github.io/img/banner/743a4e9227e1f14cb24a1eb6db29e183.jpg')
+    }
+</style>
+
+<header class="intro-header" >
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+
+                       
+                       <a class="tag" href="/tags/cdf" title="cdf">
+                        cdf
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                        </a>
+                        
+                       <a class="tag" href="/tags/shipwright" title="shipwright">
+                        shipwright
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                                <img style="display:inline-block;" src="/img/taglogo/shipwright.png" height="20" width="20" />
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                        </a>
+                        
+                        <br/>
+                    </div>
+                    <h1>shipwright快速入门</h1>
+                    <h2 class="subheading"></h2>
+                    <span  class="meta">Posted by 梁远鹏 on 2023-05-23
+                        
+                        <span id="busuanzi_container_page_pv">|<span id="busuanzi_value_page_pv"></span><span>
+                            <span id="/post/quick-start-shipwright/" class="leancloud_visitors meta_data_item" data-flag-title="">
+    <span class="post-meta-item-icon">
+      <span class="octicon octicon-eye"></span> 
+    </span>
+    <i class="fa fa-eye"></i>
+    <span class="old-visitors-count" style="display: none;"></span>
+    <span class="leancloud-visitors-count"></span>
+</span>
+
+
+
+
+
+
+                            阅读 </span></span>|<span class="post-date">共2625字</span>，阅读约<span class="more-meta"> 6 分钟</span>
+                        
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+
+
+<article>
+    <div class="container">
+        <div class="row">
+            
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+		
+                <header>
+                <h2>TOC</h2>
+                </header>
+                <nav id="TableOfContents">
+  <ul>
+    <li><a href="#buildstrategy">BuildStrategy</a></li>
+    <li><a href="#build">Build</a></li>
+    <li><a href="#buildrun">BuildRun</a></li>
+  </ul>
+
+  <ul>
+    <li><a href="#openfunction">openfunction</a></li>
+    <li><a href="#openshift-builds">OpenShift Builds?</a></li>
+  </ul>
+
+  <ul>
+    <li><a href="#更多的想象空间">更多的想象空间</a></li>
+  </ul>
+</nav>
+		
+
+		<h1 id="heading"></h1>
+<p>shipwright 是由红帽开源并且捐赠给 CDF的一个基于 tekton 之上的容器镜像框架，将各种镜像构建方式抽象成 K8S CRD 对象，提供统一的使用体验,在使用时不需要关心内部的一些具体细节，底层构建在 tekton 之上，目前是 CDF 孵化项目。</p>
+<p>shipwright 的核心价值观是 简单性，灵活性以及安全性。</p>
+<p>简单性意味着项目提供了镜像构建的直观且统一的用户体验，因此用户不必关心底层的一些内部具体细节。</p>
+<p>灵活性意味着shipwright封装了镜像构建的这一过程的同时提供了一些方式满足用户的需求，例如Parameters API和volumes参数等等。</p>
+<p>shipwright 的安全性始于构建策略API中内置的透明的 pod 安全上下文？特权容器和root容器， shipwright 本身发布的镜像使用cosign签名并且社区使用 trivy 来检测镜像漏洞。</p>
+<p><a href="https://shipwright.io/blog/2022/10/25/bringing-shipwright-to-beta-and-beyond/">https://shipwright.io/blog/2022/10/25/bringing-shipwright-to-beta-and-beyond/</a></p>
+<h1 id="关系">关系</h1>
+<p>一个 BuildRun 对应一个 TaskRun</p>
+<h1 id="主要内容">主要内容</h1>
+<p>主要有三个对象：</p>
+<ul>
+<li>BuildStrategy</li>
+<li>Build</li>
+<li>BuildRun</li>
+</ul>
+<p>其中 Build 和BuildRun的关系正如 Tekton 中 Task 和 TaskRun 的关系一样。也就是 Build 对象负责镜像构建动作的一些定义，而 BuildRun 是容器镜像构建的真正入口，创建了一个 BuildRun 对象时才会真正的开始容器镜像的构建。接下来了解一下三个对象主要负责的内容时什么:</p>
+<h2 id="buildstrategy">BuildStrategy</h2>
+<p>BuildStrategy 也就是构建策略，也就是通过什么方式来进行容器镜像的构建。</p>
+<p>目前支持的构建策略:</p>
+<ul>
+<li>buildpacks</li>
+<li>buildkit</li>
+<li>ko</li>
+<li>kaniko</li>
+<li>s2i</li>
+<li>builddah</li>
+</ul>
+<p>基本上是覆盖了常见的几种镜像构建方式,如果有一些特殊的镜像策略要扩展的话也可以通过定义一个BuildStrategy对象来执行自定义的shell的方式来达到目的。</p>
+<h2 id="build">Build</h2>
+<p>定义了镜像构建相关的一些上下文信息，主要是以下几个内容：</p>
+<p>Source Code：需要构建的容器镜像所对应的源码。
+Output image：构建容器镜像后的去处，例如镜像名称 版本，镜像label以及推送容器镜像所需要的认证信息等。
+Build Strategy：使用哪一种容器镜像构建策略来执行，也就是上述的 BuildStrategy 对象。</p>
+<p>还有一些其他内容：</p>
+<p>构建容器镜像时需要的参数，例如 ko 构建需要传递一些 go build 相关的参数。
+构建容器镜像时需要特定的持久化空间(volume),这个必须是构建策略支持传递 volume 并且支持重写，否则将会在 buildRun 时失败。 例如 ko 的volume支持重写，而 buildpacks 的 volume 不支持重写。 甚至有的构建策略没有可以传递的 volume。具体情况取决于实际需求，大部分情况下不需要关心 volume 这一块。 （构建缓存在shipwright是怎么样的，例如构建java应用，似乎更多的是编译缓存 而不是镜像构建缓存。）
+镜像构建完成后的一些清理工作，例如 镜像构建成功后多久清理 build/buildRun，最多保持多少个 build/buildRun 记录。</p>
+<p>todo： jib 方式的构建策略?</p>
+<h2 id="buildrun">BuildRun</h2>
+<p>只有创建了BuildRun对象才是真正开始容器镜像的构建，需要声明使用哪一个 Build 对象来执行。</p>
+<p>BuildRun对象同样支持构建对象的其他一些内容：
+构建容器镜像时需要的参数，例如 ko构建参数 xxxx , ko version, target-platform
+构建容器镜像时需要特定的持久化空间(volume),这个必须是构建策略支持传递 volume 并且支持重写，否则将会在 buildRun 时失败。 例如 ko 的volume支持重写，而 buildpacks 的 volume 不支持重写。 甚至有的构建策略 没有可以传递的 volume。
+镜像构建完成后的一些清理工作，例如 镜像构建成功后多久清理 build/buildRun，最多保持多少个 build/buildRun 记录。</p>
+<p>这部分内容如果 Build 对象也声明了那么会以 BuildRun 对象声明的内容为准，也就是会覆盖 Build 对象的声明。</p>
+<h1 id="简单尝试一下">简单尝试一下</h1>
+<p>选择 ko 方式进行容器镜像构建，ko是xxxxx</p>
+<p>容器镜像仓库选择 dockerhub，你也可以自己部署一个  distribution/zot 作为本地的容器镜像仓库。</p>
+<p>首先需要部署 shipwright，由于基于tekton，因此需要先部署 tekton，</p>
+<p>tekton
+kubectl apply -f <a href="https://storage.googleapis.com/tekton-releases/pipeline/previous/v0.44.0/release.yaml">https://storage.googleapis.com/tekton-releases/pipeline/previous/v0.44.0/release.yaml</a>
+shipwright
+kubectl apply -f <a href="https://github.com/shipwright-io/build/releases/download/nightly/nightly-2023-05-24-1684904969.yaml">https://github.com/shipwright-io/build/releases/download/nightly/nightly-2023-05-24-1684904969.yaml</a></p>
+<p>先 apply 对应的镜像构建策略</p>
+<p>kubectl apply -f <a href="https://github.com/shipwright-io/build/releases/download/v0.10.0/sample-strategies.yaml">https://github.com/shipwright-io/build/releases/download/v0.10.0/sample-strategies.yaml</a></p>
+<p>// git clone <a href="https://github.com/shipwright-io/build.git">https://github.com/shipwright-io/build.git</a>
+// kubectl apply -f build/samples/buildstrategy/ko</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">---
+<span style="color:#f92672">apiVersion</span>: <span style="color:#ae81ff">shipwright.io/v1alpha1</span>
+<span style="color:#f92672">kind</span>: <span style="color:#ae81ff">Build</span>
+<span style="color:#f92672">metadata</span>:
+  <span style="color:#f92672">name</span>: <span style="color:#ae81ff">ko-build</span>
+  <span style="color:#f92672">annotations</span>:
+    <span style="color:#f92672">build.shipwright.io/build-run-deletion</span>: <span style="color:#e6db74">&#34;false&#34;</span>
+<span style="color:#f92672">spec</span>:
+  <span style="color:#f92672">paramValues</span>:
+    - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">go-flags</span>
+      <span style="color:#f92672">value</span>: <span style="color:#e6db74">&#34;-v -mod=vendor -ldflags=-w&#34;</span>
+    - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">go-version</span>
+      <span style="color:#f92672">value</span>: <span style="color:#e6db74">&#34;1.19&#34;</span>
+    - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">package-directory</span>
+      <span style="color:#f92672">value</span>: <span style="color:#ae81ff">./cmd/shipwright-build-controller</span>
+  <span style="color:#f92672">source</span>:
+   <span style="color:#f92672">url</span>: <span style="color:#ae81ff">https://github.com/shipwright-io/build</span>
+  <span style="color:#f92672">strategy</span>:
+    <span style="color:#f92672">name</span>: <span style="color:#ae81ff">ko</span>
+    <span style="color:#f92672">kind</span>: <span style="color:#ae81ff">ClusterBuildStrategy</span>
+  <span style="color:#f92672">output</span>:
+    <span style="color:#f92672">image</span>: <span style="color:#ae81ff">lypgcs/shipwright-build</span>
+    <span style="color:#f92672">credentials</span>:
+      <span style="color:#f92672">name</span>: <span style="color:#ae81ff">push-secret</span>
+</code></pre></div><p>源码地址写的是 github.com,如果你的访问速度比较慢的话可以将 github.com 修改为 gitee.com,有我创建的用于同步代码的 shipwright-io 组织。</p>
+<p>目前不支持一次构建镜像推送到多个tag，例如 nightly 场景，构建了镜像 aaaa/bbb:20230524 以及 aaaa/bbb:latest</p>
+<p>等待构建中&hellip;.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">lan@lan:~/server/cdf/shipwright$ k get po
+NAME                                  READY   STATUS            RESTARTS   AGE
+ko-buildrun-tz7bm-pod                 0/4     Completed         <span style="color:#ae81ff">0</span>          8m
+lan@lan:~/server/cdf/shipwright$ shp buildrun list
+NAME                            STATUS          AGE
+ko-buildrun                     Succeeded       8m
+</code></pre></div><p>可以看到镜像已经构建完成了并且推送到了容器镜像仓库。
+TODO image from registry.</p>
+<p>看一下ko构建策略中 buildRun 创建出来的 taskRun 都有什么容器:</p>
+<p>k get pod ko-buildrun-tz7bm-pod -o jsonpath={.spec.containers[*].name}
+step-source-default step-prepare step-build-and-push step-image-processing</p>
+<p>可以看到主要有四个容器,而如果你尝试 buildpacks 构建策略时会发现只有三个容器，因此不同的构建策略默认的容器数量可能是不一样的。</p>
+<p>k get pod buildpack-nodejs-buildrun-76jnw-pod -o jsonpath={.spec.containers[*].name}
+step-source-default step-prepare step-build-and-push</p>
+<p>接下来丰富一下 Build/BuildRun 对象，希望构建时为镜像添加一些 label/annotations</p>
+<p>再次观察，可以看到 pod 内的容器从 3个 变成了 4个。</p>
+<p>ko 构建策略中创建出来的 pod 依然是 4 个容器，而 buildpacks 构建策略创建出来的 pod 的容器数量从3变成了4.</p>
+<p>step-source-default step-prepare step-build-and-push
+&ndash;&gt;
+step-source-default step-prepare step-build-and-push step-image-processing</p>
+<p>很明显这是利用了 tekton task 灵活组装的能力，当需要更多的能力时只需要添加对应的 task 就可以了。  ？？？ 需要这句话，可以从 taskRun 的角度看看，如果需要的话可以加上。</p>
+<p>稍等一下&hellip;</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">lan@lan:~/server/cdf/shipwright$ k get po
+NAME                                  READY   STATUS      RESTARTS   AGE
+ko-dztz4-7gjxr-pod                    0/4     Completed   <span style="color:#ae81ff">0</span>          19m
+ko-zrfps-4z4zp-pod                    0/4     Completed   <span style="color:#ae81ff">0</span>          41m
+</code></pre></div><p>好了，现在镜像构建完成了，使用 oras 命令查看一下镜像是否已经有刚才设置的  label/annotations 信息了。</p>
+<p>查看镜像的 labels 信息:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">lan@lan:~/server/cdf/shipwright$ oras manifest fetch index.docker.io/lypgcs/shipwright-trigger:test-labeled | jq .annotations
+<span style="color:#f92672">{</span>
+  <span style="color:#e6db74">&#34;org.opencontainers.image.base.digest&#34;</span>: <span style="color:#e6db74">&#34;sha256:90d72025de22146c02d80fd4712cc9de828ec279bc107d7b4561f42e71687b0a&#34;</span>,
+  <span style="color:#e6db74">&#34;org.opencontainers.image.base.name&#34;</span>: <span style="color:#e6db74">&#34;registry.access.redhat.com/ubi9/ubi-minimal:latest&#34;</span>,
+  <span style="color:#e6db74">&#34;org.opencontainers.image.source&#34;</span>: <span style="color:#e6db74">&#34;https://github.com/liangyuanpeng&#34;</span>,
+  <span style="color:#e6db74">&#34;org.opencontainers.image.url&#34;</span>: <span style="color:#e6db74">&#34;https://github.com/liangyuanpeng&#34;</span>
+<span style="color:#f92672">}</span>
+</code></pre></div><p>查看镜像的 annotations 信息:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">lan@lan:~/server/cdf/shipwright$ oras manifest fetch-config index.docker.io/lypgcs/shipwright-trigger:test-labeled | jq .config.Labels
+<span style="color:#f92672">{</span>
+  <span style="color:#e6db74">&#34;architecture&#34;</span>: <span style="color:#e6db74">&#34;x86_64&#34;</span>,
+  <span style="color:#e6db74">&#34;build-date&#34;</span>: <span style="color:#e6db74">&#34;2023-05-03T08:55:50&#34;</span>,
+  <span style="color:#e6db74">&#34;com.redhat.component&#34;</span>: <span style="color:#e6db74">&#34;ubi9-minimal-container&#34;</span>,
+  <span style="color:#e6db74">&#34;com.redhat.license_terms&#34;</span>: <span style="color:#e6db74">&#34;https://www.redhat.com/en/about/red-hat-end-user-license-agreements#UBI&#34;</span>,
+  <span style="color:#e6db74">&#34;description&#34;</span>: <span style="color:#e6db74">&#34;This is my cool image&#34;</span>,
+  <span style="color:#e6db74">&#34;maintainer&#34;</span>: <span style="color:#e6db74">&#34;liangyuanpeng&#34;</span>,
+  <span style="color:#e6db74">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;ubi9-minimal&#34;</span>,
+  <span style="color:#e6db74">&#34;release&#34;</span>: <span style="color:#e6db74">&#34;484&#34;</span>,
+  <span style="color:#e6db74">&#34;summary&#34;</span>: <span style="color:#e6db74">&#34;Provides the latest release of the minimal Red Hat Universal Base Image 9.&#34;</span>,
+  <span style="color:#e6db74">&#34;url&#34;</span>: <span style="color:#e6db74">&#34;https://access.redhat.com/containers/#/registry.access.redhat.com/ubi9-minimal/images/9.2-484&#34;</span>,
+  <span style="color:#e6db74">&#34;vendor&#34;</span>: <span style="color:#e6db74">&#34;Red Hat, Inc.&#34;</span>,
+  <span style="color:#e6db74">&#34;version&#34;</span>: <span style="color:#e6db74">&#34;9.2&#34;</span>
+<span style="color:#f92672">}</span>
+</code></pre></div><p>可以看到镜像包含了刚才设置的 labels 和 annotations。</p>
+<h1 id="用例">用例</h1>
+<h2 id="openfunction">openfunction</h2>
+<p>openfunction 是&hellip;</p>
+<p>openfunction 使用 shipwright 构建容器镜像</p>
+<h2 id="openshift-builds">OpenShift Builds?</h2>
+<h1 id="triggers-组件">triggers 组件</h1>
+<p>shipwright triggers 组件希望将shipwright连接到更庞大的生态系统，例如通过和 CDEvents，ArgoCD集成等等。</p>
+<h1 id="总结">总结</h1>
+<p>基本上 shipwright 专注于容器镜像构建这一件事情上，上述讲述了 shipwright 最核心的内容，同时shipwright还有一个正在开发中的 triggers 组件，用于更好的集成？ 例如 github webhook来触发容器镜像构建，实际的场景是有的，例如PR合并后开始构建对应的容器镜像。</p>
+<p>实现了 Tekton CustomRun，可以直接作为 Tekton Task 运行在 TaskRun 和 pipeline 当中，因此可以在一个更大的 pipeline 中结合 shipwright 提供的容器镜像构建能力完成更多的玩法。</p>
+<p>类似于，当某个 Tekton Task 完成时开始构建镜像，然后当构建镜像完成之后使用 cosign 或其他工具为容器镜像签名，以完善企业内的软件供应链安全。</p>
+<h2 id="更多的想象空间">更多的想象空间</h2>
+<p>当前的 shipwright triggers 还处于早期阶段，不过已经可以作为 Tekton CustomRun 完美的结合在 Tekton Pipeline/Task 当中了。</p>
+<p>未来shipwright trigger 本身还会支持一些构建镜像相关的功能，而不是让用户去操作 Tekton，从而提供给好的用户体验。</p>
+<ul>
+<li>Build 对象之间的 trigger，例如 当容器镜像A构建完成后开始构建容器镜像B， (镜像AB之间可能有一些依赖关系)</li>
+<li>容器镜像构建完成后利用cosign为容器镜像签名</li>
+</ul>
+<h1 id="参考">参考</h1>
+<p><a href="https://blog.csdn.net/CCqwas/article/details/123585067">https://blog.csdn.net/CCqwas/article/details/123585067</a></p>
+
+
+        <h2>微信公众号</h2>
+<p>扫描下面的二维码关注我们的微信公众号,第一时间查看最新内容。同时也可以关注我的Github,看看我都在了解什么技术,在页面底部可以找到我的Github。</p>
+<img  src="/img/qrcode_for_sikekafeidou.jpg" alt="wechat-qrcode">
+
+        <div style="padding: 10px 0; margin: 20px auto; width: 100%; font-size:16px; text-align: center;">
+    <button class="btn btn-danger"  id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+        <span>「来都来了」赞赏</span></button>
+    <div  id="QR" style="display: none;">
+        <div id="wechat" style="display: inline-block">
+            <p>如果本文对你有帮助的话欢迎通过微信或支付宝对我进行赞助,强烈建议你在支付的备注上填上你的 githubID 或你的昵称,让我知道我该感谢谁!!! </br></br>
+                赞助金额设置为固定金额:8元. </br> 
+                8元赠与我,发发发反馈给你,2023祝你收入翻番一路发到底:)</p>
+            <a class="fancybox" rel="group">
+                <img id="wechat_qr" src="/img/wechat-zhifubao.png" alt="Pay"></a>
+        </div>
+    </div>
+</div>
+
+        
+
+                <hr>
+
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/post/question-list-of-etcd/" data-toggle="tooltip" data-placement="top" title="[长期更新]etcd常见问题以及配置记录,欢迎投稿.">&larr; [长期更新]etcd常见问题以及配置记录,欢迎投稿.</a>
+                    </li>
+                    
+                    
+                    <li class="next">
+                        <a href="/post/cloudnative-ci-of-argo-workflow/" data-toggle="tooltip" data-placement="top" title="argoworkflow 云原生工作流引擎">argoworkflow 云原生工作流引擎 &rarr;</a>
+                    </li>
+                    
+                </ul>
+
+            
+
+
+<script src="https://giscus.app/client.js"
+        data-repo="liangyuanpeng/liangyuanpeng.github.io"
+        data-repo-id="MDEwOlJlcG9zaXRvcnkxNDkwMDQ2OTM="
+        data-category=""
+        data-category-id="DIC_kwDOCOGhlc4CVwo2"
+        data-mapping="title"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="top"
+        data-theme="light"
+        data-lang="zh-CN"
+        crossorigin="anonymous"
+        async>
+</script>
+
+
+
+
+            </div>
+
+            
+
+            <div class="
+                col-lg-2 col-lg-offset-0
+                visible-lg-block
+                sidebar-container
+                catalog-container">
+                
+                扫码下面二维码加我微信 :)
+                <img src="https://liangyuanpeng.github.io/img/aboutme/wechat-lan.png" />
+                
+            </div> 
+
+            
+
+            
+            
+            
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                
+                
+<br/>
+<h5>开源项目推荐</h5>
+
+<style type="text/css">
+.pinned-repos {
+  max-width: 300px;
+  margin: 0 auto;
+}
+
+.repo-card {
+  display: flex;
+  flex-direction: column;
+  padding: 16px;
+  border: 1px solid #e1e4e8;
+  border-radius: 6px;
+  background-color: #fff;
+}
+
+.repo-card:hover {
+  box-shadow: 0 1px 3px rgba(36,41,46,.08);
+}
+
+.repo-card h2 {
+  margin-top: 0;
+  font-size: 20px;
+  font-weight: 200;
+  color: #0366d6;
+}
+
+.repo-card p {
+  margin: 8px 0 16px;
+  font-size: 14px;
+  color: #586069;
+}
+
+.repo-card-stats {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;  
+}
+
+.repo-card-stats span {
+  font-size: 12px;
+  color: #586069;
+  margin-right: 16px;
+}
+
+.repo-card-stats strong {
+  font-weight: 200;
+  color: #24292e;
+}
+</style>
+
+    
+    <ul class="margin-bottom: 25px;pinned-repo-list">
+      <li>
+        <div class="repo-card">
+          <div class="repo-card-details">
+            <h2><a href="https://github.com/liangyuanpeng/replacer">replacer</a></h2>
+            <p>K8S webhook的参考实现|Replace container image of kubernetes mutate webhook.</p>
+            <div class="repo-card-stats">
+              <span>Language: <strong>Golang</strong></span>
+              <span>Forks: <strong>*</strong></span>
+              <span>Stars: <strong>*</strong></span>
+              <span>Updated: <strong>Nov 20, 2021</strong></span>
+            </div>
+          </div>
+        </div>
+      </li>
+    </ul>
+
+            </div>
+
+            
+            
+            <div class="
+            col-lg- col-lg-offset-2
+            col-md-10 col-md-offset-1
+            ">
+            <section>
+                <hr class="hidden-sm hidden-xs">
+                
+
+<h2>相关文章</h2>
+<ul style="margin-bottom: 25px;">
+    
+    <li><a href="/post/jfrog-grants-open-source-pyrsia-to-cd-foundation/">JFrog 向 CD 基金会授予开源 Pyrsia</a></li>
+    
+    <li><a href="/post/importance-of-open-source-in-high-compliance-organizations/">开源在高度合规组织中的重要性</a></li>
+    
+    <li><a href="/post/cdf-new-project-shipwright/">CDF(持续交付基金会)欢迎基于k8s构建容器镜像的框架Shipwright作为新的孵化项目</a></li>
+    
+</ul>
+
+            </section>
+            </div>
+            
+
+            
+
+
+        </div>
+    </div>
+</article>
+
+
+
+
+
+
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                   
+                   <li>
+                       <a href="" rel="alternate" type="application/rss+xml" title="Hi,I`m lan" >
+                           <span class="fa-stack fa-lg">
+                               <i class="fa fa-circle fa-stack-2x"></i>
+                               <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+                           </span>
+                       </a>
+                   </li>
+                   
+                    
+                    <li>
+                        <a target="_blank" href="https://github.com/liangyuanpeng">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                   
+                   
+                    
+                    <li>
+                        <a target="_blank" href="https://liangyuanpeng.github.io/img/aboutme/wechat-lan.png">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-wechat fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li>
+                        <a href="mailto:liangyuanpengem@163.com">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+		    
+
+                    
+                    <li>
+                        <a href="https://twitter.com/lan31793328">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li>
+                        <a target="_blank" href="https://www.zhihu.com/people/liangyuanpeng">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa  fa-stack-1x fa-inverse">知</i>
+                            </span>
+                        </a>
+                    </li>
+		    
+                    
+                    <li>
+                        <a target="_blank" href="https://weibo.com/u/1908782280">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+		    
+
+                    
+
+		    
+                    
+                </ul>
+		<p class="copyright text-muted">
+                    Copyright &copy; Hi,I`m lan , 2023
+                    <br>
+                    <a href="https://themes.gohugo.io/hugo-theme-cleanwhite">CleanWhite Hugo Theme</a> by <a href="https://zhaohuabing.com">Huabing</a> |
+                    <iframe
+                        style="margin-left: 2px; margin-bottom:-5px;"
+                        frameborder="0" scrolling="0" width="100px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=zhaohuabing&repo=hugo-theme-cleanwhite&type=star&count=true" >
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+
+<script>
+    function loadAsync(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+
+
+
+
+
+<script>
+    
+    if($('#tag_cloud').length !== 0){
+        async("/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+
+
+
+<script type="text/javascript">
+
+    
+    
+
+    function generateCatalog(selector) {
+
+        
+        
+        
+        
+            _containerSelector = 'div.post-container'
+        
+
+        
+        var P = $(_containerSelector), a, n, t, l, i, c;
+        a = P.find('h1,h2,h3,h4,h5,h6');
+
+        
+        $(selector).html('')
+
+        
+        a.each(function () {
+            n = $(this).prop('tagName').toLowerCase();
+            i = "#" + $(this).prop('id');
+            t = $(this).text();
+            c = $('<a href="' + i + '" rel="nofollow">' + t + '</a>');
+            l = $('<li class="' + n + '_nav"></li>').append(c);
+            $(selector).append(l);
+        });
+        return true;
+    }
+
+    generateCatalog(".catalog-body");
+
+    
+    $(".catalog-toggle").click((function (e) {
+        e.preventDefault();
+        $('.side-catalog').toggleClass("fold")
+    }))
+
+    
+
+
+    loadAsync("\/js\/jquery.nav.js", function () {
+        $('.catalog-body').onePageNav({
+            currentClass: "active",
+            changeHash: !1,
+            easing: "swing",
+            filter: "",
+            scrollSpeed: 700,
+            scrollOffset: 0,
+            scrollThreshold: .2,
+            begin: null,
+            end: null,
+            scrollChange: null,
+            padding: 80
+        });
+    });
+</script>
+
+
+
+
+<script>
+    async("/js/fastclick-1.0.6.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+
+
+<script>
+    
+    var _baId = 'fad9c137f8ce239f9b323d36c871f8e6';
+
+    
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?" + _baId;
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+
+
+
+
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-RTTRHGYFWL"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-RTTRHGYFWL');
+</script>
+
+
+
+</body>
+</html>

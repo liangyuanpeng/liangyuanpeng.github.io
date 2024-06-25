@@ -164,6 +164,1202 @@
 
 
 <div class="post-preview">
+    <a href="https://liangyuanpeng.github.io/post/pull-gcr-k8s-image-with-lank8s/">
+        <h2 class="post-title">
+
+            
+
+            
+                
+                    
+                
+                    
+                
+                    
+                    <img style="display:inline-block;" src="/img/taglogo/emoji_k8s_loft.gif" height="20" width="20" />
+                    
+                
+            
+                
+                    
+                
+                    
+                    <img style="display:inline-block;" src="/img/taglogo/cncf/cncf.png" height="20" width="20" />
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+            
+
+            国内环境拉取gcr和k8s镜像
+        </h2>
+        
+	
+        <div class="post-content-preview">
+	
+            前言 本文接下来所有配置都是基于 lank8s服务来做的. 在习惯了 kind 创建 kubernetes 集群后再次尝试了另外的搭建 kubernetes 集群工具: Talos 和 K0s,深深的感受到 Kind 将常用
+       
+        </div>
+    </a>
+    <p class="post-meta">
+    Posted by 梁远鹏 2023-02-22 
+    </p>
+</div>
+<hr>
+
+
+
+<div class="post-preview">
+    <a href="https://liangyuanpeng.github.io/post/k8s-app-dev-with-envoy/">
+        <h2 class="post-title">
+
+            
+
+            
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                    <img style="display:inline-block;" src="/img/taglogo/cncf/cncf.png" height="20" width="20" />
+                    
+                
+            
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                    <img style="display:inline-block;" src="/img/taglogo/envoy.png" height="20" width="20" />
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+            
+
+            基于Envoy搭建K8S应用开发环境
+        </h2>
+        
+	
+        <div class="post-content-preview">
+	
+            目前我在研究kubeapiserver时就是使用envoy来做L4代理
+            
+        
+        </div>
+    </a>
+    <p class="post-meta">
+    Posted by 梁远鹏 2023-02-19 
+    </p>
+</div>
+<hr>
+
+
+
+<div class="post-preview">
+    <a href="https://liangyuanpeng.github.io/post/envoy-faq/">
+        <h2 class="post-title">
+
+            
+
+            
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                    <img style="display:inline-block;" src="/img/taglogo/cncf/cncf.png" height="20" width="20" />
+                    
+                
+            
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                    <img style="display:inline-block;" src="/img/taglogo/envoy.png" height="20" width="20" />
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+            
+
+            [长期更新]envoy常用
+        </h2>
+        
+	
+        <div class="post-content-preview">
+	
+            说明 本文主要收集常见场景下 Envoy 的配置以及遇到的一些常见问题,欢迎对本文进行投稿你认为好的场景配置或问题. 官方文档 https://www.envoyproxy.io/docs/envoy/v1.26.0/ 注意: 上述地址文档对应env
+       
+        </div>
+    </a>
+    <p class="post-meta">
+    Posted by 梁远鹏 2023-02-16 
+    </p>
+</div>
+<hr>
+
+
+
+<div class="post-preview">
+    <a href="https://liangyuanpeng.github.io/post/k8s-component-config-note-long-term/">
+        <h2 class="post-title">
+
+            
+
+            
+                
+                    
+                
+                    
+                
+                    
+                    <img style="display:inline-block;" src="/img/taglogo/emoji_k8s_loft.gif" height="20" width="20" />
+                    
+                
+            
+                
+                    
+                
+                    
+                    <img style="display:inline-block;" src="/img/taglogo/cncf/cncf.png" height="20" width="20" />
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+            
+
+            [长期更新]k8s组件常用参数
+        </h2>
+        
+	
+        <div class="post-content-preview">
+	
+            k8s组件常用参数以及配置记录,欢迎投稿.
+            
+        
+        </div>
+    </a>
+    <p class="post-meta">
+    Posted by 梁远鹏 2023-02-16 
+    </p>
+</div>
+<hr>
+
+
+
+<div class="post-preview">
+    <a href="https://liangyuanpeng.github.io/post/frozen-for-k8s-gcr-io/">
+        <h2 class="post-title">
+
+            
+
+            
+                
+                    
+                
+                    
+                
+                    
+                    <img style="display:inline-block;" src="/img/taglogo/emoji_k8s_loft.gif" height="20" width="20" />
+                    
+                
+            
+                
+                    
+                
+                    
+                    <img style="display:inline-block;" src="/img/taglogo/cncf/cncf.png" height="20" width="20" />
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+            
+
+            k8s.gcr.io注册表完全冻结
+        </h2>
+        
+	
+        <div class="post-content-preview">
+	
+            前言 k8s.gcr.io 这个注册表将会在 2023年4月3日完全冻结,新的注册表地址为 registry.k8s.io,在2022年11月28日官方就已经发布了一
+       
+        </div>
+    </a>
+    <p class="post-meta">
+    Posted by 梁远鹏 2023-02-11 
+    </p>
+</div>
+<hr>
+
+
+
+<div class="post-preview">
     <a href="https://liangyuanpeng.github.io/post/registry-mirrors-of-harbor/">
         <h2 class="post-title">
 
@@ -907,6 +2103,8 @@
                     <img style="display:inline-block;" src="/img/taglogo/emoji_k8s_loft.gif" height="20" width="20" />
                     
                 
+                    
+                
             
                 
                     
@@ -919,27 +2117,11 @@
                 
                     
                 
-            
-                
-                    
-                
-                    
-                
-                    
-                
                     
                 
             
                 
                     
-                
-                    
-                
-                    
-                
-                    
-                
-            
                 
                     
                 
@@ -959,27 +2141,11 @@
                 
                     
                 
-            
-                
-                    
-                
-                    
-                
-                    
-                
                     
                 
             
                 
                     
-                
-                    
-                
-                    
-                
-                    
-                
-            
                 
                     
                 
@@ -999,27 +2165,11 @@
                 
                     
                 
-            
-                
-                    
-                
-                    
-                
-                    
-                
                     
                 
             
                 
                     
-                
-                    
-                
-                    
-                
-                    
-                
-            
                 
                     
                 
@@ -1039,27 +2189,11 @@
                 
                     
                 
-            
-                
-                    
-                
-                    
-                
-                    
-                
                     
                 
             
                 
                     
-                
-                    
-                
-                    
-                
-                    
-                
-            
                 
                     
                 
@@ -1079,27 +2213,11 @@
                 
                     
                 
-            
-                
-                    
-                
-                    
-                
-                    
-                
                     
                 
             
                 
                     
-                
-                    
-                
-                    
-                
-                    
-                
-            
                 
                     
                 
@@ -1119,27 +2237,11 @@
                 
                     
                 
-            
-                
-                    
-                
-                    
-                
-                    
-                
                     
                 
             
                 
                     
-                
-                    
-                
-                    
-                
-                    
-                
-            
                 
                     
                 
@@ -1159,14 +2261,6 @@
                 
                     
                 
-            
-                
-                    
-                
-                    
-                
-                    
-                
                     
                 
             
@@ -1179,7 +2273,167 @@
                 
                     
                 
+                    
+                
             
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
                 
                     
                 
@@ -1589,1142 +2843,6 @@
 
 
 
-<div class="post-preview">
-    <a href="https://liangyuanpeng.github.io/post/ennoy-wasm-filter-with-go/">
-        <h2 class="post-title">
-
-            
-
-            
-                
-                    
-                
-                    
-                
-                    
-                
-            
-                
-                    
-                
-                    
-                    <img style="display:inline-block;" src="/img/taglogo/cncf/cncf.png" height="20" width="20" />
-                    
-                
-                    
-                
-            
-                
-                    
-                
-                    
-                
-                    
-                
-            
-                
-                    
-                
-                    
-                
-                    
-                
-            
-                
-                    
-                
-                    
-                
-                    
-                
-            
-                
-                    
-                
-                    
-                
-                    
-                
-            
-                
-                    
-                
-                    
-                
-                    
-                    <img style="display:inline-block;" src="/img/taglogo/golang_mic_drop.png" height="20" width="20" />
-                    
-                
-            
-                
-                    
-                
-                    
-                
-                    
-                
-            
-                
-                    
-                
-                    
-                
-                    
-                
-            
-                
-                    
-                
-                    
-                
-                    
-                
-            
-                
-                    
-                
-                    
-                
-                    
-                
-            
-                
-                    
-                    <img style="display:inline-block;" src="/img/taglogo/envoy.png" height="20" width="20" />
-                    
-                
-                    
-                
-                    
-                
-            
-                
-                    
-                
-                    
-                
-                    
-                
-            
-                
-                    
-                
-                    
-                
-                    
-                
-            
-                
-                    
-                
-                    
-                
-                    
-                
-            
-                
-                    
-                
-                    
-                
-                    
-                
-            
-                
-                    
-                
-                    
-                
-                    
-                
-            
-                
-                    
-                
-                    
-                
-                    
-                
-            
-                
-                    
-                
-                    
-                
-                    
-                
-            
-                
-                    
-                
-                    
-                
-                    
-                
-            
-                
-                    
-                
-                    
-                
-                    
-                
-            
-                
-                    
-                
-                    
-                
-                    
-                
-            
-                
-                    
-                
-                    
-                
-                    
-                
-            
-                
-                    
-                
-                    
-                
-                    
-                
-            
-                
-                    
-                
-                    
-                
-                    
-                
-            
-                
-                    
-                
-                    
-                
-                    
-                
-            
-                
-                    
-                
-                    
-                
-                    
-                
-            
-                
-                    
-                
-                    
-                
-                    
-                
-            
-                
-                    
-                
-                    
-                
-                    
-                
-            
-
-            用GO开发Envoy wasm filter
-        </h2>
-        
-	
-        <div class="post-content-preview">
-	
-            目标 总结
-       
-        </div>
-    </a>
-    <p class="post-meta">
-    Posted by 梁远鹏 2022-03-20 
-    </p>
-</div>
-<hr>
-
-
-
-<div class="post-preview">
-    <a href="https://liangyuanpeng.github.io/post/ennoy-wasm-filter-with-rust/">
-        <h2 class="post-title">
-
-            
-
-            
-                
-                    
-                
-                    
-                
-                    
-                
-            
-                
-                    
-                
-                    
-                    <img style="display:inline-block;" src="/img/taglogo/cncf/cncf.png" height="20" width="20" />
-                    
-                
-                    
-                
-            
-                
-                    
-                
-                    
-                
-                    
-                
-            
-                
-                    
-                
-                    
-                
-                    
-                
-            
-                
-                    
-                
-                    
-                
-                    
-                
-            
-                
-                    
-                
-                    
-                
-                    
-                
-            
-                
-                    
-                
-                    
-                
-                    
-                
-            
-                
-                    
-                
-                    
-                
-                    
-                
-            
-                
-                    
-                
-                    
-                
-                    
-                    <img style="display:inline-block;" src="/img/taglogo/rust.png" height="20" width="20" />
-                    
-                
-            
-                
-                    
-                
-                    
-                
-                    
-                
-            
-                
-                    
-                
-                    
-                
-                    
-                
-            
-                
-                    
-                    <img style="display:inline-block;" src="/img/taglogo/envoy.png" height="20" width="20" />
-                    
-                
-                    
-                
-                    
-                
-            
-                
-                    
-                
-                    
-                
-                    
-                
-            
-                
-                    
-                
-                    
-                
-                    
-                
-            
-                
-                    
-                
-                    
-                
-                    
-                
-            
-                
-                    
-                
-                    
-                
-                    
-                
-            
-                
-                    
-                
-                    
-                
-                    
-                
-            
-                
-                    
-                
-                    
-                
-                    
-                
-            
-                
-                    
-                
-                    
-                
-                    
-                
-            
-                
-                    
-                
-                    
-                
-                    
-                
-            
-                
-                    
-                
-                    
-                
-                    
-                
-            
-                
-                    
-                
-                    
-                
-                    
-                
-            
-                
-                    
-                
-                    
-                
-                    
-                
-            
-                
-                    
-                
-                    
-                
-                    
-                
-            
-                
-                    
-                
-                    
-                
-                    
-                
-            
-                
-                    
-                
-                    
-                
-                    
-                
-            
-                
-                    
-                
-                    
-                
-                    
-                
-            
-                
-                    
-                
-                    
-                
-                    
-                
-            
-                
-                    
-                
-                    
-                
-                    
-                
-            
-
-            用Rust开发Envoy wasm filter
-        </h2>
-        
-	
-        <div class="post-content-preview">
-	
-            目标 用WASM filter实现WWW-Authenticate认证,并且支持配置域名白名单和URL白名单. 了解envoy-wasm-rust
-       
-        </div>
-    </a>
-    <p class="post-meta">
-    Posted by 梁远鹏 2022-03-20 
-    </p>
-</div>
-<hr>
-
-
-
-<div class="post-preview">
-    <a href="https://liangyuanpeng.github.io/post/quick-start-openebs/">
-        <h2 class="post-title">
-
-            
-
-            
-                
-                    
-                
-                    
-                
-                    
-                
-            
-                
-                    
-                
-                    
-                    <img style="display:inline-block;" src="/img/taglogo/cncf/cncf.png" height="20" width="20" />
-                    
-                
-                    
-                
-            
-                
-                    
-                
-                    
-                
-                    
-                
-            
-                
-                    
-                
-                    
-                
-                    
-                
-            
-                
-                    
-                
-                    
-                
-                    
-                
-            
-                
-                    
-                
-                    
-                
-                    
-                
-            
-                
-                    
-                
-                    
-                
-                    
-                
-            
-                
-                    
-                
-                    
-                
-                    
-                
-            
-                
-                    
-                
-                    
-                
-                    
-                
-            
-                
-                    
-                
-                    
-                
-                    
-                
-            
-                
-                    
-                
-                    
-                
-                    
-                
-            
-                
-                    
-                
-                    
-                
-                    
-                
-            
-                
-                    
-                
-                    
-                
-                    
-                
-            
-                
-                    
-                
-                    
-                
-                    
-                
-            
-                
-                    
-                
-                    
-                
-                    
-                
-            
-                
-                    
-                
-                    
-                
-                    
-                
-            
-                
-                    
-                
-                    
-                
-                    
-                
-            
-                
-                    
-                
-                    
-                
-                    
-                
-            
-                
-                    
-                
-                    
-                
-                    
-                
-            
-                
-                    
-                
-                    
-                
-                    
-                    <img style="display:inline-block;" src="/img/taglogo/helm.png" height="20" width="20" />
-                    
-                
-            
-                
-                    
-                
-                    
-                
-                    
-                
-            
-                
-                    
-                
-                    
-                
-                    
-                
-            
-                
-                    
-                
-                    
-                
-                    
-                
-            
-                
-                    
-                
-                    
-                
-                    
-                
-            
-                
-                    
-                
-                    
-                
-                    
-                
-            
-                
-                    
-                
-                    
-                
-                    
-                
-            
-                
-                    
-                
-                    
-                
-                    
-                
-            
-                
-                    
-                
-                    
-                
-                    
-                
-            
-                
-                    
-                
-                    
-                
-                    
-                
-            
-
-            快速开始OpenEBS
-        </h2>
-        
-	
-        <div class="post-content-preview">
-	
-            前言 前提 使用OpenEBS需要机器已经安装了iSCSI 已经安装了kubernetes ubuntu可以用下面的命令安装和开启: sudo apt-get update sudo apt-get install open-iscsi sudo
-       
-        </div>
-    </a>
-    <p class="post-meta">
-    Posted by 梁远鹏 2022-01-02 
-    </p>
-</div>
-<hr>
-
-
-
-<div class="post-preview">
-    <a href="https://liangyuanpeng.github.io/post/litmus-chaos-incubation-coming/">
-        <h2 class="post-title">
-
-            
-
-            
-                
-                    
-                
-            
-                
-                    
-                    <img style="display:inline-block;" src="/img/taglogo/cncf/cncf.png" height="20" width="20" />
-                    
-                
-            
-                
-                    
-                
-            
-                
-                    
-                
-            
-                
-                    
-                
-            
-                
-                    
-                
-            
-                
-                    
-                
-            
-                
-                    
-                
-            
-                
-                    
-                
-            
-                
-                    
-                
-            
-                
-                    
-                
-            
-                
-                    
-                
-            
-                
-                    
-                
-            
-                
-                    
-                
-            
-                
-                    
-                
-            
-                
-                    
-                
-            
-                
-                    
-                
-            
-                
-                    
-                
-            
-                
-                    
-                
-            
-                
-                    
-                
-            
-                
-                    
-                
-            
-                
-                    
-                
-            
-                
-                    
-                
-            
-                
-                    
-                
-            
-                
-                    
-                
-            
-                
-                    
-                
-            
-                
-                    
-                
-            
-                
-                    
-                
-            
-                
-                    
-                
-            
-
-            LitmusChaos即将进入孵化阶段
-        </h2>
-        
-	
-        <div class="post-content-preview">
-	
-            即将毕业的LitmusChaos 目前 LitmusChaos 项目正在进入孵化投票阶段,相信很快就会宣布正式成为孵化项目. 投票详情见:https://lists.c
-       
-        </div>
-    </a>
-    <p class="post-meta">
-    Posted by 梁远鹏 2021-12-23 
-    </p>
-</div>
-<hr>
-
-
-
-<div class="post-preview">
-    <a href="https://liangyuanpeng.github.io/post/openelb-cncf-sanbox/">
-        <h2 class="post-title">
-
-            
-
-            
-                
-                    
-                
-                    
-                
-            
-                
-                    
-                    <img style="display:inline-block;" src="/img/taglogo/cncf/cncf.png" height="20" width="20" />
-                    
-                
-                    
-                
-            
-                
-                    
-                
-                    
-                
-            
-                
-                    
-                
-                    
-                
-            
-                
-                    
-                
-                    
-                
-            
-                
-                    
-                
-                    
-                
-            
-                
-                    
-                
-                    
-                
-            
-                
-                    
-                
-                    
-                
-            
-                
-                    
-                
-                    
-                
-            
-                
-                    
-                
-                    
-                
-            
-                
-                    
-                
-                    
-                
-            
-                
-                    
-                
-                    
-                
-            
-                
-                    
-                
-                    
-                
-            
-                
-                    
-                
-                    
-                
-            
-                
-                    
-                
-                    
-                
-            
-                
-                    
-                
-                    
-                
-            
-                
-                    
-                
-                    
-                
-            
-                
-                    
-                
-                    
-                
-            
-                
-                    
-                
-                    
-                
-            
-                
-                    
-                
-                    
-                
-            
-                
-                    
-                
-                    
-                
-            
-                
-                    
-                
-                    
-                
-            
-                
-                    
-                
-                    
-                
-            
-                
-                    
-                
-                    
-                
-            
-                
-                    
-                
-                    
-                
-            
-                
-                    
-                
-                    
-                
-            
-                
-                    
-                
-                    
-                
-            
-                
-                    
-                
-                    
-                
-            
-                
-                    
-                
-                    
-                
-            
-
-            OpenELB进入CNCF沙箱项目
-        </h2>
-        
-	
-        <div class="post-content-preview">
-	
-            OpenELB是什么 在 Kubernetes 的世界中有三中 service类型,ClusterIP、NodePort 和 LoadBalancer. 而 LoadBalancer 类型一般情况下只有云厂商才会提供这种类
-       
-        </div>
-    </a>
-    <p class="post-meta">
-    Posted by 梁远鹏 2021-12-23 
-    </p>
-</div>
-<hr>
-
-
-
 
 <script type="text/javascript">
     function init(){
@@ -2899,6 +3017,10 @@
                  
              
                  
+                     <a href="/tags/argo" title="argo">
+                         argo
+                     </a>
+                 
              
                  
              
@@ -2928,6 +3050,8 @@
                      <a href="/tags/cdf" title="cdf">
                          cdf
                      </a>
+                 
+             
                  
              
                  
@@ -3075,6 +3199,8 @@
                  
              
                  
+             
+                 
                      <a href="/tags/helm" title="helm">
                          helm
                      </a>
@@ -3102,6 +3228,8 @@
                      <a href="/tags/java" title="java">
                          java
                      </a>
+                 
+             
                  
              
                  
@@ -3158,6 +3286,10 @@
                      </a>
                  
              
+                 
+                     <a href="/tags/kubernetes-sigs" title="kubernetes-sigs">
+                         kubernetes-sigs
+                     </a>
                  
              
                  
@@ -3311,6 +3443,10 @@
                  
              
                  
+                     <a href="/tags/tekton" title="tekton">
+                         tekton
+                     </a>
+                 
              
                  
              
@@ -3362,6 +3498,8 @@
                      <a href="/tags/%E7%BF%BB%E8%AF%91" title="翻译">
                          翻译
                      </a>
+                 
+             
                  
              
                  

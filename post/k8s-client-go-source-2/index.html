@@ -551,7 +551,7 @@
 
 
 
-                            阅读 </span></span>|<span class="post-date">共3773字</span>，阅读约<span class="more-meta"> 8 分钟</span>
+                            阅读 </span></span>|<span class="post-date">共3624字</span>，阅读约<span class="more-meta"> 8 分钟</span>
                         
                     </span>
                 </div>
@@ -594,7 +594,7 @@
 		<blockquote>
 <p>简介：云原生社区活动&mdash;Kubernetes 源码剖析第一期第二周</p>
 </blockquote>
-<p>本周是 K8S 源码研习社第一期第二周，学习内容是学习Informer机制，本文以这个课题进行展开。</p>
+<p>本周是 K8S 源码研习社第一期第二周，学习内容是学习 Informer 机制，本文以这个课题进行展开。</p>
 <p>本周研习社社长挺忙的，将本次课程推迟到下一周结束，任何事情都是这样，计划总有可能会被其他事情打破，但最终只要能够回归到对应的主线上，就不是什么问题。就像参与开源一样，最开始的开放源代码只是开始，需要的是能够坚持下去，而这一点往往是很重要的。</p>
 <p>好了，开始正文。</p>
 <p>本文主题：</p>
@@ -613,14 +613,14 @@
 <p>Indexer理解</p>
 </li>
 </ol>
-<p>如果涉及到资源的内容，本文以Deployment资源进行相关内容讲述。</p>
+<p>如果涉及到资源的内容，本文以 Deployment 资源进行相关内容讲述。</p>
 <h3 id="heading"></h3>
-<p>Informer机制架构设计总览</p>
+<p>Informer 机制架构设计总览</p>
 <p>下面是我根据理解画的一个数据流转图,从全局视角看一下数据的整体走向是怎么样的。</p>
 <p>其中虚线的表示的是代码中的方法。</p>
 <p><img src="https://pic2.zhimg.com/v2-4bf49a913751912a8d8fc6f0a5779ec5_b.jpeg" alt=""></p>
 <p>首先讲一个结论：</p>
-<p>通过Informer机制获取数据的情况下，在初始化的时候会从Kubernetes API Server获取对应Resource的全部Object，后续只会通过Watch机制接收API Server推送过来的数据，不会再主动从API Server拉取数据，直接使用本地缓存中的数据以减少API Server的压力。</p>
+<p>通过 Informer 机制获取数据的情况下，在初始化的时候会从 Kubernetes API Server 获取对应 Resource 的全部 Object，后续只会通过Watch机制接收 API Server 推送过来的数据，不会再主动从 API Server 拉取数据，直接使用本地缓存中的数据以减少API Server的压力。</p>
 <p>Watch机制基于HTTP的Chunk实现，维护一个长连接，这是一个优化点，减少请求的数据量。第二个优化点是SharedInformer,它可以让同一种资源使用的是同一个Informer，例如v1版本的Deployment和v1beta1版本的Deployment同时存在的时候，共享一个Informer。</p>
 <p>上面图中可以看到Informer分为三个部分，可以理解为三大逻辑。</p>
 <p>其中Reflector主要是把从API Server数据获取到的数据放到DeltaFIFO队列中，充当生产者角色。</p>
@@ -630,81 +630,81 @@
 <p>Reflector理解</p>
 <p>Reflector中主要看Run、ListAndWatch、watchHandler三个地方就足够了。</p>
 <p>源码位置是 tools/cache/reflector.go</p>
-<pre tabindex="0"><code>// Ruvn starts a watch and handles watch events. Will restart the watch if it is closed.
-// Run will exit when stopCh is closed.
-//开始时执行Run，上一层调用的地方是 controller.go中的Run方法
-func (r *Reflector) Run(stopCh &lt;-chan struct{}) {
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-golang" data-lang="golang"><span style="color:#75715e">// Ruvn starts a watch and handles watch events. Will restart the watch if it is closed.
+</span><span style="color:#75715e">// Run will exit when stopCh is closed.
+</span><span style="color:#75715e">//开始时执行Run，上一层调用的地方是 controller.go中的Run方法
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">r</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">Reflector</span>) <span style="color:#a6e22e">Run</span>(<span style="color:#a6e22e">stopCh</span> <span style="color:#f92672">&lt;-</span><span style="color:#66d9ef">chan</span> <span style="color:#66d9ef">struct</span>{}) {
 	
-	klog.V(3).Infof(&quot;Starting reflector %v (%s) from %s&quot;, r.expectedTypeName, r.resyncPeriod, r.name)
-	wait.Until(func() {
-         //启动后执行一次ListAndWatch
-		if err := r.ListAndWatch(stopCh); err != nil {
-			utilruntime.HandleError(err)
+	<span style="color:#a6e22e">klog</span>.<span style="color:#a6e22e">V</span>(<span style="color:#ae81ff">3</span>).<span style="color:#a6e22e">Infof</span>(<span style="color:#e6db74">&#34;Starting reflector %v (%s) from %s&#34;</span>, <span style="color:#a6e22e">r</span>.<span style="color:#a6e22e">expectedTypeName</span>, <span style="color:#a6e22e">r</span>.<span style="color:#a6e22e">resyncPeriod</span>, <span style="color:#a6e22e">r</span>.<span style="color:#a6e22e">name</span>)
+	<span style="color:#a6e22e">wait</span>.<span style="color:#a6e22e">Until</span>(<span style="color:#66d9ef">func</span>() {
+         <span style="color:#75715e">//启动后执行一次ListAndWatch
+</span><span style="color:#75715e"></span>		<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">r</span>.<span style="color:#a6e22e">ListAndWatch</span>(<span style="color:#a6e22e">stopCh</span>); <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+			<span style="color:#a6e22e">utilruntime</span>.<span style="color:#a6e22e">HandleError</span>(<span style="color:#a6e22e">err</span>)
 		}
-	}, r.period, stopCh)
+	}, <span style="color:#a6e22e">r</span>.<span style="color:#a6e22e">period</span>, <span style="color:#a6e22e">stopCh</span>)
 }
 
-...
+<span style="color:#f92672">...</span>
 
-// and then use the resource version to watch.
-// It returns error if ListAndWatch didn't even try to initialize watch.
-func (r *Reflector) ListAndWatch(stopCh &lt;-chan struct{}) error {
+<span style="color:#75715e">// and then use the resource version to watch.
+</span><span style="color:#75715e">// It returns error if ListAndWatch didn&#39;t even try to initialize watch.
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">r</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">Reflector</span>) <span style="color:#a6e22e">ListAndWatch</span>(<span style="color:#a6e22e">stopCh</span> <span style="color:#f92672">&lt;-</span><span style="color:#66d9ef">chan</span> <span style="color:#66d9ef">struct</span>{}) <span style="color:#66d9ef">error</span> {
 
-// Attempt to gather list in chunks, if supported by listerWatcher, if not, the first
-			// list request will return the full response.
-			pager := pager.New(pager.SimplePageFunc(func(opts metav1.ListOptions) (runtime.Object, error) {
+<span style="color:#75715e">// Attempt to gather list in chunks, if supported by listerWatcher, if not, the first
+</span><span style="color:#75715e"></span>			<span style="color:#75715e">// list request will return the full response.
+</span><span style="color:#75715e"></span>			<span style="color:#a6e22e">pager</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">pager</span>.<span style="color:#a6e22e">New</span>(<span style="color:#a6e22e">pager</span>.<span style="color:#a6e22e">SimplePageFunc</span>(<span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">opts</span> <span style="color:#a6e22e">metav1</span>.<span style="color:#a6e22e">ListOptions</span>) (<span style="color:#a6e22e">runtime</span>.<span style="color:#a6e22e">Object</span>, <span style="color:#66d9ef">error</span>) {
 
-//这里是调用了各个资源中的ListFunc函数,例如如果v1版本的Deployment
-//则调用的是informers/apps/v1/deployment.go中的ListFunc
-                             return r.listerWatcher.List(opts)
+<span style="color:#75715e">//这里是调用了各个资源中的ListFunc函数,例如如果v1版本的Deployment
+</span><span style="color:#75715e">//则调用的是informers/apps/v1/deployment.go中的ListFunc
+</span><span style="color:#75715e"></span>                             <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">r</span>.<span style="color:#a6e22e">listerWatcher</span>.<span style="color:#a6e22e">List</span>(<span style="color:#a6e22e">opts</span>)
 			}))
-			if r.WatchListPageSize != 0 {
-				pager.Pa1geSize = r.WatchListPageSize
+			<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">r</span>.<span style="color:#a6e22e">WatchListPageSize</span> <span style="color:#f92672">!=</span> <span style="color:#ae81ff">0</span> {
+				<span style="color:#a6e22e">pager</span>.<span style="color:#a6e22e">Pa1geSize</span> = <span style="color:#a6e22e">r</span>.<span style="color:#a6e22e">WatchListPageSize</span>
 			}
-			// Pager falls back to full list if paginated list calls fail due to an &quot;Expired&quot; error.
-			list, err = pager.List(context.Background(), options)
-			close(listCh)
-...
-//这一部分主要是从API SERVER请求一次数据 获取资源的全部Object
-if err != nil {
-			return fmt.Errorf(&quot;%s: Failed to list %v: %v&quot;, r.name, r.expectedTypeName, err)
+			<span style="color:#75715e">// Pager falls back to full list if paginated list calls fail due to an &#34;Expired&#34; error.
+</span><span style="color:#75715e"></span>			<span style="color:#a6e22e">list</span>, <span style="color:#a6e22e">err</span> = <span style="color:#a6e22e">pager</span>.<span style="color:#a6e22e">List</span>(<span style="color:#a6e22e">context</span>.<span style="color:#a6e22e">Background</span>(), <span style="color:#a6e22e">options</span>)
+			close(<span style="color:#a6e22e">listCh</span>)
+<span style="color:#f92672">...</span>
+<span style="color:#75715e">//这一部分主要是从API SERVER请求一次数据 获取资源的全部Object
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+			<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Errorf</span>(<span style="color:#e6db74">&#34;%s: Failed to list %v: %v&#34;</span>, <span style="color:#a6e22e">r</span>.<span style="color:#a6e22e">name</span>, <span style="color:#a6e22e">r</span>.<span style="color:#a6e22e">expectedTypeName</span>, <span style="color:#a6e22e">err</span>)
 		}
-		initTrace.Step(&quot;Objects listed&quot;)
-		listMetaInterface, err := meta.ListAccessor(li
-st)
-		if err != nil {
-			return fmt.Errorf(&quot;%s: Unable to understand list result %#v: %v&quot;, r.name, list, err)
+		<span style="color:#a6e22e">initTrace</span>.<span style="color:#a6e22e">Step</span>(<span style="color:#e6db74">&#34;Objects listed&#34;</span>)
+		<span style="color:#a6e22e">listMetaInterface</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">meta</span>.<span style="color:#a6e22e">ListAccessor</span>(<span style="color:#a6e22e">li</span>
+<span style="color:#a6e22e">st</span>)
+		<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+			<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Errorf</span>(<span style="color:#e6db74">&#34;%s: Unable to understand list result %#v: %v&#34;</span>, <span style="color:#a6e22e">r</span>.<span style="color:#a6e22e">name</span>, <span style="color:#a6e22e">list</span>, <span style="color:#a6e22e">err</span>)
 		}
-		resourceVersion = listMetaInterface.GetResourceVersion()
-		initTrace.Step(&quot;Resource version extracted&quot;)
-		items, err := meta.ExtractList(list)
-		if err != nil {
-			return fmt.Errorf(&quot;%s: Unable to understand list result %#v (%v)&quot;, r.name, list, err)
+		<span style="color:#a6e22e">resourceVersion</span> = <span style="color:#a6e22e">listMetaInterface</span>.<span style="color:#a6e22e">GetResourceVersion</span>()
+		<span style="color:#a6e22e">initTrace</span>.<span style="color:#a6e22e">Step</span>(<span style="color:#e6db74">&#34;Resource version extracted&#34;</span>)
+		<span style="color:#a6e22e">items</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">meta</span>.<span style="color:#a6e22e">ExtractList</span>(<span style="color:#a6e22e">list</span>)
+		<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+			<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Errorf</span>(<span style="color:#e6db74">&#34;%s: Unable to understand list result %#v (%v)&#34;</span>, <span style="color:#a6e22e">r</span>.<span style="color:#a6e22e">name</span>, <span style="color:#a6e22e">list</span>, <span style="color:#a6e22e">err</span>)
 		}
-		initTrace.Step(&quot;Objects extracted&quot;)
-		if err := r.syncWith(items, resourceVersion); err != nil {
-			return fmt.Errorf(&quot;%s: Unable to sync list result: %v&quot;, r.name, err)
+		<span style="color:#a6e22e">initTrace</span>.<span style="color:#a6e22e">Step</span>(<span style="color:#e6db74">&#34;Objects extracted&#34;</span>)
+		<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">r</span>.<span style="color:#a6e22e">syncWith</span>(<span style="color:#a6e22e">items</span>, <span style="color:#a6e22e">resourceVersion</span>); <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+			<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Errorf</span>(<span style="color:#e6db74">&#34;%s: Unable to sync list result: %v&#34;</span>, <span style="color:#a6e22e">r</span>.<span style="color:#a6e22e">name</span>, <span style="color:#a6e22e">err</span>)
 		}
-		initTrace.Step(&quot;SyncWith done&quot;)
-		r.setLastSyncResourceVersion(resourceVersion)
-		initTrace.Step(&quot;Resource version updated&quot;)
-...
+		<span style="color:#a6e22e">initTrace</span>.<span style="color:#a6e22e">Step</span>(<span style="color:#e6db74">&#34;SyncWith done&#34;</span>)
+		<span style="color:#a6e22e">r</span>.<span style="color:#a6e22e">setLastSyncResourceVersion</span>(<span style="color:#a6e22e">resourceVersion</span>)
+		<span style="color:#a6e22e">initTrace</span>.<span style="color:#a6e22e">Step</span>(<span style="color:#e6db74">&#34;Resource version updated&#34;</span>)
+<span style="color:#f92672">...</span>
 
-//处理Watch中的数据并且将数据放置到DeltaFIFO当中
-if err := r.watchHandler(start, w, &amp;resourceVersion, resyncerrc, stopCh); err != nil {
-			if err != errorStopRequested {
-				switch {
-				case apierrs.IsResourceExpired(err):
-					klog.V(4).Infof(&quot;%s: watch of %v ended with: %v&quot;, r.name, r.expectedTypeName, err)
-				default:
-					klog.Warningf(&quot;%s: watch of %v ended with: %v&quot;, r.name, r.expectedTypeName, err)
+<span style="color:#75715e">//处理Watch中的数据并且将数据放置到DeltaFIFO当中
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">r</span>.<span style="color:#a6e22e">watchHandler</span>(<span style="color:#a6e22e">start</span>, <span style="color:#a6e22e">w</span>, <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">resourceVersion</span>, <span style="color:#a6e22e">resyncerrc</span>, <span style="color:#a6e22e">stopCh</span>); <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+			<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#a6e22e">errorStopRequested</span> {
+				<span style="color:#66d9ef">switch</span> {
+				<span style="color:#66d9ef">case</span> <span style="color:#a6e22e">apierrs</span>.<span style="color:#a6e22e">IsResourceExpired</span>(<span style="color:#a6e22e">err</span>):
+					<span style="color:#a6e22e">klog</span>.<span style="color:#a6e22e">V</span>(<span style="color:#ae81ff">4</span>).<span style="color:#a6e22e">Infof</span>(<span style="color:#e6db74">&#34;%s: watch of %v ended with: %v&#34;</span>, <span style="color:#a6e22e">r</span>.<span style="color:#a6e22e">name</span>, <span style="color:#a6e22e">r</span>.<span style="color:#a6e22e">expectedTypeName</span>, <span style="color:#a6e22e">err</span>)
+				<span style="color:#66d9ef">default</span>:
+					<span style="color:#a6e22e">klog</span>.<span style="color:#a6e22e">Warningf</span>(<span style="color:#e6db74">&#34;%s: watch of %v ended with: %v&#34;</span>, <span style="color:#a6e22e">r</span>.<span style="color:#a6e22e">name</span>, <span style="color:#a6e22e">r</span>.<span style="color:#a6e22e">expectedTypeName</span>, <span style="color:#a6e22e">err</span>)
 				}
 			}
-			return nil
+			<span style="color:#66d9ef">return</span> <span style="color:#66d9ef">nil</span>
 		}
-...
+<span style="color:#f92672">...</span>
 }
-</code></pre><p>数据的生产就结束了，就两点:</p>
+</code></pre></div><p>数据的生产就结束了，就两点:</p>
 <ol>
 <li>
 <p>初始化时从API Server请求数据</p>
@@ -716,279 +716,279 @@ if err := r.watchHandler(start, w, &amp;resourceVersion, resyncerrc, stopCh); er
 <h3 id="heading-2"></h3>
 <p>DeltaFIFO理解</p>
 <p>先看一下数据结构:</p>
-<pre tabindex="0"><code>type DeltaFIFO struct {
-...
-	items map[string]Deltas
-	queue []string
-...
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-golang" data-lang="golang"><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">DeltaFIFO</span> <span style="color:#66d9ef">struct</span> {
+<span style="color:#f92672">...</span>
+	<span style="color:#a6e22e">items</span> <span style="color:#66d9ef">map</span>[<span style="color:#66d9ef">string</span>]<span style="color:#a6e22e">Deltas</span>
+	<span style="color:#a6e22e">queue</span> []<span style="color:#66d9ef">string</span>
+<span style="color:#f92672">...</span>
 }
 
-type Delta struct {
-	Type   DeltaType
-	Object interface{}
+<span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Delta</span> <span style="color:#66d9ef">struct</span> {
+	<span style="color:#a6e22e">Type</span>   <span style="color:#a6e22e">DeltaType</span>
+	<span style="color:#a6e22e">Object</span> <span style="color:#66d9ef">interface</span>{}
 }
 
-type Deltas []Delta
+<span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Deltas</span> []<span style="color:#a6e22e">Delta</span>
 
 
-type DeltaType string
+<span style="color:#66d9ef">type</span> <span style="color:#a6e22e">DeltaType</span> <span style="color:#66d9ef">string</span>
 
-// Change type definition
-const (
-	Added   DeltaType = &quot;Added&quot;
-	Updated DeltaType = &quot;Updated&quot;
-	Deleted DeltaType = &quot;Deleted&quot;
-	Sync DeltaType = &quot;Sync&quot;
+<span style="color:#75715e">// Change type definition
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">const</span> (
+	<span style="color:#a6e22e">Added</span>   <span style="color:#a6e22e">DeltaType</span> = <span style="color:#e6db74">&#34;Added&#34;</span>
+	<span style="color:#a6e22e">Updated</span> <span style="color:#a6e22e">DeltaType</span> = <span style="color:#e6db74">&#34;Updated&#34;</span>
+	<span style="color:#a6e22e">Deleted</span> <span style="color:#a6e22e">DeltaType</span> = <span style="color:#e6db74">&#34;Deleted&#34;</span>
+	<span style="color:#a6e22e">Sync</span> <span style="color:#a6e22e">DeltaType</span> = <span style="color:#e6db74">&#34;Sync&#34;</span>
 )
-</code></pre><p>其中queue存储的是Object的id,而items存储的是以ObjectID为key的这个Object的事件列表,</p>
+</code></pre></div><p>其中queue存储的是Object的id,而items存储的是以ObjectID为key的这个Object的事件列表,</p>
 <p>可以想象到是这样的一个数据结构,左边是Key,右边是一个数组对象,其中每个元素都是由type和obj组成.</p>
 <p><img src="https://pic1.zhimg.com/v2-edd3ed11fbac8e9f19aedaf96276e2bc_b.jpeg" alt=""></p>
 <p>DeltaFIFO顾名思义存放Delta数据的先入先出队列，相当于一个数据的中转站，将数据从一个地方转移另一个地方。</p>
 <p>主要看的内容是queueActionLocked、Pop、Resync</p>
 <p>queueActionLocked方法：</p>
-<pre tabindex="0"><code>func (f *DeltaFIFO) queueActionLocked(actionType DeltaType, obj interface{}) error {
-...
-	newDeltas := append(f.items[id], Delta{actionType, obj})
-      //去重处理
-	newDeltas = dedupDeltas(newDeltas)
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-golang" data-lang="golang"><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">f</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">DeltaFIFO</span>) <span style="color:#a6e22e">queueActionLocked</span>(<span style="color:#a6e22e">actionType</span> <span style="color:#a6e22e">DeltaType</span>, <span style="color:#a6e22e">obj</span> <span style="color:#66d9ef">interface</span>{}) <span style="color:#66d9ef">error</span> {
+<span style="color:#f92672">...</span>
+	<span style="color:#a6e22e">newDeltas</span> <span style="color:#f92672">:=</span> append(<span style="color:#a6e22e">f</span>.<span style="color:#a6e22e">items</span>[<span style="color:#a6e22e">id</span>], <span style="color:#a6e22e">Delta</span>{<span style="color:#a6e22e">actionType</span>, <span style="color:#a6e22e">obj</span>})
+      <span style="color:#75715e">//去重处理
+</span><span style="color:#75715e"></span>	<span style="color:#a6e22e">newDeltas</span> = <span style="color:#a6e22e">dedupDeltas</span>(<span style="color:#a6e22e">newDeltas</span>)
 
-	if len(newDeltas) &gt; 0 {
-		... 
-               //pop消息
-          
-		f.cond.Broadcast()
-	...
-	return nil
+	<span style="color:#66d9ef">if</span> len(<span style="color:#a6e22e">newDeltas</span>) &gt; <span style="color:#ae81ff">0</span> {
+		<span style="color:#f92672">...</span> 
+               <span style="color:#75715e">//pop消息
+</span><span style="color:#75715e"></span>          
+		<span style="color:#a6e22e">f</span>.<span style="color:#a6e22e">cond</span>.<span style="color:#a6e22e">Broadcast</span>()
+	<span style="color:#f92672">...</span>
+	<span style="color:#66d9ef">return</span> <span style="color:#66d9ef">nil</span>
 }
-</code></pre><p>Pop方法：</p>
-<pre tabindex="0"><code>func (f *DeltaFIFO) Pop(process PopProcessFunc) (interface{}, error) {
-	f.lock.Lock()
-	defer f.lock.Unlock()
-	for {
-		for len(f.queue) == 0 {
-			//阻塞 直到调用了f.cond.Broadcast()
-			f.cond.Wait()
+</code></pre></div><p>Pop方法：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-golang" data-lang="golang"><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">f</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">DeltaFIFO</span>) <span style="color:#a6e22e">Pop</span>(<span style="color:#a6e22e">process</span> <span style="color:#a6e22e">PopProcessFunc</span>) (<span style="color:#66d9ef">interface</span>{}, <span style="color:#66d9ef">error</span>) {
+	<span style="color:#a6e22e">f</span>.<span style="color:#a6e22e">lock</span>.<span style="color:#a6e22e">Lock</span>()
+	<span style="color:#66d9ef">defer</span> <span style="color:#a6e22e">f</span>.<span style="color:#a6e22e">lock</span>.<span style="color:#a6e22e">Unlock</span>()
+	<span style="color:#66d9ef">for</span> {
+		<span style="color:#66d9ef">for</span> len(<span style="color:#a6e22e">f</span>.<span style="color:#a6e22e">queue</span>) <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span> {
+			<span style="color:#75715e">//阻塞 直到调用了f.cond.Broadcast()
+</span><span style="color:#75715e"></span>			<span style="color:#a6e22e">f</span>.<span style="color:#a6e22e">cond</span>.<span style="color:#a6e22e">Wait</span>()
 		}
-//取出第一个元素
-		id := f.queue[0]
-		f.queue = f.queue[1:]
-		...
-		item, ok := f.items[id]
-...
-                delete(f.items, id)
-		//这个process可以在controller.go中的processLoop()找到
-		//初始化是在shared_informer.go的Run
-		//最终执行到shared_informer.go的HandleDeltas方法
-		err := process(item)
-		//如果处理出错了重新放回队列中
-		if e, ok := err.(ErrRequeue); ok {
-			f.addIfNotPresent(id, item)
-			err = e.Err
+<span style="color:#75715e">//取出第一个元素
+</span><span style="color:#75715e"></span>		<span style="color:#a6e22e">id</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">f</span>.<span style="color:#a6e22e">queue</span>[<span style="color:#ae81ff">0</span>]
+		<span style="color:#a6e22e">f</span>.<span style="color:#a6e22e">queue</span> = <span style="color:#a6e22e">f</span>.<span style="color:#a6e22e">queue</span>[<span style="color:#ae81ff">1</span>:]
+		<span style="color:#f92672">...</span>
+		<span style="color:#a6e22e">item</span>, <span style="color:#a6e22e">ok</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">f</span>.<span style="color:#a6e22e">items</span>[<span style="color:#a6e22e">id</span>]
+<span style="color:#f92672">...</span>
+                delete(<span style="color:#a6e22e">f</span>.<span style="color:#a6e22e">items</span>, <span style="color:#a6e22e">id</span>)
+		<span style="color:#75715e">//这个process可以在controller.go中的processLoop()找到
+</span><span style="color:#75715e"></span>		<span style="color:#75715e">//初始化是在shared_informer.go的Run
+</span><span style="color:#75715e"></span>		<span style="color:#75715e">//最终执行到shared_informer.go的HandleDeltas方法
+</span><span style="color:#75715e"></span>		<span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">process</span>(<span style="color:#a6e22e">item</span>)
+		<span style="color:#75715e">//如果处理出错了重新放回队列中
+</span><span style="color:#75715e"></span>		<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">e</span>, <span style="color:#a6e22e">ok</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">err</span>.(<span style="color:#a6e22e">ErrRequeue</span>); <span style="color:#a6e22e">ok</span> {
+			<span style="color:#a6e22e">f</span>.<span style="color:#a6e22e">addIfNotPresent</span>(<span style="color:#a6e22e">id</span>, <span style="color:#a6e22e">item</span>)
+			<span style="color:#a6e22e">err</span> = <span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">Err</span>
 		}
-		 ...
+		 <span style="color:#f92672">...</span>
 	}
 }
-</code></pre><p>Resync机制：</p>
+</code></pre></div><p>Resync机制：</p>
 <p>小总结：每次从本地缓存Indexer中获取数据重新放到DeltaFIFO中执行任务逻辑。</p>
 <p>启动的Resync地方是reflector.go的resyncChan()方法，在reflector.go的ListAndWatch方法中的调用开始定时执行。</p>
-<pre tabindex="0"><code>go func() {
-               //启动定时任务
-		resyncCh, cleanup := r.resyncChan()
-		defer func() {
-			cleanup() // Call the last one written into cleanup
-		}()
-		for {
-			select {
-			case &lt;-resyncCh:
-			case &lt;-stopCh:
-				return
-			case &lt;-cancelCh:
-				return
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-golang" data-lang="golang"><span style="color:#66d9ef">go</span> <span style="color:#66d9ef">func</span>() {
+               <span style="color:#75715e">//启动定时任务
+</span><span style="color:#75715e"></span>		<span style="color:#a6e22e">resyncCh</span>, <span style="color:#a6e22e">cleanup</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">r</span>.<span style="color:#a6e22e">resyncChan</span>()
+		<span style="color:#66d9ef">defer</span> <span style="color:#66d9ef">func</span>() {
+			<span style="color:#a6e22e">cleanup</span>() <span style="color:#75715e">// Call the last one written into cleanup
+</span><span style="color:#75715e"></span>		}()
+		<span style="color:#66d9ef">for</span> {
+			<span style="color:#66d9ef">select</span> {
+			<span style="color:#66d9ef">case</span> <span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">resyncCh</span>:
+			<span style="color:#66d9ef">case</span> <span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">stopCh</span>:
+				<span style="color:#66d9ef">return</span>
+			<span style="color:#66d9ef">case</span> <span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">cancelCh</span>:
+				<span style="color:#66d9ef">return</span>
 			}
-                        //定时执行   调用会执行到delta_fifo.go的Resync()方法
-			if r.ShouldResync == nil || r.ShouldResync() {
-				klog.V(4).Infof(&quot;%s: forcing resync&quot;, r.name)
-				if err := r.store.Resync(); err != nil {
-					resyncerrc &lt;- err
-					return
+                        <span style="color:#75715e">//定时执行   调用会执行到delta_fifo.go的Resync()方法
+</span><span style="color:#75715e"></span>			<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">r</span>.<span style="color:#a6e22e">ShouldResync</span> <span style="color:#f92672">==</span> <span style="color:#66d9ef">nil</span> <span style="color:#f92672">||</span> <span style="color:#a6e22e">r</span>.<span style="color:#a6e22e">ShouldResync</span>() {
+				<span style="color:#a6e22e">klog</span>.<span style="color:#a6e22e">V</span>(<span style="color:#ae81ff">4</span>).<span style="color:#a6e22e">Infof</span>(<span style="color:#e6db74">&#34;%s: forcing resync&#34;</span>, <span style="color:#a6e22e">r</span>.<span style="color:#a6e22e">name</span>)
+				<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">r</span>.<span style="color:#a6e22e">store</span>.<span style="color:#a6e22e">Resync</span>(); <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+					<span style="color:#a6e22e">resyncerrc</span> <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">err</span>
+					<span style="color:#66d9ef">return</span>
 				}
 			}
-			cleanup()
-			resyncCh, cleanup = r.resyncChan()
+			<span style="color:#a6e22e">cleanup</span>()
+			<span style="color:#a6e22e">resyncCh</span>, <span style="color:#a6e22e">cleanup</span> = <span style="color:#a6e22e">r</span>.<span style="color:#a6e22e">resyncChan</span>()
 		}
 	}()
 
-func (f *DeltaFIFO) Resync() error {
-	...
-//从缓存中获取到所有的key
-	keys := f.knownObjects.ListKeys()
-	for _, k := range keys {
-		if err := f.syncKeyLocked(k); err != nil {
-			return err
+<span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">f</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">DeltaFIFO</span>) <span style="color:#a6e22e">Resync</span>() <span style="color:#66d9ef">error</span> {
+	<span style="color:#f92672">...</span>
+<span style="color:#75715e">//从缓存中获取到所有的key
+</span><span style="color:#75715e"></span>	<span style="color:#a6e22e">keys</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">f</span>.<span style="color:#a6e22e">knownObjects</span>.<span style="color:#a6e22e">ListKeys</span>()
+	<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">_</span>, <span style="color:#a6e22e">k</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">range</span> <span style="color:#a6e22e">keys</span> {
+		<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">f</span>.<span style="color:#a6e22e">syncKeyLocked</span>(<span style="color:#a6e22e">k</span>); <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+			<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">err</span>
 		}
 	}
-	return nil
+	<span style="color:#66d9ef">return</span> <span style="color:#66d9ef">nil</span>
 
 }
 
 
-func (f *DeltaFIFO) syncKeyLocked(key string) error {
-           //获缓存拿到对应的Object
-        obj, exists, err := f.knownObjects.GetByKey(key)
-	...
-         //放入到队列中执行任务逻辑
-	if err := f.queueActionLocked(Sync, obj); err != nil {
-		return fmt.Errorf(&quot;couldn't queue object: %v&quot;, err)
+<span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">f</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">DeltaFIFO</span>) <span style="color:#a6e22e">syncKeyLocked</span>(<span style="color:#a6e22e">key</span> <span style="color:#66d9ef">string</span>) <span style="color:#66d9ef">error</span> {
+           <span style="color:#75715e">//获缓存拿到对应的Object
+</span><span style="color:#75715e"></span>        <span style="color:#a6e22e">obj</span>, <span style="color:#a6e22e">exists</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">f</span>.<span style="color:#a6e22e">knownObjects</span>.<span style="color:#a6e22e">GetByKey</span>(<span style="color:#a6e22e">key</span>)
+	<span style="color:#f92672">...</span>
+         <span style="color:#75715e">//放入到队列中执行任务逻辑
+</span><span style="color:#75715e"></span>	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">f</span>.<span style="color:#a6e22e">queueActionLocked</span>(<span style="color:#a6e22e">Sync</span>, <span style="color:#a6e22e">obj</span>); <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+		<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Errorf</span>(<span style="color:#e6db74">&#34;couldn&#39;t queue object: %v&#34;</span>, <span style="color:#a6e22e">err</span>)
 	}
-	return nil
+	<span style="color:#66d9ef">return</span> <span style="color:#66d9ef">nil</span>
 }
-</code></pre><h3 id="heading-3"></h3>
+</code></pre></div><h3 id="heading-3"></h3>
 <p>SharedInformer消费消息理解</p>
 <p>主要看HandleDeltas方法就好，消费消息然后分发数据并且存储数据到缓存的地方</p>
-<pre tabindex="0"><code>func (s *sharedIndexInformer) HandleDeltas(obj interface{}) error {
-	s.blockDeltas.Lock()
-	defer s.blockDeltas.Unlock()
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-golang" data-lang="golang"><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">s</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">sharedIndexInformer</span>) <span style="color:#a6e22e">HandleDeltas</span>(<span style="color:#a6e22e">obj</span> <span style="color:#66d9ef">interface</span>{}) <span style="color:#66d9ef">error</span> {
+	<span style="color:#a6e22e">s</span>.<span style="color:#a6e22e">blockDeltas</span>.<span style="color:#a6e22e">Lock</span>()
+	<span style="color:#66d9ef">defer</span> <span style="color:#a6e22e">s</span>.<span style="color:#a6e22e">blockDeltas</span>.<span style="color:#a6e22e">Unlock</span>()
 
-	// from oldest to newest
-	for _, d := range obj.(Deltas) {
+	<span style="color:#75715e">// from oldest to newest
+</span><span style="color:#75715e"></span>	<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">_</span>, <span style="color:#a6e22e">d</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">range</span> <span style="color:#a6e22e">obj</span>.(<span style="color:#a6e22e">Deltas</span>) {
 		
-		switch d.Type {
-		case Sync, Added, Updated:
-			...
-			//查一下是否在Indexer缓存中 如果在缓存中就更新缓存中的对象
-			if old, exists, err := s.indexer.Get(d.Object); err == nil &amp;&amp; exists {
-				if err := s.indexer.Update(d.Object); err != nil {
-					return err
+		<span style="color:#66d9ef">switch</span> <span style="color:#a6e22e">d</span>.<span style="color:#a6e22e">Type</span> {
+		<span style="color:#66d9ef">case</span> <span style="color:#a6e22e">Sync</span>, <span style="color:#a6e22e">Added</span>, <span style="color:#a6e22e">Updated</span>:
+			<span style="color:#f92672">...</span>
+			<span style="color:#75715e">//查一下是否在Indexer缓存中 如果在缓存中就更新缓存中的对象
+</span><span style="color:#75715e"></span>			<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">old</span>, <span style="color:#a6e22e">exists</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">s</span>.<span style="color:#a6e22e">indexer</span>.<span style="color:#a6e22e">Get</span>(<span style="color:#a6e22e">d</span>.<span style="color:#a6e22e">Object</span>); <span style="color:#a6e22e">err</span> <span style="color:#f92672">==</span> <span style="color:#66d9ef">nil</span> <span style="color:#f92672">&amp;&amp;</span> <span style="color:#a6e22e">exists</span> {
+				<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">s</span>.<span style="color:#a6e22e">indexer</span>.<span style="color:#a6e22e">Update</span>(<span style="color:#a6e22e">d</span>.<span style="color:#a6e22e">Object</span>); <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+					<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">err</span>
 				}
-				//把数据分发到Listener
-				s.processor.distribute(updateNotification{oldObj: old, newObj: d.Object}, isSync)
-			} else {
-				//没有在Indexer缓存中 把对象插入到缓存中
-				if err := s.indexer.Add(d.Object); err != nil {
-					return err
+				<span style="color:#75715e">//把数据分发到Listener
+</span><span style="color:#75715e"></span>				<span style="color:#a6e22e">s</span>.<span style="color:#a6e22e">processor</span>.<span style="color:#a6e22e">distribute</span>(<span style="color:#a6e22e">updateNotification</span>{<span style="color:#a6e22e">oldObj</span>: <span style="color:#a6e22e">old</span>, <span style="color:#a6e22e">newObj</span>: <span style="color:#a6e22e">d</span>.<span style="color:#a6e22e">Object</span>}, <span style="color:#a6e22e">isSync</span>)
+			} <span style="color:#66d9ef">else</span> {
+				<span style="color:#75715e">//没有在Indexer缓存中 把对象插入到缓存中
+</span><span style="color:#75715e"></span>				<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">s</span>.<span style="color:#a6e22e">indexer</span>.<span style="color:#a6e22e">Add</span>(<span style="color:#a6e22e">d</span>.<span style="color:#a6e22e">Object</span>); <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+					<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">err</span>
 				}
-				s.processor.distribute(addNotification{newObj: d.Object}, isSync)
+				<span style="color:#a6e22e">s</span>.<span style="color:#a6e22e">processor</span>.<span style="color:#a6e22e">distribute</span>(<span style="color:#a6e22e">addNotification</span>{<span style="color:#a6e22e">newObj</span>: <span style="color:#a6e22e">d</span>.<span style="color:#a6e22e">Object</span>}, <span style="color:#a6e22e">isSync</span>)
 			}
-		...
+		<span style="color:#f92672">...</span>
 		}
 	}
-	return nil
+	<span style="color:#66d9ef">return</span> <span style="color:#66d9ef">nil</span>
 }
-</code></pre><h3 id="heading-4"></h3>
+</code></pre></div><h3 id="heading-4"></h3>
 <p>Indexer理解</p>
-<p>这块不会讲述太多内容，因为我认为Informer机制最主要的还是前面数据的流转，当然这并不代表数据存储不重要，而是先理清楚整体的思路，后续再详细更新存储的部分。</p>
-<p>Indexer使用的是threadsafe_store.go中的threadSafeMap存储数据，是一个线程安全并且带有索引功能的map,数据只会存放在内存中，每次涉及操作都会进行加锁。</p>
-<pre tabindex="0"><code>// threadSafeMap implements ThreadSafeStore
-type threadSafeMap struct {
-	lock  sync.RWMutex
-	items map[string]interface{}
-	indexers Indexers
-	indices Indices
+<p>这块不会讲述太多内容，因为我认为 Informer 机制最主要的还是前面数据的流转，当然这并不代表数据存储不重要，而是先理清楚整体的思路，后续再详细更新存储的部分。</p>
+<p>Indexer 使用的是 threadsafe_store.go 中的 threadSafeMap 存储数据，是一个线程安全并且带有索引功能的 map,数据只会存放在内存中，每次涉及操作都会进行加锁。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-golang" data-lang="golang"><span style="color:#75715e">// threadSafeMap implements ThreadSafeStore
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">threadSafeMap</span> <span style="color:#66d9ef">struct</span> {
+	<span style="color:#a6e22e">lock</span>  <span style="color:#a6e22e">sync</span>.<span style="color:#a6e22e">RWMutex</span>
+	<span style="color:#a6e22e">items</span> <span style="color:#66d9ef">map</span>[<span style="color:#66d9ef">string</span>]<span style="color:#66d9ef">interface</span>{}
+	<span style="color:#a6e22e">indexers</span> <span style="color:#a6e22e">Indexers</span>
+	<span style="color:#a6e22e">indices</span> <span style="color:#a6e22e">Indices</span>
 }
-</code></pre><p>Indexer还有一个索引相关的内容就暂时不展开讲述。</p>
+</code></pre></div><p>Indexer还有一个索引相关的内容就暂时不展开讲述。</p>
 <p>Example代码</p>
-<pre tabindex="0"><code>-------------
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-golang" data-lang="golang"><span style="color:#f92672">-------------</span>
 
-package main
+<span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
 
-import (
-	&quot;flag&quot;
-	&quot;fmt&quot;
-	&quot;path/filepath&quot;
-	&quot;time&quot;
+<span style="color:#f92672">import</span> (
+	<span style="color:#e6db74">&#34;flag&#34;</span>
+	<span style="color:#e6db74">&#34;fmt&#34;</span>
+	<span style="color:#e6db74">&#34;path/filepath&#34;</span>
+	<span style="color:#e6db74">&#34;time&#34;</span>
 
-	v1 &quot;k8s.io/api/apps/v1&quot;
-	&quot;k8s.io/apimachinery/pkg/labels&quot;
-	&quot;k8s.io/client-go/informers&quot;
-	&quot;k8s.io/client-go/kubernetes&quot;
-	&quot;k8s.io/client-go/rest&quot;
-	&quot;k8s.io/client-go/tools/cache&quot;
-	&quot;k8s.io/client-go/tools/clientcmd&quot;
-	&quot;k8s.io/client-go/util/homedir&quot;
+	<span style="color:#a6e22e">v1</span> <span style="color:#e6db74">&#34;k8s.io/api/apps/v1&#34;</span>
+	<span style="color:#e6db74">&#34;k8s.io/apimachinery/pkg/labels&#34;</span>
+	<span style="color:#e6db74">&#34;k8s.io/client-go/informers&#34;</span>
+	<span style="color:#e6db74">&#34;k8s.io/client-go/kubernetes&#34;</span>
+	<span style="color:#e6db74">&#34;k8s.io/client-go/rest&#34;</span>
+	<span style="color:#e6db74">&#34;k8s.io/client-go/tools/cache&#34;</span>
+	<span style="color:#e6db74">&#34;k8s.io/client-go/tools/clientcmd&#34;</span>
+	<span style="color:#e6db74">&#34;k8s.io/client-go/util/homedir&#34;</span>
 )
 
-func main() {
-	var err error
-	var config *rest.Config
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+	<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">err</span> <span style="color:#66d9ef">error</span>
+	<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">config</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">rest</span>.<span style="color:#a6e22e">Config</span>
 
-	var kubeconfig *string
+	<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">kubeconfig</span> <span style="color:#f92672">*</span><span style="color:#66d9ef">string</span>
 
-	if home := homedir.HomeDir(); home != &quot;&quot; {
-		kubeconfig = flag.String(&quot;kubeconfig&quot;, filepath.Join(home, &quot;.kube&quot;, &quot;config&quot;), &quot;[可选] kubeconfig 绝对路径&quot;)
-	} else {
-		kubeconfig = flag.String(&quot;kubeconfig&quot;, filepath.Join(&quot;/tmp&quot;, &quot;config&quot;), &quot;kubeconfig 绝对路径&quot;)
+	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">home</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">homedir</span>.<span style="color:#a6e22e">HomeDir</span>(); <span style="color:#a6e22e">home</span> <span style="color:#f92672">!=</span> <span style="color:#e6db74">&#34;&#34;</span> {
+		<span style="color:#a6e22e">kubeconfig</span> = <span style="color:#a6e22e">flag</span>.<span style="color:#a6e22e">String</span>(<span style="color:#e6db74">&#34;kubeconfig&#34;</span>, <span style="color:#a6e22e">filepath</span>.<span style="color:#a6e22e">Join</span>(<span style="color:#a6e22e">home</span>, <span style="color:#e6db74">&#34;.kube&#34;</span>, <span style="color:#e6db74">&#34;config&#34;</span>), <span style="color:#e6db74">&#34;[可选] kubeconfig 绝对路径&#34;</span>)
+	} <span style="color:#66d9ef">else</span> {
+		<span style="color:#a6e22e">kubeconfig</span> = <span style="color:#a6e22e">flag</span>.<span style="color:#a6e22e">String</span>(<span style="color:#e6db74">&#34;kubeconfig&#34;</span>, <span style="color:#a6e22e">filepath</span>.<span style="color:#a6e22e">Join</span>(<span style="color:#e6db74">&#34;/tmp&#34;</span>, <span style="color:#e6db74">&#34;config&#34;</span>), <span style="color:#e6db74">&#34;kubeconfig 绝对路径&#34;</span>)
 	}
-	// 初始化 rest.Config 对象
-	if config, err = rest.InClusterConfig(); err != nil {
-		if config, err = clientcmd.BuildConfigFromFlags(&quot;&quot;, *kubeconfig); err != nil {
-			panic(err.Error())
+	<span style="color:#75715e">// 初始化 rest.Config 对象
+</span><span style="color:#75715e"></span>	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">config</span>, <span style="color:#a6e22e">err</span> = <span style="color:#a6e22e">rest</span>.<span style="color:#a6e22e">InClusterConfig</span>(); <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+		<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">config</span>, <span style="color:#a6e22e">err</span> = <span style="color:#a6e22e">clientcmd</span>.<span style="color:#a6e22e">BuildConfigFromFlags</span>(<span style="color:#e6db74">&#34;&#34;</span>, <span style="color:#f92672">*</span><span style="color:#a6e22e">kubeconfig</span>); <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+			panic(<span style="color:#a6e22e">err</span>.<span style="color:#a6e22e">Error</span>())
 		}
 	}
-	// 创建 Clientset 对象
-	clientset, err := kubernetes.NewForConfig(config)
-	if err != nil {
-		panic(err.Error())
+	<span style="color:#75715e">// 创建 Clientset 对象
+</span><span style="color:#75715e"></span>	<span style="color:#a6e22e">clientset</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">kubernetes</span>.<span style="color:#a6e22e">NewForConfig</span>(<span style="color:#a6e22e">config</span>)
+	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+		panic(<span style="color:#a6e22e">err</span>.<span style="color:#a6e22e">Error</span>())
 	}
-	// 初始化一个 SharedInformerFactory 设置resync为60秒一次，会触发UpdateFunc
-	informerFactory := informers.NewSharedInformerFactory(clientset, time.Second*60)
-	// 对 Deployment 监听
-	//这里如果获取v1betav1的deployment的资源
-	// informerFactory.Apps().V1beta1().Deployments()
-	deployInformer := informerFactory.Apps().V1().Deployments()
-	// 创建 Informer（相当于注册到工厂中去，这样下面启动的时候就会去 List &amp; Watch 对应的资源）
-	informer := deployInformer.Informer()
-	// 创建 deployment的 Lister
-	deployLister := deployInformer.Lister()
-	// 注册事件处理程序 处理事件数据
-	informer.AddEventHandler(cache.ResourceEventHandlerFuncs{
-		AddFunc:    onAdd,
-		UpdateFunc: onUpdate,
-		DeleteFunc: onDelete,
+	<span style="color:#75715e">// 初始化一个 SharedInformerFactory 设置resync为60秒一次，会触发UpdateFunc
+</span><span style="color:#75715e"></span>	<span style="color:#a6e22e">informerFactory</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">informers</span>.<span style="color:#a6e22e">NewSharedInformerFactory</span>(<span style="color:#a6e22e">clientset</span>, <span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Second</span><span style="color:#f92672">*</span><span style="color:#ae81ff">60</span>)
+	<span style="color:#75715e">// 对 Deployment 监听
+</span><span style="color:#75715e"></span>	<span style="color:#75715e">//这里如果获取v1betav1的deployment的资源
+</span><span style="color:#75715e"></span>	<span style="color:#75715e">// informerFactory.Apps().V1beta1().Deployments()
+</span><span style="color:#75715e"></span>	<span style="color:#a6e22e">deployInformer</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">informerFactory</span>.<span style="color:#a6e22e">Apps</span>().<span style="color:#a6e22e">V1</span>().<span style="color:#a6e22e">Deployments</span>()
+	<span style="color:#75715e">// 创建 Informer（相当于注册到工厂中去，这样下面启动的时候就会去 List &amp; Watch 对应的资源）
+</span><span style="color:#75715e"></span>	<span style="color:#a6e22e">informer</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">deployInformer</span>.<span style="color:#a6e22e">Informer</span>()
+	<span style="color:#75715e">// 创建 deployment的 Lister
+</span><span style="color:#75715e"></span>	<span style="color:#a6e22e">deployLister</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">deployInformer</span>.<span style="color:#a6e22e">Lister</span>()
+	<span style="color:#75715e">// 注册事件处理程序 处理事件数据
+</span><span style="color:#75715e"></span>	<span style="color:#a6e22e">informer</span>.<span style="color:#a6e22e">AddEventHandler</span>(<span style="color:#a6e22e">cache</span>.<span style="color:#a6e22e">ResourceEventHandlerFuncs</span>{
+		<span style="color:#a6e22e">AddFunc</span>:    <span style="color:#a6e22e">onAdd</span>,
+		<span style="color:#a6e22e">UpdateFunc</span>: <span style="color:#a6e22e">onUpdate</span>,
+		<span style="color:#a6e22e">DeleteFunc</span>: <span style="color:#a6e22e">onDelete</span>,
 	})
 
-	stopper := make(chan struct{})
-	defer close(stopper)
+	<span style="color:#a6e22e">stopper</span> <span style="color:#f92672">:=</span> make(<span style="color:#66d9ef">chan</span> <span style="color:#66d9ef">struct</span>{})
+	<span style="color:#66d9ef">defer</span> close(<span style="color:#a6e22e">stopper</span>)
 
-	informerFactory.Start(stopper)
-	informerFactory.WaitForCacheSync(stopper)
+	<span style="color:#a6e22e">informerFactory</span>.<span style="color:#a6e22e">Start</span>(<span style="color:#a6e22e">stopper</span>)
+	<span style="color:#a6e22e">informerFactory</span>.<span style="color:#a6e22e">WaitForCacheSync</span>(<span style="color:#a6e22e">stopper</span>)
 
-	// 从本地缓存中获取 default 命名空间中的所有 deployment 列表
-	deployments, err := deployLister.Deployments(&quot;default&quot;).List(labels.Everything())
-	if err != nil {
-		panic(err)
+	<span style="color:#75715e">// 从本地缓存中获取 default 命名空间中的所有 deployment 列表
+</span><span style="color:#75715e"></span>	<span style="color:#a6e22e">deployments</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">deployLister</span>.<span style="color:#a6e22e">Deployments</span>(<span style="color:#e6db74">&#34;default&#34;</span>).<span style="color:#a6e22e">List</span>(<span style="color:#a6e22e">labels</span>.<span style="color:#a6e22e">Everything</span>())
+	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+		panic(<span style="color:#a6e22e">err</span>)
 	}
-	for idx, deploy := range deployments {
-		fmt.Printf(&quot;%d -&gt; %sn&quot;, idx+1, deploy.Name)
+	<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">idx</span>, <span style="color:#a6e22e">deploy</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">range</span> <span style="color:#a6e22e">deployments</span> {
+		<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;%d -&gt; %sn&#34;</span>, <span style="color:#a6e22e">idx</span><span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>, <span style="color:#a6e22e">deploy</span>.<span style="color:#a6e22e">Name</span>)
 	}
 
-	&lt;-stopper
+	<span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">stopper</span>
 }
 
-func onAdd(obj interface{}) {
-	deploy := obj.(*v1.Deployment)
-	fmt.Println(&quot;add a deployment:&quot;, deploy.Name)
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">onAdd</span>(<span style="color:#a6e22e">obj</span> <span style="color:#66d9ef">interface</span>{}) {
+	<span style="color:#a6e22e">deploy</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">obj</span>.(<span style="color:#f92672">*</span><span style="color:#a6e22e">v1</span>.<span style="color:#a6e22e">Deployment</span>)
+	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;add a deployment:&#34;</span>, <span style="color:#a6e22e">deploy</span>.<span style="color:#a6e22e">Name</span>)
 }
 
-func onUpdate(old, new interface{}) {
-	oldDeploy := old.(*v1.Deployment)
-	newDeploy := new.(*v1.Deployment)
-	fmt.Println(&quot;update deployment:&quot;, oldDeploy.Name, newDeploy.Name)
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">onUpdate</span>(<span style="color:#a6e22e">old</span>, <span style="color:#a6e22e">new</span> <span style="color:#66d9ef">interface</span>{}) {
+	<span style="color:#a6e22e">oldDeploy</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">old</span>.(<span style="color:#f92672">*</span><span style="color:#a6e22e">v1</span>.<span style="color:#a6e22e">Deployment</span>)
+	<span style="color:#a6e22e">newDeploy</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">new</span>.(<span style="color:#f92672">*</span><span style="color:#a6e22e">v1</span>.<span style="color:#a6e22e">Deployment</span>)
+	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;update deployment:&#34;</span>, <span style="color:#a6e22e">oldDeploy</span>.<span style="color:#a6e22e">Name</span>, <span style="color:#a6e22e">newDeploy</span>.<span style="color:#a6e22e">Name</span>)
 }
 
-func onDelete(obj interface{}) {
-	deploy := obj.(*v1.Deployment)
-	fmt.Println(&quot;delete a deployment:&quot;, deploy.Name)
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">onDelete</span>(<span style="color:#a6e22e">obj</span> <span style="color:#66d9ef">interface</span>{}) {
+	<span style="color:#a6e22e">deploy</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">obj</span>.(<span style="color:#f92672">*</span><span style="color:#a6e22e">v1</span>.<span style="color:#a6e22e">Deployment</span>)
+	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;delete a deployment:&#34;</span>, <span style="color:#a6e22e">deploy</span>.<span style="color:#a6e22e">Name</span>)
 } 
-</code></pre><p>以上示例代码中程序启动后会拉取一次Deployment数据，并且拉取数据完成后从本地缓存中List一次default命名空间的Deployment资源并打印，然后每60秒Resync一次Deployment资源。</p>
+</code></pre></div><p>以上示例代码中程序启动后会拉取一次Deployment数据，并且拉取数据完成后从本地缓存中List一次default命名空间的Deployment资源并打印，然后每60秒Resync一次Deployment资源。</p>
 <p>QA</p>
 <hr>
-<p>为什么需要Resync？</p>
-<p>在本周有同学提出一个，我看到这个问题后也感觉挺奇怪的，因为Resync是从本地缓存的数据缓存到本地缓存(从开始到结束来说是这样),为什么需要把数据拿出来又走一遍流程呢？当时钻牛角尖也是想不明白，后来换个角度想就知道了。</p>
-<p>数据从API Server过来并且经过处理后放到缓存中，但数据并不一定就可以正常处理，也就是说可能报错了，而这个Resync相当于一个重试的机制。</p>
-<p>可以尝试实践一下: 部署有状态服务，存储使用LocalPV(也可以换成自己熟悉的),这时候pod会由于存储目录不存在而启动失败. 然后在pod启动失败后再创建好对应的目录，过一会pod就启动成功了。 这是我理解的一种情况。</p>
+<p>为什么需要 Resync？</p>
+<p>在本周有同学提出一个，我看到这个问题后也感觉挺奇怪的，因为 Resync 是从本地缓存的数据缓存到本地缓存(从开始到结束来说是这样),为什么需要把数据拿出来又走一遍流程呢？当时钻牛角尖也是想不明白，后来换个角度想就知道了。</p>
+<p>数据从 API Server 过来并且经过处理后放到缓存中，但数据并不一定就可以正常处理，也就是说可能报错了，而这个 Resync 相当于一个重试的机制。</p>
+<p>可以尝试实践一下: 部署有状态服务，存储使用 LocalPV (也可以换成自己熟悉的),这时候 pod 会由于存储目录不存在而启动失败. 然后在 pod 启动失败后再创建好对应的目录，过一会 pod 就启动成功了。 这是我理解的一种情况。</p>
 <p>总结：</p>
 <hr>
-<p>Informer机制在K8S中是各个组件通讯的基石，理解透彻是非常有益的，我也还在进一步理解的过程中，欢迎一起交流。</p>
+<p>Informer 机制在 K8S 中是各个组件通讯的基石，理解透彻是非常有益的，我也还在进一步理解的过程中，欢迎一起交流。</p>
 <p>前置阅读：</p>
 <hr>
 <ul>

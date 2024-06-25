@@ -421,7 +421,7 @@
 
 
 
-                            阅读 </span></span>|<span class="post-date">共1435字</span>，阅读约<span class="more-meta"> 3 分钟</span>
+                            阅读 </span></span>|<span class="post-date">共1512字</span>，阅读约<span class="more-meta"> 4 分钟</span>
                         
                     </span>
                 </div>
@@ -555,9 +555,12 @@
 </code></pre></div><p>完整的一个例子可以在 GitHub 上查看并下载<a href="https://github.com/FISHStack/hello-spring-cloud">https://github.com/FISHStack/hello-spring-cloud</a>,欢迎多多交流.</p>
 <h1 id="目前我还将jib用于存储和下载">目前我还将Jib用于存储和下载</h1>
 <p>将 Rocksdb 生成的文件打包成容器镜像,上传到容器镜像仓库, 在下一次使用时再使用 Jib 下载容器镜像，然后解压出来使用。</p>
-<p>目前是两个用处:
-当做缓存持久化,需要时将内容下载下来做缓存预热
-CI 中下载 Rocksdb 的文件,用来跑测试逻辑</p>
+<p>目前是两个用处:</p>
+<ul>
+<li>当做缓存持久化,需要时将内容下载下来做缓存预热</li>
+<li>CI 中下载 Rocksdb 的文件,用来跑测试逻辑 ( rocksdb 作为一个数据库)</li>
+<li>将一个常用文件(例如 trivy )打包成容器镜像,然后使用 JIB 来下载容器镜像.(可以使用 ORAS 来完成这件事,但目前 gitea 和 阿里云容器镜像仓库个人版不支持 OCI)</li>
+</ul>
 <h1 id="小技巧">小技巧</h1>
 <p>目前我们有 CI 流程需要在 JIB 构建完成容器镜像后将这个信息回复到对应 PR 里面,方便测试和开发使用,其实 JIB 会在构建镜像完成之后在 target 目录下生成三个镜像相关的文件: <code>jib-image.digest</code> <code>jib-image.id</code>以及<code>jib-image.json</code>,其中 <code>jib-image.json</code> 就包括了容器镜像的名称以及 Tag 信息,足够使用了.</p>
 <p>下面是一个 <code>jib-image.json</code> 文件的示例内容:</p>

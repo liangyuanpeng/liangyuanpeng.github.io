@@ -6,7 +6,16 @@
     <description>Recent content in cloudnative on Hi,I`m lan</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 14 Jan 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://liangyuanpeng.github.io/categories/cloudnative/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 14 Jun 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://liangyuanpeng.github.io/categories/cloudnative/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>发布组件到maven私有仓库</title>
+      <link>https://liangyuanpeng.github.io/post/publish-component-to-maven-repo/</link>
+      <pubDate>Fri, 14 Jun 2024 00:00:00 +0000</pubDate>
+      
+      <guid>https://liangyuanpeng.github.io/post/publish-component-to-maven-repo/</guid>
+      <description>说明 在我看来,github 提供了机器来让人们免费的使用 github action,这无疑是一家非常伟大的公司.而在国内,阿里也提供了很多主流的镜像源以及</description>
+    </item>
+    
     <item>
       <title>containerd 中的弃用警告 - 为 2.0 做好准备!</title>
       <link>https://liangyuanpeng.github.io/post/deprecation-warnings-in-containerd-getting-ready-for-2.0/</link>
@@ -44,6 +53,15 @@
     </item>
     
     <item>
+      <title>java中调用javascript</title>
+      <link>https://liangyuanpeng.github.io/post/run-javascript-on-the-java/</link>
+      <pubDate>Tue, 05 Sep 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://liangyuanpeng.github.io/post/run-javascript-on-the-java/</guid>
+      <description>说明 @Test public void testInvoke() throws ScriptException, NoSuchMethodException { ScriptEngine engine = getEngine(); String jsResult = &amp;#34;hello &amp;#34;; String param = &amp;#34;world&amp;#34;; String jsFunc = &amp;#34;function hello(param){return &amp;#39;&amp;#34;+jsResult+&amp;#34;&amp;#39; + &amp;#39;&amp;#34;+param+&amp;#34;&amp;#39; };&amp;#34;; engine.eval(jsFunc); Invocable in = (Invocable)engine; String result = (String) in.invokeFunction(&amp;#34;hello&amp;#34;,param); Assertions.assertEquals(jsResult+param,result); } public ScriptEngine getEngine(){ ScriptEngine engine = new ScriptEngineManager().getEngineByName(&amp;#34;graal.js&amp;#34;); Assertions.assertNotNull(engine); return engine; } 对应的关键依赖是: &amp;lt;properties&amp;gt; &amp;lt;graalvm-js.version&amp;gt;23.0.1&amp;lt;/graalvm-js.version&amp;gt; &amp;lt;/properties&amp;gt; &amp;lt;dependency&amp;gt; &amp;lt;groupId&amp;gt;org.graalvm.js&amp;lt;/groupId&amp;gt;</description>
+    </item>
+    
+    <item>
       <title>将Etcd作为一个kubernetes sig来运作</title>
       <link>https://liangyuanpeng.github.io/post/etcd-as-a-kubernetes-sig/</link>
       <pubDate>Fri, 30 Jun 2023 00:00:00 +0000</pubDate>
@@ -59,6 +77,15 @@
       
       <guid>https://liangyuanpeng.github.io/post/write-note-for-upgrade-to-springboot3/</guid>
       <description>说明 springboot3 宣布将最低支持 jdk17,从框架上推动 java 用户来升级 jdk,太酷啦!! 虽然这种操作很有可能引来群怒,但对于springboot3的这波操</description>
+    </item>
+    
+    <item>
+      <title>shipwright快速入门</title>
+      <link>https://liangyuanpeng.github.io/post/quick-start-shipwright/</link>
+      <pubDate>Tue, 23 May 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://liangyuanpeng.github.io/post/quick-start-shipwright/</guid>
+      <description>shipwright 是由红帽开源并且捐赠给 CDF的一个基于 tekton 之上的容器镜像框架，将各种镜像构建方式抽象成 K8S CRD 对象，提供统一的使用体验,在使用时不需要关心内部的</description>
     </item>
     
     <item>
@@ -80,12 +107,30 @@
     </item>
     
     <item>
+      <title>[长期更新]java问题列表</title>
+      <link>https://liangyuanpeng.github.io/post/question-list-of-java/</link>
+      <pubDate>Thu, 04 May 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://liangyuanpeng.github.io/post/question-list-of-java/</guid>
+      <description>说明 本文主要收集 java 遇到的一些常见问题,欢迎对本文进行投稿你认为好的场景或问题. 问题来了 使用 jdk17 时立刻堆栈报错提示内存不足 VM Arguments: jvm_args: -Xmx1G -XX:+UnlockExperimentalVMOptions -XX:ErrorFile=/usr/local/lan/logs/parser/hs_err.log -XX:HeapDumpPath=/usr/local/lan/dumps/parser java_command: com.lan.parser.YdcApplication java_class_path (initial):</description>
+    </item>
+    
+    <item>
       <title>[长期更新]kubernetes问题列表记录</title>
       <link>https://liangyuanpeng.github.io/post/question-list-of-kubernetes/</link>
       <pubDate>Thu, 04 May 2023 00:00:00 +0000</pubDate>
       
       <guid>https://liangyuanpeng.github.io/post/question-list-of-kubernetes/</guid>
       <description>说明 本文主要收集常见场景下 kubernetes 遇到的一些常见问题,欢迎对本文进行投稿你认为好的场景或问题. 如何保证 sidecar 先于 app 容器销毁 通过信号方式,目前 kubernetes 已经拥有</description>
+    </item>
+    
+    <item>
+      <title>[长期更新]helm常见问题以及配置记录</title>
+      <link>https://liangyuanpeng.github.io/post/helm-config-note-long-term/</link>
+      <pubDate>Sun, 23 Apr 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://liangyuanpeng.github.io/post/helm-config-note-long-term/</guid>
+      <description>说明 本文主要收集常见场景下 helm 配置以及遇到的一些常见问题,欢迎对本文进行投稿你认为好的场景配置或问题. unclosed action 错误 用 helm 3.5 在 kubernetes 1.29 上安装 contour</description>
     </item>
     
     <item>
@@ -341,30 +386,12 @@
     </item>
     
     <item>
-      <title>[长期更新]java问题列表</title>
-      <link>https://liangyuanpeng.github.io/post/question-list-of-java/</link>
-      <pubDate>Tue, 04 May 2021 00:00:00 +0000</pubDate>
-      
-      <guid>https://liangyuanpeng.github.io/post/question-list-of-java/</guid>
-      <description>说明 本文主要收集 java 遇到的一些常见问题,欢迎对本文进行投稿你认为好的场景或问题. 问题来了 使用 jdk17 时立刻堆栈报错提示内存不足 VM Arguments: jvm_args: -Xmx1G -XX:+UnlockExperimentalVMOptions -XX:ErrorFile=/usr/local/lan/logs/parser/hs_err.log -XX:HeapDumpPath=/usr/local/lan/dumps/parser java_command: com.lan.parser.YdcApplication java_class_path (initial):</description>
-    </item>
-    
-    <item>
       <title>[长期更新]pulsar问题列表</title>
       <link>https://liangyuanpeng.github.io/post/question-list-of-pulsar/</link>
       <pubDate>Tue, 04 May 2021 00:00:00 +0000</pubDate>
       
       <guid>https://liangyuanpeng.github.io/post/question-list-of-pulsar/</guid>
       <description>说明 本文主要收集 apache pulsar 遇到的一些常见问题,欢迎对本文进行投稿你认为好的场景或问题或是一个实践. 升级 pulsar 客户端 sdk 从 pulsar2.10/pulsar2.11 的 sdk 升级到 pulsar 3.0.0 时由于不是全部组</description>
-    </item>
-    
-    <item>
-      <title>[长期更新]helm常见问题以及配置记录</title>
-      <link>https://liangyuanpeng.github.io/post/helm-config-note-long-term/</link>
-      <pubDate>Fri, 23 Apr 2021 00:00:00 +0000</pubDate>
-      
-      <guid>https://liangyuanpeng.github.io/post/helm-config-note-long-term/</guid>
-      <description>说明 本文主要收集常见场景下 helm 配置以及遇到的一些常见问题,欢迎对本文进行投稿你认为好的场景配置或问题. 官方文档 https://helm.sh/docs/</description>
     </item>
     
     <item>
@@ -472,7 +499,7 @@
       <pubDate>Sat, 23 Jan 2021 00:00:00 +0000</pubDate>
       
       <guid>https://liangyuanpeng.github.io/post/k8s-client-go-source-2/</guid>
-      <description>简介：云原生社区活动&amp;mdash;Kubernetes 源码剖析第一期第二周 本周是 K8S 源码研习社第一期第二周，学习内容是学习Informer机制</description>
+      <description>简介：云原生社区活动&amp;mdash;Kubernetes 源码剖析第一期第二周 本周是 K8S 源码研习社第一期第二周，学习内容是学习 Informer 机制，本文以这个课</description>
     </item>
     
     <item>

@@ -6,7 +6,7 @@
     <description>Recent content in kind on Hi,I`m lan</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 22 May 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://liangyuanpeng.github.io/tags/kind/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 28 May 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://liangyuanpeng.github.io/tags/kind/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>lank8s.cn服务</title>
       <link>https://liangyuanpeng.github.io/post/service-lank8s.cn/</link>
@@ -23,6 +23,15 @@
       
       <guid>https://liangyuanpeng.github.io/post/run-k8s-with-kind/</guid>
       <description>前言 由于各类基于 kubernetes 的云原生实验或测试的前提都是需要一个 kubernetes 环境,而在写博客时总是需要提及使用 Kind 来搭建 kubernetes 环境. 因此这里单独写一篇文章来介绍如何用</description>
+    </item>
+    
+    <item>
+      <title>构建kind-node镜像的更多选择</title>
+      <link>https://liangyuanpeng.github.io/post/more-ways-to-build-kind-node/</link>
+      <pubDate>Tue, 28 May 2024 00:00:00 +0000</pubDate>
+      
+      <guid>https://liangyuanpeng.github.io/post/more-ways-to-build-kind-node/</guid>
+      <description>简介 在 PR 合并之前, Kind 构建一个自定义的 kubernetes 节点镜像至少有两个步骤(Kind命令自动完成): 使用 kubernetes 源码构建二进制文件 (假设已经下载好 kubernetes 源码) Kind 开始</description>
     </item>
     
     <item>

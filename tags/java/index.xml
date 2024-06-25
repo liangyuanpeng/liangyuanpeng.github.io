@@ -6,7 +6,25 @@
     <description>Recent content in java on Hi,I`m lan</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 25 Jun 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://liangyuanpeng.github.io/tags/java/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 14 Jun 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://liangyuanpeng.github.io/tags/java/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>发布组件到maven私有仓库</title>
+      <link>https://liangyuanpeng.github.io/post/publish-component-to-maven-repo/</link>
+      <pubDate>Fri, 14 Jun 2024 00:00:00 +0000</pubDate>
+      
+      <guid>https://liangyuanpeng.github.io/post/publish-component-to-maven-repo/</guid>
+      <description>说明 在我看来,github 提供了机器来让人们免费的使用 github action,这无疑是一家非常伟大的公司.而在国内,阿里也提供了很多主流的镜像源以及</description>
+    </item>
+    
+    <item>
+      <title>java中调用javascript</title>
+      <link>https://liangyuanpeng.github.io/post/run-javascript-on-the-java/</link>
+      <pubDate>Tue, 05 Sep 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://liangyuanpeng.github.io/post/run-javascript-on-the-java/</guid>
+      <description>说明 @Test public void testInvoke() throws ScriptException, NoSuchMethodException { ScriptEngine engine = getEngine(); String jsResult = &amp;#34;hello &amp;#34;; String param = &amp;#34;world&amp;#34;; String jsFunc = &amp;#34;function hello(param){return &amp;#39;&amp;#34;+jsResult+&amp;#34;&amp;#39; + &amp;#39;&amp;#34;+param+&amp;#34;&amp;#39; };&amp;#34;; engine.eval(jsFunc); Invocable in = (Invocable)engine; String result = (String) in.invokeFunction(&amp;#34;hello&amp;#34;,param); Assertions.assertEquals(jsResult+param,result); } public ScriptEngine getEngine(){ ScriptEngine engine = new ScriptEngineManager().getEngineByName(&amp;#34;graal.js&amp;#34;); Assertions.assertNotNull(engine); return engine; } 对应的关键依赖是: &amp;lt;properties&amp;gt; &amp;lt;graalvm-js.version&amp;gt;23.0.1&amp;lt;/graalvm-js.version&amp;gt; &amp;lt;/properties&amp;gt; &amp;lt;dependency&amp;gt; &amp;lt;groupId&amp;gt;org.graalvm.js&amp;lt;/groupId&amp;gt;</description>
+    </item>
+    
     <item>
       <title>记一次springboot3的升级之旅</title>
       <link>https://liangyuanpeng.github.io/post/write-note-for-upgrade-to-springboot3/</link>
@@ -28,7 +46,7 @@
     <item>
       <title>[长期更新]java问题列表</title>
       <link>https://liangyuanpeng.github.io/post/question-list-of-java/</link>
-      <pubDate>Tue, 04 May 2021 00:00:00 +0000</pubDate>
+      <pubDate>Thu, 04 May 2023 00:00:00 +0000</pubDate>
       
       <guid>https://liangyuanpeng.github.io/post/question-list-of-java/</guid>
       <description>说明 本文主要收集 java 遇到的一些常见问题,欢迎对本文进行投稿你认为好的场景或问题. 问题来了 使用 jdk17 时立刻堆栈报错提示内存不足 VM Arguments: jvm_args: -Xmx1G -XX:+UnlockExperimentalVMOptions -XX:ErrorFile=/usr/local/lan/logs/parser/hs_err.log -XX:HeapDumpPath=/usr/local/lan/dumps/parser java_command: com.lan.parser.YdcApplication java_class_path (initial):</description>

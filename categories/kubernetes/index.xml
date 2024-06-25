@@ -6,7 +6,7 @@
     <description>Recent content in kubernetes on Hi,I`m lan</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 22 May 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://liangyuanpeng.github.io/categories/kubernetes/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 28 May 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://liangyuanpeng.github.io/categories/kubernetes/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>lank8s.cn服务</title>
       <link>https://liangyuanpeng.github.io/post/service-lank8s.cn/</link>
@@ -26,6 +26,15 @@
     </item>
     
     <item>
+      <title>构建kind-node镜像的更多选择</title>
+      <link>https://liangyuanpeng.github.io/post/more-ways-to-build-kind-node/</link>
+      <pubDate>Tue, 28 May 2024 00:00:00 +0000</pubDate>
+      
+      <guid>https://liangyuanpeng.github.io/post/more-ways-to-build-kind-node/</guid>
+      <description>简介 在 PR 合并之前, Kind 构建一个自定义的 kubernetes 节点镜像至少有两个步骤(Kind命令自动完成): 使用 kubernetes 源码构建二进制文件 (假设已经下载好 kubernetes 源码) Kind 开始</description>
+    </item>
+    
+    <item>
       <title>使用crio作为kind的容器运行时</title>
       <link>https://liangyuanpeng.github.io/post/use-cri-o-container-runtime-with-kind/</link>
       <pubDate>Wed, 22 May 2024 00:00:00 +0000</pubDate>
@@ -41,6 +50,15 @@
       
       <guid>https://liangyuanpeng.github.io/post/kubernetes-kep-1880-multiple-service-cidrs/</guid>
       <description>KEP-1880 多服务 CIDR 是什么 KEP-1880 允许通过 API 对象配置分配给 Kubernetes 集群的 ServiceCIDR,能够动态的扩展 kubernetes 集群的服务的 IP,该功能发布 kubernetes v1.29.0 中,功能版本时 al</description>
+    </item>
+    
+    <item>
+      <title>argoworkflow 的一些实践和思考</title>
+      <link>https://liangyuanpeng.github.io/post/something-with-argo-workflow/</link>
+      <pubDate>Sat, 23 Sep 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://liangyuanpeng.github.io/post/something-with-argo-workflow/</guid>
+      <description>实践 达到 github action 同一个 PR 只跑一个 CI 的效果 需要考虑的点: 一个PR使用同一个 volume,暂时每次都清理, 后续优化是延迟一些时间再清理 volume serverless 节点 为了成</description>
     </item>
     
     <item>

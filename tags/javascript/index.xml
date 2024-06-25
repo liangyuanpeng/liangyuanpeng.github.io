@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>javascript on Hi,I`m lan</title>
+    <link>https://liangyuanpeng.github.io/tags/javascript/</link>
+    <description>Recent content in javascript on Hi,I`m lan</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 05 Sep 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://liangyuanpeng.github.io/tags/javascript/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>java中调用javascript</title>
+      <link>https://liangyuanpeng.github.io/post/run-javascript-on-the-java/</link>
+      <pubDate>Tue, 05 Sep 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://liangyuanpeng.github.io/post/run-javascript-on-the-java/</guid>
+      <description>说明 @Test public void testInvoke() throws ScriptException, NoSuchMethodException { ScriptEngine engine = getEngine(); String jsResult = &amp;#34;hello &amp;#34;; String param = &amp;#34;world&amp;#34;; String jsFunc = &amp;#34;function hello(param){return &amp;#39;&amp;#34;+jsResult+&amp;#34;&amp;#39; + &amp;#39;&amp;#34;+param+&amp;#34;&amp;#39; };&amp;#34;; engine.eval(jsFunc); Invocable in = (Invocable)engine; String result = (String) in.invokeFunction(&amp;#34;hello&amp;#34;,param); Assertions.assertEquals(jsResult+param,result); } public ScriptEngine getEngine(){ ScriptEngine engine = new ScriptEngineManager().getEngineByName(&amp;#34;graal.js&amp;#34;); Assertions.assertNotNull(engine); return engine; } 对应的关键依赖是: &amp;lt;properties&amp;gt; &amp;lt;graalvm-js.version&amp;gt;23.0.1&amp;lt;/graalvm-js.version&amp;gt; &amp;lt;/properties&amp;gt; &amp;lt;dependency&amp;gt; &amp;lt;groupId&amp;gt;org.graalvm.js&amp;lt;/groupId&amp;gt;</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -6,7 +6,7 @@
     <description>Recent content in kubernetes on Hi,I`m lan</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 22 May 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://liangyuanpeng.github.io/tags/kubernetes/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 28 May 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://liangyuanpeng.github.io/tags/kubernetes/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>lank8s.cn服务</title>
       <link>https://liangyuanpeng.github.io/post/service-lank8s.cn/</link>
@@ -23,6 +23,15 @@
       
       <guid>https://liangyuanpeng.github.io/post/run-k8s-with-kind/</guid>
       <description>前言 由于各类基于 kubernetes 的云原生实验或测试的前提都是需要一个 kubernetes 环境,而在写博客时总是需要提及使用 Kind 来搭建 kubernetes 环境. 因此这里单独写一篇文章来介绍如何用</description>
+    </item>
+    
+    <item>
+      <title>构建kind-node镜像的更多选择</title>
+      <link>https://liangyuanpeng.github.io/post/more-ways-to-build-kind-node/</link>
+      <pubDate>Tue, 28 May 2024 00:00:00 +0000</pubDate>
+      
+      <guid>https://liangyuanpeng.github.io/post/more-ways-to-build-kind-node/</guid>
+      <description>简介 在 PR 合并之前, Kind 构建一个自定义的 kubernetes 节点镜像至少有两个步骤(Kind命令自动完成): 使用 kubernetes 源码构建二进制文件 (假设已经下载好 kubernetes 源码) Kind 开始</description>
     </item>
     
     <item>
@@ -50,6 +59,15 @@
       
       <guid>https://liangyuanpeng.github.io/post/kubernetes-kep-1880-multiple-service-cidrs/</guid>
       <description>KEP-1880 多服务 CIDR 是什么 KEP-1880 允许通过 API 对象配置分配给 Kubernetes 集群的 ServiceCIDR,能够动态的扩展 kubernetes 集群的服务的 IP,该功能发布 kubernetes v1.29.0 中,功能版本时 al</description>
+    </item>
+    
+    <item>
+      <title>argoworkflow 的一些实践和思考</title>
+      <link>https://liangyuanpeng.github.io/post/something-with-argo-workflow/</link>
+      <pubDate>Sat, 23 Sep 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://liangyuanpeng.github.io/post/something-with-argo-workflow/</guid>
+      <description>实践 达到 github action 同一个 PR 只跑一个 CI 的效果 需要考虑的点: 一个PR使用同一个 volume,暂时每次都清理, 后续优化是延迟一些时间再清理 volume serverless 节点 为了成</description>
     </item>
     
     <item>
@@ -104,6 +122,15 @@
       
       <guid>https://liangyuanpeng.github.io/post/oxia-is-next-pulsar-metadata/</guid>
       <description>Oxia 是什么? 简单来说呢 oxia 是一个 streamnative 开源的基于 kubernetes 的可扩展的元数据存储和协调系统,设计的目标是为了成为Apache Pulsar 的关键组件,也就是元数据中心,取</description>
+    </item>
+    
+    <item>
+      <title>[长期更新]helm常见问题以及配置记录</title>
+      <link>https://liangyuanpeng.github.io/post/helm-config-note-long-term/</link>
+      <pubDate>Sun, 23 Apr 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://liangyuanpeng.github.io/post/helm-config-note-long-term/</guid>
+      <description>说明 本文主要收集常见场景下 helm 配置以及遇到的一些常见问题,欢迎对本文进行投稿你认为好的场景配置或问题. unclosed action 错误 用 helm 3.5 在 kubernetes 1.29 上安装 contour</description>
     </item>
     
     <item>
@@ -422,15 +449,6 @@
     </item>
     
     <item>
-      <title>[长期更新]helm常见问题以及配置记录</title>
-      <link>https://liangyuanpeng.github.io/post/helm-config-note-long-term/</link>
-      <pubDate>Fri, 23 Apr 2021 00:00:00 +0000</pubDate>
-      
-      <guid>https://liangyuanpeng.github.io/post/helm-config-note-long-term/</guid>
-      <description>说明 本文主要收集常见场景下 helm 配置以及遇到的一些常见问题,欢迎对本文进行投稿你认为好的场景配置或问题. 官方文档 https://helm.sh/docs/</description>
-    </item>
-    
-    <item>
       <title>Kubernetes多租户–最佳实践指南</title>
       <link>https://liangyuanpeng.github.io/post/k8s-multi-tenancy-guide/</link>
       <pubDate>Wed, 14 Apr 2021 00:00:00 +0000</pubDate>
@@ -490,7 +508,7 @@
       <pubDate>Sat, 23 Jan 2021 00:00:00 +0000</pubDate>
       
       <guid>https://liangyuanpeng.github.io/post/k8s-client-go-source-2/</guid>
-      <description>简介：云原生社区活动&amp;mdash;Kubernetes 源码剖析第一期第二周 本周是 K8S 源码研习社第一期第二周，学习内容是学习Informer机制</description>
+      <description>简介：云原生社区活动&amp;mdash;Kubernetes 源码剖析第一期第二周 本周是 K8S 源码研习社第一期第二周，学习内容是学习 Informer 机制，本文以这个课</description>
     </item>
     
     <item>

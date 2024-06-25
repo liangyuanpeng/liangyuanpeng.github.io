@@ -339,11 +339,76 @@
                             
                         </a>
                         
+                       <a class="tag" href="/tags/helm" title="helm">
+                        helm
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                                <img style="display:inline-block;" src="/img/taglogo/helm.png" height="20" width="20" />
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                        </a>
+                        
                         <br/>
                     </div>
                     <h1>[长期更新]helm常见问题以及配置记录</h1>
                     <h2 class="subheading"></h2>
-                    <span  class="meta">Posted by 梁远鹏 on 2021-04-23
+                    <span  class="meta">Posted by 梁远鹏 on 2023-04-23
                         
                         <span id="busuanzi_container_page_pv">|<span id="busuanzi_value_page_pv"></span><span>
                             <span id="/post/helm-config-note-long-term/" class="leancloud_visitors meta_data_item" data-flag-title="">
@@ -360,7 +425,7 @@
 
 
 
-                            阅读 </span></span>|<span class="post-date">共55字</span>，阅读约<span class="more-meta"> 1 分钟</span>
+                            阅读 </span></span>|<span class="post-date">共150字</span>，阅读约<span class="more-meta"> 1 分钟</span>
                         
                     </span>
                 </div>
@@ -387,6 +452,7 @@
                 </header>
                 <nav id="TableOfContents">
   <ul>
+    <li><a href="#unclosed-action-错误">unclosed action 错误</a></li>
     <li><a href="#官方文档">官方文档</a></li>
   </ul>
 </nav>
@@ -394,6 +460,12 @@
 
 		<h1 id="说明">说明</h1>
 <p>本文主要收集常见场景下 helm 配置以及遇到的一些常见问题,欢迎对本文进行投稿你认为好的场景配置或问题.</p>
+<h2 id="unclosed-action-错误">unclosed action 错误</h2>
+<p>用 helm 3.5 在 kubernetes 1.29 上安装 contour的时候报错了:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#f92672">[</span>root@lank8scn yamls<span style="color:#f92672">]</span><span style="color:#75715e"># helm upgrade -i contour bitnami/contour -n contour --set replicaCount=1</span>
+Release <span style="color:#e6db74">&#34;contour&#34;</span> does not exist. Installing it now.
+Error: parse error at <span style="color:#f92672">(</span>contour/charts/common/templates/_resources.tpl:15<span style="color:#f92672">)</span>: unclosed action
+</code></pre></div><p>在网上快速搜索了一下看到这个问题可以通过升级 helm 到 3.7.0 来解决,我是直接升级到了 3.14.0 解决了.</p>
 <h2 id="官方文档">官方文档</h2>
 <p><a href="https://helm.sh/docs/">https://helm.sh/docs/</a></p>
 
@@ -423,12 +495,12 @@
                 <ul class="pager">
                     
                     <li class="previous">
-                        <a href="/post/introducing-shane-miller/" data-toggle="tooltip" data-placement="top" title="[了解Rust基金会]介绍Shane Miller">&larr; [了解Rust基金会]介绍Shane Miller</a>
+                        <a href="/post/kubeadm-config-note-long-term/" data-toggle="tooltip" data-placement="top" title="[长期更新]kubeadm常见问题以及配置记录">&larr; [长期更新]kubeadm常见问题以及配置记录</a>
                     </li>
                     
                     
                     <li class="next">
-                        <a href="/post/ansible-qa/" data-toggle="tooltip" data-placement="top" title="ansible问题用法汇总">ansible问题用法汇总 &rarr;</a>
+                        <a href="/about/" data-toggle="tooltip" data-placement="top" title="关于我">关于我 &rarr;</a>
                     </li>
                     
                 </ul>
@@ -568,25 +640,25 @@
 <h2>相关文章</h2>
 <ul style="margin-bottom: 25px;">
     
-    <li><a href="/post/k8s-deploy-longhorn/">kubernetes部署longhorn</a></li>
+    <li><a href="/post/migrate-your-manifest-yaml-files-into-helm-chart/">将你的yaml文件迁移到helm</a></li>
     
-    <li><a href="/post/kubernetes-deploy-kube-prometheus/">kubernetes部署kube-prometheus</a></li>
+    <li><a href="/post/kubeadm-config-note-long-term/">[长期更新]kubeadm常见问题以及配置记录</a></li>
     
-    <li><a href="/post/build-for-kind/">编译构建Kind</a></li>
+    <li><a href="/post/kubecon-china-2023%E5%B0%86%E5%9C%A8%E4%B8%8A%E6%B5%B7%E4%B8%BE%E5%8A%9E/">kubecon china 2023将在上海举办</a></li>
     
-    <li><a href="/post/k8s-multi-tenancy-guide/">Kubernetes多租户–最佳实践指南</a></li>
+    <li><a href="/post/from-zero-to-kubernets-subproject-lead/">从零到 Kubernetes 子项目负责人</a></li>
     
-    <li><a href="/post/openkruise-column/">OpenKruise专栏介绍</a></li>
+    <li><a href="/post/kubernetes-hpa-custom-metrics-for-effective-cpu-memory-scaling/">Kubernetes HPA:定制指标实现有效的CPU和内存扩展</a></li>
     
-    <li><a href="/post/kubeadm-deploy-kubernetes-lank8scn/">kubeadm配合短域名lank8s.cn部署kubernetes</a></li>
+    <li><a href="/post/run-k8s-with-kind/">用kind搭建k8s集群环境</a></li>
     
-    <li><a href="/post/use-helm-deploy-chirpstack-kubernetes/">用helm chart将chripstack部署到kubernetes之上</a></li>
+    <li><a href="/post/pull-gcr-k8s-image-with-lank8s/">国内环境拉取gcr和k8s镜像</a></li>
     
-    <li><a href="/post/k8s-client-go-source-2/">k8s-client-go源码剖析(二)</a></li>
+    <li><a href="/post/compile-kubernetes/">编译kubernetes组件</a></li>
     
-    <li><a href="/post/prometheus-replease-log/">Prometheus版本发布说明</a></li>
+    <li><a href="/post/k8s-component-config-note-long-term/">[长期更新]k8s组件常用参数</a></li>
     
-    <li><a href="/post/springboot-clear-unuse-metrics/">清理SpringBoot应用无用的metrics指标</a></li>
+    <li><a href="/post/frozen-for-k8s-gcr-io/">k8s.gcr.io注册表完全冻结</a></li>
     
 </ul>
 
@@ -690,7 +762,7 @@
                     
                 </ul>
 		<p class="copyright text-muted">
-                    Copyright &copy; Hi,I`m lan , 2021
+                    Copyright &copy; Hi,I`m lan , 2023
                     <br>
                     <a href="https://themes.gohugo.io/hugo-theme-cleanwhite">CleanWhite Hugo Theme</a> by <a href="https://zhaohuabing.com">Huabing</a> |
                     <iframe

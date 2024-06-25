@@ -17,6 +17,15 @@
     </item>
     
     <item>
+      <title>shipwright快速入门</title>
+      <link>https://liangyuanpeng.github.io/post/quick-start-shipwright/</link>
+      <pubDate>Tue, 23 May 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://liangyuanpeng.github.io/post/quick-start-shipwright/</guid>
+      <description>shipwright 是由红帽开源并且捐赠给 CDF的一个基于 tekton 之上的容器镜像框架，将各种镜像构建方式抽象成 K8S CRD 对象，提供统一的使用体验,在使用时不需要关心内部的</description>
+    </item>
+    
+    <item>
       <title>JFrog 向 CD 基金会授予开源 Pyrsia</title>
       <link>https://liangyuanpeng.github.io/post/jfrog-grants-open-source-pyrsia-to-cd-foundation/</link>
       <pubDate>Fri, 24 Mar 2023 00:00:00 +0000</pubDate>

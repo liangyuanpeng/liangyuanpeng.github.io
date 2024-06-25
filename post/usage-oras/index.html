@@ -423,7 +423,7 @@
 
 
 
-                            阅读 </span></span>|<span class="post-date">共573字</span>，阅读约<span class="more-meta"> 2 分钟</span>
+                            阅读 </span></span>|<span class="post-date">共688字</span>，阅读约<span class="more-meta"> 2 分钟</span>
                         
                     </span>
                 </div>
@@ -468,6 +468,7 @@
 <h2 id="cicd-中的编译产物缓存">CICD 中的编译产物缓存</h2>
 <p>使用 drone 时，搭配 oras 使用将编译的产物缓存到容器镜像内，在下一次 CI 到来时从容器镜像内恢复编译产物，达到加快 CI 速度的效果。</p>
 <p>目前在我的 github 私有项目中同样使用了 oras 将编译产物缓存到容器镜像内.</p>
+<p>由于 gitea 目前(v1.22.0)还不支持 OCI 容器镜像,因此我还使用<a href="https://github.com/GoogleContainerTools/jib">Jib</a> 将 maven 缓存存储到普通的容器镜像内,在 oras 出现之前我就是这么干的,直到现在.</p>
 <h2 id="将常用的二进制命令放到容器镜像仓库">将常用的二进制命令放到容器镜像仓库</h2>
 <p>使用 oras 将常用到的二进制命令打包成容器镜像存放到容器镜像仓库，需要使用时直接使用 oras 下载命令，不再需要去各个项目的 github 仓库找到对应的 release 链接来下载。</p>
 <p>例如:</p>
@@ -476,9 +477,11 @@
 <p>当然，对外使用的话由于缺少版本信息不太方便，但是我个人使用已经足够了，如果我需要更新的二进制文件版本，则使用 <code>oras push ghcr.io/liangyuanpeng/files:cosign cosign</code> 去更新一次就可以了。</p>
 <h1 id="行业内的使用情况">行业内的使用情况</h1>
 <ul>
-<li>containerd wasm 以 OCI Artifact 方式分发 wasm</li>
-<li>opcr, 将 OPA 策略以 OCI Artifact 方式分发</li>
+<li><a href="https://github.com/containerd/runwasi">runwasi (containerd wasm)</a> 以 OCI Artifact 方式分发 wasm</li>
+<li><a href="https://www.openpolicyagent.org/docs/latest/management-bundles/#oci-registry">OPA</a>  将 OPA 策略以 OCI Artifact 方式分发</li>
+<li><a href="https://github.com/opcr-io/policy">opcr</a> 是一个将 OPA 策略构建为 OCI 容器镜像的命令行工具</li>
 <li><a href="https://kubernetes.io/zh-cn/blog/2023/05/24/oci-security-profiles/">使用 OCI 工件为 seccomp、SELinux 和 AppArmor 分发安全配置文件</a></li>
+<li>trivy 以 OCI Artifact 的方式存储分发漏洞扫描所需要的数据库. <a href="https://aquasecurity.github.io/trivy/v0.51/docs/advanced/air-gap/#download-the-vulnerability-database">https://aquasecurity.github.io/trivy/v0.51/docs/advanced/air-gap/#download-the-vulnerability-database</a></li>
 </ul>
 
 
@@ -652,6 +655,8 @@
 <h2>相关文章</h2>
 <ul style="margin-bottom: 25px;">
     
+    <li><a href="/post/helm-config-note-long-term/">[长期更新]helm常见问题以及配置记录</a></li>
+    
     <li><a href="/post/kubeadm-config-note-long-term/">[长期更新]kubeadm常见问题以及配置记录</a></li>
     
     <li><a href="/post/kubecon-china-2023%E5%B0%86%E5%9C%A8%E4%B8%8A%E6%B5%B7%E4%B8%BE%E5%8A%9E/">kubecon china 2023将在上海举办</a></li>
@@ -669,8 +674,6 @@
     <li><a href="/post/pull-gcr-k8s-image-with-lank8s/">国内环境拉取gcr和k8s镜像</a></li>
     
     <li><a href="/post/compile-kubernetes/">编译kubernetes组件</a></li>
-    
-    <li><a href="/post/k8s-component-config-note-long-term/">[长期更新]k8s组件常用参数</a></li>
     
 </ul>
 

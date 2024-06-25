@@ -293,7 +293,7 @@
 
 
 
-                            阅读 </span></span>|<span class="post-date">共643字</span>，阅读约<span class="more-meta"> 2 分钟</span>
+                            阅读 </span></span>|<span class="post-date">共851字</span>，阅读约<span class="more-meta"> 2 分钟</span>
                         
                     </span>
                 </div>
@@ -332,12 +332,13 @@
         <li><a href="#使用-gh-命令">使用 gh 命令</a></li>
       </ul>
     </li>
+    <li><a href="#被-github-action-限制">被 github action 限制</a></li>
   </ul>
 </nav>
 		
 
 		<h1 id="前言">前言</h1>
-<p>记录有用的 github action 知识，欢迎投稿:)</p>
+<p>记录有用的 github action 知识或问题，欢迎投稿:)</p>
 <h2 id="可重用的github-action">可重用的github action</h2>
 <p>这个应该是比较常见的，抽离共同的内容到一个 github action，传递参数执行不同的内容，比较常规的是构建特定版本镜像和构建 latest 版本镜像。</p>
 <p>主要分为两部分：</p>
@@ -385,7 +386,17 @@
 </code></pre></div><p>只需要填写四个参数即可: <code>API TOKEN</code> <code>OWNER</code> <code>REPO</code>以及<code>ARTIFACT_ID</code>.</p>
 <h3 id="使用-gh-命令">使用 gh 命令</h3>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">gh run download -R <span style="color:#f92672">{</span>OWNER<span style="color:#f92672">}</span>/<span style="color:#f92672">{</span>REPO<span style="color:#f92672">}</span> <span style="color:#f92672">{</span>RUN_ID<span style="color:#f92672">}</span> -n <span style="color:#f92672">{</span>ARTIFACT_NAME<span style="color:#f92672">}</span>
-</code></pre></div>
+</code></pre></div><h2 id="被-github-action-限制">被 github action 限制</h2>
+<p>我正在使用 github action 来构建 kubernetes kind node 容器镜像,正常使用了一段时间,某天突然不行了,github action workflow 总是被 cancel,最后在 Summary 看到如下提示:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">build-kindnode- / release-release-1.28
+Received request to deprovision: The request was cancelled by the remote provider.
+build-kindnode- / release-master
+Received request to deprovision: The request was cancelled by the remote provider.
+build-kindnode- / release-release-1.30
+Received request to deprovision: The request was cancelled by the remote provider.
+</code></pre></div><p>快速 google 了一番,发现 2023 年也有人遇到过这个问题, <a href="https://github.com/actions/runner-images/issues/7897">Github action job is cancled by remote provider.</a>,github 官方的人表示是因为使用的内存/CPU太多了.</p>
+<p>但是我构建kubernetes kind node容器镜像应该也不会超过资源限制呀. (:</p>
+
 
         <h2>微信公众号</h2>
 <p>扫描下面的二维码关注我们的微信公众号,第一时间查看最新内容。同时也可以关注我的Github,看看我都在了解什么技术,在页面底部可以找到我的Github。</p>
@@ -416,7 +427,7 @@
                 <ul class="pager">
                     
                     <li class="previous">
-                        <a href="/post/question-list-of-kubernetes/" data-toggle="tooltip" data-placement="top" title="[长期更新]kubernetes问题列表记录">&larr; [长期更新]kubernetes问题列表记录</a>
+                        <a href="/post/question-list-of-java/" data-toggle="tooltip" data-placement="top" title="[长期更新]java问题列表">&larr; [长期更新]java问题列表</a>
                     </li>
                     
                     

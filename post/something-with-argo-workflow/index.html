@@ -1,0 +1,1070 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head><head>
+    <meta name="google-site-verification" content="9vIieCe-Qpd78QOmBl63rGtIVbhY6sYyuxX3j8XWBA4" />
+    <meta name="baidu-site-verification" content="LRrmH41lz7" />
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <meta name="baidu-site-verification" content="HGLXRsUXC4" />
+
+    
+    <meta name="baidu-site-verification" content="code-ANZvlnN0Xr" />
+
+    
+    <meta name="description" content="⎈远鹏，工程师⎈, 开源爱好者,kubernetes 贡献者,CNCF 大使 | 公众号:四颗咖啡豆">
+    
+    <meta name="keyword"  content="liangyuanpeng|CNCF大使|LanLiang|OpenYurt|Knative|Pulsar|Prometheus|Halo|ambassador|边缘计算|kubernetes|Docker|CloudNative|Golang|Rust|Istio|微服务">
+
+    
+    <link rel="shortcut icon" href="/img/aboutme/hash-kube-rs-pulsar.png">
+    
+
+    
+    <meta property="og:image" content="https://liangyuanpeng.github.io/img/banner-pexels.jpg" />
+    <meta name="twitter:image" content="https://liangyuanpeng.github.io/img/banner-pexels.jpg" />
+
+    <title>argoworkflow 的一些实践和思考-liangyuanpeng 的博客 | liangyuanpeng&#39;s Blog</title>
+
+    <link rel="canonical" href="https://liangyuanpeng.github.io/post/something-with-argo-workflow/">
+
+    
+
+    
+    <link rel="stylesheet" href='https://liangyuanpeng.github.io/css/bootstrap.min.css'>
+
+    
+    <link rel="stylesheet" href="https://liangyuanpeng.github.io/css/hux-blog.min.css">
+
+    
+    <link rel="stylesheet" href="https://liangyuanpeng.github.io/css/syntax.css">
+
+    
+    <link href="/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    
+    <script src="https://liangyuanpeng.github.io/js/jquery.min.js"></script>
+
+    
+    <script src="https://liangyuanpeng.github.io/js/bootstrap.min.js"></script>
+
+    
+    <script src="https://liangyuanpeng.github.io/js/hux-blog.min.js"></script>
+
+    
+    <script defer src='/js/cf-beacon.min.js' data-cf-beacon='{"token": "f73bc0092aeb491d89984c0eb5a87ac2"}'></script>
+</head>
+
+</head>
+
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="https://liangyuanpeng.github.io/">Hi,I`m lan</a>
+        </div>
+
+        
+        
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="https://liangyuanpeng.github.io/">Home</a>
+                    </li>
+                    
+                    
+                     
+
+                    
+		            <li>
+                        <a href="https://liangyuanpeng.github.io/search/">SEARCH <img src="https://liangyuanpeng.github.io/img/search.png" height="15" style="cursor: pointer;"></a>
+		            </li>
+                    
+
+		            <li>
+                        <a href="https://liangyuanpeng.github.io/about/">关于我 </a>
+		            </li>
+                </ul>
+            </div>
+        </div>
+        
+    </div>
+    
+</nav>
+<script>
+    
+    
+    
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        
+            $navbar.className = " ";
+            
+            setTimeout(function(){
+                
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+
+
+<style type="text/css">
+    header.intro-header{
+        background-image: url('https://liangyuanpeng.github.io/img/banner-pexels.jpg')
+    }
+</style>
+
+<header class="intro-header" >
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+
+                       
+                       <a class="tag" href="/tags/argo" title="argo">
+                        argo
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                        </a>
+                        
+                       <a class="tag" href="/tags/argo-workflow" title="argo-workflow">
+                        argo-workflow
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                        </a>
+                        
+                       <a class="tag" href="/tags/cncf" title="cncf">
+                        cncf
+                            
+                                
+                            
+                                
+                                <img style="display:inline-block;" src="/img/taglogo/cncf/cncf.png" height="20" width="20" />
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                        </a>
+                        
+                       <a class="tag" href="/tags/kubernetes" title="kubernetes">
+                        kubernetes
+                            
+                                
+                                <img style="display:inline-block;" src="/img/taglogo/emoji_k8s_loft.gif" height="20" width="20" />
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                        </a>
+                        
+                       <a class="tag" href="/tags/ci/cd" title="CI/CD">
+                        CI/CD
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                        </a>
+                        
+                        <br/>
+                    </div>
+                    <h1>argoworkflow 的一些实践和思考</h1>
+                    <h2 class="subheading"></h2>
+                    <span  class="meta">Posted by 梁远鹏 on 2023-09-23
+                        
+                        <span id="busuanzi_container_page_pv">|<span id="busuanzi_value_page_pv"></span><span>
+                            <span id="/post/something-with-argo-workflow/" class="leancloud_visitors meta_data_item" data-flag-title="">
+    <span class="post-meta-item-icon">
+      <span class="octicon octicon-eye"></span> 
+    </span>
+    <i class="fa fa-eye"></i>
+    <span class="old-visitors-count" style="display: none;"></span>
+    <span class="leancloud-visitors-count"></span>
+</span>
+
+
+
+
+
+
+                            阅读 </span></span>|<span class="post-date">共830字</span>，阅读约<span class="more-meta"> 2 分钟</span>
+                        
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+
+
+<article>
+    <div class="container">
+        <div class="row">
+            
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+		
+                <header>
+                <h2>TOC</h2>
+                </header>
+                <nav id="TableOfContents">
+  <ul>
+    <li><a href="#达到-github-action-同一个-pr-只跑一个-ci-的效果">达到 github action 同一个 PR 只跑一个 CI 的效果</a></li>
+    <li><a href="#serverless-节点">serverless 节点</a></li>
+    <li><a href="#限制一个-node-可以跑的-ci--workflowrun-数量">限制一个 node 可以跑的 CI / workflowRun 数量</a></li>
+    <li><a href="#设置workflow的超时时间">设置workflow的超时时间</a></li>
+    <li><a href="#workflow-template-的-container-无法和-sidecar-共享一个-emptydir">workflow template 的 container 无法和 sidecar 共享一个 EmptyDir</a></li>
+    <li><a href="#workflow-的重试配置">workflow 的重试配置</a></li>
+    <li><a href="#workflow-执行完成后总是失败显示-is-forbidden-user-systemserviceaccountlank8sdefault-cannot-patch-resource-pods-in-api-group--in-the-namespace-lank8s">workflow 执行完成后总是失败,显示 is forbidden: User &ldquo;system:serviceaccount:lank8s:default&rdquo; cannot patch resource &ldquo;pods&rdquo; in API group &quot;&quot; in the namespace &ldquo;lank8s&rdquo;</a></li>
+    <li><a href="#做了一些公共的-workflow-template欢迎使用以及参与贡献">做了一些公共的 workflow template,欢迎使用以及参与贡献.</a></li>
+  </ul>
+</nav>
+		
+
+		<h1 id="实践">实践</h1>
+<h2 id="达到-github-action-同一个-pr-只跑一个-ci-的效果">达到 github action 同一个 PR 只跑一个 CI 的效果</h2>
+<p>需要考虑的点: 一个PR使用同一个 volume,暂时每次都清理, 后续优化是延迟一些时间再清理 volume</p>
+<h2 id="serverless-节点">serverless 节点</h2>
+<p>为了成本考虑,需要使用的时候才去创建一个 K8S 节点,然后才创建对应的 argo workflow job.</p>
+<h2 id="限制一个-node-可以跑的-ci--workflowrun-数量">限制一个 node 可以跑的 CI / workflowRun 数量</h2>
+<h2 id="设置workflow的超时时间">设置workflow的超时时间</h2>
+<p>我有一个定时 argo workflow,主要做的事情就是运行 renovate 来自动化更新项目的依赖项,例如 maven 依赖和容器镜像版本,有天我一看,这个 job 居然已经运行了 35 天,一直卡在 clone github 代码,默认情况似乎没有超时时间,导致这个定时任务 35 天内都没有再次正常.因此还是很有必要设置一个超时时间的.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#f92672">apiVersion</span>: <span style="color:#ae81ff">argoproj.io/v1alpha1</span>
+<span style="color:#f92672">kind</span>: <span style="color:#ae81ff">CronWorkflow</span>
+<span style="color:#f92672">metadata</span>:
+  <span style="color:#f92672">name</span>: <span style="color:#ae81ff">compile</span>
+  <span style="color:#f92672">namespace</span>: <span style="color:#ae81ff">lank8scn</span>
+<span style="color:#f92672">spec</span>:
+  <span style="color:#f92672">activeDeadlineSeconds</span>: <span style="color:#ae81ff">3600</span> <span style="color:#75715e"># 1小时超时</span>
+...
+</code></pre></div><h2 id="workflow-template-的-container-无法和-sidecar-共享一个-emptydir">workflow template 的 container 无法和 sidecar 共享一个 EmptyDir</h2>
+<p>本意是想通过 sidecar 的方式启动一个 docker 提供给 trivy 来做镜像扫描,trivy 需要使用 docker 的 unix socket,因此尝试挂载一个临时的共享 volume,每次用完之后就销毁,但argo workflow 似乎无法支持 (:</p>
+<p>最后是通过将容器镜像导出为压缩包,然后使用 trivy image 的 <code>--input</code> 参数指定容器镜像压缩包文件来完成镜像的安全扫描.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">docker save -o ecf-latest.tar my.lank8s.cn/ecf:latest 
+trivy image --input ecf-latest.tar
+</code></pre></div><p>如果我遗漏了什么,欢迎提醒我,随时与我交流 :)</p>
+<p>对了,使用的 argo workflow 版本是 v3.5.5</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">...
+    <span style="color:#f92672">templates</span>:
+    - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">trivy</span>
+      <span style="color:#f92672">volumes</span>:
+        - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">workspace</span>
+          <span style="color:#f92672">emptyDir</span>: { }
+      <span style="color:#f92672">container</span>:
+        <span style="color:#f92672">image</span>: <span style="color:#ae81ff">ci-ubuntu-2204:latest</span>
+        <span style="color:#f92672">imagePullPolicy</span>: <span style="color:#ae81ff">Always</span>
+        <span style="color:#f92672">volumeMounts</span>:
+          - <span style="color:#f92672">mountPath</span>: <span style="color:#ae81ff">/workspace</span>
+            <span style="color:#f92672">name</span>: <span style="color:#ae81ff">workspace</span>
+      <span style="color:#f92672">sidecars</span>:
+      <span style="color:#75715e">#https://argo-workflows.readthedocs.io/en/stable/walk-through/docker-in-docker-using-sidecars/</span>
+      - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">dind</span>
+        <span style="color:#f92672">volumeMounts</span>:
+          - <span style="color:#f92672">mountPath</span>: <span style="color:#ae81ff">/workspace</span>
+            <span style="color:#f92672">name</span>: <span style="color:#ae81ff">workspace</span>
+</code></pre></div><h2 id="workflow-的重试配置">workflow 的重试配置</h2>
+<p>CI 过程中难免会遇到一些不稳定因素导致 CI 失败,并且希望这类事件发生时对当前 workflow 进行一次重试,argo workflow 原生支持这个需求.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">...
+<span style="color:#f92672">spec</span>:
+  <span style="color:#f92672">workflowSpec</span>:
+    <span style="color:#f92672">entrypoint</span>: <span style="color:#ae81ff">cacherebuild</span>
+    <span style="color:#f92672">templates</span>:
+    - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">cacherebuild</span>
+    <span style="color:#75715e"># https://argo-workflows.readthedocs.io/en/stable/retries/#configuring-retrystrategy-in-workflowspec</span>
+      <span style="color:#f92672">retryStrategy</span>:
+        <span style="color:#f92672">limit</span>: <span style="color:#e6db74">&#34;2&#34;</span>
+        <span style="color:#f92672">retryPolicy</span>: <span style="color:#e6db74">&#34;Always&#34;</span>
+...
+</code></pre></div><p>可以设置根据一些条件来判断是否需要重试,上述配置比较简单,直接设置不论什么原因只要失败了就会重试两次.</p>
+<h2 id="workflow-执行完成后总是失败显示-is-forbidden-user-systemserviceaccountlank8sdefault-cannot-patch-resource-pods-in-api-group--in-the-namespace-lank8s">workflow 执行完成后总是失败,显示 is forbidden: User &ldquo;system:serviceaccount:lank8s:default&rdquo; cannot patch resource &ldquo;pods&rdquo; in API group &quot;&quot; in the namespace &ldquo;lank8s&rdquo;</h2>
+<p>这是因为没有为 workflow 配置 RBAC 的时候使用的是当前 namespace 下的 default 这个 serviceAccount,而这个 serviceAccount 没有对应的权限.</p>
+<p>官方有文档生命需要对应的权限: #https://github.com/argoproj/argo-workflows/blob/main/docs/workflow-rbac.md</p>
+<p>解决方案是添加对应有权限的 serviceAccount 就可以了:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">...
+<span style="color:#f92672">spec</span>:
+  <span style="color:#f92672">workflowSpec</span>:
+    <span style="color:#f92672">serviceAccountName</span>: <span style="color:#ae81ff">executor</span>
+...
+</code></pre></div><p>对应的 Role 是:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#75715e">#https://github.com/argoproj/argo-workflows/blob/main/docs/workflow-rbac.md</span>
+<span style="color:#f92672">apiVersion</span>: <span style="color:#ae81ff">rbac.authorization.k8s.io/v1</span>
+<span style="color:#f92672">kind</span>: <span style="color:#ae81ff">Role</span>
+<span style="color:#f92672">metadata</span>:
+  <span style="color:#f92672">name</span>: <span style="color:#ae81ff">executor</span>
+  <span style="color:#f92672">namespace</span>: <span style="color:#ae81ff">smartoilets</span>
+<span style="color:#f92672">rules</span>:
+  - <span style="color:#f92672">apiGroups</span>:
+      - <span style="color:#ae81ff">argoproj.io</span>
+    <span style="color:#f92672">resources</span>:
+      - <span style="color:#ae81ff">workflowtaskresults</span>
+    <span style="color:#f92672">verbs</span>:
+      - <span style="color:#ae81ff">create</span>
+      - <span style="color:#ae81ff">patch</span>
+</code></pre></div><h2 id="做了一些公共的-workflow-template欢迎使用以及参与贡献">做了一些公共的 workflow template,欢迎使用以及参与贡献.</h2>
+<h1 id="温馨提示">温馨提示</h1>
+<p>本文持续更新</p>
+
+
+        <h2>微信公众号</h2>
+<p>扫描下面的二维码关注我们的微信公众号,第一时间查看最新内容。同时也可以关注我的Github,看看我都在了解什么技术,在页面底部可以找到我的Github。</p>
+<img  src="/img/qrcode_for_sikekafeidou.jpg" alt="wechat-qrcode">
+
+        <div style="padding: 10px 0; margin: 20px auto; width: 100%; font-size:16px; text-align: center;">
+    <button class="btn btn-danger"  id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+        <span>「来都来了」赞赏</span></button>
+    <div  id="QR" style="display: none;">
+        <div id="wechat" style="display: inline-block">
+            <p>如果本文对你有帮助的话欢迎通过微信或支付宝对我进行赞助,强烈建议你在支付的备注上填上你的 githubID 或你的昵称,让我知道我该感谢谁!!! </br></br>
+                赞助金额设置为固定金额:8元. </br> 
+                8元赠与我,发发发反馈给你,2023祝你收入翻番一路发到底:)</p>
+            <a class="fancybox" rel="group">
+                <img id="wechat_qr" src="/img/wechat-zhifubao.png" alt="Pay"></a>
+        </div>
+    </div>
+</div>
+
+        
+
+                <hr>
+
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/post/run-javascript-on-the-java/" data-toggle="tooltip" data-placement="top" title="java中调用javascript">&larr; java中调用javascript</a>
+                    </li>
+                    
+                    
+                    <li class="next">
+                        <a href="/post/quick-start-kcl/" data-toggle="tooltip" data-placement="top" title="快速入门KCL">快速入门KCL &rarr;</a>
+                    </li>
+                    
+                </ul>
+
+            
+
+
+<script src="https://giscus.app/client.js"
+        data-repo="liangyuanpeng/liangyuanpeng.github.io"
+        data-repo-id="MDEwOlJlcG9zaXRvcnkxNDkwMDQ2OTM="
+        data-category=""
+        data-category-id="DIC_kwDOCOGhlc4CVwo2"
+        data-mapping="title"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="top"
+        data-theme="light"
+        data-lang="zh-CN"
+        crossorigin="anonymous"
+        async>
+</script>
+
+
+
+
+            </div>
+
+            
+
+            <div class="
+                col-lg-2 col-lg-offset-0
+                visible-lg-block
+                sidebar-container
+                catalog-container">
+                
+                扫码下面二维码加我微信 :)
+                <img src="https://liangyuanpeng.github.io/img/aboutme/wechat-lan.png" />
+                
+            </div> 
+
+            
+
+            
+            
+            
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                
+                
+<br/>
+<h5>开源项目推荐</h5>
+
+<style type="text/css">
+.pinned-repos {
+  max-width: 300px;
+  margin: 0 auto;
+}
+
+.repo-card {
+  display: flex;
+  flex-direction: column;
+  padding: 16px;
+  border: 1px solid #e1e4e8;
+  border-radius: 6px;
+  background-color: #fff;
+}
+
+.repo-card:hover {
+  box-shadow: 0 1px 3px rgba(36,41,46,.08);
+}
+
+.repo-card h2 {
+  margin-top: 0;
+  font-size: 20px;
+  font-weight: 200;
+  color: #0366d6;
+}
+
+.repo-card p {
+  margin: 8px 0 16px;
+  font-size: 14px;
+  color: #586069;
+}
+
+.repo-card-stats {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;  
+}
+
+.repo-card-stats span {
+  font-size: 12px;
+  color: #586069;
+  margin-right: 16px;
+}
+
+.repo-card-stats strong {
+  font-weight: 200;
+  color: #24292e;
+}
+</style>
+
+    
+    <ul class="margin-bottom: 25px;pinned-repo-list">
+      <li>
+        <div class="repo-card">
+          <div class="repo-card-details">
+            <h2><a href="https://github.com/liangyuanpeng/replacer">replacer</a></h2>
+            <p>K8S webhook的参考实现|Replace container image of kubernetes mutate webhook.</p>
+            <div class="repo-card-stats">
+              <span>Language: <strong>Golang</strong></span>
+              <span>Forks: <strong>*</strong></span>
+              <span>Stars: <strong>*</strong></span>
+              <span>Updated: <strong>Nov 20, 2021</strong></span>
+            </div>
+          </div>
+        </div>
+      </li>
+    </ul>
+
+            </div>
+
+            
+            
+            <div class="
+            col-lg- col-lg-offset-2
+            col-md-10 col-md-offset-1
+            ">
+            <section>
+                <hr class="hidden-sm hidden-xs">
+                
+
+<h2>相关文章</h2>
+<ul style="margin-bottom: 25px;">
+    
+    <li><a href="/post/cloudnative-ci-of-argo-workflow/">argoworkflow 云原生工作流引擎</a></li>
+    
+    <li><a href="/post/k8s-cd-argo-deploy/">k8s部署云原生CD引擎Argo</a></li>
+    
+    <li><a href="/post/try-to-ask-question-to-kubernetes-for-source/">尝试向kubernetes提出问题</a></li>
+    
+    <li><a href="/post/etcd-as-a-kubernetes-sig/">将Etcd作为一个kubernetes sig来运作</a></li>
+    
+    <li><a href="/post/question-list-of-etcd/">[长期更新]etcd常见问题以及配置记录,欢迎投稿.</a></li>
+    
+    <li><a href="/post/question-list-of-kubernetes/">[长期更新]kubernetes问题列表记录</a></li>
+    
+    <li><a href="/post/helm-config-note-long-term/">[长期更新]helm常见问题以及配置记录</a></li>
+    
+    <li><a href="/post/kubeadm-config-note-long-term/">[长期更新]kubeadm常见问题以及配置记录</a></li>
+    
+    <li><a href="/post/kubecon-china-2023%E5%B0%86%E5%9C%A8%E4%B8%8A%E6%B5%B7%E4%B8%BE%E5%8A%9E/">kubecon china 2023将在上海举办</a></li>
+    
+    <li><a href="/post/quick-k8s-dev-with-flux-and-kind/">基于flux和kind快速搭建k8s环境</a></li>
+    
+</ul>
+
+            </section>
+            </div>
+            
+
+            
+
+
+        </div>
+    </div>
+</article>
+
+
+
+
+
+
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                   
+                   <li>
+                       <a href="" rel="alternate" type="application/rss+xml" title="Hi,I`m lan" >
+                           <span class="fa-stack fa-lg">
+                               <i class="fa fa-circle fa-stack-2x"></i>
+                               <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+                           </span>
+                       </a>
+                   </li>
+                   
+                    
+                    <li>
+                        <a target="_blank" href="https://github.com/liangyuanpeng">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                   
+                   
+                    
+                    <li>
+                        <a target="_blank" href="https://liangyuanpeng.github.io/img/aboutme/wechat-lan.png">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-wechat fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li>
+                        <a href="mailto:liangyuanpengem@163.com">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+		    
+
+                    
+                    <li>
+                        <a href="https://twitter.com/lan31793328">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li>
+                        <a target="_blank" href="https://www.zhihu.com/people/liangyuanpeng">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa  fa-stack-1x fa-inverse">知</i>
+                            </span>
+                        </a>
+                    </li>
+		    
+                    
+                    <li>
+                        <a target="_blank" href="https://weibo.com/u/1908782280">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+		    
+
+                    
+
+		    
+                    
+                </ul>
+		<p class="copyright text-muted">
+                    Copyright &copy; Hi,I`m lan , 2023
+                    <br>
+                    <a href="https://themes.gohugo.io/hugo-theme-cleanwhite">CleanWhite Hugo Theme</a> by <a href="https://zhaohuabing.com">Huabing</a> |
+                    <iframe
+                        style="margin-left: 2px; margin-bottom:-5px;"
+                        frameborder="0" scrolling="0" width="100px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=zhaohuabing&repo=hugo-theme-cleanwhite&type=star&count=true" >
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+
+<script>
+    function loadAsync(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+
+
+
+
+
+<script>
+    
+    if($('#tag_cloud').length !== 0){
+        async("/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+
+
+
+<script type="text/javascript">
+
+    
+    
+
+    function generateCatalog(selector) {
+
+        
+        
+        
+        
+            _containerSelector = 'div.post-container'
+        
+
+        
+        var P = $(_containerSelector), a, n, t, l, i, c;
+        a = P.find('h1,h2,h3,h4,h5,h6');
+
+        
+        $(selector).html('')
+
+        
+        a.each(function () {
+            n = $(this).prop('tagName').toLowerCase();
+            i = "#" + $(this).prop('id');
+            t = $(this).text();
+            c = $('<a href="' + i + '" rel="nofollow">' + t + '</a>');
+            l = $('<li class="' + n + '_nav"></li>').append(c);
+            $(selector).append(l);
+        });
+        return true;
+    }
+
+    generateCatalog(".catalog-body");
+
+    
+    $(".catalog-toggle").click((function (e) {
+        e.preventDefault();
+        $('.side-catalog').toggleClass("fold")
+    }))
+
+    
+
+
+    loadAsync("\/js\/jquery.nav.js", function () {
+        $('.catalog-body').onePageNav({
+            currentClass: "active",
+            changeHash: !1,
+            easing: "swing",
+            filter: "",
+            scrollSpeed: 700,
+            scrollOffset: 0,
+            scrollThreshold: .2,
+            begin: null,
+            end: null,
+            scrollChange: null,
+            padding: 80
+        });
+    });
+</script>
+
+
+
+
+<script>
+    async("/js/fastclick-1.0.6.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+
+
+<script>
+    
+    var _baId = 'fad9c137f8ce239f9b323d36c871f8e6';
+
+    
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?" + _baId;
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+
+
+
+
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-RTTRHGYFWL"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-RTTRHGYFWL');
+</script>
+
+
+
+</body>
+</html>

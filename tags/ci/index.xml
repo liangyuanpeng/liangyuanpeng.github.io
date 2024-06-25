@@ -6,7 +6,16 @@
     <description>Recent content in ci on Hi,I`m lan</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 28 May 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://liangyuanpeng.github.io/tags/ci/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 23 Sep 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://liangyuanpeng.github.io/tags/ci/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>argoworkflow 的一些实践和思考</title>
+      <link>https://liangyuanpeng.github.io/post/something-with-argo-workflow/</link>
+      <pubDate>Sat, 23 Sep 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://liangyuanpeng.github.io/post/something-with-argo-workflow/</guid>
+      <description>实践 达到 github action 同一个 PR 只跑一个 CI 的效果 需要考虑的点: 一个PR使用同一个 volume,暂时每次都清理, 后续优化是延迟一些时间再清理 volume serverless 节点 为了成</description>
+    </item>
+    
     <item>
       <title>argoworkflow 云原生工作流引擎</title>
       <link>https://liangyuanpeng.github.io/post/cloudnative-ci-of-argo-workflow/</link>
@@ -22,7 +31,7 @@
       <pubDate>Fri, 05 May 2023 00:00:00 +0000</pubDate>
       
       <guid>https://liangyuanpeng.github.io/post/helpful-github-action/</guid>
-      <description>前言 记录有用的 github action 知识，欢迎投稿:) 可重用的github action 这个应该是比较常见的，抽离共同的内容到一个 github action，传递参数执行不同的内容，</description>
+      <description>前言 记录有用的 github action 知识或问题，欢迎投稿:) 可重用的github action 这个应该是比较常见的，抽离共同的内容到一个 github action，传递参数执行不同的</description>
     </item>
     
     <item>

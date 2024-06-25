@@ -6,7 +6,25 @@
     <description>Recent content in helm on Hi,I`m lan</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 02 Jan 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://liangyuanpeng.github.io/tags/helm/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 23 Apr 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://liangyuanpeng.github.io/tags/helm/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>[长期更新]helm常见问题以及配置记录</title>
+      <link>https://liangyuanpeng.github.io/post/helm-config-note-long-term/</link>
+      <pubDate>Sun, 23 Apr 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://liangyuanpeng.github.io/post/helm-config-note-long-term/</guid>
+      <description>说明 本文主要收集常见场景下 helm 配置以及遇到的一些常见问题,欢迎对本文进行投稿你认为好的场景配置或问题. unclosed action 错误 用 helm 3.5 在 kubernetes 1.29 上安装 contour</description>
+    </item>
+    
+    <item>
+      <title>将你的yaml文件迁移到helm</title>
+      <link>https://liangyuanpeng.github.io/post/migrate-your-manifest-yaml-files-into-helm-chart/</link>
+      <pubDate>Sat, 01 Apr 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://liangyuanpeng.github.io/post/migrate-your-manifest-yaml-files-into-helm-chart/</guid>
+      <description>在这篇博客文章中，我们将学习如何将现有的清单 yaml 文件转换为 Helm Charts。 清单文件 Kubernetes 清单文件是描述 K8s 对象期望状态的YAML文件，例如 pod、s</description>
+    </item>
+    
     <item>
       <title>快速开始OpenEBS</title>
       <link>https://liangyuanpeng.github.io/post/quick-start-openebs/</link>
