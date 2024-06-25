@@ -18,7 +18,7 @@ categories:
 
 # 前言 
 
-记录有用的 github action 知识，欢迎投稿:)
+记录有用的 github action 知识或问题，欢迎投稿:)
 
 ## 可重用的github action
 
@@ -96,3 +96,21 @@ curl -L \
 ```shell
 gh run download -R {OWNER}/{REPO} {RUN_ID} -n {ARTIFACT_NAME}
 ```
+
+## 被 github action 限制
+
+我正在使用 github action 来构建 kubernetes kind node 容器镜像,正常使用了一段时间,某天突然不行了,github action workflow 总是被 cancel,最后在 Summary 看到如下提示:
+
+```shell
+build-kindnode- / release-release-1.28
+Received request to deprovision: The request was cancelled by the remote provider.
+build-kindnode- / release-master
+Received request to deprovision: The request was cancelled by the remote provider.
+build-kindnode- / release-release-1.30
+Received request to deprovision: The request was cancelled by the remote provider.
+```
+
+快速 google 了一番,发现 2023 年也有人遇到过这个问题, [Github action job is cancled by remote provider.](https://github.com/actions/runner-images/issues/7897),github 官方的人表示是因为使用的内存/CPU太多了.
+
+但是我构建kubernetes kind node容器镜像应该也不会超过资源限制呀. (:
+

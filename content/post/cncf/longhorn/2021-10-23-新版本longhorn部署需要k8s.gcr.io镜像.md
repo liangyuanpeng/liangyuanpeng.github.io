@@ -84,9 +84,9 @@ longhorn-ui-75ccbd4695-92cj2                1/1     Running             0       
   Normal   Pulling    24s (x2 over 5m2s)  kubelet            Pulling image "k8s.gcr.io/sig-storage/csi-attacher:v3.2.1"
 ```
 
-可以看到,pod从k8s.gcr.io拉取镜像失败了,这时候只需要可以helm upgrade一下将k8s.gcr.io都修改为`lank8s.cn`就可以了.
+可以看到,pod 从 k8s.gcr.io 拉取镜像失败了,这时候只需要可以 helm upgrade 一下将 k8s.gcr.io 都修改为`lank8s.cn`就可以了.
 
-下面是helm upgrade更新longhorn的命令:
+下面是 helm upgrade 更新 longhorn 的命令:
 ```shell
 helm upgrade longhorn longhorn/longhorn --namespace longhorn-system --set image.csi.attacher.repository=lank8s.cn/sig-storage/csi-attacher --set image.csi.provisioner.repository=lank8s.cn/sig-storage/csi-provisioner --set image.csi.nodeDriverRegistrar.repository=lank8s.cn/sig-storage/csi-node-driver-registrar --set image.csi.resizer.repository=lank8s.cn/sig-storage/csi-resizer --set image.csi.snapshotter.repository=lank8s.cn/sig-storage/csi-snapshotter --set persistence.defaultClassReplicaCount=1 --set csi.attacherReplicaCount=1  --set csi.provisionerReplicaCount=1  --set csi.resizerReplicaCount=1  --set csi.snapshotterReplicaCount=1
 ```  
