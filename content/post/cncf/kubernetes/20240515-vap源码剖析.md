@@ -13,6 +13,7 @@ tags:
     - cncf
     - k8s
     - cel
+    - kep
 categories: [ kubernetes ]
 ---
 
