@@ -11,6 +11,7 @@ published: true
 tags:
     - kubernetes
     - cncf 
+    - etcd
 categories: [ kubernetes ]
 ---    
 
@@ -118,4 +119,53 @@ lan@lan:lan$ etcdctl --endpoints http://172.18.0.2:14379 get --keys-only --prefi
 
 ```shell
 kubectl get --raw "/api/v1/nodes/{nodename}/proxy/configz" | jq .
+```
+
+# kubernetes token
+
+kubernetes 1.24之后默认情况下不会生成对应的 secret 了,如果你是使用 token 的方式与 kubernetes 进行交互,那么这是一个必须处理的问题.
+
+可以手动创建以下资源来得到一个永不过期并且明确了对应权限的 Token
+
+```yaml
+kind: ClusterRoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: admin
+  annotations:
+    rbac.authorization.kubernetes.io/autoupdate: "true"
+roleRef:
+  kind: ClusterRole
+  name: cluster-admin
+  apiGroup: rbac.authorization.k8s.io
+subjects:
+- kind: ServiceAccount
+  name: admin
+  namespace: kube-system
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: admin
+  namespace: kube-system
+  labels:
+    kubernetes.io/cluster-service: "true"
+    addonmanager.kubernetes.io/mode: Reconcile
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: admin
+  namespace: kube-system
+  annotations:
+    kubernetes.io/service-account.name: "admin"
+type: kubernetes.io/service-account-token
+```
+
+#  flag: unrecognized feature gate:
+
+升级/降级或者是手动指定了错误的 featureGate 时就会出现这个错误,在下面的例子中,我在 k8s 1.29 中指定了 1.30 才会有的 InformerResourceVersion, 因此报错了.
+
+```shell
+Error: invalid argument "GracefulNodeShutdown=true,ContextualLogging=true,SchedulerQueueingHints=true,WatchList=true,InformerResourceVersion=true" for "--feature-gates" flag: unrecognized feature gate: InformerResourceVersion
 ```

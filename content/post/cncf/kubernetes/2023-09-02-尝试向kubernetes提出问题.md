@@ -231,3 +231,10 @@ TODO:
 3. 开发 operator 时可能会碰到的与 resourceVersion 相关的问题: 并发修改资源
 
 说明 resourceVersion 不是和数据一起存储在 etcd 里面的,而是直接使用了 etcd kv 的 ModRevision 字段.
+
+# kubernetes 新功能 watchList 和已经广泛使用的 ListWatch 有什么区别?
+
+# 理解kubernetes中的CEL
+
+这个会单独输出一篇文章,但目前还没完成.
+
