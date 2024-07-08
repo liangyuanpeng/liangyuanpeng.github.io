@@ -169,3 +169,43 @@ type: kubernetes.io/service-account-token
 ```shell
 Error: invalid argument "GracefulNodeShutdown=true,ContextualLogging=true,SchedulerQueueingHints=true,WatchList=true,InformerResourceVersion=true" for "--feature-gates" flag: unrecognized feature gate: InformerResourceVersion
 ```
+
+# Error: json: cannot unmarshal string into Go struct field Kustomization.patches of type types.Patch
+
+在 karmada 的 CI 日志中看到, kustomize 的 patchesStrategicMerge 已经过时了,需要使用 patches 来替换更新.
+
+因此我简单的将 patchesStrategicMerge 替换为 patches:
+
+```diff
+--- patchesStrategicMerge
++++ patches
+```
+
+然后用 hack/local-up-karmada.sh 部署一下 karmada,结果报错了:
+
+```shell
+Error: json: cannot unmarshal string into Go struct field Kustomization.patches of type types.Patch
+```
+
+快速 google 了一下,在官方仓库找到了 [issue:Error: json: cannot unmarshal string into Go struct field Kustomization.patches of type types.Patch](https://github.com/kubernetes-sigs/kustomize/issues/1373) , 按照网友的提示,还需要为 patch 的文件添加一个 `patch` 字段指定路径:
+
+最终的更新如下:
+
+```diff
+--- patchesStrategicMerge:
+--- - patches/webhook_in_resourcebindings.yaml
+--- - patches/webhook_in_clusterresourcebindings.yaml
++++ apiVersion: kustomize.config.k8s.io/v1beta1
++++ kind: Kustomization
++++ patches:
++++ - path: patches/webhook_in_resourcebindings.yaml
++++ - path: patches/webhook_in_clusterresourcebindings.yaml
+```
+
+其实 kustomize 的提示消息已经给出了解决方案,也就是使用命令`kustomize edit fix`来自动更新文件
+
+```shell
+# Warning: 'patchesStrategicMerge' is deprecated. Please use 'patches' instead. Run 'kustomize edit fix' to update your Kustomization automatically.
+```
+
+最终给 karmada 提交了 PR: https://github.com/karmada-io/karmada/pull/5155
