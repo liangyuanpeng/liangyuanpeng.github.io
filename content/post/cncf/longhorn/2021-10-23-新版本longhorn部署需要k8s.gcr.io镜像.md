@@ -11,6 +11,7 @@ published: true
 tags:
     - longhorn 
     - cncf
+    - csi
 categories: [ kubernetes ]
 ---
 
@@ -91,12 +92,12 @@ longhorn-ui-75ccbd4695-92cj2                1/1     Running             0       
 helm upgrade longhorn longhorn/longhorn --namespace longhorn-system --set image.csi.attacher.repository=lank8s.cn/sig-storage/csi-attacher --set image.csi.provisioner.repository=lank8s.cn/sig-storage/csi-provisioner --set image.csi.nodeDriverRegistrar.repository=lank8s.cn/sig-storage/csi-node-driver-registrar --set image.csi.resizer.repository=lank8s.cn/sig-storage/csi-resizer --set image.csi.snapshotter.repository=lank8s.cn/sig-storage/csi-snapshotter --set persistence.defaultClassReplicaCount=1 --set csi.attacherReplicaCount=1  --set csi.provisionerReplicaCount=1  --set csi.resizerReplicaCount=1  --set csi.snapshotterReplicaCount=1
 ```  
 
-为了最简部署多了一些设置副本数为1的设置,如果希望使用默认的副本数的话可以用下面的helm upgrade命令:  
+为了最简部署多了一些设置副本数为1的设置,如果希望使用默认的副本数的话可以用下面的 helm upgrade 命令:  
 ```shell
 helm upgrade longhorn longhorn/longhorn --namespace longhorn-system --set image.csi.attacher.repository=lank8s.cn/sig-storage/csi-attacher --set image.csi.provisioner.repository=lank8s.cn/sig-storage/csi-provisioner --set image.csi.nodeDriverRegistrar.repository=lank8s.cn/sig-storage/csi-node-driver-registrar --set image.csi.resizer.repository=lank8s.cn/sig-storage/csi-resizer --set image.csi.snapshotter.repository=lank8s.cn/sig-storage/csi-snapshotter
 ```
 
-执行命令,等一会看看部署的情况，正常的话应该都running了:  
+执行命令,等一会看看部署的情况，正常的话应该都 `running` 了:  
 ```shell
 [root@lan1 ~]# kubectl  get pod -n longhorn-system
 NAME                                        READY   STATUS             RESTARTS   AGE
@@ -113,9 +114,9 @@ longhorn-manager-mbpmv                      1/1     Running            0        
 longhorn-ui-75ccbd4695-5zhzd                1/1     Running            0          4m58s
 ```  
 
-奇怪,longhorn-csi-plugin的pod没部署起来，而且报的是拉取镜像失败的错误,用kubectl describe看一下拉取的镜像有没有对不对,确认下是不是设置错误或者拼写错误.  
+奇怪,longhorn-csi-plugin 的 pod 没部署起来，而且报的是拉取镜像失败的错误,用 kubectl describe 看一下拉取的镜像有没有对不对,确认下是不是设置错误或者拼写错误.  
 
-```
+```shell
 [root@lan1 ~]# kubectl  get pod -n longhorn-system
 ...
 Events:
@@ -132,7 +133,7 @@ Events:
   Warning  Failed     3m42s (x20 over 10m)  kubelet            Error: ImagePullBackOff
 ```
 
-可以看到依然是拉取k8s.gcr.io的镜像去了,确认了一下命令没有问题,不确定哪里的问题,只好卸载longhorn再install.
+可以看到依然是拉取 `k8s.gcr.io` 的镜像去了,确认了一下命令没有问题,不确定哪里的问题,只好卸载 longhorn 再 install.
 
 设置副本数版本:  
 ```shell
@@ -147,7 +148,7 @@ helm uninstall longhorn -n longhorn-system
 helm install longhorn longhorn/longhorn --namespace longhorn-system --set image.csi.attacher.repository=lank8s.cn/sig-storage/csi-attacher --set image.csi.provisioner.repository=lank8s.cn/sig-storage/csi-provisioner --set image.csi.nodeDriverRegistrar.repository=lank8s.cn/sig-storage/csi-node-driver-registrar --set image.csi.resizer.repository=lank8s.cn/sig-storage/csi-resizer --set image.csi.snapshotter.repository=lank8s.cn/sig-storage/csi-snapshotter
 ```  
 
-这时候再看下pod,所有pod都起来了.   
+这时候再看下 pod,所有 pod 都起来了.   
 ```shell
 [root@lan1 ~]# k get po  -n longhorn-system
 NAME                                        READY   STATUS    RESTARTS   AGE
@@ -164,20 +165,21 @@ longhorn-manager-tkmvx                      1/1     Running   0          97s
 longhorn-ui-75ccbd4695-c9rn6                1/1     Running   0          97s
 ```  
 
-后面就可以愉快的使用longhorn存储数据了.
+后面就可以愉快的使用 longhorn 存储数据了.
 
 # 后续 
 
-后续会实现一个webhook,效果是部署webhook后会部署/更新阶段将`k8s.gcr.io`替换为`lank8s.cn`,这样就减少了人工成本,不再需要去修改部署helm chart时的命令或者去修改yaml了.  
+后续会实现一个 webhook,效果是部署 webhook 后会部署/更新阶段将`k8s.gcr.io`替换为`lank8s.cn`,这样就减少了人工成本,不再需要去修改部署 helm chart 时的命令或者去修改 yaml 了.  
 
-当部署了这样的一个webhook之后,就可以像以前一样使用简短的命令就可以愉快的使用longhorn了,例如:`helm install longhorn -n longhorn-system`,一起期待吧!
+当部署了这样的一个 webhook 之后,就可以像以前一样使用简短的命令就可以愉快的使用 longhorn 了,例如:`helm install longhorn -n longhorn-system`,一起期待吧!
 
 # 更新:在线webhook服务 
 
-目前在线的webhook服务已经上线,只需要在k8s集群部署一个webhook配置,就可以使用在线webhook自动化的修改`gcr.lank8s.io`为`lank8s.cn`了,告别手动时代!  
+目前在线的 webhook 服务已经上线,只需要在k8s集群部署一个 webhook 配置,就可以使用在线 webhook 自动化的修改`gcr.lank8s.io`为`lank8s.cn`了,告别手动时代!  
 
 点击[在线的lank8s的webhook服务](https://liangyuanpeng.com/post/deploy-lank8s-webhook-for-k8s.gcr.io/)查看怎么使用.
 
-# 更新:看看国内如何拉取gcr.io和registry.k8s.io镜像的
+
+# 再更新:在线的webhook弃用,看看国内如何拉取gcr.io和registry.k8s.io镜像的
 
 [传送门:国内环境拉取gcr和k8s镜像](https://liangyuanpeng.com/post/pull-gcr-k8s-image-with-lank8s/)

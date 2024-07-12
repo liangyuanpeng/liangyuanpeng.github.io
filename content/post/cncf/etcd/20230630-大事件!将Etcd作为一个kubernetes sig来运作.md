@@ -43,9 +43,10 @@ etcd sig 相关的初步设计的谷歌文档在这里: https://docs.google.com/
 
 
 ### 领导
-椅子和技术主管
+领导者和技术主管
 本杰明·王 (@ahtr)，VMware
 Marek Siarkowicz (@serathius)，谷歌
+
 ### Chairs （期待）
 我们不会为 SIG 的成立提名专门的主席。 然而，我们将积极激励现有的社区成员增加他们的贡献，以便他们能够在未来填补这些角色。
 

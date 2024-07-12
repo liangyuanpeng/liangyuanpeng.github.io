@@ -203,3 +203,15 @@ Events:  <none>
 - 类型检查不适用于CRD,包括匹配的 CRD 资源以及作为传参的 CRD 资源, CRD 资源会在未来版本支持.
 
 上述描述信息基本上在[官方文档](https://kubernetes.io/docs/reference/access-authn-authz/validating-admission-policy/#type-checking)都可以查到.
+
+# 我可以部署一个 kubernetes 社区的 testgrid 服务吗?
+
+可以的,目前 testgrid 已经支持自己部署 testgrid 服务,但有一个缺点是必须要使用 GCP: https://github.com/GoogleCloudPlatform/testgrid/issues/489
+
+## testgrid 的好处
+
+很多 kubernetes 生态项目都会使用 prow 机器人来帮助项目做项目治理相关的事情,例如使用 `/lgtm` 和 `/approve` 和对 PR 进行 review 以及合并.
+
+而 kubernetes 还会使用 prowjob 来做项目 CI,并且利用 [testgrid](https://testgrid.k8s.io/) 来监控 CI 的总体情况,从而发现一些不稳定的测试(Flaky Test),而 kubernetes 使用 prow 但并不一定会用 prowjob 来跑 CI,因为 prowjob 需要有自己的 CI 机器,这可能是一笔不小的经济负担,因此会选择使用 github action 来做 CI,但 github action 对于定时任务的监控没有 testgrid 来得直观.
+
+

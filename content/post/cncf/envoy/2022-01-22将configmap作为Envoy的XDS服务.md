@@ -8,6 +8,7 @@ date:       2022-01-22
 author:     "梁远鹏"
 image: "img/post-bg-2015.jpg"
 published: true
+wipnote: true
 tags:
     - envoy 
     - cncf
@@ -211,6 +212,3 @@ data:
     done
 ```
 
-# 注意
-
-本文还在持续创作中
