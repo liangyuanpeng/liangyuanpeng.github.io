@@ -215,3 +215,19 @@ Events:  <none>
 而 kubernetes 还会使用 prowjob 来做项目 CI,并且利用 [testgrid](https://testgrid.k8s.io/) 来监控 CI 的总体情况,从而发现一些不稳定的测试(Flaky Test),而 kubernetes 使用 prow 但并不一定会用 prowjob 来跑 CI,因为 prowjob 需要有自己的 CI 机器,这可能是一笔不小的经济负担,因此会选择使用 github action 来做 CI,但 github action 对于定时任务的监控没有 testgrid 来得直观.
 
 
+# 生成CRD时报错 CRD xxxx no storage version
+
+原因是因为生成了一个多版本的 CRD，但是没有指定将哪一个版本作为存储版本: 当一个 CRD 有多个版本时需要指定存储到 etcd 的是哪一个版本.
+
+只需要在对应版本的类型上添加一个 kubebuilder 的注释就可以了: `//+kubebuilder:storageversion`
+
+如果不是使用 kubebuilder,那么可以简单的在生成后的CRD文件上添加,例如:
+
+```yaml
+...
+- name: v1beta2
+  schema:
+    served: true
+    storage: true
+...
+```
