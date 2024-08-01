@@ -231,3 +231,18 @@ Events:  <none>
     storage: true
 ...
 ```
+
+
+# cilium 的 hubble-relay 启动失败
+
+报错:
+
+```yaml
+...
+      Message:   time="2024-07-25T08:58:44Z" level=info msg="Starting gRPC health server..." addr=":4222" subsys=hubble-relay
+time="2024-07-25T08:58:44Z" level=info msg="Starting gRPC server..." options="{peerTarget:hubble-peer.kube-system.svc.cluster.local:443 dialTimeout:30000000000 retryTimeout:30000000000 listenAddress::4245 healthListenAddress::4222 metricsListenAddress: log:0xc0003d01c0 serverTLSConfig:<nil> insecureServer:true clientTLSConfig:0xc000880708 clusterName:default insecureClient:false observerOptions:[0x2215d00 0x2215de0] grpcMetrics:<nil> grpcUnaryInterceptors:[] grpcStreamInterceptors:[]}" subsys=hubble-relay
+time="2024-07-25T08:59:14Z" level=warning msg="Failed to create peer client for peers synchronization; will try again after the timeout has expired" error="context deadline exceeded" subsys=hubble-relay target="hubble-peer.kube-system.svc.cluster.local:443"
+time="2024-07-25T08:59:51Z" level=info msg="Stopping server..." subsys=hubble-relay
+```
+
+使用 helm 部署 cilium 时开启了 hubble-relay,但是 hubble-relay 的 pod 一直无法正常启动,通过 `kubectl describe pod ` 找到上述错误信息,自己阅读后发现 service name 不太对劲,因为我的 kubernetes 集群环境配置了 `dnsDomain: cluster.lan`, helm 部署 cilium 有一个配置 `hubble.peerService.clusterDomain` 默认为 `cluster.local`, 将该值更新为我自己的 domain 就正常了.
