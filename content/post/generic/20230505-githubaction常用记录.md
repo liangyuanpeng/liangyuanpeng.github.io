@@ -114,3 +114,11 @@ Received request to deprovision: The request was cancelled by the remote provide
 
 但是我构建kubernetes kind node容器镜像应该也不会超过资源限制呀. (:
 
+最后是将 kubernetes/kind 的构建 CPU 使用数量限制为2.
+
+设置环境变量:
+
+```yaml
+GOFLAGS: "-p=2"
+```
+

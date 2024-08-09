@@ -13,6 +13,7 @@ tags:
     - cncf
     - image
     - fluentd
+    - kafka
     - CloudNative
 categories: 
     - TECH
@@ -66,7 +67,7 @@ fluent.conf
 
 
 
-以版本为v1.3.2的 fluentd 镜像为基础镜像,由于fluentd的处理层扩展是以插件的方式进行扩展,所以在制作这个镜像时需要安装对应的 kafka 插件和elasticsearch 插件.  
+以版本为v1.3.2的 fluentd 镜像为基础镜像,由于 fluentd 的处理层扩展是以插件的方式进行扩展,所以在制作这个镜像时需要安装对应的 kafka 插件和elasticsearch 插件.  
 这里 kafka 的 fluentd 插件版本为 0.12.3,elasticsearch 的 fluentd 插件版本为4.0.3.  
 
 Dockerfile 和`fluent.conf`都准备好了,执行制作镜像命令

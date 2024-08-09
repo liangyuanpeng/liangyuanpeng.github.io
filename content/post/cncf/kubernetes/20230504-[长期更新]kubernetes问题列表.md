@@ -203,3 +203,46 @@ Events:  <none>
 - 类型检查不适用于CRD,包括匹配的 CRD 资源以及作为传参的 CRD 资源, CRD 资源会在未来版本支持.
 
 上述描述信息基本上在[官方文档](https://kubernetes.io/docs/reference/access-authn-authz/validating-admission-policy/#type-checking)都可以查到.
+
+# 我可以部署一个 kubernetes 社区的 testgrid 服务吗?
+
+可以的,目前 testgrid 已经支持自己部署 testgrid 服务,但有一个缺点是必须要使用 GCP: https://github.com/GoogleCloudPlatform/testgrid/issues/489
+
+## testgrid 的好处
+
+很多 kubernetes 生态项目都会使用 prow 机器人来帮助项目做项目治理相关的事情,例如使用 `/lgtm` 和 `/approve` 和对 PR 进行 review 以及合并.
+
+而 kubernetes 还会使用 prowjob 来做项目 CI,并且利用 [testgrid](https://testgrid.k8s.io/) 来监控 CI 的总体情况,从而发现一些不稳定的测试(Flaky Test),而 kubernetes 使用 prow 但并不一定会用 prowjob 来跑 CI,因为 prowjob 需要有自己的 CI 机器,这可能是一笔不小的经济负担,因此会选择使用 github action 来做 CI,但 github action 对于定时任务的监控没有 testgrid 来得直观.
+
+
+# 生成CRD时报错 CRD xxxx no storage version
+
+原因是因为生成了一个多版本的 CRD，但是没有指定将哪一个版本作为存储版本: 当一个 CRD 有多个版本时需要指定存储到 etcd 的是哪一个版本.
+
+只需要在对应版本的类型上添加一个 kubebuilder 的注释就可以了: `//+kubebuilder:storageversion`
+
+如果不是使用 kubebuilder,那么可以简单的在生成后的CRD文件上添加,例如:
+
+```yaml
+...
+- name: v1beta2
+  schema:
+    served: true
+    storage: true
+...
+```
+
+
+# cilium 的 hubble-relay 启动失败
+
+报错:
+
+```yaml
+...
+      Message:   time="2024-07-25T08:58:44Z" level=info msg="Starting gRPC health server..." addr=":4222" subsys=hubble-relay
+time="2024-07-25T08:58:44Z" level=info msg="Starting gRPC server..." options="{peerTarget:hubble-peer.kube-system.svc.cluster.local:443 dialTimeout:30000000000 retryTimeout:30000000000 listenAddress::4245 healthListenAddress::4222 metricsListenAddress: log:0xc0003d01c0 serverTLSConfig:<nil> insecureServer:true clientTLSConfig:0xc000880708 clusterName:default insecureClient:false observerOptions:[0x2215d00 0x2215de0] grpcMetrics:<nil> grpcUnaryInterceptors:[] grpcStreamInterceptors:[]}" subsys=hubble-relay
+time="2024-07-25T08:59:14Z" level=warning msg="Failed to create peer client for peers synchronization; will try again after the timeout has expired" error="context deadline exceeded" subsys=hubble-relay target="hubble-peer.kube-system.svc.cluster.local:443"
+time="2024-07-25T08:59:51Z" level=info msg="Stopping server..." subsys=hubble-relay
+```
+
+使用 helm 部署 cilium 时开启了 hubble-relay,但是 hubble-relay 的 pod 一直无法正常启动,通过 `kubectl describe pod ` 找到上述错误信息,自己阅读后发现 service name 不太对劲,因为我的 kubernetes 集群环境配置了 `dnsDomain: cluster.lan`, helm 部署 cilium 有一个配置 `hubble.peerService.clusterDomain` 默认为 `cluster.local`, 将该值更新为我自己的 domain 就正常了.

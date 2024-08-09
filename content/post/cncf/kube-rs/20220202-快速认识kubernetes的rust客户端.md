@@ -12,16 +12,17 @@ tags:
     - rust 
     - cncf
     - kube-rs
+    - kubernetes
 categories: [ kubernetes ]
 ---
 
 # 介绍  
 
-[kube-rs](https://github.com/kube-rs/kube-rs)目前是CNCF的沙箱项目,有一个官方的controller实现示例[controller-rs](https://github.com/kube-rs/controller-rs).  
+[kube-rs](https://github.com/kube-rs/kube-rs)目前是 CNCF 的沙箱项目,有一个官方的 controller 实现示例[controller-rs](https://github.com/kube-rs/controller-rs).  
 
-还有一个Rust实现的Operator框架相关的项目是[krator](https://github.com/krator-rs/krator),Rust已经开始在云原生领域开始发力,前景我是很看好的.
+还有一个 Rust 实现的 Operator 框架相关的项目是[krator](https://github.com/krator-rs/krator),Rust已经开始在云原生领域开始发力,前景我是很看好的.
 
-本文会以查看pod的log为例,看看在rust的客户端中的代码是怎样的.  
+本文会以查看 pod 的 log 为例,看看在 rust 的客户端中的代码是怎样的.  
 
 # 伪代码讲解  
 
@@ -63,4 +64,4 @@ while let Some(line) = logs.try_next().await? {
 
 # 总结  
 
-虽然`kube-rs`在最近才进入CNCF,但是其实已经被不少项目正式采用了,例如CNCF中的[krator](https://github.com/krator-rs/krator)、[krustlet](https://github.com/krustlet/krustlet)以及linkerd2中的[policy-controller](https://github.com/linkerd/linkerd2/tree/main/policy-controller).完整的项目采用列表可以在[kube-rs 采用者](https://github.com/kube-rs/website/blob/main/docs/adopters.md)找到.
+虽然`kube-rs`在最近才进入 CNCF,但是其实已经被不少项目正式采用了,例如 CNCF 中的[krator](https://github.com/krator-rs/krator)、[krustlet](https://github.com/krustlet/krustlet)以及 linkerd2 中的[policy-controller](https://github.com/linkerd/linkerd2/tree/main/policy-controller).完整的项目采用列表可以在[kube-rs 采用者](https://github.com/kube-rs/website/blob/main/docs/adopters.md)找到.

@@ -3,7 +3,7 @@ layout:     post
 slug:      "moving-cncf-from-cdf-for-Tekton-and-Shipwright"
 title:      "Tekton和Shipwright将从CDF迁移到CNCF"
 subtitle:   ""
-description: "Tekton和Shipwright将从CDF迁移到CNCF"
+description: "Tekton 和 Shipwright 将从 CDF 迁移到 CNCF"
 date:       2024-02-19
 author:     "梁远鹏"
 image: "/img/banner-pexels.jpg"
@@ -13,6 +13,7 @@ tags:
     - cdf
     - tekton
     - shipwright
+    - kubernetes
 categories: [ TECH ]
 ---
 

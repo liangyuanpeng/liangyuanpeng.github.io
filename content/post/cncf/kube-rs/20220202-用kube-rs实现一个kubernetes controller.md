@@ -13,6 +13,7 @@ tags:
     - rust 
     - cncf
     - kube-rs
+    - kubernetes
 categories: [ kubernetes ]
 ---
 

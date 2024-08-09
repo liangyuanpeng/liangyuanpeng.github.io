@@ -20,7 +20,7 @@ categories:
 
 # 本文实现目标 
 
-本文主要使用 kubeadm 快速部署一个单机的 kubernetes,其中镜像仓库使用 lank8s.cn,当然也可以使用其他地址, lank8s.cn 主要优势是短域名,好记.  
+本文主要使用 kubeadm 快速部署一个单机的 kubernetes,其中镜像仓库使用 `lank8s.cn`,当然也可以使用其他地址, `lank8s.cn` 主要优势是短域名,好记.  
 
 # 前提  
 
@@ -58,7 +58,10 @@ yum install -y kubectl-${KUBE_VERSION} kubelet-${KUBE_VERSION} kubeadm-${KUBE_VE
 # 开始部署kubernetes
 
 1. 关闭swap
-todo
+
+```shell
+swapoff -a
+```
 
 2. 开始 kubeadm 安装 kubernetes  
 
@@ -66,7 +69,7 @@ todo
 kubeadm init --kubernetes-version=v1.18.6 --pod-network-cidr=10.244.0.0/16 --service-cidr=10.96.0.0/12 --image-repository=lank8s.cn
 ```  
 
-通过`--image-repository`指定镜像的地址就可以达到不需要翻墙的    效果(默认镜像需要拉取谷歌镜像仓库的地址,需要翻墙).  
+通过`--image-repository`指定镜像的地址就可以达到不需要翻墙的效果(默认镜像需要拉取谷歌镜像仓库的地址,需要翻墙).  
 
 顺利的话就可以看到部署成功的信息:  
 ```shell
@@ -99,7 +102,7 @@ sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
 sudo chown $(id -u):$(id -g) $HOME/.kube/config
 ```  
 
-3. 查看一下当前 pod 的情况,正常的话只有两个 coredns 的 pod 处于 pending 的状态,其他pod处于 running 状态.  
+1. 查看一下当前 pod 的情况,正常的话只有两个 coredns 的 pod 处于 `pending` 的状态,其他 pod 处于 `running` 状态.  
 
 ```shell
 [root@installk8s ~]# kubectl get po -A
@@ -140,8 +143,7 @@ watch kubectl get po -A
 
 ##  部署一个nginx服务  
 
-nginx-deployment.yaml:   
-
+nginx-deployment.yaml
 ```yaml
 apiVersion: apps/v1
 kind: Deployment

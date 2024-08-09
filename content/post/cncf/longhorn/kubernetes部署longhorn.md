@@ -19,9 +19,9 @@ categories:
 ---
 
 # 前言  
-longhorn是rancher公司开源并贡献给CNCF的一个开源分布式存储项目,可用来作为kubernetes的CSI存储.  
+longhorn 是 rancher 公司开源并贡献给 CNCF 的一个开源分布式存储项目,可用来作为 kubernetes 的 CSI 存储.  
 
-本文介绍helm和yaml两种方式部署longhorn并部署一个有状态服务Gogs应用.  
+本文介绍 helm 和 yaml 两种方式部署 longhorn 并部署一个有状态服务 Gogs 应用.  
 
 官方文档: [https://longhorn.io/docs/1.1.0/deploy/install/install-with-kubectl/](https://longhorn.io/docs/1.1.0/deploy/install/install-with-kubectl/)
 
@@ -177,14 +177,14 @@ spec:
 kubectl apply -f  gogs.yaml
 ```  
 
-一切正常的话可以看到gogs的pod已经running状态了:  
+一切正常的话可以看到 gogs 的 pod 已经 `running` 状态了:  
 ```shell
 $ k get po
 NAME                                  READY   STATUS    RESTARTS   AGE
 gogs-0                                1/1     Running   0          3h49m
 ```  
 
-我这里是已经部署好了,因此AGE显示时间比较长. 再来看看PV和PVC  
+我这里是已经部署好了,因此 AGE 显示时间比较长. 再来看看 PV 和 PVC  
 
 ```shell
 $ k get pvc
@@ -195,13 +195,13 @@ NAME                                       CAPACITY   ACCESS MODES   RECLAIM POL
 pvc-3078b16e-4d20-48f2-a32e-6fc6b14bb266   5Gi        RWO            Delete           Bound    default/gogs-data-gogs-0   longhorn                3h50m
 ```  
 
-可以看到PV和PVC都已经处于正常的使用状态了.说明longhorn storageClass是working的.
+可以看到 PV 和 PVC 都已经处于正常的使用状态了.说明 longhorn storageClass 是 working 的.
 
 # FAQ
 
 ## 需要提前安装open-iscsi
 
-如果没有提前安装好open-iscsi可能会报下面的错误:
+如果没有提前安装好 open-iscsi 可能会报下面的错误:
 ```shell
 [root@devmaster helmrepo]# kubectl logs -f  -n longhorn-system longhorn-manager-8smtj
 time="2020-06-14T07:35:39Z" level=error msg="Failed environment check, please make sure you have iscsiadm/open-iscsi installed on the host"
@@ -209,7 +209,7 @@ time="2020-06-14T07:35:39Z" level=fatal msg="Error starting manager: Environment
 ...
 ```
 
-下面给出几个系统安装iscsi工具的命令:  
+下面给出几个系统安装 iscsi 工具的命令:  
 Debian/Ubuntu:
 ```shell
 sudo apt-get install open-iscsi
