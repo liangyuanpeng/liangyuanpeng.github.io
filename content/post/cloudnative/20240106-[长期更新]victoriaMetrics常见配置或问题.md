@@ -60,3 +60,22 @@ vmrestore-prod -src=fs:///tmp/data -storageDataPath=/opt/lan/vmetrics
 其中 /tmp/data 是我下载好备份数据后解压数据的一个目录,但是备份的数据有问题导致解压后这个目录是空的,没有任何内容,但 vmrestore-prod 命令也没有任何错误提示… 因此导致数据恢复一直是进行中的状态,而 victoria-metrics 检测到数据目录有文件锁,也就是 `/victoria-metrics-data/restore-in-progress`,因此它认为目前还在进行数据恢复,所以一直启动失败.
 
 最后解决是按照提示把`/victoria-metrics-data/restore-in-progress`删除掉,接着把正确的备份数据准备好就可以了.
+
+# vmbackup 备份数据到 s3
+
+基本上按照官网文档操作就可以走通整个流程了, 官网地址:https://docs.victoriametrics.com/vmbackup/
+
+下面是一个使用 vmbackup 命令将数据备份到 minio 的主要命令和配置:
+
+```shell
+vmbackup-prod -dst=s3://tmp/data -snapshot.createURL=http://localhost:8428/snapshot/create -storageDataPath=/opt/lan/vmetrics -s3TLSInsecureSkipVerify -customS3Endpoint=http://localhost:9000  -credsFilePath=credentials
+```
+
+```credentials
+[default]
+aws_access_key_id=minioadmin
+aws_secret_access_key=minioadmin
+```
+
+
+
