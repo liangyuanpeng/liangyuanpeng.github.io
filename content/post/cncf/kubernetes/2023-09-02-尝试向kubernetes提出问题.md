@@ -231,3 +231,23 @@ TODO:
 3. 开发 operator 时可能会碰到的与 resourceVersion 相关的问题: 并发修改资源
 
 说明 resourceVersion 不是和数据一起存储在 etcd 里面的,而是直接使用了 etcd kv 的 ModRevision 字段.
+
+# kubernetes 新功能 watchList 和已经广泛使用的 ListWatch 有什么区别?
+
+# 理解kubernetes中的CEL
+
+这个会单独输出一篇文章,但目前还没完成.
+
+# 如何为 kubernetes 贡献新的系统架构
+
+例如我希望 kubernetes 原生支持 龙芯/RISC-V 架构的话怎么办? 通常作为开源项目的维护者希望可以在 CI 系统中持续的为项目支持的所有架构检查问题,因此并不是说修改几行代码让 kubernetes 支持龙芯/RISC-V 就完事了,而是需要有志愿者维护对应架构的 CI 系统,保证项目在发展过程中可以稳定的运行在所支持的架构上.
+
+IBM 为 kubernetes 维护了 ppc64le 架构的 CI 系统,可以在 https://github.com/ppc64le-cloud 找到一些相关信息.
+
+我对 kubernetes 运行在 龙芯/RISC-V 上感兴趣,目前也有兴趣维护对应的 CI 系统,但需要有人/供应商提供对应架构的机器,如果你可以帮助到我,那请联系我! 在 https://liangyuanpeng.com/ 可以找到我的微信二维码:)
+
+题外话: 俄勒冈州立大学开源实验室为一些开源项目提供了一些 POWER 机器和 AARCH64 机器用于 CI,简直是不可思议!
+相关:
+- https://osuosl.org/services/powerdev/
+- https://osuosl.org/services/aarch64/
+

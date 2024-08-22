@@ -13,6 +13,7 @@ tags:
     - k8s
     - CloudNative
     - 翻译
+    - cncf
 categories: 
     - kubernetes
 ---  
