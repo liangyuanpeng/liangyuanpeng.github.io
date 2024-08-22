@@ -230,7 +230,7 @@
 
 
 
-                            阅读 </span></span>|<span class="post-date">共495字</span>，阅读约<span class="more-meta"> 1 分钟</span>
+                            阅读 </span></span>|<span class="post-date">共607字</span>，阅读约<span class="more-meta"> 2 分钟</span>
                         
                     </span>
                 </div>
@@ -291,7 +291,14 @@ main.main<span style="color:#f92672">()</span>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">vmrestore-prod -src<span style="color:#f92672">=</span>fs:///tmp/data -storageDataPath<span style="color:#f92672">=</span>/opt/lan/vmetrics
 </code></pre></div><p>其中 /tmp/data 是我下载好备份数据后解压数据的一个目录,但是备份的数据有问题导致解压后这个目录是空的,没有任何内容,但 vmrestore-prod 命令也没有任何错误提示… 因此导致数据恢复一直是进行中的状态,而 victoria-metrics 检测到数据目录有文件锁,也就是 <code>/victoria-metrics-data/restore-in-progress</code>,因此它认为目前还在进行数据恢复,所以一直启动失败.</p>
 <p>最后解决是按照提示把<code>/victoria-metrics-data/restore-in-progress</code>删除掉,接着把正确的备份数据准备好就可以了.</p>
-
+<h1 id="vmbackup-备份数据到-s3">vmbackup 备份数据到 s3</h1>
+<p>基本上按照官网文档操作就可以走通整个流程了, 官网地址:https://docs.victoriametrics.com/vmbackup/</p>
+<p>下面是一个使用 vmbackup 命令将数据备份到 minio 的主要命令和配置:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">vmbackup-prod -dst<span style="color:#f92672">=</span>s3://tmp/data -snapshot.createURL<span style="color:#f92672">=</span>http://localhost:8428/snapshot/create -storageDataPath<span style="color:#f92672">=</span>/opt/lan/vmetrics -s3TLSInsecureSkipVerify -customS3Endpoint<span style="color:#f92672">=</span>http://localhost:9000  -credsFilePath<span style="color:#f92672">=</span>credentials
+</code></pre></div><pre tabindex="0"><code class="language-credentials" data-lang="credentials">[default]
+aws_access_key_id=minioadmin
+aws_secret_access_key=minioadmin
+</code></pre>
 
         <h2>微信公众号</h2>
 <p>扫描下面的二维码关注我们的微信公众号,第一时间查看最新内容。同时也可以关注我的Github,看看我都在了解什么技术,在页面底部可以找到我的Github。</p>

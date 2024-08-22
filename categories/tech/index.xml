@@ -17,6 +17,15 @@
     </item>
     
     <item>
+      <title>那些让我疑惑的CNCF项目</title>
+      <link>https://liangyuanpeng.github.io/post/confuse-with-me-from-cncf-projects/</link>
+      <pubDate>Tue, 16 May 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://liangyuanpeng.github.io/post/confuse-with-me-from-cncf-projects/</guid>
+      <description>那些让我疑惑的CNCF项目 CNCF 在我心中一直是信仰一样的存在，只要是 CNCF 项目我就会开始对它感兴趣，但是随着 CNCF 项目的增多，一些让我疑惑的项目也随之而</description>
+    </item>
+    
+    <item>
       <title>githubaction常用记录</title>
       <link>https://liangyuanpeng.github.io/post/helpful-github-action/</link>
       <pubDate>Fri, 05 May 2023 00:00:00 +0000</pubDate>
@@ -112,7 +121,7 @@
       <pubDate>Fri, 04 Feb 2022 00:00:00 +0000</pubDate>
       
       <guid>https://liangyuanpeng.github.io/post/open-tracing-project-archive/</guid>
-      <description>OpenTracing归档 自从OpenTracing合并到OpenTelemetry项目后,维护者的意愿是将OpenTracing项目归档,</description>
+      <description>OpenTracing归档 自从OpenTracing合并到OpenTelemetry项目后,维护者的意愿是将OpenTracing 项目归档,</description>
     </item>
     
     <item>

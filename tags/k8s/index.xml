@@ -31,7 +31,7 @@
       <pubDate>Wed, 08 Nov 2023 00:00:00 +0000</pubDate>
       
       <guid>https://liangyuanpeng.github.io/post/quick-start-kcl/</guid>
-      <description>什么是KCL 使用场景 yaml 配置管理 当谈到 yaml 时很容易联想到 kubernetes 资源的 yaml 文件,但目前我个人的使用场景更多的是管理 Kind 的配置文件,因为我会有很多种不同的 Kind</description>
+      <description>什么是KCL 生态难点 主要讲一下我在使用 KCL 过程中的一些情况,有时由于语法问题摸不着头脑,我总是会在 slack 给 KCL 语言的创始人之一 @Peefy 提问,这不仅仅是我一</description>
     </item>
     
     <item>
@@ -76,7 +76,7 @@
       <pubDate>Sat, 22 Apr 2023 00:00:00 +0000</pubDate>
       
       <guid>https://liangyuanpeng.github.io/post/kubecon-china-2023%E5%B0%86%E5%9C%A8%E4%B8%8A%E6%B5%B7%E4%B8%BE%E5%8A%9E/</guid>
-      <description>在 欧洲 kubecon2023 的会场上宣布了 kubecon 2023 上海的举办日期,非常值得期待! 同时在 Linux 基金会 Events 中也可以找到对应的公告: 说两句 虽然从2019年/2020年以来一直都</description>
+      <description>期待 在 欧洲 kubecon2023 的会场上宣布了 kubecon 2023 上海的举办日期,非常值得期待! 同时在 Linux 基金会 Events 中也可以找到对应的公告: 说两句 虽然从2019年/2020年以来一</description>
     </item>
     
     <item>
@@ -211,7 +211,7 @@
       <pubDate>Fri, 09 Apr 2021 00:00:00 +0000</pubDate>
       
       <guid>https://liangyuanpeng.github.io/post/k8s-deploy-longhorn/</guid>
-      <description>前言 longhorn是rancher公司开源并贡献给CNCF的一个开源分布式存储项目,可用来作为kubernetes的CSI存储. 本文介绍h</description>
+      <description>前言 longhorn 是 rancher 公司开源并贡献给 CNCF 的一个开源分布式存储项目,可用来作为 kubernetes 的 CSI 存储. 本文介绍 helm 和 yaml 两种方式部署 longhorn 并部署一个有状态服务 Gogs 应用. 官方文档</description>
     </item>
     
     <item>

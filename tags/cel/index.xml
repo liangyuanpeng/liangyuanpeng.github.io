@@ -16,5 +16,14 @@
       <description>前言 k8s 1.26 推出了内置的准入校验机制,只需要使用 CEL 表达式就可以完成基本的准入校验逻辑,而高级功能包含将参数动态化,可以使用 CRD 资源的某个字段作为参</description>
     </item>
     
+    <item>
+      <title>用cel表达式来实现k8s准入校验</title>
+      <link>https://liangyuanpeng.github.io/post/k8s-admissionregistration-with-cel/</link>
+      <pubDate>Mon, 09 Jan 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://liangyuanpeng.github.io/post/k8s-admissionregistration-with-cel/</guid>
+      <description>前言 在 K8S 1.26 版本以前,达到 K8S 准入校验策略效果的方式有两种： 自己实现 K8S webook 直接使用 CNCF 项目中以 K8S 策略展开的项目,例如OPA、kyverno. 这些都是</description>
+    </item>
+    
   </channel>
 </rss>

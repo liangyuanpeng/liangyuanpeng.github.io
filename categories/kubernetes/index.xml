@@ -53,7 +53,7 @@
     </item>
     
     <item>
-      <title>argoworkflow 的一些实践和思考</title>
+      <title>[长期更新]argoworkflow 的一些实践和思考</title>
       <link>https://liangyuanpeng.github.io/post/something-with-argo-workflow/</link>
       <pubDate>Sat, 23 Sep 2023 00:00:00 +0000</pubDate>
       
@@ -229,7 +229,7 @@
       <pubDate>Wed, 02 Feb 2022 00:00:00 +0000</pubDate>
       
       <guid>https://liangyuanpeng.github.io/post/quick-start-kubernetes-client-rust/</guid>
-      <description>介绍 kube-rs目前是CNCF的沙箱项目,有一个官方的controller实现示例controller-rs. 还有一个Rust实现的Ope</description>
+      <description>介绍 kube-rs目前是 CNCF 的沙箱项目,有一个官方的 controller 实现示例controller-rs. 还有一个 Rust 实现的 Operator 框架相关的项目是krator,Ru</description>
     </item>
     
     <item>

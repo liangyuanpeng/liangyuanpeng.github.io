@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>talos on Hi,I`m lan</title>
+    <link>https://liangyuanpeng.github.io/tags/talos/</link>
+    <description>Recent content in talos on Hi,I`m lan</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 22 Feb 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://liangyuanpeng.github.io/tags/talos/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>国内环境拉取gcr和k8s镜像</title>
+      <link>https://liangyuanpeng.github.io/post/pull-gcr-k8s-image-with-lank8s/</link>
+      <pubDate>Wed, 22 Feb 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://liangyuanpeng.github.io/post/pull-gcr-k8s-image-with-lank8s/</guid>
+      <description>前言 本文接下来所有配置都是基于 lank8s服务来做的. 在习惯了 kind 创建 kubernetes 集群后再次尝试了另外的搭建 kubernetes 集群工具: Talos 和 K0s,深深的感受到 Kind 将常用</description>
+    </item>
+    
+  </channel>
+</rss>

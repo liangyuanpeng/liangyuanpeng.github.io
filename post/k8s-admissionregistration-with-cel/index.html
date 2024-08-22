@@ -467,6 +467,195 @@
                             
                         </a>
                         
+                       <a class="tag" href="/tags/cel" title="cel">
+                        cel
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                        </a>
+                        
+                       <a class="tag" href="/tags/kep" title="kep">
+                        kep
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                        </a>
+                        
+                       <a class="tag" href="/tags/validatingadmissionpolicy" title="ValidatingAdmissionPolicy">
+                        ValidatingAdmissionPolicy
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                        </a>
+                        
                         <br/>
                     </div>
                     <h1>用cel表达式来实现k8s准入校验</h1>
@@ -488,7 +677,7 @@
 
 
 
-                            阅读 </span></span>|<span class="post-date">共2062字</span>，阅读约<span class="more-meta"> 5 分钟</span>
+                            阅读 </span></span>|<span class="post-date">共2059字</span>，阅读约<span class="more-meta"> 5 分钟</span>
                         
                     </span>
                 </div>
@@ -536,7 +725,7 @@ wget https://storage.googleapis.com/kubernetes-release/release/v1.26.0/bin/linux
 mv kind-linux-amd64 kind <span style="color:#f92672">&amp;&amp;</span> chmod +x kind <span style="color:#f92672">&amp;&amp;</span> mv kind /usr/local/bin
 chmod +x kubectl <span style="color:#f92672">&amp;&amp;</span> mv kubectl /usr/local/bin
 cp /usr/local/bin/kubectl /usr/local/bin/k
-</code></pre></div><p>注意这个版本的 kind 创建集群时需要指定 1.26的 image,否则默认会使用 1.25.3 版本.</p>
+</code></pre></div><p>注意这个版本的 kind 创建集群时需要指定 1.26 的 image,否则默认会使用 1.25.3 版本.</p>
 <p>另一个注意点是需要开启 ValidatingAdmissionPolicy 这个功能以及开启 admissionregistration.k8s.io/v1alpha1 API.</p>
 <p>kind 配置文件 <code>kind.yaml</code> 如下:</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#f92672">kind</span>: <span style="color:#ae81ff">Cluster</span>
@@ -629,7 +818,7 @@ kubectl apply -f https://liangyuanpeng.com/files/k8s-admissionregistration-with-
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">kubectl apply -f https://liangyuanpeng.com/files/k8s-admissionregistration-with-cel/envoy.yaml
 </code></pre></div><p>应用上述配置后会 apply 失败:</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">The deployments <span style="color:#e6db74">&#34;envoy&#34;</span> is invalid: : ValidatingAdmissionPolicy <span style="color:#e6db74">&#39;demo-policy.lank8s.local&#39;</span> with binding <span style="color:#e6db74">&#39;demo-binding-test.lank8s.local&#39;</span> denied request: failed expression: object.spec.replicas &lt;<span style="color:#f92672">=</span> <span style="color:#ae81ff">5</span>
-</code></pre></div><p>可以从提示中看到,apply envoy 这个 deployment 的时候失败了,导致失败的策略是 <code>object.spec.replicas &lt;= 5</code></p>
+</code></pre></div><p>可以从提示中看到,apply envoy 这个 Deployment 的时候失败了,导致失败的策略是 <code>object.spec.replicas &lt;= 5</code></p>
 <p>我们还可以做到更强大的效果，将 CEL 表达式中的校验条件的校验值作为参数传递进来，比如将另一个CRD的资源字段作为最大副本数的值.</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#f92672">apiVersion</span>: <span style="color:#ae81ff">admissionregistration.k8s.io/v1alpha1</span>
 <span style="color:#f92672">kind</span>: <span style="color:#ae81ff">ValidatingAdmissionPolicy</span>
@@ -726,15 +915,15 @@ kubectl apply -f https://liangyuanpeng.com/files/k8s-admissionregistration-with-
       - <span style="color:#f92672">key</span>: <span style="color:#ae81ff">environment</span>
         <span style="color:#f92672">operator</span>: <span style="color:#ae81ff">In</span>
         <span style="color:#f92672">values</span>: [<span style="color:#e6db74">&#34;production&#34;</span>]
-</code></pre></div><p>可以看到上述配置中直接使用 kube-system 这个 namespace 下的 coredns 这个 Deployment 资源的副本数作为校验条件的值.</p>
+</code></pre></div><p>可以看到上述配置中直接使用 kube-system 这个 namespace 下的 Coredns 这个 Deployment 资源的副本数作为校验条件的值.</p>
 <p>如果应用部署在带有标签<code>environment=production</code>的 namespace,那么 Deployment 资源的副本数必须不能超过 kube-system namespace 下 coredns 这个 Deployment 的副本数.</p>
 <p>上述资源应用:</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">kubectl apply -f https://liangyuanpeng.com/files/k8s-admissionregistration-with-cel/vap-crd.yaml
 kubectl apply -f https://liangyuanpeng.com/files/k8s-admissionregistration-with-cel/vapb-crd.yaml
 kubectl apply -f https://liangyuanpeng.com/files/k8s-admissionregistration-with-cel/envoy.yaml
 </code></pre></div><p>报错内容:</p>
-<pre tabindex="0"><code>The deployments &quot;envoy&quot; is invalid: : ValidatingAdmissionPolicy 'lank8s.local' with binding 'lank8s.local' denied request: failed expression: object.spec.replicas &lt;= params.spec.replicas
-</code></pre><p>这里的提示如果将 <code>params.spec.replicas</code> 的值也显示出来就更友好了.也许后续的 K8S 版本当中会支持.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">The deployments <span style="color:#e6db74">&#34;envoy&#34;</span> is invalid: : ValidatingAdmissionPolicy <span style="color:#e6db74">&#39;lank8s.local&#39;</span> with binding <span style="color:#e6db74">&#39;lank8s.local&#39;</span> denied request: failed expression: object.spec.replicas &lt;<span style="color:#f92672">=</span> params.spec.replicas
+</code></pre></div><p>这里的提示如果将 <code>params.spec.replicas</code> 的值也显示出来就更友好了.也许后续的 K8S 版本当中会支持.</p>
 <h1 id="总结">总结</h1>
 <p>K8S 有了内置的 CEL 策略机制后对于一些简单的需求已经能够达到满足,可以看到使用起来也是非常方便的.</p>
 <p>本文只演示了策略拦截成功的效果,对于进一步验证效果你可以修改一下 envoy deployment 资源的副本数来观察资源通过策略验证的效果.</p>
@@ -923,17 +1112,17 @@ kubectl apply -f https://liangyuanpeng.com/files/k8s-admissionregistration-with-
     
     <li><a href="/post/deploy-metrics-server-for-kubectl-top/">部署metrics-server,把kubectl top用起来</a></li>
     
+    <li><a href="/post/k8s-multi-tenancy-guide/">Kubernetes多租户–最佳实践指南</a></li>
+    
     <li><a href="/post/k8s-deploy-longhorn/">kubernetes部署longhorn</a></li>
     
     <li><a href="/post/kubernetes-deploy-kube-prometheus/">kubernetes部署kube-prometheus</a></li>
     
     <li><a href="/post/build-for-kind/">编译构建Kind</a></li>
     
-    <li><a href="/post/envoy-file-xds-with-reload-configmap/">将热更新configmap作为Envoy的XDS服务</a></li>
+    <li><a href="/post/quick-start-kubernetes-client-rust/">快速认识kubernetes的rust客户端</a></li>
     
     <li><a href="/post/envoy-file-xds-with-reload-configmap/">将热更新configmap作为Envoy的XDS服务</a></li>
-    
-    <li><a href="/post/k8s-cd-argo-deploy/">k8s部署云原生CD引擎Argo</a></li>
     
 </ul>
 

@@ -13,7 +13,16 @@
       <pubDate>Wed, 08 Nov 2023 00:00:00 +0000</pubDate>
       
       <guid>https://liangyuanpeng.github.io/post/quick-start-kcl/</guid>
-      <description>什么是KCL 使用场景 yaml 配置管理 当谈到 yaml 时很容易联想到 kubernetes 资源的 yaml 文件,但目前我个人的使用场景更多的是管理 Kind 的配置文件,因为我会有很多种不同的 Kind</description>
+      <description>什么是KCL 生态难点 主要讲一下我在使用 KCL 过程中的一些情况,有时由于语法问题摸不着头脑,我总是会在 slack 给 KCL 语言的创始人之一 @Peefy 提问,这不仅仅是我一</description>
+    </item>
+    
+    <item>
+      <title>oras的日常使用</title>
+      <link>https://liangyuanpeng.github.io/post/usage-oras/</link>
+      <pubDate>Wed, 26 Apr 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://liangyuanpeng.github.io/post/usage-oras/</guid>
+      <description>这篇在讲什么 主要是记录我使用 oras 的一些使用场景。 由于已知 oras 是一个将任意内容存储为容器镜像的工具,因此不过多介绍 oras。 都有什么场景 存储工作区</description>
     </item>
     
   </channel>

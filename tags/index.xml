@@ -233,6 +233,33 @@
     </item>
     
     <item>
+      <title>bfe</title>
+      <link>https://liangyuanpeng.github.io/tags/bfe/</link>
+      <pubDate>Tue, 16 May 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://liangyuanpeng.github.io/tags/bfe/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>krustlet</title>
+      <link>https://liangyuanpeng.github.io/tags/krustlet/</link>
+      <pubDate>Tue, 16 May 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://liangyuanpeng.github.io/tags/krustlet/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>nocalhost</title>
+      <link>https://liangyuanpeng.github.io/tags/nocalhost/</link>
+      <pubDate>Tue, 16 May 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://liangyuanpeng.github.io/tags/nocalhost/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>apache</title>
       <link>https://liangyuanpeng.github.io/tags/apache/</link>
       <pubDate>Mon, 08 May 2023 00:00:00 +0000</pubDate>
@@ -656,6 +683,42 @@
     </item>
     
     <item>
+      <title>harbor</title>
+      <link>https://liangyuanpeng.github.io/tags/harbor/</link>
+      <pubDate>Wed, 22 Feb 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://liangyuanpeng.github.io/tags/harbor/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>k0s</title>
+      <link>https://liangyuanpeng.github.io/tags/k0s/</link>
+      <pubDate>Wed, 22 Feb 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://liangyuanpeng.github.io/tags/k0s/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>minikube</title>
+      <link>https://liangyuanpeng.github.io/tags/minikube/</link>
+      <pubDate>Wed, 22 Feb 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://liangyuanpeng.github.io/tags/minikube/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>talos</title>
+      <link>https://liangyuanpeng.github.io/tags/talos/</link>
+      <pubDate>Wed, 22 Feb 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://liangyuanpeng.github.io/tags/talos/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>apisix</title>
       <link>https://liangyuanpeng.github.io/tags/apisix/</link>
       <pubDate>Mon, 20 Feb 2023 00:00:00 +0000</pubDate>
@@ -683,15 +746,6 @@
     </item>
     
     <item>
-      <title>harbor</title>
-      <link>https://liangyuanpeng.github.io/tags/harbor/</link>
-      <pubDate>Thu, 09 Feb 2023 00:00:00 +0000</pubDate>
-      
-      <guid>https://liangyuanpeng.github.io/tags/harbor/</guid>
-      <description></description>
-    </item>
-    
-    <item>
       <title>zot</title>
       <link>https://liangyuanpeng.github.io/tags/zot/</link>
       <pubDate>Wed, 18 Jan 2023 00:00:00 +0000</pubDate>
@@ -715,6 +769,15 @@
       <pubDate>Wed, 11 Jan 2023 00:00:00 +0000</pubDate>
       
       <guid>https://liangyuanpeng.github.io/tags/k8s-1.26/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>ValidatingAdmissionPolicy</title>
+      <link>https://liangyuanpeng.github.io/tags/validatingadmissionpolicy/</link>
+      <pubDate>Mon, 09 Jan 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://liangyuanpeng.github.io/tags/validatingadmissionpolicy/</guid>
       <description></description>
     </item>
     
@@ -868,6 +931,15 @@
       <pubDate>Mon, 25 Oct 2021 00:00:00 +0000</pubDate>
       
       <guid>https://liangyuanpeng.github.io/tags/kubekey/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>csi</title>
+      <link>https://liangyuanpeng.github.io/tags/csi/</link>
+      <pubDate>Sat, 23 Oct 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://liangyuanpeng.github.io/tags/csi/</guid>
       <description></description>
     </item>
     

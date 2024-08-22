@@ -402,6 +402,69 @@
                             
                         </a>
                         
+                       <a class="tag" href="/tags/kafka" title="kafka">
+                        kafka
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                        </a>
+                        
                        <a class="tag" href="/tags/cloudnative" title="CloudNative">
                         CloudNative
                             
@@ -486,7 +549,7 @@
 
 
 
-                            阅读 </span></span>|<span class="post-date">共561字</span>，阅读约<span class="more-meta"> 2 分钟</span>
+                            阅读 </span></span>|<span class="post-date">共555字</span>，阅读约<span class="more-meta"> 2 分钟</span>
                         
                     </span>
                 </div>
@@ -552,7 +615,7 @@ CMD [&quot;fluentd&quot;]
   type_name fluentd
 &lt;/match&gt;
 
-</code></pre><p>以版本为v1.3.2的 fluentd 镜像为基础镜像,由于fluentd的处理层扩展是以插件的方式进行扩展,所以在制作这个镜像时需要安装对应的 kafka 插件和elasticsearch 插件.<br>
+</code></pre><p>以版本为v1.3.2的 fluentd 镜像为基础镜像,由于 fluentd 的处理层扩展是以插件的方式进行扩展,所以在制作这个镜像时需要安装对应的 kafka 插件和elasticsearch 插件.<br>
 这里 kafka 的 fluentd 插件版本为 0.12.3,elasticsearch 的 fluentd 插件版本为4.0.3.</p>
 <p>Dockerfile 和<code>fluent.conf</code>都准备好了,执行制作镜像命令</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">docker build -t fluentd-es-kafka:v1.3.2 .

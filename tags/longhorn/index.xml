@@ -22,7 +22,7 @@
       <pubDate>Fri, 09 Apr 2021 00:00:00 +0000</pubDate>
       
       <guid>https://liangyuanpeng.github.io/post/k8s-deploy-longhorn/</guid>
-      <description>前言 longhorn是rancher公司开源并贡献给CNCF的一个开源分布式存储项目,可用来作为kubernetes的CSI存储. 本文介绍h</description>
+      <description>前言 longhorn 是 rancher 公司开源并贡献给 CNCF 的一个开源分布式存储项目,可用来作为 kubernetes 的 CSI 存储. 本文介绍 helm 和 yaml 两种方式部署 longhorn 并部署一个有状态服务 Gogs 应用. 官方文档</description>
     </item>
     
   </channel>

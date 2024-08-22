@@ -182,17 +182,17 @@
   </url>
   
   <url>
+    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/post/something-with-argo-workflow/</loc>
+    <lastmod>2023-09-23T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/tags/argo/</loc>
     <lastmod>2023-09-23T00:00:00+00:00</lastmod>
   </url>
   
   <url>
     <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/tags/argo-workflow/</loc>
-    <lastmod>2023-09-23T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/post/something-with-argo-workflow/</loc>
     <lastmod>2023-09-23T00:00:00+00:00</lastmod>
   </url>
   
@@ -254,6 +254,26 @@
   <url>
     <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/post/question-list-of-etcd/</loc>
     <lastmod>2023-05-22T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/tags/bfe/</loc>
+    <lastmod>2023-05-16T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/tags/krustlet/</loc>
+    <lastmod>2023-05-16T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/tags/nocalhost/</loc>
+    <lastmod>2023-05-16T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/post/confuse-with-me-from-cncf-projects/</loc>
+    <lastmod>2023-05-16T00:00:00+00:00</lastmod>
   </url>
   
   <url>
@@ -652,6 +672,26 @@
   </url>
   
   <url>
+    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/tags/harbor/</loc>
+    <lastmod>2023-02-22T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/tags/k0s/</loc>
+    <lastmod>2023-02-22T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/tags/minikube/</loc>
+    <lastmod>2023-02-22T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/tags/talos/</loc>
+    <lastmod>2023-02-22T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/post/pull-gcr-k8s-image-with-lank8s/</loc>
     <lastmod>2023-02-22T00:00:00+00:00</lastmod>
   </url>
@@ -702,11 +742,6 @@
   </url>
   
   <url>
-    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/tags/harbor/</loc>
-    <lastmod>2023-02-09T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
     <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/post/registry-mirrors-of-harbor/</loc>
     <lastmod>2023-02-09T00:00:00+00:00</lastmod>
   </url>
@@ -739,6 +774,11 @@
   <url>
     <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/post/k8s-validating-admission-policy-with-crdparam-lua/</loc>
     <lastmod>2023-01-11T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/tags/validatingadmissionpolicy/</loc>
+    <lastmod>2023-01-09T00:00:00+00:00</lastmod>
   </url>
   
   <url>
@@ -994,6 +1034,11 @@
   <url>
     <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/post/deploy-kubernetes-with-kubekey/</loc>
     <lastmod>2021-10-25T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/tags/csi/</loc>
+    <lastmod>2021-10-23T00:00:00+00:00</lastmod>
   </url>
   
   <url>

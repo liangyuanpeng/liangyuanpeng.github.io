@@ -339,6 +339,71 @@
                             
                         </a>
                         
+                       <a class="tag" href="/tags/kubernetes" title="kubernetes">
+                        kubernetes
+                            
+                                
+                                <img style="display:inline-block;" src="/img/taglogo/emoji_k8s_loft.gif" height="20" width="20" />
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                        </a>
+                        
                         <br/>
                     </div>
                     <h1>快速认识kubernetes的rust客户端</h1>
@@ -360,7 +425,7 @@
 
 
 
-                            阅读 </span></span>|<span class="post-date">共394字</span>，阅读约<span class="more-meta"> 1 分钟</span>
+                            阅读 </span></span>|<span class="post-date">共355字</span>，阅读约<span class="more-meta"> 1 分钟</span>
                         
                     </span>
                 </div>
@@ -396,9 +461,9 @@
 		
 
 		<h1 id="介绍">介绍</h1>
-<p><a href="https://github.com/kube-rs/kube-rs">kube-rs</a>目前是CNCF的沙箱项目,有一个官方的controller实现示例<a href="https://github.com/kube-rs/controller-rs">controller-rs</a>.</p>
-<p>还有一个Rust实现的Operator框架相关的项目是<a href="https://github.com/krator-rs/krator">krator</a>,Rust已经开始在云原生领域开始发力,前景我是很看好的.</p>
-<p>本文会以查看pod的log为例,看看在rust的客户端中的代码是怎样的.</p>
+<p><a href="https://github.com/kube-rs/kube-rs">kube-rs</a>目前是 CNCF 的沙箱项目,有一个官方的 controller 实现示例<a href="https://github.com/kube-rs/controller-rs">controller-rs</a>.</p>
+<p>还有一个 Rust 实现的 Operator 框架相关的项目是<a href="https://github.com/krator-rs/krator">krator</a>,Rust已经开始在云原生领域开始发力,前景我是很看好的.</p>
+<p>本文会以查看 pod 的 log 为例,看看在 rust 的客户端中的代码是怎样的.</p>
 <h1 id="伪代码讲解">伪代码讲解</h1>
 <h2 id="初始化客户端">初始化客户端</h2>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-rust" data-lang="rust"><span style="color:#66d9ef">let</span> client <span style="color:#f92672">=</span> Client::try_default().<span style="color:#66d9ef">await</span><span style="color:#f92672">?</span>;
@@ -420,7 +485,7 @@
     }
 </code></pre></div><p>完整的例子在<a href="https://github.com/kube-rs/kube-rs/blob/bf3b248f0c96b229863e0bff510fdf118efd2381/examples/log_stream.rs">log_stream.rs</a></p>
 <h1 id="总结">总结</h1>
-<p>虽然<code>kube-rs</code>在最近才进入CNCF,但是其实已经被不少项目正式采用了,例如CNCF中的<a href="https://github.com/krator-rs/krator">krator</a>、<a href="https://github.com/krustlet/krustlet">krustlet</a>以及linkerd2中的<a href="https://github.com/linkerd/linkerd2/tree/main/policy-controller">policy-controller</a>.完整的项目采用列表可以在<a href="https://github.com/kube-rs/website/blob/main/docs/adopters.md">kube-rs 采用者</a>找到.</p>
+<p>虽然<code>kube-rs</code>在最近才进入 CNCF,但是其实已经被不少项目正式采用了,例如 CNCF 中的<a href="https://github.com/krator-rs/krator">krator</a>、<a href="https://github.com/krustlet/krustlet">krustlet</a>以及 linkerd2 中的<a href="https://github.com/linkerd/linkerd2/tree/main/policy-controller">policy-controller</a>.完整的项目采用列表可以在<a href="https://github.com/kube-rs/website/blob/main/docs/adopters.md">kube-rs 采用者</a>找到.</p>
 
 
         <h2>微信公众号</h2>
@@ -595,10 +660,6 @@
     
     <li><a href="/post/rust-project-in-cncf/">cncf基金会中的rust项目</a></li>
     
-    <li><a href="/post/container-for-rust-application/">Rust应用容器化</a></li>
-    
-    <li><a href="/post/rust-exception-qa/">Rust常见问题</a></li>
-    
     <li><a href="/post/envoy-file-xds-with-reload-configmap/">将热更新configmap作为Envoy的XDS服务</a></li>
     
     <li><a href="/post/envoy-file-xds-with-reload-configmap/">将热更新configmap作为Envoy的XDS服务</a></li>
@@ -611,7 +672,11 @@
     
     <li><a href="/post/contour-v1.20.0-beta.1-release/">Contour-v1.20.0-beta.1发布</a></li>
     
-    <li><a href="/post/quick-start-openebs/">快速开始OpenEBS</a></li>
+    <li><a href="/post/deploy-chaosmesh-with-helm/">helm部署chaosmesh</a></li>
+    
+    <li><a href="/post/dev-webhook-for-kubernetes/">k8s-webhook开发技巧</a></li>
+    
+    <li><a href="/post/deploy-lank8s-webhook-for-k8s.gcr.io/">部署在线的lank8s webhook之后,不再为k8s.gcr.io/gcr.io镜像苦恼</a></li>
     
 </ul>
 

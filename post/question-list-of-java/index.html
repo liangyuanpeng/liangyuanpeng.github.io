@@ -230,7 +230,7 @@
 
 
 
-                            阅读 </span></span>|<span class="post-date">共2259字</span>，阅读约<span class="more-meta"> 5 分钟</span>
+                            阅读 </span></span>|<span class="post-date">共2686字</span>，阅读约<span class="more-meta"> 6 分钟</span>
                         
                     </span>
                 </div>
@@ -265,6 +265,8 @@
     <li><a href="#maven-deploy-时报错-repository-element-was-not-specified-in-the-pom-inside-distributionmanagement-eleme">maven deploy 时报错-repository element was not specified in the POM inside distributionManagement eleme</a></li>
     <li><a href="#一次-git-commit-id-plugin-maven-插件的升级">一次 git-commit-id-plugin maven 插件的升级</a></li>
     <li><a href="#renovate-没有升级依赖到最新版本">renovate 没有升级依赖到最新版本</a></li>
+    <li><a href="#jib-构建多架构的容器镜像">Jib 构建多架构的容器镜像</a></li>
+    <li><a href="#jacoco-被跳过了-info-skipping-jacoco-execution-due-to-missing-execution-data-file">jacoco 被跳过了 [INFO] Skipping JaCoCo execution due to missing execution data file.</a></li>
   </ul>
 </nav>
 		
@@ -606,6 +608,25 @@ Caused by: java.nio.charset.UnsupportedCharsetException: UTF-32BE
 <span style="color:#f92672">&lt;/plugin&gt;</span>
 </code></pre></div><h2 id="renovate-没有升级依赖到最新版本">renovate 没有升级依赖到最新版本</h2>
 <p>项目使用 renovate 来对依赖进行自动化升级,不过配置上没有进行过太多的折腾,使用的是默认配置. 我发现依赖包是有新版本的,但是 renovate 却没有提 PR 进行升级,目前还没找到原因.</p>
+<h2 id="jib-构建多架构的容器镜像">Jib 构建多架构的容器镜像</h2>
+<p>Jib 有 maven 插件和 gradle 插件,可以很方便的在无docker环境下为应用构建容器镜像,但是如何构建一个多架构容器镜像呢?</p>
+<h2 id="jacoco-被跳过了-info-skipping-jacoco-execution-due-to-missing-execution-data-file">jacoco 被跳过了 [INFO] Skipping JaCoCo execution due to missing execution data file.</h2>
+<p>使用 jacoco 的 maven 插件单元测试检查测试覆盖率,发现 jacoco 在 mvn clean test 执行过程中被跳过了.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">...
+--- jacoco-maven-plugin:0.8.12:report <span style="color:#f92672">(</span>default-report<span style="color:#f92672">)</span> @
+<span style="color:#f92672">[</span>INFO<span style="color:#f92672">]</span> Skipping JaCoCo execution due to missing execution data file.
+...
+</code></pre></div><p>配置是直接从其他人博文中复制的,查看了一下官方文档,https://www.jacoco.org/jacoco/trunk/doc/prepare-agent-mojo.html</p>
+<p>发现有一个显示<code>maven-surefire-plugin</code>插件的配置:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml">  <span style="color:#f92672">&lt;plugin&gt;</span>
+    <span style="color:#f92672">&lt;groupId&gt;</span>org.apache.maven.plugins<span style="color:#f92672">&lt;/groupId&gt;</span>
+    <span style="color:#f92672">&lt;artifactId&gt;</span>maven-surefire-plugin<span style="color:#f92672">&lt;/artifactId&gt;</span>
+    <span style="color:#f92672">&lt;configuration&gt;</span>
+      <span style="color:#f92672">&lt;argLine&gt;</span>@{argLine} -your -extra -arguments<span style="color:#f92672">&lt;/argLine&gt;</span>
+    <span style="color:#f92672">&lt;/configuration&gt;</span>
+  <span style="color:#f92672">&lt;/plugin&gt;</span>
+</code></pre></div><p>有一个值得注意的点是我的<code>maven-surefire-plugin</code>确实配置了<code>argLine</code>,但是没有<code>@{argLine}</code>,于是我在我的配置中加上了<code>@{argLine}</code>重新跑了下 <code>mvn clean test</code>后就可以生成 jacoco 报告了.</p>
+<p>在此之前我还谷歌了一些其他网友的解决方案,但原因都不太一样,不适用,因此上述内容可能也不是你 jacoco 报告失效的唯一原因.</p>
 
 
         <h2>微信公众号</h2>

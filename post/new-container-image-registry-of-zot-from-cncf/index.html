@@ -295,7 +295,7 @@
 
 
 
-                            阅读 </span></span>|<span class="post-date">共1506字</span>，阅读约<span class="more-meta"> 4 分钟</span>
+                            阅读 </span></span>|<span class="post-date">共1496字</span>，阅读约<span class="more-meta"> 3 分钟</span>
                         
                     </span>
                 </div>
@@ -360,8 +360,6 @@
 <li>kubernetes cluster</li>
 </ul>
 <p>这里使用 kind 来创建一个研究用的 K8S 单节点集群.</p>
-<p>TODO
-提供在线的配置文件</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#f92672">kind</span>: <span style="color:#ae81ff">Cluster</span>
 <span style="color:#f92672">apiVersion</span>: <span style="color:#ae81ff">kind.x-k8s.io/v1alpha4</span>
 <span style="color:#f92672">networking</span>:
@@ -416,9 +414,9 @@
 <span style="color:#960050;background-color:#1e0010">...</span>
 </code></pre></div><p>先创建一个管理员用户, 账号和密码都是 <code>admin</code></p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">htpasswd -bc /tmp/htpasswd admin admin
-</code></pre></div><p>首先拉取一下镜像,
-docker pull localhost:10015/kube-proxy:v1.26.0</p>
-<p>尝试用匿名用户来删除镜像:</p>
+</code></pre></div><p>首先拉取一下镜像,</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">docker pull localhost:10015/kube-proxy:v1.26.0
+</code></pre></div><p>尝试用匿名用户来删除镜像:</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">curl -X DELETE http://localhost:10015/v2/kube-proxy/manifests/v1.26.0
 </code></pre></div><p>可以看到会提示没权限,添加用户密码后再尝试一次:</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">echo -n admin:admin | base64

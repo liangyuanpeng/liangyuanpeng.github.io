@@ -358,7 +358,7 @@
 
 
 
-                            阅读 </span></span>|<span class="post-date">共409字</span>，阅读约<span class="more-meta"> 1 分钟</span>
+                            阅读 </span></span>|<span class="post-date">共592字</span>，阅读约<span class="more-meta"> 2 分钟</span>
                         
                     </span>
                 </div>
@@ -391,6 +391,8 @@
 		
 
 		<h1 id="什么是kcl">什么是KCL</h1>
+<h1 id="生态难点">生态难点</h1>
+<p>主要讲一下我在使用 KCL 过程中的一些情况,有时由于语法问题摸不着头脑,我总是会在 slack 给 KCL 语言的创始人之一 <a href="https://github.com/Peefy">@Peefy</a> 提问,这不仅仅是我一个人,对于一个新的语言,可能很多人在刚接触时都会出现这样的情况,因此需要对这个新语言进行更多的知识传播,否则就会将核心开发者的时间都限制在回答语言语法问题上.</p>
 <h1 id="使用场景">使用场景</h1>
 <h2 id="yaml-配置管理">yaml 配置管理</h2>
 <p>当谈到 yaml 时很容易联想到 kubernetes 资源的 yaml 文件,但目前我个人的使用场景更多的是管理 <a href="https://liangyuanpeng.com/post/run-k8s-with-kind/">Kind</a> 的配置文件,因为我会有很多种不同的 Kind 实验场景.大多数情况是使用两份 kind.yaml 配置文件,但不可避免的会有一些比较类似的场景,折中情况下我会抽离出公共的内容,然后使用 KCL 来完成差异化的配置.</p>
@@ -400,6 +402,9 @@
 <ul>
 <li>Kind 配置文件</li>
 <li>Envoy 配置文件</li>
+<li>kubeadm 配置文件</li>
+<li>快速生成各类场景的 Kind 配置文件: <a href="https://github.com/liangyuanpeng/kind-kcl">https://github.com/liangyuanpeng/kind-kcl</a></li>
+<li>为各类有状态应用快速生成 docker-compose 配置文件: <a href="https://github.com/liangyuanpeng/stapp">https://github.com/liangyuanpeng/stapp</a></li>
 </ul>
 
 
@@ -428,7 +433,7 @@
                 <ul class="pager">
                     
                     <li class="previous">
-                        <a href="/post/something-with-argo-workflow/" data-toggle="tooltip" data-placement="top" title="argoworkflow 的一些实践和思考">&larr; argoworkflow 的一些实践和思考</a>
+                        <a href="/post/something-with-argo-workflow/" data-toggle="tooltip" data-placement="top" title="[长期更新]argoworkflow 的一些实践和思考">&larr; [长期更新]argoworkflow 的一些实践和思考</a>
                     </li>
                     
                     
@@ -573,9 +578,9 @@
 <h2>相关文章</h2>
 <ul style="margin-bottom: 25px;">
     
-    <li><a href="/post/question-list-of-kubernetes/">[长期更新]kubernetes问题列表记录</a></li>
-    
     <li><a href="/post/usage-oras/">oras的日常使用</a></li>
+    
+    <li><a href="/post/question-list-of-kubernetes/">[长期更新]kubernetes问题列表记录</a></li>
     
     <li><a href="/post/helm-config-note-long-term/">[长期更新]helm常见问题以及配置记录</a></li>
     

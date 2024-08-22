@@ -486,7 +486,7 @@
 
 
 
-                            阅读 </span></span>|<span class="post-date">共1275字</span>，阅读约<span class="more-meta"> 3 分钟</span>
+                            阅读 </span></span>|<span class="post-date">共1176字</span>，阅读约<span class="more-meta"> 3 分钟</span>
                         
                     </span>
                 </div>
@@ -529,8 +529,8 @@
 		
 
 		<h1 id="前言">前言</h1>
-<p>longhorn是rancher公司开源并贡献给CNCF的一个开源分布式存储项目,可用来作为kubernetes的CSI存储.</p>
-<p>本文介绍helm和yaml两种方式部署longhorn并部署一个有状态服务Gogs应用.</p>
+<p>longhorn 是 rancher 公司开源并贡献给 CNCF 的一个开源分布式存储项目,可用来作为 kubernetes 的 CSI 存储.</p>
+<p>本文介绍 helm 和 yaml 两种方式部署 longhorn 并部署一个有状态服务 Gogs 应用.</p>
 <p>官方文档: <a href="https://longhorn.io/docs/1.1.0/deploy/install/install-with-kubectl/">https://longhorn.io/docs/1.1.0/deploy/install/install-with-kubectl/</a></p>
 <h1 id="安装要求">安装要求</h1>
 <ol>
@@ -650,26 +650,26 @@ longhorn <span style="color:#f92672">(</span>default<span style="color:#f92672">
     <span style="color:#f92672">app</span>: <span style="color:#ae81ff">gogs</span>
 </code></pre></div><p>开始部署:</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">kubectl apply -f  gogs.yaml
-</code></pre></div><p>一切正常的话可以看到gogs的pod已经running状态了:</p>
+</code></pre></div><p>一切正常的话可以看到 gogs 的 pod 已经 <code>running</code> 状态了:</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ k get po
 NAME                                  READY   STATUS    RESTARTS   AGE
 gogs-0                                1/1     Running   <span style="color:#ae81ff">0</span>          3h49m
-</code></pre></div><p>我这里是已经部署好了,因此AGE显示时间比较长. 再来看看PV和PVC</p>
+</code></pre></div><p>我这里是已经部署好了,因此 AGE 显示时间比较长. 再来看看 PV 和 PVC</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ k get pvc
 NAME               STATUS   VOLUME                                     CAPACITY   ACCESS MODES   STORAGECLASS   AGE
 gogs-data-gogs-0   Bound    pvc-3078b16e-4d20-48f2-a32e-6fc6b14bb266   5Gi        RWO            longhorn       3h50m
 $ k get pv
 NAME                                       CAPACITY   ACCESS MODES   RECLAIM POLICY   STATUS   CLAIM                      STORAGECLASS   REASON   AGE
 pvc-3078b16e-4d20-48f2-a32e-6fc6b14bb266   5Gi        RWO            Delete           Bound    default/gogs-data-gogs-0   longhorn                3h50m
-</code></pre></div><p>可以看到PV和PVC都已经处于正常的使用状态了.说明longhorn storageClass是working的.</p>
+</code></pre></div><p>可以看到 PV 和 PVC 都已经处于正常的使用状态了.说明 longhorn storageClass 是 working 的.</p>
 <h1 id="faq">FAQ</h1>
 <h2 id="需要提前安装open-iscsi">需要提前安装open-iscsi</h2>
-<p>如果没有提前安装好open-iscsi可能会报下面的错误:</p>
+<p>如果没有提前安装好 open-iscsi 可能会报下面的错误:</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#f92672">[</span>root@devmaster helmrepo<span style="color:#f92672">]</span><span style="color:#75715e"># kubectl logs -f  -n longhorn-system longhorn-manager-8smtj</span>
 time<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;2020-06-14T07:35:39Z&#34;</span> level<span style="color:#f92672">=</span>error msg<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;Failed environment check, please make sure you have iscsiadm/open-iscsi installed on the host&#34;</span>
 time<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;2020-06-14T07:35:39Z&#34;</span> level<span style="color:#f92672">=</span>fatal msg<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;Error starting manager: Environment check failed: Failed to execute: nsenter [--mount=/host/proc/932/ns/mnt --net=/host/proc/932/ns/net iscsiadm --version], output , stderr, nsenter: failed to execute iscsiadm: No such file or directory\n, error exit status 1&#34;</span>
 ...
-</code></pre></div><p>下面给出几个系统安装iscsi工具的命令:<br>
+</code></pre></div><p>下面给出几个系统安装 iscsi 工具的命令:<br>
 Debian/Ubuntu:</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">sudo apt-get install open-iscsi
 </code></pre></div><p>Redhat/Centos/Suse:</p>

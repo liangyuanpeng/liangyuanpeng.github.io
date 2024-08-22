@@ -16,5 +16,14 @@
       <description>KEP-1880 多服务 CIDR 是什么 KEP-1880 允许通过 API 对象配置分配给 Kubernetes 集群的 ServiceCIDR,能够动态的扩展 kubernetes 集群的服务的 IP,该功能发布 kubernetes v1.29.0 中,功能版本时 al</description>
     </item>
     
+    <item>
+      <title>用cel表达式来实现k8s准入校验</title>
+      <link>https://liangyuanpeng.github.io/post/k8s-admissionregistration-with-cel/</link>
+      <pubDate>Mon, 09 Jan 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://liangyuanpeng.github.io/post/k8s-admissionregistration-with-cel/</guid>
+      <description>前言 在 K8S 1.26 版本以前,达到 K8S 准入校验策略效果的方式有两种： 自己实现 K8S webook 直接使用 CNCF 项目中以 K8S 策略展开的项目,例如OPA、kyverno. 这些都是</description>
+    </item>
+    
   </channel>
 </rss>

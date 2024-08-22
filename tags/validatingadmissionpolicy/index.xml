@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>ValidatingAdmissionPolicy on Hi,I`m lan</title>
+    <link>https://liangyuanpeng.github.io/tags/validatingadmissionpolicy/</link>
+    <description>Recent content in ValidatingAdmissionPolicy on Hi,I`m lan</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Mon, 09 Jan 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://liangyuanpeng.github.io/tags/validatingadmissionpolicy/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>用cel表达式来实现k8s准入校验</title>
+      <link>https://liangyuanpeng.github.io/post/k8s-admissionregistration-with-cel/</link>
+      <pubDate>Mon, 09 Jan 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://liangyuanpeng.github.io/post/k8s-admissionregistration-with-cel/</guid>
+      <description>前言 在 K8S 1.26 版本以前,达到 K8S 准入校验策略效果的方式有两种： 自己实现 K8S webook 直接使用 CNCF 项目中以 K8S 策略展开的项目,例如OPA、kyverno. 这些都是</description>
+    </item>
+    
+  </channel>
+</rss>

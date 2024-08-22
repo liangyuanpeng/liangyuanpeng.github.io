@@ -427,7 +427,7 @@
 
 
 
-                            阅读 </span></span>|<span class="post-date">共920字</span>，阅读约<span class="more-meta"> 2 分钟</span>
+                            阅读 </span></span>|<span class="post-date">共1295字</span>，阅读约<span class="more-meta"> 3 分钟</span>
                         
                     </span>
                 </div>
@@ -656,6 +656,19 @@
 <li>开发 operator 时可能会碰到的与 resourceVersion 相关的问题: 并发修改资源</li>
 </ol>
 <p>说明 resourceVersion 不是和数据一起存储在 etcd 里面的,而是直接使用了 etcd kv 的 ModRevision 字段.</p>
+<h1 id="kubernetes-新功能-watchlist-和已经广泛使用的-listwatch-有什么区别">kubernetes 新功能 watchList 和已经广泛使用的 ListWatch 有什么区别?</h1>
+<h1 id="理解kubernetes中的cel">理解kubernetes中的CEL</h1>
+<p>这个会单独输出一篇文章,但目前还没完成.</p>
+<h1 id="如何为-kubernetes-贡献新的系统架构">如何为 kubernetes 贡献新的系统架构</h1>
+<p>例如我希望 kubernetes 原生支持 龙芯/RISC-V 架构的话怎么办? 通常作为开源项目的维护者希望可以在 CI 系统中持续的为项目支持的所有架构检查问题,因此并不是说修改几行代码让 kubernetes 支持龙芯/RISC-V 就完事了,而是需要有志愿者维护对应架构的 CI 系统,保证项目在发展过程中可以稳定的运行在所支持的架构上.</p>
+<p>IBM 为 kubernetes 维护了 ppc64le 架构的 CI 系统,可以在 <a href="https://github.com/ppc64le-cloud">https://github.com/ppc64le-cloud</a> 找到一些相关信息.</p>
+<p>我对 kubernetes 运行在 龙芯/RISC-V 上感兴趣,目前也有兴趣维护对应的 CI 系统,但需要有人/供应商提供对应架构的机器,如果你可以帮助到我,那请联系我! 在 <a href="https://liangyuanpeng.com/">https://liangyuanpeng.com/</a> 可以找到我的微信二维码:)</p>
+<p>题外话: 俄勒冈州立大学开源实验室为一些开源项目提供了一些 POWER 机器和 AARCH64 机器用于 CI,简直是不可思议!
+相关:</p>
+<ul>
+<li><a href="https://osuosl.org/services/powerdev/">https://osuosl.org/services/powerdev/</a></li>
+<li><a href="https://osuosl.org/services/aarch64/">https://osuosl.org/services/aarch64/</a></li>
+</ul>
 
 
         <h2>微信公众号</h2>
@@ -834,6 +847,8 @@
     
     <li><a href="/post/compile-kubernetes/">编译kubernetes组件</a></li>
     
+    <li><a href="/post/kubernetes-qa/">[长期更新]kubernetes常见问题</a></li>
+    
     <li><a href="/post/k8s-client-go-source-2/">k8s-client-go源码剖析(二)</a></li>
     
     <li><a href="/post/cloudnative-ci-of-argo-workflow/">argoworkflow 云原生工作流引擎</a></li>
@@ -845,8 +860,6 @@
     <li><a href="/post/kubeadm-config-note-long-term/">[长期更新]kubeadm常见问题以及配置记录</a></li>
     
     <li><a href="/post/kubecon-china-2023%E5%B0%86%E5%9C%A8%E4%B8%8A%E6%B5%B7%E4%B8%BE%E5%8A%9E/">kubecon china 2023将在上海举办</a></li>
-    
-    <li><a href="/post/quick-k8s-dev-with-flux-and-kind/">基于flux和kind快速搭建k8s环境</a></li>
     
 </ul>
 

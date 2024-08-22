@@ -486,7 +486,7 @@
 
 
 
-                            阅读 </span></span>|<span class="post-date">共1262字</span>，阅读约<span class="more-meta"> 3 分钟</span>
+                            阅读 </span></span>|<span class="post-date">共1261字</span>，阅读约<span class="more-meta"> 3 分钟</span>
                         
                     </span>
                 </div>
@@ -520,7 +520,7 @@
 		
 
 		<h1 id="本文实现目标">本文实现目标</h1>
-<p>本文主要使用 kubeadm 快速部署一个单机的 kubernetes,其中镜像仓库使用 lank8s.cn,当然也可以使用其他地址, lank8s.cn 主要优势是短域名,好记.</p>
+<p>本文主要使用 kubeadm 快速部署一个单机的 kubernetes,其中镜像仓库使用 <code>lank8s.cn</code>,当然也可以使用其他地址, <code>lank8s.cn</code> 主要优势是短域名,好记.</p>
 <h1 id="前提">前提</h1>
 <p>本文内容不包括讲述 docker 安装,因此需要自行先安装好 docker。</p>
 <h1 id="安装kubectlkubeletkubeadm">安装kubectl、kubelet、kubeadm</h1>
@@ -547,16 +547,14 @@
 
 </code></pre></div><h1 id="开始部署kubernetes">开始部署kubernetes</h1>
 <ol>
-<li>
-<p>关闭swap
-todo</p>
-</li>
-<li>
-<p>开始 kubeadm 安装 kubernetes</p>
-</li>
+<li>关闭swap</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">swapoff -a
+</code></pre></div><ol start="2">
+<li>开始 kubeadm 安装 kubernetes</li>
 </ol>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">kubeadm init --kubernetes-version<span style="color:#f92672">=</span>v1.18.6 --pod-network-cidr<span style="color:#f92672">=</span>10.244.0.0/16 --service-cidr<span style="color:#f92672">=</span>10.96.0.0/12 --image-repository<span style="color:#f92672">=</span>lank8s.cn
-</code></pre></div><p>通过<code>--image-repository</code>指定镜像的地址就可以达到不需要翻墙的    效果(默认镜像需要拉取谷歌镜像仓库的地址,需要翻墙).</p>
+</code></pre></div><p>通过<code>--image-repository</code>指定镜像的地址就可以达到不需要翻墙的效果(默认镜像需要拉取谷歌镜像仓库的地址,需要翻墙).</p>
 <p>顺利的话就可以看到部署成功的信息:</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#f92672">[</span>addons<span style="color:#f92672">]</span> Applied essential addon: CoreDNS
 <span style="color:#f92672">[</span>addons<span style="color:#f92672">]</span> Applied essential addon: kube-proxy
@@ -581,8 +579,8 @@ kubeadm join 192.168.3.239:6443 --token 9ptsuq.tfgal9ly5j268dr5 <span style="col
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">mkdir -p $HOME/.kube  
 sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
 sudo chown <span style="color:#66d9ef">$(</span>id -u<span style="color:#66d9ef">)</span>:<span style="color:#66d9ef">$(</span>id -g<span style="color:#66d9ef">)</span> $HOME/.kube/config
-</code></pre></div><ol start="3">
-<li>查看一下当前 pod 的情况,正常的话只有两个 coredns 的 pod 处于 pending 的状态,其他pod处于 running 状态.</li>
+</code></pre></div><ol>
+<li>查看一下当前 pod 的情况,正常的话只有两个 coredns 的 pod 处于 <code>pending</code> 的状态,其他 pod 处于 <code>running</code> 状态.</li>
 </ol>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#f92672">[</span>root@installk8s ~<span style="color:#f92672">]</span><span style="color:#75715e"># kubectl get po -A</span>
 NAMESPACE     NAME                                 READY   STATUS    RESTARTS   AGE
@@ -608,7 +606,7 @@ kubectl apply -f kube-flannel.yml
 <p>此时只有一个 master 节点,master 节点默认是有污点的(无法部署服务),如果希望在 master 节点部署服务的话需要给 master 节点去除污点:</p>
 <p>首先用<code>kubectl get node</code>查看你的 node 名,然后用<code>kubectl taint node {NODENAME} node-role.kubernetes.io/master-</code>给对应节点去除 master 污点.</p>
 <h2 id="部署一个nginx服务">部署一个nginx服务</h2>
-<p>nginx-deployment.yaml:</p>
+<p>nginx-deployment.yaml</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#f92672">apiVersion</span>: <span style="color:#ae81ff">apps/v1</span>
 <span style="color:#f92672">kind</span>: <span style="color:#ae81ff">Deployment</span>
 <span style="color:#f92672">metadata</span>:
