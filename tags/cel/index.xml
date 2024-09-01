@@ -6,7 +6,16 @@
     <description>Recent content in cel on Hi,I`m lan</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 11 Jan 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://liangyuanpeng.github.io/tags/cel/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 01 Sep 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://liangyuanpeng.github.io/tags/cel/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>[长期更新]cel-go问题列表记录</title>
+      <link>https://liangyuanpeng.github.io/post/question-list-of-cel-go/</link>
+      <pubDate>Sun, 01 Sep 2024 00:00:00 +0000</pubDate>
+      
+      <guid>https://liangyuanpeng.github.io/post/question-list-of-cel-go/</guid>
+      <description>说明 本文主要收集常见场景下 cel-go 遇到的一些常见问题,欢迎对本文进行投稿你认为好的场景或问题. 目前我正在组织一个 cel-go 的技术交流群,如果你感兴趣欢迎联</description>
+    </item>
+    
     <item>
       <title>K8S内置准入校验CRD参数配合lua起飞</title>
       <link>https://liangyuanpeng.github.io/post/k8s-validating-admission-policy-with-crdparam-lua/</link>

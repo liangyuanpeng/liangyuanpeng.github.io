@@ -6,7 +6,25 @@
     <description>Recent content in Tags on Hi,I`m lan</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 14 Jun 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://liangyuanpeng.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 01 Sep 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://liangyuanpeng.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>cel</title>
+      <link>https://liangyuanpeng.github.io/tags/cel/</link>
+      <pubDate>Sun, 01 Sep 2024 00:00:00 +0000</pubDate>
+      
+      <guid>https://liangyuanpeng.github.io/tags/cel/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>cel-go</title>
+      <link>https://liangyuanpeng.github.io/tags/cel-go/</link>
+      <pubDate>Sun, 01 Sep 2024 00:00:00 +0000</pubDate>
+      
+      <guid>https://liangyuanpeng.github.io/tags/cel-go/</guid>
+      <description></description>
+    </item>
+    
     <item>
       <title>java</title>
       <link>https://liangyuanpeng.github.io/tags/java/</link>
@@ -751,15 +769,6 @@
       <pubDate>Wed, 18 Jan 2023 00:00:00 +0000</pubDate>
       
       <guid>https://liangyuanpeng.github.io/tags/zot/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>cel</title>
-      <link>https://liangyuanpeng.github.io/tags/cel/</link>
-      <pubDate>Wed, 11 Jan 2023 00:00:00 +0000</pubDate>
-      
-      <guid>https://liangyuanpeng.github.io/tags/cel/</guid>
       <description></description>
     </item>
     
