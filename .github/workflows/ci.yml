@@ -5,12 +5,12 @@ on:
 
 jobs:
 
-  print:
-    runs-on: ubuntu-latest
-    steps:
-      - name: print
-        run: |
-          echo "${{ toJSON(github) }}"
+  # print:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: print
+  #       run: |
+  #         echo "${{ toJSON(github) }}"
 
   ci:
     timeout-minutes: 10
