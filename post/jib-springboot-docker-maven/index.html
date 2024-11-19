@@ -400,6 +400,132 @@
                             
                         </a>
                         
+                       <a class="tag" href="/tags/container" title="container">
+                        container
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                        </a>
+                        
+                       <a class="tag" href="/tags/springboot" title="springboot">
+                        springboot
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                        </a>
+                        
                         <br/>
                     </div>
                     <h1>不用安装docker也能构建docker镜像</h1>
@@ -421,7 +547,7 @@
 
 
 
-                            阅读 </span></span>|<span class="post-date">共1512字</span>，阅读约<span class="more-meta"> 4 分钟</span>
+                            阅读 </span></span>|<span class="post-date">共1719字</span>，阅读约<span class="more-meta"> 4 分钟</span>
                         
                     </span>
                 </div>
@@ -572,6 +698,67 @@
         <span style="color:#e6db74">&#34;v1&#34;</span>
     ]
 }
+</code></pre></div><p>下面是一个简单的示例测试代码,用于测试 springboot 应用的启动是否成功,大部分都是可以通用的.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">
+    <span style="color:#a6e22e">@Data</span>
+    <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">JibContainerObj</span> <span style="color:#66d9ef">implements</span> Serializable <span style="color:#f92672">{</span>
+        <span style="color:#66d9ef">private</span> String image<span style="color:#f92672">;</span>
+        <span style="color:#66d9ef">private</span> String imageId<span style="color:#f92672">;</span>
+        <span style="color:#66d9ef">private</span> String imageDigest<span style="color:#f92672">;</span>
+        <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">boolean</span> imagePushed<span style="color:#f92672">;</span>
+        <span style="color:#66d9ef">private</span> List<span style="color:#f92672">&lt;</span>String<span style="color:#f92672">&gt;</span> tags <span style="color:#f92672">=</span> Collections<span style="color:#f92672">.</span><span style="color:#a6e22e">emptyList</span><span style="color:#f92672">();</span>
+        <span style="color:#66d9ef">public</span> <span style="color:#a6e22e">JibContainerObj</span><span style="color:#f92672">(){</span>
+
+        <span style="color:#f92672">}</span>
+    <span style="color:#f92672">}</span>
+
+    <span style="color:#a6e22e">@Test</span>
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">testStart</span><span style="color:#f92672">()</span> <span style="color:#66d9ef">throws</span> IOException <span style="color:#f92672">{</span>
+        <span style="color:#66d9ef">boolean</span> checkContainer <span style="color:#f92672">=</span> Boolean<span style="color:#f92672">.</span><span style="color:#a6e22e">valueOf</span><span style="color:#f92672">(</span>System<span style="color:#f92672">.</span><span style="color:#a6e22e">getProperty</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;lan.containers.check&#34;</span><span style="color:#f92672">,</span> <span style="color:#e6db74">&#34;false&#34;</span><span style="color:#f92672">));</span>
+        <span style="color:#66d9ef">if</span><span style="color:#f92672">(!</span>checkContainer<span style="color:#f92672">){</span>
+            <span style="color:#66d9ef">return</span><span style="color:#f92672">;</span>
+        <span style="color:#f92672">}</span>
+        <span style="color:#66d9ef">int</span> containerCheckPort <span style="color:#f92672">=</span> Integer<span style="color:#f92672">.</span><span style="color:#a6e22e">valueOf</span><span style="color:#f92672">(</span>System<span style="color:#f92672">.</span><span style="color:#a6e22e">getProperty</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;lan.containers.check.port&#34;</span><span style="color:#f92672">,</span> <span style="color:#e6db74">&#34;8042&#34;</span><span style="color:#f92672">));</span>
+        String imgpath <span style="color:#f92672">=</span> System<span style="color:#f92672">.</span><span style="color:#a6e22e">getProperty</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;lan.containers.jib.imgpath&#34;</span><span style="color:#f92672">,</span> <span style="color:#e6db74">&#34;/jib-image.json&#34;</span><span style="color:#f92672">);</span>
+        String img <span style="color:#f92672">=</span> System<span style="color:#f92672">.</span><span style="color:#a6e22e">getProperty</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;lan.containers.jib.img&#34;</span><span style="color:#f92672">,</span> <span style="color:#e6db74">&#34;&#34;</span><span style="color:#f92672">);</span>
+
+        <span style="color:#66d9ef">if</span><span style="color:#f92672">(</span>StringUtils<span style="color:#f92672">.</span><span style="color:#a6e22e">isBlank</span><span style="color:#f92672">(</span>img<span style="color:#f92672">)</span> <span style="color:#f92672">&amp;&amp;</span> StringUtils<span style="color:#f92672">.</span><span style="color:#a6e22e">isBlank</span><span style="color:#f92672">(</span>imgpath<span style="color:#f92672">)){</span>
+            <span style="color:#66d9ef">return</span><span style="color:#f92672">;</span>
+        <span style="color:#f92672">}</span>
+        <span style="color:#66d9ef">if</span><span style="color:#f92672">(</span>StringUtils<span style="color:#f92672">.</span><span style="color:#a6e22e">isBlank</span><span style="color:#f92672">(</span>img<span style="color:#f92672">)){</span>
+            ObjectMapper objectMapper <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> ObjectMapper<span style="color:#f92672">();</span>
+            InputStream inputStream <span style="color:#f92672">=</span> getClass<span style="color:#f92672">().</span><span style="color:#a6e22e">getResourceAsStream</span><span style="color:#f92672">(</span>imgpath<span style="color:#f92672">);</span>
+            Assertions<span style="color:#f92672">.</span><span style="color:#a6e22e">assertNotNull</span><span style="color:#f92672">(</span>inputStream<span style="color:#f92672">);</span>
+            JibContainerObj jibContainerObj <span style="color:#f92672">=</span> objectMapper<span style="color:#f92672">.</span><span style="color:#a6e22e">readValue</span><span style="color:#f92672">(</span>inputStream<span style="color:#f92672">,</span> <span style="color:#66d9ef">new</span> TypeReference<span style="color:#f92672">&lt;</span>JibContainerObj<span style="color:#f92672">&gt;(){});</span>
+            log<span style="color:#f92672">.</span><span style="color:#a6e22e">info</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;jibContainerObj:{}&#34;</span><span style="color:#f92672">,</span>jibContainerObj<span style="color:#f92672">);</span>
+            img <span style="color:#f92672">=</span>jibContainerObj<span style="color:#f92672">.</span><span style="color:#a6e22e">getImage</span><span style="color:#f92672">();</span>
+        <span style="color:#f92672">}</span>
+
+        log<span style="color:#f92672">.</span><span style="color:#a6e22e">info</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;begin testing container for:{}&#34;</span><span style="color:#f92672">,</span>img<span style="color:#f92672">);</span>
+        Map map <span style="color:#f92672">=</span> Maps<span style="color:#f92672">.</span><span style="color:#a6e22e">newHashMap</span><span style="color:#f92672">();</span>
+        map<span style="color:#f92672">.</span><span style="color:#a6e22e">put</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;logging.config&#34;</span><span style="color:#f92672">,</span><span style="color:#e6db74">&#34;classpath:logback-dev.xml&#34;</span><span style="color:#f92672">);</span>
+        GenericContainer container <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> GenericContainer<span style="color:#f92672">&lt;&gt;(</span>DockerImageName<span style="color:#f92672">.</span><span style="color:#a6e22e">parse</span><span style="color:#f92672">(</span>img<span style="color:#f92672">))</span>
+                <span style="color:#f92672">.</span><span style="color:#a6e22e">waitingFor</span><span style="color:#f92672">(</span><span style="color:#66d9ef">new</span> HttpWaitStrategy<span style="color:#f92672">()</span>
+                        <span style="color:#f92672">.</span><span style="color:#a6e22e">forPath</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;/actuator/prometheus&#34;</span><span style="color:#f92672">)</span>
+                        <span style="color:#f92672">.</span><span style="color:#a6e22e">forPort</span><span style="color:#f92672">(</span>containerCheckPort<span style="color:#f92672">)</span>
+                        <span style="color:#f92672">.</span><span style="color:#a6e22e">forStatusCode</span><span style="color:#f92672">(</span>200<span style="color:#f92672">))</span>
+                <span style="color:#f92672">.</span><span style="color:#a6e22e">withEnv</span><span style="color:#f92672">(</span>map<span style="color:#f92672">)</span>
+                <span style="color:#f92672">.</span><span style="color:#a6e22e">withExposedPorts</span><span style="color:#f92672">(</span>8042<span style="color:#f92672">);</span>
+        container<span style="color:#f92672">.</span><span style="color:#a6e22e">start</span><span style="color:#f92672">();</span>
+
+    <span style="color:#f92672">}</span>
+</code></pre></div><p>如果你的 springboot 版本大于 2.3,我会推荐你使用 <code>/actuator/liveness</code> 和 <code>/actuator/readiness</code> 来代替 <code>/actuator/prometheus</code> 路径进行测试.</p>
+<p>开启 liveness 和 readiness 需要如下配置:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#f92672">management</span>:
+  <span style="color:#f92672">endpoint</span>:
+    <span style="color:#f92672">health</span>:
+      <span style="color:#f92672">probes</span>:
+        <span style="color:#f92672">enabled</span>: <span style="color:#66d9ef">true</span>
+  <span style="color:#f92672">health</span>:
+    <span style="color:#f92672">livenessstate</span>:
+      <span style="color:#f92672">enabled</span>: <span style="color:#66d9ef">true</span>
+    <span style="color:#f92672">readinessstate</span>:
+      <span style="color:#f92672">enabled</span>: <span style="color:#66d9ef">true</span>
 </code></pre></div>
 
         <h2>微信公众号</h2>

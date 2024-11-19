@@ -12,12 +12,47 @@
   </url>
   
   <url>
-    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/post/question-list-of-cel-go/</loc>
-    <lastmod>2024-09-01T00:00:00+00:00</lastmod>
+    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/post/cocos-creator/</loc>
+    <lastmod>2024-11-04T00:00:00+00:00</lastmod>
   </url>
   
   <url>
     <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/categories/</loc>
+    <lastmod>2024-11-04T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/tags/cocos-creator/</loc>
+    <lastmod>2024-11-04T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/</loc>
+    <lastmod>2024-11-04T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/post/</loc>
+    <lastmod>2024-11-04T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/tags/</loc>
+    <lastmod>2024-11-04T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/categories/tech/</loc>
+    <lastmod>2024-11-04T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/tags/typescript/</loc>
+    <lastmod>2024-11-04T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/post/question-list-of-cel-go/</loc>
     <lastmod>2024-09-01T00:00:00+00:00</lastmod>
   </url>
   
@@ -33,21 +68,6 @@
   
   <url>
     <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/categories/cloudnative/</loc>
-    <lastmod>2024-09-01T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/</loc>
-    <lastmod>2024-09-01T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/post/</loc>
-    <lastmod>2024-09-01T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/tags/</loc>
     <lastmod>2024-09-01T00:00:00+00:00</lastmod>
   </url>
   
@@ -118,11 +138,6 @@
   
   <url>
     <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/tags/shipwright/</loc>
-    <lastmod>2024-02-19T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/categories/tech/</loc>
     <lastmod>2024-02-19T00:00:00+00:00</lastmod>
   </url>
   
@@ -1072,6 +1087,21 @@
   </url>
   
   <url>
+    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/post/question-list-of-minio/</loc>
+    <lastmod>2021-10-11T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/tags/minio/</loc>
+    <lastmod>2021-10-11T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/tags/s3/</loc>
+    <lastmod>2021-10-11T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/post/join-contour-docs-wg/</loc>
     <lastmod>2021-10-10T00:00:00+00:00</lastmod>
   </url>
@@ -1492,6 +1522,11 @@
   </url>
   
   <url>
+    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/tags/container/</loc>
+    <lastmod>2020-02-18T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/tags/jib/</loc>
     <lastmod>2020-02-18T00:00:00+00:00</lastmod>
   </url>
@@ -1593,11 +1628,6 @@
   
   <url>
     <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/post/deploy-minio/</loc>
-    <lastmod>2020-01-16T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://liangyuanpeng.comhttps://liangyuanpeng.github.io/tags/minio/</loc>
     <lastmod>2020-01-16T00:00:00+00:00</lastmod>
   </url>
   

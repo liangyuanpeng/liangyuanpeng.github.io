@@ -6,7 +6,16 @@
     <description>Recent content in TECH on Hi,I`m lan</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 19 Feb 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://liangyuanpeng.github.io/categories/tech/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 04 Nov 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://liangyuanpeng.github.io/categories/tech/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>[长期更新]cocos creator问题列表</title>
+      <link>https://liangyuanpeng.github.io/post/cocos-creator/</link>
+      <pubDate>Mon, 04 Nov 2024 00:00:00 +0000</pubDate>
+      
+      <guid>https://liangyuanpeng.github.io/post/cocos-creator/</guid>
+      <description>说明 本文主要收集 cocos creator 遇到的一些常见问题,欢迎对本文进行投稿你认为好的场景或问题. 问题来了 Can not load the scene &amp;lsquo;main&amp;rsquo; because it was not in the build settings before playing. 需要在 cocos creator 中选中对应</description>
+    </item>
+    
     <item>
       <title>Tekton和Shipwright将从CDF迁移到CNCF</title>
       <link>https://liangyuanpeng.github.io/post/moving-cncf-from-cdf-for-tekton-and-shipwright/</link>
@@ -166,7 +175,7 @@
       <pubDate>Tue, 21 Dec 2021 00:00:00 +0000</pubDate>
       
       <guid>https://liangyuanpeng.github.io/post/welcome-contribute-chirpstack-application-syncer/</guid>
-      <description>chirpstack-application-syncer 在两个chirpstack服务器之间同步你的chirpstack application数据,目前还处于初步实现阶段,预期效果会是下面这样:</description>
+      <description>chirpstack-application-syncer 在两个 chirpstack 服务器之间同步你的 chirpstack application 数据,目前还处于初步实现阶段,预期效果会是下面这样: 定时请求 chirpostack 服务器A的应用A1的数据和服务器B的应用 B1 的数</description>
     </item>
     
     <item>

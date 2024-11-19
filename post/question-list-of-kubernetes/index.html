@@ -360,7 +360,7 @@
 
 
 
-                            阅读 </span></span>|<span class="post-date">共1953字</span>，阅读约<span class="more-meta"> 4 分钟</span>
+                            阅读 </span></span>|<span class="post-date">共2071字</span>，阅读约<span class="more-meta"> 5 分钟</span>
                         
                     </span>
                 </div>
@@ -550,6 +550,30 @@ Events:  &lt;none&gt;
 <span style="color:#ae81ff">time=&#34;2024-07-25T08:59:14Z&#34; level=warning msg=&#34;Failed to create peer client for peers synchronization; will try again after the timeout has expired&#34; error=&#34;context deadline exceeded&#34; subsys=hubble-relay target=&#34;hubble-peer.kube-system.svc.cluster.local:443&#34;</span>
 <span style="color:#ae81ff">time=&#34;2024-07-25T08:59:51Z&#34; level=info msg=&#34;Stopping server...&#34; subsys=hubble-relay</span>
 </code></pre></div><p>使用 helm 部署 cilium 时开启了 hubble-relay,但是 hubble-relay 的 pod 一直无法正常启动,通过 <code>kubectl describe pod </code> 找到上述错误信息,自己阅读后发现 service name 不太对劲,因为我的 kubernetes 集群环境配置了 <code>dnsDomain: cluster.lan</code>, helm 部署 cilium 有一个配置 <code>hubble.peerService.clusterDomain</code> 默认为 <code>cluster.local</code>, 将该值更新为我自己的 domain 就正常了.</p>
+<h1 id="kubeadm-config-migrate-会丢弃非-kubeadmk8siov1beta3-的配置">kubeadm config migrate 会丢弃非 kubeadm.k8s.io/v1beta3 的配置</h1>
+<p>kubeadm config migrate 命令是 kubernetes 1.31 版本发布的命令,用于将 <code>kubeadm.k8s.io/v1beta3</code> 版本的配置迁移到 <code>kubeadm.k8s.io/v1beta4</code></p>
+<p>针对下面的示例配置</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#f92672">apiVersion</span>: <span style="color:#ae81ff">kubeadm.k8s.io/v1beta3</span>
+<span style="color:#f92672">kind</span>: <span style="color:#ae81ff">InitConfiguration</span>
+<span style="color:#f92672">localAPIEndpoint</span>:
+  <span style="color:#f92672">advertiseAddress</span>: <span style="color:#ae81ff">192.168.66.2</span>
+  <span style="color:#f92672">bindPort</span>: <span style="color:#ae81ff">6443</span>
+---
+<span style="color:#f92672">apiVersion</span>: <span style="color:#ae81ff">kubelet.config.k8s.io/v1beta1</span>
+<span style="color:#f92672">kind</span>: <span style="color:#ae81ff">KubeletConfiguration</span>
+<span style="color:#f92672">address</span>: <span style="color:#ae81ff">192.168.66.2</span>
+<span style="color:#f92672">serializeImagePulls</span>: <span style="color:#66d9ef">false</span>
+<span style="color:#f92672">maxParallelImagePulls</span>: <span style="color:#ae81ff">8</span>
+<span style="color:#f92672">podPidsLimit</span>: <span style="color:#ae81ff">100</span>
+<span style="color:#f92672">featureGates</span>: 
+  <span style="color:#f92672">ContainerCheckpoint</span>: <span style="color:#ae81ff">tru</span>
+</code></pre></div><p>迁移后的配置文件为:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#f92672">apiVersion</span>: <span style="color:#ae81ff">kubeadm.k8s.io/v1beta3</span>
+<span style="color:#f92672">kind</span>: <span style="color:#ae81ff">InitConfiguration</span>
+<span style="color:#f92672">localAPIEndpoint</span>:
+  <span style="color:#f92672">advertiseAddress</span>: <span style="color:#ae81ff">192.168.66.2</span>
+  <span style="color:#f92672">bindPort</span>: <span style="color:#ae81ff">6443</span>
+</code></pre></div><p>因为命令只处理 kubeadm.k8s.io 的配置,对于其他配置是直接丢弃的.</p>
 
 
         <h2>微信公众号</h2>

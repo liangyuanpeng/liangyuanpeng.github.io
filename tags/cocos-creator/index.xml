@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>cocos creator on Hi,I`m lan</title>
+    <link>https://liangyuanpeng.github.io/tags/cocos-creator/</link>
+    <description>Recent content in cocos creator on Hi,I`m lan</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Mon, 04 Nov 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://liangyuanpeng.github.io/tags/cocos-creator/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>[长期更新]cocos creator问题列表</title>
+      <link>https://liangyuanpeng.github.io/post/cocos-creator/</link>
+      <pubDate>Mon, 04 Nov 2024 00:00:00 +0000</pubDate>
+      
+      <guid>https://liangyuanpeng.github.io/post/cocos-creator/</guid>
+      <description>说明 本文主要收集 cocos creator 遇到的一些常见问题,欢迎对本文进行投稿你认为好的场景或问题. 问题来了 Can not load the scene &amp;lsquo;main&amp;rsquo; because it was not in the build settings before playing. 需要在 cocos creator 中选中对应</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -232,7 +232,7 @@
 
 
 
-                            阅读 </span></span>|<span class="post-date">共39字</span>，阅读约<span class="more-meta"> 1 分钟</span>
+                            阅读 </span></span>|<span class="post-date">共137字</span>，阅读约<span class="more-meta"> 1 分钟</span>
                         
                     </span>
                 </div>
@@ -257,12 +257,23 @@
                 <header>
                 <h2>TOC</h2>
                 </header>
-                <nav id="TableOfContents"></nav>
+                <nav id="TableOfContents">
+  <ul>
+    <li><a href="#sqlite3">sqlite3</a></li>
+  </ul>
+</nav>
 		
 
 		<h1 id="说明">说明</h1>
 <p>本文主要收集 golang 遇到的一些常见问题,欢迎对本文进行投稿你认为好的场景或问题.</p>
-
+<h2 id="sqlite3">sqlite3</h2>
+<p>sqlite3.OperationalError: no such column:错误</p>
+<p>golang操作sqlite3执行sql的时候报错了:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-golang" data-lang="golang"><span style="color:#a6e22e">rows</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">db</span>.<span style="color:#a6e22e">Query</span>(<span style="color:#e6db74">&#34;SELECT username FROM userinfo where openid = &#34;</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">openid</span>)
+</code></pre></div><p>原来是需要给字段值添加单引号.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-diff" data-lang="diff"><span style="color:#f92672">--- rows, err := db.Query(&#34;SELECT username FROM userinfo where openid = &#34; + openid)
+</span><span style="color:#f92672"></span><span style="color:#a6e22e">+++ rows, err := db.Query(&#34;SELECT username FROM userinfo where openid = &#39;&#34; + openid + &#34;&#39;&#34;)
+</span></code></pre></div>
 
         <h2>微信公众号</h2>
 <p>扫描下面的二维码关注我们的微信公众号,第一时间查看最新内容。同时也可以关注我的Github,看看我都在了解什么技术,在页面底部可以找到我的Github。</p>

@@ -6,7 +6,7 @@
     <description>Recent content on Hi,I`m lan</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 01 Sep 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://liangyuanpeng.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 04 Nov 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://liangyuanpeng.github.io/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>lank8s.cn服务</title>
       <link>https://liangyuanpeng.github.io/post/service-lank8s.cn/</link>
@@ -23,6 +23,15 @@
       
       <guid>https://liangyuanpeng.github.io/post/run-k8s-with-kind/</guid>
       <description>前言 由于各类基于 kubernetes 的云原生实验或测试的前提都是需要一个 kubernetes 环境,而在写博客时总是需要提及使用 Kind 来搭建 kubernetes 环境. 因此这里单独写一篇文章来介绍如何用</description>
+    </item>
+    
+    <item>
+      <title>[长期更新]cocos creator问题列表</title>
+      <link>https://liangyuanpeng.github.io/post/cocos-creator/</link>
+      <pubDate>Mon, 04 Nov 2024 00:00:00 +0000</pubDate>
+      
+      <guid>https://liangyuanpeng.github.io/post/cocos-creator/</guid>
+      <description>说明 本文主要收集 cocos creator 遇到的一些常见问题,欢迎对本文进行投稿你认为好的场景或问题. 问题来了 Can not load the scene &amp;lsquo;main&amp;rsquo; because it was not in the build settings before playing. 需要在 cocos creator 中选中对应</description>
     </item>
     
     <item>
@@ -769,7 +778,7 @@
       <pubDate>Tue, 21 Dec 2021 00:00:00 +0000</pubDate>
       
       <guid>https://liangyuanpeng.github.io/post/welcome-contribute-chirpstack-application-syncer/</guid>
-      <description>chirpstack-application-syncer 在两个chirpstack服务器之间同步你的chirpstack application数据,目前还处于初步实现阶段,预期效果会是下面这样:</description>
+      <description>chirpstack-application-syncer 在两个 chirpstack 服务器之间同步你的 chirpstack application 数据,目前还处于初步实现阶段,预期效果会是下面这样: 定时请求 chirpostack 服务器A的应用A1的数据和服务器B的应用 B1 的数</description>
     </item>
     
     <item>
@@ -899,6 +908,15 @@
     </item>
     
     <item>
+      <title>[长期更新]minio问题列表</title>
+      <link>https://liangyuanpeng.github.io/post/question-list-of-minio/</link>
+      <pubDate>Mon, 11 Oct 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://liangyuanpeng.github.io/post/question-list-of-minio/</guid>
+      <description>说明 本文主要收集 minio 遇到的一些常见问题,欢迎对本文进行投稿你认为好的场景或问题. File couldn&amp;rsquo;t be previewed using file extension or mime type. Please try Download instead Preview unavailable File couldn&#39;t be previewed using file extension or mime type. Please try Download instead 查</description>
+    </item>
+    
+    <item>
       <title>加入contour文档工作组</title>
       <link>https://liangyuanpeng.github.io/post/join-contour-docs-wg/</link>
       <pubDate>Sun, 10 Oct 2021 00:00:00 +0000</pubDate>
@@ -994,7 +1012,7 @@
       <pubDate>Tue, 04 May 2021 00:00:00 +0000</pubDate>
       
       <guid>https://liangyuanpeng.github.io/post/question-list-of-golang/</guid>
-      <description>说明 本文主要收集 golang 遇到的一些常见问题,欢迎对本文进行投稿你认为好的场景或问题.</description>
+      <description>说明 本文主要收集 golang 遇到的一些常见问题,欢迎对本文进行投稿你认为好的场景或问题. sqlite3 sqlite3.OperationalError: no such column:错误 golang操作sqlite3执行s</description>
     </item>
     
     <item>

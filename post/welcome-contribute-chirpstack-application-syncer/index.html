@@ -421,7 +421,7 @@
 
 
 
-                            阅读 </span></span>|<span class="post-date">共498字</span>，阅读约<span class="more-meta"> 1 分钟</span>
+                            阅读 </span></span>|<span class="post-date">共399字</span>，阅读约<span class="more-meta"> 1 分钟</span>
                         
                     </span>
                 </div>
@@ -450,21 +450,21 @@
 		
 
 		<h1 id="chirpstack-application-syncer">chirpstack-application-syncer</h1>
-<p>在两个chirpstack服务器之间同步你的chirpstack application数据,目前还处于初步实现阶段,预期效果会是下面这样:</p>
+<p>在两个 chirpstack 服务器之间同步你的 chirpstack application 数据,目前还处于初步实现阶段,预期效果会是下面这样:</p>
 <ol>
-<li>定时请求chirpostack服务器A的应用A1的数据和服务器B的应用B1的数据</li>
+<li>定时请求 chirpostack 服务器A的应用A1的数据和服务器B的应用 B1 的数据</li>
 <li>对比两者之间设备信息的差异</li>
-<li>将服务器A的应用A1的设备数据同步到服务器B的应用B1.</li>
+<li>将服务器A的应用 A1 的设备数据同步到服务器B的应用B1.</li>
 </ol>
-<p>在第三步初步实现只做一个单向同步,即A1数据同步到B1,同时支持两种同步策略:</p>
+<p>在第三步初步实现只做一个单向同步,即 A1 数据同步到 B1,同时支持两种同步策略:</p>
 <ul>
-<li>增量和差异同步(B1存在A1中没有的数据则不处理B1中多出来的数据)</li>
-<li>覆盖性同步(B1数据完全同步和A1一致)</li>
+<li>增量和差异同步(B1 存在 A1 中没有的数据则不处理B1中多出来的数据)</li>
+<li>覆盖性同步( B1 数据完全同步和A1一致)</li>
 </ul>
 <h1 id="使用场景">使用场景</h1>
-<p>有时chirpstack服务分为测试服务器和正式服务器,在没有chripstack-application-sycner的情况下我们总是需要在测试服务器对设备测试完成后又需要将设备添加到正式服务器,次数多了难免会有些繁琐,因此使用一个程序来自动化同步数据当然是一个好主意!</p>
+<p>有时 chirpstack 服务分为测试服务器和正式服务器,在没有 chripstack-application-sycner 的情况下我们总是需要在测试服务器对设备测试完成后又需要将设备添加到正式服务器,次数多了难免会有些繁琐,因此使用一个程序来自动化同步数据当然是一个好主意!</p>
 <h1 id="目前阶段">目前阶段</h1>
-<p>目前还在初步实现阶段,如果你对golang或chirpstack application server感兴趣,赶紧参与进来,不要犹豫了.</p>
+<p>目前还在初步实现阶段,如果你对 golang 或 chirpstack application server 感兴趣,赶紧参与进来,不要犹豫了.</p>
 <p>欢迎任何形式的贡献,包括但不限于:</p>
 <ul>
 <li>帮忙完善代码测试</li>
@@ -653,6 +653,8 @@
     <li><a href="/post/bk-client-go-readme/">GO上手项目值得你拥有:Bookkeeper客户端</a></li>
     
     <li><a href="/post/deploy-kubernetes-with-kubekey/">使用kubekey快速部署kubernetes</a></li>
+    
+    <li><a href="/post/question-list-of-minio/">[长期更新]minio问题列表</a></li>
     
     <li><a href="/post/question-list-of-golang/">[长期更新]golang问题列表</a></li>
     

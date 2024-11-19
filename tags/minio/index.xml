@@ -6,7 +6,16 @@
     <description>Recent content in minio on Hi,I`m lan</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 16 Jan 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://liangyuanpeng.github.io/tags/minio/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 11 Oct 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://liangyuanpeng.github.io/tags/minio/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>[长期更新]minio问题列表</title>
+      <link>https://liangyuanpeng.github.io/post/question-list-of-minio/</link>
+      <pubDate>Mon, 11 Oct 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://liangyuanpeng.github.io/post/question-list-of-minio/</guid>
+      <description>说明 本文主要收集 minio 遇到的一些常见问题,欢迎对本文进行投稿你认为好的场景或问题. File couldn&amp;rsquo;t be previewed using file extension or mime type. Please try Download instead Preview unavailable File couldn&#39;t be previewed using file extension or mime type. Please try Download instead 查</description>
+    </item>
+    
     <item>
       <title>docker部署minio</title>
       <link>https://liangyuanpeng.github.io/post/deploy-minio/</link>

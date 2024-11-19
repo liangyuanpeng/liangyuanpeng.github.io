@@ -13,7 +13,7 @@
       <pubDate>Tue, 21 Dec 2021 00:00:00 +0000</pubDate>
       
       <guid>https://liangyuanpeng.github.io/post/welcome-contribute-chirpstack-application-syncer/</guid>
-      <description>chirpstack-application-syncer 在两个chirpstack服务器之间同步你的chirpstack application数据,目前还处于初步实现阶段,预期效果会是下面这样:</description>
+      <description>chirpstack-application-syncer 在两个 chirpstack 服务器之间同步你的 chirpstack application 数据,目前还处于初步实现阶段,预期效果会是下面这样: 定时请求 chirpostack 服务器A的应用A1的数据和服务器B的应用 B1 的数</description>
     </item>
     
     <item>
