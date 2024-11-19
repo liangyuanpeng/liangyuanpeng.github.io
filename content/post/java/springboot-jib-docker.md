@@ -13,6 +13,8 @@ tags:
     - jib
     - java
     - maven
+    - container
+    - springboot
 categories: 
     - cloudnative
 ---
@@ -174,4 +176,73 @@ mvn compile jib:build \
         "v1"
     ]
 }
+```
+
+下面是一个简单的示例测试代码,用于测试 springboot 应用的启动是否成功,大部分都是可以通用的.
+```java
+
+    @Data
+    static class JibContainerObj implements Serializable {
+        private String image;
+        private String imageId;
+        private String imageDigest;
+        private boolean imagePushed;
+        private List<String> tags = Collections.emptyList();
+        public JibContainerObj(){
+
+        }
+    }
+
+    @Test
+    public void testStart() throws IOException {
+        boolean checkContainer = Boolean.valueOf(System.getProperty("lan.containers.check", "false"));
+        if(!checkContainer){
+            return;
+        }
+        int containerCheckPort = Integer.valueOf(System.getProperty("lan.containers.check.port", "8042"));
+        String imgpath = System.getProperty("lan.containers.jib.imgpath", "/jib-image.json");
+        String img = System.getProperty("lan.containers.jib.img", "");
+
+        if(StringUtils.isBlank(img) && StringUtils.isBlank(imgpath)){
+            return;
+        }
+        if(StringUtils.isBlank(img)){
+            ObjectMapper objectMapper = new ObjectMapper();
+            InputStream inputStream = getClass().getResourceAsStream(imgpath);
+            Assertions.assertNotNull(inputStream);
+            JibContainerObj jibContainerObj = objectMapper.readValue(inputStream, new TypeReference<JibContainerObj>(){});
+            log.info("jibContainerObj:{}",jibContainerObj);
+            img =jibContainerObj.getImage();
+        }
+
+        log.info("begin testing container for:{}",img);
+        Map map = Maps.newHashMap();
+        map.put("logging.config","classpath:logback-dev.xml");
+        GenericContainer container = new GenericContainer<>(DockerImageName.parse(img))
+                .waitingFor(new HttpWaitStrategy()
+                        .forPath("/actuator/prometheus")
+                        .forPort(containerCheckPort)
+                        .forStatusCode(200))
+                .withEnv(map)
+                .withExposedPorts(8042);
+        container.start();
+
+    }
+```
+
+如果你的 springboot 版本大于 2.3,我会推荐你使用 `/actuator/liveness` 和 `/actuator/readiness` 来代替 `/actuator/prometheus` 路径进行测试.
+
+开启 liveness 和 readiness 需要如下配置:
+
+```yaml
+management:
+  endpoint:
+    health:
+      probes:
+        enabled: true
+  health:
+    livenessstate:
+      enabled: true
+    readinessstate:
+      enabled: true
 ```

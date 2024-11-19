@@ -20,7 +20,7 @@ categories:
 
 在社区群看到有人希望能够将 kubesphere 的文档自己搭一个环境跑起来使用,我想了下这个需求应该是实际使用确实会碰到的,比如某些公司内部网络规则禁止了一些网站或者只允许某些网站.  
 
-在这样的情况下自己搭建一个API文档网站还是很有必要的.  
+在这样的情况下自己搭建一个 API 文档网站还是很有必要的.  
 
 # 动起来
 
@@ -34,7 +34,7 @@ categories:
 
 API 文档既然可以以文件的方式下载下来,那肯定可以再以某种方式加载,然后提供访问.  
 
-去 swagger-ui 的官方库看了看文档,找到了加载自定义json的方式,  
+去 swagger-ui 的官方库看了看文档,找到了加载自定义 json 的方式,  
 
 地址是: [https://github.com/swagger-api/swagger-ui/blob/master/docs/usage/installation.md](https://github.com/swagger-api/swagger-ui/blob/master/docs/usage/installation.md)  
 
