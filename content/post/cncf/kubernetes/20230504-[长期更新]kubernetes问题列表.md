@@ -246,3 +246,40 @@ time="2024-07-25T08:59:51Z" level=info msg="Stopping server..." subsys=hubble-re
 ```
 
 使用 helm 部署 cilium 时开启了 hubble-relay,但是 hubble-relay 的 pod 一直无法正常启动,通过 `kubectl describe pod ` 找到上述错误信息,自己阅读后发现 service name 不太对劲,因为我的 kubernetes 集群环境配置了 `dnsDomain: cluster.lan`, helm 部署 cilium 有一个配置 `hubble.peerService.clusterDomain` 默认为 `cluster.local`, 将该值更新为我自己的 domain 就正常了.
+
+
+# kubeadm config migrate 会丢弃非 kubeadm.k8s.io/v1beta3 的配置
+
+kubeadm config migrate 命令是 kubernetes 1.31 版本发布的命令,用于将 `kubeadm.k8s.io/v1beta3` 版本的配置迁移到 `kubeadm.k8s.io/v1beta4`
+
+针对下面的示例配置
+
+```yaml
+apiVersion: kubeadm.k8s.io/v1beta3
+kind: InitConfiguration
+localAPIEndpoint:
+  advertiseAddress: 192.168.66.2
+  bindPort: 6443
+---
+apiVersion: kubelet.config.k8s.io/v1beta1
+kind: KubeletConfiguration
+address: 192.168.66.2
+serializeImagePulls: false
+maxParallelImagePulls: 8
+podPidsLimit: 100
+featureGates: 
+  ContainerCheckpoint: tru
+```
+
+迁移后的配置文件为:
+
+```yaml
+apiVersion: kubeadm.k8s.io/v1beta3
+kind: InitConfiguration
+localAPIEndpoint:
+  advertiseAddress: 192.168.66.2
+  bindPort: 6443
+```
+
+因为命令只处理 kubeadm.k8s.io 的配置,对于其他配置是直接丢弃的.
+
