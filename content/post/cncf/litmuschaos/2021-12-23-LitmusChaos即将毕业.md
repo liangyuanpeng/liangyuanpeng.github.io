@@ -10,10 +10,11 @@ image: "https://res.cloudinary.com/lyp/image/upload/v1612709780/hugo/blog.github
 published: true
 tags:
     - cncf
+    - LitmusChaos
 categories: [ cloudnative ]
 ---    
 
-# 即将毕业的LitmusChaos  
+# 即将毕业的 LitmusChaos  
 
 目前 LitmusChaos 项目正在进入孵化投票阶段,相信很快就会宣布正式成为孵化项目.  
 
