@@ -5,7 +5,7 @@ subtitle:   "理解kubernetes的Secret"
 description: " "
 date:       2021-02-07
 author:     "梁远鹏"
-image: "https://res.cloudinary.com/lyp/image/upload/v1612709780/hugo/blog.github.io/pexels-matt-hardy-2568001.jpg"
+image: "/img/banner/Wild_Temple_film_still2050_guilinchinese_landscapecyberpunk_441049fe-ba62-485a-a3df-e43165afec66.png"
 published: false
 tags:
     - kubernetes
