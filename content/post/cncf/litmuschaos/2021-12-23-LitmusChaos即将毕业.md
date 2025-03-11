@@ -6,14 +6,15 @@ subtitle:   ""
 description: ""
 date:       2021-12-23
 author:     "梁远鹏"
-image: "https://res.cloudinary.com/lyp/image/upload/v1612709780/hugo/blog.github.io/pexels-matt-hardy-2568001.jpg"
+image: "/img/banner/Wild_Temple_film_still2050_guilinchinese_landscapecyberpunk_441049fe-ba62-485a-a3df-e43165afec66.png"
 published: true
 tags:
     - cncf
+    - LitmusChaos
 categories: [ cloudnative ]
 ---    
 
-# 即将毕业的LitmusChaos  
+# 即将毕业的 LitmusChaos  
 
 目前 LitmusChaos 项目正在进入孵化投票阶段,相信很快就会宣布正式成为孵化项目.  
 

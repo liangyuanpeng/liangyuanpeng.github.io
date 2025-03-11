@@ -122,3 +122,12 @@ Received request to deprovision: The request was cancelled by the remote provide
 GOFLAGS: "-p=2"
 ```
 
+## 使用 API 调用 github action 报错
+
+提示: `422 Cannot trigger a 'workflow_dispatch' on a disabled workflow []`
+
+于是搜索了一下发现了这个issue: [Error: Cannot trigger a 'workflow_dispatch' on a disabled workflow](https://github.com/orgs/upptime/discussions/593), 网友提示需要开启对应的 workflow,这时我虽然有疑惑但还是去看一下对应的 workflow,发现这个 workflow 被 github 禁用了,原因是这个仓库过去 60 天没有活跃.
+
+![](/img/github/workflow_disable.png)
+
+点击上述按钮 "Enable workflow",问题就解决了,可以继续用 API 调用 github action workflow 了.
