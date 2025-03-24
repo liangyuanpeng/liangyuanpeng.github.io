@@ -6,7 +6,7 @@ subtitle:   ""
 description: "在一定程度上讲中国已经进入 Apache 核心并且还会一直展现向上的趋势,非常期待中国在软件领域能够有更多的领军人物进入国际化组织，例如各种基金会。同时也期待中国大企在软件上的创新而不是卖菜。"
 date:       2021-03-12
 author:     "梁远鹏"
-image: "https://res.cloudinary.com/lyp/image/upload/v1544363190/hugo/blog.github.io/19375a83fc004035fb1102a4551f2287.jpg"
+image: "img/banner/19375a83fc004035fb1102a4551f2287.jpg"
 published: true
 tags:
     - apache
