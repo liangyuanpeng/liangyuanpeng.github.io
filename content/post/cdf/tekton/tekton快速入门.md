@@ -6,7 +6,7 @@ subtitle:   ""
 description: ""
 date:       2022-11-06
 author:     "梁远鹏"
-image: "https://res.cloudinary.com/lyp/image/upload/v1612744351/hugo/blog.github.io/pexels-bruno-cervera-6032877.jpg"
+image: "/img/banner/pexels-bruno-cervera-6032877.jpg"
 published: false
 tags:
     - tekton
