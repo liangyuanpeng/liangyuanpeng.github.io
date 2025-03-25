@@ -4,7 +4,7 @@ title:      "我的 AI 员工们开发的微信小程序上线了!"
 slug:      "released-my-wechat-miniproblem-working-with-ai"
 subtitle:   ""
 description: "我的 AI 员工们开发的微信小程序上线了!"
-date:       2025-03-24
+date:       2025-03-25
 author:     "梁远鹏"
 image: "/img/banner/stargazing_1.jpeg"
 published: true
