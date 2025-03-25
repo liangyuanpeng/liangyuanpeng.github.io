@@ -33,7 +33,7 @@ categories:
 
 ## 该提案的基本内容
 
-[Anthropics](https://www.anthropic.com) 公司的 [@jspahrsummers](http://github.com/jspahrsummers) 在 MCP 规范仓库提交了一个 PR, 提议使用 Streamable HTTP 替换 HTTP+SSE 作为 MCP 的底层传输协议。目前该 PR 才刚在周一(2025/03/17)提交，目前还没有被合并, 感兴趣的可以关注一下 PR： [[RFC] Replace HTTP+SSE with new "Streamable HTTP" transport](https://github.com/modelcontextprotocol/specification/pull/206)。
+[Anthropics](https://www.anthropic.com) 公司的 [@jspahrsummers](http://github.com/jspahrsummers) 在 MCP 规范仓库提交了一个 PR, 提议使用 Streamable HTTP 替换 HTTP+SSE 作为 MCP 的底层传输协议。目前该 PR 才刚在周一(2025/03/17)提交，目前还没有被合并, 感兴趣的可以关注一下 PR： [RFC Replace HTTP+SSE with new "Streamable HTTP" transport](https://github.com/modelcontextprotocol/specification/pull/206)。
 
 主要改动如下：
 - 删除 API 端点 /sse
@@ -115,4 +115,4 @@ categories:
 
 我让我的 AI 员工们开发了一个微信小程序,并且我将它上线了,欢迎围观👇
 
-
+![](/img/wechat/miniproblem/miniproblem_wallpaper.jpeg)
