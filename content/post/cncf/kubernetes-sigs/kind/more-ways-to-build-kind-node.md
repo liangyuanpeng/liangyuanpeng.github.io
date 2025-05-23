@@ -26,7 +26,7 @@ categories:
 
 而在 [PR](https://github.com/kubernetes-sigs/kind/pull/3614) 合并之后,构建一个特定 kubernetes 版本的 Kind 节点,可以直接指定已经构建好的二进制文件(本地文件系统或者是直接从官方地址下载!),极大的增加了便利性,并且减少了不必要的二进制文件构建所需要的时间.
 
-这一些都要感谢 [@dims](https://github.com/dims) 以及 Kind 维护者对 PR 的 review 以及允许合并!!
+这一切都要感谢 [@dims](https://github.com/dims) 以及 Kind 维护者对 PR 的 review 以及允许合并!!
 
 该功能将会出现在 Kind 0.24.0, 估计是几个月后的事情了,如果你想尝试一下但又不想构建 Kind 命令,可以从下面地址下载官方已经构建好的最新的Kind命令: 
 
@@ -34,6 +34,39 @@ categories:
 - https://kind.sigs.k8s.io/dl/latest/linux-arm64.tgz    arm64 架构
 
 这是 Kind 仓库的 main 分支构建的,在 Kind 的 CI 中使用.
+
+# 带有 etcd 3.6.0 版本的 kind node
+
+etcd 3.6.0 于 2025年5月16日正式发布,截至到目前未知(2025年5月23日) kubernetes 还没有合并 [PR:Update etcd to v3.6.0](https://github.com/kubernetes/kubernetes/pull/131501),这意味着 kubernetes master 还没有将 etcd 3.6.0 引入进来,如果你希望通过 Kind 来使用 etcd 3.6.0 的话有三种方式:
+
+1. 自己部署 etcd 3.6.0, kind node 配置外部 etcd 地址  √
+2. 不重新打包 kind node,直接将 kind node 中自带的 etcd 容器镜像版本修改为 3.6.0  
+3. 重新打包一个 kind node 并且内置 etcd 3.6.0  √
+
+第一种方式可以很轻易的使用上 etcd 3.6.0,但如果你需要重复创建一个新的环境的话可能不太方便,因为总是需要搭建一个 etcd 3.6.0.
+
+第二种方式我已经尝试过,很遗憾失败了,原因是启动时会去拉取新的 etcd 容器镜像,超时失败了(添加超时时间可能可以解决).并且由于没有内置 etcd 3.6.0 的镜像,因此每次用 kind 创建一个 kubernetes 集群都会去拉取 etcd 3.6.0 容器镜像,可能是不太能接受的.
+
+目前我已经通过第三种方式基于 kubernetes master (2025/05/23)打包了一个内置 etcd 3.6.0 的 kind node,支持 amd64 和 arm64 架构,请随意使用:) 容器镜像: `ghcr.io/liangyuanpeng/kindest/testnode:v0.29.0-v1.34.0-alpha.0-743-gb35c5c0a301-etcd3.6`
+
+其中容器镜像的tag 里面 `v0.29.0` 是 kind 命令行的版本, `v1.34.0-alpha.0-743-gb35c5c0a301` 是 kubernetes 源码打出来的 tag, 最后`etcd3.6`表示内置了 etcd 3.6.0 
+
+注意: 上述容器镜像内置了 etcd 3.6.0 版本,但部署时仍然需要指定 etcd pod 的容器镜像版本,因为由于 [PR:Update etcd to v3.6.0](https://github.com/kubernetes/kubernetes/pull/131501) 没有合并,因此默认情况下 kubeadm 仍然是使用 etcd 3.5.x
+
+下面文件是一个可实际使用的配置参考:
+```yaml
+kind: Cluster
+apiVersion: kind.x-k8s.io/v1alpha4
+nodes:
+- role: control-plane
+  image: ghcr.worker.liangyuanpeng.com/liangyuanpeng/kindest/testnode:v0.29.0-v1.34.0-alpha.0-743-gb35c5c0a301-etcd3.6
+  kubeadmConfigPatches:
+  - |
+    kind: ClusterConfiguration
+    etcd:
+      local:
+        imageTag: "3.6.0"
+```
 
 # 开始尝试
 
