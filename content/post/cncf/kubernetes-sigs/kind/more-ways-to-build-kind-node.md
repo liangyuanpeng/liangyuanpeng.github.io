@@ -65,8 +65,18 @@ nodes:
     kind: ClusterConfiguration
     etcd:
       local:
-        imageTag: "3.6.0"
+        imageTag: "3.6.0-0"
 ```
+
+通常在升级 kubeadm 内置的 etcd 版本的时候会将其移植到当前支持的几个 kubernetes 版本,但 etcd 3.6 只会在 1.34 中进行支持,即 kubernetes 1.34 是内置 etcd 3.6 的最低版本.
+
+因此我构建了几个内置 etcd 3.6 的 kind node 容器镜像,请随意使用:
+
+- ghcr.io/liangyuanpeng/kindest/node:v1.29.0-etcd3.6
+- ghcr.io/liangyuanpeng/kindest/node:v1.30.0-etcd3.6
+- ghcr.io/liangyuanpeng/kindest/node:v1.31.0-etcd3.6
+- ghcr.io/liangyuanpeng/kindest/node:v1.32.0-etcd3.6
+- ghcr.io/liangyuanpeng/kindest/node:v1.33.0-etcd3.6
 
 # 开始尝试
 
