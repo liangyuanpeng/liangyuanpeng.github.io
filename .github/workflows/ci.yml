@@ -23,7 +23,7 @@ jobs:
       #       -d '{ "ref": "source", "inputs": { "github_token": "${{ secrets.GITHUB_TOKEN }}", "workflow": "name: Dynamic Job\n  on:\n    workflow_dispatch:\n  jobs:\n    job1:\n      runs-on: ubuntu-latest\n      steps:\n        - run: echo Hello" } }' \
       #       https://api.github.com/repos/${{ github.repository }}/dispatches
 
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           submodules: true  # Fetch Hugo themes (true OR recursive)
           fetch-depth: 0    # Fetch all history for .GitInfo and .Lastmod
