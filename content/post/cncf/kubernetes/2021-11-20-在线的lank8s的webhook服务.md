@@ -20,7 +20,7 @@ categories: [ kubernetes ]
 
 ⚠这个在线webhook当前已经不再提供使用⚠
 
-⚠推荐的做法是设置镜像仓库镜像,参考 [kind(containerd) 的配置](https://liangyuanpeng.com/post/cncf-kubernetes/run-k8s-with-kind/#%E5%90%84%E7%B1%BB%E7%8E%AF%E5%A2%83%E7%9A%84%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6)⚠
+⚠推荐的做法是设置镜像仓库镜像,参考 [kind(containerd) 的配置](https://liangyuanpeng.com/post/run-k8s-with-kind/)⚠
 
 
 # 什么是lank8s webhook  
